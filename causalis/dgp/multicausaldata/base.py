@@ -3,6 +3,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 import sys
+from scipy.special import expit, log_ndtr, ndtr, roots_legendre
 from dataclasses import dataclass, field
 from typing import Dict, Optional, Union, List, Tuple, Callable, Any
 
@@ -100,6 +101,20 @@ class MultiCausalDatasetGenerator:
         Whether to include oracle columns for propensities and potential outcomes.
     seed : int, optional
         Random seed.
+
+    Notes
+    -----
+    The latent variable is independent of X and follows N(0, 1). The natural-scale
+    ``g_<arm>`` columns integrate out this Gaussian latent variable, so they are
+    E[Y(arm) | X]; ``cate_<arm>`` is their difference from control. They are not
+    E[Y | D=arm, X] when the same latent variable affects treatment assignment.
+    Continuous means and clipped exponential means are integrated analytically;
+    binary means use deterministic quadrature (Gauss-Hermite for moderate latent
+    noise, logistic-normal convolution for stronger noise). The exponential
+    outcome links are clipped to [-20, 20] for both draws and oracle means.
+    ``m_obs_<arm>`` is P(D=arm | X, U) at the supplied or drawn latent values.
+    ``m_<arm>`` is the softmax probability at U=0, which generally differs from
+    the marginal P(D=arm | X) when latent noise affects treatment assignment.
     """
     n_treatments: int = 3
     d_names: Optional[List[str]] = None
@@ -374,6 +389,54 @@ class MultiCausalDatasetGenerator:
             return _sigmoid(link)
         return self._exp_link(link)
 
+    def _marginal_natural_scale_from_link(self, link: np.ndarray, ttype: str) -> np.ndarray:
+        """Integrate the structural outcome mean over independent U ~ N(0, 1)."""
+        self._require_supported_outcome_type(ttype)
+        link = np.asarray(link, dtype=float)
+        strength = abs(float(self.u_strength_y))
+        if strength == 0.0 or ttype == "continuous":
+            # The continuous structural mean is linear in a mean-zero latent U.
+            return self._natural_scale_from_link(link, ttype)
+        if ttype == "binary":
+            mean = np.zeros_like(link)
+            # Accumulate one node at a time instead of allocating n x K x nodes.
+            if strength <= 2.0:
+                nodes, weights = np.polynomial.hermite.hermgauss(81)
+                for node, weight in zip(nodes, weights):
+                    mean += (weight / np.sqrt(np.pi)) * _sigmoid(
+                        link + strength * np.sqrt(2.0) * node
+                    )
+            else:
+                # With independent L ~ Logistic and Z ~ N(0,1),
+                # E[sigmoid(a+s*Z)] = P(L <= a+s*Z) = E[Phi((a-L)/s)].
+                # This integrand stays smooth even when s makes the original
+                # sigmoid nearly discontinuous. The omitted logistic tails
+                # outside [-40,40] have total mass < 8.5e-18.
+                nodes, weights = roots_legendre(256)
+                nodes = 40.0 * nodes
+                weights = 40.0 * weights * expit(nodes) * expit(-nodes)
+                for node, weight in zip(nodes, weights):
+                    mean += weight * ndtr((link - node) / strength)
+            return np.clip(mean, 0.0, 1.0)
+
+        # For W = link + strength * U, split E[exp(clip(W, low, high))]
+        # into the lower tail, the truncated lognormal mean, and the upper tail.
+        low, high = -20.0, 20.0
+        lower_tail = np.exp(low) * ndtr((low - link) / strength)
+        upper_tail = np.exp(high) * ndtr((link - high) / strength)
+        shifted_low = (low - link - strength**2) / strength
+        shifted_high = (high - link - strength**2) / strength
+        # Use the smaller tail to avoid subtracting two CDF values close to one.
+        reflected = shifted_low > 0.0
+        log_cdf_high = log_ndtr(np.where(reflected, -shifted_low, shifted_high))
+        log_cdf_low = log_ndtr(np.where(reflected, -shifted_high, shifted_low))
+        with np.errstate(divide="ignore", invalid="ignore"):
+            log_interval = log_cdf_high + np.log(
+                -np.expm1(log_cdf_low - log_cdf_high)
+            )
+        middle = np.exp(link + strength**2 / 2.0 + log_interval)
+        return np.clip(lower_tail + middle + upper_tail, np.exp(low), np.exp(high))
+
     def _sample_outcome_from_link(self, link: np.ndarray, ttype: str) -> np.ndarray:
         self._require_supported_outcome_type(ttype)
         link = np.asarray(link, dtype=float).reshape(-1)
@@ -438,6 +501,15 @@ class MultiCausalDatasetGenerator:
     # ---------- public API ----------
 
     def generate(self, n: int, U: Optional[np.ndarray] = None) -> pd.DataFrame:
+        """Draw observations and, optionally, Gaussian-reference oracle columns.
+
+        ``U`` overrides realized latent values used for treatment and outcome
+        draws; by default these are sampled independently from N(0, 1). Oracle
+        outcome means always integrate over the reference N(0, 1) law, not over
+        the empirical distribution of a supplied vector. If supplied values
+        follow another law or depend on X, the oracle means need not equal the
+        potential-outcome means of that alternative generating process.
+        """
         X, names = self._sample_X(n)
         self.confounder_names_ = names
         if U is None:
@@ -516,15 +588,17 @@ class MultiCausalDatasetGenerator:
                 df[f"m_obs_{name}"] = m_obs[:, k]
                 df[f"tau_link_{name}"] = tau_mat[:, k]
 
-            # Oracle potential outcomes on the natural scale (no U).
-            g_vals = [self._natural_scale_from_link(loc_base + tau_mat[:, k], ttype) for k in range(K)]
+            # Marginal potential-outcome means under the reference Gaussian law.
+            g_vals = self._marginal_natural_scale_from_link(
+                loc_base[:, None] + tau_mat, ttype
+            )
 
             for k, name in enumerate(self.d_names):
-                df[f"g_{name}"] = g_vals[k]
+                df[f"g_{name}"] = g_vals[:, k]
 
-            g0 = g_vals[0]
+            g0 = g_vals[:, 0]
             for k in range(1, K):
-                df[f"cate_{self.d_names[k]}"] = g_vals[k] - g0
+                df[f"cate_{self.d_names[k]}"] = g_vals[:, k] - g0
 
         return df
 

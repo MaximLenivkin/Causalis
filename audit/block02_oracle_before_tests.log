@@ -1,0 +1,731 @@
+FFFFFFFFFFFFFFF.........                                                 [100%]
+================================== FAILURES ===================================
+_ test_log_link_oracles_integrate_gaussian_latent_with_heterogeneous_effects[1.2-poisson] _
+
+outcome_type = 'poisson', strength = 1.2
+
+    @pytest.mark.parametrize("outcome_type", ["poisson", "gamma"])
+    @pytest.mark.parametrize("strength", [1.2, -1.2])
+    def test_log_link_oracles_integrate_gaussian_latent_with_heterogeneous_effects(
+        outcome_type, strength
+    ):
+        x = np.linspace(-0.6, 0.6, 24).reshape(-1, 1)
+        theta = [0.0, 0.7, -0.4]
+        generator = MultiCausalDatasetGenerator(
+            n_treatments=3,
+            k=1,
+            x_sampler=lambda n, k, seed: x.copy(),
+            beta_y=np.array([0.3]),
+            alpha_y=0.2,
+            theta=theta,
+            tau=[None, lambda values: 0.2 * values[:, 0], None],
+            outcome_type=outcome_type,
+            u_strength_y=strength,
+            seed=123,
+        )
+        frame = generator.generate(len(x))
+        locations = 0.2 + 0.3 * x + np.asarray(theta)
+        locations[:, 1] += 0.2 * x[:, 0]
+        # At these locations clipping tails are < 1e-40; use the analytic MGF.
+        expected = np.exp(locations + strength**2 / 2.0)
+        actual = frame[[f"g_d_{arm}" for arm in range(3)]].to_numpy()
+>       np.testing.assert_allclose(actual, expected, rtol=2e-13, atol=0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-13, atol=0
+E       
+E       Mismatched elements: 72 / 72 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 1.0202013400267558 (ACTUAL), 2.0959355144943643 (DESIRED)
+E        [0, 1]: 1.8221188003905089 (ACTUAL), 3.7434213772608618 (DESIRED)
+E        [0, 2]: 0.6838614092123558 (ACTUAL), 1.4049475905635938 (DESIRED)
+E        [1, 0]: 1.0362953332459086 (ACTUAL), 2.1289995486556696 (DESIRED)
+E        [1, 1]: 1.870277763602306 (ACTUAL), 3.842360750673356 (DESIRED)
+E       Max absolute difference among violations: 3.50084155
+E       Max relative difference among violations: 0.51324774
+E        ACTUAL: array([[1.020201, 1.822119, 0.683861],
+E              [1.036295, 1.870278, 0.69465 ],
+E              [1.052643, 1.91971 , 0.705608],...
+E        DESIRED: array([[2.095936, 3.743421, 1.404948],
+E              [2.129   , 3.842361, 1.427111],
+E              [2.162585, 3.943915, 1.449624],...
+
+tests\data\test_multicausal_latent_oracles.py:54: AssertionError
+_ test_log_link_oracles_integrate_gaussian_latent_with_heterogeneous_effects[1.2-gamma] _
+
+outcome_type = 'gamma', strength = 1.2
+
+    @pytest.mark.parametrize("outcome_type", ["poisson", "gamma"])
+    @pytest.mark.parametrize("strength", [1.2, -1.2])
+    def test_log_link_oracles_integrate_gaussian_latent_with_heterogeneous_effects(
+        outcome_type, strength
+    ):
+        x = np.linspace(-0.6, 0.6, 24).reshape(-1, 1)
+        theta = [0.0, 0.7, -0.4]
+        generator = MultiCausalDatasetGenerator(
+            n_treatments=3,
+            k=1,
+            x_sampler=lambda n, k, seed: x.copy(),
+            beta_y=np.array([0.3]),
+            alpha_y=0.2,
+            theta=theta,
+            tau=[None, lambda values: 0.2 * values[:, 0], None],
+            outcome_type=outcome_type,
+            u_strength_y=strength,
+            seed=123,
+        )
+        frame = generator.generate(len(x))
+        locations = 0.2 + 0.3 * x + np.asarray(theta)
+        locations[:, 1] += 0.2 * x[:, 0]
+        # At these locations clipping tails are < 1e-40; use the analytic MGF.
+        expected = np.exp(locations + strength**2 / 2.0)
+        actual = frame[[f"g_d_{arm}" for arm in range(3)]].to_numpy()
+>       np.testing.assert_allclose(actual, expected, rtol=2e-13, atol=0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-13, atol=0
+E       
+E       Mismatched elements: 72 / 72 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 1.0202013400267558 (ACTUAL), 2.0959355144943643 (DESIRED)
+E        [0, 1]: 1.8221188003905089 (ACTUAL), 3.7434213772608618 (DESIRED)
+E        [0, 2]: 0.6838614092123558 (ACTUAL), 1.4049475905635938 (DESIRED)
+E        [1, 0]: 1.0362953332459086 (ACTUAL), 2.1289995486556696 (DESIRED)
+E        [1, 1]: 1.870277763602306 (ACTUAL), 3.842360750673356 (DESIRED)
+E       Max absolute difference among violations: 3.50084155
+E       Max relative difference among violations: 0.51324774
+E        ACTUAL: array([[1.020201, 1.822119, 0.683861],
+E              [1.036295, 1.870278, 0.69465 ],
+E              [1.052643, 1.91971 , 0.705608],...
+E        DESIRED: array([[2.095936, 3.743421, 1.404948],
+E              [2.129   , 3.842361, 1.427111],
+E              [2.162585, 3.943915, 1.449624],...
+
+tests\data\test_multicausal_latent_oracles.py:54: AssertionError
+_ test_log_link_oracles_integrate_gaussian_latent_with_heterogeneous_effects[-1.2-poisson] _
+
+outcome_type = 'poisson', strength = -1.2
+
+    @pytest.mark.parametrize("outcome_type", ["poisson", "gamma"])
+    @pytest.mark.parametrize("strength", [1.2, -1.2])
+    def test_log_link_oracles_integrate_gaussian_latent_with_heterogeneous_effects(
+        outcome_type, strength
+    ):
+        x = np.linspace(-0.6, 0.6, 24).reshape(-1, 1)
+        theta = [0.0, 0.7, -0.4]
+        generator = MultiCausalDatasetGenerator(
+            n_treatments=3,
+            k=1,
+            x_sampler=lambda n, k, seed: x.copy(),
+            beta_y=np.array([0.3]),
+            alpha_y=0.2,
+            theta=theta,
+            tau=[None, lambda values: 0.2 * values[:, 0], None],
+            outcome_type=outcome_type,
+            u_strength_y=strength,
+            seed=123,
+        )
+        frame = generator.generate(len(x))
+        locations = 0.2 + 0.3 * x + np.asarray(theta)
+        locations[:, 1] += 0.2 * x[:, 0]
+        # At these locations clipping tails are < 1e-40; use the analytic MGF.
+        expected = np.exp(locations + strength**2 / 2.0)
+        actual = frame[[f"g_d_{arm}" for arm in range(3)]].to_numpy()
+>       np.testing.assert_allclose(actual, expected, rtol=2e-13, atol=0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-13, atol=0
+E       
+E       Mismatched elements: 72 / 72 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 1.0202013400267558 (ACTUAL), 2.0959355144943643 (DESIRED)
+E        [0, 1]: 1.8221188003905089 (ACTUAL), 3.7434213772608618 (DESIRED)
+E        [0, 2]: 0.6838614092123558 (ACTUAL), 1.4049475905635938 (DESIRED)
+E        [1, 0]: 1.0362953332459086 (ACTUAL), 2.1289995486556696 (DESIRED)
+E        [1, 1]: 1.870277763602306 (ACTUAL), 3.842360750673356 (DESIRED)
+E       Max absolute difference among violations: 3.50084155
+E       Max relative difference among violations: 0.51324774
+E        ACTUAL: array([[1.020201, 1.822119, 0.683861],
+E              [1.036295, 1.870278, 0.69465 ],
+E              [1.052643, 1.91971 , 0.705608],...
+E        DESIRED: array([[2.095936, 3.743421, 1.404948],
+E              [2.129   , 3.842361, 1.427111],
+E              [2.162585, 3.943915, 1.449624],...
+
+tests\data\test_multicausal_latent_oracles.py:54: AssertionError
+_ test_log_link_oracles_integrate_gaussian_latent_with_heterogeneous_effects[-1.2-gamma] _
+
+outcome_type = 'gamma', strength = -1.2
+
+    @pytest.mark.parametrize("outcome_type", ["poisson", "gamma"])
+    @pytest.mark.parametrize("strength", [1.2, -1.2])
+    def test_log_link_oracles_integrate_gaussian_latent_with_heterogeneous_effects(
+        outcome_type, strength
+    ):
+        x = np.linspace(-0.6, 0.6, 24).reshape(-1, 1)
+        theta = [0.0, 0.7, -0.4]
+        generator = MultiCausalDatasetGenerator(
+            n_treatments=3,
+            k=1,
+            x_sampler=lambda n, k, seed: x.copy(),
+            beta_y=np.array([0.3]),
+            alpha_y=0.2,
+            theta=theta,
+            tau=[None, lambda values: 0.2 * values[:, 0], None],
+            outcome_type=outcome_type,
+            u_strength_y=strength,
+            seed=123,
+        )
+        frame = generator.generate(len(x))
+        locations = 0.2 + 0.3 * x + np.asarray(theta)
+        locations[:, 1] += 0.2 * x[:, 0]
+        # At these locations clipping tails are < 1e-40; use the analytic MGF.
+        expected = np.exp(locations + strength**2 / 2.0)
+        actual = frame[[f"g_d_{arm}" for arm in range(3)]].to_numpy()
+>       np.testing.assert_allclose(actual, expected, rtol=2e-13, atol=0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-13, atol=0
+E       
+E       Mismatched elements: 72 / 72 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 1.0202013400267558 (ACTUAL), 2.0959355144943643 (DESIRED)
+E        [0, 1]: 1.8221188003905089 (ACTUAL), 3.7434213772608618 (DESIRED)
+E        [0, 2]: 0.6838614092123558 (ACTUAL), 1.4049475905635938 (DESIRED)
+E        [1, 0]: 1.0362953332459086 (ACTUAL), 2.1289995486556696 (DESIRED)
+E        [1, 1]: 1.870277763602306 (ACTUAL), 3.842360750673356 (DESIRED)
+E       Max absolute difference among violations: 3.50084155
+E       Max relative difference among violations: 0.51324774
+E        ACTUAL: array([[1.020201, 1.822119, 0.683861],
+E              [1.036295, 1.870278, 0.69465 ],
+E              [1.052643, 1.91971 , 0.705608],...
+E        DESIRED: array([[2.095936, 3.743421, 1.404948],
+E              [2.129   , 3.842361, 1.427111],
+E              [2.162585, 3.943915, 1.449624],...
+
+tests\data\test_multicausal_latent_oracles.py:54: AssertionError
+________ test_binary_oracles_match_adaptive_gaussian_integration[0.6] _________
+
+strength = 0.6
+
+    @pytest.mark.parametrize("strength", [0.6, 1.5, -2.0])
+    def test_binary_oracles_match_adaptive_gaussian_integration(strength):
+        x = np.linspace(-1.0, 1.0, 15).reshape(-1, 1)
+        generator = MultiCausalDatasetGenerator(
+            k=1,
+            x_sampler=lambda n, k, seed: x.copy(),
+            alpha_y=0.3,
+            beta_y=np.array([0.4]),
+            theta=[0.0, 0.8, -0.5],
+            outcome_type="binary",
+            u_strength_y=strength,
+            seed=71,
+        )
+        frame = generator.generate(len(x))
+        locations = 0.3 + 0.4 * x + np.array([0.0, 0.8, -0.5])
+        expected = np.array(
+            [
+                [
+                    quad(
+                        lambda z: expit(location + strength * z) * norm.pdf(z),
+                        -12.0,
+                        12.0,
+                        epsabs=1e-13,
+                        epsrel=1e-13,
+                    )[0]
+                    for location in row
+                ]
+                for row in locations
+            ]
+        )
+        actual = frame[[f"g_d_{arm}" for arm in range(3)]].to_numpy()
+>       np.testing.assert_allclose(actual, expected, rtol=0.0, atol=2e-9)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=2e-09
+E       
+E       Mismatched elements: 45 / 45 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.47502081252106 (ACTUAL), 0.4769390851581625 (DESIRED)
+E        [0, 1]: 0.6681877721681662 (ACTUAL), 0.6564498455883538 (DESIRED)
+E        [0, 2]: 0.3543436937742045 (ACTUAL), 0.3647737697334635 (DESIRED)
+E        [1, 0]: 0.4892873539262474 (ACTUAL), 0.4901113837484327 (DESIRED)
+E        [1, 1]: 0.6807330959877327 (ACTUAL), 0.6683245852980271 (DESIRED)
+E       Max absolute difference among violations: 0.01592536
+E       Max relative difference among violations: 0.02859327
+E        ACTUAL: array([[0.475021, 0.668188, 0.354344],
+E              [0.489287, 0.680733, 0.367523],
+E              [0.503571, 0.693022, 0.380904],...
+E        DESIRED: array([[0.476939, 0.65645 , 0.364774],
+E              [0.490111, 0.668325, 0.377133],
+E              [0.503297, 0.680001, 0.389645],...
+
+tests\data\test_multicausal_latent_oracles.py:94: AssertionError
+________ test_binary_oracles_match_adaptive_gaussian_integration[1.5] _________
+
+strength = 1.5
+
+    @pytest.mark.parametrize("strength", [0.6, 1.5, -2.0])
+    def test_binary_oracles_match_adaptive_gaussian_integration(strength):
+        x = np.linspace(-1.0, 1.0, 15).reshape(-1, 1)
+        generator = MultiCausalDatasetGenerator(
+            k=1,
+            x_sampler=lambda n, k, seed: x.copy(),
+            alpha_y=0.3,
+            beta_y=np.array([0.4]),
+            theta=[0.0, 0.8, -0.5],
+            outcome_type="binary",
+            u_strength_y=strength,
+            seed=71,
+        )
+        frame = generator.generate(len(x))
+        locations = 0.3 + 0.4 * x + np.array([0.0, 0.8, -0.5])
+        expected = np.array(
+            [
+                [
+                    quad(
+                        lambda z: expit(location + strength * z) * norm.pdf(z),
+                        -12.0,
+                        12.0,
+                        epsabs=1e-13,
+                        epsrel=1e-13,
+                    )[0]
+                    for location in row
+                ]
+                for row in locations
+            ]
+        )
+        actual = frame[[f"g_d_{arm}" for arm in range(3)]].to_numpy()
+>       np.testing.assert_allclose(actual, expected, rtol=0.0, atol=2e-9)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=2e-09
+E       
+E       Mismatched elements: 45 / 45 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.47502081252106 (ACTUAL), 0.4823334191028014 (DESIRED)
+E        [0, 1]: 0.6681877721681662 (ACTUAL), 0.6216199397985018 (DESIRED)
+E        [0, 2]: 0.3543436937742045 (ACTUAL), 0.39528495648650924 (DESIRED)
+E        [1, 0]: 0.4892873539262474 (ACTUAL), 0.4924264422178931 (DESIRED)
+E        [1, 1]: 0.6807330959877327 (ACTUAL), 0.6311714398037572 (DESIRED)
+E       Max absolute difference among violations: 0.07188382
+E       Max relative difference among violations: 0.10357405
+E        ACTUAL: array([[0.475021, 0.668188, 0.354344],
+E              [0.489287, 0.680733, 0.367523],
+E              [0.503571, 0.693022, 0.380904],...
+E        DESIRED: array([[0.482333, 0.62162 , 0.395285],
+E              [0.492426, 0.631171, 0.405043],
+E              [0.502525, 0.640637, 0.414865],...
+
+tests\data\test_multicausal_latent_oracles.py:94: AssertionError
+________ test_binary_oracles_match_adaptive_gaussian_integration[-2.0] ________
+
+strength = -2.0
+
+    @pytest.mark.parametrize("strength", [0.6, 1.5, -2.0])
+    def test_binary_oracles_match_adaptive_gaussian_integration(strength):
+        x = np.linspace(-1.0, 1.0, 15).reshape(-1, 1)
+        generator = MultiCausalDatasetGenerator(
+            k=1,
+            x_sampler=lambda n, k, seed: x.copy(),
+            alpha_y=0.3,
+            beta_y=np.array([0.4]),
+            theta=[0.0, 0.8, -0.5],
+            outcome_type="binary",
+            u_strength_y=strength,
+            seed=71,
+        )
+        frame = generator.generate(len(x))
+        locations = 0.3 + 0.4 * x + np.array([0.0, 0.8, -0.5])
+        expected = np.array(
+            [
+                [
+                    quad(
+                        lambda z: expit(location + strength * z) * norm.pdf(z),
+                        -12.0,
+                        12.0,
+                        epsabs=1e-13,
+                        epsrel=1e-13,
+                    )[0]
+                    for location in row
+                ]
+                for row in locations
+            ]
+        )
+        actual = frame[[f"g_d_{arm}" for arm in range(3)]].to_numpy()
+>       np.testing.assert_allclose(actual, expected, rtol=0.0, atol=2e-9)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=2e-09
+E       
+E       Mismatched elements: 45 / 45 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.47502081252106 (ACTUAL), 0.4848611488198019 (DESIRED)
+E        [0, 1]: 0.6681877721681662 (ACTUAL), 0.6047142212627887 (DESIRED)
+E        [0, 2]: 0.3543436937742045 (ACTUAL), 0.4099553739236702 (DESIRED)
+E        [1, 0]: 0.4892873539262474 (ACTUAL), 0.4935105962361151 (DESIRED)
+E        [1, 1]: 0.6807330959877327 (ACTUAL), 0.6130294345503163 (DESIRED)
+E       Max absolute difference among violations: 0.10256859
+E       Max relative difference among violations: 0.14345139
+E        ACTUAL: array([[0.475021, 0.668188, 0.354344],
+E              [0.489287, 0.680733, 0.367523],
+E              [0.503571, 0.693022, 0.380904],...
+E        DESIRED: array([[0.484861, 0.604714, 0.409955],
+E              [0.493511, 0.613029, 0.418399],
+E              [0.502163, 0.621291, 0.426882],...
+
+tests\data\test_multicausal_latent_oracles.py:94: AssertionError
+__ test_log_link_marginal_oracles_respect_generation_clipping[-21.0-poisson] __
+
+outcome_type = 'poisson', location = -21.0
+
+    @pytest.mark.parametrize("outcome_type", ["poisson", "gamma"])
+    @pytest.mark.parametrize("location", [-21.0, -19.0, 19.0, 21.0])
+    def test_log_link_marginal_oracles_respect_generation_clipping(outcome_type, location):
+        strength = 1.7
+        theta = np.array([0.0, 0.5, -0.6])
+        generator = MultiCausalDatasetGenerator(
+            k=0,
+            alpha_y=location,
+            theta=theta,
+            outcome_type=outcome_type,
+            u_strength_y=strength,
+            seed=61,
+        )
+        frame = generator.generate(20)
+        expected = np.array(
+            [_clipped_exp_normal_reference(location + effect, strength) for effect in theta]
+        )
+        actual = frame[[f"g_d_{arm}" for arm in range(3)]].to_numpy()
+>       np.testing.assert_allclose(actual, np.tile(expected, (len(frame), 1)), rtol=2e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-11, atol=0
+E       
+E       Mismatched elements: 60 / 60 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 2.061153622438558e-09 (ACTUAL), 4.276009692509544e-09 (DESIRED)
+E        [0, 1]: 2.061153622438558e-09 (ACTUAL), 6.148347567120361e-09 (DESIRED)
+E        [0, 2]: 2.061153622438558e-09 (ACTUAL), 3.073775500241654e-09 (DESIRED)
+E        [1, 0]: 2.061153622438558e-09 (ACTUAL), 4.276009692509544e-09 (DESIRED)
+E        [1, 1]: 2.061153622438558e-09 (ACTUAL), 6.148347567120361e-09 (DESIRED)
+E       Max absolute difference among violations: 4.08719394e-09
+E       Max relative difference among violations: 0.664763
+E        ACTUAL: array([[2.061154e-09, 2.061154e-09, 2.061154e-09],
+E              [2.061154e-09, 2.061154e-09, 2.061154e-09],
+E              [2.061154e-09, 2.061154e-09, 2.061154e-09],...
+E        DESIRED: array([[4.276010e-09, 6.148348e-09, 3.073776e-09],
+E              [4.276010e-09, 6.148348e-09, 3.073776e-09],
+E              [4.276010e-09, 6.148348e-09, 3.073776e-09],...
+
+tests\data\test_multicausal_latent_oracles.py:121: AssertionError
+___ test_log_link_marginal_oracles_respect_generation_clipping[-21.0-gamma] ___
+
+outcome_type = 'gamma', location = -21.0
+
+    @pytest.mark.parametrize("outcome_type", ["poisson", "gamma"])
+    @pytest.mark.parametrize("location", [-21.0, -19.0, 19.0, 21.0])
+    def test_log_link_marginal_oracles_respect_generation_clipping(outcome_type, location):
+        strength = 1.7
+        theta = np.array([0.0, 0.5, -0.6])
+        generator = MultiCausalDatasetGenerator(
+            k=0,
+            alpha_y=location,
+            theta=theta,
+            outcome_type=outcome_type,
+            u_strength_y=strength,
+            seed=61,
+        )
+        frame = generator.generate(20)
+        expected = np.array(
+            [_clipped_exp_normal_reference(location + effect, strength) for effect in theta]
+        )
+        actual = frame[[f"g_d_{arm}" for arm in range(3)]].to_numpy()
+>       np.testing.assert_allclose(actual, np.tile(expected, (len(frame), 1)), rtol=2e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-11, atol=0
+E       
+E       Mismatched elements: 60 / 60 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 2.061153622438558e-09 (ACTUAL), 4.276009692509544e-09 (DESIRED)
+E        [0, 1]: 2.061153622438558e-09 (ACTUAL), 6.148347567120361e-09 (DESIRED)
+E        [0, 2]: 2.061153622438558e-09 (ACTUAL), 3.073775500241654e-09 (DESIRED)
+E        [1, 0]: 2.061153622438558e-09 (ACTUAL), 4.276009692509544e-09 (DESIRED)
+E        [1, 1]: 2.061153622438558e-09 (ACTUAL), 6.148347567120361e-09 (DESIRED)
+E       Max absolute difference among violations: 4.08719394e-09
+E       Max relative difference among violations: 0.664763
+E        ACTUAL: array([[2.061154e-09, 2.061154e-09, 2.061154e-09],
+E              [2.061154e-09, 2.061154e-09, 2.061154e-09],
+E              [2.061154e-09, 2.061154e-09, 2.061154e-09],...
+E        DESIRED: array([[4.276010e-09, 6.148348e-09, 3.073776e-09],
+E              [4.276010e-09, 6.148348e-09, 3.073776e-09],
+E              [4.276010e-09, 6.148348e-09, 3.073776e-09],...
+
+tests\data\test_multicausal_latent_oracles.py:121: AssertionError
+__ test_log_link_marginal_oracles_respect_generation_clipping[-19.0-poisson] __
+
+outcome_type = 'poisson', location = -19.0
+
+    @pytest.mark.parametrize("outcome_type", ["poisson", "gamma"])
+    @pytest.mark.parametrize("location", [-21.0, -19.0, 19.0, 21.0])
+    def test_log_link_marginal_oracles_respect_generation_clipping(outcome_type, location):
+        strength = 1.7
+        theta = np.array([0.0, 0.5, -0.6])
+        generator = MultiCausalDatasetGenerator(
+            k=0,
+            alpha_y=location,
+            theta=theta,
+            outcome_type=outcome_type,
+            u_strength_y=strength,
+            seed=61,
+        )
+        frame = generator.generate(20)
+        expected = np.array(
+            [_clipped_exp_normal_reference(location + effect, strength) for effect in theta]
+        )
+        actual = frame[[f"g_d_{arm}" for arm in range(3)]].to_numpy()
+>       np.testing.assert_allclose(actual, np.tile(expected, (len(frame), 1)), rtol=2e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-11, atol=0
+E       
+E       Mismatched elements: 60 / 60 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 5.602796437537268e-09 (ACTUAL), 2.4076720628218974e-08 (DESIRED)
+E        [0, 1]: 9.237449661970594e-09 (ACTUAL), 3.938077282898855e-08 (DESIRED)
+E        [0, 2]: 3.074879879586606e-09 (ACTUAL), 1.3536709368655697e-08 (DESIRED)
+E        [1, 0]: 5.602796437537268e-09 (ACTUAL), 2.4076720628218974e-08 (DESIRED)
+E        [1, 1]: 9.237449661970594e-09 (ACTUAL), 3.938077282898855e-08 (DESIRED)
+E       Max absolute difference among violations: 3.01433232e-08
+E       Max relative difference among violations: 0.77284879
+E        ACTUAL: array([[5.602796e-09, 9.237450e-09, 3.074880e-09],
+E              [5.602796e-09, 9.237450e-09, 3.074880e-09],
+E              [5.602796e-09, 9.237450e-09, 3.074880e-09],...
+E        DESIRED: array([[2.407672e-08, 3.938077e-08, 1.353671e-08],
+E              [2.407672e-08, 3.938077e-08, 1.353671e-08],
+E              [2.407672e-08, 3.938077e-08, 1.353671e-08],...
+
+tests\data\test_multicausal_latent_oracles.py:121: AssertionError
+___ test_log_link_marginal_oracles_respect_generation_clipping[-19.0-gamma] ___
+
+outcome_type = 'gamma', location = -19.0
+
+    @pytest.mark.parametrize("outcome_type", ["poisson", "gamma"])
+    @pytest.mark.parametrize("location", [-21.0, -19.0, 19.0, 21.0])
+    def test_log_link_marginal_oracles_respect_generation_clipping(outcome_type, location):
+        strength = 1.7
+        theta = np.array([0.0, 0.5, -0.6])
+        generator = MultiCausalDatasetGenerator(
+            k=0,
+            alpha_y=location,
+            theta=theta,
+            outcome_type=outcome_type,
+            u_strength_y=strength,
+            seed=61,
+        )
+        frame = generator.generate(20)
+        expected = np.array(
+            [_clipped_exp_normal_reference(location + effect, strength) for effect in theta]
+        )
+        actual = frame[[f"g_d_{arm}" for arm in range(3)]].to_numpy()
+>       np.testing.assert_allclose(actual, np.tile(expected, (len(frame), 1)), rtol=2e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-11, atol=0
+E       
+E       Mismatched elements: 60 / 60 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 5.602796437537268e-09 (ACTUAL), 2.4076720628218974e-08 (DESIRED)
+E        [0, 1]: 9.237449661970594e-09 (ACTUAL), 3.938077282898855e-08 (DESIRED)
+E        [0, 2]: 3.074879879586606e-09 (ACTUAL), 1.3536709368655697e-08 (DESIRED)
+E        [1, 0]: 5.602796437537268e-09 (ACTUAL), 2.4076720628218974e-08 (DESIRED)
+E        [1, 1]: 9.237449661970594e-09 (ACTUAL), 3.938077282898855e-08 (DESIRED)
+E       Max absolute difference among violations: 3.01433232e-08
+E       Max relative difference among violations: 0.77284879
+E        ACTUAL: array([[5.602796e-09, 9.237450e-09, 3.074880e-09],
+E              [5.602796e-09, 9.237450e-09, 3.074880e-09],
+E              [5.602796e-09, 9.237450e-09, 3.074880e-09],...
+E        DESIRED: array([[2.407672e-08, 3.938077e-08, 1.353671e-08],
+E              [2.407672e-08, 3.938077e-08, 1.353671e-08],
+E              [2.407672e-08, 3.938077e-08, 1.353671e-08],...
+
+tests\data\test_multicausal_latent_oracles.py:121: AssertionError
+__ test_log_link_marginal_oracles_respect_generation_clipping[19.0-poisson] ___
+
+outcome_type = 'poisson', location = 19.0
+
+    @pytest.mark.parametrize("outcome_type", ["poisson", "gamma"])
+    @pytest.mark.parametrize("location", [-21.0, -19.0, 19.0, 21.0])
+    def test_log_link_marginal_oracles_respect_generation_clipping(outcome_type, location):
+        strength = 1.7
+        theta = np.array([0.0, 0.5, -0.6])
+        generator = MultiCausalDatasetGenerator(
+            k=0,
+            alpha_y=location,
+            theta=theta,
+            outcome_type=outcome_type,
+            u_strength_y=strength,
+            seed=61,
+        )
+        frame = generator.generate(20)
+        expected = np.array(
+            [_clipped_exp_normal_reference(location + effect, strength) for effect in theta]
+        )
+        actual = frame[[f"g_d_{arm}" for arm in range(3)]].to_numpy()
+>       np.testing.assert_allclose(actual, np.tile(expected, (len(frame), 1)), rtol=2e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-11, atol=0
+E       
+E       Mismatched elements: 60 / 60 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 178482300.96318725 (ACTUAL), 235751043.73696527 (DESIRED)
+E        [0, 1]: 294267566.0415088 (ACTUAL), 286174268.2921492 (DESIRED)
+E        [0, 2]: 97953163.60543309 (ACTUAL), 177146566.02406105 (DESIRED)
+E        [1, 0]: 178482300.96318725 (ACTUAL), 235751043.73696527 (DESIRED)
+E        [1, 1]: 294267566.0415088 (ACTUAL), 286174268.2921492 (DESIRED)
+E       Max absolute difference among violations: 79193402.41862796
+E       Max relative difference among violations: 0.44705017
+E        ACTUAL: array([[1.784823e+08, 2.942676e+08, 9.795316e+07],
+E              [1.784823e+08, 2.942676e+08, 9.795316e+07],
+E              [1.784823e+08, 2.942676e+08, 9.795316e+07],...
+E        DESIRED: array([[2.357510e+08, 2.861743e+08, 1.771466e+08],
+E              [2.357510e+08, 2.861743e+08, 1.771466e+08],
+E              [2.357510e+08, 2.861743e+08, 1.771466e+08],...
+
+tests\data\test_multicausal_latent_oracles.py:121: AssertionError
+___ test_log_link_marginal_oracles_respect_generation_clipping[19.0-gamma] ____
+
+outcome_type = 'gamma', location = 19.0
+
+    @pytest.mark.parametrize("outcome_type", ["poisson", "gamma"])
+    @pytest.mark.parametrize("location", [-21.0, -19.0, 19.0, 21.0])
+    def test_log_link_marginal_oracles_respect_generation_clipping(outcome_type, location):
+        strength = 1.7
+        theta = np.array([0.0, 0.5, -0.6])
+        generator = MultiCausalDatasetGenerator(
+            k=0,
+            alpha_y=location,
+            theta=theta,
+            outcome_type=outcome_type,
+            u_strength_y=strength,
+            seed=61,
+        )
+        frame = generator.generate(20)
+        expected = np.array(
+            [_clipped_exp_normal_reference(location + effect, strength) for effect in theta]
+        )
+        actual = frame[[f"g_d_{arm}" for arm in range(3)]].to_numpy()
+>       np.testing.assert_allclose(actual, np.tile(expected, (len(frame), 1)), rtol=2e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-11, atol=0
+E       
+E       Mismatched elements: 60 / 60 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 178482300.96318725 (ACTUAL), 235751043.73696527 (DESIRED)
+E        [0, 1]: 294267566.0415088 (ACTUAL), 286174268.2921492 (DESIRED)
+E        [0, 2]: 97953163.60543309 (ACTUAL), 177146566.02406105 (DESIRED)
+E        [1, 0]: 178482300.96318725 (ACTUAL), 235751043.73696527 (DESIRED)
+E        [1, 1]: 294267566.0415088 (ACTUAL), 286174268.2921492 (DESIRED)
+E       Max absolute difference among violations: 79193402.41862796
+E       Max relative difference among violations: 0.44705017
+E        ACTUAL: array([[1.784823e+08, 2.942676e+08, 9.795316e+07],
+E              [1.784823e+08, 2.942676e+08, 9.795316e+07],
+E              [1.784823e+08, 2.942676e+08, 9.795316e+07],...
+E        DESIRED: array([[2.357510e+08, 2.861743e+08, 1.771466e+08],
+E              [2.357510e+08, 2.861743e+08, 1.771466e+08],
+E              [2.357510e+08, 2.861743e+08, 1.771466e+08],...
+
+tests\data\test_multicausal_latent_oracles.py:121: AssertionError
+__ test_log_link_marginal_oracles_respect_generation_clipping[21.0-poisson] ___
+
+outcome_type = 'poisson', location = 21.0
+
+    @pytest.mark.parametrize("outcome_type", ["poisson", "gamma"])
+    @pytest.mark.parametrize("location", [-21.0, -19.0, 19.0, 21.0])
+    def test_log_link_marginal_oracles_respect_generation_clipping(outcome_type, location):
+        strength = 1.7
+        theta = np.array([0.0, 0.5, -0.6])
+        generator = MultiCausalDatasetGenerator(
+            k=0,
+            alpha_y=location,
+            theta=theta,
+            outcome_type=outcome_type,
+            u_strength_y=strength,
+            seed=61,
+        )
+        frame = generator.generate(20)
+        expected = np.array(
+            [_clipped_exp_normal_reference(location + effect, strength) for effect in theta]
+        )
+        actual = frame[[f"g_d_{arm}" for arm in range(3)]].to_numpy()
+>       np.testing.assert_allclose(actual, np.tile(expected, (len(frame), 1)), rtol=2e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-11, atol=0
+E       
+E       Mismatched elements: 60 / 60 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 485165195.4097903 (ACTUAL), 412081235.07901216 (DESIRED)
+E        [0, 1]: 485165195.4097903 (ACTUAL), 438823206.4107639 (DESIRED)
+E        [0, 2]: 485165195.4097903 (ACTUAL), 368997019.9566492 (DESIRED)
+E        [1, 0]: 485165195.4097903 (ACTUAL), 412081235.07901216 (DESIRED)
+E        [1, 1]: 485165195.4097903 (ACTUAL), 438823206.4107639 (DESIRED)
+E       Max absolute difference among violations: 1.16168175e+08
+E       Max relative difference among violations: 0.31482145
+E        ACTUAL: array([[4.851652e+08, 4.851652e+08, 4.851652e+08],
+E              [4.851652e+08, 4.851652e+08, 4.851652e+08],
+E              [4.851652e+08, 4.851652e+08, 4.851652e+08],...
+E        DESIRED: array([[4.120812e+08, 4.388232e+08, 3.689970e+08],
+E              [4.120812e+08, 4.388232e+08, 3.689970e+08],
+E              [4.120812e+08, 4.388232e+08, 3.689970e+08],...
+
+tests\data\test_multicausal_latent_oracles.py:121: AssertionError
+___ test_log_link_marginal_oracles_respect_generation_clipping[21.0-gamma] ____
+
+outcome_type = 'gamma', location = 21.0
+
+    @pytest.mark.parametrize("outcome_type", ["poisson", "gamma"])
+    @pytest.mark.parametrize("location", [-21.0, -19.0, 19.0, 21.0])
+    def test_log_link_marginal_oracles_respect_generation_clipping(outcome_type, location):
+        strength = 1.7
+        theta = np.array([0.0, 0.5, -0.6])
+        generator = MultiCausalDatasetGenerator(
+            k=0,
+            alpha_y=location,
+            theta=theta,
+            outcome_type=outcome_type,
+            u_strength_y=strength,
+            seed=61,
+        )
+        frame = generator.generate(20)
+        expected = np.array(
+            [_clipped_exp_normal_reference(location + effect, strength) for effect in theta]
+        )
+        actual = frame[[f"g_d_{arm}" for arm in range(3)]].to_numpy()
+>       np.testing.assert_allclose(actual, np.tile(expected, (len(frame), 1)), rtol=2e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-11, atol=0
+E       
+E       Mismatched elements: 60 / 60 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 485165195.4097903 (ACTUAL), 412081235.07901216 (DESIRED)
+E        [0, 1]: 485165195.4097903 (ACTUAL), 438823206.4107639 (DESIRED)
+E        [0, 2]: 485165195.4097903 (ACTUAL), 368997019.9566492 (DESIRED)
+E        [1, 0]: 485165195.4097903 (ACTUAL), 412081235.07901216 (DESIRED)
+E        [1, 1]: 485165195.4097903 (ACTUAL), 438823206.4107639 (DESIRED)
+E       Max absolute difference among violations: 1.16168175e+08
+E       Max relative difference among violations: 0.31482145
+E        ACTUAL: array([[4.851652e+08, 4.851652e+08, 4.851652e+08],
+E              [4.851652e+08, 4.851652e+08, 4.851652e+08],
+E              [4.851652e+08, 4.851652e+08, 4.851652e+08],...
+E        DESIRED: array([[4.120812e+08, 4.388232e+08, 3.689970e+08],
+E              [4.120812e+08, 4.388232e+08, 3.689970e+08],
+E              [4.120812e+08, 4.388232e+08, 3.689970e+08],...
+
+tests\data\test_multicausal_latent_oracles.py:121: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/data/test_multicausal_latent_oracles.py::test_log_link_oracles_integrate_gaussian_latent_with_heterogeneous_effects[1.2-poisson]
+FAILED tests/data/test_multicausal_latent_oracles.py::test_log_link_oracles_integrate_gaussian_latent_with_heterogeneous_effects[1.2-gamma]
+FAILED tests/data/test_multicausal_latent_oracles.py::test_log_link_oracles_integrate_gaussian_latent_with_heterogeneous_effects[-1.2-poisson]
+FAILED tests/data/test_multicausal_latent_oracles.py::test_log_link_oracles_integrate_gaussian_latent_with_heterogeneous_effects[-1.2-gamma]
+FAILED tests/data/test_multicausal_latent_oracles.py::test_binary_oracles_match_adaptive_gaussian_integration[0.6]
+FAILED tests/data/test_multicausal_latent_oracles.py::test_binary_oracles_match_adaptive_gaussian_integration[1.5]
+FAILED tests/data/test_multicausal_latent_oracles.py::test_binary_oracles_match_adaptive_gaussian_integration[-2.0]
+FAILED tests/data/test_multicausal_latent_oracles.py::test_log_link_marginal_oracles_respect_generation_clipping[-21.0-poisson]
+FAILED tests/data/test_multicausal_latent_oracles.py::test_log_link_marginal_oracles_respect_generation_clipping[-21.0-gamma]
+FAILED tests/data/test_multicausal_latent_oracles.py::test_log_link_marginal_oracles_respect_generation_clipping[-19.0-poisson]
+FAILED tests/data/test_multicausal_latent_oracles.py::test_log_link_marginal_oracles_respect_generation_clipping[-19.0-gamma]
+FAILED tests/data/test_multicausal_latent_oracles.py::test_log_link_marginal_oracles_respect_generation_clipping[19.0-poisson]
+FAILED tests/data/test_multicausal_latent_oracles.py::test_log_link_marginal_oracles_respect_generation_clipping[19.0-gamma]
+FAILED tests/data/test_multicausal_latent_oracles.py::test_log_link_marginal_oracles_respect_generation_clipping[21.0-poisson]
+FAILED tests/data/test_multicausal_latent_oracles.py::test_log_link_marginal_oracles_respect_generation_clipping[21.0-gamma]
+15 failed, 9 passed in 21.17s

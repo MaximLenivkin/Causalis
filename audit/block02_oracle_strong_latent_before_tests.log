@@ -1,0 +1,175 @@
+...FFF                                                                   [100%]
+================================== FAILURES ===================================
+________ test_binary_oracles_match_adaptive_gaussian_integration[3.0] _________
+
+strength = 3.0
+
+    @pytest.mark.parametrize("strength", [0.6, 1.5, -2.0, 3.0, 5.0, -10.0])
+    def test_binary_oracles_match_adaptive_gaussian_integration(strength):
+        x = np.linspace(-1.0, 1.0, 15).reshape(-1, 1)
+        generator = MultiCausalDatasetGenerator(
+            k=1,
+            x_sampler=lambda n, k, seed: x.copy(),
+            alpha_y=0.3,
+            beta_y=np.array([0.4]),
+            theta=[0.0, 0.8, -0.5],
+            outcome_type="binary",
+            u_strength_y=strength,
+            seed=71,
+        )
+        frame = generator.generate(len(x))
+        locations = 0.3 + 0.4 * x + np.array([0.0, 0.8, -0.5])
+        expected = np.array(
+            [
+                [
+                    quad(
+                        lambda z: expit(location + strength * z) * norm.pdf(z),
+                        -12.0,
+                        12.0,
+                        epsabs=1e-13,
+                        epsrel=1e-13,
+                    )[0]
+                    for location in row
+                ]
+                for row in locations
+            ]
+        )
+        actual = frame[[f"g_d_{arm}" for arm in range(3)]].to_numpy()
+>       np.testing.assert_allclose(actual, expected, rtol=0.0, atol=2e-9)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=2e-09
+E       
+E       Mismatched elements: 42 / 45 (93.3%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.48851781087570517 (ACTUAL), 0.4885178203260562 (DESIRED)
+E        [0, 1]: 0.5798374076849201 (ACTUAL), 0.5798374203738937 (DESIRED)
+E        [0, 2]: 0.4314436352889425 (ACTUAL), 0.4314436307529471 (DESIRED)
+E        [1, 0]: 0.49507849808484755 (ACTUAL), 0.4950785023209369 (DESIRED)
+E        [1, 1]: 0.5862545580857795 (ACTUAL), 0.5862545737147059 (DESIRED)
+E       Max absolute difference among violations: 1.74105133e-08
+E       Max relative difference among violations: 3.70044661e-08
+E        ACTUAL: array([[0.488518, 0.579837, 0.431444],
+E              [0.495078, 0.586255, 0.437916],
+E              [0.501641, 0.592648, 0.444406],...
+E        DESIRED: array([[0.488518, 0.579837, 0.431444],
+E              [0.495079, 0.586255, 0.437916],
+E              [0.501641, 0.592648, 0.444406],...
+
+tests\data\test_multicausal_latent_oracles.py:94: AssertionError
+________ test_binary_oracles_match_adaptive_gaussian_integration[5.0] _________
+
+strength = 5.0
+
+    @pytest.mark.parametrize("strength", [0.6, 1.5, -2.0, 3.0, 5.0, -10.0])
+    def test_binary_oracles_match_adaptive_gaussian_integration(strength):
+        x = np.linspace(-1.0, 1.0, 15).reshape(-1, 1)
+        generator = MultiCausalDatasetGenerator(
+            k=1,
+            x_sampler=lambda n, k, seed: x.copy(),
+            alpha_y=0.3,
+            beta_y=np.array([0.4]),
+            theta=[0.0, 0.8, -0.5],
+            outcome_type="binary",
+            u_strength_y=strength,
+            seed=71,
+        )
+        frame = generator.generate(len(x))
+        locations = 0.3 + 0.4 * x + np.array([0.0, 0.8, -0.5])
+        expected = np.array(
+            [
+                [
+                    quad(
+                        lambda z: expit(location + strength * z) * norm.pdf(z),
+                        -12.0,
+                        12.0,
+                        epsabs=1e-13,
+                        epsrel=1e-13,
+                    )[0]
+                    for location in row
+                ]
+                for row in locations
+            ]
+        )
+        actual = frame[[f"g_d_{arm}" for arm in range(3)]].to_numpy()
+>       np.testing.assert_allclose(actual, expected, rtol=0.0, atol=2e-9)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=2e-09
+E       
+E       Mismatched elements: 45 / 45 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.49248103362431805 (ACTUAL), 0.49248596040027476 (DESIRED)
+E        [0, 1]: 0.5524580711625761 (ACTUAL), 0.5524488667336556 (DESIRED)
+E        [0, 2]: 0.45499679510544755 (ACTUAL), 0.4550092089758256 (DESIRED)
+E        [1, 0]: 0.4967773941131287 (ACTUAL), 0.496779541335856 (DESIRED)
+E        [1, 1]: 0.5567093064564693 (ACTUAL), 0.556702457482303 (DESIRED)
+E       Max absolute difference among violations: 1.43267093e-05
+E       Max relative difference among violations: 3.07299822e-05
+E        ACTUAL: array([[0.492481, 0.552458, 0.454997],
+E              [0.496777, 0.556709, 0.459265],
+E              [0.501074, 0.560954, 0.463538],...
+E        DESIRED: array([[0.492486, 0.552449, 0.455009],
+E              [0.49678 , 0.556702, 0.459278],
+E              [0.501073, 0.56095 , 0.463552],...
+
+tests\data\test_multicausal_latent_oracles.py:94: AssertionError
+_______ test_binary_oracles_match_adaptive_gaussian_integration[-10.0] ________
+
+strength = -10.0
+
+    @pytest.mark.parametrize("strength", [0.6, 1.5, -2.0, 3.0, 5.0, -10.0])
+    def test_binary_oracles_match_adaptive_gaussian_integration(strength):
+        x = np.linspace(-1.0, 1.0, 15).reshape(-1, 1)
+        generator = MultiCausalDatasetGenerator(
+            k=1,
+            x_sampler=lambda n, k, seed: x.copy(),
+            alpha_y=0.3,
+            beta_y=np.array([0.4]),
+            theta=[0.0, 0.8, -0.5],
+            outcome_type="binary",
+            u_strength_y=strength,
+            seed=71,
+        )
+        frame = generator.generate(len(x))
+        locations = 0.3 + 0.4 * x + np.array([0.0, 0.8, -0.5])
+        expected = np.array(
+            [
+                [
+                    quad(
+                        lambda z: expit(location + strength * z) * norm.pdf(z),
+                        -12.0,
+                        12.0,
+                        epsabs=1e-13,
+                        epsrel=1e-13,
+                    )[0]
+                    for location in row
+                ]
+                for row in locations
+            ]
+        )
+        actual = frame[[f"g_d_{arm}" for arm in range(3)]].to_numpy()
+>       np.testing.assert_allclose(actual, expected, rtol=0.0, atol=2e-9)
+E       AssertionError: 
+E       Not equal to tolerance rtol=0, atol=2e-09
+E       
+E       Mismatched elements: 45 / 45 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.49575223079632114 (ACTUAL), 0.4960741073736276 (DESIRED)
+E        [0, 1]: 0.5291737482280735 (ACTUAL), 0.5274599663319747 (DESIRED)
+E        [0, 2]: 0.47487143071209426 (ACTUAL), 0.4764579480375331 (DESIRED)
+E        [1, 0]: 0.4981788941150803 (ACTUAL), 0.4983174524133991 (DESIRED)
+E        [1, 1]: 0.5314598268480655 (ACTUAL), 0.529697606349613 (DESIRED)
+E       Max absolute difference among violations: 0.00180402
+E       Max relative difference among violations: 0.00337725
+E        ACTUAL: array([[0.495752, 0.529174, 0.474871],
+E              [0.498179, 0.53146 , 0.477207],
+E              [0.500607, 0.533727, 0.479559],...
+E        DESIRED: array([[0.496074, 0.52746 , 0.476458],
+E              [0.498317, 0.529698, 0.478698],
+E              [0.500561, 0.531934, 0.480938],...
+
+tests\data\test_multicausal_latent_oracles.py:94: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/data/test_multicausal_latent_oracles.py::test_binary_oracles_match_adaptive_gaussian_integration[3.0]
+FAILED tests/data/test_multicausal_latent_oracles.py::test_binary_oracles_match_adaptive_gaussian_integration[5.0]
+FAILED tests/data/test_multicausal_latent_oracles.py::test_binary_oracles_match_adaptive_gaussian_integration[-10.0]
+3 failed, 3 passed, 21 deselected in 35.98s
