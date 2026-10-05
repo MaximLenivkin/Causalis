@@ -15,7 +15,9 @@
 
 ## Git
 
-Local branch создана, user.name/user.email настроены. Public upstream read работает и main совпадает с audit SHA. Сохранённой GitHub авторизации нет, `gh` не установлен; fork/push пока не сделаны. Пользователь получил `audit/GIT_ACCESS.md` с инструкцией. После его входа проверить account/remote и продолжить fork/push без повторного запроса разрешения на уже согласованную работу.
+GitHub авторизация завершена пользователем и проверена: **MaximLenivkin**, keyring, scopesrepo/workflow. Fork создан, первые3commits отправлены; branch отслеживает `origin/codex/correctness-roadmap`. `origin`=`https://github.com/MaximLenivkin/Causalis.git`, `upstream`=`https://github.com/causalis-causalcraft/Causalis.git`. Upstream push прав нет; personal fork push/admin есть. Не повторять создание fork/rename remotes и не push в upstream/main.
+
+GitHubCLI2.102.0: `& 'C:\Program Files\GitHub CLI\gh.exe' ...` — использовать полный путь, если текущий Codex PATH ещё не обновлён. Авторизацию повторно запрашивать не требуется. Git mutations/network в ограниченной среде могут требовать разрешённого запуска; пользователь уже авторизовал commits/push в личную ветку. PR не создавался. Полная текущая информация — GIT_ACCESS.md.
 
 ## Текущая работа
 

@@ -44,3 +44,12 @@
 - DOCUMENTATION_HANDOFF.md подготовлен для автора docs;28GitHub snapshot links проверены, local-only links0. Sensitivity-specific tasks исключены.
 - **B01 завершён, commitbd8a2be:** Newcombe hybrid CI, enum validation, function docstring. До source fix27testsfailed/9passed; после36conversionpassed и31neighborRCTpassed. Логи block01_*_tests.log. Полный suite/benchmark повторно не запускался, sensitivity не затрагивался.
 - NEXT_SESSION.md содержит commits, scope, проверки и следующийblockB02. На границе B01 работа остановлена; внешние PR/issues не создавались.
+
+## 2026-10-05 — GitHub подключён
+
+- Пользователь завершил browser login. Проверен активный GitHub account **MaximLenivkin**, keyring и scopesrepo/workflow; credentials не выводились.
+- Создан [личный fork](https://github.com/MaximLenivkin/Causalis); API подтвердил parentcausalis-causalcraft/Causalis и push/admin права. Upstream доступен read, без push.
+- Исправлена команда в GIT_ACCESS.md: установленный gh2.102.0 не принимает `--remote=false` вместе с explicitrepository; создание выполнено с `--clone=false`.
+- Origin переименован в upstream; новыйorigin указывает на personalfork. Ветка `codex/correctness-roadmap` pushed с commits2c26cee/bd8a2be/a3846ba, local tracking настроен. Code tests не повторялись: на этом этапе менялась только Git setup/documentation.
+- Проверка первогоpush:remote/localHEAD совпадают — `a3846baa0a07e7d81c3ea8850e130cb2de6d6ba4`; remote копия трёх commits подтверждена.
+- NEXT_SESSION/FIX_PLAN/DOCHANDOFF обновлены; sensitivity остаётся отложенным, B02 не начат, PR не создан.

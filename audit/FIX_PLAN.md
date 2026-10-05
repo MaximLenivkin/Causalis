@@ -51,9 +51,9 @@ B02–B06 — большие тематические блоки, внутри �
 
 ## Git и синхронизация upstream
 
-Локальный Git и author identity работают, branch создана. Public remote чтение проверено: upstream main всё ещё исходный audit SHA. Сохранённая GitHub авторизация не найдена; создание удалённого fork и push не проверены/не выполнены. Полная инструкция — `audit/GIT_ACCESS.md`.
+Локальный Git и author identity работают. Авторизация **MaximLenivkin** подтверждена после browser login. Личный fork `MaximLenivkin/Causalis` создан; branch `codex/correctness-roadmap` успешно pushed и отслеживает origin. Upstream main всё ещё исходный audit SHA. Полная текущая информация — `audit/GIT_ACCESS.md`.
 
-После входа: `origin` будет личным fork, `upstream` — causalis-causalcraft/Causalis. Каждый законченный commit можно пушить в личную ветку. Никогда не push в upstream/main и не force-push историю для обычной синхронизации. Upstream updates сначала fetch/diff, sensitivity review отдельно; merge/rebase выбирается по actual divergence, без потери собственных commits.
+Фактически `origin` — личный fork, `upstream` — causalis-causalcraft/Causalis. Каждый законченный commit можно пушить в личную ветку. Никогда не push в upstream/main и не force-push историю для обычной синхронизации. Upstream updates сначала fetch/diff, sensitivity review отдельно; merge/rebase выбирается по actual divergence, без потери собственных commits.
 
 ## Последующие улучшения, после correctness
 
