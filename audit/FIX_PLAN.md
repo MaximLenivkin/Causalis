@@ -21,6 +21,7 @@
 | **B04. DiD inference** | Pre-controls, normalized IPW IF, nuisance-estimation IF, population cohort-share IF, one-cluster guard | **SC-01/02/03/04/11 P1** | Derivations и official-source reference; unit uniqueness; common-trend invariance; analytic/bootstrap; затем targeted coverage simulation | L |
 | **B05. CUPED / IV / SCM** | Collision-safe design, stable leverage/covariance, публичный batched QR/SVD, IV diagnostic resolver, ASCM config inheritance | SC-06/07/08/09/12 | Scale/name invariance, HC/relative covariance, batch-vs-single, original-config refutations; existing suite | M–L |
 | **B06. Compatibility / CI / performance** | Pydantic minimum, release pytest gate, tested versions; duplicate screening, linear binary checks, bounded-memory KDE, owned arrays | ROOT-08/09, performance top10 | Чистая install matrix; no false release pass; identical arrays/scores/IF; documented time/memory benchmark | M–L |
+| **B07. Edge correctness / factual docs** | Earliest universal DiD pre-cell; non-finite binary/multi/IV learner outputs; DGP calibration/copula wording | Follow-ups B04/B02 и independent boundary review, P2 | Independent date/ATT/IF references; finite fits unchanged; 147 new cases; 1729 local + 1729 в каждом из 6 CI jobs, 7 sensitivity modules deferred | M |
 
 B02–B06 — большие тематические блоки, внутри которых можно делать несколько небольших законченных commits. Размер S/M/L — сравнительная сложность, не календарное обещание. P1 задачи B03/B04 имеют более высокий риск, но B01 первым даёт короткий независимый correctness commit; внутри B02 сначала устраняем silent invalid results и wrong oracle.
 
@@ -69,10 +70,25 @@ B02–B06 — большие тематические блоки, внутри �
 - B05: завершён. Integration на1b24777: **1376 passed,0failed,77warnings,438.20s**,7sensitivity modules исключены. SC-06/07/09/12 исправлены, SC-08 только placebo (LOO deferred). CUPED127/IV73/SCM67 focusedpass; new137cases. Code commits bb31a4b/5e03795/3c000b1/1b24777; итог — BLOCK05_CUPED_IV_SCM.md. Исторический SC-12 assertion сохранён и проходит. Local fitbenchmark1.73–2.90× при совпадающихATE/SE; неuniversalclaim.
 - B06: implementation и локальная integration завершены: **1582 passed, 0 failed/skipped, 77 warnings, 400.95s**. 206 новых cases, 7 sensitivity modules явно исключены. Pydantic>=2, full release pytest gate, CI matrix, duplicate screening, linear binary detection, bounded Gaussian KDE и NumPy1.x IV fix. Все шесть clean Linux jobs и artifacts прошли; каждый — 1582 cases без failures/errors/skips. Финальный source09e00de; evidence в BLOCK06_COMPATIBILITY_PERFORMANCE.md. Owned arrays остаются audit-only; полный sensitivity/release/docs build не подтверждался.
 - Sensitivity: отложено по прямой инструкции пользователя; дата возобновления не назначена.
-- B06 завершён; следующий самостоятельный блок выбирается после нового запроса пользователя. Sensitivity по-прежнему отложена.
+- B07 завершён: commits 43f0b3e/d3b6709/a2109a6; final source a2109a6. Earliest universal DiD pre-cell и raw non-finite learner guards исправлены; DGP runtime unchanged, factual docs уточнены. 147 новых cases; **1729 passed, 0 failures/errors/skips, 77 warnings, 404.84 s** локально; все 6 Linux CI jobs и artifacts — 1729 passed каждый. CI37385736343; report — BLOCK07_EDGE_CORRECTNESS.md. 7 sensitivity modules deferred.
+- Следующий самостоятельный блок выбирается после нового запроса пользователя. Sensitivity по-прежнему отложена; B08 не начат.
 
 Дополнение B04: сохраняются traditional MLE/OLS и прежний complete-pair estimand. Correct IF не убирает fixed ridge/clipping bias и не гарантирует finite-sample/few-cluster coverage. Earliest universal pre placebo (analysis-index0) пока пропущен прежним enumeration: отдельный support follow-up. Численная устойчивость IF map проверена, optimizer scale invariance не заявляется.
+
+Статус этого исторического B04 follow-up: earliest universal pre-cell закрыта в B07. Нормализованная zero row не добавляется; новые cell IDs/event-time ranges и совместные pre-tests/bands требуют refit. Post point estimates, IF и обычные analytic intervals сохранены.
 
 ## Дополнение после B02
 
 Multi-treatment `m_<arm>` при latent treatment noise пока означает softmax при U=0. Для true observed-X propensity требуется интегрирование softmax по Gaussian U; новые class docstrings явно различают эти величины. Отдельный follow-up после основного correctness backlog: выбрать совместимый API для marginal propensity oracle и определить ATT/oracle semantics при supplied U. Это новое соседнее замечание, не повторно открытый ROOT-01 outcome fix. Extreme DGP coefficient guards, estimator output finite policy и SMD near-zero scale invariance также требуют отдельных scope/validation решений.
+
+## Остаток после B07 и кандидат следующего блока
+
+B07 закрыл finite-output guard для real numeric learner outputs и earliest universal pre-cell. Он не является полной проверкой всех output types или floating-point arithmetic. Приоритет дальнейшей работы:
+
+1. **DGP reference contracts:** finite/extreme config и callback outputs; small/rare-arm retries могут менять assignment law. Сначала независимые reproductions и explicit policy, затем marginal-oracle API.
+2. **Additive Gaussian-reference propensity:** opt-in `m_marginal_<arm>`, сохранение existing m/m_obs/RNG; accuracy/convergence policy, bounded-memory integration и independent adaptive reference. Concrete proposal и validation plan — `B07_DGP_REVIEW.md`. Selection-weighted latent ATT — отдельная target/API задача; не заменять его treated average marginal CATE.
+3. **Learner shape/real contract:** malformed row/column outputs, complex predictions и IV assembled-storage boundary. Existing successful finite behavior и single-class mapping требуют явного совместимого решения; B07 этих contracts не расширял.
+4. **Extreme finite score/IF arithmetic** и normalized custom-ATE near-boundary policy: сначала реальные reproductions и target/normalization analysis, не blanket `nan_to_num` или clipping outputs.
+5. **Numeric/object duplicate policy, snapshot arrays и dedicated Sphinx build:** отдельные compatibility/design gates; owned views нельзя кэшировать без ownership/refit invalidation contract.
+
+Рекомендуемый B08 — ограниченный DGP reference-contract/oracle block после нового запроса пользователя. Если numerical-law decisions слишком велики для одного блока, сначала закрыть config/output/rare-arm contracts и только затем additive oracle. Repeated cross-fitting и прочие features сохраняют прежний порядок после correctness follow-up. Не включать sensitivity до отдельного upstream sync/review.

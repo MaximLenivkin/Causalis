@@ -10,7 +10,7 @@
 
 1. `AGENTS.md` — локальная `.venv` обязательна; macOS path из инструкции недоступен на Windows, здесь `.venv\Scripts\python.exe`3.12.14.
 2. `audit/FIX_PLAN.md` — порядок блоков, scope gates и deferred findings.
-3. Этот файл и `audit/BLOCK06_COMPATIBILITY_PERFORMANCE.md` — последнее состояние реализации; B01–B05 reports сохраняют предыдущие checkpoints.
+3. Этот файл и `audit/BLOCK07_EDGE_CORRECTNESS.md` — последнее состояние реализации; B01–B06 reports сохраняют предыдущие checkpoints.
 4. `audit/REPORT.md` — исторический аудит исходного SHA, не текущий residual bug count.
 
 ## Git
@@ -20,6 +20,22 @@ GitHub авторизация завершена пользователем и �
 GitHubCLI2.102.0: `& 'C:\Program Files\GitHub CLI\gh.exe' ...` — использовать полный путь, если текущий Codex PATH ещё не обновлён. Авторизацию повторно запрашивать не требуется. Git mutations/network в ограниченной среде могут требовать разрешённого запуска; пользователь уже авторизовал commits/push в личную ветку. PR не создавался. Полная текущая информация — GIT_ACCESS.md.
 
 ## Текущая работа
+
+**B07 завершён.** Final source/tests checkpoint **`a2109a6ecd3c8422fbd4e8a7fd8d5d59334e8159`**; после него меняются только audit artifacts. Commits: 43f0b3e (earliest universal DiD), d3b6709 (DGP factual doc-only), a2109a6 (non-finite nuisance boundaries + fallback guard). Final audit checkpoint — `git log -1`. Пользователь уже разрешил commits/push в личную ветку; auth повторно не нужна. Sensitivity и SC08LOO deferred; B08 не начат.
+
+**Проверки B07:** локально **1729 passed, 0 failures/errors/skips, 77 warnings, 404.84 s**, Windows/Python 3.12.14; 147 новых cases (43 DiD +104 nuisance). CI **37385736343** completed/success на exact source a2109a6: все шесть Linux jobs (Python3.10–3.14 latest-compatible и3.10legacy) и downloaded artifacts проверены, каждый1729passed без failures/errors/skips. Snapshot UTC2026-10-05T23:02:17.8244687Z (6октябряMoscow). Full versions/JUnit — block07_ci_result.json; local raw log/selection/result — block07_integration_*. JUnit в ignored block07_integration_test_temp/junit.xml. Ровно семь named sensitivity modules исключены прежним CI runner; selected_full_suite=false и sensitivity_validated=false. Source/tests не менять после этой verification без обоснованного нового run.
+
+**Nuisance fix:** real numeric NaN/±inf отклоняются до class selection, clipping, normalization и hard-label `np.where`. Binary/multi storage также finite-check. IV получает shared helper для m/g/r, но IV own storage/refit lifecycle не переработан. Finite out-of-range warning/clip/normalization и single-class mappings сохранены. Final focused104new+87neighbors=191passed,1knownwarning,25.75s; earlier222passset94new+128neighbors был до дополнительного fallback guard, counts не складывать. Независимый reviewer обнаружил fallback gap; исправлено до integration. Initial83/81failures включают fixture/message differences; exact previous storage public-fit probe дал10missing infinityguards+5oldNaNmessages без fixture errors; fallback —6missing rejections/4finite mappings. Подробности — B07_NUISANCE_NOTES и B07_METHOD_REVIEW.
+
+**DiD fix:** universal inclpre starts0, varying starts1, post-only unchanged; остальные anticipation/eligibility/complete-pair filters сохранены. Final43newcasespassed28.23s; baseline29missing-cell failures/14passes. Earlier58neighborspassed;12new design-table assertion errors отдельно исправлены (fictitious combinedrun не заявлять). Ручные ATT/nonzeroSE/IF и post inference equality проверены. Cell IDs/event ranges/joint bands/pretests могут измениться; normalizingzero row не добавляется. Earliest B04 follow-up закрыт.
+
+**DGP:** только docstrings в multicausaldata/base.py и scenarios/multi_unconfoundedness/dgp.py. target_d_rate означает sample-X/U=0 calibration; actual latent marginal rates могут систематически отличаться. CopulaToeplitz задаёт latent Corr(Z), не observed Corr(X). Existing m/m_obs, g/cate, RNG/calibration runtime unchanged. Adaptive numeric probe и concrete additive API proposal — B07_DGP_REVIEW.md, block07_dgp_probe*. `m_marginal_<arm>` и latent-selected ATT **не реализованы**. Supplied U не задаёт distribution law автоматически; rare-arm retry/forced assignment policy требует review перед exact oracle claims.
+
+**Artifacts:** portable DOCUMENTATION_HANDOFF дополнен готовыми B07 текстами;81immutable links, verify_handoff issues0. verify_block07.py проверяет source/7exclusions/local+CIJUnit,9library paths,4doc-only AST paths,approved runtime function bodies,Python AST/local links и sensitivity guard. Actual counts — block07_validation_checks.json. Git source читается UTF-8. B06 benchmark не повторяли; B07 нового ускорения не заявляет. Standalone Sphinx/full sensitivity/release/upstream merge не выполнялись. Final audit-only push не перезапускает matrix.
+
+**После нового запроса пользователя:** рекомендуемый B08 — DGP reference contracts/finite-extreme callbacks и rare-arm sampling law, затем additive Gaussian-reference propensity API с accuracy policy. Остальные задачи: learner shape/complex/IVstorage contract, extreme finite score arithmetic, normalized custom-ATE near-boundary, duplicate policy/snapshot arrays/Sphinx gate. Features repeatedCF → groupCF → externalOOF → DR/R-CATE после correctness. Перед новым блоком проверить branch/status/local/remote equality; не повторять B06/B07 suites без новых изменений.
+
+Ниже — исторические checkpoints B00–B06.
 
 B00 завершён, checkpoint **2c26cee**. B01 завершён: SC-05 Newcombe hybrid formula и SC-10 runtime enum validation. Fix commit **`bd8a2be2dc363400a572c6d369cda887fb17aad9`**. До fix27new casesfailed; после36conversioncasespassed и31соседний RCTcasepassed. Status/commands/ограничения — `BLOCK01_RCT.md`.
 
@@ -49,7 +65,7 @@ Release runner defaultfull и **включает sensitivity**; не замен�
 
 Benchmark отдельно: baselinebf2ea87/currentd292, два последовательных fresh processes, seed731, native1. Constructor speed1.22–2.24×, IRM extraction1.37–4.14×; KDE30k×800 traced peak549.32→8.13MiB, max density difference5.88e-15. Matched IRM20k×8 fit1.24×, same folds/predictions/score/IF/ATE/SE. Tracemalloc не RSS; fit excludesconstruction/estimate. IV split fix не входит в measured operations, benchmark не повторяли. Owned candidate2.23/1.05/1.47× current extraction, audit-only без snapshot/invalidation contract.
 
-**Следующий шаг:** отдельный backlog review: earliest universal DiD pre-cell, DGP marginal propensity/supplied-U/true-ATT semantics, finite/extreme output guards, numeric/object duplicate policy, public snapshot API и dedicated Sphinx build. Feature priorities: repeated cross-fitting → group/cluster-aware cross-fitting → external OOF → DR/R-CATE. Один новый block после запроса пользователя; ничего из этого не начиналось в B06. Sensitivity и SC08LOO остаются deferred до upstream sync.
+**Исторический backlog после B06:** earliest universal DiD pre-cell и finite nuisance outputs впоследствии закрыты B07; DGP marginal/supplied-U/ATT и другие follow-ups остаются в актуальном разделе выше. Feature priorities: repeated cross-fitting → group/cluster-aware cross-fitting → external OOF → DR/R-CATE. Ничего из этого не начиналось в B06. Sensitivity и SC08LOO остаются deferred до upstream sync.
 
 Документация для пересылки готова в `DOCUMENTATION_HANDOFF.md`; дополнена B02–B06 migration и immutable implementation links. GitHub snapshot file/line links проверяются `verify_handoff.py`;70links,issues0,local-only linksнет (`handoff_validation.json`). B04 scripts `verify_block04.py` и `run_block04_integration.py` сохраняют отдельные evidence JSON/log, не переписывая исторический audit/B03 evidence. Финальная B06 artifact validation: 302local links,23PythonAST,9librarypaths,sensitivitypaths0,issues0; JSON хранит actual counts. Git source читается явно вUTF-8, executableAST benchmark paths совпадает. Нет необходимости заново выполнять полный аудит или broad benchmark.
 

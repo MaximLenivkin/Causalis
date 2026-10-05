@@ -1,5 +1,7 @@
 # Causalis: список исправлений документации для автора
 
+Дополнения по реализованным B01–B07 обновлены 6 октября 2026 (Europe/Moscow). Исходный аудит ниже относится к своему snapshot; migration sections указывают отдельные immutable implementation commits.
+
 Подготовлено: 5 октября2026. Проверенный snapshot кода: **`ffe2c356c115f335b74b2f10117e19fe15585d46`**, [репозиторий](https://github.com/causalis-causalcraft/Causalis/tree/ffe2c356c115f335b74b2f10117e19fe15585d46). Сайт: [causalis.causalcraft.com](https://causalis.causalcraft.com/). Сайт и GitHub snapshot могут принадлежать разным версиям; версии опубликованных статей пока явно не сопоставлены.
 
 Файл самостоятельный и переносимый: ниже ссылки на GitHub/сайт/первичные источники, готовые английские формулировки и критерии приёмки. Он предназначен для пересылки автору документации. **Sensitivity analysis исключён по согласованию с пользователем:** команда библиотеки уже переписывает этот модуль; его формулы/parameter labels/benchmarks нужно документировать после согласования новой реализации.
@@ -396,3 +398,39 @@ Sources: [joint labels](https://github.com/MaximLenivkin/Causalis/blob/09e00de5a
 > IIVM constructs joint instrument/treatment stratification labels with a string operation supported by NumPy 1.x and 2.x. Earlier releases could fail before nuisance fitting on NumPy 1.26 because Unicode arrays did not support the addition operator. Joint labels, class order, instrument-only fallback and seeded sample splits retain their previous meaning; the LATE score and inference formulas are unchanged.
 
 Reference: [NumPy 1.26 char.add](https://numpy.org/doc/1.26/reference/generated/numpy.char.add.html). Реальный clean legacy CI обнаружил 53 failures с одной причиной при успешном installation; этот failure нельзя скрывать за последующим canceled status workflow. Новая matrix и integration проверяются на09e00de с1582cases, а первоначальный1569pass локально относится к modernNumPy и более раннему checkpoint. Точные финальные результаты — в B06 implementation report.
+
+## B07: earliest DiD cell, finite nuisance predictions and factual DGP corrections
+
+Изменения реализованы в personal fork; выпуск сайта должен соответствовать выбранному code commit. Sensitivity остаётся вне этого handoff.
+
+### P2 — universal DiD includes the earliest defined pre-treatment contrast
+
+Sources: [support enumeration](https://github.com/MaximLenivkin/Causalis/blob/43f0b3e170f28138fb0155ee99d3680d373b5d52/causalis/data_contracts/panel_data_did.py), [estimator parameters](https://github.com/MaximLenivkin/Causalis/blob/43f0b3e170f28138fb0155ee99d3680d373b5d52/causalis/scenarios/did/model.py), [diagnostic API](https://github.com/MaximLenivkin/Causalis/blob/43f0b3e170f28138fb0155ee99d3680d373b5d52/causalis/scenarios/did/refutation/diagnostics.py), [date-pair and inference regressions](https://github.com/MaximLenivkin/Causalis/blob/43f0b3e170f28138fb0155ee99d3680d373b5d52/tests/scenarios/did/test_did_earliest_pre_period.py).
+
+> With include_pre_periods=True, a universal base compares each earlier observed period with the fixed base g - anticipation - 1, including the first analysis period. A varying base compares adjacent observed periods and therefore starts at the second analysis period. Causalis omits the universal normalizing base and targets in the anticipation window. Comparisons still require eligible controls and observed outcome pairs. With only two pre-treatment periods, the earliest universal contrast is the sole non-normalized placebo contrast.
+
+> Refit existing estimates to obtain the additional supported cells. Cell IDs and negative event-time ranges can change. Existing post-treatment point estimates, influence scores and ordinary analytic intervals are unchanged, but joint pre-tests or simultaneous bands over the expanded cell family can change. These pre-treatment contrasts are placebo diagnostics and do not establish parallel trends.
+
+Приёмка: M/2M, anticipation0/1, balanced/unbalanced, missing pairs, all three control policies и unchanged post inference. Все пять DiD diagnostic parameter lists теперь включают уже поддерживаемый `not_yet_treated`. Нормализованная zero row не добавлена; контрольная политика не расширяется этим fix. Primary reference: [official did::att_gt](https://bcallaway11.github.io/did/reference/att_gt.html). Полная численная идентичность с R-пакетом не заявляется.
+
+### P2 — invalid nuisance predictions must fail before probability repair
+
+Sources: [binary and shared IV adapter](https://github.com/MaximLenivkin/Causalis/blob/a2109a6ecd3c8422fbd4e8a7fd8d5d59334e8159/causalis/scenarios/unconfoundedness/_utils.py), [binary storage](https://github.com/MaximLenivkin/Causalis/blob/a2109a6ecd3c8422fbd4e8a7fd8d5d59334e8159/causalis/scenarios/unconfoundedness/model.py), [multiclass adapter](https://github.com/MaximLenivkin/Causalis/blob/a2109a6ecd3c8422fbd4e8a7fd8d5d59334e8159/causalis/scenarios/multi_unconfoundedness/_utils.py), [multi outcome and storage](https://github.com/MaximLenivkin/Causalis/blob/a2109a6ecd3c8422fbd4e8a7fd8d5d59334e8159/causalis/scenarios/multi_unconfoundedness/model.py), [public-fit and finite-reference regressions](https://github.com/MaximLenivkin/Causalis/blob/a2109a6ecd3c8422fbd4e8a7fd8d5d59334e8159/tests/inference/test_nuisance_prediction_contract.py).
+
+> Learners must return finite numeric nuisance predictions. NaN and positive or negative infinity raise RuntimeError before probability-column selection, hard-label fallback mapping, clipping or normalization can hide them. Binary and multi-treatment IRM also validate assembled predictions before storing them. IIVM obtains the raw-output checks through its shared binary adapter. An invalid unused probability column is rejected as part of the complete learner output.
+
+> The existing warning, clipping and normalization policy for finite out-of-range predictions is preserved. Successful finite fits retain their folds, nuisance predictions, scores and inference. These checks do not guarantee that arithmetic on arbitrarily large finite values cannot overflow. Shape, complex-output and generic refit-state policies are separate follow-ups.
+
+Приёмка: serial/threaded public fits, continuous/binary outcomes, instrument/treatment nuisances, NaN/±inf, single-class metadata fallback, complete raw matrices и independent finite sklearn adapters. IV storage lifecycle не переработан; нельзя описывать этот change как новую полную IV cache policy. Generic sensitivity state остаётся deferred.
+
+### P2 — target rates and copula correlations have distinct reference meanings
+
+Sources: [generator calibration documentation](https://github.com/MaximLenivkin/Causalis/blob/d3b67096dd847792b3b6f79b2a2d43749cab30b0/causalis/dgp/multicausaldata/base.py), [gamma/binary scenario documentation](https://github.com/MaximLenivkin/Causalis/blob/d3b67096dd847792b3b6f79b2a2d43749cab30b0/causalis/scenarios/multi_unconfoundedness/dgp.py).
+
+> target_d_rate calibrates the mean assignment probabilities at U=0 over the generated covariate sample. It does not integrate over latent treatment noise or guarantee exact population-X rates. When latent noise changes relative arm scores, the discrepancy in actual marginal arm rates can persist as sample size grows. Realized treatment shares also fluctuate by sampling. Existing m_<arm> columns remain probabilities at U=0; m_obs_<arm> remains conditional on the realized latent values.
+
+> The Gaussian copula uses a Toeplitz correlation matrix for its latent normal variables Z, with Corr(Z_i,Z_j)=0.3^|i-j|. Marginal transformations, discrete thresholds and clipping can change the Pearson correlations of the observed X variables.
+
+Это factual doc-only correction: generated observations, RNG, existing column values, calibration algorithm и public API не менялись. Example no-X target [.2,.3,.5] с latent strengths [0,2,2] даёт Gaussian-marginal rates [.299729,.262602,.437670], хотя current U=0 probabilities совпадают с target. Supplied U не задаёт автоматически новую reference law. Gaussian-marginal propensity и selection-weighted latent ATT — отдельное запланированное расширение; не описывать их как реализованные B07 функции.
+
+B07 validation: [completed CI run and per-job artifacts](https://github.com/MaximLenivkin/Causalis/actions/runs/37385736343), exact source a2109a6ecd3c8422fbd4e8a7fd8d5d59334e8159. Все шесть Linux stacks (Python3.10–3.14 latest-compatible и3.10representativelegacy) прошли1729casesкаждый, без failures/errors/skips. 147newcases входят в этот count;7sensitivitymodules явно deferred. Это selected correctness scope, не full sensitivity/release или standalone Sphinx validation.

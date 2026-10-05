@@ -1,0 +1,84 @@
+warning: in the working copy of 'audit/DOCUMENTATION_HANDOFF.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'audit/FIX_PLAN.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'audit/GIT_ACCESS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'audit/NEXT_SESSION.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'audit/PROGRESS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'audit/README.md', LF will be replaced by CRLF the next time Git touches it
+{
+  "start_commit": "c234e647e010f5d8bfb805af7ece61392e327537",
+  "tested_source_checkpoint": "a2109a6ecd3c8422fbd4e8a7fd8d5d59334e8159",
+  "python_files_parsed": 17,
+  "local_links_checked": 331,
+  "library_paths_changed": [
+    "causalis/data_contracts/panel_data_did.py",
+    "causalis/dgp/multicausaldata/base.py",
+    "causalis/scenarios/did/model.py",
+    "causalis/scenarios/did/refutation/diagnostics.py",
+    "causalis/scenarios/multi_unconfoundedness/_utils.py",
+    "causalis/scenarios/multi_unconfoundedness/dgp.py",
+    "causalis/scenarios/multi_unconfoundedness/model.py",
+    "causalis/scenarios/unconfoundedness/_utils.py",
+    "causalis/scenarios/unconfoundedness/model.py"
+  ],
+  "doc_only_runtime_verified": [
+    "causalis/scenarios/did/model.py",
+    "causalis/scenarios/did/refutation/diagnostics.py",
+    "causalis/dgp/multicausaldata/base.py",
+    "causalis/scenarios/multi_unconfoundedness/dgp.py"
+  ],
+  "runtime_function_scope_verified": [
+    "causalis/data_contracts/panel_data_did.py",
+    "causalis/scenarios/unconfoundedness/_utils.py",
+    "causalis/scenarios/unconfoundedness/model.py",
+    "causalis/scenarios/multi_unconfoundedness/_utils.py",
+    "causalis/scenarios/multi_unconfoundedness/model.py"
+  ],
+  "approved_runtime_functions": {
+    "causalis/data_contracts/panel_data_did.py": [
+      "PanelDataDID.att_gt_cells"
+    ],
+    "causalis/scenarios/unconfoundedness/_utils.py": [
+      "_predict_prob_or_value"
+    ],
+    "causalis/scenarios/unconfoundedness/model.py": [
+      "IRM._store_cross_fitted_predictions"
+    ],
+    "causalis/scenarios/multi_unconfoundedness/_utils.py": [
+      "_predict_propensity_matrix"
+    ],
+    "causalis/scenarios/multi_unconfoundedness/model.py": [
+      "MultiTreatmentIRM._cross_fit_nuisances",
+      "MultiTreatmentIRM._fit_one_outcome_nuisance",
+      "MultiTreatmentIRM._predict_binary_outcome_probability",
+      "MultiTreatmentIRM._store_cross_fitted_predictions"
+    ]
+  },
+  "sensitivity_paths_changed": [],
+  "source_changes_after_integration": "",
+  "new_cases": {
+    "test_did_earliest_pre_period": 43,
+    "test_nuisance_prediction_contract": 104
+  },
+  "total_new_cases": 147,
+  "integration": {
+    "scope": "correctness",
+    "selected_full_suite": false,
+    "collect_only": false,
+    "exit_code": 0,
+    "elapsed_seconds": 405.5263477000408,
+    "tested_source_checkpoint": "a2109a6ecd3c8422fbd4e8a7fd8d5d59334e8159",
+    "sensitivity_validated": false,
+    "tests": 1729,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 1729,
+    "warnings": 77,
+    "pytest_elapsed_seconds": 404.84,
+    "scoped_suite_clean": true,
+    "full_suite_clean": false
+  },
+  "ci_run": 37385736343,
+  "matrix_verified": true,
+  "issues": []
+}

@@ -71,3 +71,9 @@ Code commits: bb31a4b09c20046faafbbd29a541e5acbe50b99d /5e0379507bac4b6ec9f561e7
 Финальный library/tests checkpoint `09e00de5a9d3dc915c6d59627f8b0ebc875dd4e9` сохранён в личной ветке. Локально1582passed; Все шесть clean Linux jobs и artifacts прошли; каждый — 1582 cases без failures/errors/skips. Exact CI run 37373828518 использует09e00de. Commits f31b743/5977bb8/74c0ff0/d292b3c/1be6b67/50ad33e/09e00de; final documentation checkpoint — git log-1. После09e00de source/tests не меняются, толькоaudit artifacts; final audit-only push не запускает повторнуюmatrix.
 
 Credentials/remotes/branch прежние. GitHub Actions enabled/workflow access подтверждены actualrun и artifacts. Release/tag/PyPI/PR/issues/externalmessages не создавались. Remote/local equality иcleanstatus проверяются после обычного finalpush; новой authorization не требуется.
+
+## B07 checkpoint
+
+Code/doc checkpoints **43f0b3e170f28138fb0155ee99d3680d373b5d52**, **d3b67096dd847792b3b6f79b2a2d43749cab30b0**, **a2109a6ecd3c8422fbd4e8a7fd8d5d59334e8159** отправлены обычным push в origin/codex/correctness-roadmap. Последний — final source/tests checkpoint:1729localpassed и1729passed в каждом из6LinuxCIjobs; actual run37385736343/artifacts verified. После него только audit artifacts; final checkpoint определяется `git log -1`.
+
+Fork/account/author/remotes не менялись. Auth/workflow scopes действуют; повторный login/новый fork не требуются. Final audit-only push не запускает matrix, не переписывает историю и не публикует release. Remote/local equality и чистота workspace проверяются после final push. Upstream/sensitivity sync, PR/issues/external messages не выполнялись.
