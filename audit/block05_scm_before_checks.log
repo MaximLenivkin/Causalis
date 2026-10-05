@@ -1,0 +1,23 @@
+{
+  "scope": "ASCM placebo only; LOO sensitivity deferred",
+  "source_kwargs": {
+    "lambda_aug": 1000000.0,
+    "compute_average_att_ttest": false
+  },
+  "source_model_options": null,
+  "original_post_gap": 1.3314659377305926,
+  "actual_placebo_rows": {
+    "inherited": {
+      "average_post_gap": 1.371201225159669,
+      "pre_rmse": 1.934967942126784,
+      "post_rmse": 2.4425257851306084,
+      "model_options": null
+    },
+    "explicit_partial_matching": {
+      "average_post_gap": 1.3314659377305926,
+      "pre_rmse": 1.9358056794850471,
+      "post_rmse": 2.3897024662486697,
+      "model_options": null
+    }
+  }
+}

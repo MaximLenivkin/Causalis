@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import warnings
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from typing import Any, Hashable, List
 
 import numpy as np
@@ -225,6 +225,7 @@ class AugmentedSyntheticControl:
             "Model has not been fitted."
         )
         self._diagnostics: dict[str, Any] = {}
+        self._fit_model_options: dict[str, Any] = {}
         self._slsqp_fallback_count: int = 0
         self._slsqp_fallback_reasons: list[str] = []
         self._stability_warning_messages: list[str] = []
@@ -267,6 +268,17 @@ class AugmentedSyntheticControl:
             compute_average_att_ttest=bool(self.compute_average_att_ttest),
             compute_pointwise_conformal=bool(self.compute_pointwise_conformal),
         )
+
+    def _current_model_options(self) -> dict[str, Any]:
+        """Return serializable constructor options for a reproducible refit."""
+        return {
+            "lambda_aug": float(self.lambda_aug),
+            "lambda_sc": float(self.lambda_sc),
+            "max_iter": int(self.max_iter),
+            "tol": float(self.tol),
+            "enforce_sum_to_one_augmented": bool(self.enforce_sum_to_one_augmented),
+            **asdict(self._current_inference_config()),
+        }
 
     def _resolve_inference_config(
         self,
@@ -1845,6 +1857,7 @@ class AugmentedSyntheticControl:
         self._confidence_set_by_time = {}
         self._average_att_ttest = self._empty_average_att_ttest_result("Model has not been fitted.")
         self._diagnostics = {}
+        self._fit_model_options = {}
         self._slsqp_fallback_count = 0
         self._slsqp_fallback_reasons = []
         self._stability_warning_messages = []
@@ -1983,6 +1996,9 @@ class AugmentedSyntheticControl:
             average_att_ttest=average_att_ttest,
         )
         self._diagnostics = diagnostics
+        # Snapshot only a successful fit. Public attributes may subsequently
+        # change, but cached paths/inference still belong to this configuration.
+        self._fit_model_options = self._current_model_options()
 
         self._is_fitted = True
         return self
@@ -2027,6 +2043,9 @@ class AugmentedSyntheticControl:
             average ATT t-test outputs are provided in ``diagnostics`` and are
             the default formal inference layer. If pointwise conformal is not
             computed, pointwise p-values/CIs are returned as ``NaN`` placeholders.
+            ``model_options`` records all constructor-compatible fit settings
+            and the resolved inference configuration for this result, allowing
+            placebo refits to inherit the same estimator.
 
         Raises
         ------
@@ -2060,7 +2079,8 @@ class AugmentedSyntheticControl:
             for key, segments in self._confidence_set_by_time.items()
         }
         diagnostics = dict(self._diagnostics)
-        alpha_out = float(self.alpha)
+        model_options = dict(self._fit_model_options)
+        alpha_out = float(model_options["alpha"])
 
         if overrides_requested:
             if self._fit_ctx is None:
@@ -2079,10 +2099,19 @@ class AugmentedSyntheticControl:
                 compute_pointwise_conformal=compute_pointwise_conformal,
             )
             base_config = self._current_inference_config()
+            fitting_keys = (
+                "lambda_aug", "lambda_sc", "max_iter", "tol", "enforce_sum_to_one_augmented"
+            )
+            base_fitting_options = {key: getattr(self, key) for key in fitting_keys}
             base_slsqp_fallback_count = int(self._slsqp_fallback_count)
             base_slsqp_fallback_reasons = list(self._slsqp_fallback_reasons)
             base_stability_warning_messages = list(self._stability_warning_messages)
             try:
+                # Auxiliary inference includes further ASCM fits. Preserve
+                # the estimator that produced the cached path even if public
+                # constructor attributes have changed since fit().
+                for key in fitting_keys:
+                    setattr(self, key, self._fit_model_options[key])
                 self._apply_inference_config(config=config)
                 pointwise, _, diagnostics = self._compute_inference_artifacts(
                     fit_ctx=self._fit_ctx,
@@ -2091,6 +2120,8 @@ class AugmentedSyntheticControl:
                     effect_by_time=self._effect_by_time,
                 )
             finally:
+                for key, value in base_fitting_options.items():
+                    setattr(self, key, value)
                 self._apply_inference_config(config=base_config)
                 self._slsqp_fallback_count = base_slsqp_fallback_count
                 self._slsqp_fallback_reasons = list(base_slsqp_fallback_reasons)
@@ -2112,6 +2143,7 @@ class AugmentedSyntheticControl:
                 for key, segments in pointwise.confidence_set_by_time.items()
             }
             alpha_out = float(config.alpha)
+            model_options.update(asdict(config))
 
         return PanelEstimate(
             estimand="dynamic_effect_path",
@@ -2132,6 +2164,7 @@ class AugmentedSyntheticControl:
             donor_weights_augmented={
                 donor: float(weight) for donor, weight in zip(self._donors, self._w_aug)
             },
+            model_options=model_options,
             diagnostics=diagnostics,
         )
 

@@ -1,0 +1,8 @@
+...................................................................      [100%]
+============================== warnings summary ===============================
+tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_pointwise_configuration_is_inherited_and_can_be_explicitly_disabled
+  D:\codex\Causalis\causalis\scenarios\synthetic_control\model.py:1372: RuntimeWarning: Pointwise conformal confidence set touches the grid boundary; widen the grid.
+    ) = self._invert_pointwise_ci_for_post_period(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+67 passed, 1 warning in 31.10s

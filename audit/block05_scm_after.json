@@ -1,0 +1,65 @@
+{
+  "scope": "ASCM placebo only; LOO sensitivity deferred",
+  "source_kwargs": {
+    "lambda_aug": 1000000.0,
+    "compute_average_att_ttest": false
+  },
+  "source_model_options": {
+    "lambda_aug": 1000000.0,
+    "lambda_sc": 1e-06,
+    "max_iter": 2000,
+    "tol": 1e-09,
+    "enforce_sum_to_one_augmented": true,
+    "alpha": 0.05,
+    "conformal_grid_size": 401,
+    "conformal_grid_min": null,
+    "conformal_grid_max": null,
+    "conformal_grid_scale_mult": 6.0,
+    "average_att_n_folds": 3,
+    "compute_average_att_ttest": false,
+    "compute_pointwise_conformal": false
+  },
+  "original_post_gap": 1.3314659377305926,
+  "actual_placebo_rows": {
+    "inherited": {
+      "average_post_gap": 1.3314659377305926,
+      "pre_rmse": 1.9358056794850471,
+      "post_rmse": 2.3897024662486697,
+      "model_options": {
+        "lambda_sc": 1e-06,
+        "alpha": 0.05,
+        "conformal_grid_scale_mult": 6.0,
+        "compute_average_att_ttest": false,
+        "conformal_grid_size": 401,
+        "lambda_aug": 1000000.0,
+        "enforce_sum_to_one_augmented": true,
+        "tol": 1e-09,
+        "compute_pointwise_conformal": false,
+        "average_att_n_folds": 3,
+        "conformal_grid_max": null,
+        "conformal_grid_min": null,
+        "max_iter": 2000
+      }
+    },
+    "explicit_partial_matching": {
+      "average_post_gap": 1.3314659377305926,
+      "pre_rmse": 1.9358056794850471,
+      "post_rmse": 2.3897024662486697,
+      "model_options": {
+        "lambda_sc": 1e-06,
+        "alpha": 0.05,
+        "conformal_grid_scale_mult": 6.0,
+        "compute_average_att_ttest": false,
+        "conformal_grid_size": 401,
+        "lambda_aug": 1000000.0,
+        "enforce_sum_to_one_augmented": true,
+        "tol": 1e-09,
+        "compute_pointwise_conformal": false,
+        "average_att_n_folds": 3,
+        "conformal_grid_max": null,
+        "conformal_grid_min": null,
+        "max_iter": 2000
+      }
+    }
+  }
+}

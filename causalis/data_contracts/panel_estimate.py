@@ -40,6 +40,10 @@ class PanelEstimate(BaseModel):
     synthetic_outcome: pd.Series
     donor_weights_augmented: Dict[Hashable, float]
 
+    # ASCM records the constructor-compatible configuration that produced this
+    # result, including resolved estimate-time inference overrides. Empty for
+    # legacy/manual results whose fitting configuration is unknown.
+    model_options: Dict[str, Any] = Field(default_factory=dict)
     diagnostics: Dict[str, Any] = Field(default_factory=dict)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 

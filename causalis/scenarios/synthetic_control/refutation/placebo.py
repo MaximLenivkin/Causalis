@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import inspect
+from collections.abc import Mapping
 from typing import Any, Dict, Hashable
 
 import numpy as np
@@ -145,6 +147,52 @@ def _fit_placebo_estimate(
     return model.fit(placebo_panel).estimate()
 
 
+def _resolve_model_options(
+    estimate: PanelEstimate, model_kwargs: Dict[str, Any] | None
+) -> dict[str, Any]:
+    """Merge explicit overrides into the estimate's full ASCM configuration.
+
+    A legacy result cannot establish unknown fitting defaults. Require all
+    constructor options across its metadata and explicit overrides, rather
+    than quietly testing a different estimator. Unrelated result metadata is
+    ignored; unsupported explicit constructor keys are reported as errors.
+    """
+    source = estimate.model_options
+    if not isinstance(source, Mapping):
+        raise TypeError("estimate.model_options must be a mapping.")
+    if model_kwargs is not None and not isinstance(model_kwargs, Mapping):
+        raise TypeError("model_kwargs must be a mapping or None.")
+    overrides = dict(model_kwargs) if model_kwargs is not None else {}
+    supported = set(inspect.signature(ASCM).parameters)
+    unknown = set(overrides) - supported
+    if unknown:
+        raise TypeError(f"Unknown ASCM model_kwargs: {sorted(unknown, key=str)!r}.")
+    options = {key: value for key, value in source.items() if key in supported}
+    options.update(overrides)
+    missing = supported - set(options)
+    if missing:
+        raise ValueError(
+            f"Missing ASCM configuration: {sorted(missing)!r}; re-estimate with ASCM "
+            "or supply all missing constructor options in model_kwargs. "
+            "Legacy estimates do not record enough information to inherit fitting defaults."
+        )
+    # Check overrides even when the requested time window produces no rows.
+    model = ASCM(**options)
+    # Return the constructor's validated/coerced values, while table metadata
+    # separately preserves the caller's explicit inputs.
+    return {key: getattr(model, key) for key in supported}
+
+
+def _with_configuration_metadata(
+    table: pd.DataFrame,
+    options: dict[str, Any],
+    model_kwargs: Dict[str, Any] | None,
+) -> pd.DataFrame:
+    table.attrs["model_options"] = dict(options)
+    table.attrs["model_kwargs_overrides"] = dict(model_kwargs) if model_kwargs is not None else {}
+    return table
+
+
 def _extract_average_att(placebo_estimate: PanelEstimate) -> float | None:
     diagnostics = dict(placebo_estimate.diagnostics or {})
     avg = _as_finite_float(diagnostics.get("average_att_estimate"))
@@ -172,8 +220,16 @@ def placebo_in_space_table(
 
     For donor-as-treated placebo fits, the actual treated unit is excluded
     from the donor pool to avoid post-treatment contamination.
+
+    Refits inherit the complete ``estimate.model_options`` configuration.
+    ``model_kwargs`` overrides only the explicitly supplied options; omitted
+    options retain their original values. The resolved configuration and
+    explicit overrides are recorded in the returned table's ``attrs``.
+    Legacy results without complete metadata require a new ASCM estimate or
+    explicit values for all missing constructor options.
     """
     _validate_inputs(estimate, paneldata)
+    options = _resolve_model_options(estimate, model_kwargs)
 
     df = paneldata.df_analysis().copy()
     units = pd.Index(df[paneldata.unit_col].unique()).tolist()
@@ -183,7 +239,7 @@ def placebo_in_space_table(
             paneldata=paneldata,
             treated_unit=unit_id,
             treatment_start=paneldata.treatment_start,
-            model_kwargs=model_kwargs,
+            model_kwargs=options,
             excluded_units={paneldata.treated_unit} if unit_id != paneldata.treated_unit else None,
         )
         gap = unit_estimate.observed_outcome - unit_estimate.synthetic_outcome
@@ -206,17 +262,21 @@ def placebo_in_space_table(
 
     table = pd.DataFrame(rows)
     if table.empty:
-        return pd.DataFrame(
-            columns=[
-                "unit_id",
-                "pre_rmse",
-                "post_rmse",
-                "post_pre_rmspe_ratio",
-                "average_post_gap",
-                "max_abs_post_gap",
-                "rank_post_pre_rmspe_ratio",
-                "is_actual_treated",
-            ]
+        return _with_configuration_metadata(
+            pd.DataFrame(
+                columns=[
+                    "unit_id",
+                    "pre_rmse",
+                    "post_rmse",
+                    "post_pre_rmspe_ratio",
+                    "average_post_gap",
+                    "max_abs_post_gap",
+                    "rank_post_pre_rmspe_ratio",
+                    "is_actual_treated",
+                ]
+            ),
+            options,
+            model_kwargs,
         )
 
     table["rank_post_pre_rmspe_ratio"] = _rank_desc(table["post_pre_rmspe_ratio"]).astype(int)
@@ -230,8 +290,12 @@ def placebo_in_space_table(
         "rank_post_pre_rmspe_ratio",
         "is_actual_treated",
     ]
-    return table.loc[:, cols].sort_values("rank_post_pre_rmspe_ratio", kind="mergesort").reset_index(
-        drop=True
+    return _with_configuration_metadata(
+        table.loc[:, cols].sort_values("rank_post_pre_rmspe_ratio", kind="mergesort").reset_index(
+            drop=True
+        ),
+        options,
+        model_kwargs,
     )
 
 
@@ -242,8 +306,16 @@ def placebo_in_time_table(
     model_kwargs: Dict[str, Any] | None = None,
     pseudo_post_horizon: int | None = None,
 ) -> pd.DataFrame:
-    """Build pre-treatment-only placebo-in-time falsification table."""
+    """Build pre-treatment-only placebo-in-time falsification table.
+
+    Refits inherit the complete ``estimate.model_options`` configuration,
+    including estimate-time inference settings. ``model_kwargs`` overrides
+    only supplied options. Resolved settings and overrides appear in the
+    table's ``attrs``. Incomplete legacy metadata requires re-estimation or
+    explicit values for all missing constructor options.
+    """
     _validate_inputs(estimate, paneldata)
+    options = _resolve_model_options(estimate, model_kwargs)
 
     pre_times = list(paneldata.pre_times())
     post_times = list(paneldata.post_times())
@@ -266,7 +338,7 @@ def placebo_in_time_table(
             paneldata=paneldata,
             treated_unit=paneldata.treated_unit,
             treatment_start=placebo_start,
-            model_kwargs=model_kwargs,
+            model_kwargs=options,
             max_time=pseudo_post_end,
         )
         diagnostics = dict(placebo_estimate.diagnostics or {})
@@ -288,18 +360,22 @@ def placebo_in_time_table(
 
     table = pd.DataFrame(rows)
     if table.empty:
-        return pd.DataFrame(
-            columns=[
-                "placebo_treatment_start",
-                "n_pre_before_placebo",
-                "n_post_after_placebo",
-                "average_att_placebo",
-                "ci_lower",
-                "ci_upper",
-                "p_value",
-                "rejects_zero",
-                "pre_fit_metric",
-            ]
+        return _with_configuration_metadata(
+            pd.DataFrame(
+                columns=[
+                    "placebo_treatment_start",
+                    "n_pre_before_placebo",
+                    "n_post_after_placebo",
+                    "average_att_placebo",
+                    "ci_lower",
+                    "ci_upper",
+                    "p_value",
+                    "rejects_zero",
+                    "pre_fit_metric",
+                ]
+            ),
+            options,
+            model_kwargs,
         )
 
     cols = [
@@ -313,8 +389,12 @@ def placebo_in_time_table(
         "rejects_zero",
         "pre_fit_metric",
     ]
-    return table.loc[:, cols].sort_values("placebo_treatment_start", kind="mergesort").reset_index(
-        drop=True
+    return _with_configuration_metadata(
+        table.loc[:, cols].sort_values("placebo_treatment_start", kind="mergesort").reset_index(
+            drop=True
+        ),
+        options,
+        model_kwargs,
     )
 
 
@@ -325,7 +405,11 @@ def run_placebo_tests(
     model_kwargs: Dict[str, Any] | None = None,
     pseudo_post_horizon: int | None = None,
 ) -> Dict[str, pd.DataFrame]:
-    """Run placebo-in-space and placebo-in-time robustness tests."""
+    """Run placebo-in-space and placebo-in-time robustness tests.
+
+    Both tables inherit ``estimate.model_options`` and merge explicit
+    ``model_kwargs`` overrides, preserving every unspecified option.
+    """
     _validate_inputs(estimate, paneldata)
     return {
         "placebo_in_space": placebo_in_space_table(

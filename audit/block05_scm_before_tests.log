@@ -1,0 +1,811 @@
+FFFFFFFFFFFFFFFFFFFFFFFFF                                                [100%]
+================================== FAILURES ===================================
+____ test_estimate_records_complete_serializable_constructor_configuration ____
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+
+    def test_estimate_records_complete_serializable_constructor_configuration(panel):
+        estimate = _fit(panel)
+>       assert estimate.model_options == SOURCE_OPTIONS
+               ^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:117: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PanelEstimate(estimand='dynamic_effect_path', model='AugmentedSyntheticControl', treated_unit='treated', treatment_sta...nus_full_sample_gap': nan}, created_at=datetime.datetime(2026, 10, 5, 20, 5, 40, 946936, tzinfo=datetime.timezone.utc))
+item = 'model_options'
+
+    def __getattr__(self, item: str) -> Any:
+        private_attributes = object.__getattribute__(self, '__private_attributes__')
+        if item in private_attributes:
+            attribute = private_attributes[item]
+            if hasattr(attribute, '__get__'):
+                return attribute.__get__(self, type(self))  # type: ignore
+    
+            try:
+                # Note: self.__pydantic_private__ cannot be None if self.__private_attributes__ has items
+                return self.__pydantic_private__[item]  # type: ignore
+            except KeyError as exc:
+                raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}') from exc
+        else:
+            # `__pydantic_extra__` can fail to be set if the model is not yet fully initialized.
+            # See `BaseModel.__repr_args__` for more details
+            try:
+                pydantic_extra = object.__getattribute__(self, '__pydantic_extra__')
+            except AttributeError:
+                pydantic_extra = None
+    
+            if pydantic_extra and item in pydantic_extra:
+                return pydantic_extra[item]
+            else:
+                if hasattr(self.__class__, item):
+                    return super().__getattribute__(item)  # Raises AttributeError if appropriate
+                else:
+                    # this is the current error
+>                   raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+E                   AttributeError: 'PanelEstimate' object has no attribute 'model_options'
+
+.venv\Lib\site-packages\pydantic\main.py:1042: AttributeError
+_ test_actual_treated_row_matches_original_or_explicit_partial_override[None] _
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+override = None
+
+    @pytest.mark.parametrize("override", [None, {}, {"alpha": 0.2}, {"lambda_aug": 0.15}])
+    def test_actual_treated_row_matches_original_or_explicit_partial_override(panel, override):
+        estimate = _fit(panel)
+        options = {**SOURCE_OPTIONS, **(override or {})}
+        table = placebo_in_space_table(estimate, panel, model_kwargs=override)
+        direct = _fit(panel, options)
+>       _assert_space_row(table.loc[table.is_actual_treated].iloc[0], direct)
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:130: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+row = unit_id                       treated
+pre_rmse                     1.934968
+post_rmse                    2.442526
+post...            4.221384
+rank_post_pre_rmspe_ratio           3
+is_actual_treated                True
+Name: 2, dtype: object
+direct = PanelEstimate(estimand='dynamic_effect_path', model='AugmentedSyntheticControl', treated_unit='treated', treatment_sta...nus_full_sample_gap': nan}, created_at=datetime.datetime(2026, 10, 5, 20, 5, 42, 265140, tzinfo=datetime.timezone.utc))
+
+    def _assert_space_row(row, direct):
+        gap = direct.observed_outcome - direct.synthetic_outcome
+        pre = gap.loc[list(direct.pre_times)].to_numpy()
+        post = gap.loc[list(direct.post_times)].to_numpy()
+        expected = [
+            np.sqrt(np.mean(pre**2)),
+            np.sqrt(np.mean(post**2)),
+            np.mean(post),
+            np.max(np.abs(post)),
+        ]
+        actual = row[["pre_rmse", "post_rmse", "average_post_gap", "max_abs_post_gap"]]
+>       np.testing.assert_allclose(actual.to_numpy(dtype=float), expected, rtol=1e-10, atol=1e-10)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-10, atol=1e-10
+E       
+E       Mismatched elements: 4 / 4 (100%)
+E       Mismatch at indices:
+E        [0]: 1.934967942126784 (ACTUAL), 1.934512471240653 (DESIRED)
+E        [1]: 2.4425257851306084 (ACTUAL), 2.392701092874284 (DESIRED)
+E        [2]: 1.371201225159669 (ACTUAL), 1.3361810017904225 (DESIRED)
+E        [3]: 4.221384120998334 (ACTUAL), 4.135074580047803 (DESIRED)
+E       Max absolute difference among violations: 0.08630954
+E       Max relative difference among violations: 0.02620919
+E        ACTUAL: array([1.934968, 2.442526, 1.371201, 4.221384])
+E        DESIRED: array([1.934512, 2.392701, 1.336181, 4.135075])
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:84: AssertionError
+_ test_actual_treated_row_matches_original_or_explicit_partial_override[override1] _
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+override = {}
+
+    @pytest.mark.parametrize("override", [None, {}, {"alpha": 0.2}, {"lambda_aug": 0.15}])
+    def test_actual_treated_row_matches_original_or_explicit_partial_override(panel, override):
+        estimate = _fit(panel)
+        options = {**SOURCE_OPTIONS, **(override or {})}
+        table = placebo_in_space_table(estimate, panel, model_kwargs=override)
+        direct = _fit(panel, options)
+>       _assert_space_row(table.loc[table.is_actual_treated].iloc[0], direct)
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:130: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+row = unit_id                       treated
+pre_rmse                     1.934968
+post_rmse                    2.442526
+post...            4.221384
+rank_post_pre_rmspe_ratio           3
+is_actual_treated                True
+Name: 2, dtype: object
+direct = PanelEstimate(estimand='dynamic_effect_path', model='AugmentedSyntheticControl', treated_unit='treated', treatment_sta...nus_full_sample_gap': nan}, created_at=datetime.datetime(2026, 10, 5, 20, 5, 42, 695893, tzinfo=datetime.timezone.utc))
+
+    def _assert_space_row(row, direct):
+        gap = direct.observed_outcome - direct.synthetic_outcome
+        pre = gap.loc[list(direct.pre_times)].to_numpy()
+        post = gap.loc[list(direct.post_times)].to_numpy()
+        expected = [
+            np.sqrt(np.mean(pre**2)),
+            np.sqrt(np.mean(post**2)),
+            np.mean(post),
+            np.max(np.abs(post)),
+        ]
+        actual = row[["pre_rmse", "post_rmse", "average_post_gap", "max_abs_post_gap"]]
+>       np.testing.assert_allclose(actual.to_numpy(dtype=float), expected, rtol=1e-10, atol=1e-10)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-10, atol=1e-10
+E       
+E       Mismatched elements: 4 / 4 (100%)
+E       Mismatch at indices:
+E        [0]: 1.934967942126784 (ACTUAL), 1.934512471240653 (DESIRED)
+E        [1]: 2.4425257851306084 (ACTUAL), 2.392701092874284 (DESIRED)
+E        [2]: 1.371201225159669 (ACTUAL), 1.3361810017904225 (DESIRED)
+E        [3]: 4.221384120998334 (ACTUAL), 4.135074580047803 (DESIRED)
+E       Max absolute difference among violations: 0.08630954
+E       Max relative difference among violations: 0.02620919
+E        ACTUAL: array([1.934968, 2.442526, 1.371201, 4.221384])
+E        DESIRED: array([1.934512, 2.392701, 1.336181, 4.135075])
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:84: AssertionError
+_ test_actual_treated_row_matches_original_or_explicit_partial_override[override2] _
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+override = {'alpha': 0.2}
+
+    @pytest.mark.parametrize("override", [None, {}, {"alpha": 0.2}, {"lambda_aug": 0.15}])
+    def test_actual_treated_row_matches_original_or_explicit_partial_override(panel, override):
+        estimate = _fit(panel)
+        options = {**SOURCE_OPTIONS, **(override or {})}
+        table = placebo_in_space_table(estimate, panel, model_kwargs=override)
+        direct = _fit(panel, options)
+>       _assert_space_row(table.loc[table.is_actual_treated].iloc[0], direct)
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:130: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+row = unit_id                       treated
+pre_rmse                     1.934968
+post_rmse                    2.442526
+post...            4.221384
+rank_post_pre_rmspe_ratio           3
+is_actual_treated                True
+Name: 2, dtype: object
+direct = PanelEstimate(estimand='dynamic_effect_path', model='AugmentedSyntheticControl', treated_unit='treated', treatment_sta...inus_full_sample_gap': nan}, created_at=datetime.datetime(2026, 10, 5, 20, 5, 43, 94465, tzinfo=datetime.timezone.utc))
+
+    def _assert_space_row(row, direct):
+        gap = direct.observed_outcome - direct.synthetic_outcome
+        pre = gap.loc[list(direct.pre_times)].to_numpy()
+        post = gap.loc[list(direct.post_times)].to_numpy()
+        expected = [
+            np.sqrt(np.mean(pre**2)),
+            np.sqrt(np.mean(post**2)),
+            np.mean(post),
+            np.max(np.abs(post)),
+        ]
+        actual = row[["pre_rmse", "post_rmse", "average_post_gap", "max_abs_post_gap"]]
+>       np.testing.assert_allclose(actual.to_numpy(dtype=float), expected, rtol=1e-10, atol=1e-10)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-10, atol=1e-10
+E       
+E       Mismatched elements: 4 / 4 (100%)
+E       Mismatch at indices:
+E        [0]: 1.934967942126784 (ACTUAL), 1.934512471240653 (DESIRED)
+E        [1]: 2.4425257851306084 (ACTUAL), 2.392701092874284 (DESIRED)
+E        [2]: 1.371201225159669 (ACTUAL), 1.3361810017904225 (DESIRED)
+E        [3]: 4.221384120998334 (ACTUAL), 4.135074580047803 (DESIRED)
+E       Max absolute difference among violations: 0.08630954
+E       Max relative difference among violations: 0.02620919
+E        ACTUAL: array([1.934968, 2.442526, 1.371201, 4.221384])
+E        DESIRED: array([1.934512, 2.392701, 1.336181, 4.135075])
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:84: AssertionError
+_ test_actual_treated_row_matches_original_or_explicit_partial_override[override3] _
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+override = {'lambda_aug': 0.15}
+
+    @pytest.mark.parametrize("override", [None, {}, {"alpha": 0.2}, {"lambda_aug": 0.15}])
+    def test_actual_treated_row_matches_original_or_explicit_partial_override(panel, override):
+        estimate = _fit(panel)
+        options = {**SOURCE_OPTIONS, **(override or {})}
+        table = placebo_in_space_table(estimate, panel, model_kwargs=override)
+        direct = _fit(panel, options)
+>       _assert_space_row(table.loc[table.is_actual_treated].iloc[0], direct)
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:130: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+row = unit_id                       treated
+pre_rmse                     1.934968
+post_rmse                    2.442694
+post...            4.221678
+rank_post_pre_rmspe_ratio           3
+is_actual_treated                True
+Name: 2, dtype: object
+direct = PanelEstimate(estimand='dynamic_effect_path', model='AugmentedSyntheticControl', treated_unit='treated', treatment_sta...nus_full_sample_gap': nan}, created_at=datetime.datetime(2026, 10, 5, 20, 5, 43, 641879, tzinfo=datetime.timezone.utc))
+
+    def _assert_space_row(row, direct):
+        gap = direct.observed_outcome - direct.synthetic_outcome
+        pre = gap.loc[list(direct.pre_times)].to_numpy()
+        post = gap.loc[list(direct.post_times)].to_numpy()
+        expected = [
+            np.sqrt(np.mean(pre**2)),
+            np.sqrt(np.mean(post**2)),
+            np.mean(post),
+            np.max(np.abs(post)),
+        ]
+        actual = row[["pre_rmse", "post_rmse", "average_post_gap", "max_abs_post_gap"]]
+>       np.testing.assert_allclose(actual.to_numpy(dtype=float), expected, rtol=1e-10, atol=1e-10)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-10, atol=1e-10
+E       
+E       Mismatched elements: 4 / 4 (100%)
+E       Mismatch at indices:
+E        [0]: 1.9349679284055383 (ACTUAL), 1.2371122428912888 (DESIRED)
+E        [1]: 2.4426937657860237 (ACTUAL), 3.422833084434763 (DESIRED)
+E        [2]: 1.371321648035727 (ACTUAL), 3.3745627238961475 (DESIRED)
+E        [3]: 4.221678104211872 (ACTUAL), 4.1709058526039815 (DESIRED)
+E       Max absolute difference among violations: 2.00324108
+E       Max relative difference among violations: 0.59362982
+E        ACTUAL: array([1.934968, 2.442694, 1.371322, 4.221678])
+E        DESIRED: array([1.237112, 3.422833, 3.374563, 4.170906])
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:84: AssertionError
+_ test_donor_placebo_preserves_configuration_and_excludes_actual_treated[False] _
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+enforce = False
+
+    @pytest.mark.parametrize("enforce", [False, True])
+    def test_donor_placebo_preserves_configuration_and_excludes_actual_treated(panel, enforce):
+        options = {**SOURCE_OPTIONS, "enforce_sum_to_one_augmented": enforce}
+        estimate = _fit(panel, options)
+        table = placebo_in_space_table(estimate, panel)
+        donor = panel.donor_pool()[0]
+        independent_panel = _manual_panel(panel, donor)
+        direct = _fit(independent_panel, options)
+        assert panel.treated_unit not in direct.donor_weights_augmented
+>       _assert_space_row(table.loc[table.unit_id == donor].iloc[0], direct)
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:144: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+row = unit_id                       donor_1
+pre_rmse                     3.482704
+post_rmse                    6.971686
+post...            9.580869
+rank_post_pre_rmspe_ratio           1
+is_actual_treated               False
+Name: 0, dtype: object
+direct = PanelEstimate(estimand='dynamic_effect_path', model='AugmentedSyntheticControl', treated_unit='donor_1', treatment_sta...nus_full_sample_gap': nan}, created_at=datetime.datetime(2026, 10, 5, 20, 5, 44, 223944, tzinfo=datetime.timezone.utc))
+
+    def _assert_space_row(row, direct):
+        gap = direct.observed_outcome - direct.synthetic_outcome
+        pre = gap.loc[list(direct.pre_times)].to_numpy()
+        post = gap.loc[list(direct.post_times)].to_numpy()
+        expected = [
+            np.sqrt(np.mean(pre**2)),
+            np.sqrt(np.mean(post**2)),
+            np.mean(post),
+            np.max(np.abs(post)),
+        ]
+        actual = row[["pre_rmse", "post_rmse", "average_post_gap", "max_abs_post_gap"]]
+>       np.testing.assert_allclose(actual.to_numpy(dtype=float), expected, rtol=1e-10, atol=1e-10)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-10, atol=1e-10
+E       
+E       Mismatched elements: 4 / 4 (100%)
+E       Mismatch at indices:
+E        [0]: 3.4827044478541858 (ACTUAL), 3.4811432261476054 (DESIRED)
+E        [1]: 6.9716859283491734 (ACTUAL), 6.9669784701975415 (DESIRED)
+E        [2]: -4.190775057968289 (ACTUAL), -4.184225662120338 (DESIRED)
+E        [3]: 9.580868945091053 (ACTUAL), 9.573979895559559 (DESIRED)
+E       Max absolute difference among violations: 0.00688905
+E       Max relative difference among violations: 0.00156526
+E        ACTUAL: array([ 3.482704,  6.971686, -4.190775,  9.580869])
+E        DESIRED: array([ 3.481143,  6.966978, -4.184226,  9.57398 ])
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:84: AssertionError
+_ test_donor_placebo_preserves_configuration_and_excludes_actual_treated[True] _
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+enforce = True
+
+    @pytest.mark.parametrize("enforce", [False, True])
+    def test_donor_placebo_preserves_configuration_and_excludes_actual_treated(panel, enforce):
+        options = {**SOURCE_OPTIONS, "enforce_sum_to_one_augmented": enforce}
+        estimate = _fit(panel, options)
+        table = placebo_in_space_table(estimate, panel)
+        donor = panel.donor_pool()[0]
+        independent_panel = _manual_panel(panel, donor)
+        direct = _fit(independent_panel, options)
+        assert panel.treated_unit not in direct.donor_weights_augmented
+>       _assert_space_row(table.loc[table.unit_id == donor].iloc[0], direct)
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:144: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+row = unit_id                       donor_1
+pre_rmse                     3.482704
+post_rmse                    6.971686
+post...            9.580869
+rank_post_pre_rmspe_ratio           1
+is_actual_treated               False
+Name: 0, dtype: object
+direct = PanelEstimate(estimand='dynamic_effect_path', model='AugmentedSyntheticControl', treated_unit='donor_1', treatment_sta...nus_full_sample_gap': nan}, created_at=datetime.datetime(2026, 10, 5, 20, 5, 44, 687700, tzinfo=datetime.timezone.utc))
+
+    def _assert_space_row(row, direct):
+        gap = direct.observed_outcome - direct.synthetic_outcome
+        pre = gap.loc[list(direct.pre_times)].to_numpy()
+        post = gap.loc[list(direct.post_times)].to_numpy()
+        expected = [
+            np.sqrt(np.mean(pre**2)),
+            np.sqrt(np.mean(post**2)),
+            np.mean(post),
+            np.max(np.abs(post)),
+        ]
+        actual = row[["pre_rmse", "post_rmse", "average_post_gap", "max_abs_post_gap"]]
+>       np.testing.assert_allclose(actual.to_numpy(dtype=float), expected, rtol=1e-10, atol=1e-10)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-10, atol=1e-10
+E       
+E       Mismatched elements: 4 / 4 (100%)
+E       Mismatch at indices:
+E        [0]: 3.4827044478541858 (ACTUAL), 3.482704463661083 (DESIRED)
+E        [1]: 6.9716859283491734 (ACTUAL), 6.971716319352905 (DESIRED)
+E        [2]: -4.190775057968289 (ACTUAL), -4.190906272032808 (DESIRED)
+E        [3]: 9.580868945091053 (ACTUAL), 9.58072781456285 (DESIRED)
+E       Max absolute difference among violations: 0.00014113
+E       Max relative difference among violations: 3.13092339e-05
+E        ACTUAL: array([ 3.482704,  6.971686, -4.190775,  9.580869])
+E        DESIRED: array([ 3.482704,  6.971716, -4.190906,  9.580728])
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:84: AssertionError
+_____ test_time_placebo_inherits_per_estimate_inference_overrides[False] ______
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+enabled = False
+
+    @pytest.mark.parametrize("enabled", [False, True])
+    def test_time_placebo_inherits_per_estimate_inference_overrides(panel, enabled):
+        model = ASCM(**SOURCE_OPTIONS).fit(panel)
+        overrides = {
+            "alpha": 0.18,
+            "average_att_n_folds": 4,
+            "compute_average_att_ttest": enabled,
+            "conformal_grid_size": 11,
+            "conformal_grid_min": -5.0,
+            "conformal_grid_max": 5.0,
+            "conformal_grid_scale_mult": 3.0,
+        }
+        estimate = model.estimate(**overrides)
+        options = {**SOURCE_OPTIONS, **overrides}
+        table = placebo_in_time_table(estimate, panel)
+>       _assert_time_rows(table, panel, options)
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:162: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =   placebo_treatment_start  n_pre_before_placebo  ...  rejects_zero  pre_fit_metric
+0                 2000-03          ...      2.460270
+5                 2000-08                     7  ...         False        2.291516
+
+[6 rows x 9 columns]
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+options = {'lambda_aug': 1000000.0, 'lambda_sc': 0.03, 'max_iter': 500, 'tol': 1e-08, ...}
+
+    def _assert_time_rows(table, panel, options):
+        assert not table.empty
+        pre = list(panel.pre_times())
+        for row in table.itertuples(index=False):
+            start = row.placebo_treatment_start
+            end = pre[pre.index(start) + row.n_post_after_placebo - 1]
+            direct = _fit(_manual_panel(panel, panel.treated_unit, start=start, end=end), options)
+            diagnostics = direct.diagnostics
+            avg = diagnostics["average_att_estimate"]
+            if not np.isfinite(avg):
+                avg = float(direct.effect_by_time.mean())
+>           assert row.average_att_placebo == pytest.approx(avg, rel=1e-10, abs=1e-10)
+E           assert 8.13101160171823 == 1.7107391786021022 � 1.7e-10
+E             
+E             comparison failed
+E             Obtained: 8.13101160171823
+E             Expected: 1.7107391786021022 � 1.7e-10
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:98: AssertionError
+______ test_time_placebo_inherits_per_estimate_inference_overrides[True] ______
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+enabled = True
+
+    @pytest.mark.parametrize("enabled", [False, True])
+    def test_time_placebo_inherits_per_estimate_inference_overrides(panel, enabled):
+        model = ASCM(**SOURCE_OPTIONS).fit(panel)
+        overrides = {
+            "alpha": 0.18,
+            "average_att_n_folds": 4,
+            "compute_average_att_ttest": enabled,
+            "conformal_grid_size": 11,
+            "conformal_grid_min": -5.0,
+            "conformal_grid_max": 5.0,
+            "conformal_grid_scale_mult": 3.0,
+        }
+        estimate = model.estimate(**overrides)
+        options = {**SOURCE_OPTIONS, **overrides}
+        table = placebo_in_time_table(estimate, panel)
+>       _assert_time_rows(table, panel, options)
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:162: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =   placebo_treatment_start  n_pre_before_placebo  ...  rejects_zero  pre_fit_metric
+0                 2000-03          ...      2.460270
+5                 2000-08                     7  ...         False        2.291516
+
+[6 rows x 9 columns]
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+options = {'lambda_aug': 1000000.0, 'lambda_sc': 0.03, 'max_iter': 500, 'tol': 1e-08, ...}
+
+    def _assert_time_rows(table, panel, options):
+        assert not table.empty
+        pre = list(panel.pre_times())
+        for row in table.itertuples(index=False):
+            start = row.placebo_treatment_start
+            end = pre[pre.index(start) + row.n_post_after_placebo - 1]
+            direct = _fit(_manual_panel(panel, panel.treated_unit, start=start, end=end), options)
+            diagnostics = direct.diagnostics
+            avg = diagnostics["average_att_estimate"]
+            if not np.isfinite(avg):
+                avg = float(direct.effect_by_time.mean())
+>           assert row.average_att_placebo == pytest.approx(avg, rel=1e-10, abs=1e-10)
+E           assert 8.13101160171823 == 7.323810980967749 � 7.3e-10
+E             
+E             comparison failed
+E             Obtained: 8.13101160171823
+E             Expected: 7.323810980967749 � 7.3e-10
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:98: AssertionError
+__ test_time_placebo_partial_override_and_runner_preserve_all_other_options ___
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+
+    def test_time_placebo_partial_override_and_runner_preserve_all_other_options(panel):
+        estimate = _fit(panel)
+        overrides = {"compute_average_att_ttest": True, "alpha": 0.2}
+        options = {**SOURCE_OPTIONS, **overrides}
+        result = run_placebo_tests(estimate, panel, model_kwargs=overrides)
+>       _assert_time_rows(result["placebo_in_time"], panel, options)
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:173: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =   placebo_treatment_start  n_pre_before_placebo  ...  rejects_zero  pre_fit_metric
+0                 2000-03          ...      2.460270
+5                 2000-08                     7  ...         False        2.291516
+
+[6 rows x 9 columns]
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+options = {'lambda_aug': 1000000.0, 'lambda_sc': 0.03, 'max_iter': 500, 'tol': 1e-08, ...}
+
+    def _assert_time_rows(table, panel, options):
+        assert not table.empty
+        pre = list(panel.pre_times())
+        for row in table.itertuples(index=False):
+            start = row.placebo_treatment_start
+            end = pre[pre.index(start) + row.n_post_after_placebo - 1]
+            direct = _fit(_manual_panel(panel, panel.treated_unit, start=start, end=end), options)
+            diagnostics = direct.diagnostics
+            avg = diagnostics["average_att_estimate"]
+            if not np.isfinite(avg):
+                avg = float(direct.effect_by_time.mean())
+>           assert row.average_att_placebo == pytest.approx(avg, rel=1e-10, abs=1e-10)
+E           assert 8.13101160171823 == 7.323810980967749 � 7.3e-10
+E             
+E             comparison failed
+E             Obtained: 8.13101160171823
+E             Expected: 7.323810980967749 � 7.3e-10
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:98: AssertionError
+__ test_fit_configuration_is_snapshotted_and_estimates_do_not_share_options ___
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+
+    def test_fit_configuration_is_snapshotted_and_estimates_do_not_share_options(panel):
+        model = ASCM(**SOURCE_OPTIONS).fit(panel)
+        first = model.estimate()
+        model.lambda_aug = 2.0
+>       first.model_options["lambda_aug"] = 123.0
+        ^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:183: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PanelEstimate(estimand='dynamic_effect_path', model='AugmentedSyntheticControl', treated_unit='treated', treatment_sta...inus_full_sample_gap': nan}, created_at=datetime.datetime(2026, 10, 5, 20, 5, 47, 13087, tzinfo=datetime.timezone.utc))
+item = 'model_options'
+
+    def __getattr__(self, item: str) -> Any:
+        private_attributes = object.__getattribute__(self, '__private_attributes__')
+        if item in private_attributes:
+            attribute = private_attributes[item]
+            if hasattr(attribute, '__get__'):
+                return attribute.__get__(self, type(self))  # type: ignore
+    
+            try:
+                # Note: self.__pydantic_private__ cannot be None if self.__private_attributes__ has items
+                return self.__pydantic_private__[item]  # type: ignore
+            except KeyError as exc:
+                raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}') from exc
+        else:
+            # `__pydantic_extra__` can fail to be set if the model is not yet fully initialized.
+            # See `BaseModel.__repr_args__` for more details
+            try:
+                pydantic_extra = object.__getattribute__(self, '__pydantic_extra__')
+            except AttributeError:
+                pydantic_extra = None
+    
+            if pydantic_extra and item in pydantic_extra:
+                return pydantic_extra[item]
+            else:
+                if hasattr(self.__class__, item):
+                    return super().__getattribute__(item)  # Raises AttributeError if appropriate
+                else:
+                    # this is the current error
+>                   raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+E                   AttributeError: 'PanelEstimate' object has no attribute 'model_options'
+
+.venv\Lib\site-packages\pydantic\main.py:1042: AttributeError
+_ test_legacy_or_partial_configuration_requires_complete_explicit_replacement[metadata0-placebo_in_space_table] _
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+function = <function placebo_in_space_table at 0x0000020B319BE480>
+metadata = {}
+
+    @pytest.mark.parametrize("function", [placebo_in_space_table, placebo_in_time_table, run_placebo_tests])
+    @pytest.mark.parametrize("metadata", [{}, {"lambda_aug": 1e6}])
+    def test_legacy_or_partial_configuration_requires_complete_explicit_replacement(panel, function, metadata):
+        legacy = _fit(panel).model_copy(update={"model_options": metadata})
+>       with pytest.raises(ValueError, match="Missing ASCM configuration.*re-estimate.*model_kwargs"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:194: Failed
+_ test_legacy_or_partial_configuration_requires_complete_explicit_replacement[metadata0-placebo_in_time_table] _
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+function = <function placebo_in_time_table at 0x0000020B319BE520>, metadata = {}
+
+    @pytest.mark.parametrize("function", [placebo_in_space_table, placebo_in_time_table, run_placebo_tests])
+    @pytest.mark.parametrize("metadata", [{}, {"lambda_aug": 1e6}])
+    def test_legacy_or_partial_configuration_requires_complete_explicit_replacement(panel, function, metadata):
+        legacy = _fit(panel).model_copy(update={"model_options": metadata})
+>       with pytest.raises(ValueError, match="Missing ASCM configuration.*re-estimate.*model_kwargs"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:194: Failed
+_ test_legacy_or_partial_configuration_requires_complete_explicit_replacement[metadata0-run_placebo_tests] _
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+function = <function run_placebo_tests at 0x0000020B319BE5C0>, metadata = {}
+
+    @pytest.mark.parametrize("function", [placebo_in_space_table, placebo_in_time_table, run_placebo_tests])
+    @pytest.mark.parametrize("metadata", [{}, {"lambda_aug": 1e6}])
+    def test_legacy_or_partial_configuration_requires_complete_explicit_replacement(panel, function, metadata):
+        legacy = _fit(panel).model_copy(update={"model_options": metadata})
+>       with pytest.raises(ValueError, match="Missing ASCM configuration.*re-estimate.*model_kwargs"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:194: Failed
+_ test_legacy_or_partial_configuration_requires_complete_explicit_replacement[metadata1-placebo_in_space_table] _
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+function = <function placebo_in_space_table at 0x0000020B319BE480>
+metadata = {'lambda_aug': 1000000.0}
+
+    @pytest.mark.parametrize("function", [placebo_in_space_table, placebo_in_time_table, run_placebo_tests])
+    @pytest.mark.parametrize("metadata", [{}, {"lambda_aug": 1e6}])
+    def test_legacy_or_partial_configuration_requires_complete_explicit_replacement(panel, function, metadata):
+        legacy = _fit(panel).model_copy(update={"model_options": metadata})
+>       with pytest.raises(ValueError, match="Missing ASCM configuration.*re-estimate.*model_kwargs"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:194: Failed
+_ test_legacy_or_partial_configuration_requires_complete_explicit_replacement[metadata1-placebo_in_time_table] _
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+function = <function placebo_in_time_table at 0x0000020B319BE520>
+metadata = {'lambda_aug': 1000000.0}
+
+    @pytest.mark.parametrize("function", [placebo_in_space_table, placebo_in_time_table, run_placebo_tests])
+    @pytest.mark.parametrize("metadata", [{}, {"lambda_aug": 1e6}])
+    def test_legacy_or_partial_configuration_requires_complete_explicit_replacement(panel, function, metadata):
+        legacy = _fit(panel).model_copy(update={"model_options": metadata})
+>       with pytest.raises(ValueError, match="Missing ASCM configuration.*re-estimate.*model_kwargs"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:194: Failed
+_ test_legacy_or_partial_configuration_requires_complete_explicit_replacement[metadata1-run_placebo_tests] _
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+function = <function run_placebo_tests at 0x0000020B319BE5C0>
+metadata = {'lambda_aug': 1000000.0}
+
+    @pytest.mark.parametrize("function", [placebo_in_space_table, placebo_in_time_table, run_placebo_tests])
+    @pytest.mark.parametrize("metadata", [{}, {"lambda_aug": 1e6}])
+    def test_legacy_or_partial_configuration_requires_complete_explicit_replacement(panel, function, metadata):
+        legacy = _fit(panel).model_copy(update={"model_options": metadata})
+>       with pytest.raises(ValueError, match="Missing ASCM configuration.*re-estimate.*model_kwargs"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:194: Failed
+_ test_legacy_configuration_can_be_restored_with_full_explicit_kwargs[placebo_in_space_table] _
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+function = <function placebo_in_space_table at 0x0000020B319BE480>
+
+    @pytest.mark.parametrize("function", [placebo_in_space_table, placebo_in_time_table])
+    def test_legacy_configuration_can_be_restored_with_full_explicit_kwargs(panel, function):
+        legacy = _fit(panel).model_copy(update={"model_options": {}})
+        table = function(legacy, panel, model_kwargs=SOURCE_OPTIONS)
+>       assert table.attrs["model_options"] == SOURCE_OPTIONS
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'model_options'
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:202: KeyError
+_ test_legacy_configuration_can_be_restored_with_full_explicit_kwargs[placebo_in_time_table] _
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+function = <function placebo_in_time_table at 0x0000020B319BE520>
+
+    @pytest.mark.parametrize("function", [placebo_in_space_table, placebo_in_time_table])
+    def test_legacy_configuration_can_be_restored_with_full_explicit_kwargs(panel, function):
+        legacy = _fit(panel).model_copy(update={"model_options": {}})
+        table = function(legacy, panel, model_kwargs=SOURCE_OPTIONS)
+>       assert table.attrs["model_options"] == SOURCE_OPTIONS
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'model_options'
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:202: KeyError
+_________ test_unrelated_metadata_is_ignored_without_mutating_inputs __________
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+
+    def test_unrelated_metadata_is_ignored_without_mutating_inputs(panel):
+        estimate = _fit(panel)
+>       estimate.model_options["release_metadata"] = {"version": "future"}
+        ^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:211: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = PanelEstimate(estimand='dynamic_effect_path', model='AugmentedSyntheticControl', treated_unit='treated', treatment_sta...nus_full_sample_gap': nan}, created_at=datetime.datetime(2026, 10, 5, 20, 5, 51, 377777, tzinfo=datetime.timezone.utc))
+item = 'model_options'
+
+    def __getattr__(self, item: str) -> Any:
+        private_attributes = object.__getattribute__(self, '__private_attributes__')
+        if item in private_attributes:
+            attribute = private_attributes[item]
+            if hasattr(attribute, '__get__'):
+                return attribute.__get__(self, type(self))  # type: ignore
+    
+            try:
+                # Note: self.__pydantic_private__ cannot be None if self.__private_attributes__ has items
+                return self.__pydantic_private__[item]  # type: ignore
+            except KeyError as exc:
+                raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}') from exc
+        else:
+            # `__pydantic_extra__` can fail to be set if the model is not yet fully initialized.
+            # See `BaseModel.__repr_args__` for more details
+            try:
+                pydantic_extra = object.__getattribute__(self, '__pydantic_extra__')
+            except AttributeError:
+                pydantic_extra = None
+    
+            if pydantic_extra and item in pydantic_extra:
+                return pydantic_extra[item]
+            else:
+                if hasattr(self.__class__, item):
+                    return super().__getattribute__(item)  # Raises AttributeError if appropriate
+                else:
+                    # this is the current error
+>                   raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+E                   AttributeError: 'PanelEstimate' object has no attribute 'model_options'
+
+.venv\Lib\site-packages\pydantic\main.py:1042: AttributeError
+_____ test_invalid_explicit_configuration_type_has_clear_error[invalid0] ______
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+invalid = []
+
+    @pytest.mark.parametrize("invalid", [[], "lambda_aug", 1])
+    def test_invalid_explicit_configuration_type_has_clear_error(panel, invalid):
+>       with pytest.raises(TypeError, match="model_kwargs must be a mapping"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE TypeError
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:227: Failed
+____ test_invalid_explicit_configuration_type_has_clear_error[lambda_aug] _____
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+invalid = 'lambda_aug'
+
+    @pytest.mark.parametrize("invalid", [[], "lambda_aug", 1])
+    def test_invalid_explicit_configuration_type_has_clear_error(panel, invalid):
+>       with pytest.raises(TypeError, match="model_kwargs must be a mapping"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'model_kwargs must be a mapping'
+E         Actual message: 'causalis.scenarios.synthetic_control.model.AugmentedSyntheticControl() argument after ** must be a mapping, not str'
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:227: AssertionError
+_________ test_invalid_explicit_configuration_type_has_clear_error[1] _________
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+invalid = 1
+
+    @pytest.mark.parametrize("invalid", [[], "lambda_aug", 1])
+    def test_invalid_explicit_configuration_type_has_clear_error(panel, invalid):
+>       with pytest.raises(TypeError, match="model_kwargs must be a mapping"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'model_kwargs must be a mapping'
+E         Actual message: 'causalis.scenarios.synthetic_control.model.AugmentedSyntheticControl() argument after ** must be a mapping, not int'
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:227: AssertionError
+_________________ test_unknown_explicit_override_is_rejected __________________
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+
+    def test_unknown_explicit_override_is_rejected(panel):
+>       with pytest.raises(TypeError, match="Unknown ASCM model_kwargs.*lambda_aug_typo"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'Unknown ASCM model_kwargs.*lambda_aug_typo'
+E         Actual message: "AugmentedSyntheticControl.__init__() got an unexpected keyword argument 'lambda_aug_typo'"
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:232: AssertionError
+___________ test_invalid_legacy_configuration_type_has_clear_error ____________
+
+panel = PanelDataSCM(df=(52, 4), y='y', unit_col='unit_id', time_col='calendar_time', treated_time='treated_time', time_freq='..._post_period=Period('2001-01', 'M'), n_pre_periods=10, n_post_periods=3, donor_units=['donor_1', 'donor_2', 'donor_3'])
+
+    def test_invalid_legacy_configuration_type_has_clear_error(panel):
+        estimate = _fit(panel).model_copy(update={"model_options": [1.0]})
+>       with pytest.raises(TypeError, match="estimate.model_options must be a mapping"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE TypeError
+
+tests\scenarios\synthetic_control\refutation\test_placebo_config_inheritance.py:238: Failed
+=========================== short test summary info ===========================
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_estimate_records_complete_serializable_constructor_configuration
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_actual_treated_row_matches_original_or_explicit_partial_override[None]
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_actual_treated_row_matches_original_or_explicit_partial_override[override1]
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_actual_treated_row_matches_original_or_explicit_partial_override[override2]
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_actual_treated_row_matches_original_or_explicit_partial_override[override3]
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_donor_placebo_preserves_configuration_and_excludes_actual_treated[False]
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_donor_placebo_preserves_configuration_and_excludes_actual_treated[True]
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_time_placebo_inherits_per_estimate_inference_overrides[False]
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_time_placebo_inherits_per_estimate_inference_overrides[True]
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_time_placebo_partial_override_and_runner_preserve_all_other_options
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_fit_configuration_is_snapshotted_and_estimates_do_not_share_options
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_legacy_or_partial_configuration_requires_complete_explicit_replacement[metadata0-placebo_in_space_table]
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_legacy_or_partial_configuration_requires_complete_explicit_replacement[metadata0-placebo_in_time_table]
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_legacy_or_partial_configuration_requires_complete_explicit_replacement[metadata0-run_placebo_tests]
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_legacy_or_partial_configuration_requires_complete_explicit_replacement[metadata1-placebo_in_space_table]
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_legacy_or_partial_configuration_requires_complete_explicit_replacement[metadata1-placebo_in_time_table]
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_legacy_or_partial_configuration_requires_complete_explicit_replacement[metadata1-run_placebo_tests]
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_legacy_configuration_can_be_restored_with_full_explicit_kwargs[placebo_in_space_table]
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_legacy_configuration_can_be_restored_with_full_explicit_kwargs[placebo_in_time_table]
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_unrelated_metadata_is_ignored_without_mutating_inputs
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_invalid_explicit_configuration_type_has_clear_error[invalid0]
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_invalid_explicit_configuration_type_has_clear_error[lambda_aug]
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_invalid_explicit_configuration_type_has_clear_error[1]
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_unknown_explicit_override_is_rejected
+FAILED tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_invalid_legacy_configuration_type_has_clear_error
+25 failed in 20.88s

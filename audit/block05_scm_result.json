@@ -1,0 +1,27 @@
+{
+  "scope": "SC-08 placebo inheritance only; LOO sensitivity deferred",
+  "library_paths": [
+    "causalis/data_contracts/panel_estimate.py",
+    "causalis/scenarios/synthetic_control/model.py",
+    "causalis/scenarios/synthetic_control/refutation/placebo.py"
+  ],
+  "new_test_path": "tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py",
+  "new_cases": 31,
+  "initial_before": {"failed": 25, "passed": 0, "seconds": 20.88},
+  "initial_after": {"failed": 0, "passed": 25, "seconds": 18.59},
+  "final_scoped": {"failed": 0, "passed": 67, "warnings": 1, "seconds": 31.10},
+  "warning": "Existing ASCM pointwise conformal confidence-set grid-boundary warning with deliberately tiny grid_size=3",
+  "constructor_option_count": 13,
+  "probe": {
+    "before_original_gap": 1.3314659377305926,
+    "before_default_actual_placebo_gap": 1.371201225159669,
+    "after_original_gap": 1.3314659377305926,
+    "after_inherited_actual_placebo_gap": 1.3314659377305926
+  },
+  "limitations": [
+    "No LOO sensitivity edits or validation",
+    "No ASCM formula/coverage/speed changes claimed",
+    "Full Series-containing result JSON serialization is outside scope",
+    "Commit SHA and broad integration belong to the root B05 checkpoint"
+  ]
+}
