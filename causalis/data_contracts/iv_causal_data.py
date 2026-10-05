@@ -13,6 +13,7 @@ import pandas.api.types as pdtypes
 from pydantic import Field, field_validator
 
 from causalis.data_contracts.causaldata import CausalData
+from ._duplicate_columns import column_values_equal
 
 
 class IVCausalData(CausalData):
@@ -234,12 +235,6 @@ class IVCausalData(CausalData):
 
         cols = list(dict.fromkeys(cols))
 
-        def _values_equal_ignore_dtype(a: pd.Series, b: pd.Series) -> bool:
-            return np.array_equal(
-                a.to_numpy(dtype=object, copy=False),
-                b.to_numpy(dtype=object, copy=False),
-            )
-
         signatures = self._column_value_signatures(df, cols)
 
         for candidates in signatures.values():
@@ -248,7 +243,7 @@ class IVCausalData(CausalData):
 
             for i, col1 in enumerate(candidates):
                 for col2 in candidates[i + 1 :]:
-                    if not _values_equal_ignore_dtype(df[col1], df[col2]):
+                    if not column_values_equal(df[col1], df[col2]):
                         continue
                     col1_role = self._get_column_type(col1)
                     col2_role = self._get_column_type(col2)

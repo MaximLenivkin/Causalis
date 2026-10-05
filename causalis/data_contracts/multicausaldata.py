@@ -11,6 +11,7 @@ from typing import Union, List, Optional, Any, ClassVar
 from pydantic import BaseModel, ConfigDict, Field, model_validator, field_validator
 
 from causalis.data_contracts.causaldata import CausalData
+from ._duplicate_columns import column_values_equal
 
 
 class MultiCausalData(BaseModel):
@@ -456,12 +457,6 @@ class MultiCausalData(BaseModel):
             cols.append(self.user_id)
         cols = list(dict.fromkeys(cols))
 
-        def _eq(a: pd.Series, b: pd.Series) -> bool:
-            return np.array_equal(
-                a.to_numpy(dtype=object, copy=False),
-                b.to_numpy(dtype=object, copy=False),
-            )
-
         signatures = CausalData._column_value_signatures(df, cols)
 
         for candidates in signatures.values():
@@ -470,7 +465,7 @@ class MultiCausalData(BaseModel):
 
             for i, c1 in enumerate(candidates):
                 for c2 in candidates[i + 1 :]:
-                    if not _eq(df[c1], df[c2]):
+                    if not column_values_equal(df[c1], df[c2]):
                         continue
                     raise ValueError(
                         f"Columns '{c1}' and '{c2}' have identical values, which is not allowed for causal inference."

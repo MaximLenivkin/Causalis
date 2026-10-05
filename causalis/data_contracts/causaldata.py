@@ -14,6 +14,8 @@ import pandas.api.types as pdtypes
 from typing import Union, List, Optional, Any, ClassVar
 from pydantic import BaseModel, ConfigDict, Field, model_validator, field_validator
 
+from ._duplicate_columns import column_values_equal, sampled_signature_groups
+
 
 _PARALLEL_DUPLICATE_CHECK_MIN_CELLS = 5_000_000
 _MAX_DUPLICATE_CHECK_WORKERS = 8
@@ -382,13 +384,6 @@ class CausalData(BaseModel):
         # Unique columns preserving order
         cols = list(dict.fromkeys(cols))
 
-        def _values_equal_ignore_dtype(a: pd.Series, b: pd.Series) -> bool:
-            # NaNs are forbidden earlier, so array_equal is safe here.
-            return np.array_equal(
-                a.to_numpy(dtype=object, copy=False),
-                b.to_numpy(dtype=object, copy=False),
-            )
-
         signatures = self._column_value_signatures(df, cols)
 
         for candidates in signatures.values():
@@ -398,7 +393,7 @@ class CausalData(BaseModel):
             for i, col1 in enumerate(candidates):
                 for j in range(i + 1, len(candidates)):
                     col2 = candidates[j]
-                    if _values_equal_ignore_dtype(df[col1], df[col2]):
+                    if column_values_equal(df[col1], df[col2]):
                         col1_role = self._get_column_type(col1)
                         col2_role = self._get_column_type(col2)
                         raise ValueError(
@@ -410,8 +405,21 @@ class CausalData(BaseModel):
     def _column_value_signatures(
         df: pd.DataFrame,
         cols: list[str],
+        *,
+        screen: bool = True,
     ) -> dict[tuple[str, int, str], list[str]]:
-        """Return value fingerprints grouped by signature, parallelizing for large tables."""
+        """Fingerprint sampled candidates, parallelizing large candidate tables.
+
+        Candidate columns retain their original order so the first duplicate
+        error is unchanged even when sampled groups interleave. For at most
+        64 rows the full fingerprint already costs no more than the sample.
+        ``screen=False`` is for callers that have already grouped samples.
+        """
+        if screen and len(df) > 64:
+            sampled = sampled_signature_groups(df, cols, CausalData._column_value_signature)
+            candidates = {col for group in sampled.values() if len(group) > 1 for col in group}
+            cols = [col for col in cols if col in candidates]
+
         n_workers = CausalData._duplicate_check_worker_count(len(df), len(cols))
 
         if n_workers <= 1:

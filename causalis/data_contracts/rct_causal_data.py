@@ -10,6 +10,7 @@ from pandas.api import types as pdtypes
 from pydantic import AliasChoices, BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from .causaldata import CausalData
+from ._duplicate_columns import column_values_equal, sampled_signature_groups
 from .multicausaldata import MultiCausalData
 
 
@@ -167,28 +168,15 @@ class RctCausalData(BaseModel):
     def _check_duplicate_values(df: pd.DataFrame, roles: dict[str, str]) -> None:
         # Different samples prove inequality. Matching samples require a full
         # fingerprint, and matching fingerprints still require exact equality.
-        positions = np.linspace(0, len(df) - 1, min(len(df), 64), dtype=np.intp)
-        samples: dict[tuple, list[str]] = {}
-        for name in roles:
-            signature = CausalData._column_value_signature(df[name].iloc[positions])
-            samples.setdefault(signature, []).append(name)
+        samples = sampled_signature_groups(df, list(roles), CausalData._column_value_signature)
         for candidates in samples.values():
             if len(candidates) < 2:
                 continue
-            groups = CausalData._column_value_signatures(df, candidates)
+            groups = CausalData._column_value_signatures(df, candidates, screen=False)
             for group in groups.values():
                 for i, first in enumerate(group):
                     for second in group[i + 1:]:
-                        # Object comparisons preserve exact mixed int/float
-                        # equality, including integers above float64 precision.
-                        equal = all(
-                            np.array_equal(
-                                df[first].iloc[start:start + 65536].to_numpy(dtype=object),
-                                df[second].iloc[start:start + 65536].to_numpy(dtype=object),
-                            )
-                            for start in range(0, len(df), 65536)
-                        )
-                        if equal:
+                        if column_values_equal(df[first], df[second]):
                             raise ValueError(
                                 f"Columns '{first}' ({roles[first]}) and '{second}' ({roles[second]}) "
                                 "have identical values, which is not allowed for causal inference."
