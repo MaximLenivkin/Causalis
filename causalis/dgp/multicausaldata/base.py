@@ -95,8 +95,12 @@ class MultiCausalDatasetGenerator:
     propensity_sharpness : float, default=1.0
         Scales treatment scores to adjust overlap.
     target_d_rate : array-like, optional
-        Target marginal class probabilities (length K). Calibrates alpha_d
-        using iterative scaling (approximate when u_strength_d != 0).
+        Target class probabilities (length K) for intercept calibration. Iterative
+        scaling targets the mean assignment probabilities at U=0 over the
+        generated X sample. It does not integrate over latent treatment noise;
+        actual marginal rates can differ when U changes relative arm scores.
+        Calibration on sampled X is not an exact population-X rate guarantee,
+        and realized treatment frequencies also fluctuate by sampling.
     include_oracle : bool, default=True
         Whether to include oracle columns for propensities and potential outcomes.
     seed : int, optional
@@ -115,6 +119,10 @@ class MultiCausalDatasetGenerator:
     ``m_obs_<arm>`` is P(D=arm | X, U) at the supplied or drawn latent values.
     ``m_<arm>`` is the softmax probability at U=0, which generally differs from
     the marginal P(D=arm | X) when latent noise affects treatment assignment.
+    ``target_d_rate`` calibrates the sample mean of these U=0 probabilities,
+    rather than Gaussian-marginal assignment probabilities. With latent
+    treatment noise, the discrepancy from actual marginal arm rates need not
+    disappear as the sample size increases.
     """
     n_treatments: int = 3
     d_names: Optional[List[str]] = None

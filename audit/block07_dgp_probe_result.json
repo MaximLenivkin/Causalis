@@ -1,0 +1,92 @@
+{
+  "seed": 731,
+  "n": 30000,
+  "m_zero": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ],
+  "m_marginal_adaptive": [
+    0.3601605153366525,
+    0.3199197423316738,
+    0.3199197423316738
+  ],
+  "empirical_m_obs_mean": [
+    0.36215348290305543,
+    0.3189232585484723,
+    0.3189232585484723
+  ],
+  "empirical_arm_shares": [
+    0.36056666666666665,
+    0.31353333333333333,
+    0.3259
+  ],
+  "first_draw_assignment_matches_frame": true,
+  "first_draw_arm_counts": [
+    10817,
+    9406,
+    9777
+  ],
+  "g_adaptive": [
+    1.6487212707001289,
+    3.3201169227365472,
+    1.1051709180756477
+  ],
+  "g_reported": [
+    1.6487212707001282,
+    3.3201169227365472,
+    1.1051709180756475
+  ],
+  "marginal_cate": [
+    1.6713956520364184,
+    -0.5435503526244811
+  ],
+  "treated_mean_reported_cate": [
+    1.6713956520364195,
+    -0.5435503526244806
+  ],
+  "true_population_att_adaptive": [
+    2.1053345086747712,
+    -0.6846705106528085
+  ],
+  "calibration": {
+    "target": [
+      0.2,
+      0.3,
+      0.5
+    ],
+    "m_zero_mean": [
+      0.2000000000000974,
+      0.2999999999999311,
+      0.4999999999999715
+    ],
+    "m_marginal_adaptive": [
+      0.29972870050639,
+      0.2626017373101038,
+      0.43766956218350633
+    ],
+    "empirical_m_obs_mean": [
+      0.3025606101379826,
+      0.2615397711982284,
+      0.43589961866378907
+    ],
+    "empirical_arm_shares": [
+      0.3022666666666667,
+      0.2591333333333333,
+      0.4386
+    ],
+    "latent_treatment_strength": [
+      0.0,
+      2.0,
+      2.0
+    ]
+  },
+  "copula": {
+    "latent_gaussian_correlation": 0.3,
+    "population_binary_pearson_correlation_adaptive": 0.1939733680413569,
+    "observed_binary_pearson_correlation": 0.19758029478455225,
+    "n": 200000,
+    "marginal_bernoulli_probability": 0.5
+  },
+  "scope": "reference calculations and reproduction; no runtime changes"
+}

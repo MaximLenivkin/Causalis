@@ -1,0 +1,16 @@
+{
+  "baseline": "c234e647e010f5d8bfb805af7ece61392e327537",
+  "checks": [
+    {
+      "path": "causalis/dgp/multicausaldata/base.py",
+      "executable_ast_equal": true,
+      "executable_ast_sha256": "2ef9cef684f78d21680892f990169f8264d6b85d4343ca2747ef03c901dee8dc"
+    },
+    {
+      "path": "causalis/scenarios/multi_unconfoundedness/dgp.py",
+      "executable_ast_equal": true,
+      "executable_ast_sha256": "c0bda25bddf48645dec9702c381e51bbc1c9b20d99b73a0758730963af5917bd"
+    }
+  ],
+  "issues": []
+}

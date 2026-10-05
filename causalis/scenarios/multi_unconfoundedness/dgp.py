@@ -299,17 +299,20 @@ def generate_multitreatment_gamma_26(
     -----
     Let
     :math:`X = (\text{tenure}, \text{sessions}, \text{spend}, \text{premium}, \text{urban}, \text{tickets}, \text{discount}, \text{credit})`
-    denote the 8 observed confounders. The treatment assignment mechanism is a
-    multinomial logit with calibrated marginal arm rates near
-    :math:`(0.50, 0.25, 0.25)`:
+    denote the 8 observed confounders. Treatment assignment follows a
+    multinomial logit. Intercepts are calibrated so the average assignment
+    probabilities over the generated covariate sample are near
+    :math:`(0.50, 0.25, 0.25)`; realized arm shares can fluctuate:
 
     .. math::
 
         s_k(X) = \alpha_{d,k} + \beta_{d,k}^{\top} X, \qquad
         \Pr(D = k \mid X) = \frac{\exp(s_k(X))}{\sum_{j=0}^{2} \exp(s_j(X))}.
 
-    The confounders are jointly sampled through a Toeplitz copula with
-    :math:`\mathrm{Corr}(X_i, X_j) = 0.3^{|i-j|}`.
+    The confounders are jointly sampled through a Gaussian copula whose latent
+    normal variables satisfy :math:`\mathrm{Corr}(Z_i, Z_j) = 0.3^{|i-j|}`.
+    Transforming to the specified marginals and applying their clipping can
+    change the Pearson correlations of the observed confounders.
 
     The outcome uses a log link. For arm :math:`k`,
 
@@ -438,8 +441,10 @@ def generate_multitreatment_binary_26(
     -----
     Let
     :math:`X = (\text{tenure}, \text{active days}, \text{income}, \text{premium}, \text{family}, \text{complaints}, \text{discount}, \text{engagement})`
-    denote the 8 confounders. Treatment assignment again follows a calibrated
-    multinomial logit with target arm rates near :math:`(0.50, 0.25, 0.25)`:
+    denote the 8 confounders. Treatment assignment again follows a
+    multinomial logit, with intercepts calibrated so the average assignment
+    probabilities over the generated covariate sample are near
+    :math:`(0.50, 0.25, 0.25)`; realized arm shares can fluctuate:
 
     .. math::
 
@@ -482,9 +487,10 @@ def generate_multitreatment_binary_26(
         \right\}.
 
     The clipping keeps ``d_1`` uniformly below control and ``d_2`` uniformly
-    above control on the log-odds scale, while the Gaussian copula with
-    :math:`\mathrm{Corr}(X_i, X_j) = 0.3^{|i-j|}` induces cross-feature
-    dependence.
+    above control on the log-odds scale. The Gaussian copula induces dependence
+    through latent normal variables with
+    :math:`\mathrm{Corr}(Z_i, Z_j) = 0.3^{|i-j|}`. Observed Pearson correlations
+    can differ after marginal transformations and clipping.
     """
     confounder_specs = [
         {"name": "tenure_months",      "dist": "normal",   "mu": 24, "sd": 12, "clip_min": 0, "clip_max": 120},
