@@ -1,0 +1,23 @@
+{
+  "scope": "correctness",
+  "selected_full_suite": false,
+  "collect_only": false,
+  "exit_code": 0,
+  "elapsed_seconds": 482.0976392002776,
+  "tested_source_checkpoint": "d292b3c2f83ec94ef75652a17f3e34436c71902f",
+  "sensitivity_validated": false,
+  "passed": 1569,
+  "failed": 0,
+  "skipped": 0,
+  "warnings": 77,
+  "pytest_elapsed_seconds": 481.47,
+  "full_suite_clean": false,
+  "scoped_suite_clean": true,
+  "new_cases": {
+    "ci": 11,
+    "duplicates": 71,
+    "binary": 74,
+    "kde": 37,
+    "total": 193
+  }
+}

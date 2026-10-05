@@ -1,0 +1,24 @@
+{
+  "scope": "correctness",
+  "selected_full_suite": false,
+  "collect_only": false,
+  "exit_code": 0,
+  "elapsed_seconds": 401.57263500010595,
+  "tested_source_checkpoint": "09e00de5a9d3dc915c6d59627f8b0ebc875dd4e9",
+  "sensitivity_validated": false,
+  "passed": 1582,
+  "failed": 0,
+  "skipped": 0,
+  "warnings": 77,
+  "pytest_elapsed_seconds": 400.95,
+  "full_suite_clean": false,
+  "scoped_suite_clean": true,
+  "new_cases": {
+    "ci": 11,
+    "duplicates": 71,
+    "binary": 74,
+    "kde": 37,
+    "iv_compat": 13,
+    "total": 206
+  }
+}

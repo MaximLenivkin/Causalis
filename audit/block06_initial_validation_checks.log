@@ -1,0 +1,55 @@
+warning: in the working copy of 'audit/DOCUMENTATION_HANDOFF.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'audit/FIX_PLAN.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'audit/GIT_ACCESS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'audit/NEXT_SESSION.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'audit/PROGRESS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'audit/README.md', LF will be replaced by CRLF the next time Git touches it
+warning: could not open directory 'pytest-cache-files-kfia75zh/': Permission denied
+warning: could not open directory 'pytest-cache-files-t8tahky7/': Permission denied
+warning: could not open directory 'pytest-cache-files-kfia75zh/': Permission denied
+warning: could not open directory 'pytest-cache-files-t8tahky7/': Permission denied
+{
+  "start_commit": "bf2ea87534e4eaf82266cb61d905b7e876cc2e1d",
+  "tested_executable_checkpoint": "d292b3c2f83ec94ef75652a17f3e34436c71902f",
+  "source_prose_only_changes_after_checkpoint": [
+    "causalis/data_contracts/_duplicate_columns.py"
+  ],
+  "python_files_parsed": 19,
+  "local_links_checked": 295,
+  "library_paths_changed": [
+    "causalis/data_contracts/_duplicate_columns.py",
+    "causalis/data_contracts/causaldata.py",
+    "causalis/data_contracts/iv_causal_data.py",
+    "causalis/data_contracts/multicausaldata.py",
+    "causalis/data_contracts/rct_causal_data.py",
+    "causalis/scenarios/multi_unconfoundedness/_utils.py",
+    "causalis/scenarios/unconfoundedness/_utils.py",
+    "causalis/shared/outcome_plots.py"
+  ],
+  "sensitivity_paths_changed": [],
+  "integration": {
+    "scope": "correctness",
+    "selected_full_suite": false,
+    "collect_only": false,
+    "exit_code": 0,
+    "elapsed_seconds": 482.0976392002776,
+    "tested_source_checkpoint": "d292b3c2f83ec94ef75652a17f3e34436c71902f",
+    "sensitivity_validated": false,
+    "passed": 1569,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 77,
+    "pytest_elapsed_seconds": 481.47,
+    "full_suite_clean": false,
+    "scoped_suite_clean": true,
+    "new_cases": {
+      "ci": 11,
+      "duplicates": 71,
+      "binary": 74,
+      "kde": 37,
+      "total": 193
+    }
+  },
+  "matrix_validation": "See block06_ci_result.json; pending is not pass",
+  "issues": []
+}

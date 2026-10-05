@@ -1,6 +1,6 @@
 # План исправлений и поэтапной разработки
 
-Обновлён: 2026-10-05. Проект: `D:\codex\Causalis`. Рабочая ветка: **`codex/correctness-roadmap`**, создана от `main` на `ffe2c356c115f335b74b2f10117e19fe15585d46`. Исходный аудит — `audit/REPORT.md`; он остаётся историческим snapshot, а не переписывается после каждого исправления.
+Обновлён: 2026-10-06. Проект: `D:\codex\Causalis`. Рабочая ветка: **`codex/correctness-roadmap`**, создана от `main` на `ffe2c356c115f335b74b2f10117e19fe15585d46`. Исходный аудит — `audit/REPORT.md`; он остаётся историческим snapshot, а не переписывается после каждого исправления.
 
 ## Решение о scope
 
@@ -30,7 +30,7 @@ B02–B06 — большие тематические блоки, внутри �
 - B03: multi ATT IF + diagnostics → relative ATT baseline IF → drop mask/weights → CATE cache → stable GATE variance → заменить бессодержательный OOS aggregate test. Общие influence payloads сверять с потенциальными upstream sensitivity changes.
 - B04: eligibility/unit alignment → normalized cell IF → nuisance-estimation strategy → aggregation weight IF → cluster validation. Последний простой guard можно сделать отдельным ранним commit. Full MLE/OLS IF и improved IPT/WLS — выбор реализации после review derivation, а не смешение обеих процедур.
 - B05: CUPED names → scale-stable leverage → batch least-squares/covariance → IV resolver → ASCM config. Не снимать cache identity assertion без восстановления обещанного ускорения.
-- B06: compatibility и release gate перед performance. Screening и linear binary checks отдельно от ownership/caching. При изменении data path сохранять folds, predictions, score, target population и statistical checks.
+- B06: implementation и локальная integration завершены: **1582 passed, 0 failed/skipped, 77 warnings, 400.95s**. 206 новых cases, 7 sensitivity modules явно исключены. Pydantic>=2, full release pytest gate, CI matrix, duplicate screening, linear binary detection, bounded Gaussian KDE и NumPy1.x IV fix. Все шесть clean Linux jobs и artifacts прошли; каждый — 1582 cases без failures/errors/skips. Финальный source09e00de; evidence в BLOCK06_COMPATIBILITY_PERFORMANCE.md. Owned arrays остаются audit-only; полный sensitivity/release/docs build не подтверждался.
 
 ## Документация: отдельный рабочий поток
 
@@ -67,9 +67,9 @@ B02–B06 — большие тематические блоки, внутри �
 - B03: завершён; commits **c925907 / e6a9275 / 6084b34 / 113c693**. DML-01/02/04/06/09 и independent CATE part DML-03. Integration: **1143 passed, 1 known baseline SC-12 failed**, 76 warnings, 299.18s; 7 sensitivity modules исключены. Итог — `BLOCK03_DML_GATE_UPLIFT.md`, raw logs и selection/result JSON. New failures0; это не полностью зелёный suite.
 - B04: завершён; commits **87228e2 / 57dbba1**. SC-01/02/03/04/11: aligned controls, full normalized MLE/OLS cell IF, estimated complete-pair aggregate shares, cluster guard/covariance. Integration: **1238 passed,1 known SC-12 failed**,76warnings,340.04s;7sensitivity modules исключены. Итог — `BLOCK04_DID.md`, independent derivations и raw evidence. Добавлены95testcases. Не полностью зелёный suite.
 - B05: завершён. Integration на1b24777: **1376 passed,0failed,77warnings,438.20s**,7sensitivity modules исключены. SC-06/07/09/12 исправлены, SC-08 только placebo (LOO deferred). CUPED127/IV73/SCM67 focusedpass; new137cases. Code commits bb31a4b/5e03795/3c000b1/1b24777; итог — BLOCK05_CUPED_IV_SCM.md. Исторический SC-12 assertion сохранён и проходит. Local fitbenchmark1.73–2.90× при совпадающихATE/SE; неuniversalclaim.
-- B06: запланирован, не начат. Compatibility/dependency matrix должна проверить и новый public CUPED result adapter; CUPEDbatchperformance уже реализован вB05.
+- B06: implementation и локальная integration завершены: **1582 passed, 0 failed/skipped, 77 warnings, 400.95s**. 206 новых cases, 7 sensitivity modules явно исключены. Pydantic>=2, full release pytest gate, CI matrix, duplicate screening, linear binary detection, bounded Gaussian KDE и NumPy1.x IV fix. Все шесть clean Linux jobs и artifacts прошли; каждый — 1582 cases без failures/errors/skips. Финальный source09e00de; evidence в BLOCK06_COMPATIBILITY_PERFORMANCE.md. Owned arrays остаются audit-only; полный sensitivity/release/docs build не подтверждался.
 - Sensitivity: отложено по прямой инструкции пользователя; дата возобновления не назначена.
-- На границе B05 работа остановлена; code/tests/report сохранены, обычный push вpersonal branch. B06 начинается отдельным запросом.
+- B06 завершён; следующий самостоятельный блок выбирается после нового запроса пользователя. Sensitivity по-прежнему отложена.
 
 Дополнение B04: сохраняются traditional MLE/OLS и прежний complete-pair estimand. Correct IF не убирает fixed ridge/clipping bias и не гарантирует finite-sample/few-cluster coverage. Earliest universal pre placebo (analysis-index0) пока пропущен прежним enumeration: отдельный support follow-up. Численная устойчивость IF map проверена, optimizer scale invariance не заявляется.
 

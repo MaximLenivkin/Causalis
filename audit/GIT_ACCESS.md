@@ -65,3 +65,9 @@ git push --set-upstream origin codex/correctness-roadmap
 ## B05 checkpoint
 
 Code commits: bb31a4b09c20046faafbbd29a541e5acbe50b99d /5e0379507bac4b6ec9f561e7978e8835194c2247 /3c000b10eed1b5366f46cc038870500791b75579 /1b2477755c9b89bd2f69f260fd094002bdc26fe2. Последний code checkpoint протестирован:1376passed,0failed вне7sensitivitymodules. Final documentation checkpoint определяется git log-1; обычный push вorigin/codex/correctness-roadmap иremote/local SHA equality проверяются на завершении. Credentials/remotes/branch те же, повторная authorization не нужна. Causalis upstream не fetch/merge/rebase; PR/issues не создавались.
+
+## B06 checkpoint
+
+Финальный library/tests checkpoint `09e00de5a9d3dc915c6d59627f8b0ebc875dd4e9` сохранён в личной ветке. Локально1582passed; Все шесть clean Linux jobs и artifacts прошли; каждый — 1582 cases без failures/errors/skips. Exact CI run 37373828518 использует09e00de. Commits f31b743/5977bb8/74c0ff0/d292b3c/1be6b67/50ad33e/09e00de; final documentation checkpoint — git log-1. После09e00de source/tests не меняются, толькоaudit artifacts; final audit-only push не запускает повторнуюmatrix.
+
+Credentials/remotes/branch прежние. GitHub Actions enabled/workflow access подтверждены actualrun и artifacts. Release/tag/PyPI/PR/issues/externalmessages не создавались. Remote/local equality иcleanstatus проверяются после обычного finalpush; новой authorization не требуется.

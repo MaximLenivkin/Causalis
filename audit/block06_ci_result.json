@@ -1,0 +1,338 @@
+{
+  "run_id": 37373828518,
+  "run_url": "https://github.com/MaximLenivkin/Causalis/actions/runs/37373828518",
+  "tested_source_checkpoint": "09e00de5a9d3dc915c6d59627f8b0ebc875dd4e9",
+  "expected_tests_per_job": 1582,
+  "expected_jobs": 6,
+  "jobs_created": 6,
+  "snapshot_observed_at": "2026-10-05T21:21:54.6451704Z",
+  "run_status": "completed",
+  "run_conclusion": "success",
+  "scope": "Repository suite excluding seven explicitly deferred sensitivity modules",
+  "selected_full_suite": false,
+  "excluded_modules": [
+    "tests/refutation/test_multi_sensitivity_benchmark.py",
+    "tests/refutation/test_sensitivity_benchmark.py",
+    "tests/refutation/test_sensitivity_combination.py",
+    "tests/refutation/test_sensitivity_integration_irm.py",
+    "tests/refutation/test_sensitivity_protocol.py",
+    "tests/refutation/test_sensitivity_rv_signed_rr.py",
+    "tests/refutation/test_trim_sensitivity_ate.py"
+  ],
+  "verified_successful_jobs": 6,
+  "failed_pytest_jobs": [],
+  "matrix_verified": true,
+  "jobs": [
+    {
+      "job_id": 111977636789,
+      "name": "Python 3.11 / latest (sensitivity deferred)",
+      "python_minor": "3.11",
+      "stack": "latest",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-05T21:07:38Z",
+      "completed_at": "2026-10-05T21:10:30Z",
+      "artifact_name": "correctness-py3.11-latest",
+      "artifact_verified": true,
+      "environment": {
+        "python": "3.11.16",
+        "implementation": "CPython",
+        "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+        "executable": "/home/runner/work/Causalis/Causalis/.venv/bin/python",
+        "commit": "09e00de5a9d3dc915c6d59627f8b0ebc875dd4e9",
+        "packages": {
+          "causalis": "0.2.9.dev1",
+          "numpy": "2.4.6",
+          "pandas": "3.0.6",
+          "scipy": "1.17.1",
+          "statsmodels": "0.15.0",
+          "scikit-learn": "1.9.1",
+          "pydantic": "2.13.5",
+          "catboost": "1.2.10",
+          "matplotlib": "3.11.2",
+          "pytest": "9.1.1",
+          "sphinx": "9.0.4",
+          "myst-parser": "5.1.0",
+          "sphinx-autodoc2": "0.5.0"
+        },
+        "docs_build_environment": "false"
+      },
+      "pytest_result": {
+        "scope": "correctness",
+        "selected_full_suite": false,
+        "collect_only": false,
+        "exit_code": 0,
+        "elapsed_seconds": 115.603119892
+      },
+      "junit": {
+        "tests": 1582,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1582
+      }
+    },
+    {
+      "job_id": 111977637025,
+      "name": "Python 3.10 / latest (sensitivity deferred)",
+      "python_minor": "3.10",
+      "stack": "latest",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-05T21:08:19Z",
+      "completed_at": "2026-10-05T21:11:03Z",
+      "artifact_name": "correctness-py3.10-latest",
+      "artifact_verified": true,
+      "environment": {
+        "python": "3.10.21",
+        "implementation": "CPython",
+        "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+        "executable": "/home/runner/work/Causalis/Causalis/.venv/bin/python",
+        "commit": "09e00de5a9d3dc915c6d59627f8b0ebc875dd4e9",
+        "packages": {
+          "causalis": "0.2.9.dev1",
+          "numpy": "2.2.6",
+          "pandas": "2.3.3",
+          "scipy": "1.15.3",
+          "statsmodels": "0.15.0",
+          "scikit-learn": "1.7.2",
+          "pydantic": "2.13.5",
+          "catboost": "1.2.10",
+          "matplotlib": "3.10.9",
+          "pytest": "9.1.1",
+          "sphinx": "8.1.3",
+          "myst-parser": "4.0.1",
+          "sphinx-autodoc2": "0.5.0"
+        },
+        "docs_build_environment": "false"
+      },
+      "pytest_result": {
+        "scope": "correctness",
+        "selected_full_suite": false,
+        "collect_only": false,
+        "exit_code": 0,
+        "elapsed_seconds": 114.19930262899999
+      },
+      "junit": {
+        "tests": 1582,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1582
+      }
+    },
+    {
+      "job_id": 111977637039,
+      "name": "Python 3.10 / legacy (sensitivity deferred)",
+      "python_minor": "3.10",
+      "stack": "legacy",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-05T21:07:40Z",
+      "completed_at": "2026-10-05T21:09:27Z",
+      "artifact_name": "correctness-py3.10-legacy",
+      "artifact_verified": true,
+      "environment": {
+        "python": "3.10.21",
+        "implementation": "CPython",
+        "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+        "executable": "/home/runner/work/Causalis/Causalis/.venv/bin/python",
+        "commit": "09e00de5a9d3dc915c6d59627f8b0ebc875dd4e9",
+        "packages": {
+          "causalis": "0.2.9.dev1",
+          "numpy": "1.26.4",
+          "pandas": "1.5.3",
+          "scipy": "1.11.4",
+          "statsmodels": "0.14.0",
+          "scikit-learn": "1.3.2",
+          "pydantic": "2.0.3",
+          "catboost": "1.2.8",
+          "matplotlib": "3.10.9",
+          "pytest": "9.1.1",
+          "sphinx": "8.1.3",
+          "myst-parser": "4.0.1",
+          "sphinx-autodoc2": "0.5.0"
+        },
+        "docs_build_environment": "false"
+      },
+      "pytest_result": {
+        "scope": "correctness",
+        "selected_full_suite": false,
+        "collect_only": false,
+        "exit_code": 0,
+        "elapsed_seconds": 61.298565139999994
+      },
+      "junit": {
+        "tests": 1582,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1582
+      }
+    },
+    {
+      "job_id": 111977637049,
+      "name": "Python 3.14 / latest (sensitivity deferred)",
+      "python_minor": "3.14",
+      "stack": "latest",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-05T21:13:05Z",
+      "completed_at": "2026-10-05T21:16:10Z",
+      "artifact_name": "correctness-py3.14-latest",
+      "artifact_verified": true,
+      "environment": {
+        "python": "3.14.7",
+        "implementation": "CPython",
+        "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+        "executable": "/home/runner/work/Causalis/Causalis/.venv/bin/python",
+        "commit": "09e00de5a9d3dc915c6d59627f8b0ebc875dd4e9",
+        "packages": {
+          "causalis": "0.2.9.dev1",
+          "numpy": "2.5.3",
+          "pandas": "3.0.6",
+          "scipy": "1.18.1",
+          "statsmodels": "0.15.0",
+          "scikit-learn": "1.9.1",
+          "pydantic": "2.13.5",
+          "catboost": "1.2.10",
+          "matplotlib": "3.11.2",
+          "pytest": "9.1.1",
+          "sphinx": "9.1.0",
+          "myst-parser": "5.1.0",
+          "sphinx-autodoc2": "0.5.0"
+        },
+        "docs_build_environment": "false"
+      },
+      "pytest_result": {
+        "scope": "correctness",
+        "selected_full_suite": false,
+        "collect_only": false,
+        "exit_code": 0,
+        "elapsed_seconds": 120.41507599299999
+      },
+      "junit": {
+        "tests": 1582,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1582
+      }
+    },
+    {
+      "job_id": 111977637060,
+      "name": "Python 3.12 / latest (sensitivity deferred)",
+      "python_minor": "3.12",
+      "stack": "latest",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-05T21:18:01Z",
+      "completed_at": "2026-10-05T21:20:59Z",
+      "artifact_name": "correctness-py3.12-latest",
+      "artifact_verified": true,
+      "environment": {
+        "python": "3.12.14",
+        "implementation": "CPython",
+        "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+        "executable": "/home/runner/work/Causalis/Causalis/.venv/bin/python",
+        "commit": "09e00de5a9d3dc915c6d59627f8b0ebc875dd4e9",
+        "packages": {
+          "causalis": "0.2.9.dev1",
+          "numpy": "2.5.3",
+          "pandas": "3.0.6",
+          "scipy": "1.18.1",
+          "statsmodels": "0.15.0",
+          "scikit-learn": "1.9.1",
+          "pydantic": "2.13.5",
+          "catboost": "1.2.10",
+          "matplotlib": "3.11.2",
+          "pytest": "9.1.1",
+          "sphinx": "9.1.0",
+          "myst-parser": "5.1.0",
+          "sphinx-autodoc2": "0.5.0"
+        },
+        "docs_build_environment": "false"
+      },
+      "pytest_result": {
+        "scope": "correctness",
+        "selected_full_suite": false,
+        "collect_only": false,
+        "exit_code": 0,
+        "elapsed_seconds": 121.730538472
+      },
+      "junit": {
+        "tests": 1582,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1582
+      }
+    },
+    {
+      "job_id": 111977637139,
+      "name": "Python 3.13 / latest (sensitivity deferred)",
+      "python_minor": "3.13",
+      "stack": "latest",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-05T21:08:00Z",
+      "completed_at": "2026-10-05T21:09:35Z",
+      "artifact_name": "correctness-py3.13-latest",
+      "artifact_verified": true,
+      "environment": {
+        "python": "3.13.15",
+        "implementation": "CPython",
+        "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+        "executable": "/home/runner/work/Causalis/Causalis/.venv/bin/python",
+        "commit": "09e00de5a9d3dc915c6d59627f8b0ebc875dd4e9",
+        "packages": {
+          "causalis": "0.2.9.dev1",
+          "numpy": "2.5.3",
+          "pandas": "3.0.6",
+          "scipy": "1.18.1",
+          "statsmodels": "0.15.0",
+          "scikit-learn": "1.9.1",
+          "pydantic": "2.13.5",
+          "catboost": "1.2.10",
+          "matplotlib": "3.11.2",
+          "pytest": "9.1.1",
+          "sphinx": "9.1.0",
+          "myst-parser": "5.1.0",
+          "sphinx-autodoc2": "0.5.0"
+        },
+        "docs_build_environment": "false"
+      },
+      "pytest_result": {
+        "scope": "correctness",
+        "selected_full_suite": false,
+        "collect_only": false,
+        "exit_code": 0,
+        "elapsed_seconds": 55.939990085999995
+      },
+      "junit": {
+        "tests": 1582,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 1582
+      }
+    }
+  ],
+  "issues": [],
+  "prior_run": {
+    "run_id": 37371536543,
+    "overall_conclusion": "cancelled by newer source/config push",
+    "legacy_pytest_step": "53 real IV source failures before cancellation; see block06_ci_prior_legacy_result.json"
+  },
+  "before_fix_run": {
+    "run_id": 37372133090,
+    "evidence_file": "audit/block06_ci_before_fix_result.json",
+    "status_note": "Earlier source checkpoint; partial successes retained separately, never mixed into this matrix."
+  },
+  "external_queue_incident": "https://www.githubstatus.com/incidents/3q1yb5m7ltvb",
+  "limitations": [
+    "Linux CI; representative dependency stacks, not every cross-product.",
+    "Sensitivity and full release validation are not claimed.",
+    "Raw downloaded JUnit and environment artifacts are retained in task-owned ignored temp files and on GitHub."
+  ]
+}

@@ -354,3 +354,45 @@ Sources: [PanelEstimate metadata](https://github.com/MaximLenivkin/Causalis/blob
 > Older or manually constructed results may not contain a complete ASCM configuration. Re-estimate with ASCM, or supply all missing constructor options explicitly. Placebo refutations raise ValueError when the configuration is incomplete, because the original estimator cannot be reconstructed from its effect path alone.
 
 Приёмка: actual treated placebo row при omitted kwargs воспроизводит original effect path; partial override сохраняет прочие13constructor settings; pointwise/average inference options отражены в snapshot. Mutating public fitting attributes после fit не меняет cached fitting configuration для auxiliary inference; re-fit нужен для нового estimator. Leave-one-donor-out sensitivity в B05 не мигрировала и остаётся отдельной deferred областью; её default configuration нельзя считать исправленной этим placebo patch.
+
+## Дополнение после B06: dependencies / CI / performance — P2
+
+Изменения ниже относятся к personal fork и должны публиковаться вместе с включающим их release. Performance numbers ниже — локальные узкие измерения, а не новый общий рейтинг библиотеки.
+
+### Installation and actual validation scope
+
+Sources: [package requirement](https://github.com/MaximLenivkin/Causalis/blob/f31b7438f4c4f5a796bf99cb04e204dd5051618c/pyproject.toml), [full release gate](https://github.com/MaximLenivkin/Causalis/blob/f31b7438f4c4f5a796bf99cb04e204dd5051618c/.github/workflows/release.yml), [scoped development matrix](https://github.com/MaximLenivkin/Causalis/blob/1be6b67bfa64a36e77688b47aeb95a2bbf67a25b/.github/workflows/ci.yml), [explicit test runner](https://github.com/MaximLenivkin/Causalis/blob/f31b7438f4c4f5a796bf99cb04e204dd5051618c/scripts/run_tests.py).
+
+> Causalis requires Pydantic 2 or later. Pydantic 1 is incompatible with the data-contract validation APIs and is rejected by package metadata. The declared Python range remains 3.10–3.14. Development CI is configured to test latest compatible dependencies on each supported Python minor and a representative older stack; inspect the recorded job results and installed versions before claiming validated compatibility.
+
+> During the upstream sensitivity-analysis rewrite, development CI explicitly defers seven named sensitivity test modules. Its passing result represents that selected scope. Release CI selects the complete repository test suite, and a failed or empty test run prevents publication. A newly discovered sensitivity test module requires an explicit development-scope review; it is never silently skipped.
+
+Pydantic2 API reference: [migration](https://docs.pydantic.dev/2.0/migration/), [AliasChoices](https://docs.pydantic.dev/2.0/usage/fields/). Representative older stack is a CI fixture, not public lower bounds for every dependency. Full selection retains existing test-level skip policies. Pytest coverage does not establish a Sphinx site build: current docs test file has no collected test functions. B06 local run uses Windows/Python3.12.14. The historical B05 statement “dependency matrix ещё не выполнена” is superseded by the actual B06 results below.
+
+> On 6 October 2026 (Europe/Moscow), all six Linux CI configurations completed successfully on source 09e00de5a9d3dc915c6d59627f8b0ebc875dd4e9: latest compatible dependencies for Python 3.10–3.14, plus a representative older stack on Python 3.10. Every job passed 1582 tests with no failures, errors or skips, within the explicitly selected development scope. This validates those installed stacks; it does not validate sensitivity analysis, every dependency combination or every operating system.
+
+Evidence: [completed CI run and per-job artifacts](https://github.com/MaximLenivkin/Causalis/actions/runs/37373828518). Local Windows integration also passed the same 1582 tests; seven named sensitivity modules remained deferred.
+
+### Data preparation without statistical changes
+
+Sources: [screening](https://github.com/MaximLenivkin/Causalis/blob/5977bb872b79a84e58e3c3c8aa1d0ed8045d1b52/causalis/data_contracts/causaldata.py), [exact equality](https://github.com/MaximLenivkin/Causalis/blob/5977bb872b79a84e58e3c3c8aa1d0ed8045d1b52/causalis/data_contracts/_duplicate_columns.py), [binary IRM/IV check](https://github.com/MaximLenivkin/Causalis/blob/74c0ff0a2081671d179662510c16f5fe53283019/causalis/scenarios/unconfoundedness/_utils.py), [multi check](https://github.com/MaximLenivkin/Causalis/blob/74c0ff0a2081671d179662510c16f5fe53283019/causalis/scenarios/multi_unconfoundedness/_utils.py).
+
+> Data contracts screen candidate duplicate columns on at most 64 positions, then compare matching full fingerprints and exact values. A hash match alone never establishes equality. Numeric binary detection uses exact 0/1 comparisons without sorting continuous outcomes. Binary-treatment IRM and IV require both categories; multi-treatment IRM retains its existing policy that a constant zero or one outcome is binary. Rows, labels, learner selection, nuisance predictions and inference are unchanged.
+
+Приёмка: same first duplicate error, mixednumeric/nullable/bool, signedzero, largeinteger collisions и unsampled differences; unchanged input frames/repeated indices. Numeric/object optional ID fingerprint categories остаются разными: performance patch не расширяет прежнюю duplicate policy. Public pandas copy/ownership semantics сохраняются. Owned array extraction остаётся audit-only candidate и не должна описываться как реализованная новая snapshot API.
+
+### Exact Gaussian KDE with bounded scratch arrays
+
+Source: [KDE](https://github.com/MaximLenivkin/Causalis/blob/d292b3c2f83ec94ef75652a17f3e34436c71902f/causalis/shared/outcome_plots.py), [numerical and memory checks](https://github.com/MaximLenivkin/Causalis/blob/d292b3c2f83ec94ef75652a17f3e34436c71902f/tests/statistics/test_outcome_kde_memory.py).
+
+> Outcome KDE evaluates every Gaussian kernel in blocks, using at most 8 MiB for its explicit kernel and partial-sum work arrays. The bandwidth, plotting grid and density/count normalization are unchanged. Input conversions, variance calculation, filtering, output arrays and native buffers use additional memory; total process memory is not limited to 8 MiB. Ordinary densities may differ from earlier versions by float64 summation roundoff.
+
+Приёмка: same absolute-bandwidth SciPy и dense reference,16byte–8MiB privatebudgets,empty/single/constant/permutation,full observation×grid pair count. Existing public plot parameters не изменены. В local sequential benchmark при30k×800 tracedpeak549.32→8.13MiB,maxdensitydifference5.88e-15. Constructors Causal/IV/Multi1.22–2.24×,IRMextraction1.37–4.14×,matchedcheapIRMfit1.24×. Warmup+5repeats (KDE/fit3),native1,Windows3.12.14; fit excludesconstruction/estimate. Do not claim that all models or platforms speed up by these ratios, or that tracemalloc is processRSS. Full benchmark artifacts accompany the B06 report.
+
+### IV fitting on NumPy 1.x
+
+Sources: [joint labels](https://github.com/MaximLenivkin/Causalis/blob/09e00de5a9d3dc915c6d59627f8b0ebc875dd4e9/causalis/scenarios/iv/model.py), [independent fold reference](https://github.com/MaximLenivkin/Causalis/blob/09e00de5a9d3dc915c6d59627f8b0ebc875dd4e9/tests/inference/test_iivm_numpy_compat.py).
+
+> IIVM constructs joint instrument/treatment stratification labels with a string operation supported by NumPy 1.x and 2.x. Earlier releases could fail before nuisance fitting on NumPy 1.26 because Unicode arrays did not support the addition operator. Joint labels, class order, instrument-only fallback and seeded sample splits retain their previous meaning; the LATE score and inference formulas are unchanged.
+
+Reference: [NumPy 1.26 char.add](https://numpy.org/doc/1.26/reference/generated/numpy.char.add.html). Реальный clean legacy CI обнаружил 53 failures с одной причиной при успешном installation; этот failure нельзя скрывать за последующим canceled status workflow. Новая matrix и integration проверяются на09e00de с1582cases, а первоначальный1569pass локально относится к modernNumPy и более раннему checkpoint. Точные финальные результаты — в B06 implementation report.

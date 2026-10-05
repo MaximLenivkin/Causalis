@@ -1,0 +1,63 @@
+{
+  "start_commit": "bf2ea87534e4eaf82266cb61d905b7e876cc2e1d",
+  "tested_executable_checkpoint": "09e00de5a9d3dc915c6d59627f8b0ebc875dd4e9",
+  "source_prose_only_changes_after_checkpoint": [],
+  "python_files_parsed": 23,
+  "local_links_checked": 302,
+  "library_paths_changed": [
+    "causalis/data_contracts/_duplicate_columns.py",
+    "causalis/data_contracts/causaldata.py",
+    "causalis/data_contracts/iv_causal_data.py",
+    "causalis/data_contracts/multicausaldata.py",
+    "causalis/data_contracts/rct_causal_data.py",
+    "causalis/scenarios/iv/model.py",
+    "causalis/scenarios/multi_unconfoundedness/_utils.py",
+    "causalis/scenarios/unconfoundedness/_utils.py",
+    "causalis/shared/outcome_plots.py"
+  ],
+  "sensitivity_paths_changed": [],
+  "integration": {
+    "scope": "correctness",
+    "selected_full_suite": false,
+    "collect_only": false,
+    "exit_code": 0,
+    "elapsed_seconds": 401.57263500010595,
+    "tested_source_checkpoint": "09e00de5a9d3dc915c6d59627f8b0ebc875dd4e9",
+    "sensitivity_validated": false,
+    "passed": 1582,
+    "failed": 0,
+    "skipped": 0,
+    "warnings": 77,
+    "pytest_elapsed_seconds": 400.95,
+    "full_suite_clean": false,
+    "scoped_suite_clean": true,
+    "new_cases": {
+      "ci": 11,
+      "duplicates": 71,
+      "binary": 74,
+      "kde": 37,
+      "iv_compat": 13,
+      "total": 206
+    }
+  },
+  "benchmark_measured_source": "d292b3c2f83ec94ef75652a17f3e34436c71902f",
+  "benchmark_measured_paths_unchanged": [
+    "causalis/data_contracts/causaldata.py",
+    "causalis/data_contracts/iv_causal_data.py",
+    "causalis/data_contracts/multicausaldata.py",
+    "causalis/data_contracts/rct_causal_data.py",
+    "causalis/data_contracts/_duplicate_columns.py",
+    "causalis/scenarios/unconfoundedness/_utils.py",
+    "causalis/scenarios/multi_unconfoundedness/_utils.py",
+    "causalis/scenarios/unconfoundedness/model.py",
+    "causalis/shared/outcome_plots.py"
+  ],
+  "matrix_validation": {
+    "run_id": 37373828518,
+    "source": "09e00de5a9d3dc915c6d59627f8b0ebc875dd4e9",
+    "verified_successful_jobs": 6,
+    "all_six_jobs_verified": true,
+    "pending_is_not_pass": true
+  },
+  "issues": []
+}
