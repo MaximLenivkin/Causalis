@@ -119,6 +119,13 @@ def _validate_propensity_clip(propensity_clip: float) -> float:
     return value
 
 
+def _validate_bootstrap_replications(value: int) -> int:
+    out = _validate_nonnegative_int(value, "bootstrap_replications")
+    if out == 1:
+        raise ValueError("bootstrap_replications must be 0 or at least 2.")
+    return out
+
+
 def _normal_p_value(estimate: float, se: float) -> float:
     if se > 0.0:
         return float(2.0 * norm.sf(abs(estimate / se)))
@@ -342,8 +349,15 @@ def _draw_multiplier_weights(
         return rng.choice(np.asarray([-1.0, 1.0]), size=(replications, n_units))
 
     cluster_index = pd.Index(pd.Series(clusters).drop_duplicates().tolist())
+    n_clusters = len(cluster_index)
+    if n_clusters < 2:
+        raise ValueError("Clustered inference requires at least two clusters.")
     unit_cluster_pos = cluster_index.get_indexer(clusters)
-    cluster_multipliers = rng.choice(np.asarray([-1.0, 1.0]), size=(replications, len(cluster_index)))
+    cluster_multipliers = rng.choice(np.asarray([-1.0, 1.0]), size=(replications, n_clusters)).astype(float)
+    # Match the centered cluster sums and finite-cluster factor used by the
+    # analytic covariance, including cross-cell covariance in uniform bands.
+    cluster_multipliers -= cluster_multipliers.mean(axis=1, keepdims=True)
+    cluster_multipliers *= np.sqrt(n_clusters / (n_clusters - 1.0))
     return cluster_multipliers[:, unit_cluster_pos]
 
 
@@ -370,6 +384,8 @@ def _add_inference(
         scores = scores[:, None]
     if scores.shape[1] != len(out):
         raise ValueError("Influence-score columns must match table rows.")
+    if clusters is not None and len(pd.unique(clusters)) < 2:
+        raise ValueError("Clustered inference requires at least two clusters.")
 
     if bootstrap_replications > 0:
         if multiplier_weights is None:
@@ -1005,7 +1021,7 @@ class CallawaySantAnnaDID:
             "max_propensity_clip_share",
         )
         self.max_condition_number = _validate_positive_float(max_condition_number, "max_condition_number")
-        self.bootstrap_replications = _validate_nonnegative_int(bootstrap_replications, "bootstrap_replications")
+        self.bootstrap_replications = _validate_bootstrap_replications(bootstrap_replications)
         self.random_state = random_state
 
         self._data: Optional[PanelDataDID] = None
@@ -1116,8 +1132,8 @@ class CallawaySantAnnaDID:
         data, prepared, att_gt_raw, score_matrix = self._require_fitted()
         a = self.alpha if alpha is None else _validate_alpha(alpha)
         include_diagnostics = self.diagnostic_data if diagnostic_data is None else bool(diagnostic_data)
-        b = self.bootstrap_replications if bootstrap_replications is None else _validate_nonnegative_int(
-            bootstrap_replications, "bootstrap_replications"
+        b = _validate_bootstrap_replications(
+            self.bootstrap_replications if bootstrap_replications is None else bootstrap_replications
         )
         seed = self.random_state if random_state is None else random_state
         rng = np.random.default_rng(seed)
