@@ -28,6 +28,7 @@ if __name__ == "__main__":
         {"python": "3.10", "stack": "legacy"}]
     assert ci["jobs"]["correctness"]["strategy"]["fail-fast"] == "false"
     assert ci["on"]["push"]["branches"] == ["main", "codex/**"]
+    assert ci["on"]["push"]["paths-ignore"] == ["audit/**"]
     assert "pull_request" in ci["on"] and "workflow_dispatch" in ci["on"]
     assert release["on"]["push"]["tags"] == ["v*.*.*"]
     jobs = release["jobs"]
@@ -64,6 +65,7 @@ if __name__ == "__main__":
         "pydantic_requirement": str(requirement),
         "pydantic_v1_rejected": True,
         "matrix": matrix,
+        "audit_only_pushes_do_not_restart_matrix": True,
         "release_full_pytest_before_build": True,
         "release_publish_dependencies_preserved": True,
         "annotated_tag_main_and_version_guards_preserved": True,

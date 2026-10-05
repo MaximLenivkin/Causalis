@@ -27,6 +27,7 @@
       "stack": "legacy"
     }
   ],
+  "audit_only_pushes_do_not_restart_matrix": true,
   "release_full_pytest_before_build": true,
   "release_publish_dependencies_preserved": true,
   "annotated_tag_main_and_version_guards_preserved": true,

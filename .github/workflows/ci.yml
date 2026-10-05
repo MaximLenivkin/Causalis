@@ -3,6 +3,7 @@ name: Compatibility and scoped correctness
 on:
   push:
     branches: [main, "codex/**"]
+    paths-ignore: ["audit/**"]
   pull_request:
   workflow_dispatch:
 
