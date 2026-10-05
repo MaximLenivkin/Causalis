@@ -28,22 +28,82 @@ def _silverman_bandwidth(x: np.ndarray) -> float:
     return float(max(h, 1e-6))
 
 
-def _kde_unbounded(x: np.ndarray, xs: np.ndarray, h: float) -> np.ndarray:
+def _kde_unbounded(
+        x: np.ndarray,
+        xs: np.ndarray,
+        h: float,
+        *,
+        max_work_bytes: int = 8 * 1024 * 1024,
+) -> np.ndarray:
     """
     Gaussian KDE on R, implemented with NumPy (no SciPy).
     Handles degenerate cases by drawing a small bump at the mean.
+
+    Evaluate every observation/grid pair, in blocks, without an n-by-grid
+    matrix. ``max_work_bytes`` bounds the float64 kernel workspace and its
+    partial-sum vector together; the input arrays, output density, and NumPy's
+    variance calculation are outside that budget. Blocked accumulation can
+    differ from the dense mean by float64 summation roundoff.
     """
+    if (isinstance(max_work_bytes, (bool, np.bool_))
+            or not isinstance(max_work_bytes, (int, np.integer))
+            or max_work_bytes < 2 * np.dtype(float).itemsize):
+        raise ValueError("max_work_bytes must be an integer of at least 16 bytes.")
     x = np.asarray(x, float)
     if x.size == 0:
         return np.zeros_like(xs)
+    xs = np.asarray(xs, float)
+    max_items = int(max_work_bytes) // np.dtype(float).itemsize
     if x.size < 2 or np.std(x) < 1e-12:
         mu = float(np.mean(x)) if x.size else 0.0
         h0 = max(h, 1e-3)
-        z = (xs - mu) / h0
-        return np.exp(-0.5 * z ** 2) / (np.sqrt(2 * np.pi) * h0)
-    diff = (xs[None, :] - x[:, None]) / h
-    kern = np.exp(-0.5 * diff ** 2) / (np.sqrt(2 * np.pi) * h)
-    return kern.mean(axis=0)
+        density = np.empty_like(xs)
+        if xs.size == 0:
+            return density
+        grid_block = min(xs.size, max_items)
+        work = np.empty(grid_block, dtype=float)
+        for start in range(0, xs.size, grid_block):
+            grid_slice = xs[start:start + grid_block]
+            kernel = work[:grid_slice.size]
+            np.subtract(grid_slice, mu, out=kernel)
+            np.divide(kernel, h0, out=kernel)
+            np.square(kernel, out=kernel)
+            np.multiply(kernel, -0.5, out=kernel)
+            np.exp(kernel, out=kernel)
+            np.divide(kernel, np.sqrt(2 * np.pi) * h0,
+                      out=density[start:start + grid_block])
+        return density
+    density = np.zeros_like(xs)
+    if xs.size == 0:
+        return density
+
+    # Reserve a partial sum per grid coordinate as well as the kernel matrix.
+    # Even a very wide grid is blocked, and a 16-byte budget can evaluate one
+    # pair plus its partial sum. Ufuncs reuse the workspace in place.
+    grid_block = min(xs.size, max_items // 2)
+    observation_block = min(x.size, max_items // grid_block - 1)
+    work = np.empty((observation_block, grid_block), dtype=float)
+    partial = np.empty(grid_block, dtype=float)
+    normalizer = np.sqrt(2 * np.pi) * h
+
+    for grid_start in range(0, xs.size, grid_block):
+        grid_stop = min(grid_start + grid_block, xs.size)
+        grid_slice = xs[grid_start:grid_stop]
+        density_slice = density[grid_start:grid_stop]
+        partial_slice = partial[:grid_slice.size]
+        for start in range(0, x.size, observation_block):
+            observations = x[start:start + observation_block]
+            kernel = work[:observations.size, :grid_slice.size]
+            np.subtract(grid_slice[None, :], observations[:, None], out=kernel)
+            np.divide(kernel, h, out=kernel)
+            np.square(kernel, out=kernel)
+            np.multiply(kernel, -0.5, out=kernel)
+            np.exp(kernel, out=kernel)
+            np.divide(kernel, normalizer, out=kernel)
+            np.sum(kernel, axis=0, out=partial_slice)
+            np.add(density_slice, partial_slice, out=density_slice)
+    np.divide(density, x.size, out=density)
+    return density
 
 
 def _first_patch_color(patches, fallback):

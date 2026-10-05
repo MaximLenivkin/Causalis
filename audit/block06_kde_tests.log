@@ -1,0 +1,12 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: D:\codex\Causalis
+configfile: pyproject.toml
+plugins: platformdirs-4.12.3
+collected 40 items
+
+tests\statistics\test_outcome_kde_memory.py ............................ [ 70%]
+.........                                                                [ 92%]
+tests\statistics\test_outcome_plots.py ...                               [100%]
+
+============================= 40 passed in 12.67s =============================
