@@ -1,0 +1,69 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "case": "balanced",
+      "moving_cell_functionals": false,
+      "n_units": 11,
+      "complete_treated_counts": [
+        3,
+        3,
+        3,
+        4,
+        4
+      ],
+      "aggregate": 5.11764705882353,
+      "maximum_contamination_derivative_error": 3.4014924210623576e-10,
+      "maximum_error_with_whole_cohort_instead_of_complete_pair_derivative": 3.4014924210623576e-10,
+      "influence_mean": -5.551115123125783e-16
+    },
+    {
+      "case": "balanced",
+      "moving_cell_functionals": true,
+      "n_units": 11,
+      "complete_treated_counts": [
+        3,
+        3,
+        3,
+        4,
+        4
+      ],
+      "aggregate": 5.11764705882353,
+      "maximum_contamination_derivative_error": 6.637748128923704e-10,
+      "maximum_error_with_whole_cohort_instead_of_complete_pair_derivative": 6.637749573366116e-10,
+      "influence_mean": -4.0939474033052647e-16
+    },
+    {
+      "case": "unbalanced",
+      "moving_cell_functionals": false,
+      "n_units": 11,
+      "complete_treated_counts": [
+        3,
+        2,
+        2,
+        3,
+        2
+      ],
+      "aggregate": 4.583333333333334,
+      "maximum_contamination_derivative_error": 7.247322741932294e-10,
+      "maximum_error_with_whole_cohort_instead_of_complete_pair_derivative": 5.875000000075355,
+      "influence_mean": -5.551115123125783e-16
+    },
+    {
+      "case": "unbalanced",
+      "moving_cell_functionals": true,
+      "n_units": 11,
+      "complete_treated_counts": [
+        3,
+        2,
+        2,
+        3,
+        2
+      ],
+      "aggregate": 4.583333333333334,
+      "maximum_contamination_derivative_error": 6.392415485834135e-10,
+      "maximum_error_with_whole_cohort_instead_of_complete_pair_derivative": 5.875000000103368,
+      "influence_mean": -5.689893001203927e-16
+    }
+  ]
+}

@@ -1,0 +1,803 @@
+FFFFFFFFFFFF..F..F..F..F..FF                                             [100%]
+================================== FAILURES ===================================
+_____ test_cell_if_matches_refitted_empirical_contamination[0.0-1e-06-dr] _____
+
+estimator = 'dr', ridge = 0.0, clip = 1e-06
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("ridge,clip", [(0.0, 1e-6), (0.07, 1e-6), (0.0, 0.25), (0.07, 0.25)])
+    def test_cell_if_matches_refitted_empirical_contamination(estimator, ridge, clip):
+        x, d, dy = _cell_arrays()
+        result = CallawaySantAnnaDID(estimator=estimator, control_group="never_treated",
+                                    logit_ridge=ridge, propensity_clip=clip,
+                                    optimizer_tol=1e-11).fit(_panel(x, d, dy)).estimate()
+        local = result.diagnostics["unit_level"].sort_values("id")
+        design = np.column_stack([np.ones(len(d)), x])
+        mass = np.full(len(d), 1.0 / len(d))
+        independent = _independent_weighted_att(design, d, dy, mass,
+                                                estimator=estimator, ridge=ridge, clip=clip)
+        assert result.att_gt.iloc[0].att == pytest.approx(independent, abs=2e-8)
+        scores = local.influence_score.to_numpy()
+        epsilon = 2e-5
+        derivatives = []
+        for i in range(len(d)):
+            direction = -mass.copy()
+            direction[i] += 1.0
+            upper = _independent_weighted_att(design, d, dy, mass + epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            lower = _independent_weighted_att(design, d, dy, mass - epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            derivatives.append((upper - lower) / (2.0 * epsilon))
+>       np.testing.assert_allclose(scores, derivatives, atol=3e-6, rtol=2e-6)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-06, atol=3e-06
+E       
+E       Mismatched elements: 96 / 96 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: 0.8463576485646828 (ACTUAL), -0.15369877083837302 (DESIRED)
+E        [1]: -2.0323687584778876 (ACTUAL), -2.5866261178397743 (DESIRED)
+E        [2]: -26.56006236939968 (ACTUAL), -8.53668612784686 (DESIRED)
+E        [3]: 0.25069966200616856 (ACTUAL), -1.2004476799831743 (DESIRED)
+E        [4]: -1.4819378710542512 (ACTUAL), -4.929969648043153 (DESIRED)
+E       Max absolute difference among violations: 18.02337624
+E       Max relative difference among violations: 120.63900872
+E        ACTUAL: array([ 8.463576e-01, -2.032369e+00, -2.656006e+01,  2.506997e-01,
+E              -1.481938e+00, -2.071162e+00, -2.029087e+00,  1.067968e+00,
+E              -1.874395e-02, -7.564097e-01,  3.433724e-01,  6.764287e-01,...
+E        DESIRED: array([-0.153699, -2.586626, -8.536686, -1.200448, -4.92997 , -2.952125,
+E              -2.946796, -0.569146, -0.266656,  0.2992  ,  0.698083, -1.084434,
+E               8.333435,  1.038414, -0.287055,  0.561455, -3.094887, -0.742171,...
+
+tests\scenarios\did\test_did_cell_influence.py:91: AssertionError
+____ test_cell_if_matches_refitted_empirical_contamination[0.0-1e-06-aipw] ____
+
+estimator = 'aipw', ridge = 0.0, clip = 1e-06
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("ridge,clip", [(0.0, 1e-6), (0.07, 1e-6), (0.0, 0.25), (0.07, 0.25)])
+    def test_cell_if_matches_refitted_empirical_contamination(estimator, ridge, clip):
+        x, d, dy = _cell_arrays()
+        result = CallawaySantAnnaDID(estimator=estimator, control_group="never_treated",
+                                    logit_ridge=ridge, propensity_clip=clip,
+                                    optimizer_tol=1e-11).fit(_panel(x, d, dy)).estimate()
+        local = result.diagnostics["unit_level"].sort_values("id")
+        design = np.column_stack([np.ones(len(d)), x])
+        mass = np.full(len(d), 1.0 / len(d))
+        independent = _independent_weighted_att(design, d, dy, mass,
+                                                estimator=estimator, ridge=ridge, clip=clip)
+        assert result.att_gt.iloc[0].att == pytest.approx(independent, abs=2e-8)
+        scores = local.influence_score.to_numpy()
+        epsilon = 2e-5
+        derivatives = []
+        for i in range(len(d)):
+            direction = -mass.copy()
+            direction[i] += 1.0
+            upper = _independent_weighted_att(design, d, dy, mass + epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            lower = _independent_weighted_att(design, d, dy, mass - epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            derivatives.append((upper - lower) / (2.0 * epsilon))
+>       np.testing.assert_allclose(scores, derivatives, atol=3e-6, rtol=2e-6)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-06, atol=3e-06
+E       
+E       Mismatched elements: 96 / 96 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: 0.8463576485646828 (ACTUAL), -0.15369877083837302 (DESIRED)
+E        [1]: -2.0323687584778876 (ACTUAL), -2.5866261178397743 (DESIRED)
+E        [2]: -26.56006236939968 (ACTUAL), -8.53668612784686 (DESIRED)
+E        [3]: 0.25069966200616856 (ACTUAL), -1.2004476799831743 (DESIRED)
+E        [4]: -1.4819378710542512 (ACTUAL), -4.929969648043153 (DESIRED)
+E       Max absolute difference among violations: 18.02337624
+E       Max relative difference among violations: 120.63900872
+E        ACTUAL: array([ 8.463576e-01, -2.032369e+00, -2.656006e+01,  2.506997e-01,
+E              -1.481938e+00, -2.071162e+00, -2.029087e+00,  1.067968e+00,
+E              -1.874395e-02, -7.564097e-01,  3.433724e-01,  6.764287e-01,...
+E        DESIRED: array([-0.153699, -2.586626, -8.536686, -1.200448, -4.92997 , -2.952125,
+E              -2.946796, -0.569146, -0.266656,  0.2992  ,  0.698083, -1.084434,
+E               8.333435,  1.038414, -0.287055,  0.561455, -3.094887, -0.742171,...
+
+tests\scenarios\did\test_did_cell_influence.py:91: AssertionError
+____ test_cell_if_matches_refitted_empirical_contamination[0.0-1e-06-ipw] _____
+
+estimator = 'ipw', ridge = 0.0, clip = 1e-06
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("ridge,clip", [(0.0, 1e-6), (0.07, 1e-6), (0.0, 0.25), (0.07, 0.25)])
+    def test_cell_if_matches_refitted_empirical_contamination(estimator, ridge, clip):
+        x, d, dy = _cell_arrays()
+        result = CallawaySantAnnaDID(estimator=estimator, control_group="never_treated",
+                                    logit_ridge=ridge, propensity_clip=clip,
+                                    optimizer_tol=1e-11).fit(_panel(x, d, dy)).estimate()
+        local = result.diagnostics["unit_level"].sort_values("id")
+        design = np.column_stack([np.ones(len(d)), x])
+        mass = np.full(len(d), 1.0 / len(d))
+        independent = _independent_weighted_att(design, d, dy, mass,
+                                                estimator=estimator, ridge=ridge, clip=clip)
+        assert result.att_gt.iloc[0].att == pytest.approx(independent, abs=2e-8)
+        scores = local.influence_score.to_numpy()
+        epsilon = 2e-5
+        derivatives = []
+        for i in range(len(d)):
+            direction = -mass.copy()
+            direction[i] += 1.0
+            upper = _independent_weighted_att(design, d, dy, mass + epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            lower = _independent_weighted_att(design, d, dy, mass - epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            derivatives.append((upper - lower) / (2.0 * epsilon))
+>       np.testing.assert_allclose(scores, derivatives, atol=3e-6, rtol=2e-6)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-06, atol=3e-06
+E       
+E       Mismatched elements: 96 / 96 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: 0.4870161331473644 (ACTUAL), 0.0022626834295103038 (DESIRED)
+E        [1]: 2.3983208073081586 (ACTUAL), -2.7743429477977695 (DESIRED)
+E        [2]: -101.49841001962942 (ACTUAL), -20.124220996564635 (DESIRED)
+E        [3]: 3.5612698790788397 (ACTUAL), -2.491905511869952 (DESIRED)
+E        [4]: -2.529170872400016 (ACTUAL), -3.5482502491412933 (DESIRED)
+E       Max absolute difference among violations: 81.37418902
+E       Max relative difference among violations: 214.23829927
+E        ACTUAL: array([ 4.870161e-01,  2.398321e+00, -1.014984e+02,  3.561270e+00,
+E              -2.529171e+00,  1.540967e+00, -6.877457e+00,  3.821600e+00,
+E              -5.554603e-02, -3.606940e+00, -1.619741e+00,  3.646312e+00,...
+E        DESIRED: array([ 2.262683e-03, -2.774343e+00, -2.012422e+01, -2.491906e+00,
+E              -3.548250e+00, -3.830184e+00, -1.891406e+00, -2.095588e+00,
+E              -8.002502e-01,  1.188972e+00,  1.231726e+00, -2.664107e+00,...
+
+tests\scenarios\did\test_did_cell_influence.py:91: AssertionError
+____ test_cell_if_matches_refitted_empirical_contamination[0.07-1e-06-dr] _____
+
+estimator = 'dr', ridge = 0.07, clip = 1e-06
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("ridge,clip", [(0.0, 1e-6), (0.07, 1e-6), (0.0, 0.25), (0.07, 0.25)])
+    def test_cell_if_matches_refitted_empirical_contamination(estimator, ridge, clip):
+        x, d, dy = _cell_arrays()
+        result = CallawaySantAnnaDID(estimator=estimator, control_group="never_treated",
+                                    logit_ridge=ridge, propensity_clip=clip,
+                                    optimizer_tol=1e-11).fit(_panel(x, d, dy)).estimate()
+        local = result.diagnostics["unit_level"].sort_values("id")
+        design = np.column_stack([np.ones(len(d)), x])
+        mass = np.full(len(d), 1.0 / len(d))
+        independent = _independent_weighted_att(design, d, dy, mass,
+                                                estimator=estimator, ridge=ridge, clip=clip)
+        assert result.att_gt.iloc[0].att == pytest.approx(independent, abs=2e-8)
+        scores = local.influence_score.to_numpy()
+        epsilon = 2e-5
+        derivatives = []
+        for i in range(len(d)):
+            direction = -mass.copy()
+            direction[i] += 1.0
+            upper = _independent_weighted_att(design, d, dy, mass + epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            lower = _independent_weighted_att(design, d, dy, mass - epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            derivatives.append((upper - lower) / (2.0 * epsilon))
+>       np.testing.assert_allclose(scores, derivatives, atol=3e-6, rtol=2e-6)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-06, atol=3e-06
+E       
+E       Mismatched elements: 96 / 96 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: 1.6261422037967233 (ACTUAL), 0.06536475625207316 (DESIRED)
+E        [1]: -2.362190678493212 (ACTUAL), -2.3334378079331586 (DESIRED)
+E        [2]: -13.125729770354205 (ACTUAL), -11.304248762378231 (DESIRED)
+E        [3]: -0.07912225800915573 (ACTUAL), -0.5790399195126916 (DESIRED)
+E        [4]: -2.490921737247393 (ACTUAL), -3.7361578234196275 (DESIRED)
+E       Max absolute difference among violations: 3.82140475
+E       Max relative difference among violations: 23.87796631
+E        ACTUAL: array([  1.626142,  -2.362191, -13.12573 ,  -0.079122,  -2.490922,
+E               -2.400984,  -2.278471,   0.738146,  -0.048313,  -0.918051,
+E                0.457435,   0.346607,   5.433855,   1.648218,   0.027936,...
+E        DESIRED: array([  0.065365,  -2.333438, -11.304249,  -0.57904 ,  -3.736158,
+E               -2.589163,  -3.581299,   0.131251,   0.116036,  -0.62994 ,
+E                0.847816,  -0.32028 ,   8.34749 ,   1.287442,  -0.371159,...
+
+tests\scenarios\did\test_did_cell_influence.py:91: AssertionError
+___ test_cell_if_matches_refitted_empirical_contamination[0.07-1e-06-aipw] ____
+
+estimator = 'aipw', ridge = 0.07, clip = 1e-06
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("ridge,clip", [(0.0, 1e-6), (0.07, 1e-6), (0.0, 0.25), (0.07, 0.25)])
+    def test_cell_if_matches_refitted_empirical_contamination(estimator, ridge, clip):
+        x, d, dy = _cell_arrays()
+        result = CallawaySantAnnaDID(estimator=estimator, control_group="never_treated",
+                                    logit_ridge=ridge, propensity_clip=clip,
+                                    optimizer_tol=1e-11).fit(_panel(x, d, dy)).estimate()
+        local = result.diagnostics["unit_level"].sort_values("id")
+        design = np.column_stack([np.ones(len(d)), x])
+        mass = np.full(len(d), 1.0 / len(d))
+        independent = _independent_weighted_att(design, d, dy, mass,
+                                                estimator=estimator, ridge=ridge, clip=clip)
+        assert result.att_gt.iloc[0].att == pytest.approx(independent, abs=2e-8)
+        scores = local.influence_score.to_numpy()
+        epsilon = 2e-5
+        derivatives = []
+        for i in range(len(d)):
+            direction = -mass.copy()
+            direction[i] += 1.0
+            upper = _independent_weighted_att(design, d, dy, mass + epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            lower = _independent_weighted_att(design, d, dy, mass - epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            derivatives.append((upper - lower) / (2.0 * epsilon))
+>       np.testing.assert_allclose(scores, derivatives, atol=3e-6, rtol=2e-6)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-06, atol=3e-06
+E       
+E       Mismatched elements: 96 / 96 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: 1.6261422037967233 (ACTUAL), 0.06536475625207316 (DESIRED)
+E        [1]: -2.362190678493212 (ACTUAL), -2.3334378079331586 (DESIRED)
+E        [2]: -13.125729770354205 (ACTUAL), -11.304248762378231 (DESIRED)
+E        [3]: -0.07912225800915573 (ACTUAL), -0.5790399195126916 (DESIRED)
+E        [4]: -2.490921737247393 (ACTUAL), -3.7361578234196275 (DESIRED)
+E       Max absolute difference among violations: 3.82140475
+E       Max relative difference among violations: 23.87796631
+E        ACTUAL: array([  1.626142,  -2.362191, -13.12573 ,  -0.079122,  -2.490922,
+E               -2.400984,  -2.278471,   0.738146,  -0.048313,  -0.918051,
+E                0.457435,   0.346607,   5.433855,   1.648218,   0.027936,...
+E        DESIRED: array([  0.065365,  -2.333438, -11.304249,  -0.57904 ,  -3.736158,
+E               -2.589163,  -3.581299,   0.131251,   0.116036,  -0.62994 ,
+E                0.847816,  -0.32028 ,   8.34749 ,   1.287442,  -0.371159,...
+
+tests\scenarios\did\test_did_cell_influence.py:91: AssertionError
+____ test_cell_if_matches_refitted_empirical_contamination[0.07-1e-06-ipw] ____
+
+estimator = 'ipw', ridge = 0.07, clip = 1e-06
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("ridge,clip", [(0.0, 1e-6), (0.07, 1e-6), (0.0, 0.25), (0.07, 0.25)])
+    def test_cell_if_matches_refitted_empirical_contamination(estimator, ridge, clip):
+        x, d, dy = _cell_arrays()
+        result = CallawaySantAnnaDID(estimator=estimator, control_group="never_treated",
+                                    logit_ridge=ridge, propensity_clip=clip,
+                                    optimizer_tol=1e-11).fit(_panel(x, d, dy)).estimate()
+        local = result.diagnostics["unit_level"].sort_values("id")
+        design = np.column_stack([np.ones(len(d)), x])
+        mass = np.full(len(d), 1.0 / len(d))
+        independent = _independent_weighted_att(design, d, dy, mass,
+                                                estimator=estimator, ridge=ridge, clip=clip)
+        assert result.att_gt.iloc[0].att == pytest.approx(independent, abs=2e-8)
+        scores = local.influence_score.to_numpy()
+        epsilon = 2e-5
+        derivatives = []
+        for i in range(len(d)):
+            direction = -mass.copy()
+            direction[i] += 1.0
+            upper = _independent_weighted_att(design, d, dy, mass + epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            lower = _independent_weighted_att(design, d, dy, mass - epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            derivatives.append((upper - lower) / (2.0 * epsilon))
+>       np.testing.assert_allclose(scores, derivatives, atol=3e-6, rtol=2e-6)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-06, atol=3e-06
+E       
+E       Mismatched elements: 96 / 96 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: 0.935724382456843 (ACTUAL), 1.9397505863327777 (DESIRED)
+E        [1]: 1.565553920281256 (ACTUAL), -1.960757447527772 (DESIRED)
+E        [2]: -50.15954719945106 (ACTUAL), -18.807291921629776 (DESIRED)
+E        [3]: 2.7285029920519372 (ACTUAL), -1.169259837752179 (DESIRED)
+E        [4]: -4.251167897337257 (ACTUAL), -3.164262010291185 (DESIRED)
+E       Max absolute difference among violations: 31.35225528
+E       Max relative difference among violations: 58.38954073
+E        ACTUAL: array([ 9.357244e-01,  1.565554e+00, -5.015955e+01,  2.728503e+00,
+E              -4.251168e+00,  7.082004e-01, -7.722727e+00,  2.988833e+00,
+E              -1.431715e-01, -4.377727e+00, -2.157794e+00,  2.813545e+00,...
+E        DESIRED: array([  1.939751,  -1.960757, -18.807292,  -1.16926 ,  -3.164262,
+E               -2.864119,  -2.913025,  -0.788922,   0.120154,   0.090688,
+E                1.270971,  -1.176395,   4.58774 ,   2.789968,  -0.029749,...
+
+tests\scenarios\did\test_did_cell_influence.py:91: AssertionError
+_____ test_cell_if_matches_refitted_empirical_contamination[0.0-0.25-dr] ______
+
+estimator = 'dr', ridge = 0.0, clip = 0.25
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("ridge,clip", [(0.0, 1e-6), (0.07, 1e-6), (0.0, 0.25), (0.07, 0.25)])
+    def test_cell_if_matches_refitted_empirical_contamination(estimator, ridge, clip):
+        x, d, dy = _cell_arrays()
+        result = CallawaySantAnnaDID(estimator=estimator, control_group="never_treated",
+                                    logit_ridge=ridge, propensity_clip=clip,
+                                    optimizer_tol=1e-11).fit(_panel(x, d, dy)).estimate()
+        local = result.diagnostics["unit_level"].sort_values("id")
+        design = np.column_stack([np.ones(len(d)), x])
+        mass = np.full(len(d), 1.0 / len(d))
+        independent = _independent_weighted_att(design, d, dy, mass,
+                                                estimator=estimator, ridge=ridge, clip=clip)
+        assert result.att_gt.iloc[0].att == pytest.approx(independent, abs=2e-8)
+        scores = local.influence_score.to_numpy()
+        epsilon = 2e-5
+        derivatives = []
+        for i in range(len(d)):
+            direction = -mass.copy()
+            direction[i] += 1.0
+            upper = _independent_weighted_att(design, d, dy, mass + epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            lower = _independent_weighted_att(design, d, dy, mass - epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            derivatives.append((upper - lower) / (2.0 * epsilon))
+>       np.testing.assert_allclose(scores, derivatives, atol=3e-6, rtol=2e-6)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-06, atol=3e-06
+E       
+E       Mismatched elements: 96 / 96 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: 1.4139068222937312 (ACTUAL), -0.41064194994389064 (DESIRED)
+E        [1]: -2.447680090863253 (ACTUAL), -2.1383051705958778 (DESIRED)
+E        [2]: -6.827697827199357 (ACTUAL), -11.370358522255762 (DESIRED)
+E        [3]: -0.16461167037919644 (ACTUAL), 0.10778575741943185 (DESIRED)
+E        [4]: -1.9336664482871861 (ACTUAL), -2.7452175580977562 (DESIRED)
+E       Max absolute difference among violations: 5.05785589
+E       Max relative difference among violations: 316.62910689
+E        ACTUAL: array([ 1.413907e+00, -2.447680e+00, -6.827698e+00, -1.646117e-01,
+E              -1.933666e+00, -2.486474e+00, -2.647599e+00,  6.526563e-01,
+E              -7.598636e-02, -9.869807e-01,  4.480401e-01,  2.611173e-01,...
+E        DESIRED: array([-4.106419e-01, -2.138305e+00, -1.137036e+01,  1.077858e-01,
+E              -2.745218e+00, -2.153750e+00, -4.524184e+00,  9.356200e-01,
+E               2.036122e-01, -1.569733e+00,  2.840123e-01,  5.173703e-01,...
+
+tests\scenarios\did\test_did_cell_influence.py:91: AssertionError
+____ test_cell_if_matches_refitted_empirical_contamination[0.0-0.25-aipw] _____
+
+estimator = 'aipw', ridge = 0.0, clip = 0.25
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("ridge,clip", [(0.0, 1e-6), (0.07, 1e-6), (0.0, 0.25), (0.07, 0.25)])
+    def test_cell_if_matches_refitted_empirical_contamination(estimator, ridge, clip):
+        x, d, dy = _cell_arrays()
+        result = CallawaySantAnnaDID(estimator=estimator, control_group="never_treated",
+                                    logit_ridge=ridge, propensity_clip=clip,
+                                    optimizer_tol=1e-11).fit(_panel(x, d, dy)).estimate()
+        local = result.diagnostics["unit_level"].sort_values("id")
+        design = np.column_stack([np.ones(len(d)), x])
+        mass = np.full(len(d), 1.0 / len(d))
+        independent = _independent_weighted_att(design, d, dy, mass,
+                                                estimator=estimator, ridge=ridge, clip=clip)
+        assert result.att_gt.iloc[0].att == pytest.approx(independent, abs=2e-8)
+        scores = local.influence_score.to_numpy()
+        epsilon = 2e-5
+        derivatives = []
+        for i in range(len(d)):
+            direction = -mass.copy()
+            direction[i] += 1.0
+            upper = _independent_weighted_att(design, d, dy, mass + epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            lower = _independent_weighted_att(design, d, dy, mass - epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            derivatives.append((upper - lower) / (2.0 * epsilon))
+>       np.testing.assert_allclose(scores, derivatives, atol=3e-6, rtol=2e-6)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-06, atol=3e-06
+E       
+E       Mismatched elements: 96 / 96 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: 1.4139068222937312 (ACTUAL), -0.41064194994389064 (DESIRED)
+E        [1]: -2.447680090863253 (ACTUAL), -2.1383051705958778 (DESIRED)
+E        [2]: -6.827697827199357 (ACTUAL), -11.370358522255762 (DESIRED)
+E        [3]: -0.16461167037919644 (ACTUAL), 0.10778575741943185 (DESIRED)
+E        [4]: -1.9336664482871861 (ACTUAL), -2.7452175580977562 (DESIRED)
+E       Max absolute difference among violations: 5.05785589
+E       Max relative difference among violations: 316.62910689
+E        ACTUAL: array([ 1.413907e+00, -2.447680e+00, -6.827698e+00, -1.646117e-01,
+E              -1.933666e+00, -2.486474e+00, -2.647599e+00,  6.526563e-01,
+E              -7.598636e-02, -9.869807e-01,  4.480401e-01,  2.611173e-01,...
+E        DESIRED: array([-4.106419e-01, -2.138305e+00, -1.137036e+01,  1.077858e-01,
+E              -2.745218e+00, -2.153750e+00, -4.524184e+00,  9.356200e-01,
+E               2.036122e-01, -1.569733e+00,  2.840123e-01,  5.173703e-01,...
+
+tests\scenarios\did\test_did_cell_influence.py:91: AssertionError
+_____ test_cell_if_matches_refitted_empirical_contamination[0.0-0.25-ipw] _____
+
+estimator = 'ipw', ridge = 0.0, clip = 0.25
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("ridge,clip", [(0.0, 1e-6), (0.07, 1e-6), (0.0, 0.25), (0.07, 0.25)])
+    def test_cell_if_matches_refitted_empirical_contamination(estimator, ridge, clip):
+        x, d, dy = _cell_arrays()
+        result = CallawaySantAnnaDID(estimator=estimator, control_group="never_treated",
+                                    logit_ridge=ridge, propensity_clip=clip,
+                                    optimizer_tol=1e-11).fit(_panel(x, d, dy)).estimate()
+        local = result.diagnostics["unit_level"].sort_values("id")
+        design = np.column_stack([np.ones(len(d)), x])
+        mass = np.full(len(d), 1.0 / len(d))
+        independent = _independent_weighted_att(design, d, dy, mass,
+                                                estimator=estimator, ridge=ridge, clip=clip)
+        assert result.att_gt.iloc[0].att == pytest.approx(independent, abs=2e-8)
+        scores = local.influence_score.to_numpy()
+        epsilon = 2e-5
+        derivatives = []
+        for i in range(len(d)):
+            direction = -mass.copy()
+            direction[i] += 1.0
+            upper = _independent_weighted_att(design, d, dy, mass + epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            lower = _independent_weighted_att(design, d, dy, mass - epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            derivatives.append((upper - lower) / (2.0 * epsilon))
+>       np.testing.assert_allclose(scores, derivatives, atol=3e-6, rtol=2e-6)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-06, atol=3e-06
+E       
+E       Mismatched elements: 96 / 96 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: 0.8135986416521939 (ACTUAL), 1.7412971719088508 (DESIRED)
+E        [1]: 1.3772373072420754 (ACTUAL), -1.796871312043091 (DESIRED)
+E        [2]: -26.09182402951099 (ACTUAL), -15.307755754889738 (DESIRED)
+E        [3]: 2.5401863790127566 (ACTUAL), -0.14883444612312502 (DESIRED)
+E        [4]: -3.300120034361486 (ACTUAL), -1.8015619756006627 (DESIRED)
+E       Max absolute difference among violations: 10.81536832
+E       Max relative difference among violations: 618.55613161
+E        ACTUAL: array([ 8.135986e-01,  1.377237e+00, -2.609182e+01,  2.540186e+00,
+E              -3.300120e+00,  5.198837e-01, -8.973864e+00,  2.800517e+00,
+E              -2.251788e-01, -4.706418e+00, -2.113476e+00,  2.625229e+00,...
+E        DESIRED: array([ 1.741297e+00, -1.796871e+00, -1.530776e+01, -1.488344e-01,
+E              -1.801562e+00, -2.360572e+00, -3.763312e+00,  4.202515e-01,
+E               8.611335e-01, -1.294178e+00,  3.657282e-01,  1.267876e-01,...
+
+tests\scenarios\did\test_did_cell_influence.py:91: AssertionError
+_____ test_cell_if_matches_refitted_empirical_contamination[0.07-0.25-dr] _____
+
+estimator = 'dr', ridge = 0.07, clip = 0.25
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("ridge,clip", [(0.0, 1e-6), (0.07, 1e-6), (0.0, 0.25), (0.07, 0.25)])
+    def test_cell_if_matches_refitted_empirical_contamination(estimator, ridge, clip):
+        x, d, dy = _cell_arrays()
+        result = CallawaySantAnnaDID(estimator=estimator, control_group="never_treated",
+                                    logit_ridge=ridge, propensity_clip=clip,
+                                    optimizer_tol=1e-11).fit(_panel(x, d, dy)).estimate()
+        local = result.diagnostics["unit_level"].sort_values("id")
+        design = np.column_stack([np.ones(len(d)), x])
+        mass = np.full(len(d), 1.0 / len(d))
+        independent = _independent_weighted_att(design, d, dy, mass,
+                                                estimator=estimator, ridge=ridge, clip=clip)
+        assert result.att_gt.iloc[0].att == pytest.approx(independent, abs=2e-8)
+        scores = local.influence_score.to_numpy()
+        epsilon = 2e-5
+        derivatives = []
+        for i in range(len(d)):
+            direction = -mass.copy()
+            direction[i] += 1.0
+            upper = _independent_weighted_att(design, d, dy, mass + epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            lower = _independent_weighted_att(design, d, dy, mass - epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            derivatives.append((upper - lower) / (2.0 * epsilon))
+>       np.testing.assert_allclose(scores, derivatives, atol=3e-6, rtol=2e-6)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-06, atol=3e-06
+E       
+E       Mismatched elements: 96 / 96 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: 1.7242158352537558 (ACTUAL), -0.3072961184291678 (DESIRED)
+E        [1]: -2.4863786297683346 (ACTUAL), -2.1582849319856656 (DESIRED)
+E        [2]: -6.856335857155843 (ACTUAL), -9.877981944528269 (DESIRED)
+E        [3]: -0.203310209284278 (ACTUAL), -0.2634235618415026 (DESIRED)
+E        [4]: -2.6411507515837376 (ACTUAL), -3.404496835590631 (DESIRED)
+E       Max absolute difference among violations: 5.40477345
+E       Max relative difference among violations: 325.77906782
+E        ACTUAL: array([  1.724216,  -2.486379,  -6.856336,  -0.20331 ,  -2.641151,
+E               -2.525172,  -2.415887,   0.613958,  -0.076305,  -0.973419,
+E                0.485023,   0.222419,   5.761574,   1.52403 ,   0.084509,...
+E        DESIRED: array([-3.072961e-01, -2.158285e+00, -9.877982e+00, -2.634236e-01,
+E              -3.404497e+00, -2.364937e+00, -4.350565e+00,  4.502056e-01,
+E               2.071994e-01, -1.268849e+00,  5.947144e-01,  3.547024e-02,...
+
+tests\scenarios\did\test_did_cell_influence.py:91: AssertionError
+____ test_cell_if_matches_refitted_empirical_contamination[0.07-0.25-aipw] ____
+
+estimator = 'aipw', ridge = 0.07, clip = 0.25
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("ridge,clip", [(0.0, 1e-6), (0.07, 1e-6), (0.0, 0.25), (0.07, 0.25)])
+    def test_cell_if_matches_refitted_empirical_contamination(estimator, ridge, clip):
+        x, d, dy = _cell_arrays()
+        result = CallawaySantAnnaDID(estimator=estimator, control_group="never_treated",
+                                    logit_ridge=ridge, propensity_clip=clip,
+                                    optimizer_tol=1e-11).fit(_panel(x, d, dy)).estimate()
+        local = result.diagnostics["unit_level"].sort_values("id")
+        design = np.column_stack([np.ones(len(d)), x])
+        mass = np.full(len(d), 1.0 / len(d))
+        independent = _independent_weighted_att(design, d, dy, mass,
+                                                estimator=estimator, ridge=ridge, clip=clip)
+        assert result.att_gt.iloc[0].att == pytest.approx(independent, abs=2e-8)
+        scores = local.influence_score.to_numpy()
+        epsilon = 2e-5
+        derivatives = []
+        for i in range(len(d)):
+            direction = -mass.copy()
+            direction[i] += 1.0
+            upper = _independent_weighted_att(design, d, dy, mass + epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            lower = _independent_weighted_att(design, d, dy, mass - epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            derivatives.append((upper - lower) / (2.0 * epsilon))
+>       np.testing.assert_allclose(scores, derivatives, atol=3e-6, rtol=2e-6)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-06, atol=3e-06
+E       
+E       Mismatched elements: 96 / 96 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: 1.7242158352537558 (ACTUAL), -0.3072961184291678 (DESIRED)
+E        [1]: -2.4863786297683346 (ACTUAL), -2.1582849319856656 (DESIRED)
+E        [2]: -6.856335857155843 (ACTUAL), -9.877981944528269 (DESIRED)
+E        [3]: -0.203310209284278 (ACTUAL), -0.2634235618415026 (DESIRED)
+E        [4]: -2.6411507515837376 (ACTUAL), -3.404496835590631 (DESIRED)
+E       Max absolute difference among violations: 5.40477345
+E       Max relative difference among violations: 325.77906782
+E        ACTUAL: array([  1.724216,  -2.486379,  -6.856336,  -0.20331 ,  -2.641151,
+E               -2.525172,  -2.415887,   0.613958,  -0.076305,  -0.973419,
+E                0.485023,   0.222419,   5.761574,   1.52403 ,   0.084509,...
+E        DESIRED: array([-3.072961e-01, -2.158285e+00, -9.877982e+00, -2.634236e-01,
+E              -3.404497e+00, -2.364937e+00, -4.350565e+00,  4.502056e-01,
+E               2.071994e-01, -1.268849e+00,  5.947144e-01,  3.547024e-02,...
+
+tests\scenarios\did\test_did_cell_influence.py:91: AssertionError
+____ test_cell_if_matches_refitted_empirical_contamination[0.07-0.25-ipw] _____
+
+estimator = 'ipw', ridge = 0.07, clip = 0.25
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("ridge,clip", [(0.0, 1e-6), (0.07, 1e-6), (0.0, 0.25), (0.07, 0.25)])
+    def test_cell_if_matches_refitted_empirical_contamination(estimator, ridge, clip):
+        x, d, dy = _cell_arrays()
+        result = CallawaySantAnnaDID(estimator=estimator, control_group="never_treated",
+                                    logit_ridge=ridge, propensity_clip=clip,
+                                    optimizer_tol=1e-11).fit(_panel(x, d, dy)).estimate()
+        local = result.diagnostics["unit_level"].sort_values("id")
+        design = np.column_stack([np.ones(len(d)), x])
+        mass = np.full(len(d), 1.0 / len(d))
+        independent = _independent_weighted_att(design, d, dy, mass,
+                                                estimator=estimator, ridge=ridge, clip=clip)
+        assert result.att_gt.iloc[0].att == pytest.approx(independent, abs=2e-8)
+        scores = local.influence_score.to_numpy()
+        epsilon = 2e-5
+        derivatives = []
+        for i in range(len(d)):
+            direction = -mass.copy()
+            direction[i] += 1.0
+            upper = _independent_weighted_att(design, d, dy, mass + epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            lower = _independent_weighted_att(design, d, dy, mass - epsilon * direction,
+                                              estimator=estimator, ridge=ridge, clip=clip)
+            derivatives.append((upper - lower) / (2.0 * epsilon))
+>       np.testing.assert_allclose(scores, derivatives, atol=3e-6, rtol=2e-6)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-06, atol=3e-06
+E       
+E       Mismatched elements: 96 / 96 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: 0.9921584925956531 (ACTUAL), 2.210474081643099 (DESIRED)
+E        [1]: 1.2244657271411192 (ACTUAL), -1.684118292155645 (DESIRED)
+E        [2]: -26.20126332472992 (ACTUAL), -13.100977991031824 (DESIRED)
+E        [3]: 2.3874147989118004 (ACTUAL), -0.5809032634029876 (DESIRED)
+E        [4]: -4.507558434801926 (ACTUAL), -2.912993224279958 (DESIRED)
+E       Max absolute difference among violations: 13.10028533
+E       Max relative difference among violations: 1197.25195804
+E        ACTUAL: array([  0.992158,   1.224466, -26.201263,   2.387415,  -4.507558,
+E                0.367112,  -8.18849 ,   2.647745,  -0.226123,  -4.641751,
+E               -2.287932,   2.472457,  -3.857744,   6.430695,   0.231291,...
+E        DESIRED: array([ 2.210474e+00, -1.684118e+00, -1.310098e+01, -5.809033e-01,
+E              -2.912993e+00, -2.512507e+00, -3.813872e+00, -2.452562e-01,
+E               7.642092e-01, -8.807321e-01,  7.311742e-01, -5.046055e-01,...
+
+tests\scenarios\did\test_did_cell_influence.py:91: AssertionError
+_ test_cell_inference_is_common_trend_invariant_and_embeds_complete_cases[False-False-ipw] _
+
+estimator = 'ipw', covariates = False, unbalanced = False
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("covariates", [False, True])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_cell_inference_is_common_trend_invariant_and_embeds_complete_cases(estimator, covariates, unbalanced):
+        x, d, dy = _cell_arrays()
+        kwargs = dict(estimator=estimator, control_group="never_treated", logit_ridge=0.07,
+                      optimizer_tol=1e-11)
+        original = CallawaySantAnnaDID(**kwargs).fit(
+            _panel(x, d, dy, unbalanced=unbalanced, covariates=covariates)).estimate()
+        shifted = CallawaySantAnnaDID(**kwargs).fit(
+            _panel(x, d, dy, common_trend=1000.0, unbalanced=unbalanced, covariates=covariates)).estimate()
+>       np.testing.assert_allclose(original.att_gt[["att", "se", "p_value"]],
+                                   shifted.att_gt[["att", "se", "p_value"]], atol=2e-9, rtol=2e-8)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-08, atol=2e-09
+E       
+E       Mismatched elements: 2 / 3 (66.7%)
+E       Mismatch at indices:
+E        [0, 1]: 0.3909881429920982 (ACTUAL), 204.4086800235371 (DESIRED)
+E        [0, 2]: 3.3020486927522756e-13 (ACTUAL), 0.9888875640466099 (DESIRED)
+E       Max absolute difference among violations: 204.01769188
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([[2.846968e+00, 3.909881e-01, 3.302049e-13]])
+E        DESIRED: array([[  2.846968, 204.40868 ,   0.988888]])
+
+tests\scenarios\did\test_did_cell_influence.py:108: AssertionError
+_ test_cell_inference_is_common_trend_invariant_and_embeds_complete_cases[False-True-ipw] _
+
+estimator = 'ipw', covariates = True, unbalanced = False
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("covariates", [False, True])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_cell_inference_is_common_trend_invariant_and_embeds_complete_cases(estimator, covariates, unbalanced):
+        x, d, dy = _cell_arrays()
+        kwargs = dict(estimator=estimator, control_group="never_treated", logit_ridge=0.07,
+                      optimizer_tol=1e-11)
+        original = CallawaySantAnnaDID(**kwargs).fit(
+            _panel(x, d, dy, unbalanced=unbalanced, covariates=covariates)).estimate()
+        shifted = CallawaySantAnnaDID(**kwargs).fit(
+            _panel(x, d, dy, common_trend=1000.0, unbalanced=unbalanced, covariates=covariates)).estimate()
+>       np.testing.assert_allclose(original.att_gt[["att", "se", "p_value"]],
+                                   shifted.att_gt[["att", "se", "p_value"]], atol=2e-9, rtol=2e-8)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-08, atol=2e-09
+E       
+E       Mismatched elements: 2 / 3 (66.7%)
+E       Mismatch at indices:
+E        [0, 1]: 0.7105522057630185 (ACTUAL), 257.66360276259593 (DESIRED)
+E        [0, 2]: 0.0010928366179965385 (ACTUAL), 0.9928150717665424 (DESIRED)
+E       Max absolute difference among violations: 256.95305056
+E       Max relative difference among violations: 0.99889925
+E        ACTUAL: array([[2.320285e+00, 7.105522e-01, 1.092837e-03]])
+E        DESIRED: array([[  2.320285, 257.663603,   0.992815]])
+
+tests\scenarios\did\test_did_cell_influence.py:108: AssertionError
+_ test_cell_inference_is_common_trend_invariant_and_embeds_complete_cases[True-False-ipw] _
+
+estimator = 'ipw', covariates = False, unbalanced = True
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("covariates", [False, True])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_cell_inference_is_common_trend_invariant_and_embeds_complete_cases(estimator, covariates, unbalanced):
+        x, d, dy = _cell_arrays()
+        kwargs = dict(estimator=estimator, control_group="never_treated", logit_ridge=0.07,
+                      optimizer_tol=1e-11)
+        original = CallawaySantAnnaDID(**kwargs).fit(
+            _panel(x, d, dy, unbalanced=unbalanced, covariates=covariates)).estimate()
+        shifted = CallawaySantAnnaDID(**kwargs).fit(
+            _panel(x, d, dy, common_trend=1000.0, unbalanced=unbalanced, covariates=covariates)).estimate()
+>       np.testing.assert_allclose(original.att_gt[["att", "se", "p_value"]],
+                                   shifted.att_gt[["att", "se", "p_value"]], atol=2e-9, rtol=2e-8)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-08, atol=2e-09
+E       
+E       Mismatched elements: 2 / 3 (66.7%)
+E       Mismatch at indices:
+E        [0, 1]: 0.40467397865895943 (ACTUAL), 215.96267787195976 (DESIRED)
+E        [0, 2]: 1.6354590946198344e-13 (ACTUAL), 0.9889731091812244 (DESIRED)
+E       Max absolute difference among violations: 215.55800389
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([[2.984733e+00, 4.046740e-01, 1.635459e-13]])
+E        DESIRED: array([[  2.984733, 215.962678,   0.988973]])
+
+tests\scenarios\did\test_did_cell_influence.py:108: AssertionError
+_ test_cell_inference_is_common_trend_invariant_and_embeds_complete_cases[True-True-ipw] _
+
+estimator = 'ipw', covariates = True, unbalanced = True
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("covariates", [False, True])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_cell_inference_is_common_trend_invariant_and_embeds_complete_cases(estimator, covariates, unbalanced):
+        x, d, dy = _cell_arrays()
+        kwargs = dict(estimator=estimator, control_group="never_treated", logit_ridge=0.07,
+                      optimizer_tol=1e-11)
+        original = CallawaySantAnnaDID(**kwargs).fit(
+            _panel(x, d, dy, unbalanced=unbalanced, covariates=covariates)).estimate()
+        shifted = CallawaySantAnnaDID(**kwargs).fit(
+            _panel(x, d, dy, common_trend=1000.0, unbalanced=unbalanced, covariates=covariates)).estimate()
+>       np.testing.assert_allclose(original.att_gt[["att", "se", "p_value"]],
+                                   shifted.att_gt[["att", "se", "p_value"]], atol=2e-9, rtol=2e-8)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-08, atol=2e-09
+E       
+E       Mismatched elements: 2 / 3 (66.7%)
+E       Mismatch at indices:
+E        [0, 1]: 0.5346157687617548 (ACTUAL), 242.52067537381407 (DESIRED)
+E        [0, 2]: 3.02148979662075e-07 (ACTUAL), 0.9909910947621563 (DESIRED)
+E       Max absolute difference among violations: 241.98605961
+E       Max relative difference among violations: 0.9999997
+E        ACTUAL: array([[2.738356e+00, 5.346158e-01, 3.021490e-07]])
+E        DESIRED: array([[  2.738356, 242.520675,   0.990991]])
+
+tests\scenarios\did\test_did_cell_influence.py:108: AssertionError
+____ test_intercept_only_clipped_share_reduces_to_difference_in_means[ipw] ____
+
+estimator = 'ipw'
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    def test_intercept_only_clipped_share_reduces_to_difference_in_means(estimator):
+        x, _, dy = _cell_arrays(n=90)
+        d = np.r_[np.ones(8), np.zeros(82)]
+        result = CallawaySantAnnaDID(estimator=estimator, control_group="never_treated",
+                                    propensity_clip=0.2, logit_ridge=0.1).fit(
+                                        _panel(x, d, dy, covariates=False)).estimate()
+        scores = result.diagnostics["unit_level"].sort_values("id").influence_score.to_numpy()
+        expected = d / d.mean() * (dy - dy[d == 1].mean()) - (1.0 - d) / (1.0 - d.mean()) * (dy - dy[d == 0].mean())
+        assert result.att_gt.iloc[0].att == pytest.approx(dy[d == 1].mean() - dy[d == 0].mean())
+>       np.testing.assert_allclose(scores, expected, atol=2e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-07, atol=2e-14
+E       
+E       Mismatched elements: 90 / 90 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: -6.763508761303097 (ACTUAL), -34.4704469598291 (DESIRED)
+E        [1]: 30.190181297474226 (ACTUAL), 2.483243098948216 (DESIRED)
+E        [2]: 68.37512022840869 (ACTUAL), 40.66818202988268 (DESIRED)
+E        [3]: 10.657604862051109 (ACTUAL), -17.049333336474888 (DESIRED)
+E        [4]: 35.463561103387036 (ACTUAL), 7.756622904861048 (DESIRED)
+E       Max absolute difference among violations: 27.7069382
+E       Max relative difference among violations: 14.86668745
+E        ACTUAL: array([-6.763509e+00,  3.019018e+01,  6.837512e+01,  1.065760e+01,
+E               3.546356e+01,  4.062700e+01,  2.957063e+01,  1.353492e+01,
+E              -2.083611e-01, -7.780201e-01,  5.130394e-01, -3.796138e+00,...
+E        DESIRED: array([-34.470447,   2.483243,  40.668182, -17.049333,   7.756623,
+E               12.920062,   1.863693, -14.172023,   2.494755,   1.925096,
+E                3.216155,  -1.093022,   0.573579,  -2.408582,   2.49947 ,...
+
+tests\scenarios\did\test_did_cell_influence.py:132: AssertionError
+__ test_dr_traditional_if_matches_primary_drdid_untrimmed_mle_ols_reference ___
+
+    def test_dr_traditional_if_matches_primary_drdid_untrimmed_mle_ols_reference():
+        x, d, dy = _cell_arrays(seed=533, n=240)
+        result = CallawaySantAnnaDID(estimator="dr", control_group="never_treated",
+                                    logit_ridge=0.0, optimizer_tol=1e-11).fit(_panel(x, d, dy)).estimate()
+        local = result.diagnostics["unit_level"].sort_values("id")
+        design = np.column_stack([np.ones(len(d)), x])
+        p = local.propensity_score.to_numpy()
+        residual = local.delta_y.to_numpy() - local.outcome_regression.to_numpy()
+        wt, wc = local.treated_weight.to_numpy(), local.control_weight.to_numpy()
+        beta_if = ((1.0 - d) * residual)[:, None] * design @ np.linalg.inv(design.T @ ((1.0 - d)[:, None] * design) / len(d))
+        gamma_if = (d - p)[:, None] * design @ np.linalg.inv(design.T @ ((p * (1.0 - p))[:, None] * design) / len(d))
+        eta_t, eta_c = np.mean(wt * residual), np.mean(wc * residual)
+        reference = wt * (residual - eta_t) - wc * (residual - eta_c)
+        reference -= beta_if @ np.mean((wt - wc)[:, None] * design, axis=0)
+        reference -= gamma_if @ np.mean((wc * (residual - eta_c))[:, None] * design, axis=0)
+>       np.testing.assert_allclose(local.influence_score, reference, atol=2e-8, rtol=2e-8)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-08, atol=2e-08
+E       
+E       Mismatched elements: 240 / 240 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: -1.4329641826993385 (ACTUAL), -1.3774005873774873 (DESIRED)
+E        [1]: -1.960208684075155 (ACTUAL), -3.0025475468566327 (DESIRED)
+E        [2]: -2.6184651434749195 (ACTUAL), -1.2836046638379142 (DESIRED)
+E        [3]: 0.06290125902665 (ACTUAL), 0.3904018505948932 (DESIRED)
+E        [4]: 1.753347433587909 (ACTUAL), 2.8779750209655597 (DESIRED)
+E       Max absolute difference among violations: 6.56174339
+E       Max relative difference among violations: 49.32875474
+E        ACTUAL: array([-1.432964e+00, -1.960209e+00, -2.618465e+00,  6.290126e-02,
+E               1.753347e+00,  1.185019e+00, -1.384623e+00,  1.387954e+00,
+E              -6.719364e-01, -1.933456e+00,  3.533291e+00,  1.336473e+00,...
+E        DESIRED: array([-1.377401e+00, -3.002548e+00, -1.283605e+00,  3.904019e-01,
+E               2.877975e+00,  8.947161e-01, -1.176733e+00,  2.795552e+00,
+E               1.454261e+00, -4.852013e-01,  2.257604e+00,  1.408646e+00,...
+
+tests\scenarios\did\test_did_cell_influence.py:150: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_cell_if_matches_refitted_empirical_contamination[0.0-1e-06-dr]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_cell_if_matches_refitted_empirical_contamination[0.0-1e-06-aipw]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_cell_if_matches_refitted_empirical_contamination[0.0-1e-06-ipw]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_cell_if_matches_refitted_empirical_contamination[0.07-1e-06-dr]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_cell_if_matches_refitted_empirical_contamination[0.07-1e-06-aipw]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_cell_if_matches_refitted_empirical_contamination[0.07-1e-06-ipw]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_cell_if_matches_refitted_empirical_contamination[0.0-0.25-dr]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_cell_if_matches_refitted_empirical_contamination[0.0-0.25-aipw]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_cell_if_matches_refitted_empirical_contamination[0.0-0.25-ipw]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_cell_if_matches_refitted_empirical_contamination[0.07-0.25-dr]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_cell_if_matches_refitted_empirical_contamination[0.07-0.25-aipw]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_cell_if_matches_refitted_empirical_contamination[0.07-0.25-ipw]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_cell_inference_is_common_trend_invariant_and_embeds_complete_cases[False-False-ipw]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_cell_inference_is_common_trend_invariant_and_embeds_complete_cases[False-True-ipw]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_cell_inference_is_common_trend_invariant_and_embeds_complete_cases[True-False-ipw]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_cell_inference_is_common_trend_invariant_and_embeds_complete_cases[True-True-ipw]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_intercept_only_clipped_share_reduces_to_difference_in_means[ipw]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_dr_traditional_if_matches_primary_drdid_untrimmed_mle_ols_reference
+18 failed, 10 passed in 20.84s

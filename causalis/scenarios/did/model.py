@@ -9,6 +9,7 @@ from scipy.optimize import minimize
 from scipy.special import expit, logit
 from scipy.stats import norm
 
+from causalis.data_contracts._did_comparison_units import _comparison_unit_ids
 from causalis.data_contracts.panel_did_estimate import CallawaySantAnnaDIDEstimate
 from causalis.data_contracts.panel_data_did import ComparisonGroup, PanelDataDID
 
@@ -225,23 +226,16 @@ def _comparison_units_with_anticipation(
     prepared: _PreparedPanel,
     target_time: pd.Period,
     *,
+    cohort: pd.Period,
+    base_time: pd.Period,
     control_group: ComparisonGroup,
     anticipation: int,
 ) -> set[Hashable]:
-    target_idx = prepared.time_index[target_time] + anticipation
-    first_by_unit = prepared.data.first_treatment_by_unit
-    out: set[Hashable] = set()
-    for unit in prepared.unit_ids:
-        first_treatment = first_by_unit[unit]
-        if control_group == "never_treated":
-            include = first_treatment is None
-        elif control_group == "not_yet_treated":
-            include = first_treatment is not None and prepared.time_index[first_treatment] > target_idx
-        else:
-            include = first_treatment is None or prepared.time_index[first_treatment] > target_idx
-        if include:
-            out.add(unit)
-    return out
+    return set(_comparison_unit_ids(
+        prepared.unit_ids, prepared.data.first_treatment_by_unit, prepared.time_index,
+        cohort=cohort, base_time=base_time, target_time=target_time,
+        control_group=control_group, anticipation=anticipation,
+    ))
 
 
 def _design_at_base(
@@ -319,6 +313,71 @@ def _fit_outcome_regression(design: np.ndarray, delta_y: np.ndarray, control: np
     if not np.isfinite(beta).all():
         raise RuntimeError("Outcome regression produced non-finite coefficients.")
     return beta, design @ beta
+
+
+def _cell_influence_scores(
+    design: np.ndarray,
+    d: np.ndarray,
+    residualized_delta: np.ndarray,
+    treated_weights: np.ndarray,
+    control_weights: np.ndarray,
+    gamma_hat: np.ndarray,
+    *,
+    estimate_outcome: bool,
+    propensity_clip: float,
+    logit_ridge: float,
+) -> np.ndarray:
+    """Influence of the normalized traditional MLE/OLS cell estimator.
+
+    Both normalized means and estimated nuisance coefficients contribute.
+    The likelihood uses raw probabilities; clipped odds have zero derivative
+    outside the strict clipping interior. Fixed ridge penalties require a
+    centered likelihood score under empirical-distribution contamination.
+    This local derivative assumes stable clipping regions and design rank.
+    """
+    n_cell = len(d)
+    eta_t = float(np.mean(treated_weights * residualized_delta))
+    eta_c = float(np.mean(control_weights * residualized_delta))
+    scores = treated_weights * (residualized_delta - eta_t)
+    scores -= control_weights * (residualized_delta - eta_c)
+
+    # With only an intercept, normalized odds are constant within controls;
+    # both nuisance effects cancel exactly, including when mean(D) is clipped.
+    if design.shape[1] == 1:
+        return scores
+
+    if estimate_outcome:
+        control = d == 0.0
+        beta_derivative = np.mean((treated_weights - control_weights)[:, None] * design, axis=0)
+        beta_effect = np.zeros(n_cell, dtype=float)
+        # n * pinv(X_control) is the OLS parameter influence map. Use the
+        # design SVD directly rather than inverting X_control.T @ X_control.
+        beta_effect[control] = (
+            n_cell * residualized_delta[control]
+            * (np.linalg.pinv(design[control]).T @ beta_derivative)
+        )
+        scores -= beta_effect - float(np.mean(beta_effect))
+
+    raw_propensity = expit(design @ gamma_hat)
+    active_clip = (raw_propensity > propensity_clip) & (raw_propensity < 1.0 - propensity_clip)
+    gamma_derivative = np.mean(
+        (control_weights * active_clip * (residualized_delta - eta_c))[:, None] * design,
+        axis=0,
+    )
+    penalty = np.full(design.shape[1], logit_ridge, dtype=float)
+    penalty[0] = 0.0
+    propensity_design = np.sqrt(raw_propensity * (1.0 - raw_propensity) / n_cell)[:, None] * design
+    if logit_ridge > 0.0:
+        propensity_design = np.vstack([propensity_design, np.diag(np.sqrt(penalty))])
+    # A.T @ A is the penalized likelihood Hessian. Its inverse map comes
+    # from the augmented design SVD, preserving directions that a Gram-matrix
+    # pseudoinverse could discard after squaring the condition number.
+    propensity_inverse = np.linalg.pinv(propensity_design)
+    gamma_direction = propensity_inverse @ (propensity_inverse.T @ gamma_derivative)
+    likelihood_score = (d - raw_propensity)[:, None] * design
+    likelihood_score -= np.mean(likelihood_score, axis=0)
+    scores -= likelihood_score @ gamma_direction
+    return scores
 
 
 def _variance_from_scores(scores: np.ndarray, clusters: Optional[np.ndarray]) -> float:
@@ -533,6 +592,8 @@ def _fit_cell(
     comparison_candidates = _comparison_units_with_anticipation(
         prepared,
         target_time,
+        cohort=cohort,
+        base_time=base_time,
         control_group=control_group,
         anticipation=anticipation,
     )
@@ -587,7 +648,17 @@ def _fit_cell(
 
     residualized_delta = delta_y - outcome_hat
     att = float(np.mean((treated_weights - control_weights) * residualized_delta))
-    raw_scores = (treated_weights - control_weights) * residualized_delta - treated_weights * att
+    raw_scores = _cell_influence_scores(
+        design,
+        d,
+        residualized_delta,
+        treated_weights,
+        control_weights,
+        gamma_hat,
+        estimate_outcome=estimator in {"dr", "aipw"},
+        propensity_clip=propensity_clip,
+        logit_ridge=logit_ridge,
+    )
     used_control_weights = control_weights
 
     control_design = design[control]
@@ -821,7 +892,15 @@ def _aggregate_scores(
     score_matrix: np.ndarray,
     *,
     kind: AggregateKind,
+    treated_unit_positions: dict[int, np.ndarray],
 ) -> tuple[pd.DataFrame, np.ndarray, pd.DataFrame]:
+    """Aggregate cell IFs and, for count weights, complete-pair share IFs.
+
+    Each cell's count is the number of treated units observed at both dates.
+    The population target therefore averages complete-pair cohort-time effects;
+    it coincides with full-cohort share weighting on a balanced panel.
+    Cohort-specific tables use fixed equal weights across included post cells.
+    """
     source = att_gt if kind == "event" else att_gt[att_gt["is_post_treatment"].astype(bool)]
     if source.empty:
         raise ValueError(f"No eligible ATT(g,t) cells are available for {kind!r} aggregation.")
@@ -838,6 +917,17 @@ def _aggregate_scores(
         idx = subset.index.to_numpy(dtype=int)
         estimate = float(np.sum(weights * subset["att"].to_numpy(dtype=float)))
         agg_scores = score_matrix[:, idx] @ weights
+        if kind != "cohort":
+            # For alpha=sum(q_j*theta_j)/sum(q_j), IF from q_j=E[R_ij]
+            # is sum(R_ij*(theta_j-alpha))/sum(q_j). R is the ACTUAL
+            # treated complete-pair indicator, not the whole-cohort indicator.
+            total_treated = float(subset["n_treated"].sum())
+            share_scale = score_matrix.shape[0] / total_treated
+            for cell in subset.itertuples():
+                positions = treated_unit_positions[int(cell.cell_id)]
+                if len(positions) != int(cell.n_treated):
+                    raise ValueError("Treated unit membership must match each cell's complete-pair count.")
+                agg_scores[positions] += share_scale * (float(cell.att) - estimate)
         row = {
             "aggregate": kind,
             **label,
@@ -887,13 +977,17 @@ class CallawaySantAnnaDID:
 
     Parameters
     ----------
-    estimator : {"dr", "ipw"}, default "dr"
+    estimator : {"dr", "aipw", "ipw"}, default "dr"
         The estimator to use for :math:`ATT(g,t)` cells.
         - "dr": Doubly robust AIPW-style estimator.
+        - "aipw": Alias for "dr".
         - "ipw": Inverse probability weighting estimator.
-    control_group : {"not_yet_or_never", "never_treated"}, default "not_yet_or_never"
+    control_group : {"not_yet_or_never", "not_yet_treated", "never_treated"}, default "not_yet_or_never"
         Which units to use as the comparison group.
-        - "not_yet_or_never": Includes units not yet treated by time :math:`t` and never-treated units.
+        Controls exclude the evaluated cohort and must be untreated, including
+        anticipation, at both the base and target dates.
+        - "not_yet_or_never": Includes eligible later-treated and never-treated units.
+        - "not_yet_treated": Includes only eligible later-treated units.
         - "never_treated": Includes only never-treated units.
     anticipation : int, default 0
         Number of periods before actual treatment start where units are considered treated
@@ -901,34 +995,38 @@ class CallawaySantAnnaDID:
     base_period : {"universal", "varying"}, default "universal"
         Definition of the 'before' period in the DID comparison.
         - "universal": Uses :math:`g - 1 - \text{anticipation}` as the base for all :math:`t`.
-        - "varying": Uses :math:`t - 1` as the base for all :math:`t`.
+        - "varying": Uses :math:`t - 1` for pre-treatment comparisons;
+          post-treatment cells use the universal base.
     include_pre_periods : bool, default False
         Whether to estimate :math:`ATT(g,t)` for :math:`t < g` (pre-treatment testing).
     alpha : float, default 0.05
         Significance level for confidence intervals.
     diagnostic_data : bool, default True
         Whether to store diagnostic information (overlap, balance, etc.).
-    propensity_clip : float, default 1e-4
+    propensity_clip : float, default 1e-6
         Clipping threshold for propensity scores to avoid division by zero.
-    logit_ridge : float, default 1e-4
+    logit_ridge : float, default 1e-8
         L2 regularization strength for the logistic propensity score model.
     optimizer_tol : float, default 1e-8
         Tolerance for the propensity score optimizer.
     optimizer_maxiter : int, default 1000
         Maximum iterations for the propensity score optimizer.
     min_treated_per_cell : int, default 30
-        Minimum number of treated units required in a :math:`(g,t)` cell.
+        Diagnostic warning threshold for treated units in a :math:`(g,t)` cell.
     min_control_per_cell : int, default 30
-        Minimum number of control units required in a :math:`(g,t)` cell.
+        Diagnostic warning threshold for control units in a :math:`(g,t)` cell.
     min_control_ess : float, default 20.0
-        Minimum effective sample size for control units in a :math:`(g,t)` cell.
+        Diagnostic warning threshold for effective control sample size.
     max_propensity_clip_share : float, default 0.05
-        Maximum fraction of units that can be clipped before skipping a cell.
-    max_condition_number : float, default 1e5
-        Maximum condition number for covariate matrices.
+        Diagnostic warning threshold for the clipped fraction; cells are not
+        skipped solely for exceeding this threshold.
+    max_condition_number : float, default 1e8
+        Diagnostic warning threshold for the control design condition number.
     bootstrap_replications : int, default 0
         Number of multiplier bootstrap replications for simultaneous confidence bands.
         If 0, uses asymptotic normal approximation for pointwise intervals.
+        Positive values must be at least 2. Clustered inference requires at
+        least two clusters for either method.
     random_state : int, optional, default None
         Random seed for bootstrap multipliers.
 
@@ -978,6 +1076,21 @@ class CallawaySantAnnaDID:
 
     Simultaneous confidence bands are computed using the multiplier bootstrap on the
     influence functions of the :math:`ATT(g,t)` estimates.
+
+    Cell inference includes both normalized-mean and nuisance-estimation
+    contributions for the actual logistic MLE/control OLS estimator. This is
+    the traditional estimator, with "aipw" an alias for "dr". Fixed ridge and
+    active clipping can change its probability limit; a corrected sandwich
+    does not remove that bias or validate conditional parallel trends. Local
+    derivatives require stable design rank and clipping regions.
+
+    Simple, calendar and event aggregates include estimation of their treated
+    complete-pair shares. On incomplete panels these weights describe the
+    observed two-period subpopulations, rather than automatically recovering
+    full-cohort effects under informative missingness. Cohort tables equally
+    average the included post-treatment cells. Cluster multiplier draws use
+    the same centered, finite-cluster covariance convention as analytical
+    inference; few-cluster coverage is not guaranteed.
     """
 
     def __init__(
@@ -1162,8 +1275,20 @@ class CallawaySantAnnaDID:
 
         aggregates: dict[str, pd.DataFrame] = {}
         weights_parts: list[pd.DataFrame] = []
+        # Preserve the exact sample memberships even when diagnostic output is
+        # disabled; fit always records them, independently of result payloads.
+        unit_positions = {unit: idx for idx, unit in enumerate(prepared.unit_ids)}
+        treated_unit_positions = {
+            int(cell_id): np.asarray([unit_positions[unit] for unit in group[data.unit_col]], dtype=int)
+            for cell_id, group in self._unit_diagnostics.loc[
+                self._unit_diagnostics["is_treated_cohort"] == 1
+            ].groupby("cell_id", sort=False)
+        }
         for kind in ("simple", "cohort", "calendar", "event"):
-            table, agg_scores, weights = _aggregate_scores(att_gt_raw, score_matrix, kind=kind)  # type: ignore[arg-type]
+            table, agg_scores, weights = _aggregate_scores(
+                att_gt_raw, score_matrix, kind=kind,
+                treated_unit_positions=treated_unit_positions,
+            )  # type: ignore[arg-type]
             aggregates[kind] = _add_inference(
                 table,
                 agg_scores,

@@ -256,7 +256,11 @@ class CallawaySantAnnaDIDEstimate(BaseModel):
 
     @property
     def att(self) -> float:
-        """Simple overall post-treatment effect, weighted by treated cohort-time observations."""
+        """Simple post effect, weighted by observed treated complete-pair counts.
+
+        These coincide with cohort-time counts on a balanced panel. With
+        missing periods, the target is a mixture of observed pair populations.
+        """
 
         return float(self.aggregates["simple"].iloc[0]["estimate"])
 

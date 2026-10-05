@@ -1,0 +1,632 @@
+.FF.FF.FF.FF.FF.FF.FF.FFFFFF..                                           [100%]
+================================== FAILURES ===================================
+_ test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[False-0-universal-not_yet_treated] _
+
+control_group = 'not_yet_treated', base_period = 'universal', anticipation = 0
+unbalanced = False
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_support_estimator_and_refutations_share_disjoint_complete_unit_populations(
+        control_group, base_period, anticipation, unbalanced,
+    ):
+        panel = _panel(unbalanced=unbalanced, covariates=True)
+        original = panel.df_analysis()
+        settings = dict(control_group=control_group, base_period=base_period,
+                        anticipation=anticipation, include_pre_periods=True)
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        ref_support = did_support_table(panel, **settings)
+        raw = raw_did_event_study_table(panel, **settings)
+        balance = did_covariate_balance_table(panel, post_only=False, **settings)
+        design = did_base_design_table(panel, post_only=False, **settings)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        unit_level = estimate.diagnostics["unit_level"]
+>       assert not unit_level.duplicated(["cell_id", "unit"]).any()
+E       AssertionError: assert not np.True_
+E        +  where np.True_ = any()
+E        +    where any = 0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n103    False\n104    False\n105    False\n106    False\n107    False\nLength: 108, dtype: bool.any
+E        +      where 0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n103    False\n104    False\n105    False\n106    False\n107    False\nLength: 108, dtype: bool = duplicated(['cell_id', 'unit'])
+E        +        where duplicated =      cell_id   cohort     time  ... control_weight  influence_score    x\n0          0  2020-03  2020-03  ...       0.0...        0.000000  1.0\n107       11  2020-05  2020-06  ...       3.486046        -0.000000  2.0\n\n[108 rows x 15 columns].duplicated
+
+tests\scenarios\did\test_did_control_alignment.py:92: AssertionError
+_ test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[False-0-universal-not_yet_or_never] _
+
+control_group = 'not_yet_or_never', base_period = 'universal', anticipation = 0
+unbalanced = False
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_support_estimator_and_refutations_share_disjoint_complete_unit_populations(
+        control_group, base_period, anticipation, unbalanced,
+    ):
+        panel = _panel(unbalanced=unbalanced, covariates=True)
+        original = panel.df_analysis()
+        settings = dict(control_group=control_group, base_period=base_period,
+                        anticipation=anticipation, include_pre_periods=True)
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        ref_support = did_support_table(panel, **settings)
+        raw = raw_did_event_study_table(panel, **settings)
+        balance = did_covariate_balance_table(panel, post_only=False, **settings)
+        design = did_base_design_table(panel, post_only=False, **settings)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        unit_level = estimate.diagnostics["unit_level"]
+>       assert not unit_level.duplicated(["cell_id", "unit"]).any()
+E       AssertionError: assert not np.True_
+E        +  where np.True_ = any()
+E        +    where any = 0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n217    False\n218    False\n219    False\n220    False\n221    False\nLength: 222, dtype: bool.any
+E        +      where 0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n217    False\n218    False\n219    False\n220    False\n221    False\nLength: 222, dtype: bool = duplicated(['cell_id', 'unit'])
+E        +        where duplicated =      cell_id   cohort     time  ... control_weight  influence_score    x\n0          0  2020-03  2020-03  ...       0.0...       -0.000000  2.0\n221       19  2020-07  2020-07  ...       2.000000        -0.000000  0.0\n\n[222 rows x 15 columns].duplicated
+
+tests\scenarios\did\test_did_control_alignment.py:92: AssertionError
+_ test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[False-0-varying-not_yet_treated] _
+
+control_group = 'not_yet_treated', base_period = 'varying', anticipation = 0
+unbalanced = False
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_support_estimator_and_refutations_share_disjoint_complete_unit_populations(
+        control_group, base_period, anticipation, unbalanced,
+    ):
+        panel = _panel(unbalanced=unbalanced, covariates=True)
+        original = panel.df_analysis()
+        settings = dict(control_group=control_group, base_period=base_period,
+                        anticipation=anticipation, include_pre_periods=True)
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        ref_support = did_support_table(panel, **settings)
+        raw = raw_did_event_study_table(panel, **settings)
+        balance = did_covariate_balance_table(panel, post_only=False, **settings)
+        design = did_base_design_table(panel, post_only=False, **settings)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        unit_level = estimate.diagnostics["unit_level"]
+>       assert not unit_level.duplicated(["cell_id", "unit"]).any()
+E       AssertionError: assert not np.True_
+E        +  where np.True_ = any()
+E        +    where any = 0      False\n1      False\n2      False\n3      False\n4       True\n       ...  \n175    False\n176     True\n177    False\n178     True\n179    False\nLength: 180, dtype: bool.any
+E        +      where 0      False\n1      False\n2      False\n3      False\n4       True\n       ...  \n175    False\n176     True\n177    False\n178     True\n179    False\nLength: 180, dtype: bool = duplicated(['cell_id', 'unit'])
+E        +        where duplicated =      cell_id   cohort     time  ... control_weight  influence_score    x\n0          0  2020-03  2020-02  ...       0.0...        1.405754  2.0\n179       17  2020-07  2020-04  ...       0.925143        -0.506286  2.5\n\n[180 rows x 15 columns].duplicated
+
+tests\scenarios\did\test_did_control_alignment.py:92: AssertionError
+_ test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[False-0-varying-not_yet_or_never] _
+
+control_group = 'not_yet_or_never', base_period = 'varying', anticipation = 0
+unbalanced = False
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_support_estimator_and_refutations_share_disjoint_complete_unit_populations(
+        control_group, base_period, anticipation, unbalanced,
+    ):
+        panel = _panel(unbalanced=unbalanced, covariates=True)
+        original = panel.df_analysis()
+        settings = dict(control_group=control_group, base_period=base_period,
+                        anticipation=anticipation, include_pre_periods=True)
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        ref_support = did_support_table(panel, **settings)
+        raw = raw_did_event_study_table(panel, **settings)
+        balance = did_covariate_balance_table(panel, post_only=False, **settings)
+        design = did_base_design_table(panel, post_only=False, **settings)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        unit_level = estimate.diagnostics["unit_level"]
+>       assert not unit_level.duplicated(["cell_id", "unit"]).any()
+E       AssertionError: assert not np.True_
+E        +  where np.True_ = any()
+E        +    where any = 0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n271    False\n272    False\n273    False\n274    False\n275    False\nLength: 276, dtype: bool.any
+E        +      where 0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n271    False\n272    False\n273    False\n274    False\n275    False\nLength: 276, dtype: bool = duplicated(['cell_id', 'unit'])
+E        +        where duplicated =      cell_id   cohort     time  ... control_weight  influence_score    x\n0          0  2020-03  2020-02  ...       0.0...       -0.000000  2.0\n275       23  2020-07  2020-07  ...       2.000000        -0.000000  0.0\n\n[276 rows x 15 columns].duplicated
+
+tests\scenarios\did\test_did_control_alignment.py:92: AssertionError
+_ test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[False-1-universal-not_yet_treated] _
+
+control_group = 'not_yet_treated', base_period = 'universal', anticipation = 1
+unbalanced = False
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_support_estimator_and_refutations_share_disjoint_complete_unit_populations(
+        control_group, base_period, anticipation, unbalanced,
+    ):
+        panel = _panel(unbalanced=unbalanced, covariates=True)
+        original = panel.df_analysis()
+        settings = dict(control_group=control_group, base_period=base_period,
+                        anticipation=anticipation, include_pre_periods=True)
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        ref_support = did_support_table(panel, **settings)
+        raw = raw_did_event_study_table(panel, **settings)
+        balance = did_covariate_balance_table(panel, post_only=False, **settings)
+        design = did_base_design_table(panel, post_only=False, **settings)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        unit_level = estimate.diagnostics["unit_level"]
+>       assert not unit_level.duplicated(["cell_id", "unit"]).any()
+E       AssertionError: assert not np.True_
+E        +  where np.True_ = any()
+E        +    where any = 0     False\n1     False\n2     False\n3     False\n4     False\n5     False\n6     False\n7     False\n8     False\n9     Fals...42     True\n43    False\n44     True\n45    False\n46    False\n47    False\n48    False\n49    False\n50    False\ndtype: bool.any
+E        +      where 0     False\n1     False\n2     False\n3     False\n4     False\n5     False\n6     False\n7     False\n8     False\n9     Fals...42     True\n43    False\n44     True\n45    False\n46    False\n47    False\n48    False\n49    False\n50    False\ndtype: bool = duplicated(['cell_id', 'unit'])
+E        +        where duplicated =     cell_id   cohort     time  ... control_weight  influence_score    x\n0         0  2020-03  2020-03  ...       0.000...5         0.000000  1.0\n50        6  2020-05  2020-05  ...       3.486046        -0.000000  2.0\n\n[51 rows x 15 columns].duplicated
+
+tests\scenarios\did\test_did_control_alignment.py:92: AssertionError
+_ test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[False-1-universal-not_yet_or_never] _
+
+control_group = 'not_yet_or_never', base_period = 'universal', anticipation = 1
+unbalanced = False
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_support_estimator_and_refutations_share_disjoint_complete_unit_populations(
+        control_group, base_period, anticipation, unbalanced,
+    ):
+        panel = _panel(unbalanced=unbalanced, covariates=True)
+        original = panel.df_analysis()
+        settings = dict(control_group=control_group, base_period=base_period,
+                        anticipation=anticipation, include_pre_periods=True)
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        ref_support = did_support_table(panel, **settings)
+        raw = raw_did_event_study_table(panel, **settings)
+        balance = did_covariate_balance_table(panel, post_only=False, **settings)
+        design = did_base_design_table(panel, post_only=False, **settings)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        unit_level = estimate.diagnostics["unit_level"]
+>       assert not unit_level.duplicated(["cell_id", "unit"]).any()
+E       AssertionError: assert not np.True_
+E        +  where np.True_ = any()
+E        +    where any = 0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n145    False\n146    False\n147    False\n148    False\n149    False\nLength: 150, dtype: bool.any
+E        +      where 0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n145    False\n146    False\n147    False\n148    False\n149    False\nLength: 150, dtype: bool = duplicated(['cell_id', 'unit'])
+E        +        where duplicated =      cell_id   cohort     time  ... control_weight  influence_score    x\n0          0  2020-03  2020-03  ...       0.0...       -0.000000  2.0\n149       16  2020-07  2020-07  ...       2.000000        -0.000000  0.0\n\n[150 rows x 15 columns].duplicated
+
+tests\scenarios\did\test_did_control_alignment.py:92: AssertionError
+_ test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[False-1-varying-not_yet_treated] _
+
+control_group = 'not_yet_treated', base_period = 'varying', anticipation = 1
+unbalanced = False
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_support_estimator_and_refutations_share_disjoint_complete_unit_populations(
+        control_group, base_period, anticipation, unbalanced,
+    ):
+        panel = _panel(unbalanced=unbalanced, covariates=True)
+        original = panel.df_analysis()
+        settings = dict(control_group=control_group, base_period=base_period,
+                        anticipation=anticipation, include_pre_periods=True)
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        ref_support = did_support_table(panel, **settings)
+        raw = raw_did_event_study_table(panel, **settings)
+        balance = did_covariate_balance_table(panel, post_only=False, **settings)
+        design = did_base_design_table(panel, post_only=False, **settings)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        unit_level = estimate.diagnostics["unit_level"]
+>       assert not unit_level.duplicated(["cell_id", "unit"]).any()
+E       AssertionError: assert not np.True_
+E        +  where np.True_ = any()
+E        +    where any = 0     False\n1     False\n2     False\n3     False\n4     False\n      ...  \n88    False\n89     True\n90    False\n91     True\n92    False\nLength: 93, dtype: bool.any
+E        +      where 0     False\n1     False\n2     False\n3     False\n4     False\n      ...  \n88    False\n89     True\n90    False\n91     True\n92    False\nLength: 93, dtype: bool = duplicated(['cell_id', 'unit'])
+E        +        where duplicated =     cell_id   cohort     time  ... control_weight  influence_score    x\n0         0  2020-03  2020-03  ...       0.000...3         1.405754  2.0\n92       10  2020-07  2020-03  ...       0.925143        -0.506286  2.5\n\n[93 rows x 15 columns].duplicated
+
+tests\scenarios\did\test_did_control_alignment.py:92: AssertionError
+_ test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[False-1-varying-not_yet_or_never] _
+
+control_group = 'not_yet_or_never', base_period = 'varying', anticipation = 1
+unbalanced = False
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_support_estimator_and_refutations_share_disjoint_complete_unit_populations(
+        control_group, base_period, anticipation, unbalanced,
+    ):
+        panel = _panel(unbalanced=unbalanced, covariates=True)
+        original = panel.df_analysis()
+        settings = dict(control_group=control_group, base_period=base_period,
+                        anticipation=anticipation, include_pre_periods=True)
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        ref_support = did_support_table(panel, **settings)
+        raw = raw_did_event_study_table(panel, **settings)
+        balance = did_covariate_balance_table(panel, post_only=False, **settings)
+        design = did_base_design_table(panel, post_only=False, **settings)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        unit_level = estimate.diagnostics["unit_level"]
+>       assert not unit_level.duplicated(["cell_id", "unit"]).any()
+E       AssertionError: assert not np.True_
+E        +  where np.True_ = any()
+E        +    where any = 0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n181    False\n182    False\n183    False\n184    False\n185    False\nLength: 186, dtype: bool.any
+E        +      where 0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n181    False\n182    False\n183    False\n184    False\n185    False\nLength: 186, dtype: bool = duplicated(['cell_id', 'unit'])
+E        +        where duplicated =      cell_id   cohort     time  ... control_weight  influence_score    x\n0          0  2020-03  2020-03  ...       0.0...       -0.000000  2.0\n185       19  2020-07  2020-07  ...       2.000000        -0.000000  0.0\n\n[186 rows x 15 columns].duplicated
+
+tests\scenarios\did\test_did_control_alignment.py:92: AssertionError
+_ test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[True-0-universal-not_yet_treated] _
+
+control_group = 'not_yet_treated', base_period = 'universal', anticipation = 0
+unbalanced = True
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_support_estimator_and_refutations_share_disjoint_complete_unit_populations(
+        control_group, base_period, anticipation, unbalanced,
+    ):
+        panel = _panel(unbalanced=unbalanced, covariates=True)
+        original = panel.df_analysis()
+        settings = dict(control_group=control_group, base_period=base_period,
+                        anticipation=anticipation, include_pre_periods=True)
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        ref_support = did_support_table(panel, **settings)
+        raw = raw_did_event_study_table(panel, **settings)
+        balance = did_covariate_balance_table(panel, post_only=False, **settings)
+        design = did_base_design_table(panel, post_only=False, **settings)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        unit_level = estimate.diagnostics["unit_level"]
+>       assert not unit_level.duplicated(["cell_id", "unit"]).any()
+E       AssertionError: assert not np.True_
+E        +  where np.True_ = any()
+E        +    where any = 0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n97     False\n98     False\n99     False\n100    False\n101    False\nLength: 102, dtype: bool.any
+E        +      where 0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n97     False\n98     False\n99     False\n100    False\n101    False\nLength: 102, dtype: bool = duplicated(['cell_id', 'unit'])
+E        +        where duplicated =      cell_id   cohort     time  ... control_weight  influence_score    x\n0          0  2020-03  2020-03  ...       0.0...        0.000000  1.0\n101       11  2020-05  2020-06  ...       3.486046        -0.000000  2.0\n\n[102 rows x 15 columns].duplicated
+
+tests\scenarios\did\test_did_control_alignment.py:92: AssertionError
+_ test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[True-0-universal-not_yet_or_never] _
+
+control_group = 'not_yet_or_never', base_period = 'universal', anticipation = 0
+unbalanced = True
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_support_estimator_and_refutations_share_disjoint_complete_unit_populations(
+        control_group, base_period, anticipation, unbalanced,
+    ):
+        panel = _panel(unbalanced=unbalanced, covariates=True)
+        original = panel.df_analysis()
+        settings = dict(control_group=control_group, base_period=base_period,
+                        anticipation=anticipation, include_pre_periods=True)
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        ref_support = did_support_table(panel, **settings)
+        raw = raw_did_event_study_table(panel, **settings)
+        balance = did_covariate_balance_table(panel, post_only=False, **settings)
+        design = did_base_design_table(panel, post_only=False, **settings)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        unit_level = estimate.diagnostics["unit_level"]
+>       assert not unit_level.duplicated(["cell_id", "unit"]).any()
+E       AssertionError: assert not np.True_
+E        +  where np.True_ = any()
+E        +    where any = 0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n195    False\n196    False\n197    False\n198    False\n199    False\nLength: 200, dtype: bool.any
+E        +      where 0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n195    False\n196    False\n197    False\n198    False\n199    False\nLength: 200, dtype: bool = duplicated(['cell_id', 'unit'])
+E        +        where duplicated =      cell_id   cohort     time  ... control_weight  influence_score    x\n0          0  2020-03  2020-03  ...       0.0...       -0.000000  2.0\n199       19  2020-07  2020-07  ...       2.000000        -0.000000  0.0\n\n[200 rows x 15 columns].duplicated
+
+tests\scenarios\did\test_did_control_alignment.py:92: AssertionError
+_ test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[True-0-varying-not_yet_treated] _
+
+control_group = 'not_yet_treated', base_period = 'varying', anticipation = 0
+unbalanced = True
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_support_estimator_and_refutations_share_disjoint_complete_unit_populations(
+        control_group, base_period, anticipation, unbalanced,
+    ):
+        panel = _panel(unbalanced=unbalanced, covariates=True)
+        original = panel.df_analysis()
+        settings = dict(control_group=control_group, base_period=base_period,
+                        anticipation=anticipation, include_pre_periods=True)
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        ref_support = did_support_table(panel, **settings)
+        raw = raw_did_event_study_table(panel, **settings)
+        balance = did_covariate_balance_table(panel, post_only=False, **settings)
+        design = did_base_design_table(panel, post_only=False, **settings)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        unit_level = estimate.diagnostics["unit_level"]
+>       assert not unit_level.duplicated(["cell_id", "unit"]).any()
+E       AssertionError: assert not np.True_
+E        +  where np.True_ = any()
+E        +    where any = 0      False\n1      False\n2      False\n3       True\n4      False\n       ...  \n162    False\n163    False\n164     True\n165    False\n166     True\nLength: 167, dtype: bool.any
+E        +      where 0      False\n1      False\n2      False\n3       True\n4      False\n       ...  \n162    False\n163    False\n164     True\n165    False\n166     True\nLength: 167, dtype: bool = duplicated(['cell_id', 'unit'])
+E        +        where duplicated =      cell_id   cohort     time  ... control_weight  influence_score    x\n0          0  2020-03  2020-02  ...       0.0...       -2.364114  0.5\n166       17  2020-07  2020-04  ...       1.102633         1.405754  2.0\n\n[167 rows x 15 columns].duplicated
+
+tests\scenarios\did\test_did_control_alignment.py:92: AssertionError
+_ test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[True-0-varying-not_yet_or_never] _
+
+control_group = 'not_yet_or_never', base_period = 'varying', anticipation = 0
+unbalanced = True
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_support_estimator_and_refutations_share_disjoint_complete_unit_populations(
+        control_group, base_period, anticipation, unbalanced,
+    ):
+        panel = _panel(unbalanced=unbalanced, covariates=True)
+        original = panel.df_analysis()
+        settings = dict(control_group=control_group, base_period=base_period,
+                        anticipation=anticipation, include_pre_periods=True)
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        ref_support = did_support_table(panel, **settings)
+        raw = raw_did_event_study_table(panel, **settings)
+        balance = did_covariate_balance_table(panel, post_only=False, **settings)
+        design = did_base_design_table(panel, post_only=False, **settings)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        unit_level = estimate.diagnostics["unit_level"]
+>       assert not unit_level.duplicated(["cell_id", "unit"]).any()
+E       AssertionError: assert not np.True_
+E        +  where np.True_ = any()
+E        +    where any = 0      False\n1      False\n2      False\n3      False\n4       True\n       ...  \n243    False\n244    False\n245    False\n246    False\n247    False\nLength: 248, dtype: bool.any
+E        +      where 0      False\n1      False\n2      False\n3      False\n4       True\n       ...  \n243    False\n244    False\n245    False\n246    False\n247    False\nLength: 248, dtype: bool = duplicated(['cell_id', 'unit'])
+E        +        where duplicated =      cell_id   cohort     time  ... control_weight  influence_score    x\n0          0  2020-03  2020-02  ...       0.0...       -0.000000  2.0\n247       23  2020-07  2020-07  ...       2.000000        -0.000000  0.0\n\n[248 rows x 15 columns].duplicated
+
+tests\scenarios\did\test_did_control_alignment.py:92: AssertionError
+_ test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[True-1-universal-not_yet_treated] _
+
+control_group = 'not_yet_treated', base_period = 'universal', anticipation = 1
+unbalanced = True
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_support_estimator_and_refutations_share_disjoint_complete_unit_populations(
+        control_group, base_period, anticipation, unbalanced,
+    ):
+        panel = _panel(unbalanced=unbalanced, covariates=True)
+        original = panel.df_analysis()
+        settings = dict(control_group=control_group, base_period=base_period,
+                        anticipation=anticipation, include_pre_periods=True)
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        ref_support = did_support_table(panel, **settings)
+        raw = raw_did_event_study_table(panel, **settings)
+        balance = did_covariate_balance_table(panel, post_only=False, **settings)
+        design = did_base_design_table(panel, post_only=False, **settings)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        unit_level = estimate.diagnostics["unit_level"]
+>       assert not unit_level.duplicated(["cell_id", "unit"]).any()
+E       AssertionError: assert not np.True_
+E        +  where np.True_ = any()
+E        +    where any = 0     False\n1     False\n2     False\n3     False\n4     False\n5     False\n6     False\n7     False\n8     False\n9     Fals...39    False\n40     True\n41    False\n42    False\n43    False\n44    False\n45    False\n46    False\n47    False\ndtype: bool.any
+E        +      where 0     False\n1     False\n2     False\n3     False\n4     False\n5     False\n6     False\n7     False\n8     False\n9     Fals...39    False\n40     True\n41    False\n42    False\n43    False\n44    False\n45    False\n46    False\n47    False\ndtype: bool = duplicated(['cell_id', 'unit'])
+E        +        where duplicated =     cell_id   cohort     time  ... control_weight  influence_score    x\n0         0  2020-03  2020-03  ...       0.000...5     0.000000e+00  1.0\n47        6  2020-05  2020-05  ...       3.486046    -0.000000e+00  2.0\n\n[48 rows x 15 columns].duplicated
+
+tests\scenarios\did\test_did_control_alignment.py:92: AssertionError
+_ test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[True-1-universal-not_yet_or_never] _
+
+control_group = 'not_yet_or_never', base_period = 'universal', anticipation = 1
+unbalanced = True
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_support_estimator_and_refutations_share_disjoint_complete_unit_populations(
+        control_group, base_period, anticipation, unbalanced,
+    ):
+        panel = _panel(unbalanced=unbalanced, covariates=True)
+        original = panel.df_analysis()
+        settings = dict(control_group=control_group, base_period=base_period,
+                        anticipation=anticipation, include_pre_periods=True)
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        ref_support = did_support_table(panel, **settings)
+        raw = raw_did_event_study_table(panel, **settings)
+        balance = did_covariate_balance_table(panel, post_only=False, **settings)
+        design = did_base_design_table(panel, post_only=False, **settings)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        unit_level = estimate.diagnostics["unit_level"]
+>       assert not unit_level.duplicated(["cell_id", "unit"]).any()
+E       AssertionError: assert not np.True_
+E        +  where np.True_ = any()
+E        +    where any = 0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n131    False\n132    False\n133    False\n134    False\n135    False\nLength: 136, dtype: bool.any
+E        +      where 0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n131    False\n132    False\n133    False\n134    False\n135    False\nLength: 136, dtype: bool = duplicated(['cell_id', 'unit'])
+E        +        where duplicated =      cell_id   cohort     time  ... control_weight  influence_score    x\n0          0  2020-03  2020-03  ...       0.0...       -0.000000  2.0\n135       16  2020-07  2020-07  ...       2.000000        -0.000000  0.0\n\n[136 rows x 15 columns].duplicated
+
+tests\scenarios\did\test_did_control_alignment.py:92: AssertionError
+_ test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[True-1-varying-not_yet_treated] _
+
+control_group = 'not_yet_treated', base_period = 'varying', anticipation = 1
+unbalanced = True
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_support_estimator_and_refutations_share_disjoint_complete_unit_populations(
+        control_group, base_period, anticipation, unbalanced,
+    ):
+        panel = _panel(unbalanced=unbalanced, covariates=True)
+        original = panel.df_analysis()
+        settings = dict(control_group=control_group, base_period=base_period,
+                        anticipation=anticipation, include_pre_periods=True)
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        ref_support = did_support_table(panel, **settings)
+        raw = raw_did_event_study_table(panel, **settings)
+        balance = did_covariate_balance_table(panel, post_only=False, **settings)
+        design = did_base_design_table(panel, post_only=False, **settings)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        unit_level = estimate.diagnostics["unit_level"]
+>       assert not unit_level.duplicated(["cell_id", "unit"]).any()
+E       AssertionError: assert not np.True_
+E        +  where np.True_ = any()
+E        +    where any = 0     False\n1     False\n2     False\n3     False\n4     False\n      ...  \n79    False\n80    False\n81     True\n82    False\n83     True\nLength: 84, dtype: bool.any
+E        +      where 0     False\n1     False\n2     False\n3     False\n4     False\n      ...  \n79    False\n80    False\n81     True\n82    False\n83     True\nLength: 84, dtype: bool = duplicated(['cell_id', 'unit'])
+E        +        where duplicated =     cell_id   cohort     time  ... control_weight  influence_score    x\n0         0  2020-03  2020-03  ...       0.000...0        -1.120000  0.5\n83       10  2020-07  2020-03  ...       1.400000         1.680000  2.0\n\n[84 rows x 15 columns].duplicated
+
+tests\scenarios\did\test_did_control_alignment.py:92: AssertionError
+_ test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[True-1-varying-not_yet_or_never] _
+
+control_group = 'not_yet_or_never', base_period = 'varying', anticipation = 1
+unbalanced = True
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_support_estimator_and_refutations_share_disjoint_complete_unit_populations(
+        control_group, base_period, anticipation, unbalanced,
+    ):
+        panel = _panel(unbalanced=unbalanced, covariates=True)
+        original = panel.df_analysis()
+        settings = dict(control_group=control_group, base_period=base_period,
+                        anticipation=anticipation, include_pre_periods=True)
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        ref_support = did_support_table(panel, **settings)
+        raw = raw_did_event_study_table(panel, **settings)
+        balance = did_covariate_balance_table(panel, post_only=False, **settings)
+        design = did_base_design_table(panel, post_only=False, **settings)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        unit_level = estimate.diagnostics["unit_level"]
+>       assert not unit_level.duplicated(["cell_id", "unit"]).any()
+E       AssertionError: assert not np.True_
+E        +  where np.True_ = any()
+E        +    where any = 0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n162    False\n163    False\n164    False\n165    False\n166    False\nLength: 167, dtype: bool.any
+E        +      where 0      False\n1      False\n2      False\n3      False\n4      False\n       ...  \n162    False\n163    False\n164    False\n165    False\n166    False\nLength: 167, dtype: bool = duplicated(['cell_id', 'unit'])
+E        +        where duplicated =      cell_id   cohort     time  ... control_weight  influence_score    x\n0          0  2020-03  2020-03  ...       0.0...       -0.000000  2.0\n166       19  2020-07  2020-07  ...       2.000000        -0.000000  0.0\n\n[167 rows x 15 columns].duplicated
+
+tests\scenarios\did\test_did_control_alignment.py:92: AssertionError
+_ test_universal_pre_placebo_excludes_own_cohort_and_controls_treated_by_base[not_yet_treated-dr] _
+
+estimator = 'dr', control_group = 'not_yet_treated'
+
+    @pytest.mark.parametrize("estimator", ["dr", "ipw"])
+    @pytest.mark.parametrize("control_group", ["not_yet_treated", "not_yet_or_never"])
+    def test_universal_pre_placebo_excludes_own_cohort_and_controls_treated_by_base(
+        estimator, control_group,
+    ):
+        panel = _panel()
+        estimate = CallawaySantAnnaDID(
+            estimator=estimator, control_group=control_group,
+            include_pre_periods=True, diagnostic_data=True,
+        ).fit(panel).estimate()
+        # Focal April->February placebo: treated slope=2, eligible controls slope=0.
+        cell = estimate.att_gt.loc[
+            (estimate.att_gt.cohort == pd.Period("2020-05", freq="M"))
+            & (estimate.att_gt.time == pd.Period("2020-02", freq="M"))
+        ].iloc[0]
+        assert cell.base_time == pd.Period("2020-04", freq="M")
+>       assert cell.att == pytest.approx(-4.0, abs=1e-9)
+E       assert np.float64(47.00000000000001) == -4.0 � 1.0e-09
+E         
+E         comparison failed
+E         Obtained: 47.00000000000001
+E         Expected: -4.0 � 1.0e-09
+
+tests\scenarios\did\test_did_control_alignment.py:142: AssertionError
+_ test_universal_pre_placebo_excludes_own_cohort_and_controls_treated_by_base[not_yet_treated-ipw] _
+
+estimator = 'ipw', control_group = 'not_yet_treated'
+
+    @pytest.mark.parametrize("estimator", ["dr", "ipw"])
+    @pytest.mark.parametrize("control_group", ["not_yet_treated", "not_yet_or_never"])
+    def test_universal_pre_placebo_excludes_own_cohort_and_controls_treated_by_base(
+        estimator, control_group,
+    ):
+        panel = _panel()
+        estimate = CallawaySantAnnaDID(
+            estimator=estimator, control_group=control_group,
+            include_pre_periods=True, diagnostic_data=True,
+        ).fit(panel).estimate()
+        # Focal April->February placebo: treated slope=2, eligible controls slope=0.
+        cell = estimate.att_gt.loc[
+            (estimate.att_gt.cohort == pd.Period("2020-05", freq="M"))
+            & (estimate.att_gt.time == pd.Period("2020-02", freq="M"))
+        ].iloc[0]
+        assert cell.base_time == pd.Period("2020-04", freq="M")
+>       assert cell.att == pytest.approx(-4.0, abs=1e-9)
+E       assert np.float64(47.0) == -4.0 � 1.0e-09
+E         
+E         comparison failed
+E         Obtained: 47.0
+E         Expected: -4.0 � 1.0e-09
+
+tests\scenarios\did\test_did_control_alignment.py:142: AssertionError
+_ test_universal_pre_placebo_excludes_own_cohort_and_controls_treated_by_base[not_yet_or_never-dr] _
+
+estimator = 'dr', control_group = 'not_yet_or_never'
+
+    @pytest.mark.parametrize("estimator", ["dr", "ipw"])
+    @pytest.mark.parametrize("control_group", ["not_yet_treated", "not_yet_or_never"])
+    def test_universal_pre_placebo_excludes_own_cohort_and_controls_treated_by_base(
+        estimator, control_group,
+    ):
+        panel = _panel()
+        estimate = CallawaySantAnnaDID(
+            estimator=estimator, control_group=control_group,
+            include_pre_periods=True, diagnostic_data=True,
+        ).fit(panel).estimate()
+        # Focal April->February placebo: treated slope=2, eligible controls slope=0.
+        cell = estimate.att_gt.loc[
+            (estimate.att_gt.cohort == pd.Period("2020-05", freq="M"))
+            & (estimate.att_gt.time == pd.Period("2020-02", freq="M"))
+        ].iloc[0]
+        assert cell.base_time == pd.Period("2020-04", freq="M")
+>       assert cell.att == pytest.approx(-4.0, abs=1e-9)
+E       assert np.float64(36.8) == -4.0 � 1.0e-09
+E         
+E         comparison failed
+E         Obtained: 36.8
+E         Expected: -4.0 � 1.0e-09
+
+tests\scenarios\did\test_did_control_alignment.py:142: AssertionError
+_ test_universal_pre_placebo_excludes_own_cohort_and_controls_treated_by_base[not_yet_or_never-ipw] _
+
+estimator = 'ipw', control_group = 'not_yet_or_never'
+
+    @pytest.mark.parametrize("estimator", ["dr", "ipw"])
+    @pytest.mark.parametrize("control_group", ["not_yet_treated", "not_yet_or_never"])
+    def test_universal_pre_placebo_excludes_own_cohort_and_controls_treated_by_base(
+        estimator, control_group,
+    ):
+        panel = _panel()
+        estimate = CallawaySantAnnaDID(
+            estimator=estimator, control_group=control_group,
+            include_pre_periods=True, diagnostic_data=True,
+        ).fit(panel).estimate()
+        # Focal April->February placebo: treated slope=2, eligible controls slope=0.
+        cell = estimate.att_gt.loc[
+            (estimate.att_gt.cohort == pd.Period("2020-05", freq="M"))
+            & (estimate.att_gt.time == pd.Period("2020-02", freq="M"))
+        ].iloc[0]
+        assert cell.base_time == pd.Period("2020-04", freq="M")
+>       assert cell.att == pytest.approx(-4.0, abs=1e-9)
+E       assert np.float64(36.8) == -4.0 � 1.0e-09
+E         
+E         comparison failed
+E         Obtained: 36.8
+E         Expected: -4.0 � 1.0e-09
+
+tests\scenarios\did\test_did_control_alignment.py:142: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/scenarios/did/test_did_control_alignment.py::test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[False-0-universal-not_yet_treated]
+FAILED tests/scenarios/did/test_did_control_alignment.py::test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[False-0-universal-not_yet_or_never]
+FAILED tests/scenarios/did/test_did_control_alignment.py::test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[False-0-varying-not_yet_treated]
+FAILED tests/scenarios/did/test_did_control_alignment.py::test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[False-0-varying-not_yet_or_never]
+FAILED tests/scenarios/did/test_did_control_alignment.py::test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[False-1-universal-not_yet_treated]
+FAILED tests/scenarios/did/test_did_control_alignment.py::test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[False-1-universal-not_yet_or_never]
+FAILED tests/scenarios/did/test_did_control_alignment.py::test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[False-1-varying-not_yet_treated]
+FAILED tests/scenarios/did/test_did_control_alignment.py::test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[False-1-varying-not_yet_or_never]
+FAILED tests/scenarios/did/test_did_control_alignment.py::test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[True-0-universal-not_yet_treated]
+FAILED tests/scenarios/did/test_did_control_alignment.py::test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[True-0-universal-not_yet_or_never]
+FAILED tests/scenarios/did/test_did_control_alignment.py::test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[True-0-varying-not_yet_treated]
+FAILED tests/scenarios/did/test_did_control_alignment.py::test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[True-0-varying-not_yet_or_never]
+FAILED tests/scenarios/did/test_did_control_alignment.py::test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[True-1-universal-not_yet_treated]
+FAILED tests/scenarios/did/test_did_control_alignment.py::test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[True-1-universal-not_yet_or_never]
+FAILED tests/scenarios/did/test_did_control_alignment.py::test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[True-1-varying-not_yet_treated]
+FAILED tests/scenarios/did/test_did_control_alignment.py::test_support_estimator_and_refutations_share_disjoint_complete_unit_populations[True-1-varying-not_yet_or_never]
+FAILED tests/scenarios/did/test_did_control_alignment.py::test_universal_pre_placebo_excludes_own_cohort_and_controls_treated_by_base[not_yet_treated-dr]
+FAILED tests/scenarios/did/test_did_control_alignment.py::test_universal_pre_placebo_excludes_own_cohort_and_controls_treated_by_base[not_yet_treated-ipw]
+FAILED tests/scenarios/did/test_did_control_alignment.py::test_universal_pre_placebo_excludes_own_cohort_and_controls_treated_by_base[not_yet_or_never-dr]
+FAILED tests/scenarios/did/test_did_control_alignment.py::test_universal_pre_placebo_excludes_own_cohort_and_controls_treated_by_base[not_yet_or_never-ipw]
+20 failed, 10 passed in 56.90s

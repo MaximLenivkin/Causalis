@@ -15,6 +15,8 @@ from pydantic import (
     model_validator,
 )
 
+from causalis.data_contracts._did_comparison_units import _comparison_unit_ids
+
 
 TimeLike = Union[str, date, datetime, pd.Timestamp, pd.Period]
 
@@ -659,8 +661,17 @@ class PanelDataDID(BaseModel):
         time: TimeLike,
         *,
         control_group: ComparisonGroup = "not_yet_or_never",
+        base_time: Optional[TimeLike] = None,
+        anticipation: int = 0,
     ) -> Sequence[Hashable]:
-        """Return valid comparison units for a Callaway-Sant'Anna ``ATT(g,t)`` cell."""
+        """Return eligible controls for a post-treatment ``ATT(g,t)`` cell.
+
+        The evaluated cohort is excluded. Not-yet-treated controls must remain
+        untreated beyond the later of ``time`` and ``base_time``, including the
+        anticipation window. If ``base_time`` is omitted, ``time`` is used.
+        This convenience API retains its post-treatment-only guard; pre-period
+        comparison populations are available through ``att_gt_cells``.
+        """
 
         cohort_period = self._coerce_period_value(cohort, "cohort")
         time_period = self._coerce_period_value(time, "time")
@@ -679,19 +690,23 @@ class PanelDataDID(BaseModel):
                 "control_group must be one of 'never_treated', 'not_yet_treated', or 'not_yet_or_never'."
             )
 
-        first_by_unit = self.first_treatment_by_unit
-        out = []
-        for unit in self.df_analysis()[self.unit_col].drop_duplicates().tolist():
-            first_treatment = first_by_unit[unit]
-            if control_group == "never_treated":
-                include = first_treatment is None
-            elif control_group == "not_yet_treated":
-                include = first_treatment is not None and first_treatment > time_period
-            else:
-                include = first_treatment is None or first_treatment > time_period
-            if include:
-                out.append(unit)
-        return tuple(out)
+        anticipation = int(anticipation)
+        if anticipation < 0:
+            raise ValueError("anticipation must be a non-negative integer.")
+        base_period = time_period if base_time is None else self._coerce_period_value(base_time, "base_time")
+        time_index = self.time_to_index()
+        # Preserve post-period queries beyond the observed axis. The contract
+        # validates a gap-free axis, so ordinal offsets use the same period units.
+        first_period = next(iter(time_index))
+        for period in (time_period, base_period):
+            if period not in time_index:
+                time_index[period] = (period.ordinal - first_period.ordinal) / first_period.freq.n
+        units = self._validated_df()[self.unit_col].drop_duplicates().tolist()
+        return _comparison_unit_ids(
+            units, self.first_treatment_by_unit, time_index,
+            cohort=cohort_period, base_time=base_period, target_time=time_period,
+            control_group=control_group, anticipation=anticipation,
+        )
 
     def df_for_did(
         self,
@@ -787,7 +802,13 @@ class PanelDataDID(BaseModel):
         include_pre_periods: bool = False,
         include_unsupported: bool = False,
     ) -> pd.DataFrame:
-        """Return Callaway-Sant'Anna ``ATT(g,t)`` support under an explicit policy."""
+        """Return Callaway-Sant'Anna ``ATT(g,t)`` support under an explicit policy.
+
+        Treated and comparison populations are disjoint. Not-yet-treated
+        comparisons must be untreated at the later of the base and target
+        dates plus ``anticipation`` analysis periods. Complete counts require
+        observations at both dates, including on an unbalanced panel.
+        """
 
         if control_group not in {
             "never_treated",
@@ -807,22 +828,8 @@ class PanelDataDID(BaseModel):
         times = list(self.analysis_times())
         time_index = self.time_to_index()
         first_by_unit = self.first_treatment_by_unit
+        unit_ids = df[self.unit_col].drop_duplicates().tolist()
         rows = []
-
-        def comparison_at(time: pd.Period) -> set[Hashable]:
-            target_idx = time_index[time] + anticipation
-            out = set()
-            for unit in df[self.unit_col].drop_duplicates().tolist():
-                first_treatment = first_by_unit[unit]
-                if control_group == "never_treated":
-                    include = first_treatment is None
-                elif control_group == "not_yet_treated":
-                    include = first_treatment is not None and time_index[first_treatment] > target_idx
-                else:
-                    include = first_treatment is None or time_index[first_treatment] > target_idx
-                if include:
-                    out.add(unit)
-            return out
 
         for cohort in self.cohorts:
             cohort_idx = time_index[cohort]
@@ -872,7 +879,11 @@ class PanelDataDID(BaseModel):
 
                 time = times[target_idx]
                 base_time = times[base_idx]
-                comparison_units = comparison_at(time)
+                comparison_units = set(_comparison_unit_ids(
+                    unit_ids, first_by_unit, time_index,
+                    cohort=cohort, base_time=base_time, target_time=time,
+                    control_group=control_group, anticipation=anticipation,
+                ))
                 base_rows = df[df[self.time_col] == base_time]
                 target_rows = df[df[self.time_col] == time]
 

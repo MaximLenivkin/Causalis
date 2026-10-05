@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 
 from causalis.data_contracts import PanelDataDID
+from causalis.data_contracts._did_comparison_units import _comparison_unit_ids
 from causalis.data_contracts.panel_data_did import ComparisonGroup
 
 
@@ -110,26 +111,17 @@ def _comparison_units_at_time(
     data: PanelDataDID,
     time: pd.Period,
     *,
+    cohort: pd.Period,
+    base_time: pd.Period,
     control_group: ComparisonGroup,
     anticipation: int,
 ) -> list[Hashable]:
-    time_index = data.time_to_index()
-    target_idx = time_index[time] + anticipation
-    first_by_unit = data.first_treatment_by_unit
     units = data.df_analysis()[data.unit_col].drop_duplicates().tolist()
-
-    out: list[Hashable] = []
-    for unit in units:
-        first_treatment = first_by_unit[unit]
-        if control_group == "never_treated":
-            include = first_treatment is None
-        elif control_group == "not_yet_treated":
-            include = first_treatment is not None and time_index[first_treatment] > target_idx
-        else:
-            include = first_treatment is None or time_index[first_treatment] > target_idx
-        if include:
-            out.append(unit)
-    return out
+    return list(_comparison_unit_ids(
+        units, data.first_treatment_by_unit, data.time_to_index(),
+        cohort=cohort, base_time=base_time, target_time=time,
+        control_group=control_group, anticipation=anticipation,
+    ))
 
 
 def _complete_pair_units(
@@ -377,6 +369,8 @@ def raw_did_event_study_table(
         comparison_units = _comparison_units_at_time(
             data,
             target_time,
+            cohort=cohort,
+            base_time=base_time,
             control_group=control_group,
             anticipation=anticipation,
         )
@@ -568,6 +562,8 @@ def did_covariate_balance_table(
         comparison_units = _comparison_units_at_time(
             data,
             target_time,
+            cohort=cohort,
+            base_time=base_time,
             control_group=control_group,
             anticipation=anticipation,
         )
@@ -699,6 +695,8 @@ def did_base_design_table(
         comparison_units = _comparison_units_at_time(
             data,
             target_time,
+            cohort=cohort,
+            base_time=base_time,
             control_group=control_group,
             anticipation=anticipation,
         )

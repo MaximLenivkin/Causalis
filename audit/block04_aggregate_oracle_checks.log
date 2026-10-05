@@ -1,0 +1,12 @@
+{
+  "seed": 4704,
+  "replications": 600,
+  "n": 600,
+  "true_effect": 5.2,
+  "mean_estimate": 5.195079951951488,
+  "empirical_sd": 0.201846902013865,
+  "rms_se": 0.20230000272802487,
+  "coverage": 0.9583333333333334,
+  "scope": "IID known deterministic cell effects; random cohort shares only; not nuisance pipeline",
+  "se_to_sd_ratio": 1.0022447741810214
+}

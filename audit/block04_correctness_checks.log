@@ -1,0 +1,66 @@
+{
+  "did_shift": {
+    "original": [
+      {
+        "time": "2020-04",
+        "att": 1.6805588086042713,
+        "se": 0.37520582883409354,
+        "p_value": 7.498239213699529e-06
+      },
+      {
+        "time": "2020-05",
+        "att": 2.514462458793269,
+        "se": 0.4051716368008808,
+        "p_value": 5.437809757204283e-10
+      }
+    ],
+    "common_trend_plus_1000_per_period": [
+      {
+        "time": "2020-04",
+        "att": 1.6805588086042993,
+        "se": 0.37520582883409676,
+        "p_value": 7.498239213698261e-06
+      },
+      {
+        "time": "2020-05",
+        "att": 2.514462458793393,
+        "se": 0.40517163680088814,
+        "p_value": 5.43780975719761e-10
+      }
+    ]
+  },
+  "did_pre_controls": {
+    "pre_cells": [
+      {
+        "time": "2020-02",
+        "base_time": "2020-03",
+        "att": -2.0,
+        "n_treated": 30,
+        "n_control": 30
+      }
+    ],
+    "expected_pre_att_without_own_cohort_controls": -2.0,
+    "duplicate_unit_rows_per_cell": {
+      "0": 0,
+      "1": 0,
+      "2": 0
+    }
+  },
+  "did_dr_mle_influence": {
+    "library_se": 0.0388756735142697,
+    "reference_full_MLE_OLS_influence_se": 0.0388756735142697,
+    "weighted_control_residual_mean": 0.0874972835655722,
+    "raw_score_vs_full_influence_max_abs": 3.406855686449717e-09,
+    "reference": "DRDID R/drdid_panel.R lines 140-190; normalized weights; ridge=0"
+  },
+  "did_aggregate_weight_influence": {
+    "att": 5.2,
+    "library_aggregate_se": 0.4957418683145493,
+    "population_aggregate_weight_influence_se": 0.4957418683145493,
+    "interpretation": "conditional-on-cohort-counts inference differs; official CS population aggregation includes weight estimation influence"
+  },
+  "did_single_cluster_bootstrap": {
+    "status": "rejected",
+    "reason": "Clustered inference requires at least two clusters."
+  }
+}

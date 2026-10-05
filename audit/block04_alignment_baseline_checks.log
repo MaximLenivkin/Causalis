@@ -1,0 +1,306 @@
+{
+  "baseline_sha": "f57f2d32d232e5ab0b358153f6ac564e615d19c3",
+  "method": "git show source loaded into isolated Python modules; corrected current regression properties; new public keyword API omitted",
+  "passed": 8,
+  "failed_assertion": 21,
+  "results": [
+    {
+      "test": "population_alignment",
+      "args": [
+        "never_treated",
+        "universal",
+        0,
+        false
+      ],
+      "status": "passed"
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "never_treated",
+        "universal",
+        0,
+        true
+      ],
+      "status": "passed"
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "never_treated",
+        "universal",
+        1,
+        false
+      ],
+      "status": "passed"
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "never_treated",
+        "universal",
+        1,
+        true
+      ],
+      "status": "passed"
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "never_treated",
+        "varying",
+        0,
+        false
+      ],
+      "status": "passed"
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "never_treated",
+        "varying",
+        0,
+        true
+      ],
+      "status": "passed"
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "never_treated",
+        "varying",
+        1,
+        false
+      ],
+      "status": "passed"
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "never_treated",
+        "varying",
+        1,
+        true
+      ],
+      "status": "passed"
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "not_yet_treated",
+        "universal",
+        0,
+        false
+      ],
+      "status": "failed_assertion",
+      "reason": ""
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "not_yet_treated",
+        "universal",
+        0,
+        true
+      ],
+      "status": "failed_assertion",
+      "reason": ""
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "not_yet_treated",
+        "universal",
+        1,
+        false
+      ],
+      "status": "failed_assertion",
+      "reason": ""
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "not_yet_treated",
+        "universal",
+        1,
+        true
+      ],
+      "status": "failed_assertion",
+      "reason": ""
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "not_yet_treated",
+        "varying",
+        0,
+        false
+      ],
+      "status": "failed_assertion",
+      "reason": ""
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "not_yet_treated",
+        "varying",
+        0,
+        true
+      ],
+      "status": "failed_assertion",
+      "reason": ""
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "not_yet_treated",
+        "varying",
+        1,
+        false
+      ],
+      "status": "failed_assertion",
+      "reason": ""
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "not_yet_treated",
+        "varying",
+        1,
+        true
+      ],
+      "status": "failed_assertion",
+      "reason": ""
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "not_yet_or_never",
+        "universal",
+        0,
+        false
+      ],
+      "status": "failed_assertion",
+      "reason": ""
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "not_yet_or_never",
+        "universal",
+        0,
+        true
+      ],
+      "status": "failed_assertion",
+      "reason": ""
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "not_yet_or_never",
+        "universal",
+        1,
+        false
+      ],
+      "status": "failed_assertion",
+      "reason": ""
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "not_yet_or_never",
+        "universal",
+        1,
+        true
+      ],
+      "status": "failed_assertion",
+      "reason": ""
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "not_yet_or_never",
+        "varying",
+        0,
+        false
+      ],
+      "status": "failed_assertion",
+      "reason": ""
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "not_yet_or_never",
+        "varying",
+        0,
+        true
+      ],
+      "status": "failed_assertion",
+      "reason": ""
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "not_yet_or_never",
+        "varying",
+        1,
+        false
+      ],
+      "status": "failed_assertion",
+      "reason": ""
+    },
+    {
+      "test": "population_alignment",
+      "args": [
+        "not_yet_or_never",
+        "varying",
+        1,
+        true
+      ],
+      "status": "failed_assertion",
+      "reason": ""
+    },
+    {
+      "test": "pre_placebo",
+      "args": [
+        "dr",
+        "not_yet_treated"
+      ],
+      "status": "failed_assertion",
+      "reason": ""
+    },
+    {
+      "test": "pre_placebo",
+      "args": [
+        "dr",
+        "not_yet_or_never"
+      ],
+      "status": "failed_assertion",
+      "reason": ""
+    },
+    {
+      "test": "pre_placebo",
+      "args": [
+        "ipw",
+        "not_yet_treated"
+      ],
+      "status": "failed_assertion",
+      "reason": ""
+    },
+    {
+      "test": "pre_placebo",
+      "args": [
+        "ipw",
+        "not_yet_or_never"
+      ],
+      "status": "failed_assertion",
+      "reason": ""
+    },
+    {
+      "test": "self_only_controls",
+      "args": [],
+      "status": "failed_assertion",
+      "reason": ""
+    }
+  ]
+}

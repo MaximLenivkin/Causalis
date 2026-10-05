@@ -1,0 +1,399 @@
+FFFFFFFFFFFFFFFF..F                                                      [100%]
+================================== FAILURES ===================================
+_ test_aggregate_scores_and_public_se_match_unit_contamination_refits[False-False-simple] _
+
+kind = 'simple', missing = False, noisy = False
+
+    @pytest.mark.parametrize("kind", ["simple", "cohort", "calendar", "event"])
+    @pytest.mark.parametrize("missing", [False, True])
+    @pytest.mark.parametrize("noisy", [False, True])
+    def test_aggregate_scores_and_public_se_match_unit_contamination_refits(kind, missing, noisy):
+        model = CallawaySantAnnaDID(control_group="never_treated").fit(_panel(missing, noisy))
+        estimate = model.estimate()
+        diag = estimate.diagnostics["unit_level"]
+        unit_ids = list(estimate.diagnostics["influence_scores"].index)
+        positions = {unit: j for j, unit in enumerate(unit_ids)}
+        treated_positions = {
+            cell_id: np.asarray([positions[unit] for unit in group.loc[group.is_treated_cohort == 1, "unit"]])
+            for cell_id, group in diag.groupby("cell_id")
+        }
+>       table, scores, _ = _aggregate_scores(model._att_gt, model._score_matrix, kind=kind,
+                                             treated_unit_positions=treated_positions)
+E       TypeError: _aggregate_scores() got an unexpected keyword argument 'treated_unit_positions'
+
+tests\scenarios\did\test_did_aggregate_influence.py:60: TypeError
+_ test_aggregate_scores_and_public_se_match_unit_contamination_refits[False-False-cohort] _
+
+kind = 'cohort', missing = False, noisy = False
+
+    @pytest.mark.parametrize("kind", ["simple", "cohort", "calendar", "event"])
+    @pytest.mark.parametrize("missing", [False, True])
+    @pytest.mark.parametrize("noisy", [False, True])
+    def test_aggregate_scores_and_public_se_match_unit_contamination_refits(kind, missing, noisy):
+        model = CallawaySantAnnaDID(control_group="never_treated").fit(_panel(missing, noisy))
+        estimate = model.estimate()
+        diag = estimate.diagnostics["unit_level"]
+        unit_ids = list(estimate.diagnostics["influence_scores"].index)
+        positions = {unit: j for j, unit in enumerate(unit_ids)}
+        treated_positions = {
+            cell_id: np.asarray([positions[unit] for unit in group.loc[group.is_treated_cohort == 1, "unit"]])
+            for cell_id, group in diag.groupby("cell_id")
+        }
+>       table, scores, _ = _aggregate_scores(model._att_gt, model._score_matrix, kind=kind,
+                                             treated_unit_positions=treated_positions)
+E       TypeError: _aggregate_scores() got an unexpected keyword argument 'treated_unit_positions'
+
+tests\scenarios\did\test_did_aggregate_influence.py:60: TypeError
+_ test_aggregate_scores_and_public_se_match_unit_contamination_refits[False-False-calendar] _
+
+kind = 'calendar', missing = False, noisy = False
+
+    @pytest.mark.parametrize("kind", ["simple", "cohort", "calendar", "event"])
+    @pytest.mark.parametrize("missing", [False, True])
+    @pytest.mark.parametrize("noisy", [False, True])
+    def test_aggregate_scores_and_public_se_match_unit_contamination_refits(kind, missing, noisy):
+        model = CallawaySantAnnaDID(control_group="never_treated").fit(_panel(missing, noisy))
+        estimate = model.estimate()
+        diag = estimate.diagnostics["unit_level"]
+        unit_ids = list(estimate.diagnostics["influence_scores"].index)
+        positions = {unit: j for j, unit in enumerate(unit_ids)}
+        treated_positions = {
+            cell_id: np.asarray([positions[unit] for unit in group.loc[group.is_treated_cohort == 1, "unit"]])
+            for cell_id, group in diag.groupby("cell_id")
+        }
+>       table, scores, _ = _aggregate_scores(model._att_gt, model._score_matrix, kind=kind,
+                                             treated_unit_positions=treated_positions)
+E       TypeError: _aggregate_scores() got an unexpected keyword argument 'treated_unit_positions'
+
+tests\scenarios\did\test_did_aggregate_influence.py:60: TypeError
+_ test_aggregate_scores_and_public_se_match_unit_contamination_refits[False-False-event] _
+
+kind = 'event', missing = False, noisy = False
+
+    @pytest.mark.parametrize("kind", ["simple", "cohort", "calendar", "event"])
+    @pytest.mark.parametrize("missing", [False, True])
+    @pytest.mark.parametrize("noisy", [False, True])
+    def test_aggregate_scores_and_public_se_match_unit_contamination_refits(kind, missing, noisy):
+        model = CallawaySantAnnaDID(control_group="never_treated").fit(_panel(missing, noisy))
+        estimate = model.estimate()
+        diag = estimate.diagnostics["unit_level"]
+        unit_ids = list(estimate.diagnostics["influence_scores"].index)
+        positions = {unit: j for j, unit in enumerate(unit_ids)}
+        treated_positions = {
+            cell_id: np.asarray([positions[unit] for unit in group.loc[group.is_treated_cohort == 1, "unit"]])
+            for cell_id, group in diag.groupby("cell_id")
+        }
+>       table, scores, _ = _aggregate_scores(model._att_gt, model._score_matrix, kind=kind,
+                                             treated_unit_positions=treated_positions)
+E       TypeError: _aggregate_scores() got an unexpected keyword argument 'treated_unit_positions'
+
+tests\scenarios\did\test_did_aggregate_influence.py:60: TypeError
+_ test_aggregate_scores_and_public_se_match_unit_contamination_refits[False-True-simple] _
+
+kind = 'simple', missing = True, noisy = False
+
+    @pytest.mark.parametrize("kind", ["simple", "cohort", "calendar", "event"])
+    @pytest.mark.parametrize("missing", [False, True])
+    @pytest.mark.parametrize("noisy", [False, True])
+    def test_aggregate_scores_and_public_se_match_unit_contamination_refits(kind, missing, noisy):
+        model = CallawaySantAnnaDID(control_group="never_treated").fit(_panel(missing, noisy))
+        estimate = model.estimate()
+        diag = estimate.diagnostics["unit_level"]
+        unit_ids = list(estimate.diagnostics["influence_scores"].index)
+        positions = {unit: j for j, unit in enumerate(unit_ids)}
+        treated_positions = {
+            cell_id: np.asarray([positions[unit] for unit in group.loc[group.is_treated_cohort == 1, "unit"]])
+            for cell_id, group in diag.groupby("cell_id")
+        }
+>       table, scores, _ = _aggregate_scores(model._att_gt, model._score_matrix, kind=kind,
+                                             treated_unit_positions=treated_positions)
+E       TypeError: _aggregate_scores() got an unexpected keyword argument 'treated_unit_positions'
+
+tests\scenarios\did\test_did_aggregate_influence.py:60: TypeError
+_ test_aggregate_scores_and_public_se_match_unit_contamination_refits[False-True-cohort] _
+
+kind = 'cohort', missing = True, noisy = False
+
+    @pytest.mark.parametrize("kind", ["simple", "cohort", "calendar", "event"])
+    @pytest.mark.parametrize("missing", [False, True])
+    @pytest.mark.parametrize("noisy", [False, True])
+    def test_aggregate_scores_and_public_se_match_unit_contamination_refits(kind, missing, noisy):
+        model = CallawaySantAnnaDID(control_group="never_treated").fit(_panel(missing, noisy))
+        estimate = model.estimate()
+        diag = estimate.diagnostics["unit_level"]
+        unit_ids = list(estimate.diagnostics["influence_scores"].index)
+        positions = {unit: j for j, unit in enumerate(unit_ids)}
+        treated_positions = {
+            cell_id: np.asarray([positions[unit] for unit in group.loc[group.is_treated_cohort == 1, "unit"]])
+            for cell_id, group in diag.groupby("cell_id")
+        }
+>       table, scores, _ = _aggregate_scores(model._att_gt, model._score_matrix, kind=kind,
+                                             treated_unit_positions=treated_positions)
+E       TypeError: _aggregate_scores() got an unexpected keyword argument 'treated_unit_positions'
+
+tests\scenarios\did\test_did_aggregate_influence.py:60: TypeError
+_ test_aggregate_scores_and_public_se_match_unit_contamination_refits[False-True-calendar] _
+
+kind = 'calendar', missing = True, noisy = False
+
+    @pytest.mark.parametrize("kind", ["simple", "cohort", "calendar", "event"])
+    @pytest.mark.parametrize("missing", [False, True])
+    @pytest.mark.parametrize("noisy", [False, True])
+    def test_aggregate_scores_and_public_se_match_unit_contamination_refits(kind, missing, noisy):
+        model = CallawaySantAnnaDID(control_group="never_treated").fit(_panel(missing, noisy))
+        estimate = model.estimate()
+        diag = estimate.diagnostics["unit_level"]
+        unit_ids = list(estimate.diagnostics["influence_scores"].index)
+        positions = {unit: j for j, unit in enumerate(unit_ids)}
+        treated_positions = {
+            cell_id: np.asarray([positions[unit] for unit in group.loc[group.is_treated_cohort == 1, "unit"]])
+            for cell_id, group in diag.groupby("cell_id")
+        }
+>       table, scores, _ = _aggregate_scores(model._att_gt, model._score_matrix, kind=kind,
+                                             treated_unit_positions=treated_positions)
+E       TypeError: _aggregate_scores() got an unexpected keyword argument 'treated_unit_positions'
+
+tests\scenarios\did\test_did_aggregate_influence.py:60: TypeError
+_ test_aggregate_scores_and_public_se_match_unit_contamination_refits[False-True-event] _
+
+kind = 'event', missing = True, noisy = False
+
+    @pytest.mark.parametrize("kind", ["simple", "cohort", "calendar", "event"])
+    @pytest.mark.parametrize("missing", [False, True])
+    @pytest.mark.parametrize("noisy", [False, True])
+    def test_aggregate_scores_and_public_se_match_unit_contamination_refits(kind, missing, noisy):
+        model = CallawaySantAnnaDID(control_group="never_treated").fit(_panel(missing, noisy))
+        estimate = model.estimate()
+        diag = estimate.diagnostics["unit_level"]
+        unit_ids = list(estimate.diagnostics["influence_scores"].index)
+        positions = {unit: j for j, unit in enumerate(unit_ids)}
+        treated_positions = {
+            cell_id: np.asarray([positions[unit] for unit in group.loc[group.is_treated_cohort == 1, "unit"]])
+            for cell_id, group in diag.groupby("cell_id")
+        }
+>       table, scores, _ = _aggregate_scores(model._att_gt, model._score_matrix, kind=kind,
+                                             treated_unit_positions=treated_positions)
+E       TypeError: _aggregate_scores() got an unexpected keyword argument 'treated_unit_positions'
+
+tests\scenarios\did\test_did_aggregate_influence.py:60: TypeError
+_ test_aggregate_scores_and_public_se_match_unit_contamination_refits[True-False-simple] _
+
+kind = 'simple', missing = False, noisy = True
+
+    @pytest.mark.parametrize("kind", ["simple", "cohort", "calendar", "event"])
+    @pytest.mark.parametrize("missing", [False, True])
+    @pytest.mark.parametrize("noisy", [False, True])
+    def test_aggregate_scores_and_public_se_match_unit_contamination_refits(kind, missing, noisy):
+        model = CallawaySantAnnaDID(control_group="never_treated").fit(_panel(missing, noisy))
+        estimate = model.estimate()
+        diag = estimate.diagnostics["unit_level"]
+        unit_ids = list(estimate.diagnostics["influence_scores"].index)
+        positions = {unit: j for j, unit in enumerate(unit_ids)}
+        treated_positions = {
+            cell_id: np.asarray([positions[unit] for unit in group.loc[group.is_treated_cohort == 1, "unit"]])
+            for cell_id, group in diag.groupby("cell_id")
+        }
+>       table, scores, _ = _aggregate_scores(model._att_gt, model._score_matrix, kind=kind,
+                                             treated_unit_positions=treated_positions)
+E       TypeError: _aggregate_scores() got an unexpected keyword argument 'treated_unit_positions'
+
+tests\scenarios\did\test_did_aggregate_influence.py:60: TypeError
+_ test_aggregate_scores_and_public_se_match_unit_contamination_refits[True-False-cohort] _
+
+kind = 'cohort', missing = False, noisy = True
+
+    @pytest.mark.parametrize("kind", ["simple", "cohort", "calendar", "event"])
+    @pytest.mark.parametrize("missing", [False, True])
+    @pytest.mark.parametrize("noisy", [False, True])
+    def test_aggregate_scores_and_public_se_match_unit_contamination_refits(kind, missing, noisy):
+        model = CallawaySantAnnaDID(control_group="never_treated").fit(_panel(missing, noisy))
+        estimate = model.estimate()
+        diag = estimate.diagnostics["unit_level"]
+        unit_ids = list(estimate.diagnostics["influence_scores"].index)
+        positions = {unit: j for j, unit in enumerate(unit_ids)}
+        treated_positions = {
+            cell_id: np.asarray([positions[unit] for unit in group.loc[group.is_treated_cohort == 1, "unit"]])
+            for cell_id, group in diag.groupby("cell_id")
+        }
+>       table, scores, _ = _aggregate_scores(model._att_gt, model._score_matrix, kind=kind,
+                                             treated_unit_positions=treated_positions)
+E       TypeError: _aggregate_scores() got an unexpected keyword argument 'treated_unit_positions'
+
+tests\scenarios\did\test_did_aggregate_influence.py:60: TypeError
+_ test_aggregate_scores_and_public_se_match_unit_contamination_refits[True-False-calendar] _
+
+kind = 'calendar', missing = False, noisy = True
+
+    @pytest.mark.parametrize("kind", ["simple", "cohort", "calendar", "event"])
+    @pytest.mark.parametrize("missing", [False, True])
+    @pytest.mark.parametrize("noisy", [False, True])
+    def test_aggregate_scores_and_public_se_match_unit_contamination_refits(kind, missing, noisy):
+        model = CallawaySantAnnaDID(control_group="never_treated").fit(_panel(missing, noisy))
+        estimate = model.estimate()
+        diag = estimate.diagnostics["unit_level"]
+        unit_ids = list(estimate.diagnostics["influence_scores"].index)
+        positions = {unit: j for j, unit in enumerate(unit_ids)}
+        treated_positions = {
+            cell_id: np.asarray([positions[unit] for unit in group.loc[group.is_treated_cohort == 1, "unit"]])
+            for cell_id, group in diag.groupby("cell_id")
+        }
+>       table, scores, _ = _aggregate_scores(model._att_gt, model._score_matrix, kind=kind,
+                                             treated_unit_positions=treated_positions)
+E       TypeError: _aggregate_scores() got an unexpected keyword argument 'treated_unit_positions'
+
+tests\scenarios\did\test_did_aggregate_influence.py:60: TypeError
+_ test_aggregate_scores_and_public_se_match_unit_contamination_refits[True-False-event] _
+
+kind = 'event', missing = False, noisy = True
+
+    @pytest.mark.parametrize("kind", ["simple", "cohort", "calendar", "event"])
+    @pytest.mark.parametrize("missing", [False, True])
+    @pytest.mark.parametrize("noisy", [False, True])
+    def test_aggregate_scores_and_public_se_match_unit_contamination_refits(kind, missing, noisy):
+        model = CallawaySantAnnaDID(control_group="never_treated").fit(_panel(missing, noisy))
+        estimate = model.estimate()
+        diag = estimate.diagnostics["unit_level"]
+        unit_ids = list(estimate.diagnostics["influence_scores"].index)
+        positions = {unit: j for j, unit in enumerate(unit_ids)}
+        treated_positions = {
+            cell_id: np.asarray([positions[unit] for unit in group.loc[group.is_treated_cohort == 1, "unit"]])
+            for cell_id, group in diag.groupby("cell_id")
+        }
+>       table, scores, _ = _aggregate_scores(model._att_gt, model._score_matrix, kind=kind,
+                                             treated_unit_positions=treated_positions)
+E       TypeError: _aggregate_scores() got an unexpected keyword argument 'treated_unit_positions'
+
+tests\scenarios\did\test_did_aggregate_influence.py:60: TypeError
+_ test_aggregate_scores_and_public_se_match_unit_contamination_refits[True-True-simple] _
+
+kind = 'simple', missing = True, noisy = True
+
+    @pytest.mark.parametrize("kind", ["simple", "cohort", "calendar", "event"])
+    @pytest.mark.parametrize("missing", [False, True])
+    @pytest.mark.parametrize("noisy", [False, True])
+    def test_aggregate_scores_and_public_se_match_unit_contamination_refits(kind, missing, noisy):
+        model = CallawaySantAnnaDID(control_group="never_treated").fit(_panel(missing, noisy))
+        estimate = model.estimate()
+        diag = estimate.diagnostics["unit_level"]
+        unit_ids = list(estimate.diagnostics["influence_scores"].index)
+        positions = {unit: j for j, unit in enumerate(unit_ids)}
+        treated_positions = {
+            cell_id: np.asarray([positions[unit] for unit in group.loc[group.is_treated_cohort == 1, "unit"]])
+            for cell_id, group in diag.groupby("cell_id")
+        }
+>       table, scores, _ = _aggregate_scores(model._att_gt, model._score_matrix, kind=kind,
+                                             treated_unit_positions=treated_positions)
+E       TypeError: _aggregate_scores() got an unexpected keyword argument 'treated_unit_positions'
+
+tests\scenarios\did\test_did_aggregate_influence.py:60: TypeError
+_ test_aggregate_scores_and_public_se_match_unit_contamination_refits[True-True-cohort] _
+
+kind = 'cohort', missing = True, noisy = True
+
+    @pytest.mark.parametrize("kind", ["simple", "cohort", "calendar", "event"])
+    @pytest.mark.parametrize("missing", [False, True])
+    @pytest.mark.parametrize("noisy", [False, True])
+    def test_aggregate_scores_and_public_se_match_unit_contamination_refits(kind, missing, noisy):
+        model = CallawaySantAnnaDID(control_group="never_treated").fit(_panel(missing, noisy))
+        estimate = model.estimate()
+        diag = estimate.diagnostics["unit_level"]
+        unit_ids = list(estimate.diagnostics["influence_scores"].index)
+        positions = {unit: j for j, unit in enumerate(unit_ids)}
+        treated_positions = {
+            cell_id: np.asarray([positions[unit] for unit in group.loc[group.is_treated_cohort == 1, "unit"]])
+            for cell_id, group in diag.groupby("cell_id")
+        }
+>       table, scores, _ = _aggregate_scores(model._att_gt, model._score_matrix, kind=kind,
+                                             treated_unit_positions=treated_positions)
+E       TypeError: _aggregate_scores() got an unexpected keyword argument 'treated_unit_positions'
+
+tests\scenarios\did\test_did_aggregate_influence.py:60: TypeError
+_ test_aggregate_scores_and_public_se_match_unit_contamination_refits[True-True-calendar] _
+
+kind = 'calendar', missing = True, noisy = True
+
+    @pytest.mark.parametrize("kind", ["simple", "cohort", "calendar", "event"])
+    @pytest.mark.parametrize("missing", [False, True])
+    @pytest.mark.parametrize("noisy", [False, True])
+    def test_aggregate_scores_and_public_se_match_unit_contamination_refits(kind, missing, noisy):
+        model = CallawaySantAnnaDID(control_group="never_treated").fit(_panel(missing, noisy))
+        estimate = model.estimate()
+        diag = estimate.diagnostics["unit_level"]
+        unit_ids = list(estimate.diagnostics["influence_scores"].index)
+        positions = {unit: j for j, unit in enumerate(unit_ids)}
+        treated_positions = {
+            cell_id: np.asarray([positions[unit] for unit in group.loc[group.is_treated_cohort == 1, "unit"]])
+            for cell_id, group in diag.groupby("cell_id")
+        }
+>       table, scores, _ = _aggregate_scores(model._att_gt, model._score_matrix, kind=kind,
+                                             treated_unit_positions=treated_positions)
+E       TypeError: _aggregate_scores() got an unexpected keyword argument 'treated_unit_positions'
+
+tests\scenarios\did\test_did_aggregate_influence.py:60: TypeError
+_ test_aggregate_scores_and_public_se_match_unit_contamination_refits[True-True-event] _
+
+kind = 'event', missing = True, noisy = True
+
+    @pytest.mark.parametrize("kind", ["simple", "cohort", "calendar", "event"])
+    @pytest.mark.parametrize("missing", [False, True])
+    @pytest.mark.parametrize("noisy", [False, True])
+    def test_aggregate_scores_and_public_se_match_unit_contamination_refits(kind, missing, noisy):
+        model = CallawaySantAnnaDID(control_group="never_treated").fit(_panel(missing, noisy))
+        estimate = model.estimate()
+        diag = estimate.diagnostics["unit_level"]
+        unit_ids = list(estimate.diagnostics["influence_scores"].index)
+        positions = {unit: j for j, unit in enumerate(unit_ids)}
+        treated_positions = {
+            cell_id: np.asarray([positions[unit] for unit in group.loc[group.is_treated_cohort == 1, "unit"]])
+            for cell_id, group in diag.groupby("cell_id")
+        }
+>       table, scores, _ = _aggregate_scores(model._att_gt, model._score_matrix, kind=kind,
+                                             treated_unit_positions=treated_positions)
+E       TypeError: _aggregate_scores() got an unexpected keyword argument 'treated_unit_positions'
+
+tests\scenarios\did\test_did_aggregate_influence.py:60: TypeError
+___________ test_population_share_oracle_coverage_is_not_degenerate ___________
+
+    def test_population_share_oracle_coverage_is_not_degenerate():
+>       result = _oracle_share_simulation()
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_aggregate_influence.py:119: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+replications = 600, n = 600
+
+    def _oracle_share_simulation(replications=600, n=600):
+        rng = np.random.default_rng(4704)
+        estimates, ses = [], []
+        true_effect = 5.2  # q=[.3,.3,.4], 3 cells with tau=2 and 2 with tau=10
+        for _ in range(replications):
+            cohort = rng.choice(3, size=n, p=[.3, .3, .4])
+            membership = {j: np.flatnonzero(cohort == (j >= 3)) for j in range(5)}
+            cells = pd.DataFrame(dict(cell_id=range(5), att=[2.] * 3 + [10.] * 2,
+                                      n_treated=[len(membership[j]) for j in range(5)],
+                                      is_post_treatment=True))
+>           table, scores, _ = _aggregate_scores(cells, np.zeros((n, 5)), kind="simple",
+                                                 treated_unit_positions=membership)
+E           TypeError: _aggregate_scores() got an unexpected keyword argument 'treated_unit_positions'
+
+tests\scenarios\did\test_did_aggregate_influence.py:107: TypeError
+=========================== short test summary info ===========================
+FAILED tests/scenarios/did/test_did_aggregate_influence.py::test_aggregate_scores_and_public_se_match_unit_contamination_refits[False-False-simple]
+FAILED tests/scenarios/did/test_did_aggregate_influence.py::test_aggregate_scores_and_public_se_match_unit_contamination_refits[False-False-cohort]
+FAILED tests/scenarios/did/test_did_aggregate_influence.py::test_aggregate_scores_and_public_se_match_unit_contamination_refits[False-False-calendar]
+FAILED tests/scenarios/did/test_did_aggregate_influence.py::test_aggregate_scores_and_public_se_match_unit_contamination_refits[False-False-event]
+FAILED tests/scenarios/did/test_did_aggregate_influence.py::test_aggregate_scores_and_public_se_match_unit_contamination_refits[False-True-simple]
+FAILED tests/scenarios/did/test_did_aggregate_influence.py::test_aggregate_scores_and_public_se_match_unit_contamination_refits[False-True-cohort]
+FAILED tests/scenarios/did/test_did_aggregate_influence.py::test_aggregate_scores_and_public_se_match_unit_contamination_refits[False-True-calendar]
+FAILED tests/scenarios/did/test_did_aggregate_influence.py::test_aggregate_scores_and_public_se_match_unit_contamination_refits[False-True-event]
+FAILED tests/scenarios/did/test_did_aggregate_influence.py::test_aggregate_scores_and_public_se_match_unit_contamination_refits[True-False-simple]
+FAILED tests/scenarios/did/test_did_aggregate_influence.py::test_aggregate_scores_and_public_se_match_unit_contamination_refits[True-False-cohort]
+FAILED tests/scenarios/did/test_did_aggregate_influence.py::test_aggregate_scores_and_public_se_match_unit_contamination_refits[True-False-calendar]
+FAILED tests/scenarios/did/test_did_aggregate_influence.py::test_aggregate_scores_and_public_se_match_unit_contamination_refits[True-False-event]
+FAILED tests/scenarios/did/test_did_aggregate_influence.py::test_aggregate_scores_and_public_se_match_unit_contamination_refits[True-True-simple]
+FAILED tests/scenarios/did/test_did_aggregate_influence.py::test_aggregate_scores_and_public_se_match_unit_contamination_refits[True-True-cohort]
+FAILED tests/scenarios/did/test_did_aggregate_influence.py::test_aggregate_scores_and_public_se_match_unit_contamination_refits[True-True-calendar]
+FAILED tests/scenarios/did/test_did_aggregate_influence.py::test_aggregate_scores_and_public_se_match_unit_contamination_refits[True-True-event]
+FAILED tests/scenarios/did/test_did_aggregate_influence.py::test_population_share_oracle_coverage_is_not_degenerate
+17 failed, 2 passed in 16.93s

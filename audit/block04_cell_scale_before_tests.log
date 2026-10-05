@@ -1,0 +1,280 @@
+FFFFFF                                                                   [100%]
+================================== FAILURES ===================================
+_ test_propensity_influence_preserves_valid_directions_under_covariate_rescaling[1000000.0-dr] _
+
+estimator = 'dr', scale = 1000000.0
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("scale", [1e6, 1e7])
+    def test_propensity_influence_preserves_valid_directions_under_covariate_rescaling(estimator, scale):
+        x, d, dy = _cell_arrays()
+        design = np.column_stack([np.ones(len(d)), x])
+        gamma, p = _fit_logistic_propensity(design, d, clip=1e-6, ridge=0.0, tol=1e-11, max_iter=1000)
+        _, outcome = _fit_outcome_regression(design, dy, d == 0)
+        residual = dy - outcome if estimator != "ipw" else dy
+        wt = d / d.mean()
+        odds = (1.0 - d) * p / (1.0 - p)
+        wc = odds / odds.mean()
+        kwargs = dict(estimate_outcome=estimator != "ipw", propensity_clip=1e-6, logit_ridge=0.0)
+        original = _cell_influence_scores(design, d, residual, wt, wc, gamma, **kwargs)
+        rescaled_design = design.copy()
+        rescaled_design[:, 1] *= scale
+        rescaled_gamma = gamma.copy()
+        rescaled_gamma[1] /= scale
+        rescaled = _cell_influence_scores(rescaled_design, d, residual, wt, wc, rescaled_gamma, **kwargs)
+        # Gamma is transformed analytically so this checks the influence solver,
+        # independently of optimizer convergence on very differently scaled inputs.
+>       np.testing.assert_allclose(rescaled, original, atol=3e-7, rtol=3e-7)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-07, atol=3e-07
+E       
+E       Mismatched elements: 96 / 96 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: -0.1536612356511864 (ACTUAL), -0.15369877008277844 (DESIRED)
+E        [1]: -2.5864323432218272 (ACTUAL), -2.5866261263396035 (DESIRED)
+E        [2]: -8.535926358863373 (ACTUAL), -8.536669817526573 (DESIRED)
+E        [3]: -1.200535497133198 (ACTUAL), -1.2004476806247308 (DESIRED)
+E        [4]: -4.930235113321888 (ACTUAL), -4.929969628205278 (DESIRED)
+E       Max absolute difference among violations: 0.00076478
+E       Max relative difference among violations: 0.02713761
+E        ACTUAL: array([-0.153661, -2.586432, -8.535926, -1.200535, -4.930235, -2.952057,
+E              -2.947196, -0.569353, -0.266617,  0.299283,  0.698138, -1.084628,
+E               8.333072,  1.038429, -0.287054,  0.561459, -3.094634, -0.742361,...
+E        DESIRED: array([-0.153699, -2.586626, -8.53667 , -1.200448, -4.92997 , -2.952125,
+E              -2.946795, -0.569146, -0.266656,  0.2992  ,  0.698083, -1.084434,
+E               8.333435,  1.038414, -0.287055,  0.561455, -3.094887, -0.742171,...
+
+tests\scenarios\did\test_did_cell_influence.py:174: AssertionError
+_ test_propensity_influence_preserves_valid_directions_under_covariate_rescaling[1000000.0-aipw] _
+
+estimator = 'aipw', scale = 1000000.0
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("scale", [1e6, 1e7])
+    def test_propensity_influence_preserves_valid_directions_under_covariate_rescaling(estimator, scale):
+        x, d, dy = _cell_arrays()
+        design = np.column_stack([np.ones(len(d)), x])
+        gamma, p = _fit_logistic_propensity(design, d, clip=1e-6, ridge=0.0, tol=1e-11, max_iter=1000)
+        _, outcome = _fit_outcome_regression(design, dy, d == 0)
+        residual = dy - outcome if estimator != "ipw" else dy
+        wt = d / d.mean()
+        odds = (1.0 - d) * p / (1.0 - p)
+        wc = odds / odds.mean()
+        kwargs = dict(estimate_outcome=estimator != "ipw", propensity_clip=1e-6, logit_ridge=0.0)
+        original = _cell_influence_scores(design, d, residual, wt, wc, gamma, **kwargs)
+        rescaled_design = design.copy()
+        rescaled_design[:, 1] *= scale
+        rescaled_gamma = gamma.copy()
+        rescaled_gamma[1] /= scale
+        rescaled = _cell_influence_scores(rescaled_design, d, residual, wt, wc, rescaled_gamma, **kwargs)
+        # Gamma is transformed analytically so this checks the influence solver,
+        # independently of optimizer convergence on very differently scaled inputs.
+>       np.testing.assert_allclose(rescaled, original, atol=3e-7, rtol=3e-7)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-07, atol=3e-07
+E       
+E       Mismatched elements: 96 / 96 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: -0.1536612356511864 (ACTUAL), -0.15369877008277844 (DESIRED)
+E        [1]: -2.5864323432218272 (ACTUAL), -2.5866261263396035 (DESIRED)
+E        [2]: -8.535926358863373 (ACTUAL), -8.536669817526573 (DESIRED)
+E        [3]: -1.200535497133198 (ACTUAL), -1.2004476806247308 (DESIRED)
+E        [4]: -4.930235113321888 (ACTUAL), -4.929969628205278 (DESIRED)
+E       Max absolute difference among violations: 0.00076478
+E       Max relative difference among violations: 0.02713761
+E        ACTUAL: array([-0.153661, -2.586432, -8.535926, -1.200535, -4.930235, -2.952057,
+E              -2.947196, -0.569353, -0.266617,  0.299283,  0.698138, -1.084628,
+E               8.333072,  1.038429, -0.287054,  0.561459, -3.094634, -0.742361,...
+E        DESIRED: array([-0.153699, -2.586626, -8.53667 , -1.200448, -4.92997 , -2.952125,
+E              -2.946795, -0.569146, -0.266656,  0.2992  ,  0.698083, -1.084434,
+E               8.333435,  1.038414, -0.287055,  0.561455, -3.094887, -0.742171,...
+
+tests\scenarios\did\test_did_cell_influence.py:174: AssertionError
+_ test_propensity_influence_preserves_valid_directions_under_covariate_rescaling[1000000.0-ipw] _
+
+estimator = 'ipw', scale = 1000000.0
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("scale", [1e6, 1e7])
+    def test_propensity_influence_preserves_valid_directions_under_covariate_rescaling(estimator, scale):
+        x, d, dy = _cell_arrays()
+        design = np.column_stack([np.ones(len(d)), x])
+        gamma, p = _fit_logistic_propensity(design, d, clip=1e-6, ridge=0.0, tol=1e-11, max_iter=1000)
+        _, outcome = _fit_outcome_regression(design, dy, d == 0)
+        residual = dy - outcome if estimator != "ipw" else dy
+        wt = d / d.mean()
+        odds = (1.0 - d) * p / (1.0 - p)
+        wc = odds / odds.mean()
+        kwargs = dict(estimate_outcome=estimator != "ipw", propensity_clip=1e-6, logit_ridge=0.0)
+        original = _cell_influence_scores(design, d, residual, wt, wc, gamma, **kwargs)
+        rescaled_design = design.copy()
+        rescaled_design[:, 1] *= scale
+        rescaled_gamma = gamma.copy()
+        rescaled_gamma[1] /= scale
+        rescaled = _cell_influence_scores(rescaled_design, d, residual, wt, wc, rescaled_gamma, **kwargs)
+        # Gamma is transformed analytically so this checks the influence solver,
+        # independently of optimizer convergence on very differently scaled inputs.
+>       np.testing.assert_allclose(rescaled, original, atol=3e-7, rtol=3e-7)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-07, atol=3e-07
+E       
+E       Mismatched elements: 96 / 96 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: 0.0023205641615395844 (ACTUAL), 0.002262679367976972 (DESIRED)
+E        [1]: -2.7740441037587344 (ACTUAL), -2.774342951917422 (DESIRED)
+E        [2]: -20.12304884885327 (ACTUAL), -20.124195394822337 (DESIRED)
+E        [3]: -2.4920409418746634 (ACTUAL), -2.491905513143001 (DESIRED)
+E        [4]: -3.5486596531503087 (ACTUAL), -3.5482502277103167 (DESIRED)
+E       Max absolute difference among violations: 0.00117943
+E       Max relative difference among violations: 0.02558241
+E        ACTUAL: array([ 2.320564e-03, -2.774044e+00, -2.012305e+01, -2.492041e+00,
+E              -3.548660e+00, -3.830079e+00, -1.892024e+00, -2.095906e+00,
+E              -8.001904e-01,  1.189099e+00,  1.231811e+00, -2.664407e+00,...
+E        DESIRED: array([ 2.262679e-03, -2.774343e+00, -2.012420e+01, -2.491906e+00,
+E              -3.548250e+00, -3.830184e+00, -1.891406e+00, -2.095588e+00,
+E              -8.002502e-01,  1.188972e+00,  1.231726e+00, -2.664107e+00,...
+
+tests\scenarios\did\test_did_cell_influence.py:174: AssertionError
+_ test_propensity_influence_preserves_valid_directions_under_covariate_rescaling[10000000.0-dr] _
+
+estimator = 'dr', scale = 10000000.0
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("scale", [1e6, 1e7])
+    def test_propensity_influence_preserves_valid_directions_under_covariate_rescaling(estimator, scale):
+        x, d, dy = _cell_arrays()
+        design = np.column_stack([np.ones(len(d)), x])
+        gamma, p = _fit_logistic_propensity(design, d, clip=1e-6, ridge=0.0, tol=1e-11, max_iter=1000)
+        _, outcome = _fit_outcome_regression(design, dy, d == 0)
+        residual = dy - outcome if estimator != "ipw" else dy
+        wt = d / d.mean()
+        odds = (1.0 - d) * p / (1.0 - p)
+        wc = odds / odds.mean()
+        kwargs = dict(estimate_outcome=estimator != "ipw", propensity_clip=1e-6, logit_ridge=0.0)
+        original = _cell_influence_scores(design, d, residual, wt, wc, gamma, **kwargs)
+        rescaled_design = design.copy()
+        rescaled_design[:, 1] *= scale
+        rescaled_gamma = gamma.copy()
+        rescaled_gamma[1] /= scale
+        rescaled = _cell_influence_scores(rescaled_design, d, residual, wt, wc, rescaled_gamma, **kwargs)
+        # Gamma is transformed analytically so this checks the influence solver,
+        # independently of optimizer convergence on very differently scaled inputs.
+>       np.testing.assert_allclose(rescaled, original, atol=3e-7, rtol=3e-7)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-07, atol=3e-07
+E       
+E       Mismatched elements: 96 / 96 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: -0.15441880826023524 (ACTUAL), -0.15369877008277844 (DESIRED)
+E        [1]: -2.5903435462399482 (ACTUAL), -2.5866261263396035 (DESIRED)
+E        [2]: -8.55093188566452 (ACTUAL), -8.536669817526573 (DESIRED)
+E        [3]: -1.1987630610360598 (ACTUAL), -1.2004476806247308 (DESIRED)
+E        [4]: -4.924876719870074 (ACTUAL), -4.929969628205278 (DESIRED)
+E       Max absolute difference among violations: 0.0146711
+E       Max relative difference among violations: 0.52059171
+E        ACTUAL: array([-0.154419, -2.590344, -8.550932, -1.198763, -4.924877, -2.95343 ,
+E              -2.939113, -0.565183, -0.267399,  0.297621,  0.697034, -1.080714,
+E               8.340387,  1.038109, -0.287074,  0.561387, -3.099742, -0.738519,...
+E        DESIRED: array([-0.153699, -2.586626, -8.53667 , -1.200448, -4.92997 , -2.952125,
+E              -2.946795, -0.569146, -0.266656,  0.2992  ,  0.698083, -1.084434,
+E               8.333435,  1.038414, -0.287055,  0.561455, -3.094887, -0.742171,...
+
+tests\scenarios\did\test_did_cell_influence.py:174: AssertionError
+_ test_propensity_influence_preserves_valid_directions_under_covariate_rescaling[10000000.0-aipw] _
+
+estimator = 'aipw', scale = 10000000.0
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("scale", [1e6, 1e7])
+    def test_propensity_influence_preserves_valid_directions_under_covariate_rescaling(estimator, scale):
+        x, d, dy = _cell_arrays()
+        design = np.column_stack([np.ones(len(d)), x])
+        gamma, p = _fit_logistic_propensity(design, d, clip=1e-6, ridge=0.0, tol=1e-11, max_iter=1000)
+        _, outcome = _fit_outcome_regression(design, dy, d == 0)
+        residual = dy - outcome if estimator != "ipw" else dy
+        wt = d / d.mean()
+        odds = (1.0 - d) * p / (1.0 - p)
+        wc = odds / odds.mean()
+        kwargs = dict(estimate_outcome=estimator != "ipw", propensity_clip=1e-6, logit_ridge=0.0)
+        original = _cell_influence_scores(design, d, residual, wt, wc, gamma, **kwargs)
+        rescaled_design = design.copy()
+        rescaled_design[:, 1] *= scale
+        rescaled_gamma = gamma.copy()
+        rescaled_gamma[1] /= scale
+        rescaled = _cell_influence_scores(rescaled_design, d, residual, wt, wc, rescaled_gamma, **kwargs)
+        # Gamma is transformed analytically so this checks the influence solver,
+        # independently of optimizer convergence on very differently scaled inputs.
+>       np.testing.assert_allclose(rescaled, original, atol=3e-7, rtol=3e-7)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-07, atol=3e-07
+E       
+E       Mismatched elements: 96 / 96 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: -0.15441880826023524 (ACTUAL), -0.15369877008277844 (DESIRED)
+E        [1]: -2.5903435462399482 (ACTUAL), -2.5866261263396035 (DESIRED)
+E        [2]: -8.55093188566452 (ACTUAL), -8.536669817526573 (DESIRED)
+E        [3]: -1.1987630610360598 (ACTUAL), -1.2004476806247308 (DESIRED)
+E        [4]: -4.924876719870074 (ACTUAL), -4.929969628205278 (DESIRED)
+E       Max absolute difference among violations: 0.0146711
+E       Max relative difference among violations: 0.52059171
+E        ACTUAL: array([-0.154419, -2.590344, -8.550932, -1.198763, -4.924877, -2.95343 ,
+E              -2.939113, -0.565183, -0.267399,  0.297621,  0.697034, -1.080714,
+E               8.340387,  1.038109, -0.287074,  0.561387, -3.099742, -0.738519,...
+E        DESIRED: array([-0.153699, -2.586626, -8.53667 , -1.200448, -4.92997 , -2.952125,
+E              -2.946795, -0.569146, -0.266656,  0.2992  ,  0.698083, -1.084434,
+E               8.333435,  1.038414, -0.287055,  0.561455, -3.094887, -0.742171,...
+
+tests\scenarios\did\test_did_cell_influence.py:174: AssertionError
+_ test_propensity_influence_preserves_valid_directions_under_covariate_rescaling[10000000.0-ipw] _
+
+estimator = 'ipw', scale = 10000000.0
+
+    @pytest.mark.parametrize("estimator", ["dr", "aipw", "ipw"])
+    @pytest.mark.parametrize("scale", [1e6, 1e7])
+    def test_propensity_influence_preserves_valid_directions_under_covariate_rescaling(estimator, scale):
+        x, d, dy = _cell_arrays()
+        design = np.column_stack([np.ones(len(d)), x])
+        gamma, p = _fit_logistic_propensity(design, d, clip=1e-6, ridge=0.0, tol=1e-11, max_iter=1000)
+        _, outcome = _fit_outcome_regression(design, dy, d == 0)
+        residual = dy - outcome if estimator != "ipw" else dy
+        wt = d / d.mean()
+        odds = (1.0 - d) * p / (1.0 - p)
+        wc = odds / odds.mean()
+        kwargs = dict(estimate_outcome=estimator != "ipw", propensity_clip=1e-6, logit_ridge=0.0)
+        original = _cell_influence_scores(design, d, residual, wt, wc, gamma, **kwargs)
+        rescaled_design = design.copy()
+        rescaled_design[:, 1] *= scale
+        rescaled_gamma = gamma.copy()
+        rescaled_gamma[1] /= scale
+        rescaled = _cell_influence_scores(rescaled_design, d, residual, wt, wc, rescaled_gamma, **kwargs)
+        # Gamma is transformed analytically so this checks the influence solver,
+        # independently of optimizer convergence on very differently scaled inputs.
+>       np.testing.assert_allclose(rescaled, original, atol=3e-7, rtol=3e-7)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-07, atol=3e-07
+E       
+E       Mismatched elements: 96 / 96 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: 0.0011522519685807087 (ACTUAL), 0.002262679367976972 (DESIRED)
+E        [1]: -2.7800758769783926 (ACTUAL), -2.774342951917422 (DESIRED)
+E        [2]: -20.146190049728464 (ACTUAL), -20.124195394822337 (DESIRED)
+E        [3]: -2.4893075290257927 (ACTUAL), -2.491905513143001 (DESIRED)
+E        [4]: -3.540396053952491 (ACTUAL), -3.5482502277103167 (DESIRED)
+E       Max absolute difference among violations: 0.02262546
+E       Max relative difference among violations: 0.49075773
+E        ACTUAL: array([ 1.152252e-03, -2.780076e+00, -2.014619e+01, -2.489308e+00,
+E              -3.540396e+00, -3.832196e+00, -1.879559e+00, -2.089476e+00,
+E              -8.013959e-01,  1.186536e+00,  1.230108e+00, -2.658370e+00,...
+E        DESIRED: array([ 2.262679e-03, -2.774343e+00, -2.012420e+01, -2.491906e+00,
+E              -3.548250e+00, -3.830184e+00, -1.891406e+00, -2.095588e+00,
+E              -8.002502e-01,  1.188972e+00,  1.231726e+00, -2.664107e+00,...
+
+tests\scenarios\did\test_did_cell_influence.py:174: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_propensity_influence_preserves_valid_directions_under_covariate_rescaling[1000000.0-dr]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_propensity_influence_preserves_valid_directions_under_covariate_rescaling[1000000.0-aipw]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_propensity_influence_preserves_valid_directions_under_covariate_rescaling[1000000.0-ipw]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_propensity_influence_preserves_valid_directions_under_covariate_rescaling[10000000.0-dr]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_propensity_influence_preserves_valid_directions_under_covariate_rescaling[10000000.0-aipw]
+FAILED tests/scenarios/did/test_did_cell_influence.py::test_propensity_influence_preserves_valid_directions_under_covariate_rescaling[10000000.0-ipw]
+6 failed, 28 deselected in 10.78s
