@@ -1,0 +1,1484 @@
+FFFFFFFFFFFFFFFFFFFF                                                     [100%]
+================================== FAILURES ===================================
+_________ test_gate_variance_translation_invariance[100000000.0-HC0] __________
+
+cov_type = 'HC0', shift = 100000000.0
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    @pytest.mark.parametrize("shift", [1e8, -1e8, 1e12])
+    def test_gate_variance_translation_invariance(cov_type, shift):
+        # Unequal, interleaved groups and exactly representable within-group noise.
+        codes = np.tile([0, 1, 0, 2, 1, 0, 2, 0], 20)
+        d = np.arange(len(codes)) % 2
+        # Ensure both treatment values appear inside every group.
+        d[codes == 0] = np.arange(np.sum(codes == 0)) % 2
+        d[codes == 1] = np.arange(np.sum(codes == 1)) % 2
+        d[codes == 2] = np.arange(np.sum(codes == 2)) % 2
+        phi = np.zeros(len(codes))
+        for group in range(3):
+            phi[codes == group] = group * 4 + np.tile([-1.0, 1.0], np.sum(codes == group) // 2)
+        partition = _GatePartition(group_names=["a", "b", "c"], codes=codes)
+        kwargs = dict(d=d, m_hat=np.full(len(d), 0.5), partition=partition,
+                      cov_type=cov_type, alpha=0.05)
+        original = _estimate_gate_groupwise_summary_from_partition(phi=phi, **kwargs)
+>       shifted = _estimate_gate_groupwise_summary_from_partition(phi=phi + shift, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\inference\test_gate_numerical_stability.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+phi = array([9.99999990e+07, 1.00000003e+08, 1.00000001e+08, 1.00000007e+08,
+       1.00000005e+08, 9.99999990e+07, 1.000000...1.00000003e+08, 1.00000001e+08, 1.00000007e+08,
+       1.00000005e+08, 9.99999990e+07, 1.00000009e+08, 1.00000001e+08])
+d = array([0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0,
+       1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1,...0, 1, 1, 0, 0, 1, 0,
+       1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0,
+       1, 0, 1, 0, 1, 1])
+m_hat = array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,...0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5])
+partition = _GatePartition(group_names=['a', 'b', 'c'], codes=array([0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1..., 2, 0, 0, 1, 0, 2,
+       1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1,
+       0, 2, 1, 0, 2, 0]))
+cov_type = 'HC0', alpha = 0.05
+
+    def _estimate_gate_groupwise_summary_from_partition(
+        *,
+        phi: np.ndarray,
+        d: np.ndarray,
+        m_hat: np.ndarray,
+        partition: _GatePartition,
+        cov_type: str,
+        alpha: float,
+    ) -> dict[str, Any]:
+        """Compute strict GATE estimates and diagnostics from compact group codes."""
+        group_names = list(partition.group_names)
+        codes = np.asarray(partition.codes, dtype=int).reshape(-1)
+        n_obs = int(phi.shape[0])
+        k = len(group_names)
+    
+        if codes.shape[0] != n_obs:
+            raise RuntimeError("Stored group partition has inconsistent length; recompute groups.")
+        if k == 0:
+            raise RuntimeError("Group partition must contain at least one group.")
+        if np.any((codes < 0) | (codes >= k)):
+            raise RuntimeError("Group partition contains invalid group codes.")
+    
+        n_group = np.bincount(codes, minlength=k).astype(int, copy=False)
+        n_treated = np.rint(np.bincount(codes, weights=np.asarray(d, dtype=float), minlength=k)).astype(int)
+        n_control = n_group - n_treated
+    
+        invalid_mask = (n_treated == 0) | (n_control == 0)
+        if invalid_mask.any():
+            invalid_groups = [group_names[idx] for idx in np.flatnonzero(invalid_mask)]
+            raise ValueError(
+                "Each GATE group must contain at least one treated and one control observation. "
+                f"Invalid groups: {invalid_groups}. "
+                "Treatment-defined partitions such as groups=data['d'] are not valid GATE inputs."
+            )
+    
+        hc1_scale = np.nan
+        if cov_type == "HC1":
+            denom = n_obs - k
+            if denom <= 0:
+                warnings.warn(
+                    "HC1 covariance scaling n/(n-k) is undefined because n <= k; falling back to HC0 scaling.",
+                    RuntimeWarning,
+                )
+                hc1_scale = 1.0
+            else:
+                hc1_scale = float(n_obs / denom)
+    
+        n_group_f = n_group.astype(float, copy=False)
+        sum_phi = np.bincount(codes, weights=phi, minlength=k)
+        sum_phi2 = np.bincount(codes, weights=np.square(phi), minlength=k)
+        values = sum_phi / n_group_f
+        sse = sum_phi2 - (np.square(sum_phi) / n_group_f)
+        tiny_negative_mask = np.isfinite(sse) & (sse < 0.0) & (np.abs(sse) < 1e-12)
+        if tiny_negative_mask.any():
+            sse[tiny_negative_mask] = 0.0
+        if np.any(np.isfinite(sse) & (sse < 0.0)):
+>           raise RuntimeError("Computed negative within-group sum of squares; check GATE signal stability.")
+E           RuntimeError: Computed negative within-group sum of squares; check GATE signal stability.
+
+causalis\scenarios\gate\model.py:614: RuntimeError
+_________ test_gate_variance_translation_invariance[100000000.0-HC1] __________
+
+cov_type = 'HC1', shift = 100000000.0
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    @pytest.mark.parametrize("shift", [1e8, -1e8, 1e12])
+    def test_gate_variance_translation_invariance(cov_type, shift):
+        # Unequal, interleaved groups and exactly representable within-group noise.
+        codes = np.tile([0, 1, 0, 2, 1, 0, 2, 0], 20)
+        d = np.arange(len(codes)) % 2
+        # Ensure both treatment values appear inside every group.
+        d[codes == 0] = np.arange(np.sum(codes == 0)) % 2
+        d[codes == 1] = np.arange(np.sum(codes == 1)) % 2
+        d[codes == 2] = np.arange(np.sum(codes == 2)) % 2
+        phi = np.zeros(len(codes))
+        for group in range(3):
+            phi[codes == group] = group * 4 + np.tile([-1.0, 1.0], np.sum(codes == group) // 2)
+        partition = _GatePartition(group_names=["a", "b", "c"], codes=codes)
+        kwargs = dict(d=d, m_hat=np.full(len(d), 0.5), partition=partition,
+                      cov_type=cov_type, alpha=0.05)
+        original = _estimate_gate_groupwise_summary_from_partition(phi=phi, **kwargs)
+>       shifted = _estimate_gate_groupwise_summary_from_partition(phi=phi + shift, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\inference\test_gate_numerical_stability.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+phi = array([9.99999990e+07, 1.00000003e+08, 1.00000001e+08, 1.00000007e+08,
+       1.00000005e+08, 9.99999990e+07, 1.000000...1.00000003e+08, 1.00000001e+08, 1.00000007e+08,
+       1.00000005e+08, 9.99999990e+07, 1.00000009e+08, 1.00000001e+08])
+d = array([0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0,
+       1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1,...0, 1, 1, 0, 0, 1, 0,
+       1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0,
+       1, 0, 1, 0, 1, 1])
+m_hat = array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,...0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5])
+partition = _GatePartition(group_names=['a', 'b', 'c'], codes=array([0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1..., 2, 0, 0, 1, 0, 2,
+       1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1,
+       0, 2, 1, 0, 2, 0]))
+cov_type = 'HC1', alpha = 0.05
+
+    def _estimate_gate_groupwise_summary_from_partition(
+        *,
+        phi: np.ndarray,
+        d: np.ndarray,
+        m_hat: np.ndarray,
+        partition: _GatePartition,
+        cov_type: str,
+        alpha: float,
+    ) -> dict[str, Any]:
+        """Compute strict GATE estimates and diagnostics from compact group codes."""
+        group_names = list(partition.group_names)
+        codes = np.asarray(partition.codes, dtype=int).reshape(-1)
+        n_obs = int(phi.shape[0])
+        k = len(group_names)
+    
+        if codes.shape[0] != n_obs:
+            raise RuntimeError("Stored group partition has inconsistent length; recompute groups.")
+        if k == 0:
+            raise RuntimeError("Group partition must contain at least one group.")
+        if np.any((codes < 0) | (codes >= k)):
+            raise RuntimeError("Group partition contains invalid group codes.")
+    
+        n_group = np.bincount(codes, minlength=k).astype(int, copy=False)
+        n_treated = np.rint(np.bincount(codes, weights=np.asarray(d, dtype=float), minlength=k)).astype(int)
+        n_control = n_group - n_treated
+    
+        invalid_mask = (n_treated == 0) | (n_control == 0)
+        if invalid_mask.any():
+            invalid_groups = [group_names[idx] for idx in np.flatnonzero(invalid_mask)]
+            raise ValueError(
+                "Each GATE group must contain at least one treated and one control observation. "
+                f"Invalid groups: {invalid_groups}. "
+                "Treatment-defined partitions such as groups=data['d'] are not valid GATE inputs."
+            )
+    
+        hc1_scale = np.nan
+        if cov_type == "HC1":
+            denom = n_obs - k
+            if denom <= 0:
+                warnings.warn(
+                    "HC1 covariance scaling n/(n-k) is undefined because n <= k; falling back to HC0 scaling.",
+                    RuntimeWarning,
+                )
+                hc1_scale = 1.0
+            else:
+                hc1_scale = float(n_obs / denom)
+    
+        n_group_f = n_group.astype(float, copy=False)
+        sum_phi = np.bincount(codes, weights=phi, minlength=k)
+        sum_phi2 = np.bincount(codes, weights=np.square(phi), minlength=k)
+        values = sum_phi / n_group_f
+        sse = sum_phi2 - (np.square(sum_phi) / n_group_f)
+        tiny_negative_mask = np.isfinite(sse) & (sse < 0.0) & (np.abs(sse) < 1e-12)
+        if tiny_negative_mask.any():
+            sse[tiny_negative_mask] = 0.0
+        if np.any(np.isfinite(sse) & (sse < 0.0)):
+>           raise RuntimeError("Computed negative within-group sum of squares; check GATE signal stability.")
+E           RuntimeError: Computed negative within-group sum of squares; check GATE signal stability.
+
+causalis\scenarios\gate\model.py:614: RuntimeError
+_________ test_gate_variance_translation_invariance[100000000.0-HC2] __________
+
+cov_type = 'HC2', shift = 100000000.0
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    @pytest.mark.parametrize("shift", [1e8, -1e8, 1e12])
+    def test_gate_variance_translation_invariance(cov_type, shift):
+        # Unequal, interleaved groups and exactly representable within-group noise.
+        codes = np.tile([0, 1, 0, 2, 1, 0, 2, 0], 20)
+        d = np.arange(len(codes)) % 2
+        # Ensure both treatment values appear inside every group.
+        d[codes == 0] = np.arange(np.sum(codes == 0)) % 2
+        d[codes == 1] = np.arange(np.sum(codes == 1)) % 2
+        d[codes == 2] = np.arange(np.sum(codes == 2)) % 2
+        phi = np.zeros(len(codes))
+        for group in range(3):
+            phi[codes == group] = group * 4 + np.tile([-1.0, 1.0], np.sum(codes == group) // 2)
+        partition = _GatePartition(group_names=["a", "b", "c"], codes=codes)
+        kwargs = dict(d=d, m_hat=np.full(len(d), 0.5), partition=partition,
+                      cov_type=cov_type, alpha=0.05)
+        original = _estimate_gate_groupwise_summary_from_partition(phi=phi, **kwargs)
+>       shifted = _estimate_gate_groupwise_summary_from_partition(phi=phi + shift, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\inference\test_gate_numerical_stability.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+phi = array([9.99999990e+07, 1.00000003e+08, 1.00000001e+08, 1.00000007e+08,
+       1.00000005e+08, 9.99999990e+07, 1.000000...1.00000003e+08, 1.00000001e+08, 1.00000007e+08,
+       1.00000005e+08, 9.99999990e+07, 1.00000009e+08, 1.00000001e+08])
+d = array([0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0,
+       1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1,...0, 1, 1, 0, 0, 1, 0,
+       1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0,
+       1, 0, 1, 0, 1, 1])
+m_hat = array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,...0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5])
+partition = _GatePartition(group_names=['a', 'b', 'c'], codes=array([0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1..., 2, 0, 0, 1, 0, 2,
+       1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1,
+       0, 2, 1, 0, 2, 0]))
+cov_type = 'HC2', alpha = 0.05
+
+    def _estimate_gate_groupwise_summary_from_partition(
+        *,
+        phi: np.ndarray,
+        d: np.ndarray,
+        m_hat: np.ndarray,
+        partition: _GatePartition,
+        cov_type: str,
+        alpha: float,
+    ) -> dict[str, Any]:
+        """Compute strict GATE estimates and diagnostics from compact group codes."""
+        group_names = list(partition.group_names)
+        codes = np.asarray(partition.codes, dtype=int).reshape(-1)
+        n_obs = int(phi.shape[0])
+        k = len(group_names)
+    
+        if codes.shape[0] != n_obs:
+            raise RuntimeError("Stored group partition has inconsistent length; recompute groups.")
+        if k == 0:
+            raise RuntimeError("Group partition must contain at least one group.")
+        if np.any((codes < 0) | (codes >= k)):
+            raise RuntimeError("Group partition contains invalid group codes.")
+    
+        n_group = np.bincount(codes, minlength=k).astype(int, copy=False)
+        n_treated = np.rint(np.bincount(codes, weights=np.asarray(d, dtype=float), minlength=k)).astype(int)
+        n_control = n_group - n_treated
+    
+        invalid_mask = (n_treated == 0) | (n_control == 0)
+        if invalid_mask.any():
+            invalid_groups = [group_names[idx] for idx in np.flatnonzero(invalid_mask)]
+            raise ValueError(
+                "Each GATE group must contain at least one treated and one control observation. "
+                f"Invalid groups: {invalid_groups}. "
+                "Treatment-defined partitions such as groups=data['d'] are not valid GATE inputs."
+            )
+    
+        hc1_scale = np.nan
+        if cov_type == "HC1":
+            denom = n_obs - k
+            if denom <= 0:
+                warnings.warn(
+                    "HC1 covariance scaling n/(n-k) is undefined because n <= k; falling back to HC0 scaling.",
+                    RuntimeWarning,
+                )
+                hc1_scale = 1.0
+            else:
+                hc1_scale = float(n_obs / denom)
+    
+        n_group_f = n_group.astype(float, copy=False)
+        sum_phi = np.bincount(codes, weights=phi, minlength=k)
+        sum_phi2 = np.bincount(codes, weights=np.square(phi), minlength=k)
+        values = sum_phi / n_group_f
+        sse = sum_phi2 - (np.square(sum_phi) / n_group_f)
+        tiny_negative_mask = np.isfinite(sse) & (sse < 0.0) & (np.abs(sse) < 1e-12)
+        if tiny_negative_mask.any():
+            sse[tiny_negative_mask] = 0.0
+        if np.any(np.isfinite(sse) & (sse < 0.0)):
+>           raise RuntimeError("Computed negative within-group sum of squares; check GATE signal stability.")
+E           RuntimeError: Computed negative within-group sum of squares; check GATE signal stability.
+
+causalis\scenarios\gate\model.py:614: RuntimeError
+_________ test_gate_variance_translation_invariance[100000000.0-HC3] __________
+
+cov_type = 'HC3', shift = 100000000.0
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    @pytest.mark.parametrize("shift", [1e8, -1e8, 1e12])
+    def test_gate_variance_translation_invariance(cov_type, shift):
+        # Unequal, interleaved groups and exactly representable within-group noise.
+        codes = np.tile([0, 1, 0, 2, 1, 0, 2, 0], 20)
+        d = np.arange(len(codes)) % 2
+        # Ensure both treatment values appear inside every group.
+        d[codes == 0] = np.arange(np.sum(codes == 0)) % 2
+        d[codes == 1] = np.arange(np.sum(codes == 1)) % 2
+        d[codes == 2] = np.arange(np.sum(codes == 2)) % 2
+        phi = np.zeros(len(codes))
+        for group in range(3):
+            phi[codes == group] = group * 4 + np.tile([-1.0, 1.0], np.sum(codes == group) // 2)
+        partition = _GatePartition(group_names=["a", "b", "c"], codes=codes)
+        kwargs = dict(d=d, m_hat=np.full(len(d), 0.5), partition=partition,
+                      cov_type=cov_type, alpha=0.05)
+        original = _estimate_gate_groupwise_summary_from_partition(phi=phi, **kwargs)
+>       shifted = _estimate_gate_groupwise_summary_from_partition(phi=phi + shift, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\inference\test_gate_numerical_stability.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+phi = array([9.99999990e+07, 1.00000003e+08, 1.00000001e+08, 1.00000007e+08,
+       1.00000005e+08, 9.99999990e+07, 1.000000...1.00000003e+08, 1.00000001e+08, 1.00000007e+08,
+       1.00000005e+08, 9.99999990e+07, 1.00000009e+08, 1.00000001e+08])
+d = array([0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0,
+       1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1,...0, 1, 1, 0, 0, 1, 0,
+       1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0,
+       1, 0, 1, 0, 1, 1])
+m_hat = array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,...0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5])
+partition = _GatePartition(group_names=['a', 'b', 'c'], codes=array([0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1..., 2, 0, 0, 1, 0, 2,
+       1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1,
+       0, 2, 1, 0, 2, 0]))
+cov_type = 'HC3', alpha = 0.05
+
+    def _estimate_gate_groupwise_summary_from_partition(
+        *,
+        phi: np.ndarray,
+        d: np.ndarray,
+        m_hat: np.ndarray,
+        partition: _GatePartition,
+        cov_type: str,
+        alpha: float,
+    ) -> dict[str, Any]:
+        """Compute strict GATE estimates and diagnostics from compact group codes."""
+        group_names = list(partition.group_names)
+        codes = np.asarray(partition.codes, dtype=int).reshape(-1)
+        n_obs = int(phi.shape[0])
+        k = len(group_names)
+    
+        if codes.shape[0] != n_obs:
+            raise RuntimeError("Stored group partition has inconsistent length; recompute groups.")
+        if k == 0:
+            raise RuntimeError("Group partition must contain at least one group.")
+        if np.any((codes < 0) | (codes >= k)):
+            raise RuntimeError("Group partition contains invalid group codes.")
+    
+        n_group = np.bincount(codes, minlength=k).astype(int, copy=False)
+        n_treated = np.rint(np.bincount(codes, weights=np.asarray(d, dtype=float), minlength=k)).astype(int)
+        n_control = n_group - n_treated
+    
+        invalid_mask = (n_treated == 0) | (n_control == 0)
+        if invalid_mask.any():
+            invalid_groups = [group_names[idx] for idx in np.flatnonzero(invalid_mask)]
+            raise ValueError(
+                "Each GATE group must contain at least one treated and one control observation. "
+                f"Invalid groups: {invalid_groups}. "
+                "Treatment-defined partitions such as groups=data['d'] are not valid GATE inputs."
+            )
+    
+        hc1_scale = np.nan
+        if cov_type == "HC1":
+            denom = n_obs - k
+            if denom <= 0:
+                warnings.warn(
+                    "HC1 covariance scaling n/(n-k) is undefined because n <= k; falling back to HC0 scaling.",
+                    RuntimeWarning,
+                )
+                hc1_scale = 1.0
+            else:
+                hc1_scale = float(n_obs / denom)
+    
+        n_group_f = n_group.astype(float, copy=False)
+        sum_phi = np.bincount(codes, weights=phi, minlength=k)
+        sum_phi2 = np.bincount(codes, weights=np.square(phi), minlength=k)
+        values = sum_phi / n_group_f
+        sse = sum_phi2 - (np.square(sum_phi) / n_group_f)
+        tiny_negative_mask = np.isfinite(sse) & (sse < 0.0) & (np.abs(sse) < 1e-12)
+        if tiny_negative_mask.any():
+            sse[tiny_negative_mask] = 0.0
+        if np.any(np.isfinite(sse) & (sse < 0.0)):
+>           raise RuntimeError("Computed negative within-group sum of squares; check GATE signal stability.")
+E           RuntimeError: Computed negative within-group sum of squares; check GATE signal stability.
+
+causalis\scenarios\gate\model.py:614: RuntimeError
+_________ test_gate_variance_translation_invariance[-100000000.0-HC0] _________
+
+cov_type = 'HC0', shift = -100000000.0
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    @pytest.mark.parametrize("shift", [1e8, -1e8, 1e12])
+    def test_gate_variance_translation_invariance(cov_type, shift):
+        # Unequal, interleaved groups and exactly representable within-group noise.
+        codes = np.tile([0, 1, 0, 2, 1, 0, 2, 0], 20)
+        d = np.arange(len(codes)) % 2
+        # Ensure both treatment values appear inside every group.
+        d[codes == 0] = np.arange(np.sum(codes == 0)) % 2
+        d[codes == 1] = np.arange(np.sum(codes == 1)) % 2
+        d[codes == 2] = np.arange(np.sum(codes == 2)) % 2
+        phi = np.zeros(len(codes))
+        for group in range(3):
+            phi[codes == group] = group * 4 + np.tile([-1.0, 1.0], np.sum(codes == group) // 2)
+        partition = _GatePartition(group_names=["a", "b", "c"], codes=codes)
+        kwargs = dict(d=d, m_hat=np.full(len(d), 0.5), partition=partition,
+                      cov_type=cov_type, alpha=0.05)
+        original = _estimate_gate_groupwise_summary_from_partition(phi=phi, **kwargs)
+>       shifted = _estimate_gate_groupwise_summary_from_partition(phi=phi + shift, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\inference\test_gate_numerical_stability.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+phi = array([-1.00000001e+08, -9.99999970e+07, -9.99999990e+07, -9.99999930e+07,
+       -9.99999950e+07, -1.00000001e+08, -9...9970e+07, -9.99999990e+07, -9.99999930e+07,
+       -9.99999950e+07, -1.00000001e+08, -9.99999910e+07, -9.99999990e+07])
+d = array([0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0,
+       1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1,...0, 1, 1, 0, 0, 1, 0,
+       1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0,
+       1, 0, 1, 0, 1, 1])
+m_hat = array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,...0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5])
+partition = _GatePartition(group_names=['a', 'b', 'c'], codes=array([0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1..., 2, 0, 0, 1, 0, 2,
+       1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1,
+       0, 2, 1, 0, 2, 0]))
+cov_type = 'HC0', alpha = 0.05
+
+    def _estimate_gate_groupwise_summary_from_partition(
+        *,
+        phi: np.ndarray,
+        d: np.ndarray,
+        m_hat: np.ndarray,
+        partition: _GatePartition,
+        cov_type: str,
+        alpha: float,
+    ) -> dict[str, Any]:
+        """Compute strict GATE estimates and diagnostics from compact group codes."""
+        group_names = list(partition.group_names)
+        codes = np.asarray(partition.codes, dtype=int).reshape(-1)
+        n_obs = int(phi.shape[0])
+        k = len(group_names)
+    
+        if codes.shape[0] != n_obs:
+            raise RuntimeError("Stored group partition has inconsistent length; recompute groups.")
+        if k == 0:
+            raise RuntimeError("Group partition must contain at least one group.")
+        if np.any((codes < 0) | (codes >= k)):
+            raise RuntimeError("Group partition contains invalid group codes.")
+    
+        n_group = np.bincount(codes, minlength=k).astype(int, copy=False)
+        n_treated = np.rint(np.bincount(codes, weights=np.asarray(d, dtype=float), minlength=k)).astype(int)
+        n_control = n_group - n_treated
+    
+        invalid_mask = (n_treated == 0) | (n_control == 0)
+        if invalid_mask.any():
+            invalid_groups = [group_names[idx] for idx in np.flatnonzero(invalid_mask)]
+            raise ValueError(
+                "Each GATE group must contain at least one treated and one control observation. "
+                f"Invalid groups: {invalid_groups}. "
+                "Treatment-defined partitions such as groups=data['d'] are not valid GATE inputs."
+            )
+    
+        hc1_scale = np.nan
+        if cov_type == "HC1":
+            denom = n_obs - k
+            if denom <= 0:
+                warnings.warn(
+                    "HC1 covariance scaling n/(n-k) is undefined because n <= k; falling back to HC0 scaling.",
+                    RuntimeWarning,
+                )
+                hc1_scale = 1.0
+            else:
+                hc1_scale = float(n_obs / denom)
+    
+        n_group_f = n_group.astype(float, copy=False)
+        sum_phi = np.bincount(codes, weights=phi, minlength=k)
+        sum_phi2 = np.bincount(codes, weights=np.square(phi), minlength=k)
+        values = sum_phi / n_group_f
+        sse = sum_phi2 - (np.square(sum_phi) / n_group_f)
+        tiny_negative_mask = np.isfinite(sse) & (sse < 0.0) & (np.abs(sse) < 1e-12)
+        if tiny_negative_mask.any():
+            sse[tiny_negative_mask] = 0.0
+        if np.any(np.isfinite(sse) & (sse < 0.0)):
+>           raise RuntimeError("Computed negative within-group sum of squares; check GATE signal stability.")
+E           RuntimeError: Computed negative within-group sum of squares; check GATE signal stability.
+
+causalis\scenarios\gate\model.py:614: RuntimeError
+_________ test_gate_variance_translation_invariance[-100000000.0-HC1] _________
+
+cov_type = 'HC1', shift = -100000000.0
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    @pytest.mark.parametrize("shift", [1e8, -1e8, 1e12])
+    def test_gate_variance_translation_invariance(cov_type, shift):
+        # Unequal, interleaved groups and exactly representable within-group noise.
+        codes = np.tile([0, 1, 0, 2, 1, 0, 2, 0], 20)
+        d = np.arange(len(codes)) % 2
+        # Ensure both treatment values appear inside every group.
+        d[codes == 0] = np.arange(np.sum(codes == 0)) % 2
+        d[codes == 1] = np.arange(np.sum(codes == 1)) % 2
+        d[codes == 2] = np.arange(np.sum(codes == 2)) % 2
+        phi = np.zeros(len(codes))
+        for group in range(3):
+            phi[codes == group] = group * 4 + np.tile([-1.0, 1.0], np.sum(codes == group) // 2)
+        partition = _GatePartition(group_names=["a", "b", "c"], codes=codes)
+        kwargs = dict(d=d, m_hat=np.full(len(d), 0.5), partition=partition,
+                      cov_type=cov_type, alpha=0.05)
+        original = _estimate_gate_groupwise_summary_from_partition(phi=phi, **kwargs)
+>       shifted = _estimate_gate_groupwise_summary_from_partition(phi=phi + shift, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\inference\test_gate_numerical_stability.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+phi = array([-1.00000001e+08, -9.99999970e+07, -9.99999990e+07, -9.99999930e+07,
+       -9.99999950e+07, -1.00000001e+08, -9...9970e+07, -9.99999990e+07, -9.99999930e+07,
+       -9.99999950e+07, -1.00000001e+08, -9.99999910e+07, -9.99999990e+07])
+d = array([0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0,
+       1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1,...0, 1, 1, 0, 0, 1, 0,
+       1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0,
+       1, 0, 1, 0, 1, 1])
+m_hat = array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,...0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5])
+partition = _GatePartition(group_names=['a', 'b', 'c'], codes=array([0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1..., 2, 0, 0, 1, 0, 2,
+       1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1,
+       0, 2, 1, 0, 2, 0]))
+cov_type = 'HC1', alpha = 0.05
+
+    def _estimate_gate_groupwise_summary_from_partition(
+        *,
+        phi: np.ndarray,
+        d: np.ndarray,
+        m_hat: np.ndarray,
+        partition: _GatePartition,
+        cov_type: str,
+        alpha: float,
+    ) -> dict[str, Any]:
+        """Compute strict GATE estimates and diagnostics from compact group codes."""
+        group_names = list(partition.group_names)
+        codes = np.asarray(partition.codes, dtype=int).reshape(-1)
+        n_obs = int(phi.shape[0])
+        k = len(group_names)
+    
+        if codes.shape[0] != n_obs:
+            raise RuntimeError("Stored group partition has inconsistent length; recompute groups.")
+        if k == 0:
+            raise RuntimeError("Group partition must contain at least one group.")
+        if np.any((codes < 0) | (codes >= k)):
+            raise RuntimeError("Group partition contains invalid group codes.")
+    
+        n_group = np.bincount(codes, minlength=k).astype(int, copy=False)
+        n_treated = np.rint(np.bincount(codes, weights=np.asarray(d, dtype=float), minlength=k)).astype(int)
+        n_control = n_group - n_treated
+    
+        invalid_mask = (n_treated == 0) | (n_control == 0)
+        if invalid_mask.any():
+            invalid_groups = [group_names[idx] for idx in np.flatnonzero(invalid_mask)]
+            raise ValueError(
+                "Each GATE group must contain at least one treated and one control observation. "
+                f"Invalid groups: {invalid_groups}. "
+                "Treatment-defined partitions such as groups=data['d'] are not valid GATE inputs."
+            )
+    
+        hc1_scale = np.nan
+        if cov_type == "HC1":
+            denom = n_obs - k
+            if denom <= 0:
+                warnings.warn(
+                    "HC1 covariance scaling n/(n-k) is undefined because n <= k; falling back to HC0 scaling.",
+                    RuntimeWarning,
+                )
+                hc1_scale = 1.0
+            else:
+                hc1_scale = float(n_obs / denom)
+    
+        n_group_f = n_group.astype(float, copy=False)
+        sum_phi = np.bincount(codes, weights=phi, minlength=k)
+        sum_phi2 = np.bincount(codes, weights=np.square(phi), minlength=k)
+        values = sum_phi / n_group_f
+        sse = sum_phi2 - (np.square(sum_phi) / n_group_f)
+        tiny_negative_mask = np.isfinite(sse) & (sse < 0.0) & (np.abs(sse) < 1e-12)
+        if tiny_negative_mask.any():
+            sse[tiny_negative_mask] = 0.0
+        if np.any(np.isfinite(sse) & (sse < 0.0)):
+>           raise RuntimeError("Computed negative within-group sum of squares; check GATE signal stability.")
+E           RuntimeError: Computed negative within-group sum of squares; check GATE signal stability.
+
+causalis\scenarios\gate\model.py:614: RuntimeError
+_________ test_gate_variance_translation_invariance[-100000000.0-HC2] _________
+
+cov_type = 'HC2', shift = -100000000.0
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    @pytest.mark.parametrize("shift", [1e8, -1e8, 1e12])
+    def test_gate_variance_translation_invariance(cov_type, shift):
+        # Unequal, interleaved groups and exactly representable within-group noise.
+        codes = np.tile([0, 1, 0, 2, 1, 0, 2, 0], 20)
+        d = np.arange(len(codes)) % 2
+        # Ensure both treatment values appear inside every group.
+        d[codes == 0] = np.arange(np.sum(codes == 0)) % 2
+        d[codes == 1] = np.arange(np.sum(codes == 1)) % 2
+        d[codes == 2] = np.arange(np.sum(codes == 2)) % 2
+        phi = np.zeros(len(codes))
+        for group in range(3):
+            phi[codes == group] = group * 4 + np.tile([-1.0, 1.0], np.sum(codes == group) // 2)
+        partition = _GatePartition(group_names=["a", "b", "c"], codes=codes)
+        kwargs = dict(d=d, m_hat=np.full(len(d), 0.5), partition=partition,
+                      cov_type=cov_type, alpha=0.05)
+        original = _estimate_gate_groupwise_summary_from_partition(phi=phi, **kwargs)
+>       shifted = _estimate_gate_groupwise_summary_from_partition(phi=phi + shift, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\inference\test_gate_numerical_stability.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+phi = array([-1.00000001e+08, -9.99999970e+07, -9.99999990e+07, -9.99999930e+07,
+       -9.99999950e+07, -1.00000001e+08, -9...9970e+07, -9.99999990e+07, -9.99999930e+07,
+       -9.99999950e+07, -1.00000001e+08, -9.99999910e+07, -9.99999990e+07])
+d = array([0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0,
+       1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1,...0, 1, 1, 0, 0, 1, 0,
+       1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0,
+       1, 0, 1, 0, 1, 1])
+m_hat = array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,...0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5])
+partition = _GatePartition(group_names=['a', 'b', 'c'], codes=array([0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1..., 2, 0, 0, 1, 0, 2,
+       1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1,
+       0, 2, 1, 0, 2, 0]))
+cov_type = 'HC2', alpha = 0.05
+
+    def _estimate_gate_groupwise_summary_from_partition(
+        *,
+        phi: np.ndarray,
+        d: np.ndarray,
+        m_hat: np.ndarray,
+        partition: _GatePartition,
+        cov_type: str,
+        alpha: float,
+    ) -> dict[str, Any]:
+        """Compute strict GATE estimates and diagnostics from compact group codes."""
+        group_names = list(partition.group_names)
+        codes = np.asarray(partition.codes, dtype=int).reshape(-1)
+        n_obs = int(phi.shape[0])
+        k = len(group_names)
+    
+        if codes.shape[0] != n_obs:
+            raise RuntimeError("Stored group partition has inconsistent length; recompute groups.")
+        if k == 0:
+            raise RuntimeError("Group partition must contain at least one group.")
+        if np.any((codes < 0) | (codes >= k)):
+            raise RuntimeError("Group partition contains invalid group codes.")
+    
+        n_group = np.bincount(codes, minlength=k).astype(int, copy=False)
+        n_treated = np.rint(np.bincount(codes, weights=np.asarray(d, dtype=float), minlength=k)).astype(int)
+        n_control = n_group - n_treated
+    
+        invalid_mask = (n_treated == 0) | (n_control == 0)
+        if invalid_mask.any():
+            invalid_groups = [group_names[idx] for idx in np.flatnonzero(invalid_mask)]
+            raise ValueError(
+                "Each GATE group must contain at least one treated and one control observation. "
+                f"Invalid groups: {invalid_groups}. "
+                "Treatment-defined partitions such as groups=data['d'] are not valid GATE inputs."
+            )
+    
+        hc1_scale = np.nan
+        if cov_type == "HC1":
+            denom = n_obs - k
+            if denom <= 0:
+                warnings.warn(
+                    "HC1 covariance scaling n/(n-k) is undefined because n <= k; falling back to HC0 scaling.",
+                    RuntimeWarning,
+                )
+                hc1_scale = 1.0
+            else:
+                hc1_scale = float(n_obs / denom)
+    
+        n_group_f = n_group.astype(float, copy=False)
+        sum_phi = np.bincount(codes, weights=phi, minlength=k)
+        sum_phi2 = np.bincount(codes, weights=np.square(phi), minlength=k)
+        values = sum_phi / n_group_f
+        sse = sum_phi2 - (np.square(sum_phi) / n_group_f)
+        tiny_negative_mask = np.isfinite(sse) & (sse < 0.0) & (np.abs(sse) < 1e-12)
+        if tiny_negative_mask.any():
+            sse[tiny_negative_mask] = 0.0
+        if np.any(np.isfinite(sse) & (sse < 0.0)):
+>           raise RuntimeError("Computed negative within-group sum of squares; check GATE signal stability.")
+E           RuntimeError: Computed negative within-group sum of squares; check GATE signal stability.
+
+causalis\scenarios\gate\model.py:614: RuntimeError
+_________ test_gate_variance_translation_invariance[-100000000.0-HC3] _________
+
+cov_type = 'HC3', shift = -100000000.0
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    @pytest.mark.parametrize("shift", [1e8, -1e8, 1e12])
+    def test_gate_variance_translation_invariance(cov_type, shift):
+        # Unequal, interleaved groups and exactly representable within-group noise.
+        codes = np.tile([0, 1, 0, 2, 1, 0, 2, 0], 20)
+        d = np.arange(len(codes)) % 2
+        # Ensure both treatment values appear inside every group.
+        d[codes == 0] = np.arange(np.sum(codes == 0)) % 2
+        d[codes == 1] = np.arange(np.sum(codes == 1)) % 2
+        d[codes == 2] = np.arange(np.sum(codes == 2)) % 2
+        phi = np.zeros(len(codes))
+        for group in range(3):
+            phi[codes == group] = group * 4 + np.tile([-1.0, 1.0], np.sum(codes == group) // 2)
+        partition = _GatePartition(group_names=["a", "b", "c"], codes=codes)
+        kwargs = dict(d=d, m_hat=np.full(len(d), 0.5), partition=partition,
+                      cov_type=cov_type, alpha=0.05)
+        original = _estimate_gate_groupwise_summary_from_partition(phi=phi, **kwargs)
+>       shifted = _estimate_gate_groupwise_summary_from_partition(phi=phi + shift, **kwargs)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\inference\test_gate_numerical_stability.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+phi = array([-1.00000001e+08, -9.99999970e+07, -9.99999990e+07, -9.99999930e+07,
+       -9.99999950e+07, -1.00000001e+08, -9...9970e+07, -9.99999990e+07, -9.99999930e+07,
+       -9.99999950e+07, -1.00000001e+08, -9.99999910e+07, -9.99999990e+07])
+d = array([0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0,
+       1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1,...0, 1, 1, 0, 0, 1, 0,
+       1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 0, 0,
+       1, 0, 1, 0, 1, 1])
+m_hat = array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,...0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5])
+partition = _GatePartition(group_names=['a', 'b', 'c'], codes=array([0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1..., 2, 0, 0, 1, 0, 2,
+       1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1, 0, 2, 1, 0, 2, 0, 0, 1,
+       0, 2, 1, 0, 2, 0]))
+cov_type = 'HC3', alpha = 0.05
+
+    def _estimate_gate_groupwise_summary_from_partition(
+        *,
+        phi: np.ndarray,
+        d: np.ndarray,
+        m_hat: np.ndarray,
+        partition: _GatePartition,
+        cov_type: str,
+        alpha: float,
+    ) -> dict[str, Any]:
+        """Compute strict GATE estimates and diagnostics from compact group codes."""
+        group_names = list(partition.group_names)
+        codes = np.asarray(partition.codes, dtype=int).reshape(-1)
+        n_obs = int(phi.shape[0])
+        k = len(group_names)
+    
+        if codes.shape[0] != n_obs:
+            raise RuntimeError("Stored group partition has inconsistent length; recompute groups.")
+        if k == 0:
+            raise RuntimeError("Group partition must contain at least one group.")
+        if np.any((codes < 0) | (codes >= k)):
+            raise RuntimeError("Group partition contains invalid group codes.")
+    
+        n_group = np.bincount(codes, minlength=k).astype(int, copy=False)
+        n_treated = np.rint(np.bincount(codes, weights=np.asarray(d, dtype=float), minlength=k)).astype(int)
+        n_control = n_group - n_treated
+    
+        invalid_mask = (n_treated == 0) | (n_control == 0)
+        if invalid_mask.any():
+            invalid_groups = [group_names[idx] for idx in np.flatnonzero(invalid_mask)]
+            raise ValueError(
+                "Each GATE group must contain at least one treated and one control observation. "
+                f"Invalid groups: {invalid_groups}. "
+                "Treatment-defined partitions such as groups=data['d'] are not valid GATE inputs."
+            )
+    
+        hc1_scale = np.nan
+        if cov_type == "HC1":
+            denom = n_obs - k
+            if denom <= 0:
+                warnings.warn(
+                    "HC1 covariance scaling n/(n-k) is undefined because n <= k; falling back to HC0 scaling.",
+                    RuntimeWarning,
+                )
+                hc1_scale = 1.0
+            else:
+                hc1_scale = float(n_obs / denom)
+    
+        n_group_f = n_group.astype(float, copy=False)
+        sum_phi = np.bincount(codes, weights=phi, minlength=k)
+        sum_phi2 = np.bincount(codes, weights=np.square(phi), minlength=k)
+        values = sum_phi / n_group_f
+        sse = sum_phi2 - (np.square(sum_phi) / n_group_f)
+        tiny_negative_mask = np.isfinite(sse) & (sse < 0.0) & (np.abs(sse) < 1e-12)
+        if tiny_negative_mask.any():
+            sse[tiny_negative_mask] = 0.0
+        if np.any(np.isfinite(sse) & (sse < 0.0)):
+>           raise RuntimeError("Computed negative within-group sum of squares; check GATE signal stability.")
+E           RuntimeError: Computed negative within-group sum of squares; check GATE signal stability.
+
+causalis\scenarios\gate\model.py:614: RuntimeError
+_______ test_gate_variance_translation_invariance[1000000000000.0-HC0] ________
+
+cov_type = 'HC0', shift = 1000000000000.0
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    @pytest.mark.parametrize("shift", [1e8, -1e8, 1e12])
+    def test_gate_variance_translation_invariance(cov_type, shift):
+        # Unequal, interleaved groups and exactly representable within-group noise.
+        codes = np.tile([0, 1, 0, 2, 1, 0, 2, 0], 20)
+        d = np.arange(len(codes)) % 2
+        # Ensure both treatment values appear inside every group.
+        d[codes == 0] = np.arange(np.sum(codes == 0)) % 2
+        d[codes == 1] = np.arange(np.sum(codes == 1)) % 2
+        d[codes == 2] = np.arange(np.sum(codes == 2)) % 2
+        phi = np.zeros(len(codes))
+        for group in range(3):
+            phi[codes == group] = group * 4 + np.tile([-1.0, 1.0], np.sum(codes == group) // 2)
+        partition = _GatePartition(group_names=["a", "b", "c"], codes=codes)
+        kwargs = dict(d=d, m_hat=np.full(len(d), 0.5), partition=partition,
+                      cov_type=cov_type, alpha=0.05)
+        original = _estimate_gate_groupwise_summary_from_partition(phi=phi, **kwargs)
+        shifted = _estimate_gate_groupwise_summary_from_partition(phi=phi + shift, **kwargs)
+        expected = _reference_variances(phi, codes, cov_type)
+>       np.testing.assert_allclose(np.diag(shifted["covariance"]), expected, rtol=1e-13)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-13, atol=0
+E       
+E       Mismatched elements: 3 / 3 (100%)
+E       Mismatch at indices:
+E        [0]: 8053063.68 (ACTUAL), 0.0125 (DESIRED)
+E        [1]: 5368709.12 (ACTUAL), 0.025 (DESIRED)
+E        [2]: 5368709.12 (ACTUAL), 0.025 (DESIRED)
+E       Max absolute difference among violations: 8053063.6675
+E       Max relative difference among violations: 6.44245093e+08
+E        ACTUAL: array([8053063.68, 5368709.12, 5368709.12])
+E        DESIRED: array([0.0125, 0.025 , 0.025 ])
+
+tests\inference\test_gate_numerical_stability.py:55: AssertionError
+_______ test_gate_variance_translation_invariance[1000000000000.0-HC1] ________
+
+cov_type = 'HC1', shift = 1000000000000.0
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    @pytest.mark.parametrize("shift", [1e8, -1e8, 1e12])
+    def test_gate_variance_translation_invariance(cov_type, shift):
+        # Unequal, interleaved groups and exactly representable within-group noise.
+        codes = np.tile([0, 1, 0, 2, 1, 0, 2, 0], 20)
+        d = np.arange(len(codes)) % 2
+        # Ensure both treatment values appear inside every group.
+        d[codes == 0] = np.arange(np.sum(codes == 0)) % 2
+        d[codes == 1] = np.arange(np.sum(codes == 1)) % 2
+        d[codes == 2] = np.arange(np.sum(codes == 2)) % 2
+        phi = np.zeros(len(codes))
+        for group in range(3):
+            phi[codes == group] = group * 4 + np.tile([-1.0, 1.0], np.sum(codes == group) // 2)
+        partition = _GatePartition(group_names=["a", "b", "c"], codes=codes)
+        kwargs = dict(d=d, m_hat=np.full(len(d), 0.5), partition=partition,
+                      cov_type=cov_type, alpha=0.05)
+        original = _estimate_gate_groupwise_summary_from_partition(phi=phi, **kwargs)
+        shifted = _estimate_gate_groupwise_summary_from_partition(phi=phi + shift, **kwargs)
+        expected = _reference_variances(phi, codes, cov_type)
+>       np.testing.assert_allclose(np.diag(shifted["covariance"]), expected, rtol=1e-13)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-13, atol=0
+E       
+E       Mismatched elements: 3 / 3 (100%)
+E       Mismatch at indices:
+E        [0]: 8206943.877707006 (ACTUAL), 0.012738853503184712 (DESIRED)
+E        [1]: 5471295.918471337 (ACTUAL), 0.025477707006369425 (DESIRED)
+E        [2]: 5471295.918471337 (ACTUAL), 0.025477707006369425 (DESIRED)
+E       Max absolute difference among violations: 8206943.86496815
+E       Max relative difference among violations: 6.44245093e+08
+E        ACTUAL: array([8206943.877707, 5471295.918471, 5471295.918471])
+E        DESIRED: array([0.012739, 0.025478, 0.025478])
+
+tests\inference\test_gate_numerical_stability.py:55: AssertionError
+_______ test_gate_variance_translation_invariance[1000000000000.0-HC2] ________
+
+cov_type = 'HC2', shift = 1000000000000.0
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    @pytest.mark.parametrize("shift", [1e8, -1e8, 1e12])
+    def test_gate_variance_translation_invariance(cov_type, shift):
+        # Unequal, interleaved groups and exactly representable within-group noise.
+        codes = np.tile([0, 1, 0, 2, 1, 0, 2, 0], 20)
+        d = np.arange(len(codes)) % 2
+        # Ensure both treatment values appear inside every group.
+        d[codes == 0] = np.arange(np.sum(codes == 0)) % 2
+        d[codes == 1] = np.arange(np.sum(codes == 1)) % 2
+        d[codes == 2] = np.arange(np.sum(codes == 2)) % 2
+        phi = np.zeros(len(codes))
+        for group in range(3):
+            phi[codes == group] = group * 4 + np.tile([-1.0, 1.0], np.sum(codes == group) // 2)
+        partition = _GatePartition(group_names=["a", "b", "c"], codes=codes)
+        kwargs = dict(d=d, m_hat=np.full(len(d), 0.5), partition=partition,
+                      cov_type=cov_type, alpha=0.05)
+        original = _estimate_gate_groupwise_summary_from_partition(phi=phi, **kwargs)
+        shifted = _estimate_gate_groupwise_summary_from_partition(phi=phi + shift, **kwargs)
+        expected = _reference_variances(phi, codes, cov_type)
+>       np.testing.assert_allclose(np.diag(shifted["covariance"]), expected, rtol=1e-13)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-13, atol=0
+E       
+E       Mismatched elements: 3 / 3 (100%)
+E       Mismatch at indices:
+E        [0]: 8155001.194936709 (ACTUAL), 0.012658227848101264 (DESIRED)
+E        [1]: 5506368.328205128 (ACTUAL), 0.025641025641025644 (DESIRED)
+E        [2]: 5506368.328205128 (ACTUAL), 0.025641025641025644 (DESIRED)
+E       Max absolute difference among violations: 8155001.18227848
+E       Max relative difference among violations: 6.44245093e+08
+E        ACTUAL: array([8155001.194937, 5506368.328205, 5506368.328205])
+E        DESIRED: array([0.012658, 0.025641, 0.025641])
+
+tests\inference\test_gate_numerical_stability.py:55: AssertionError
+_______ test_gate_variance_translation_invariance[1000000000000.0-HC3] ________
+
+cov_type = 'HC3', shift = 1000000000000.0
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    @pytest.mark.parametrize("shift", [1e8, -1e8, 1e12])
+    def test_gate_variance_translation_invariance(cov_type, shift):
+        # Unequal, interleaved groups and exactly representable within-group noise.
+        codes = np.tile([0, 1, 0, 2, 1, 0, 2, 0], 20)
+        d = np.arange(len(codes)) % 2
+        # Ensure both treatment values appear inside every group.
+        d[codes == 0] = np.arange(np.sum(codes == 0)) % 2
+        d[codes == 1] = np.arange(np.sum(codes == 1)) % 2
+        d[codes == 2] = np.arange(np.sum(codes == 2)) % 2
+        phi = np.zeros(len(codes))
+        for group in range(3):
+            phi[codes == group] = group * 4 + np.tile([-1.0, 1.0], np.sum(codes == group) // 2)
+        partition = _GatePartition(group_names=["a", "b", "c"], codes=codes)
+        kwargs = dict(d=d, m_hat=np.full(len(d), 0.5), partition=partition,
+                      cov_type=cov_type, alpha=0.05)
+        original = _estimate_gate_groupwise_summary_from_partition(phi=phi, **kwargs)
+        shifted = _estimate_gate_groupwise_summary_from_partition(phi=phi + shift, **kwargs)
+        expected = _reference_variances(phi, codes, cov_type)
+>       np.testing.assert_allclose(np.diag(shifted["covariance"]), expected, rtol=1e-13)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-13, atol=0
+E       
+E       Mismatched elements: 3 / 3 (100%)
+E       Mismatch at indices:
+E        [0]: 8258229.058163755 (ACTUAL), 0.012818458580355711 (DESIRED)
+E        [1]: 5647557.259697568 (ACTUAL), 0.026298487836949377 (DESIRED)
+E        [2]: 5647557.259697568 (ACTUAL), 0.026298487836949377 (DESIRED)
+E       Max absolute difference among violations: 8258229.0453453
+E       Max relative difference among violations: 6.44245093e+08
+E        ACTUAL: array([8258229.058164, 5647557.259698, 5647557.259698])
+E        DESIRED: array([0.012818, 0.026298, 0.026298])
+
+tests\inference\test_gate_numerical_stability.py:55: AssertionError
+_____ test_public_gate_large_shift_preserves_covariance_and_contrast[HC0] _____
+
+cov_type = 'HC0'
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    def test_public_gate_large_shift_preserves_covariance_and_contrast(cov_type):
+        codes = np.repeat([0, 1], [100, 80])
+        phi = 1e8 + codes * 4 + np.tile([-1.0, 1.0], len(codes) // 2)
+        model = _SignalIRM(phi, codes)
+        groups = pd.Series(codes, index=model._fit_index_, name="group")
+>       result = estimate_gate_from_irm(model, groups, cov_type=cov_type)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\inference\test_gate_numerical_stability.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\gate\model.py:1143: in estimate_gate_from_irm
+    stats = _estimate_gate_groupwise_summary_from_partition(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+phi = array([9.99999990e+07, 1.00000001e+08, 9.99999990e+07, 1.00000001e+08,
+       9.99999990e+07, 1.00000001e+08, 9.999999...1.00000005e+08, 1.00000003e+08, 1.00000005e+08,
+       1.00000003e+08, 1.00000005e+08, 1.00000003e+08, 1.00000005e+08])
+d = array([0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0.,
+       1., 0., 1., 0., 1., 0., 1., 0., 1., ...    1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1.,
+       0., 1., 0., 1., 0., 1., 0., 1., 0., 1.])
+m_hat = array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,..., 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5])
+partition = _GatePartition(group_names=['group=0', 'group=1'], codes=array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ..., 1, 1, 1, 1, 1, 1, 1, 1,
+       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+       1, 1, 1, 1]))
+cov_type = 'HC0', alpha = 0.05
+
+    def _estimate_gate_groupwise_summary_from_partition(
+        *,
+        phi: np.ndarray,
+        d: np.ndarray,
+        m_hat: np.ndarray,
+        partition: _GatePartition,
+        cov_type: str,
+        alpha: float,
+    ) -> dict[str, Any]:
+        """Compute strict GATE estimates and diagnostics from compact group codes."""
+        group_names = list(partition.group_names)
+        codes = np.asarray(partition.codes, dtype=int).reshape(-1)
+        n_obs = int(phi.shape[0])
+        k = len(group_names)
+    
+        if codes.shape[0] != n_obs:
+            raise RuntimeError("Stored group partition has inconsistent length; recompute groups.")
+        if k == 0:
+            raise RuntimeError("Group partition must contain at least one group.")
+        if np.any((codes < 0) | (codes >= k)):
+            raise RuntimeError("Group partition contains invalid group codes.")
+    
+        n_group = np.bincount(codes, minlength=k).astype(int, copy=False)
+        n_treated = np.rint(np.bincount(codes, weights=np.asarray(d, dtype=float), minlength=k)).astype(int)
+        n_control = n_group - n_treated
+    
+        invalid_mask = (n_treated == 0) | (n_control == 0)
+        if invalid_mask.any():
+            invalid_groups = [group_names[idx] for idx in np.flatnonzero(invalid_mask)]
+            raise ValueError(
+                "Each GATE group must contain at least one treated and one control observation. "
+                f"Invalid groups: {invalid_groups}. "
+                "Treatment-defined partitions such as groups=data['d'] are not valid GATE inputs."
+            )
+    
+        hc1_scale = np.nan
+        if cov_type == "HC1":
+            denom = n_obs - k
+            if denom <= 0:
+                warnings.warn(
+                    "HC1 covariance scaling n/(n-k) is undefined because n <= k; falling back to HC0 scaling.",
+                    RuntimeWarning,
+                )
+                hc1_scale = 1.0
+            else:
+                hc1_scale = float(n_obs / denom)
+    
+        n_group_f = n_group.astype(float, copy=False)
+        sum_phi = np.bincount(codes, weights=phi, minlength=k)
+        sum_phi2 = np.bincount(codes, weights=np.square(phi), minlength=k)
+        values = sum_phi / n_group_f
+        sse = sum_phi2 - (np.square(sum_phi) / n_group_f)
+        tiny_negative_mask = np.isfinite(sse) & (sse < 0.0) & (np.abs(sse) < 1e-12)
+        if tiny_negative_mask.any():
+            sse[tiny_negative_mask] = 0.0
+        if np.any(np.isfinite(sse) & (sse < 0.0)):
+>           raise RuntimeError("Computed negative within-group sum of squares; check GATE signal stability.")
+E           RuntimeError: Computed negative within-group sum of squares; check GATE signal stability.
+
+causalis\scenarios\gate\model.py:614: RuntimeError
+_____ test_public_gate_large_shift_preserves_covariance_and_contrast[HC1] _____
+
+cov_type = 'HC1'
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    def test_public_gate_large_shift_preserves_covariance_and_contrast(cov_type):
+        codes = np.repeat([0, 1], [100, 80])
+        phi = 1e8 + codes * 4 + np.tile([-1.0, 1.0], len(codes) // 2)
+        model = _SignalIRM(phi, codes)
+        groups = pd.Series(codes, index=model._fit_index_, name="group")
+>       result = estimate_gate_from_irm(model, groups, cov_type=cov_type)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\inference\test_gate_numerical_stability.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\gate\model.py:1143: in estimate_gate_from_irm
+    stats = _estimate_gate_groupwise_summary_from_partition(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+phi = array([9.99999990e+07, 1.00000001e+08, 9.99999990e+07, 1.00000001e+08,
+       9.99999990e+07, 1.00000001e+08, 9.999999...1.00000005e+08, 1.00000003e+08, 1.00000005e+08,
+       1.00000003e+08, 1.00000005e+08, 1.00000003e+08, 1.00000005e+08])
+d = array([0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0.,
+       1., 0., 1., 0., 1., 0., 1., 0., 1., ...    1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1.,
+       0., 1., 0., 1., 0., 1., 0., 1., 0., 1.])
+m_hat = array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,..., 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5])
+partition = _GatePartition(group_names=['group=0', 'group=1'], codes=array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ..., 1, 1, 1, 1, 1, 1, 1, 1,
+       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+       1, 1, 1, 1]))
+cov_type = 'HC1', alpha = 0.05
+
+    def _estimate_gate_groupwise_summary_from_partition(
+        *,
+        phi: np.ndarray,
+        d: np.ndarray,
+        m_hat: np.ndarray,
+        partition: _GatePartition,
+        cov_type: str,
+        alpha: float,
+    ) -> dict[str, Any]:
+        """Compute strict GATE estimates and diagnostics from compact group codes."""
+        group_names = list(partition.group_names)
+        codes = np.asarray(partition.codes, dtype=int).reshape(-1)
+        n_obs = int(phi.shape[0])
+        k = len(group_names)
+    
+        if codes.shape[0] != n_obs:
+            raise RuntimeError("Stored group partition has inconsistent length; recompute groups.")
+        if k == 0:
+            raise RuntimeError("Group partition must contain at least one group.")
+        if np.any((codes < 0) | (codes >= k)):
+            raise RuntimeError("Group partition contains invalid group codes.")
+    
+        n_group = np.bincount(codes, minlength=k).astype(int, copy=False)
+        n_treated = np.rint(np.bincount(codes, weights=np.asarray(d, dtype=float), minlength=k)).astype(int)
+        n_control = n_group - n_treated
+    
+        invalid_mask = (n_treated == 0) | (n_control == 0)
+        if invalid_mask.any():
+            invalid_groups = [group_names[idx] for idx in np.flatnonzero(invalid_mask)]
+            raise ValueError(
+                "Each GATE group must contain at least one treated and one control observation. "
+                f"Invalid groups: {invalid_groups}. "
+                "Treatment-defined partitions such as groups=data['d'] are not valid GATE inputs."
+            )
+    
+        hc1_scale = np.nan
+        if cov_type == "HC1":
+            denom = n_obs - k
+            if denom <= 0:
+                warnings.warn(
+                    "HC1 covariance scaling n/(n-k) is undefined because n <= k; falling back to HC0 scaling.",
+                    RuntimeWarning,
+                )
+                hc1_scale = 1.0
+            else:
+                hc1_scale = float(n_obs / denom)
+    
+        n_group_f = n_group.astype(float, copy=False)
+        sum_phi = np.bincount(codes, weights=phi, minlength=k)
+        sum_phi2 = np.bincount(codes, weights=np.square(phi), minlength=k)
+        values = sum_phi / n_group_f
+        sse = sum_phi2 - (np.square(sum_phi) / n_group_f)
+        tiny_negative_mask = np.isfinite(sse) & (sse < 0.0) & (np.abs(sse) < 1e-12)
+        if tiny_negative_mask.any():
+            sse[tiny_negative_mask] = 0.0
+        if np.any(np.isfinite(sse) & (sse < 0.0)):
+>           raise RuntimeError("Computed negative within-group sum of squares; check GATE signal stability.")
+E           RuntimeError: Computed negative within-group sum of squares; check GATE signal stability.
+
+causalis\scenarios\gate\model.py:614: RuntimeError
+_____ test_public_gate_large_shift_preserves_covariance_and_contrast[HC2] _____
+
+cov_type = 'HC2'
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    def test_public_gate_large_shift_preserves_covariance_and_contrast(cov_type):
+        codes = np.repeat([0, 1], [100, 80])
+        phi = 1e8 + codes * 4 + np.tile([-1.0, 1.0], len(codes) // 2)
+        model = _SignalIRM(phi, codes)
+        groups = pd.Series(codes, index=model._fit_index_, name="group")
+>       result = estimate_gate_from_irm(model, groups, cov_type=cov_type)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\inference\test_gate_numerical_stability.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\gate\model.py:1143: in estimate_gate_from_irm
+    stats = _estimate_gate_groupwise_summary_from_partition(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+phi = array([9.99999990e+07, 1.00000001e+08, 9.99999990e+07, 1.00000001e+08,
+       9.99999990e+07, 1.00000001e+08, 9.999999...1.00000005e+08, 1.00000003e+08, 1.00000005e+08,
+       1.00000003e+08, 1.00000005e+08, 1.00000003e+08, 1.00000005e+08])
+d = array([0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0.,
+       1., 0., 1., 0., 1., 0., 1., 0., 1., ...    1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1.,
+       0., 1., 0., 1., 0., 1., 0., 1., 0., 1.])
+m_hat = array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,..., 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5])
+partition = _GatePartition(group_names=['group=0', 'group=1'], codes=array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ..., 1, 1, 1, 1, 1, 1, 1, 1,
+       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+       1, 1, 1, 1]))
+cov_type = 'HC2', alpha = 0.05
+
+    def _estimate_gate_groupwise_summary_from_partition(
+        *,
+        phi: np.ndarray,
+        d: np.ndarray,
+        m_hat: np.ndarray,
+        partition: _GatePartition,
+        cov_type: str,
+        alpha: float,
+    ) -> dict[str, Any]:
+        """Compute strict GATE estimates and diagnostics from compact group codes."""
+        group_names = list(partition.group_names)
+        codes = np.asarray(partition.codes, dtype=int).reshape(-1)
+        n_obs = int(phi.shape[0])
+        k = len(group_names)
+    
+        if codes.shape[0] != n_obs:
+            raise RuntimeError("Stored group partition has inconsistent length; recompute groups.")
+        if k == 0:
+            raise RuntimeError("Group partition must contain at least one group.")
+        if np.any((codes < 0) | (codes >= k)):
+            raise RuntimeError("Group partition contains invalid group codes.")
+    
+        n_group = np.bincount(codes, minlength=k).astype(int, copy=False)
+        n_treated = np.rint(np.bincount(codes, weights=np.asarray(d, dtype=float), minlength=k)).astype(int)
+        n_control = n_group - n_treated
+    
+        invalid_mask = (n_treated == 0) | (n_control == 0)
+        if invalid_mask.any():
+            invalid_groups = [group_names[idx] for idx in np.flatnonzero(invalid_mask)]
+            raise ValueError(
+                "Each GATE group must contain at least one treated and one control observation. "
+                f"Invalid groups: {invalid_groups}. "
+                "Treatment-defined partitions such as groups=data['d'] are not valid GATE inputs."
+            )
+    
+        hc1_scale = np.nan
+        if cov_type == "HC1":
+            denom = n_obs - k
+            if denom <= 0:
+                warnings.warn(
+                    "HC1 covariance scaling n/(n-k) is undefined because n <= k; falling back to HC0 scaling.",
+                    RuntimeWarning,
+                )
+                hc1_scale = 1.0
+            else:
+                hc1_scale = float(n_obs / denom)
+    
+        n_group_f = n_group.astype(float, copy=False)
+        sum_phi = np.bincount(codes, weights=phi, minlength=k)
+        sum_phi2 = np.bincount(codes, weights=np.square(phi), minlength=k)
+        values = sum_phi / n_group_f
+        sse = sum_phi2 - (np.square(sum_phi) / n_group_f)
+        tiny_negative_mask = np.isfinite(sse) & (sse < 0.0) & (np.abs(sse) < 1e-12)
+        if tiny_negative_mask.any():
+            sse[tiny_negative_mask] = 0.0
+        if np.any(np.isfinite(sse) & (sse < 0.0)):
+>           raise RuntimeError("Computed negative within-group sum of squares; check GATE signal stability.")
+E           RuntimeError: Computed negative within-group sum of squares; check GATE signal stability.
+
+causalis\scenarios\gate\model.py:614: RuntimeError
+_____ test_public_gate_large_shift_preserves_covariance_and_contrast[HC3] _____
+
+cov_type = 'HC3'
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    def test_public_gate_large_shift_preserves_covariance_and_contrast(cov_type):
+        codes = np.repeat([0, 1], [100, 80])
+        phi = 1e8 + codes * 4 + np.tile([-1.0, 1.0], len(codes) // 2)
+        model = _SignalIRM(phi, codes)
+        groups = pd.Series(codes, index=model._fit_index_, name="group")
+>       result = estimate_gate_from_irm(model, groups, cov_type=cov_type)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\inference\test_gate_numerical_stability.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\gate\model.py:1143: in estimate_gate_from_irm
+    stats = _estimate_gate_groupwise_summary_from_partition(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+phi = array([9.99999990e+07, 1.00000001e+08, 9.99999990e+07, 1.00000001e+08,
+       9.99999990e+07, 1.00000001e+08, 9.999999...1.00000005e+08, 1.00000003e+08, 1.00000005e+08,
+       1.00000003e+08, 1.00000005e+08, 1.00000003e+08, 1.00000005e+08])
+d = array([0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0.,
+       1., 0., 1., 0., 1., 0., 1., 0., 1., ...    1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1.,
+       0., 1., 0., 1., 0., 1., 0., 1., 0., 1.])
+m_hat = array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,..., 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5,
+       0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5])
+partition = _GatePartition(group_names=['group=0', 'group=1'], codes=array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ..., 1, 1, 1, 1, 1, 1, 1, 1,
+       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+       1, 1, 1, 1]))
+cov_type = 'HC3', alpha = 0.05
+
+    def _estimate_gate_groupwise_summary_from_partition(
+        *,
+        phi: np.ndarray,
+        d: np.ndarray,
+        m_hat: np.ndarray,
+        partition: _GatePartition,
+        cov_type: str,
+        alpha: float,
+    ) -> dict[str, Any]:
+        """Compute strict GATE estimates and diagnostics from compact group codes."""
+        group_names = list(partition.group_names)
+        codes = np.asarray(partition.codes, dtype=int).reshape(-1)
+        n_obs = int(phi.shape[0])
+        k = len(group_names)
+    
+        if codes.shape[0] != n_obs:
+            raise RuntimeError("Stored group partition has inconsistent length; recompute groups.")
+        if k == 0:
+            raise RuntimeError("Group partition must contain at least one group.")
+        if np.any((codes < 0) | (codes >= k)):
+            raise RuntimeError("Group partition contains invalid group codes.")
+    
+        n_group = np.bincount(codes, minlength=k).astype(int, copy=False)
+        n_treated = np.rint(np.bincount(codes, weights=np.asarray(d, dtype=float), minlength=k)).astype(int)
+        n_control = n_group - n_treated
+    
+        invalid_mask = (n_treated == 0) | (n_control == 0)
+        if invalid_mask.any():
+            invalid_groups = [group_names[idx] for idx in np.flatnonzero(invalid_mask)]
+            raise ValueError(
+                "Each GATE group must contain at least one treated and one control observation. "
+                f"Invalid groups: {invalid_groups}. "
+                "Treatment-defined partitions such as groups=data['d'] are not valid GATE inputs."
+            )
+    
+        hc1_scale = np.nan
+        if cov_type == "HC1":
+            denom = n_obs - k
+            if denom <= 0:
+                warnings.warn(
+                    "HC1 covariance scaling n/(n-k) is undefined because n <= k; falling back to HC0 scaling.",
+                    RuntimeWarning,
+                )
+                hc1_scale = 1.0
+            else:
+                hc1_scale = float(n_obs / denom)
+    
+        n_group_f = n_group.astype(float, copy=False)
+        sum_phi = np.bincount(codes, weights=phi, minlength=k)
+        sum_phi2 = np.bincount(codes, weights=np.square(phi), minlength=k)
+        values = sum_phi / n_group_f
+        sse = sum_phi2 - (np.square(sum_phi) / n_group_f)
+        tiny_negative_mask = np.isfinite(sse) & (sse < 0.0) & (np.abs(sse) < 1e-12)
+        if tiny_negative_mask.any():
+            sse[tiny_negative_mask] = 0.0
+        if np.any(np.isfinite(sse) & (sse < 0.0)):
+>           raise RuntimeError("Computed negative within-group sum of squares; check GATE signal stability.")
+E           RuntimeError: Computed negative within-group sum of squares; check GATE signal stability.
+
+causalis\scenarios\gate\model.py:614: RuntimeError
+_ test_gatet_descriptive_std_does_not_abort_valid_large_shift_inference[HC0] __
+
+cov_type = 'HC0'
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    def test_gatet_descriptive_std_does_not_abort_valid_large_shift_inference(cov_type):
+        # Treated-only groups are supported by GATET, with an overlap warning.
+        z = 1e8 + np.tile([-1.0, 1.0], 50)
+        codes = np.zeros(100, dtype=int)
+        with pytest.warns(RuntimeWarning, match="no control observations"):
+            result = _estimate_gatet_groupwise_summary_from_partition(
+                z=z, d=np.ones(100), m_hat=np.full(100, 0.5),
+                partition=_GatePartition(group_names=["treated"], codes=codes),
+                cov_type=cov_type, alpha=0.05,
+            )
+>       np.testing.assert_allclose(result["std_phi"], [np.std(z, ddof=1)], rtol=1e-13)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-13, atol=0
+E       
+E       Mismatched elements: 1 / 1 (100%)
+E       Mismatch at index:
+E        [0]: 0.0 (ACTUAL), 1.005037815259212 (DESIRED)
+E       Max absolute difference among violations: 1.00503782
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([0.])
+E        DESIRED: array([1.005038])
+
+tests\inference\test_gate_numerical_stability.py:110: AssertionError
+_ test_gatet_descriptive_std_does_not_abort_valid_large_shift_inference[HC1] __
+
+cov_type = 'HC1'
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    def test_gatet_descriptive_std_does_not_abort_valid_large_shift_inference(cov_type):
+        # Treated-only groups are supported by GATET, with an overlap warning.
+        z = 1e8 + np.tile([-1.0, 1.0], 50)
+        codes = np.zeros(100, dtype=int)
+        with pytest.warns(RuntimeWarning, match="no control observations"):
+            result = _estimate_gatet_groupwise_summary_from_partition(
+                z=z, d=np.ones(100), m_hat=np.full(100, 0.5),
+                partition=_GatePartition(group_names=["treated"], codes=codes),
+                cov_type=cov_type, alpha=0.05,
+            )
+>       np.testing.assert_allclose(result["std_phi"], [np.std(z, ddof=1)], rtol=1e-13)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-13, atol=0
+E       
+E       Mismatched elements: 1 / 1 (100%)
+E       Mismatch at index:
+E        [0]: 0.0 (ACTUAL), 1.005037815259212 (DESIRED)
+E       Max absolute difference among violations: 1.00503782
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([0.])
+E        DESIRED: array([1.005038])
+
+tests\inference\test_gate_numerical_stability.py:110: AssertionError
+_ test_gatet_descriptive_std_does_not_abort_valid_large_shift_inference[HC2] __
+
+cov_type = 'HC2'
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    def test_gatet_descriptive_std_does_not_abort_valid_large_shift_inference(cov_type):
+        # Treated-only groups are supported by GATET, with an overlap warning.
+        z = 1e8 + np.tile([-1.0, 1.0], 50)
+        codes = np.zeros(100, dtype=int)
+        with pytest.warns(RuntimeWarning, match="no control observations"):
+            result = _estimate_gatet_groupwise_summary_from_partition(
+                z=z, d=np.ones(100), m_hat=np.full(100, 0.5),
+                partition=_GatePartition(group_names=["treated"], codes=codes),
+                cov_type=cov_type, alpha=0.05,
+            )
+>       np.testing.assert_allclose(result["std_phi"], [np.std(z, ddof=1)], rtol=1e-13)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-13, atol=0
+E       
+E       Mismatched elements: 1 / 1 (100%)
+E       Mismatch at index:
+E        [0]: 0.0 (ACTUAL), 1.005037815259212 (DESIRED)
+E       Max absolute difference among violations: 1.00503782
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([0.])
+E        DESIRED: array([1.005038])
+
+tests\inference\test_gate_numerical_stability.py:110: AssertionError
+_ test_gatet_descriptive_std_does_not_abort_valid_large_shift_inference[HC3] __
+
+cov_type = 'HC3'
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    def test_gatet_descriptive_std_does_not_abort_valid_large_shift_inference(cov_type):
+        # Treated-only groups are supported by GATET, with an overlap warning.
+        z = 1e8 + np.tile([-1.0, 1.0], 50)
+        codes = np.zeros(100, dtype=int)
+        with pytest.warns(RuntimeWarning, match="no control observations"):
+            result = _estimate_gatet_groupwise_summary_from_partition(
+                z=z, d=np.ones(100), m_hat=np.full(100, 0.5),
+                partition=_GatePartition(group_names=["treated"], codes=codes),
+                cov_type=cov_type, alpha=0.05,
+            )
+>       np.testing.assert_allclose(result["std_phi"], [np.std(z, ddof=1)], rtol=1e-13)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-13, atol=0
+E       
+E       Mismatched elements: 1 / 1 (100%)
+E       Mismatch at index:
+E        [0]: 0.0 (ACTUAL), 1.005037815259212 (DESIRED)
+E       Max absolute difference among violations: 1.00503782
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([0.])
+E        DESIRED: array([1.005038])
+
+tests\inference\test_gate_numerical_stability.py:110: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/inference/test_gate_numerical_stability.py::test_gate_variance_translation_invariance[100000000.0-HC0]
+FAILED tests/inference/test_gate_numerical_stability.py::test_gate_variance_translation_invariance[100000000.0-HC1]
+FAILED tests/inference/test_gate_numerical_stability.py::test_gate_variance_translation_invariance[100000000.0-HC2]
+FAILED tests/inference/test_gate_numerical_stability.py::test_gate_variance_translation_invariance[100000000.0-HC3]
+FAILED tests/inference/test_gate_numerical_stability.py::test_gate_variance_translation_invariance[-100000000.0-HC0]
+FAILED tests/inference/test_gate_numerical_stability.py::test_gate_variance_translation_invariance[-100000000.0-HC1]
+FAILED tests/inference/test_gate_numerical_stability.py::test_gate_variance_translation_invariance[-100000000.0-HC2]
+FAILED tests/inference/test_gate_numerical_stability.py::test_gate_variance_translation_invariance[-100000000.0-HC3]
+FAILED tests/inference/test_gate_numerical_stability.py::test_gate_variance_translation_invariance[1000000000000.0-HC0]
+FAILED tests/inference/test_gate_numerical_stability.py::test_gate_variance_translation_invariance[1000000000000.0-HC1]
+FAILED tests/inference/test_gate_numerical_stability.py::test_gate_variance_translation_invariance[1000000000000.0-HC2]
+FAILED tests/inference/test_gate_numerical_stability.py::test_gate_variance_translation_invariance[1000000000000.0-HC3]
+FAILED tests/inference/test_gate_numerical_stability.py::test_public_gate_large_shift_preserves_covariance_and_contrast[HC0]
+FAILED tests/inference/test_gate_numerical_stability.py::test_public_gate_large_shift_preserves_covariance_and_contrast[HC1]
+FAILED tests/inference/test_gate_numerical_stability.py::test_public_gate_large_shift_preserves_covariance_and_contrast[HC2]
+FAILED tests/inference/test_gate_numerical_stability.py::test_public_gate_large_shift_preserves_covariance_and_contrast[HC3]
+FAILED tests/inference/test_gate_numerical_stability.py::test_gatet_descriptive_std_does_not_abort_valid_large_shift_inference[HC0]
+FAILED tests/inference/test_gate_numerical_stability.py::test_gatet_descriptive_std_does_not_abort_valid_large_shift_inference[HC1]
+FAILED tests/inference/test_gate_numerical_stability.py::test_gatet_descriptive_std_does_not_abort_valid_large_shift_inference[HC2]
+FAILED tests/inference/test_gate_numerical_stability.py::test_gatet_descriptive_std_does_not_abort_valid_large_shift_inference[HC3]
+20 failed in 13.27s

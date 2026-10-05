@@ -1,0 +1,228 @@
+............FFFF....................................................     [100%]
+================================== FAILURES ===================================
+_____ test_public_gate_large_shift_preserves_covariance_and_contrast[HC0] _____
+
+cov_type = 'HC0'
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    def test_public_gate_large_shift_preserves_covariance_and_contrast(cov_type):
+        codes = np.repeat([0, 1], [100, 80])
+        phi = 1e8 + codes * 4 + np.tile([-1.0, 1.0], len(codes) // 2)
+        model = _SignalIRM(phi, codes)
+        groups = pd.Series(codes, index=model._fit_index_, name="group")
+        result = estimate_gate_from_irm(model, groups, cov_type=cov_type)
+        expected_var = _reference_variances(phi, codes, cov_type)
+        np.testing.assert_allclose(np.diag(result.covariance), expected_var, rtol=1e-13)
+        np.testing.assert_allclose(result.std_errors, np.sqrt(expected_var), rtol=1e-13)
+        contrast = result.contrast(result.group_names[1], result.group_names[0])
+>       assert contrast.estimate_diff == pytest.approx(4.0)
+               ^^^^^^^^^^^^^^^^^^^^^^
+
+tests\inference\test_gate_numerical_stability.py:94: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = GateContrastEstimate(estimand='GATE_CONTRAST', model='IRM', model_options={'cov_type': 'HC0', 'covariance_structure': ...True, left_value=100000004.0, right_value=100000000.0, n_left=80, n_right=100, time='2026-10-05', diagnostic_data=None)
+item = 'estimate_diff'
+
+    def __getattr__(self, item: str) -> Any:
+        private_attributes = object.__getattribute__(self, '__private_attributes__')
+        if item in private_attributes:
+            attribute = private_attributes[item]
+            if hasattr(attribute, '__get__'):
+                return attribute.__get__(self, type(self))  # type: ignore
+    
+            try:
+                # Note: self.__pydantic_private__ cannot be None if self.__private_attributes__ has items
+                return self.__pydantic_private__[item]  # type: ignore
+            except KeyError as exc:
+                raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}') from exc
+        else:
+            # `__pydantic_extra__` can fail to be set if the model is not yet fully initialized.
+            # See `BaseModel.__repr_args__` for more details
+            try:
+                pydantic_extra = object.__getattribute__(self, '__pydantic_extra__')
+            except AttributeError:
+                pydantic_extra = None
+    
+            if pydantic_extra and item in pydantic_extra:
+                return pydantic_extra[item]
+            else:
+                if hasattr(self.__class__, item):
+                    return super().__getattribute__(item)  # Raises AttributeError if appropriate
+                else:
+                    # this is the current error
+>                   raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+E                   AttributeError: 'GateContrastEstimate' object has no attribute 'estimate_diff'
+
+.venv\Lib\site-packages\pydantic\main.py:1042: AttributeError
+_____ test_public_gate_large_shift_preserves_covariance_and_contrast[HC1] _____
+
+cov_type = 'HC1'
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    def test_public_gate_large_shift_preserves_covariance_and_contrast(cov_type):
+        codes = np.repeat([0, 1], [100, 80])
+        phi = 1e8 + codes * 4 + np.tile([-1.0, 1.0], len(codes) // 2)
+        model = _SignalIRM(phi, codes)
+        groups = pd.Series(codes, index=model._fit_index_, name="group")
+        result = estimate_gate_from_irm(model, groups, cov_type=cov_type)
+        expected_var = _reference_variances(phi, codes, cov_type)
+        np.testing.assert_allclose(np.diag(result.covariance), expected_var, rtol=1e-13)
+        np.testing.assert_allclose(result.std_errors, np.sqrt(expected_var), rtol=1e-13)
+        contrast = result.contrast(result.group_names[1], result.group_names[0])
+>       assert contrast.estimate_diff == pytest.approx(4.0)
+               ^^^^^^^^^^^^^^^^^^^^^^
+
+tests\inference\test_gate_numerical_stability.py:94: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = GateContrastEstimate(estimand='GATE_CONTRAST', model='IRM', model_options={'cov_type': 'HC1', 'covariance_structure': ...True, left_value=100000004.0, right_value=100000000.0, n_left=80, n_right=100, time='2026-10-05', diagnostic_data=None)
+item = 'estimate_diff'
+
+    def __getattr__(self, item: str) -> Any:
+        private_attributes = object.__getattribute__(self, '__private_attributes__')
+        if item in private_attributes:
+            attribute = private_attributes[item]
+            if hasattr(attribute, '__get__'):
+                return attribute.__get__(self, type(self))  # type: ignore
+    
+            try:
+                # Note: self.__pydantic_private__ cannot be None if self.__private_attributes__ has items
+                return self.__pydantic_private__[item]  # type: ignore
+            except KeyError as exc:
+                raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}') from exc
+        else:
+            # `__pydantic_extra__` can fail to be set if the model is not yet fully initialized.
+            # See `BaseModel.__repr_args__` for more details
+            try:
+                pydantic_extra = object.__getattribute__(self, '__pydantic_extra__')
+            except AttributeError:
+                pydantic_extra = None
+    
+            if pydantic_extra and item in pydantic_extra:
+                return pydantic_extra[item]
+            else:
+                if hasattr(self.__class__, item):
+                    return super().__getattribute__(item)  # Raises AttributeError if appropriate
+                else:
+                    # this is the current error
+>                   raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+E                   AttributeError: 'GateContrastEstimate' object has no attribute 'estimate_diff'
+
+.venv\Lib\site-packages\pydantic\main.py:1042: AttributeError
+_____ test_public_gate_large_shift_preserves_covariance_and_contrast[HC2] _____
+
+cov_type = 'HC2'
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    def test_public_gate_large_shift_preserves_covariance_and_contrast(cov_type):
+        codes = np.repeat([0, 1], [100, 80])
+        phi = 1e8 + codes * 4 + np.tile([-1.0, 1.0], len(codes) // 2)
+        model = _SignalIRM(phi, codes)
+        groups = pd.Series(codes, index=model._fit_index_, name="group")
+        result = estimate_gate_from_irm(model, groups, cov_type=cov_type)
+        expected_var = _reference_variances(phi, codes, cov_type)
+        np.testing.assert_allclose(np.diag(result.covariance), expected_var, rtol=1e-13)
+        np.testing.assert_allclose(result.std_errors, np.sqrt(expected_var), rtol=1e-13)
+        contrast = result.contrast(result.group_names[1], result.group_names[0])
+>       assert contrast.estimate_diff == pytest.approx(4.0)
+               ^^^^^^^^^^^^^^^^^^^^^^
+
+tests\inference\test_gate_numerical_stability.py:94: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = GateContrastEstimate(estimand='GATE_CONTRAST', model='IRM', model_options={'cov_type': 'HC2', 'covariance_structure': ...True, left_value=100000004.0, right_value=100000000.0, n_left=80, n_right=100, time='2026-10-05', diagnostic_data=None)
+item = 'estimate_diff'
+
+    def __getattr__(self, item: str) -> Any:
+        private_attributes = object.__getattribute__(self, '__private_attributes__')
+        if item in private_attributes:
+            attribute = private_attributes[item]
+            if hasattr(attribute, '__get__'):
+                return attribute.__get__(self, type(self))  # type: ignore
+    
+            try:
+                # Note: self.__pydantic_private__ cannot be None if self.__private_attributes__ has items
+                return self.__pydantic_private__[item]  # type: ignore
+            except KeyError as exc:
+                raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}') from exc
+        else:
+            # `__pydantic_extra__` can fail to be set if the model is not yet fully initialized.
+            # See `BaseModel.__repr_args__` for more details
+            try:
+                pydantic_extra = object.__getattribute__(self, '__pydantic_extra__')
+            except AttributeError:
+                pydantic_extra = None
+    
+            if pydantic_extra and item in pydantic_extra:
+                return pydantic_extra[item]
+            else:
+                if hasattr(self.__class__, item):
+                    return super().__getattribute__(item)  # Raises AttributeError if appropriate
+                else:
+                    # this is the current error
+>                   raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+E                   AttributeError: 'GateContrastEstimate' object has no attribute 'estimate_diff'
+
+.venv\Lib\site-packages\pydantic\main.py:1042: AttributeError
+_____ test_public_gate_large_shift_preserves_covariance_and_contrast[HC3] _____
+
+cov_type = 'HC3'
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3"])
+    def test_public_gate_large_shift_preserves_covariance_and_contrast(cov_type):
+        codes = np.repeat([0, 1], [100, 80])
+        phi = 1e8 + codes * 4 + np.tile([-1.0, 1.0], len(codes) // 2)
+        model = _SignalIRM(phi, codes)
+        groups = pd.Series(codes, index=model._fit_index_, name="group")
+        result = estimate_gate_from_irm(model, groups, cov_type=cov_type)
+        expected_var = _reference_variances(phi, codes, cov_type)
+        np.testing.assert_allclose(np.diag(result.covariance), expected_var, rtol=1e-13)
+        np.testing.assert_allclose(result.std_errors, np.sqrt(expected_var), rtol=1e-13)
+        contrast = result.contrast(result.group_names[1], result.group_names[0])
+>       assert contrast.estimate_diff == pytest.approx(4.0)
+               ^^^^^^^^^^^^^^^^^^^^^^
+
+tests\inference\test_gate_numerical_stability.py:94: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = GateContrastEstimate(estimand='GATE_CONTRAST', model='IRM', model_options={'cov_type': 'HC3', 'covariance_structure': ...True, left_value=100000004.0, right_value=100000000.0, n_left=80, n_right=100, time='2026-10-05', diagnostic_data=None)
+item = 'estimate_diff'
+
+    def __getattr__(self, item: str) -> Any:
+        private_attributes = object.__getattribute__(self, '__private_attributes__')
+        if item in private_attributes:
+            attribute = private_attributes[item]
+            if hasattr(attribute, '__get__'):
+                return attribute.__get__(self, type(self))  # type: ignore
+    
+            try:
+                # Note: self.__pydantic_private__ cannot be None if self.__private_attributes__ has items
+                return self.__pydantic_private__[item]  # type: ignore
+            except KeyError as exc:
+                raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}') from exc
+        else:
+            # `__pydantic_extra__` can fail to be set if the model is not yet fully initialized.
+            # See `BaseModel.__repr_args__` for more details
+            try:
+                pydantic_extra = object.__getattribute__(self, '__pydantic_extra__')
+            except AttributeError:
+                pydantic_extra = None
+    
+            if pydantic_extra and item in pydantic_extra:
+                return pydantic_extra[item]
+            else:
+                if hasattr(self.__class__, item):
+                    return super().__getattribute__(item)  # Raises AttributeError if appropriate
+                else:
+                    # this is the current error
+>                   raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+E                   AttributeError: 'GateContrastEstimate' object has no attribute 'estimate_diff'
+
+.venv\Lib\site-packages\pydantic\main.py:1042: AttributeError
+=========================== short test summary info ===========================
+FAILED tests/inference/test_gate_numerical_stability.py::test_public_gate_large_shift_preserves_covariance_and_contrast[HC0]
+FAILED tests/inference/test_gate_numerical_stability.py::test_public_gate_large_shift_preserves_covariance_and_contrast[HC1]
+FAILED tests/inference/test_gate_numerical_stability.py::test_public_gate_large_shift_preserves_covariance_and_contrast[HC2]
+FAILED tests/inference/test_gate_numerical_stability.py::test_public_gate_large_shift_preserves_covariance_and_contrast[HC3]
+4 failed, 64 passed in 17.64s

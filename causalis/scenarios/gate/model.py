@@ -604,14 +604,11 @@ def _estimate_gate_groupwise_summary_from_partition(
 
     n_group_f = n_group.astype(float, copy=False)
     sum_phi = np.bincount(codes, weights=phi, minlength=k)
-    sum_phi2 = np.bincount(codes, weights=np.square(phi), minlength=k)
     values = sum_phi / n_group_f
-    sse = sum_phi2 - (np.square(sum_phi) / n_group_f)
-    tiny_negative_mask = np.isfinite(sse) & (sse < 0.0) & (np.abs(sse) < 1e-12)
-    if tiny_negative_mask.any():
-        sse[tiny_negative_mask] = 0.0
-    if np.any(np.isfinite(sse) & (sse < 0.0)):
-        raise RuntimeError("Computed negative within-group sum of squares; check GATE signal stability.")
+    # Center before squaring: subtracting two large raw second moments can
+    # erase the within-group variation or produce a negative SSE.
+    residual = phi - values[codes]
+    sse = np.bincount(codes, weights=np.square(residual), minlength=k)
 
     variances = np.full(k, np.nan, dtype=float)
     estimable_mask = n_group > 1
@@ -768,13 +765,8 @@ def _estimate_gatet_groupwise_summary_from_partition(
 
     transformed_signal = z / share_treated[codes]
     sum_phi = np.bincount(codes, weights=transformed_signal, minlength=k)
-    sum_phi2 = np.bincount(codes, weights=np.square(transformed_signal), minlength=k)
-    sse_phi = sum_phi2 - (np.square(sum_phi) / n_group_f)
-    tiny_negative_mask = np.isfinite(sse_phi) & (sse_phi < 0.0) & (np.abs(sse_phi) < 1e-12)
-    if tiny_negative_mask.any():
-        sse_phi[tiny_negative_mask] = 0.0
-    if np.any(np.isfinite(sse_phi) & (sse_phi < 0.0)):
-        raise RuntimeError("Computed negative within-group sum of squares; check GATET signal stability.")
+    phi_residual = transformed_signal - (sum_phi / n_group_f)[codes]
+    sse_phi = np.bincount(codes, weights=np.square(phi_residual), minlength=k)
 
     group_coef = values[codes]
     residual = z - (d_float * group_coef)
