@@ -489,7 +489,9 @@ class IIVM(BaseEstimator):
         self, *, X: np.ndarray, d: np.ndarray, z: np.ndarray
     ) -> list[Tuple[np.ndarray, np.ndarray]]:
         """Create stratified splits, preferring joint (Z,D) stratification."""
-        joint = z.astype(str) + "_" + d.astype(str)
+        # Unicode array '+' requires newer NumPy; char.add also works on 1.x
+        # and preserves the joint labels and their class order exactly.
+        joint = np.char.add(np.char.add(z.astype(str), "_"), d.astype(str))
         labels = joint
         joint_counts = pd.Series(joint).value_counts()
         if int(joint_counts.min()) < self.n_folds:

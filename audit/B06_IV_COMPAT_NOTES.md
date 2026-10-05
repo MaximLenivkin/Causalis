@@ -1,0 +1,9 @@
+# B06: IV joint labels на NumPy 1.x
+
+Реальная Linux CI-проверка legacy stack обнаружила дополнительную несовместимость: `IIVM._make_cross_fit_splits` строил joint labels через `z.astype(str) + '_' + d.astype(str)`. У NumPy1.26 Unicode arrays не поддерживают этот `add` loop. Installation/pip check прошли, но 53 IV cases упали с одинаковым `_UFuncNoLoopError`;1516passed,53failed,0errors/skips. Общий job позднее был canceled новым workflow commit: cancellation не отменяет реальный pytest failure. Полное evidence — `block06_ci_prior_legacy_result.json`, исходный SHA d292b3c, run37371536543.
+
+Теперь joint labels создаёт `np.char.add`, [доступный в NumPy1.26](https://numpy.org/doc/1.26/reference/generated/numpy.char.add.html). Сами строки, порядок классов, fallback к instrument-only stratification, seed и проверки наличия обеих категорий в training folds сохранены. IV nuisance learners, scores, LATE inference и sensitivity не меняются.
+
+13 новых cases: int/float/bool × joint/fallback × seeds0/17 (12), плюс имитация Unicode arrays без оператора `+` (1). Reference использует независимые Python string labels и `StratifiedKFold`; train/test indices сравниваются точно. До исправления локально1failed/12passed; после13new+143neighborcases **156passed,19.09s**,безwarnings. Logs: `block06_iv_compat_before_tests.log`, `block06_iv_compat_after_tests.log`.
+
+Это исправление добавлено после первоначальной integration1569 и benchmark. Последовательный benchmark не повторяется: он не измерял IV fitting/split construction, а все измеренные source paths unchanged. Общая integration и compatibility matrix должны проверяться повторно с новым code checkpoint и1582cases (206new). Локальный `.venv` не заменялся; реальные NumPy1.26/Pydantic2.0.3/pandas1.5.3/statsmodels0.14 результаты проверяются в clean Linux CI.

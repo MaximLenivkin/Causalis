@@ -1,0 +1,40 @@
+............F                                                            [100%]
+================================== FAILURES ===================================
+_________ test_joint_folds_do_not_require_unicode_array_plus_operator _________
+
+    def test_joint_folds_do_not_require_unicode_array_plus_operator():
+        class LegacyUnicode(np.ndarray):
+            def __add__(self, other):
+                raise TypeError("NumPy 1.x has no Unicode array addition loop")
+    
+        class NumericWithLegacyStrings(np.ndarray):
+            def astype(self, dtype, *args, **kwargs):
+                result = super().astype(dtype, *args, **kwargs)
+                return result.view(LegacyUnicode) if dtype is str else result
+    
+        x, d, z = _inputs(False, int)
+        expected = IIVM(n_folds=3, random_state=17)._make_cross_fit_splits(X=x, d=d, z=z)
+>       actual = IIVM(n_folds=3, random_state=17)._make_cross_fit_splits(
+            X=x, d=d.view(NumericWithLegacyStrings), z=z.view(NumericWithLegacyStrings))
+
+tests\inference\test_iivm_numpy_compat.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\iv\model.py:492: in _make_cross_fit_splits
+    joint = z.astype(str) + "_" + d.astype(str)
+            ^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = LegacyUnicode(['1', '0', '1', '1', '1', '1', '0', '0', '0', '0', '0', '1',
+               '0', '0', '0', '1', '0', '0'... '0', '1', '0',
+               '1', '0', '1', '0', '1', '0', '0', '0', '1', '0', '1', '1'],
+              dtype='<U21')
+other = '_'
+
+    def __add__(self, other):
+>       raise TypeError("NumPy 1.x has no Unicode array addition loop")
+E       TypeError: NumPy 1.x has no Unicode array addition loop
+
+tests\inference\test_iivm_numpy_compat.py:39: TypeError
+=========================== short test summary info ===========================
+FAILED tests/inference/test_iivm_numpy_compat.py::test_joint_folds_do_not_require_unicode_array_plus_operator
+1 failed, 12 passed in 12.03s

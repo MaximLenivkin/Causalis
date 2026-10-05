@@ -1,0 +1,74 @@
+{
+  "run_id": 37371536543,
+  "run_url": "https://github.com/MaximLenivkin/Causalis/actions/runs/37371536543",
+  "job_id": 111969626244,
+  "job_name": "Python 3.10 / legacy (sensitivity deferred)",
+  "overall_run_conclusion": "cancelled by newer config/source push",
+  "overall_job_conclusion": "cancelled",
+  "pytest_step_conclusion": "failure before cancellation",
+  "tested_source_checkpoint": "d292b3c2f83ec94ef75652a17f3e34436c71902f",
+  "environment": {
+    "python": "3.10.21",
+    "implementation": "CPython",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "executable": "/home/runner/work/Causalis/Causalis/.venv/bin/python",
+    "commit": "d292b3c2f83ec94ef75652a17f3e34436c71902f",
+    "packages": {
+      "causalis": "0.2.9.dev1",
+      "numpy": "1.26.4",
+      "pandas": "1.5.3",
+      "scipy": "1.11.4",
+      "statsmodels": "0.14.0",
+      "scikit-learn": "1.3.2",
+      "pydantic": "2.0.3",
+      "catboost": "1.2.8",
+      "matplotlib": "3.10.9",
+      "pytest": "9.1.1",
+      "sphinx": "8.1.3",
+      "myst-parser": "4.0.1",
+      "sphinx-autodoc2": "0.5.0"
+    },
+    "docs_build_environment": "false"
+  },
+  "scope": "correctness",
+  "selected_full_suite": false,
+  "excluded_modules": [
+    "tests/refutation/test_multi_sensitivity_benchmark.py",
+    "tests/refutation/test_sensitivity_benchmark.py",
+    "tests/refutation/test_sensitivity_combination.py",
+    "tests/refutation/test_sensitivity_integration_irm.py",
+    "tests/refutation/test_sensitivity_protocol.py",
+    "tests/refutation/test_sensitivity_rv_signed_rr.py",
+    "tests/refutation/test_trim_sensitivity_ate.py"
+  ],
+  "pytest_result": {
+    "scope": "correctness",
+    "selected_full_suite": false,
+    "collect_only": false,
+    "exit_code": 1,
+    "elapsed_seconds": 87.24512550399999
+  },
+  "junit": {
+    "tests": 1569,
+    "failures": 53,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 1516
+  },
+  "failure_message_groups": {
+    "numpy.core._exceptions._UFuncNoLoopError: ufunc 'add' did not contain a loop with signature matching types (dtype('<U21'), dtype('<U1')) -> None": 53
+  },
+  "failure_modules": {
+    "tests.inference.test_binary_numeric_checks": 2,
+    "tests.inference.test_iivm": 3,
+    "tests.scenarios.iv.refutation.test_iv_model_diagnostics": 48
+  },
+  "example_failed_nodes": [
+    "tests.inference.test_binary_numeric_checks::test_same_folds_predictions_scores_and_inference[False-iv]",
+    "tests.inference.test_binary_numeric_checks::test_same_folds_predictions_scores_and_inference[True-iv]",
+    "tests.inference.test_iivm::test_iivm_late_runs_and_satisfies_score_identities"
+  ],
+  "cause": "NumPy1.26 unicode array add has no string loop; IIVM joint strata use + at causalis/scenarios/iv/model.py:492.",
+  "fix_proposal": "Use np.char.add to concatenate exactly the same labels; root owns source/test changes.",
+  "not_counted_as_current_matrix_success": true
+}
