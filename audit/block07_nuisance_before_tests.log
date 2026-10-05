@@ -1,0 +1,2163 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF [ 76%]
+FFFFFFFFF.............                                                   [100%]
+================================== FAILURES ===================================
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[1-nan-g_continuous-binary] _
+
+kind = 'binary', role = 'g_continuous', value = nan, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:88: AssertionError
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[1-nan-g_continuous-multi] _
+
+kind = 'multi', role = 'g_continuous', value = nan, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:88: AssertionError
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[1-nan-g_continuous-iv] __
+
+kind = 'iv', role = 'g_continuous', value = nan, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:88: AssertionError
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[1-nan-g_binary-binary] __
+
+kind = 'binary', role = 'g_binary', value = nan, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:88: AssertionError
+__ test_fit_rejects_nonfinite_raw_nuisance_predictions[1-nan-g_binary-multi] __
+
+kind = 'multi', role = 'g_binary', value = nan, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:88: AssertionError
+___ test_fit_rejects_nonfinite_raw_nuisance_predictions[1-nan-g_binary-iv] ____
+
+kind = 'iv', role = 'g_binary', value = nan, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:88: AssertionError
+_____ test_fit_rejects_nonfinite_raw_nuisance_predictions[1-nan-m-binary] _____
+
+kind = 'binary', role = 'm', value = nan, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:88: AssertionError
+_____ test_fit_rejects_nonfinite_raw_nuisance_predictions[1-nan-m-multi] ______
+
+kind = 'multi', role = 'm', value = nan, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:88: AssertionError
+_______ test_fit_rejects_nonfinite_raw_nuisance_predictions[1-nan-m-iv] _______
+
+kind = 'iv', role = 'm', value = nan, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:88: AssertionError
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[1-inf-g_continuous-binary] _
+
+kind = 'binary', role = 'g_continuous', value = inf, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[1-inf-g_continuous-multi] _
+
+kind = 'multi', role = 'g_continuous', value = inf, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[1-inf-g_continuous-iv] __
+
+kind = 'iv', role = 'g_continuous', value = inf, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[1-inf-g_binary-binary] __
+
+kind = 'binary', role = 'g_binary', value = inf, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+__ test_fit_rejects_nonfinite_raw_nuisance_predictions[1-inf-g_binary-multi] __
+
+kind = 'multi', role = 'g_binary', value = inf, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+___ test_fit_rejects_nonfinite_raw_nuisance_predictions[1-inf-g_binary-iv] ____
+
+kind = 'iv', role = 'g_binary', value = inf, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_____ test_fit_rejects_nonfinite_raw_nuisance_predictions[1-inf-m-binary] _____
+
+kind = 'binary', role = 'm', value = inf, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_____ test_fit_rejects_nonfinite_raw_nuisance_predictions[1-inf-m-multi] ______
+
+kind = 'multi', role = 'm', value = inf, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_______ test_fit_rejects_nonfinite_raw_nuisance_predictions[1-inf-m-iv] _______
+
+kind = 'iv', role = 'm', value = inf, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[1--inf-g_continuous-binary] _
+
+kind = 'binary', role = 'g_continuous', value = -inf, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[1--inf-g_continuous-multi] _
+
+kind = 'multi', role = 'g_continuous', value = -inf, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[1--inf-g_continuous-iv] _
+
+kind = 'iv', role = 'g_continuous', value = -inf, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[1--inf-g_binary-binary] _
+
+kind = 'binary', role = 'g_binary', value = -inf, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[1--inf-g_binary-multi] __
+
+kind = 'multi', role = 'g_binary', value = -inf, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+___ test_fit_rejects_nonfinite_raw_nuisance_predictions[1--inf-g_binary-iv] ___
+
+kind = 'iv', role = 'g_binary', value = -inf, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+____ test_fit_rejects_nonfinite_raw_nuisance_predictions[1--inf-m-binary] _____
+
+kind = 'binary', role = 'm', value = -inf, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_____ test_fit_rejects_nonfinite_raw_nuisance_predictions[1--inf-m-multi] _____
+
+kind = 'multi', role = 'm', value = -inf, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+______ test_fit_rejects_nonfinite_raw_nuisance_predictions[1--inf-m-iv] _______
+
+kind = 'iv', role = 'm', value = -inf, n_jobs = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[2-nan-g_continuous-binary] _
+
+kind = 'binary', role = 'g_continuous', value = nan, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:88: AssertionError
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[2-nan-g_continuous-multi] _
+
+kind = 'multi', role = 'g_continuous', value = nan, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:88: AssertionError
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[2-nan-g_continuous-iv] __
+
+kind = 'iv', role = 'g_continuous', value = nan, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:88: AssertionError
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[2-nan-g_binary-binary] __
+
+kind = 'binary', role = 'g_binary', value = nan, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:88: AssertionError
+__ test_fit_rejects_nonfinite_raw_nuisance_predictions[2-nan-g_binary-multi] __
+
+kind = 'multi', role = 'g_binary', value = nan, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:88: AssertionError
+___ test_fit_rejects_nonfinite_raw_nuisance_predictions[2-nan-g_binary-iv] ____
+
+kind = 'iv', role = 'g_binary', value = nan, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:88: AssertionError
+_____ test_fit_rejects_nonfinite_raw_nuisance_predictions[2-nan-m-binary] _____
+
+kind = 'binary', role = 'm', value = nan, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:88: AssertionError
+_____ test_fit_rejects_nonfinite_raw_nuisance_predictions[2-nan-m-multi] ______
+
+kind = 'multi', role = 'm', value = nan, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:88: AssertionError
+_______ test_fit_rejects_nonfinite_raw_nuisance_predictions[2-nan-m-iv] _______
+
+kind = 'iv', role = 'm', value = nan, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:88: AssertionError
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[2-inf-g_continuous-binary] _
+
+kind = 'binary', role = 'g_continuous', value = inf, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[2-inf-g_continuous-multi] _
+
+kind = 'multi', role = 'g_continuous', value = inf, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[2-inf-g_continuous-iv] __
+
+kind = 'iv', role = 'g_continuous', value = inf, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[2-inf-g_binary-binary] __
+
+kind = 'binary', role = 'g_binary', value = inf, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+__ test_fit_rejects_nonfinite_raw_nuisance_predictions[2-inf-g_binary-multi] __
+
+kind = 'multi', role = 'g_binary', value = inf, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+___ test_fit_rejects_nonfinite_raw_nuisance_predictions[2-inf-g_binary-iv] ____
+
+kind = 'iv', role = 'g_binary', value = inf, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_____ test_fit_rejects_nonfinite_raw_nuisance_predictions[2-inf-m-binary] _____
+
+kind = 'binary', role = 'm', value = inf, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_____ test_fit_rejects_nonfinite_raw_nuisance_predictions[2-inf-m-multi] ______
+
+kind = 'multi', role = 'm', value = inf, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_______ test_fit_rejects_nonfinite_raw_nuisance_predictions[2-inf-m-iv] _______
+
+kind = 'iv', role = 'm', value = inf, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[2--inf-g_continuous-binary] _
+
+kind = 'binary', role = 'g_continuous', value = -inf, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[2--inf-g_continuous-multi] _
+
+kind = 'multi', role = 'g_continuous', value = -inf, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[2--inf-g_continuous-iv] _
+
+kind = 'iv', role = 'g_continuous', value = -inf, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[2--inf-g_binary-binary] _
+
+kind = 'binary', role = 'g_binary', value = -inf, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_ test_fit_rejects_nonfinite_raw_nuisance_predictions[2--inf-g_binary-multi] __
+
+kind = 'multi', role = 'g_binary', value = -inf, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+___ test_fit_rejects_nonfinite_raw_nuisance_predictions[2--inf-g_binary-iv] ___
+
+kind = 'iv', role = 'g_binary', value = -inf, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+____ test_fit_rejects_nonfinite_raw_nuisance_predictions[2--inf-m-binary] _____
+
+kind = 'binary', role = 'm', value = -inf, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_____ test_fit_rejects_nonfinite_raw_nuisance_predictions[2--inf-m-multi] _____
+
+kind = 'multi', role = 'm', value = -inf, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+______ test_fit_rejects_nonfinite_raw_nuisance_predictions[2--inf-m-iv] _______
+
+kind = 'iv', role = 'm', value = -inf, n_jobs = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "multi", "iv"])
+    @pytest.mark.parametrize("role", ["g_continuous", "g_binary", "m"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_fit_rejects_nonfinite_raw_nuisance_predictions(kind, role, value, n_jobs):
+        data = dataset(kind, binary_outcome=role == "g_binary")
+        bad = ProbabilityClassifier(value=value) if role == "m" and kind == "multi" else ConstantRegressor(value)
+        options = {"m": bad} if role == "m" else {"g": bad}
+        model = estimator(kind, data, n_jobs=n_jobs, **options)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:88: Failed
+_______ test_iv_shared_helper_rejects_invalid_treatment_nuisance[1-nan] _______
+
+value = nan, n_jobs = 1
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_iv_shared_helper_rejects_invalid_treatment_nuisance(value, n_jobs):
+        model = estimator("iv", dataset("iv"), r=ConstantRegressor(value), n_jobs=n_jobs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:96: AssertionError
+_______ test_iv_shared_helper_rejects_invalid_treatment_nuisance[1-inf] _______
+
+value = inf, n_jobs = 1
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_iv_shared_helper_rejects_invalid_treatment_nuisance(value, n_jobs):
+        model = estimator("iv", dataset("iv"), r=ConstantRegressor(value), n_jobs=n_jobs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:96: Failed
+______ test_iv_shared_helper_rejects_invalid_treatment_nuisance[1--inf] _______
+
+value = -inf, n_jobs = 1
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_iv_shared_helper_rejects_invalid_treatment_nuisance(value, n_jobs):
+        model = estimator("iv", dataset("iv"), r=ConstantRegressor(value), n_jobs=n_jobs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:96: Failed
+_______ test_iv_shared_helper_rejects_invalid_treatment_nuisance[2-nan] _______
+
+value = nan, n_jobs = 2
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_iv_shared_helper_rejects_invalid_treatment_nuisance(value, n_jobs):
+        model = estimator("iv", dataset("iv"), r=ConstantRegressor(value), n_jobs=n_jobs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:96: AssertionError
+_______ test_iv_shared_helper_rejects_invalid_treatment_nuisance[2-inf] _______
+
+value = inf, n_jobs = 2
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_iv_shared_helper_rejects_invalid_treatment_nuisance(value, n_jobs):
+        model = estimator("iv", dataset("iv"), r=ConstantRegressor(value), n_jobs=n_jobs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:96: Failed
+______ test_iv_shared_helper_rejects_invalid_treatment_nuisance[2--inf] _______
+
+value = -inf, n_jobs = 2
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("n_jobs", [1, 2])
+    def test_iv_shared_helper_rejects_invalid_treatment_nuisance(value, n_jobs):
+        model = estimator("iv", dataset("iv"), r=ConstantRegressor(value), n_jobs=n_jobs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:96: Failed
+_ test_validate_complete_probability_output_before_selecting_class_one[binary-nan] _
+
+kind = 'binary', value = nan
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    def test_validate_complete_probability_output_before_selecting_class_one(kind, value):
+        X = np.arange(5).reshape(-1, 1)
+        classifier = ProbabilityClassifier(value=value, classes=[0, 1]).fit(X, [0, 1])
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:105: Failed
+_ test_validate_complete_probability_output_before_selecting_class_one[binary-inf] _
+
+kind = 'binary', value = inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    def test_validate_complete_probability_output_before_selecting_class_one(kind, value):
+        X = np.arange(5).reshape(-1, 1)
+        classifier = ProbabilityClassifier(value=value, classes=[0, 1]).fit(X, [0, 1])
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:105: Failed
+_ test_validate_complete_probability_output_before_selecting_class_one[binary--inf] _
+
+kind = 'binary', value = -inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    def test_validate_complete_probability_output_before_selecting_class_one(kind, value):
+        X = np.arange(5).reshape(-1, 1)
+        classifier = ProbabilityClassifier(value=value, classes=[0, 1]).fit(X, [0, 1])
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:105: Failed
+_ test_validate_complete_probability_output_before_selecting_class_one[multi-nan] _
+
+kind = 'multi', value = nan
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    def test_validate_complete_probability_output_before_selecting_class_one(kind, value):
+        X = np.arange(5).reshape(-1, 1)
+        classifier = ProbabilityClassifier(value=value, classes=[0, 1]).fit(X, [0, 1])
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:105: Failed
+_ test_validate_complete_probability_output_before_selecting_class_one[multi-inf] _
+
+kind = 'multi', value = inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    def test_validate_complete_probability_output_before_selecting_class_one(kind, value):
+        X = np.arange(5).reshape(-1, 1)
+        classifier = ProbabilityClassifier(value=value, classes=[0, 1]).fit(X, [0, 1])
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:105: Failed
+_ test_validate_complete_probability_output_before_selecting_class_one[multi--inf] _
+
+kind = 'multi', value = -inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    def test_validate_complete_probability_output_before_selecting_class_one(kind, value):
+        X = np.arange(5).reshape(-1, 1)
+        classifier = ProbabilityClassifier(value=value, classes=[0, 1]).fit(X, [0, 1])
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:105: Failed
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g0-nan] _
+
+kind = 'binary', role = 'g0', value = nan
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(kind, role, value):
+        model = IRM() if kind == "binary" else MultiTreatmentIRM()
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(6), g1_hat=np.ones(6), m_hat=np.full(6, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            options = dict(folds=np.arange(6) % 2, feature_importance=None)
+        else:
+            predictions = dict(g_hat=np.ones((6, 3)), m_hat=np.full((6, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            options = dict(folds=np.arange(6) % 2)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:126: AssertionError
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g0-inf] _
+
+kind = 'binary', role = 'g0', value = inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(kind, role, value):
+        model = IRM() if kind == "binary" else MultiTreatmentIRM()
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(6), g1_hat=np.ones(6), m_hat=np.full(6, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            options = dict(folds=np.arange(6) % 2, feature_importance=None)
+        else:
+            predictions = dict(g_hat=np.ones((6, 3)), m_hat=np.full((6, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            options = dict(folds=np.arange(6) % 2)
+        with pytest.raises(RuntimeError, match="non-finite"):
+>           model._store_cross_fitted_predictions(**predictions, **options)
+
+tests\inference\test_nuisance_prediction_contract.py:127: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = IRM(status='unfitted', n_folds=4, random_state=None)
+g0_hat = array([ 1.,  1., inf,  1.,  1.,  1.])
+g1_hat = array([1., 1., 1., 1., 1., 1.])
+m_hat = array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5]), folds = array([0, 1, 0, 1, 0, 1])
+feature_importance = None
+
+    def _store_cross_fitted_predictions(
+        self,
+        g0_hat: np.ndarray,
+        g1_hat: np.ndarray,
+        m_hat: np.ndarray,
+        folds: np.ndarray,
+        feature_importance: Optional[Dict[str, Any]],
+    ) -> None:
+        """Validate and store cross-fitted nuisance predictions."""
+        if (
+            np.any(np.isnan(m_hat))
+            or np.any(np.isnan(g0_hat))
+            or np.any(np.isnan(g1_hat))
+        ):
+            raise RuntimeError("Cross-fitted predictions contain NaN values.")
+    
+        full_sample_folds = np.asarray(folds, dtype=int).ravel()
+        if full_sample_folds.size != np.asarray(m_hat).size:
+            raise RuntimeError("Cross-fitting fold assignments have inconsistent length.")
+        # Sensitivity benchmark refits need the original fold assignment even
+        # when overlap_policy='drop' later removes rows from the estimation
+        # sample. This private cache is intentionally independent of the
+        # diagnostics storage setting; ``folds_`` keeps its existing semantics.
+        self._full_sample_folds_ = full_sample_folds.copy()
+    
+        m_policy, overlap_mask = _apply_overlap_policy(
+            m_hat,
+            policy=self.overlap_policy,
+            threshold=self.overlap_threshold,
+        )
+        overlap_mask = np.asarray(overlap_mask, dtype=bool).ravel()
+        if overlap_mask.size != np.asarray(m_hat).size:
+            raise RuntimeError("Overlap mask has inconsistent length.")
+    
+        self.overlap_mask_ = overlap_mask.copy()
+        self.overlap_n_dropped_ = int(overlap_mask.size - int(np.sum(overlap_mask)))
+    
+        raw_m_hat = np.asarray(m_hat, dtype=float).ravel()
+        self._fit_overlap_policy_ = self.overlap_policy
+        self._fit_overlap_threshold_ = self.overlap_threshold
+        self.overlap_n_clipped_ = (
+            int(np.count_nonzero(raw_m_hat != m_policy))
+            if self.overlap_policy == "clip" else 0
+        )
+        if self.overlap_policy == "drop":
+            if not np.any(overlap_mask):
+                raise ValueError(
+                    "overlap_policy='drop' removed all observations. "
+                    "Lower overlap_threshold or use overlap_policy='clip'."
+                )
+            if self._y is not None:
+                self._y = self._y[overlap_mask]
+            if self._d is not None:
+                self._d = self._d[overlap_mask]
+                n_treated = int(np.sum(self._d == 1))
+                n_control = int(np.sum(self._d == 0))
+                if n_treated == 0 or n_control == 0:
+                    raise ValueError(
+                        "overlap_policy='drop' must retain at least one treated "
+                        "and one control observation."
+                    )
+            if self._X is not None:
+                self._X = self._X[overlap_mask]
+            if self._fit_index_ is not None:
+                self._fit_index_ = pd.Index(self._fit_index_[overlap_mask], name=self._fit_index_.name)
+            if self._fit_row_index_ is not None:
+                self._fit_row_index_ = pd.Index(
+                    self._fit_row_index_[overlap_mask],
+                    name=self._fit_row_index_.name,
+                )
+            g0_hat = np.asarray(g0_hat, dtype=float).ravel()[overlap_mask]
+            g1_hat = np.asarray(g1_hat, dtype=float).ravel()[overlap_mask]
+            folds = full_sample_folds[overlap_mask]
+            raw_m_hat = raw_m_hat[overlap_mask]
+        else:
+            folds = full_sample_folds
+    
+>       if self._fit_weights_full_ is not None:
+           ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'IRM' object has no attribute '_fit_weights_full_'
+
+causalis\scenarios\unconfoundedness\model.py:943: AttributeError
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g0--inf] _
+
+kind = 'binary', role = 'g0', value = -inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(kind, role, value):
+        model = IRM() if kind == "binary" else MultiTreatmentIRM()
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(6), g1_hat=np.ones(6), m_hat=np.full(6, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            options = dict(folds=np.arange(6) % 2, feature_importance=None)
+        else:
+            predictions = dict(g_hat=np.ones((6, 3)), m_hat=np.full((6, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            options = dict(folds=np.arange(6) % 2)
+        with pytest.raises(RuntimeError, match="non-finite"):
+>           model._store_cross_fitted_predictions(**predictions, **options)
+
+tests\inference\test_nuisance_prediction_contract.py:127: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = IRM(status='unfitted', n_folds=4, random_state=None)
+g0_hat = array([  1.,   1., -inf,   1.,   1.,   1.])
+g1_hat = array([1., 1., 1., 1., 1., 1.])
+m_hat = array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5]), folds = array([0, 1, 0, 1, 0, 1])
+feature_importance = None
+
+    def _store_cross_fitted_predictions(
+        self,
+        g0_hat: np.ndarray,
+        g1_hat: np.ndarray,
+        m_hat: np.ndarray,
+        folds: np.ndarray,
+        feature_importance: Optional[Dict[str, Any]],
+    ) -> None:
+        """Validate and store cross-fitted nuisance predictions."""
+        if (
+            np.any(np.isnan(m_hat))
+            or np.any(np.isnan(g0_hat))
+            or np.any(np.isnan(g1_hat))
+        ):
+            raise RuntimeError("Cross-fitted predictions contain NaN values.")
+    
+        full_sample_folds = np.asarray(folds, dtype=int).ravel()
+        if full_sample_folds.size != np.asarray(m_hat).size:
+            raise RuntimeError("Cross-fitting fold assignments have inconsistent length.")
+        # Sensitivity benchmark refits need the original fold assignment even
+        # when overlap_policy='drop' later removes rows from the estimation
+        # sample. This private cache is intentionally independent of the
+        # diagnostics storage setting; ``folds_`` keeps its existing semantics.
+        self._full_sample_folds_ = full_sample_folds.copy()
+    
+        m_policy, overlap_mask = _apply_overlap_policy(
+            m_hat,
+            policy=self.overlap_policy,
+            threshold=self.overlap_threshold,
+        )
+        overlap_mask = np.asarray(overlap_mask, dtype=bool).ravel()
+        if overlap_mask.size != np.asarray(m_hat).size:
+            raise RuntimeError("Overlap mask has inconsistent length.")
+    
+        self.overlap_mask_ = overlap_mask.copy()
+        self.overlap_n_dropped_ = int(overlap_mask.size - int(np.sum(overlap_mask)))
+    
+        raw_m_hat = np.asarray(m_hat, dtype=float).ravel()
+        self._fit_overlap_policy_ = self.overlap_policy
+        self._fit_overlap_threshold_ = self.overlap_threshold
+        self.overlap_n_clipped_ = (
+            int(np.count_nonzero(raw_m_hat != m_policy))
+            if self.overlap_policy == "clip" else 0
+        )
+        if self.overlap_policy == "drop":
+            if not np.any(overlap_mask):
+                raise ValueError(
+                    "overlap_policy='drop' removed all observations. "
+                    "Lower overlap_threshold or use overlap_policy='clip'."
+                )
+            if self._y is not None:
+                self._y = self._y[overlap_mask]
+            if self._d is not None:
+                self._d = self._d[overlap_mask]
+                n_treated = int(np.sum(self._d == 1))
+                n_control = int(np.sum(self._d == 0))
+                if n_treated == 0 or n_control == 0:
+                    raise ValueError(
+                        "overlap_policy='drop' must retain at least one treated "
+                        "and one control observation."
+                    )
+            if self._X is not None:
+                self._X = self._X[overlap_mask]
+            if self._fit_index_ is not None:
+                self._fit_index_ = pd.Index(self._fit_index_[overlap_mask], name=self._fit_index_.name)
+            if self._fit_row_index_ is not None:
+                self._fit_row_index_ = pd.Index(
+                    self._fit_row_index_[overlap_mask],
+                    name=self._fit_row_index_.name,
+                )
+            g0_hat = np.asarray(g0_hat, dtype=float).ravel()[overlap_mask]
+            g1_hat = np.asarray(g1_hat, dtype=float).ravel()[overlap_mask]
+            folds = full_sample_folds[overlap_mask]
+            raw_m_hat = raw_m_hat[overlap_mask]
+        else:
+            folds = full_sample_folds
+    
+>       if self._fit_weights_full_ is not None:
+           ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'IRM' object has no attribute '_fit_weights_full_'
+
+causalis\scenarios\unconfoundedness\model.py:943: AttributeError
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g1-nan] _
+
+kind = 'binary', role = 'g1', value = nan
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(kind, role, value):
+        model = IRM() if kind == "binary" else MultiTreatmentIRM()
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(6), g1_hat=np.ones(6), m_hat=np.full(6, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            options = dict(folds=np.arange(6) % 2, feature_importance=None)
+        else:
+            predictions = dict(g_hat=np.ones((6, 3)), m_hat=np.full((6, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            options = dict(folds=np.arange(6) % 2)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:126: AssertionError
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g1-inf] _
+
+kind = 'binary', role = 'g1', value = inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(kind, role, value):
+        model = IRM() if kind == "binary" else MultiTreatmentIRM()
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(6), g1_hat=np.ones(6), m_hat=np.full(6, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            options = dict(folds=np.arange(6) % 2, feature_importance=None)
+        else:
+            predictions = dict(g_hat=np.ones((6, 3)), m_hat=np.full((6, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            options = dict(folds=np.arange(6) % 2)
+        with pytest.raises(RuntimeError, match="non-finite"):
+>           model._store_cross_fitted_predictions(**predictions, **options)
+
+tests\inference\test_nuisance_prediction_contract.py:127: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = IRM(status='unfitted', n_folds=4, random_state=None)
+g0_hat = array([1., 1., 1., 1., 1., 1.])
+g1_hat = array([ 1.,  1., inf,  1.,  1.,  1.])
+m_hat = array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5]), folds = array([0, 1, 0, 1, 0, 1])
+feature_importance = None
+
+    def _store_cross_fitted_predictions(
+        self,
+        g0_hat: np.ndarray,
+        g1_hat: np.ndarray,
+        m_hat: np.ndarray,
+        folds: np.ndarray,
+        feature_importance: Optional[Dict[str, Any]],
+    ) -> None:
+        """Validate and store cross-fitted nuisance predictions."""
+        if (
+            np.any(np.isnan(m_hat))
+            or np.any(np.isnan(g0_hat))
+            or np.any(np.isnan(g1_hat))
+        ):
+            raise RuntimeError("Cross-fitted predictions contain NaN values.")
+    
+        full_sample_folds = np.asarray(folds, dtype=int).ravel()
+        if full_sample_folds.size != np.asarray(m_hat).size:
+            raise RuntimeError("Cross-fitting fold assignments have inconsistent length.")
+        # Sensitivity benchmark refits need the original fold assignment even
+        # when overlap_policy='drop' later removes rows from the estimation
+        # sample. This private cache is intentionally independent of the
+        # diagnostics storage setting; ``folds_`` keeps its existing semantics.
+        self._full_sample_folds_ = full_sample_folds.copy()
+    
+        m_policy, overlap_mask = _apply_overlap_policy(
+            m_hat,
+            policy=self.overlap_policy,
+            threshold=self.overlap_threshold,
+        )
+        overlap_mask = np.asarray(overlap_mask, dtype=bool).ravel()
+        if overlap_mask.size != np.asarray(m_hat).size:
+            raise RuntimeError("Overlap mask has inconsistent length.")
+    
+        self.overlap_mask_ = overlap_mask.copy()
+        self.overlap_n_dropped_ = int(overlap_mask.size - int(np.sum(overlap_mask)))
+    
+        raw_m_hat = np.asarray(m_hat, dtype=float).ravel()
+        self._fit_overlap_policy_ = self.overlap_policy
+        self._fit_overlap_threshold_ = self.overlap_threshold
+        self.overlap_n_clipped_ = (
+            int(np.count_nonzero(raw_m_hat != m_policy))
+            if self.overlap_policy == "clip" else 0
+        )
+        if self.overlap_policy == "drop":
+            if not np.any(overlap_mask):
+                raise ValueError(
+                    "overlap_policy='drop' removed all observations. "
+                    "Lower overlap_threshold or use overlap_policy='clip'."
+                )
+            if self._y is not None:
+                self._y = self._y[overlap_mask]
+            if self._d is not None:
+                self._d = self._d[overlap_mask]
+                n_treated = int(np.sum(self._d == 1))
+                n_control = int(np.sum(self._d == 0))
+                if n_treated == 0 or n_control == 0:
+                    raise ValueError(
+                        "overlap_policy='drop' must retain at least one treated "
+                        "and one control observation."
+                    )
+            if self._X is not None:
+                self._X = self._X[overlap_mask]
+            if self._fit_index_ is not None:
+                self._fit_index_ = pd.Index(self._fit_index_[overlap_mask], name=self._fit_index_.name)
+            if self._fit_row_index_ is not None:
+                self._fit_row_index_ = pd.Index(
+                    self._fit_row_index_[overlap_mask],
+                    name=self._fit_row_index_.name,
+                )
+            g0_hat = np.asarray(g0_hat, dtype=float).ravel()[overlap_mask]
+            g1_hat = np.asarray(g1_hat, dtype=float).ravel()[overlap_mask]
+            folds = full_sample_folds[overlap_mask]
+            raw_m_hat = raw_m_hat[overlap_mask]
+        else:
+            folds = full_sample_folds
+    
+>       if self._fit_weights_full_ is not None:
+           ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'IRM' object has no attribute '_fit_weights_full_'
+
+causalis\scenarios\unconfoundedness\model.py:943: AttributeError
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g1--inf] _
+
+kind = 'binary', role = 'g1', value = -inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(kind, role, value):
+        model = IRM() if kind == "binary" else MultiTreatmentIRM()
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(6), g1_hat=np.ones(6), m_hat=np.full(6, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            options = dict(folds=np.arange(6) % 2, feature_importance=None)
+        else:
+            predictions = dict(g_hat=np.ones((6, 3)), m_hat=np.full((6, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            options = dict(folds=np.arange(6) % 2)
+        with pytest.raises(RuntimeError, match="non-finite"):
+>           model._store_cross_fitted_predictions(**predictions, **options)
+
+tests\inference\test_nuisance_prediction_contract.py:127: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = IRM(status='unfitted', n_folds=4, random_state=None)
+g0_hat = array([1., 1., 1., 1., 1., 1.])
+g1_hat = array([  1.,   1., -inf,   1.,   1.,   1.])
+m_hat = array([0.5, 0.5, 0.5, 0.5, 0.5, 0.5]), folds = array([0, 1, 0, 1, 0, 1])
+feature_importance = None
+
+    def _store_cross_fitted_predictions(
+        self,
+        g0_hat: np.ndarray,
+        g1_hat: np.ndarray,
+        m_hat: np.ndarray,
+        folds: np.ndarray,
+        feature_importance: Optional[Dict[str, Any]],
+    ) -> None:
+        """Validate and store cross-fitted nuisance predictions."""
+        if (
+            np.any(np.isnan(m_hat))
+            or np.any(np.isnan(g0_hat))
+            or np.any(np.isnan(g1_hat))
+        ):
+            raise RuntimeError("Cross-fitted predictions contain NaN values.")
+    
+        full_sample_folds = np.asarray(folds, dtype=int).ravel()
+        if full_sample_folds.size != np.asarray(m_hat).size:
+            raise RuntimeError("Cross-fitting fold assignments have inconsistent length.")
+        # Sensitivity benchmark refits need the original fold assignment even
+        # when overlap_policy='drop' later removes rows from the estimation
+        # sample. This private cache is intentionally independent of the
+        # diagnostics storage setting; ``folds_`` keeps its existing semantics.
+        self._full_sample_folds_ = full_sample_folds.copy()
+    
+        m_policy, overlap_mask = _apply_overlap_policy(
+            m_hat,
+            policy=self.overlap_policy,
+            threshold=self.overlap_threshold,
+        )
+        overlap_mask = np.asarray(overlap_mask, dtype=bool).ravel()
+        if overlap_mask.size != np.asarray(m_hat).size:
+            raise RuntimeError("Overlap mask has inconsistent length.")
+    
+        self.overlap_mask_ = overlap_mask.copy()
+        self.overlap_n_dropped_ = int(overlap_mask.size - int(np.sum(overlap_mask)))
+    
+        raw_m_hat = np.asarray(m_hat, dtype=float).ravel()
+        self._fit_overlap_policy_ = self.overlap_policy
+        self._fit_overlap_threshold_ = self.overlap_threshold
+        self.overlap_n_clipped_ = (
+            int(np.count_nonzero(raw_m_hat != m_policy))
+            if self.overlap_policy == "clip" else 0
+        )
+        if self.overlap_policy == "drop":
+            if not np.any(overlap_mask):
+                raise ValueError(
+                    "overlap_policy='drop' removed all observations. "
+                    "Lower overlap_threshold or use overlap_policy='clip'."
+                )
+            if self._y is not None:
+                self._y = self._y[overlap_mask]
+            if self._d is not None:
+                self._d = self._d[overlap_mask]
+                n_treated = int(np.sum(self._d == 1))
+                n_control = int(np.sum(self._d == 0))
+                if n_treated == 0 or n_control == 0:
+                    raise ValueError(
+                        "overlap_policy='drop' must retain at least one treated "
+                        "and one control observation."
+                    )
+            if self._X is not None:
+                self._X = self._X[overlap_mask]
+            if self._fit_index_ is not None:
+                self._fit_index_ = pd.Index(self._fit_index_[overlap_mask], name=self._fit_index_.name)
+            if self._fit_row_index_ is not None:
+                self._fit_row_index_ = pd.Index(
+                    self._fit_row_index_[overlap_mask],
+                    name=self._fit_row_index_.name,
+                )
+            g0_hat = np.asarray(g0_hat, dtype=float).ravel()[overlap_mask]
+            g1_hat = np.asarray(g1_hat, dtype=float).ravel()[overlap_mask]
+            folds = full_sample_folds[overlap_mask]
+            raw_m_hat = raw_m_hat[overlap_mask]
+        else:
+            folds = full_sample_folds
+    
+>       if self._fit_weights_full_ is not None:
+           ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'IRM' object has no attribute '_fit_weights_full_'
+
+causalis\scenarios\unconfoundedness\model.py:943: AttributeError
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-m-nan] _
+
+kind = 'binary', role = 'm', value = nan
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(kind, role, value):
+        model = IRM() if kind == "binary" else MultiTreatmentIRM()
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(6), g1_hat=np.ones(6), m_hat=np.full(6, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            options = dict(folds=np.arange(6) % 2, feature_importance=None)
+        else:
+            predictions = dict(g_hat=np.ones((6, 3)), m_hat=np.full((6, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            options = dict(folds=np.arange(6) % 2)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:126: AssertionError
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-m-inf] _
+
+kind = 'binary', role = 'm', value = inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(kind, role, value):
+        model = IRM() if kind == "binary" else MultiTreatmentIRM()
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(6), g1_hat=np.ones(6), m_hat=np.full(6, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            options = dict(folds=np.arange(6) % 2, feature_importance=None)
+        else:
+            predictions = dict(g_hat=np.ones((6, 3)), m_hat=np.full((6, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            options = dict(folds=np.arange(6) % 2)
+        with pytest.raises(RuntimeError, match="non-finite"):
+>           model._store_cross_fitted_predictions(**predictions, **options)
+
+tests\inference\test_nuisance_prediction_contract.py:127: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = IRM(status='unfitted', n_folds=4, random_state=None)
+g0_hat = array([1., 1., 1., 1., 1., 1.])
+g1_hat = array([1., 1., 1., 1., 1., 1.])
+m_hat = array([0.5, 0.5, inf, 0.5, 0.5, 0.5]), folds = array([0, 1, 0, 1, 0, 1])
+feature_importance = None
+
+    def _store_cross_fitted_predictions(
+        self,
+        g0_hat: np.ndarray,
+        g1_hat: np.ndarray,
+        m_hat: np.ndarray,
+        folds: np.ndarray,
+        feature_importance: Optional[Dict[str, Any]],
+    ) -> None:
+        """Validate and store cross-fitted nuisance predictions."""
+        if (
+            np.any(np.isnan(m_hat))
+            or np.any(np.isnan(g0_hat))
+            or np.any(np.isnan(g1_hat))
+        ):
+            raise RuntimeError("Cross-fitted predictions contain NaN values.")
+    
+        full_sample_folds = np.asarray(folds, dtype=int).ravel()
+        if full_sample_folds.size != np.asarray(m_hat).size:
+            raise RuntimeError("Cross-fitting fold assignments have inconsistent length.")
+        # Sensitivity benchmark refits need the original fold assignment even
+        # when overlap_policy='drop' later removes rows from the estimation
+        # sample. This private cache is intentionally independent of the
+        # diagnostics storage setting; ``folds_`` keeps its existing semantics.
+        self._full_sample_folds_ = full_sample_folds.copy()
+    
+        m_policy, overlap_mask = _apply_overlap_policy(
+            m_hat,
+            policy=self.overlap_policy,
+            threshold=self.overlap_threshold,
+        )
+        overlap_mask = np.asarray(overlap_mask, dtype=bool).ravel()
+        if overlap_mask.size != np.asarray(m_hat).size:
+            raise RuntimeError("Overlap mask has inconsistent length.")
+    
+        self.overlap_mask_ = overlap_mask.copy()
+        self.overlap_n_dropped_ = int(overlap_mask.size - int(np.sum(overlap_mask)))
+    
+        raw_m_hat = np.asarray(m_hat, dtype=float).ravel()
+        self._fit_overlap_policy_ = self.overlap_policy
+        self._fit_overlap_threshold_ = self.overlap_threshold
+        self.overlap_n_clipped_ = (
+            int(np.count_nonzero(raw_m_hat != m_policy))
+            if self.overlap_policy == "clip" else 0
+        )
+        if self.overlap_policy == "drop":
+            if not np.any(overlap_mask):
+                raise ValueError(
+                    "overlap_policy='drop' removed all observations. "
+                    "Lower overlap_threshold or use overlap_policy='clip'."
+                )
+            if self._y is not None:
+                self._y = self._y[overlap_mask]
+            if self._d is not None:
+                self._d = self._d[overlap_mask]
+                n_treated = int(np.sum(self._d == 1))
+                n_control = int(np.sum(self._d == 0))
+                if n_treated == 0 or n_control == 0:
+                    raise ValueError(
+                        "overlap_policy='drop' must retain at least one treated "
+                        "and one control observation."
+                    )
+            if self._X is not None:
+                self._X = self._X[overlap_mask]
+            if self._fit_index_ is not None:
+                self._fit_index_ = pd.Index(self._fit_index_[overlap_mask], name=self._fit_index_.name)
+            if self._fit_row_index_ is not None:
+                self._fit_row_index_ = pd.Index(
+                    self._fit_row_index_[overlap_mask],
+                    name=self._fit_row_index_.name,
+                )
+            g0_hat = np.asarray(g0_hat, dtype=float).ravel()[overlap_mask]
+            g1_hat = np.asarray(g1_hat, dtype=float).ravel()[overlap_mask]
+            folds = full_sample_folds[overlap_mask]
+            raw_m_hat = raw_m_hat[overlap_mask]
+        else:
+            folds = full_sample_folds
+    
+>       if self._fit_weights_full_ is not None:
+           ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'IRM' object has no attribute '_fit_weights_full_'
+
+causalis\scenarios\unconfoundedness\model.py:943: AttributeError
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-m--inf] _
+
+kind = 'binary', role = 'm', value = -inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(kind, role, value):
+        model = IRM() if kind == "binary" else MultiTreatmentIRM()
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(6), g1_hat=np.ones(6), m_hat=np.full(6, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            options = dict(folds=np.arange(6) % 2, feature_importance=None)
+        else:
+            predictions = dict(g_hat=np.ones((6, 3)), m_hat=np.full((6, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            options = dict(folds=np.arange(6) % 2)
+        with pytest.raises(RuntimeError, match="non-finite"):
+>           model._store_cross_fitted_predictions(**predictions, **options)
+
+tests\inference\test_nuisance_prediction_contract.py:127: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = IRM(status='unfitted', n_folds=4, random_state=None)
+g0_hat = array([1., 1., 1., 1., 1., 1.])
+g1_hat = array([1., 1., 1., 1., 1., 1.])
+m_hat = array([ 0.5,  0.5, -inf,  0.5,  0.5,  0.5])
+folds = array([0, 1, 0, 1, 0, 1]), feature_importance = None
+
+    def _store_cross_fitted_predictions(
+        self,
+        g0_hat: np.ndarray,
+        g1_hat: np.ndarray,
+        m_hat: np.ndarray,
+        folds: np.ndarray,
+        feature_importance: Optional[Dict[str, Any]],
+    ) -> None:
+        """Validate and store cross-fitted nuisance predictions."""
+        if (
+            np.any(np.isnan(m_hat))
+            or np.any(np.isnan(g0_hat))
+            or np.any(np.isnan(g1_hat))
+        ):
+            raise RuntimeError("Cross-fitted predictions contain NaN values.")
+    
+        full_sample_folds = np.asarray(folds, dtype=int).ravel()
+        if full_sample_folds.size != np.asarray(m_hat).size:
+            raise RuntimeError("Cross-fitting fold assignments have inconsistent length.")
+        # Sensitivity benchmark refits need the original fold assignment even
+        # when overlap_policy='drop' later removes rows from the estimation
+        # sample. This private cache is intentionally independent of the
+        # diagnostics storage setting; ``folds_`` keeps its existing semantics.
+        self._full_sample_folds_ = full_sample_folds.copy()
+    
+        m_policy, overlap_mask = _apply_overlap_policy(
+            m_hat,
+            policy=self.overlap_policy,
+            threshold=self.overlap_threshold,
+        )
+        overlap_mask = np.asarray(overlap_mask, dtype=bool).ravel()
+        if overlap_mask.size != np.asarray(m_hat).size:
+            raise RuntimeError("Overlap mask has inconsistent length.")
+    
+        self.overlap_mask_ = overlap_mask.copy()
+        self.overlap_n_dropped_ = int(overlap_mask.size - int(np.sum(overlap_mask)))
+    
+        raw_m_hat = np.asarray(m_hat, dtype=float).ravel()
+        self._fit_overlap_policy_ = self.overlap_policy
+        self._fit_overlap_threshold_ = self.overlap_threshold
+        self.overlap_n_clipped_ = (
+            int(np.count_nonzero(raw_m_hat != m_policy))
+            if self.overlap_policy == "clip" else 0
+        )
+        if self.overlap_policy == "drop":
+            if not np.any(overlap_mask):
+                raise ValueError(
+                    "overlap_policy='drop' removed all observations. "
+                    "Lower overlap_threshold or use overlap_policy='clip'."
+                )
+            if self._y is not None:
+                self._y = self._y[overlap_mask]
+            if self._d is not None:
+                self._d = self._d[overlap_mask]
+                n_treated = int(np.sum(self._d == 1))
+                n_control = int(np.sum(self._d == 0))
+                if n_treated == 0 or n_control == 0:
+                    raise ValueError(
+                        "overlap_policy='drop' must retain at least one treated "
+                        "and one control observation."
+                    )
+            if self._X is not None:
+                self._X = self._X[overlap_mask]
+            if self._fit_index_ is not None:
+                self._fit_index_ = pd.Index(self._fit_index_[overlap_mask], name=self._fit_index_.name)
+            if self._fit_row_index_ is not None:
+                self._fit_row_index_ = pd.Index(
+                    self._fit_row_index_[overlap_mask],
+                    name=self._fit_row_index_.name,
+                )
+            g0_hat = np.asarray(g0_hat, dtype=float).ravel()[overlap_mask]
+            g1_hat = np.asarray(g1_hat, dtype=float).ravel()[overlap_mask]
+            folds = full_sample_folds[overlap_mask]
+            raw_m_hat = raw_m_hat[overlap_mask]
+        else:
+            folds = full_sample_folds
+    
+>       if self._fit_weights_full_ is not None:
+           ^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'IRM' object has no attribute '_fit_weights_full_'
+
+causalis\scenarios\unconfoundedness\model.py:943: AttributeError
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-g-nan] _
+
+kind = 'multi', role = 'g', value = nan
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(kind, role, value):
+        model = IRM() if kind == "binary" else MultiTreatmentIRM()
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(6), g1_hat=np.ones(6), m_hat=np.full(6, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            options = dict(folds=np.arange(6) % 2, feature_importance=None)
+        else:
+            predictions = dict(g_hat=np.ones((6, 3)), m_hat=np.full((6, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            options = dict(folds=np.arange(6) % 2)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:126: AssertionError
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-g-inf] _
+
+kind = 'multi', role = 'g', value = inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(kind, role, value):
+        model = IRM() if kind == "binary" else MultiTreatmentIRM()
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(6), g1_hat=np.ones(6), m_hat=np.full(6, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            options = dict(folds=np.arange(6) % 2, feature_importance=None)
+        else:
+            predictions = dict(g_hat=np.ones((6, 3)), m_hat=np.full((6, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            options = dict(folds=np.arange(6) % 2)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:126: Failed
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-g--inf] _
+
+kind = 'multi', role = 'g', value = -inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(kind, role, value):
+        model = IRM() if kind == "binary" else MultiTreatmentIRM()
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(6), g1_hat=np.ones(6), m_hat=np.full(6, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            options = dict(folds=np.arange(6) % 2, feature_importance=None)
+        else:
+            predictions = dict(g_hat=np.ones((6, 3)), m_hat=np.full((6, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            options = dict(folds=np.arange(6) % 2)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:126: Failed
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-m-nan] _
+
+kind = 'multi', role = 'm', value = nan
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(kind, role, value):
+        model = IRM() if kind == "binary" else MultiTreatmentIRM()
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(6), g1_hat=np.ones(6), m_hat=np.full(6, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            options = dict(folds=np.arange(6) % 2, feature_importance=None)
+        else:
+            predictions = dict(g_hat=np.ones((6, 3)), m_hat=np.full((6, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            options = dict(folds=np.arange(6) % 2)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:126: AssertionError
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-m-inf] _
+
+kind = 'multi', role = 'm', value = inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(kind, role, value):
+        model = IRM() if kind == "binary" else MultiTreatmentIRM()
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(6), g1_hat=np.ones(6), m_hat=np.full(6, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            options = dict(folds=np.arange(6) % 2, feature_importance=None)
+        else:
+            predictions = dict(g_hat=np.ones((6, 3)), m_hat=np.full((6, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            options = dict(folds=np.arange(6) % 2)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:126: Failed
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-m--inf] _
+
+kind = 'multi', role = 'm', value = -inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(kind, role, value):
+        model = IRM() if kind == "binary" else MultiTreatmentIRM()
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(6), g1_hat=np.ones(6), m_hat=np.full(6, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            options = dict(folds=np.arange(6) % 2, feature_importance=None)
+        else:
+            predictions = dict(g_hat=np.ones((6, 3)), m_hat=np.full((6, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            options = dict(folds=np.arange(6) % 2)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:126: Failed
+============================== warnings summary ===============================
+tests/inference/test_nuisance_prediction_contract.py: 36 warnings
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\_utils.py:98: RuntimeWarning: Propensity model produced values outside [0, 1]. Consider using a classifier or a model with a logistic link.
+    warnings.warn(
+
+tests/inference/test_nuisance_prediction_contract.py: 12 warnings
+  D:\codex\Causalis\causalis\scenarios\multi_unconfoundedness\_utils.py:78: RuntimeWarning: Propensity model produced values outside [0, 1]. Values are clipped and renormalized row-wise.
+    warnings.warn(
+
+tests/inference/test_nuisance_prediction_contract.py: 12 warnings
+  D:\codex\Causalis\causalis\scenarios\multi_unconfoundedness\_utils.py:88: RuntimeWarning: Propensity probabilities do not sum to 1. Values are renormalized row-wise.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1-nan-g_continuous-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1-nan-g_continuous-multi]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1-nan-g_continuous-iv]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1-nan-g_binary-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1-nan-g_binary-multi]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1-nan-g_binary-iv]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1-nan-m-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1-nan-m-multi]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1-nan-m-iv]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1-inf-g_continuous-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1-inf-g_continuous-multi]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1-inf-g_continuous-iv]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1-inf-g_binary-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1-inf-g_binary-multi]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1-inf-g_binary-iv]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1-inf-m-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1-inf-m-multi]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1-inf-m-iv]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1--inf-g_continuous-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1--inf-g_continuous-multi]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1--inf-g_continuous-iv]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1--inf-g_binary-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1--inf-g_binary-multi]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1--inf-g_binary-iv]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1--inf-m-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1--inf-m-multi]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[1--inf-m-iv]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2-nan-g_continuous-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2-nan-g_continuous-multi]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2-nan-g_continuous-iv]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2-nan-g_binary-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2-nan-g_binary-multi]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2-nan-g_binary-iv]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2-nan-m-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2-nan-m-multi]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2-nan-m-iv]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2-inf-g_continuous-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2-inf-g_continuous-multi]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2-inf-g_continuous-iv]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2-inf-g_binary-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2-inf-g_binary-multi]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2-inf-g_binary-iv]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2-inf-m-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2-inf-m-multi]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2-inf-m-iv]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2--inf-g_continuous-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2--inf-g_continuous-multi]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2--inf-g_continuous-iv]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2--inf-g_binary-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2--inf-g_binary-multi]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2--inf-g_binary-iv]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2--inf-m-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2--inf-m-multi]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_fit_rejects_nonfinite_raw_nuisance_predictions[2--inf-m-iv]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_iv_shared_helper_rejects_invalid_treatment_nuisance[1-nan]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_iv_shared_helper_rejects_invalid_treatment_nuisance[1-inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_iv_shared_helper_rejects_invalid_treatment_nuisance[1--inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_iv_shared_helper_rejects_invalid_treatment_nuisance[2-nan]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_iv_shared_helper_rejects_invalid_treatment_nuisance[2-inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_iv_shared_helper_rejects_invalid_treatment_nuisance[2--inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_validate_complete_probability_output_before_selecting_class_one[binary-nan]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_validate_complete_probability_output_before_selecting_class_one[binary-inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_validate_complete_probability_output_before_selecting_class_one[binary--inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_validate_complete_probability_output_before_selecting_class_one[multi-nan]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_validate_complete_probability_output_before_selecting_class_one[multi-inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_validate_complete_probability_output_before_selecting_class_one[multi--inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g0-nan]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g0-inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g0--inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g1-nan]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g1-inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g1--inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-m-nan]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-m-inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-m--inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-g-nan]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-g-inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-g--inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-m-nan]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-m-inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-m--inf]
+81 failed, 13 passed, 60 warnings in 15.45s

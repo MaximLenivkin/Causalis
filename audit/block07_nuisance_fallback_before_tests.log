@@ -1,0 +1,88 @@
+FFFFFF....                                                               [100%]
+================================== FAILURES ===================================
+_ test_public_fit_rejects_nonfinite_hard_label_probability_fallback[nan-binary] _
+
+kind = 'binary', value = nan
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_public_fit_rejects_nonfinite_hard_label_probability_fallback(kind, value):
+        model = estimator(kind, dataset(kind), m=UnlabelledSingleColumnClassifier(value))
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:119: Failed
+__ test_public_fit_rejects_nonfinite_hard_label_probability_fallback[nan-iv] __
+
+kind = 'iv', value = nan
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_public_fit_rejects_nonfinite_hard_label_probability_fallback(kind, value):
+        model = estimator(kind, dataset(kind), m=UnlabelledSingleColumnClassifier(value))
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:119: Failed
+_ test_public_fit_rejects_nonfinite_hard_label_probability_fallback[inf-binary] _
+
+kind = 'binary', value = inf
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_public_fit_rejects_nonfinite_hard_label_probability_fallback(kind, value):
+        model = estimator(kind, dataset(kind), m=UnlabelledSingleColumnClassifier(value))
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:119: Failed
+__ test_public_fit_rejects_nonfinite_hard_label_probability_fallback[inf-iv] __
+
+kind = 'iv', value = inf
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_public_fit_rejects_nonfinite_hard_label_probability_fallback(kind, value):
+        model = estimator(kind, dataset(kind), m=UnlabelledSingleColumnClassifier(value))
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:119: Failed
+_ test_public_fit_rejects_nonfinite_hard_label_probability_fallback[-inf-binary] _
+
+kind = 'binary', value = -inf
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_public_fit_rejects_nonfinite_hard_label_probability_fallback(kind, value):
+        model = estimator(kind, dataset(kind), m=UnlabelledSingleColumnClassifier(value))
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:119: Failed
+_ test_public_fit_rejects_nonfinite_hard_label_probability_fallback[-inf-iv] __
+
+kind = 'iv', value = -inf
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    def test_public_fit_rejects_nonfinite_hard_label_probability_fallback(kind, value):
+        model = estimator(kind, dataset(kind), m=UnlabelledSingleColumnClassifier(value))
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:119: Failed
+=========================== short test summary info ===========================
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_public_fit_rejects_nonfinite_hard_label_probability_fallback[nan-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_public_fit_rejects_nonfinite_hard_label_probability_fallback[nan-iv]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_public_fit_rejects_nonfinite_hard_label_probability_fallback[inf-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_public_fit_rejects_nonfinite_hard_label_probability_fallback[inf-iv]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_public_fit_rejects_nonfinite_hard_label_probability_fallback[-inf-binary]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_public_fit_rejects_nonfinite_hard_label_probability_fallback[-inf-iv]
+6 failed, 4 passed, 94 deselected in 11.08s

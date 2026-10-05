@@ -47,9 +47,11 @@ def _binary_label_is_one(label: Any) -> Optional[bool]:
 
 
 def _predict_prob_or_value(model, X: np.ndarray, is_propensity: bool = False) -> np.ndarray:
-    """Predict probabilities or values using a model."""
+    """Predict finite probabilities or values before applying probability bounds."""
     if _safe_is_classifier(model) and hasattr(model, "predict_proba"):
-        proba = np.asarray(model.predict_proba(X))
+        proba = np.asarray(model.predict_proba(X), dtype=float)
+        if not np.all(np.isfinite(proba)):
+            raise RuntimeError("Model predict_proba() produced non-finite values.")
         if proba.ndim == 1:
             # Assume this is already P(class=1).
             res = proba.ravel()
@@ -72,9 +74,12 @@ def _predict_prob_or_value(model, X: np.ndarray, is_propensity: bool = False) ->
                     pred = np.asarray(model.predict(X)).ravel()
                     try:
                         pred_f = pred.astype(float)
-                        res = np.where(np.isclose(pred_f, 1.0), 1.0, 0.0)
                     except (TypeError, ValueError):
                         res = proba[:, 0]
+                    else:
+                        if not np.all(np.isfinite(pred_f)):
+                            raise RuntimeError("Model predict() fallback produced non-finite values.")
+                        res = np.where(np.isclose(pred_f, 1.0), 1.0, 0.0)
                 else:
                     res = proba[:, 0]
         else:
@@ -93,6 +98,8 @@ def _predict_prob_or_value(model, X: np.ndarray, is_propensity: bool = False) ->
         res = model.predict(X)
 
     res = np.asarray(res, dtype=float).ravel()
+    if not np.all(np.isfinite(res)):
+        raise RuntimeError("Model predictions contain non-finite values.")
     if is_propensity:
         if np.any((res < -1e-12) | (res > 1.0 + 1e-12)):
             warnings.warn(

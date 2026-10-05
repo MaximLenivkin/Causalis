@@ -485,8 +485,8 @@ class MultiTreatmentIRM(BaseEstimator):
         folds: np.ndarray,
     ) -> None:
         """Validate and store cross-fitted nuisance predictions."""
-        if np.any(np.isnan(m_hat)) or np.any(np.isnan(g_hat)):
-            raise RuntimeError("Cross-fitted predictions contain NaN values.")
+        if not np.all(np.isfinite(m_hat)) or not np.all(np.isfinite(g_hat)):
+            raise RuntimeError("Cross-fitted predictions contain non-finite values.")
         self.g_hat_ = g_hat
         self.m_hat_ = _trim_multiclass_propensity(m_hat, self.trimming_threshold)
         if self.store_diagnostics:
@@ -522,6 +522,8 @@ class MultiTreatmentIRM(BaseEstimator):
     def _predict_binary_outcome_probability(self, model_g, X: np.ndarray) -> np.ndarray:
         """Predict P(Y=1|X,D=k) robustly across binary classifier APIs."""
         pred_g = np.asarray(model_g.predict_proba(X), dtype=float)
+        if not np.all(np.isfinite(pred_g)):
+            raise RuntimeError("Outcome model predict_proba() produced non-finite values.")
         if pred_g.ndim == 2:
             g_classes = np.asarray(getattr(model_g, "classes_", np.array([0, 1])))
             if 1 in g_classes:
@@ -574,6 +576,8 @@ class MultiTreatmentIRM(BaseEstimator):
             pred_g = self._predict_binary_outcome_probability(model_g, X_te)
         else:
             pred_g = np.asarray(model_g.predict(X_te), dtype=float).ravel()
+        if not np.all(np.isfinite(pred_g)):
+            raise RuntimeError("Outcome nuisance predictions contain non-finite values.")
         if y_is_binary:
             pred_g = np.clip(pred_g, 1e-12, 1 - 1e-12)
         return pred_g
@@ -676,8 +680,8 @@ class MultiTreatmentIRM(BaseEstimator):
             g_hat[test_idx] = g_te
             m_hat[test_idx] = m_te
 
-        if np.any(np.isnan(m_hat)) or np.any(np.isnan(g_hat)):
-            raise RuntimeError("Cross-fitted predictions contain NaN values.")
+        if not np.all(np.isfinite(m_hat)) or not np.all(np.isfinite(g_hat)):
+            raise RuntimeError("Cross-fitted predictions contain non-finite values.")
         return g_hat, m_hat, folds
 
     def fit(

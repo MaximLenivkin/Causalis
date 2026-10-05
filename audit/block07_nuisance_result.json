@@ -1,0 +1,61 @@
+{
+  "baseline_commit": "c234e647e010f5d8bfb805af7ece61392e327537",
+  "python": "3.12.14",
+  "native_threads": 1,
+  "sensitivity_targeted": false,
+  "runs": {
+    "corrected_main_baseline": {
+      "tests": 94,
+      "failed": 81,
+      "passed": 13,
+      "errors": 0,
+      "skipped": 0,
+      "old_nan_message_only": 25,
+      "missing_rejection": 50,
+      "unprepared_private_storage_metadata": 6,
+      "new_case_count": 94
+    },
+    "exact_previous_storage_public_fit": {
+      "tests": 15,
+      "failed": 15,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 0,
+      "old_nan_message_only": 5,
+      "missing_rejection": 10,
+      "new_case_count": 15
+    },
+    "fallback_before_extra_fix": {
+      "tests": 10,
+      "failed": 6,
+      "passed": 4,
+      "errors": 0,
+      "skipped": 0,
+      "missing_rejection": 6,
+      "new_case_count": 10
+    },
+    "first_fix_and_neighbors": {
+      "tests": 222,
+      "passed": 222,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "new_case_count": 94
+    },
+    "final_fix_and_neighbors": {
+      "tests": 191,
+      "passed": 191,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "new_case_count": 104
+    }
+  },
+  "source_sha256": {
+    "causalis/scenarios/unconfoundedness/_utils.py": "916fa855cd858ce4e3ea4a660c93645b494b4ce4f30ee7a07f8c22bbd1313550",
+    "causalis/scenarios/unconfoundedness/model.py": "e15f7e9bf6b63c9f2a7cc6c3f340ef1a7efbd7bdb9e672637399e6ad0f796736",
+    "causalis/scenarios/multi_unconfoundedness/_utils.py": "9a2ded1161d3f7ce184f76938307f1831ef4ac308f9f295dd1cc1026c375b55d",
+    "causalis/scenarios/multi_unconfoundedness/model.py": "941308cbaeaa628bc796ec7e60d853d01f0e20abfe38ce831cae8034bd5f7f81",
+    "tests/inference/test_nuisance_prediction_contract.py": "e23b442561dcca1962e2097b2a3b9413c57b3db8bd9ad6cb79c7cbede53f731a"
+  }
+}

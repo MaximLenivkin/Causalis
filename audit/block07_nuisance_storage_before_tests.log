@@ -1,0 +1,434 @@
+FFFFFFFFFFFFFFF                                                          [100%]
+================================== FAILURES ===================================
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g0-nan] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000015F03315AF0>
+kind = 'binary', role = 'g0', value = nan
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(monkeypatch, kind, role, value):
+        model = estimator(kind, dataset(kind))
+        n = len(model.data.df)
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(n), g1_hat=np.ones(n), m_hat=np.full(n, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            outputs = (predictions["g0_hat"], predictions["g1_hat"], predictions["m_hat"],
+                       np.arange(n) % 3, None)
+        else:
+            predictions = dict(g_hat=np.ones((n, 3)), m_hat=np.full((n, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            outputs = (predictions["g_hat"], predictions["m_hat"], np.arange(n) % 3)
+        monkeypatch.setattr(model, "_cross_fit_nuisances", lambda **kwargs: outputs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:129: AssertionError
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g0-inf] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000015F03315BB0>
+kind = 'binary', role = 'g0', value = inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(monkeypatch, kind, role, value):
+        model = estimator(kind, dataset(kind))
+        n = len(model.data.df)
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(n), g1_hat=np.ones(n), m_hat=np.full(n, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            outputs = (predictions["g0_hat"], predictions["g1_hat"], predictions["m_hat"],
+                       np.arange(n) % 3, None)
+        else:
+            predictions = dict(g_hat=np.ones((n, 3)), m_hat=np.full((n, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            outputs = (predictions["g_hat"], predictions["m_hat"], np.arange(n) % 3)
+        monkeypatch.setattr(model, "_cross_fit_nuisances", lambda **kwargs: outputs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:129: Failed
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g0--inf] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000015F03315610>
+kind = 'binary', role = 'g0', value = -inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(monkeypatch, kind, role, value):
+        model = estimator(kind, dataset(kind))
+        n = len(model.data.df)
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(n), g1_hat=np.ones(n), m_hat=np.full(n, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            outputs = (predictions["g0_hat"], predictions["g1_hat"], predictions["m_hat"],
+                       np.arange(n) % 3, None)
+        else:
+            predictions = dict(g_hat=np.ones((n, 3)), m_hat=np.full((n, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            outputs = (predictions["g_hat"], predictions["m_hat"], np.arange(n) % 3)
+        monkeypatch.setattr(model, "_cross_fit_nuisances", lambda **kwargs: outputs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:129: Failed
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g1-nan] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000015F03316F90>
+kind = 'binary', role = 'g1', value = nan
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(monkeypatch, kind, role, value):
+        model = estimator(kind, dataset(kind))
+        n = len(model.data.df)
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(n), g1_hat=np.ones(n), m_hat=np.full(n, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            outputs = (predictions["g0_hat"], predictions["g1_hat"], predictions["m_hat"],
+                       np.arange(n) % 3, None)
+        else:
+            predictions = dict(g_hat=np.ones((n, 3)), m_hat=np.full((n, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            outputs = (predictions["g_hat"], predictions["m_hat"], np.arange(n) % 3)
+        monkeypatch.setattr(model, "_cross_fit_nuisances", lambda **kwargs: outputs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:129: AssertionError
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g1-inf] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000015F033146E0>
+kind = 'binary', role = 'g1', value = inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(monkeypatch, kind, role, value):
+        model = estimator(kind, dataset(kind))
+        n = len(model.data.df)
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(n), g1_hat=np.ones(n), m_hat=np.full(n, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            outputs = (predictions["g0_hat"], predictions["g1_hat"], predictions["m_hat"],
+                       np.arange(n) % 3, None)
+        else:
+            predictions = dict(g_hat=np.ones((n, 3)), m_hat=np.full((n, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            outputs = (predictions["g_hat"], predictions["m_hat"], np.arange(n) % 3)
+        monkeypatch.setattr(model, "_cross_fit_nuisances", lambda **kwargs: outputs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:129: Failed
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g1--inf] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000015F03316F30>
+kind = 'binary', role = 'g1', value = -inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(monkeypatch, kind, role, value):
+        model = estimator(kind, dataset(kind))
+        n = len(model.data.df)
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(n), g1_hat=np.ones(n), m_hat=np.full(n, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            outputs = (predictions["g0_hat"], predictions["g1_hat"], predictions["m_hat"],
+                       np.arange(n) % 3, None)
+        else:
+            predictions = dict(g_hat=np.ones((n, 3)), m_hat=np.full((n, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            outputs = (predictions["g_hat"], predictions["m_hat"], np.arange(n) % 3)
+        monkeypatch.setattr(model, "_cross_fit_nuisances", lambda **kwargs: outputs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:129: Failed
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-m-nan] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000015F033E3740>
+kind = 'binary', role = 'm', value = nan
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(monkeypatch, kind, role, value):
+        model = estimator(kind, dataset(kind))
+        n = len(model.data.df)
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(n), g1_hat=np.ones(n), m_hat=np.full(n, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            outputs = (predictions["g0_hat"], predictions["g1_hat"], predictions["m_hat"],
+                       np.arange(n) % 3, None)
+        else:
+            predictions = dict(g_hat=np.ones((n, 3)), m_hat=np.full((n, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            outputs = (predictions["g_hat"], predictions["m_hat"], np.arange(n) % 3)
+        monkeypatch.setattr(model, "_cross_fit_nuisances", lambda **kwargs: outputs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:129: AssertionError
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-m-inf] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000015F033E0AA0>
+kind = 'binary', role = 'm', value = inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(monkeypatch, kind, role, value):
+        model = estimator(kind, dataset(kind))
+        n = len(model.data.df)
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(n), g1_hat=np.ones(n), m_hat=np.full(n, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            outputs = (predictions["g0_hat"], predictions["g1_hat"], predictions["m_hat"],
+                       np.arange(n) % 3, None)
+        else:
+            predictions = dict(g_hat=np.ones((n, 3)), m_hat=np.full((n, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            outputs = (predictions["g_hat"], predictions["m_hat"], np.arange(n) % 3)
+        monkeypatch.setattr(model, "_cross_fit_nuisances", lambda **kwargs: outputs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:129: Failed
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-m--inf] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000015F033E16D0>
+kind = 'binary', role = 'm', value = -inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(monkeypatch, kind, role, value):
+        model = estimator(kind, dataset(kind))
+        n = len(model.data.df)
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(n), g1_hat=np.ones(n), m_hat=np.full(n, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            outputs = (predictions["g0_hat"], predictions["g1_hat"], predictions["m_hat"],
+                       np.arange(n) % 3, None)
+        else:
+            predictions = dict(g_hat=np.ones((n, 3)), m_hat=np.full((n, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            outputs = (predictions["g_hat"], predictions["m_hat"], np.arange(n) % 3)
+        monkeypatch.setattr(model, "_cross_fit_nuisances", lambda **kwargs: outputs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:129: Failed
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-g-nan] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000015F033E25A0>
+kind = 'multi', role = 'g', value = nan
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(monkeypatch, kind, role, value):
+        model = estimator(kind, dataset(kind))
+        n = len(model.data.df)
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(n), g1_hat=np.ones(n), m_hat=np.full(n, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            outputs = (predictions["g0_hat"], predictions["g1_hat"], predictions["m_hat"],
+                       np.arange(n) % 3, None)
+        else:
+            predictions = dict(g_hat=np.ones((n, 3)), m_hat=np.full((n, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            outputs = (predictions["g_hat"], predictions["m_hat"], np.arange(n) % 3)
+        monkeypatch.setattr(model, "_cross_fit_nuisances", lambda **kwargs: outputs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:129: AssertionError
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-g-inf] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000015F0340F3E0>
+kind = 'multi', role = 'g', value = inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(monkeypatch, kind, role, value):
+        model = estimator(kind, dataset(kind))
+        n = len(model.data.df)
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(n), g1_hat=np.ones(n), m_hat=np.full(n, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            outputs = (predictions["g0_hat"], predictions["g1_hat"], predictions["m_hat"],
+                       np.arange(n) % 3, None)
+        else:
+            predictions = dict(g_hat=np.ones((n, 3)), m_hat=np.full((n, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            outputs = (predictions["g_hat"], predictions["m_hat"], np.arange(n) % 3)
+        monkeypatch.setattr(model, "_cross_fit_nuisances", lambda **kwargs: outputs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:129: Failed
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-g--inf] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000015F0340C260>
+kind = 'multi', role = 'g', value = -inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(monkeypatch, kind, role, value):
+        model = estimator(kind, dataset(kind))
+        n = len(model.data.df)
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(n), g1_hat=np.ones(n), m_hat=np.full(n, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            outputs = (predictions["g0_hat"], predictions["g1_hat"], predictions["m_hat"],
+                       np.arange(n) % 3, None)
+        else:
+            predictions = dict(g_hat=np.ones((n, 3)), m_hat=np.full((n, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            outputs = (predictions["g_hat"], predictions["m_hat"], np.arange(n) % 3)
+        monkeypatch.setattr(model, "_cross_fit_nuisances", lambda **kwargs: outputs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:129: Failed
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-m-nan] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000015F0340D5E0>
+kind = 'multi', role = 'm', value = nan
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(monkeypatch, kind, role, value):
+        model = estimator(kind, dataset(kind))
+        n = len(model.data.df)
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(n), g1_hat=np.ones(n), m_hat=np.full(n, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            outputs = (predictions["g0_hat"], predictions["g1_hat"], predictions["m_hat"],
+                       np.arange(n) % 3, None)
+        else:
+            predictions = dict(g_hat=np.ones((n, 3)), m_hat=np.full((n, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            outputs = (predictions["g_hat"], predictions["m_hat"], np.arange(n) % 3)
+        monkeypatch.setattr(model, "_cross_fit_nuisances", lambda **kwargs: outputs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'non-finite'
+E         Actual message: 'Cross-fitted predictions contain NaN values.'
+
+tests\inference\test_nuisance_prediction_contract.py:129: AssertionError
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-m-inf] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000015F0340E4E0>
+kind = 'multi', role = 'm', value = inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(monkeypatch, kind, role, value):
+        model = estimator(kind, dataset(kind))
+        n = len(model.data.df)
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(n), g1_hat=np.ones(n), m_hat=np.full(n, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            outputs = (predictions["g0_hat"], predictions["g1_hat"], predictions["m_hat"],
+                       np.arange(n) % 3, None)
+        else:
+            predictions = dict(g_hat=np.ones((n, 3)), m_hat=np.full((n, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            outputs = (predictions["g_hat"], predictions["m_hat"], np.arange(n) % 3)
+        monkeypatch.setattr(model, "_cross_fit_nuisances", lambda **kwargs: outputs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:129: Failed
+_ test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-m--inf] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000015F0348F110>
+kind = 'multi', role = 'm', value = -inf
+
+    @pytest.mark.parametrize("value", [np.nan, np.inf, -np.inf])
+    @pytest.mark.parametrize("kind,role", [
+        ("binary", "g0"), ("binary", "g1"), ("binary", "m"),
+        ("multi", "g"), ("multi", "m")])
+    def test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed(monkeypatch, kind, role, value):
+        model = estimator(kind, dataset(kind))
+        n = len(model.data.df)
+        if kind == "binary":
+            predictions = dict(g0_hat=np.ones(n), g1_hat=np.ones(n), m_hat=np.full(n, .5))
+            predictions[{"g0": "g0_hat", "g1": "g1_hat", "m": "m_hat"}[role]][2] = value
+            outputs = (predictions["g0_hat"], predictions["g1_hat"], predictions["m_hat"],
+                       np.arange(n) % 3, None)
+        else:
+            predictions = dict(g_hat=np.ones((n, 3)), m_hat=np.full((n, 3), 1 / 3))
+            predictions["g_hat" if role == "g" else "m_hat"][2, 1] = value
+            outputs = (predictions["g_hat"], predictions["m_hat"], np.arange(n) % 3)
+        monkeypatch.setattr(model, "_cross_fit_nuisances", lambda **kwargs: outputs)
+>       with pytest.raises(RuntimeError, match="non-finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\inference\test_nuisance_prediction_contract.py:129: Failed
+=========================== short test summary info ===========================
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g0-nan]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g0-inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g0--inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g1-nan]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g1-inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-g1--inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-m-nan]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-m-inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[binary-m--inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-g-nan]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-g-inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-g--inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-m-nan]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-m-inf]
+FAILED tests/inference/test_nuisance_prediction_contract.py::test_cross_fit_storage_rejects_nonfinite_values_even_if_fold_helper_is_bypassed[multi-m--inf]
+15 failed, 79 deselected in 2.39s

@@ -36,6 +36,8 @@ def _predict_propensity_matrix(model, X: np.ndarray, n_treatments: int) -> np.nd
         raise ValueError("ml_m must be a probabilistic classifier exposing predict_proba().")
 
     proba = np.asarray(model.predict_proba(X), dtype=float)
+    if not np.all(np.isfinite(proba)):
+        raise RuntimeError("Propensity model predict_proba() produced non-finite values.")
     if proba.ndim != 2:
         raise ValueError(
             f"ml_m.predict_proba() must return 2D array (n, K). Got shape {proba.shape}."

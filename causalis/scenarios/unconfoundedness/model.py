@@ -873,11 +873,11 @@ class IRM(BaseEstimator):
     ) -> None:
         """Validate and store cross-fitted nuisance predictions."""
         if (
-            np.any(np.isnan(m_hat))
-            or np.any(np.isnan(g0_hat))
-            or np.any(np.isnan(g1_hat))
+            not np.all(np.isfinite(m_hat))
+            or not np.all(np.isfinite(g0_hat))
+            or not np.all(np.isfinite(g1_hat))
         ):
-            raise RuntimeError("Cross-fitted predictions contain NaN values.")
+            raise RuntimeError("Cross-fitted predictions contain non-finite values.")
 
         full_sample_folds = np.asarray(folds, dtype=int).ravel()
         if full_sample_folds.size != np.asarray(m_hat).size:

@@ -1,0 +1,23 @@
+........................................................................ [ 32%]
+........................................................................ [ 64%]
+........................................................................ [ 97%]
+......                                                                   [100%]
+============================== warnings summary ===============================
+tests/inference/test_irm_estimator.py::test_irm_ate_runs_and_shapes
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=5.351e-02 is within 1.96 SE of 0 (SE=7.132e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_irm_parallel_fit.py::test_parallel_cross_fit_matches_sequential
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=6.832e-02 is within 1.96 SE of 0 (SE=9.823e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/data/test_diagnostic_data_storage.py::test_dml_ate_returns_diagnostic_data
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=1.307e-01 is within 1.64 SE of 0 (SE=1.442e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/data/test_diagnostic_data_storage.py::test_dml_att_returns_diagnostic_data
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=3.238e-01 is within 1.64 SE of 0 (SE=2.800e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+222 passed, 4 warnings in 20.90s
