@@ -1,0 +1,48 @@
+{
+  "pydantic_requirement": "pydantic>=2",
+  "pydantic_v1_rejected": true,
+  "matrix": [
+    {
+      "python": "3.10",
+      "stack": "latest"
+    },
+    {
+      "python": "3.11",
+      "stack": "latest"
+    },
+    {
+      "python": "3.12",
+      "stack": "latest"
+    },
+    {
+      "python": "3.13",
+      "stack": "latest"
+    },
+    {
+      "python": "3.14",
+      "stack": "latest"
+    },
+    {
+      "python": "3.10",
+      "stack": "legacy"
+    }
+  ],
+  "release_full_pytest_before_build": true,
+  "release_publish_dependencies_preserved": true,
+  "annotated_tag_main_and_version_guards_preserved": true,
+  "correctness_excluded_modules": [
+    "tests/refutation/test_multi_sensitivity_benchmark.py",
+    "tests/refutation/test_sensitivity_benchmark.py",
+    "tests/refutation/test_sensitivity_combination.py",
+    "tests/refutation/test_sensitivity_integration_irm.py",
+    "tests/refutation/test_sensitivity_protocol.py",
+    "tests/refutation/test_sensitivity_rv_signed_rr.py",
+    "tests/refutation/test_trim_sensitivity_ate.py"
+  ],
+  "python_ast_checked": [
+    "scripts/run_tests.py",
+    "tests/test_compatibility_ci_runner.py"
+  ],
+  "issues": [],
+  "actual_matrix_runs": "not claimed by this static check"
+}

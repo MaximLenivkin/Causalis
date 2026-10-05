@@ -1,0 +1,79 @@
+name: Compatibility and scoped correctness
+
+on:
+  push:
+    branches: [main, "codex/**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: compatibility-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  correctness:
+    name: Python ${{ matrix.python }} / ${{ matrix.stack }} (sensitivity deferred)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {python: "3.10", stack: latest}
+          - {python: "3.11", stack: latest}
+          - {python: "3.12", stack: latest}
+          - {python: "3.13", stack: latest}
+          - {python: "3.14", stack: latest}
+          - {python: "3.10", stack: legacy}
+    env:
+      MPLBACKEND: Agg
+      MPLCONFIGDIR: build/matplotlib
+      PYTEST_ADDOPTS: ""
+      SKIP_DOCS_BUILD: "false"
+      OMP_NUM_THREADS: "1"
+      OPENBLAS_NUM_THREADS: "1"
+      MKL_NUM_THREADS: "1"
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Create project environment
+        run: python -m venv .venv
+
+      - name: Install latest compatible dependencies
+        if: matrix.stack == 'latest'
+        run: |
+          .venv/bin/python -m pip install --upgrade pip
+          .venv/bin/python -m pip install --upgrade -e ".[dev,docs]"
+
+      - name: Install representative older dependencies
+        if: matrix.stack == 'legacy'
+        run: |
+          .venv/bin/python -m pip install --upgrade pip
+          .venv/bin/python -m pip install --upgrade -c scripts/ci-legacy-constraints.txt -e ".[dev,docs]"
+
+      - name: Check installed dependency consistency
+        run: .venv/bin/python -m pip check
+
+      - name: Run correctness suite with explicit sensitivity deferrals
+        run: .venv/bin/python scripts/run_tests.py --scope correctness
+
+      - name: Save environment and pytest evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: correctness-py${{ matrix.python }}-${{ matrix.stack }}
+          path: |
+            build/ci-tests/selection.json
+            build/ci-tests/result.json
+            build/ci-tests/junit.xml
+          if-no-files-found: warn

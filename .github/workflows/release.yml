@@ -32,16 +32,22 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install release tooling
+      - name: Create project environment
+        run: python -m venv .venv
+
+      - name: Install release tooling and test dependencies
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install --upgrade build twine "setuptools-scm[toml]>=8" ".[dev]"
+          .venv/bin/python -m pip install --upgrade pip
+          .venv/bin/python -m pip install --upgrade build twine "setuptools-scm[toml]>=8" ".[dev,docs]"
+
+      - name: Check installed dependency consistency
+        run: .venv/bin/python -m pip check
 
       - name: Verify release tag
         env:
           RELEASE_TAG: ${{ github.ref_name }}
         run: |
-          python - <<'PY'
+          .venv/bin/python - <<'PY'
           import os
           import re
           import subprocess
@@ -84,11 +90,33 @@ jobs:
           print(f"Releasing causalis {version}")
           PY
 
+      - name: Run complete release test suite
+        env:
+          MPLBACKEND: Agg
+          MPLCONFIGDIR: ${{ runner.temp }}/matplotlib
+          PYTEST_ADDOPTS: ""
+          SKIP_DOCS_BUILD: "false"
+          OMP_NUM_THREADS: "1"
+          OPENBLAS_NUM_THREADS: "1"
+          MKL_NUM_THREADS: "1"
+        run: .venv/bin/python scripts/run_tests.py --scope full
+
+      - name: Save release pytest evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-test-evidence
+          path: |
+            build/ci-tests/selection.json
+            build/ci-tests/result.json
+            build/ci-tests/junit.xml
+          if-no-files-found: warn
+
       - name: Build distributions
-        run: python -m build
+        run: .venv/bin/python -m build
 
       - name: Check package metadata
-        run: python -m twine check --strict dist/*
+        run: .venv/bin/python -m twine check --strict dist/*
 
       - name: Upload distributions
         uses: actions/upload-artifact@v7

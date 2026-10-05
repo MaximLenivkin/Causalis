@@ -50,7 +50,7 @@ dependencies = [
     "scipy",
     "statsmodels",
     "scikit-learn",
-    "pydantic",
+    "pydantic>=2",
     "catboost"
 ]
 
