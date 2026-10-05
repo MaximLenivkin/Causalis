@@ -1,6 +1,6 @@
 # B05 — CUPED / IV / SCM
 
-Работа начата 2026-10-05 от `c55909491c8c50d603a8bf348b4beca11b623e02`, branch `codex/correctness-roadmap`. Исходный аудит сохраняется без изменений. Sensitivity modules, tests, formulas и SCM leave-one-out sensitivity отложены по инструкции пользователя.
+**B05 завершён.** Работа 2026-10-05 от `c55909491c8c50d603a8bf348b4beca11b623e02`, branch `codex/correctness-roadmap`. **1376 passed,0failed,77warnings,438.20s** в repository integration вне7deferred sensitivity modules. SC-06/07/09/12 закрыты; SC-08 только placebo, LOO deferred. Исходный аудит сохраняется без изменений. Sensitivity modules, tests, formulas и SCM leave-one-out sensitivity отложены по инструкции пользователя.
 
 ## Этапы
 
@@ -39,3 +39,38 @@ Max point discrepancy1.58e-14; maxSE3.47e-18. [Raw summary](D:/codex/Causalis/au
 ### Пределы numerical correction
 
 Raw-control relative CI сохраняет прежнюю HC scaling/calibration policy, не пересматривает joint inference. Near-zero denominators, h≈1/residualdf≈0 и extreme condition не получают новых гарантий. Rank/drop thresholds по-прежнему scale-dependent. Installed statsmodels0.15.0 проверен; version matrix, broad pandas/memory benchmarks и новых causal coverage guarantees нет. Это задачи B06/отдельных methodology blocks.
+
+## SC-09: IV diagnostics и refit state
+
+Общий resolver принимает model.result_, estimate и diagnostic payload во всех4entrypoints. Lazy computations получают options/LATE из сохранённого estimate. Unfitted/fit-only/wrong payload возвращают понятные ошибки. Necessary adjacent fix: каждая fit attempt очищает26own fitted/inference attributes, поэтому failed refit не допускает stale estimate/properties; сохранённые estimates остаются доступными. Nuisance/score/inference formulas не менялись.
+
+Новые60cases и13neighbors: **73 passed**,19.33s. Исходный31APIcase baseline15failed/16passed;16lifecyclecases beforeguard14failed/2passed. Исторический probe теперь принимает first_stage(model), table7×5, прежнийLATE2.0599090331725676. [IV notes](D:/codex/Causalis/audit/B05_IV_NOTES.md), [result manifest](D:/codex/Causalis/audit/block05_iv_result.json), [final log](D:/codex/Causalis/audit/block05_iv_final_tests.log).
+
+## SC-08: placebo часть исправлена, LOO deferred
+
+PanelEstimate получил additive model_options default{}. ASCM сохраняет полный13constructor-option snapshot успешного fit и effective per-estimate inference settings. Placebo-space/time наследуют их; partial overrides сохраняют остальные значения, returned attrs записывают resolved options. Legacy/incomplete metadata требует re-estimation или explicit missing options; silent default estimator больше не выбирается. Auxiliary inference refits временно используют исходные five fitting settings, даже если public attrs изменены после fit, с finally restoration.
+
+Новые31cases+36neighbors: **67 passed**,31.10s,1 existing ASCM grid-boundary warning в deliberately tiny-grid test. Independent manually rebuilt panels/refits, donor contamination exclusion, partial/legacy overrides, snapshot immutability и refit consistency. Original actualtreated meanpostgap1.3314659377305926 теперь совпадает с defaultplacebo, прежнее1.371201225159669. [SCM notes](D:/codex/Causalis/audit/B05_SCM_NOTES.md), [manifest](D:/codex/Causalis/audit/block05_scm_result.json), [final log](D:/codex/Causalis/audit/block05_scm_final_tests.log).
+
+**SC-08 закрыт частично**: leave_one_donor_out_sensitivity не менялась и не проверялась, её default configuration по-прежнему нельзя считать наследующей original estimate. Эта часть исключена из текущей работы по прямой инструкции пользователя.
+
+## Сохранённые code checkpoints
+
+| Commit | Результат |
+|---|---|
+| bb31a4b09c20046faafbbd29a541e5acbe50b99d | CUPED collision-safe names/roles/bootstrap |
+| 5e0379507bac4b6ec9f561e7978e8835194c2247 | IV resolver/fit lifecycle |
+| 3c000b10eed1b5366f46cc038870500791b75579 | CUPED owned SVD/batch/HC/projection/benchmark |
+| 1b2477755c9b89bd2f69f260fd094002bdc26fe2 | ASCM snapshots/placebo config |
+
+Последний code checkpoint — источник общей интеграции. Final documentation commit добавляется после проверки; actual final SHA через git log-1. Causalis upstream не fetch/merge/rebase, PR/issues/external messages не создавались.
+
+## Финальная интеграция и артефакты
+
+Команда: `.venv\Scripts\python.exe audit/run_block05_integration.py`, Agg/local MPLCONFIGDIR, SKIP_DOCS_BUILD=true, no pytestcache, task-owned basetemp, разрешённый Windows process/tmp run. **1376 passed,0failed,77warnings,438.20s**, exit0. [Raw log](D:/codex/Causalis/audit/block05_integration_tests.log), [exact selection/exclusions](D:/codex/Causalis/audit/block05_integration_selection.json), [structured result](D:/codex/Causalis/audit/block05_integration_result.json).
+
+Добавлены **137 new cases**: names24,stable22,IV60,SCM31. Предыдущий source имел1238passed+1SC12failure; теперь исходный cache-reuse тест также проходит. Нет удаления/xfail этого assertion и нет новых failures. 77warnings:76existing warning emissions плюс1existing conformal-grid warning в новом tiny-grid case. Это зелёная **выбранная** интеграция, не validation sensitivity/full docs build/version matrix. Exact7exclusions перечислены вmanifest; ordinary DML estimator по-прежнему может строить старый sensitivity payload, его formulas здесь не проверялись.
+
+После integration library/tests не менялись: diff относительно1b24777 пуст. [verify_block05.py](D:/codex/Causalis/audit/verify_block05.py) проверяет source checkpoint, PythonAST, sensitivity path guard, local file/line links и raw pytest summary: [validation JSON](D:/codex/Causalis/audit/block05_validation_checks.json), [log](D:/codex/Causalis/audit/block05_checks.log). Portable [documentation handoff](D:/codex/Causalis/audit/DOCUMENTATION_HANDOFF.md) имеет58verified immutable Causalis source links; он готов для пересылки, автору внешними инструментами не отправлялся.
+
+NEXT_SESSION/FIX_PLAN/PROGRESS/GIT_ACCESS обновлены. Обычный push идёт только вpersonal `origin/codex/correctness-roadmap`; final remote/local equality и cleanstatus проверяются после documentation commit. Пользователь может очистить контекст. **B06 не начат**: compatibility/Pydantic minimum/release pytestgate/dependency matrix, затем scoped pandas/NumPy/KDE time/memory optimization. Sensitivity/SC08LOO и ранее записанные DGP/DiD support followups остаются отдельными.

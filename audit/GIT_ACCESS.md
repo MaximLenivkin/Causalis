@@ -1,12 +1,12 @@
 # Git: доступ и подключение личного fork
 
-Проверено 2026-10-05 в `D:\codex\Causalis`. B04 code checkpoints: `87228e267aed3dc71dadd4bbe19b969a95463591` (clusters), `57dbba1e2ecc0c1cab413b1da7f40cfdd8b22131` (DiD controls/full IF/aggregation). Финальный documentation checkpoint и remote/local equality проверяются на границе блока.
+Проверено 2026-10-05 в `D:\codex\Causalis`. B05 tested source: `1b2477755c9b89bd2f69f260fd094002bdc26fe2`. Предыдущие B04 code checkpoints: `87228e267aed3dc71dadd4bbe19b969a95463591` (clusters), `57dbba1e2ecc0c1cab413b1da7f40cfdd8b22131` (DiD controls/full IF/aggregation). Финальный documentation checkpoint и remote/local equality проверяются на границе блока.
 
 | Проверка | Результат |
 |---|---|
 | Git | Установлен, `2.37.2.windows.2` |
 | Автор локальных commits | Настроен как Maxim; email уже задан в Git config. Для commit GitHub login не нужен |
-| Ветка / local commits | `codex/correctness-roadmap`, от audit SHA `ffe2c356c115f335b74b2f10117e19fe15585d46`; B00–B03 сохранены, B03 code commits c925907/e6a9275/6084b34/113c693; текущий documentation checkpoint через `git log -1` |
+| Ветка / local commits | `codex/correctness-roadmap`, от audit SHA `ffe2c356c115f335b74b2f10117e19fe15585d46`; B00–B05 сохранены; текущие B05 code commits перечислены ниже. Исторические B03 code commits c925907/e6a9275/6084b34/113c693; текущий documentation checkpoint через `git log -1` |
 | Чтение GitHub | Исходный main совпадает с audit SHA; personal branch доступна |
 | GitHub CLI | Установлен2.102.0; executable `C:\Program Files\GitHub CLI\gh.exe`. Старый PATH текущего Codex процесса может его не видеть; использовать полный путь |
 | Credential helper | `gh auth setup-git` настроил GitHub helper; HTTPS push успешно проверен |
@@ -61,3 +61,7 @@ git push --set-upstream origin codex/correctness-roadmap
 - local `codex/correctness-roadmap` хранит наши последовательные commits.
 
 Локальная ветка отслеживает `origin/codex/correctness-roadmap`. Обычный `git push` сохраняет следующие законченные commits в личный fork. Публикация PR — отдельный этап после review готового блока; PR не создавался. Проверка remote/local SHA при завершении подключения записывается в PROGRESS.md.
+
+## B05 checkpoint
+
+Code commits: bb31a4b09c20046faafbbd29a541e5acbe50b99d /5e0379507bac4b6ec9f561e7978e8835194c2247 /3c000b10eed1b5366f46cc038870500791b75579 /1b2477755c9b89bd2f69f260fd094002bdc26fe2. Последний code checkpoint протестирован:1376passed,0failed вне7sensitivitymodules. Final documentation checkpoint определяется git log-1; обычный push вorigin/codex/correctness-roadmap иremote/local SHA equality проверяются на завершении. Credentials/remotes/branch те же, повторная authorization не нужна. Causalis upstream не fetch/merge/rebase; PR/issues не создавались.

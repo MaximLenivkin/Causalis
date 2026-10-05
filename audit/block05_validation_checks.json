@@ -1,0 +1,47 @@
+{
+  "start_commit": "c55909491c8c50d603a8bf348b4beca11b623e02",
+  "local_links_checked": 274,
+  "python_files_parsed": 18,
+  "library_paths_changed": [
+    "causalis/data_contracts/panel_estimate.py",
+    "causalis/scenarios/cuped/_ols.py",
+    "causalis/scenarios/cuped/model.py",
+    "causalis/scenarios/cuped/refutation/regression_checks.py",
+    "causalis/scenarios/iv/model.py",
+    "causalis/scenarios/iv/refutation/diagnostics.py",
+    "causalis/scenarios/synthetic_control/model.py",
+    "causalis/scenarios/synthetic_control/refutation/placebo.py"
+  ],
+  "sensitivity_paths_changed": [],
+  "integration_result": {
+    "scope": "Repository suite excluding deferred sensitivity test modules",
+    "tested_source_checkpoint": "1b2477755c9b89bd2f69f260fd094002bdc26fe2",
+    "passed": 1376,
+    "failed": 0,
+    "warnings": 77,
+    "elapsed_seconds": 438.2,
+    "failure_nodes": [],
+    "previous_baseline_failure": "SC-12 fixed and original test retained",
+    "excluded_modules": [
+      "tests/refutation/test_multi_sensitivity_benchmark.py",
+      "tests/refutation/test_sensitivity_benchmark.py",
+      "tests/refutation/test_sensitivity_combination.py",
+      "tests/refutation/test_sensitivity_integration_irm.py",
+      "tests/refutation/test_sensitivity_protocol.py",
+      "tests/refutation/test_sensitivity_rv_signed_rr.py",
+      "tests/refutation/test_trim_sensitivity_ate.py"
+    ],
+    "sensitivity_validated": false,
+    "docs_build": "SKIP_DOCS_BUILD=true",
+    "full_suite_clean": false,
+    "scoped_suite_clean": true,
+    "new_test_cases": {
+      "names": 24,
+      "stable_design": 22,
+      "iv": 60,
+      "scm": 31,
+      "total": 137
+    }
+  },
+  "issues": []
+}

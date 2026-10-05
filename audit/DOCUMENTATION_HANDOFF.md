@@ -318,3 +318,39 @@ Reference: [official did estimated-weight contribution](https://github.com/bcall
 > Both analytical and multiplier-bootstrap inference require at least two independent clusters. bootstrap_replications must be zero or at least two. Cluster multiplier draws share the analytical method's centered covariance and finite-cluster correction; a fixed seed remains reproducible, but bootstrap outputs can differ from earlier versions. Two clusters satisfy the computational guard and do not guarantee reliable coverage.
 
 Актуальные constructor defaults: propensity_clip=1e-6, logit_ridge=1e-8, max_condition_number=1e8. min_treated_per_cell/min_control_per_cell/min_control_ess/max_propensity_clip_share/max_condition_number — diagnostic thresholds; превышение само по себе не является автоматическим skip. Source docstrings исправлены в linked implementation; generated API пересобрать от release commit. Дополнительные примеры generators из прежнего checklist всё ещё требуют исправления автором документации.
+
+## Дополнение после B05: CUPED / IV / SCM — P2
+
+Изменения ниже находятся в personal fork; обновить сайт/generated API вместе с release, включающим эти commits. Они не изменяют identifying assumptions и не доказывают causal validity diagnostics.
+
+### CUPED names, numerical covariance and outcome batching
+
+Sources: [design and model](https://github.com/MaximLenivkin/Causalis/blob/3c000b10eed1b5366f46cc038870500791b75579/causalis/scenarios/cuped/model.py), [owned SVD / public result adapter](https://github.com/MaximLenivkin/Causalis/blob/3c000b10eed1b5366f46cc038870500791b75579/causalis/scenarios/cuped/_ols.py), [regression checks](https://github.com/MaximLenivkin/Causalis/blob/3c000b10eed1b5366f46cc038870500791b75579/causalis/scenarios/cuped/refutation/regression_checks.py).
+
+> CUPED accepts valid treatment and covariate names even when they resemble internal regression labels. Internal labels are allocated without collisions; coefficient and diagnostic roles follow the design's explicit order. Global centering, Lin interactions and stratified bootstrap recentering are unchanged. Input DataFrames are not modified.
+
+> For each arm-versus-control comparison, CUPED factors the adjusted design once and solves all selected outcomes together. The naive design is also shared. Leverage, HC2/HC3 covariance, raw-control relative covariance and winsorized-outcome checks use the same design factorization. Results and residual-based covariance remain specific to each outcome. Inference remains per comparison without a multiple-testing correction.
+
+Приёмка: treatment=`intercept`/`x__centered` и covariates с `:`/`__centered` воспроизводят estimate/CI/diagnostics после safe rename. Rescaling сохраняет результаты в numerical tolerance; near-collinear accepted designs используют stable HC2/3 projection. Старые private display labels при collision могут измениться; потребителям нельзя определять treatment по prefix/suffix вместо semantic roles.
+
+> The implementation preserves the selected HC0/HC1/HC2/HC3/nonrobust covariance, use_t and relative-denominator policies. Near-zero ratio denominators, leverage near one, very small residual degrees of freedom and extreme conditioning still require care. Covariate variance and numerical rank thresholds remain sensitive to scale; this change does not guarantee invariance for every possible rescaling.
+
+References: [public OLSResults API](https://www.statsmodels.org/dev/generated/statsmodels.regression.linear_model.OLSResults.html), [HC2](https://www.statsmodels.org/dev/generated/statsmodels.regression.linear_model.OLSResults.HC2_se.html), [HC3](https://www.statsmodels.org/dev/generated/statsmodels.regression.linear_model.OLSResults.HC3_se.html). Local statsmodels0.15.0 проверен; dependency matrix ещё не выполнена. [Local fit benchmark](https://github.com/MaximLenivkin/Causalis/blob/3c000b10eed1b5366f46cc038870500791b75579/audit/block05_benchmark_summary.json) показал1.73–2.90× на12000rows/4X/1,8,32Y,HC2/checks=True; это узкое наблюдение, не универсальное ускорение всей библиотеки. Construction/memory не измерены.
+
+### IV diagnostics model/result API and refitting
+
+Sources: [IV resolver](https://github.com/MaximLenivkin/Causalis/blob/5e0379507bac4b6ec9f561e7978e8835194c2247/causalis/scenarios/iv/refutation/diagnostics.py), [IIVM fit lifecycle](https://github.com/MaximLenivkin/Causalis/blob/5e0379507bac4b6ec9f561e7978e8835194c2247/causalis/scenarios/iv/model.py).
+
+> instrument_overlap, first_stage, reduced_form, and instrument_overlap_plot accept an IIVM model after a successful fit().estimate(), its IVCausalEstimate, or an IVDiagnosticData payload. Calling fit() alone does not create post-inference diagnostic data. Each new fit attempt clears the model's previous fitted and inference state; a failed refit leaves the model unfitted, and a successful refit requires a new estimate(). Previously returned estimates remain usable independently of the model. Lazy diagnostics called with a model use the latest estimate's saved options and LATE value.
+
+Приёмка: model/estimate tables и plot совпадают; wrong payload type/fit-only даёт понятную ошибку. Bare payload без cached custom first-stage settings не хранит model_options и использует прежний default threshold; для custom configuration передавать estimate/model. IV nuisance/score/inference formulas и heuristic strength thresholds не менялись.
+
+### ASCM configuration for placebo refits
+
+Sources: [PanelEstimate metadata](https://github.com/MaximLenivkin/Causalis/blob/1b2477755c9b89bd2f69f260fd094002bdc26fe2/causalis/data_contracts/panel_estimate.py), [ASCM snapshots](https://github.com/MaximLenivkin/Causalis/blob/1b2477755c9b89bd2f69f260fd094002bdc26fe2/causalis/scenarios/synthetic_control/model.py), [placebo refutations](https://github.com/MaximLenivkin/Causalis/blob/1b2477755c9b89bd2f69f260fd094002bdc26fe2/causalis/scenarios/synthetic_control/refutation/placebo.py).
+
+> ASCM results record all constructor-compatible fitting settings and the effective inference settings in PanelEstimate.model_options. Placebo-in-space and placebo-in-time refits inherit these settings. Pass model_kwargs to override selected settings; every unspecified setting retains its value from the original estimate. The returned table records the resolved settings and explicit overrides in DataFrame.attrs["model_options"] and DataFrame.attrs["model_kwargs_overrides"].
+
+> Older or manually constructed results may not contain a complete ASCM configuration. Re-estimate with ASCM, or supply all missing constructor options explicitly. Placebo refutations raise ValueError when the configuration is incomplete, because the original estimator cannot be reconstructed from its effect path alone.
+
+Приёмка: actual treated placebo row при omitted kwargs воспроизводит original effect path; partial override сохраняет прочие13constructor settings; pointwise/average inference options отражены в snapshot. Mutating public fitting attributes после fit не меняет cached fitting configuration для auxiliary inference; re-fit нужен для нового estimator. Leave-one-donor-out sensitivity в B05 не мигрировала и остаётся отдельной deferred областью; её default configuration нельзя считать исправленной этим placebo patch.
