@@ -87,7 +87,7 @@ upper = d + sqrt((U1 − p1)^2 + (p0 − L0)^2)
 
 Числовая проверка:7/34treated vs1/34control; старый CI[−0.04566046,0.36277297], hybrid reference[0.01892144,0.34036869]. [Reference statsmodels](https://www.statsmodels.org/stable/generated/statsmodels.stats.proportion.confint_proportions_2indep.html), method=`newcomb`.
 
-**Координация с кодом:** исправляется в нашей ветке в B01; до выпуска code fix не описывать опубликованный старый package как уже исправленный. После release обновить code docstring/site/examples/generated API вместе. Указать, что выбранный CI и pooled/unpooled z-test p-value — разные настройки и не обязательно inversion одной процедуры.
+**Координация с кодом:** локально исправлено в ветке `codex/correctness-roadmap`, commit `bd8a2be2dc363400a572c6d369cda887fb17aad9` (B01);36conversion tests и31соседнийRCTtestpassed. Пока commit не отправлен в удалённый fork и не выпущен upstream, опубликованный старый package не следует описывать как уже исправленный. После release обновить code docstring/site/examples/generated API вместе. Указать, что выбранный CI и pooled/unpooled z-test p-value — разные настройки и не обязательно inversion одной процедуры.
 
 ### D06 / P2 — CUPED relative inference article отстаёт от source
 

@@ -35,3 +35,12 @@
 ## Следующий этап проекта
 
 Рекомендованный порядок дальнейшей разработки: быстрые correctness/doc fixes → inference repair и coverage validation → оптимизация data path → расширения DML/CATE/IV/DiD. Это backlog, а не незавершённая часть текущего ревью. Существующий код не исправлялся и внешние PR/issues не создавались.
+
+## 2026-10-05 — начало исправлений по новому запросу
+
+- Проверены Git/author/public remote. Upstream main соответствует audit SHA. `gh` отсутствует, configured helper отсутствует; noninteractive GCM check не нашёл сохранённую GitHub credential. Remote fork/push пока не выполнены; авторизация по инструкции GIT_ACCESS.md ожидается от пользователя.
+- Создана branch `codex/correctness-roadmap`; checkpoint **2c26cee** сохранил аудит/evidence/план. Большие build copies/temp/cache исключены из index, raw text evidence logs сохранены.
+- FIX_PLAN.md разбивает работу на6implementationblocks с commits/проверками и остановкой для очистки контекста. Sensitivity DML-07/08/10/11 и dependent lifecycle state отложены по прямому сообщению пользователя о готовящихся upstream fixes.
+- DOCUMENTATION_HANDOFF.md подготовлен для автора docs;28GitHub snapshot links проверены, local-only links0. Sensitivity-specific tasks исключены.
+- **B01 завершён, commitbd8a2be:** Newcombe hybrid CI, enum validation, function docstring. До source fix27testsfailed/9passed; после36conversionpassed и31neighborRCTpassed. Логи block01_*_tests.log. Полный suite/benchmark повторно не запускался, sensitivity не затрагивался.
+- NEXT_SESSION.md содержит commits, scope, проверки и следующийblockB02. На границе B01 работа остановлена; внешние PR/issues не создавались.

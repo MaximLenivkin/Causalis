@@ -19,7 +19,11 @@ Local branch создана, user.name/user.email настроены. Public ups
 
 ## Текущая работа
 
-B00 — документы и checkpoint. B01 — первый независимый небольшой block: SC-05 Newcombe hybrid formula и SC-10 runtime enum validation. Текущий статус и commands/results — `BLOCK01_RCT.md`. До закрытия B01 не начинать B02–B06. Sensitivity modules/formulas/benchmarks/tests не редактировать.
+B00 завершён, checkpoint **2c26cee**. B01 завершён: SC-05 Newcombe hybrid formula и SC-10 runtime enum validation. Fix commit **`bd8a2be2dc363400a572c6d369cda887fb17aad9`**. До fix27new casesfailed; после36conversioncasespassed и31соседний RCTcasepassed. Status/commands/ограничения — `BLOCK01_RCT.md`.
+
+**Следующий рабочий блокB02**: contracts/shared/DGP, по FIX_PLAN. В первую очередь silent nonfinite/complex/separation diagnostics, затем index/weights/IDs/oracles. Начинать после нового запроса пользователя. Sensitivity modules/formulas/benchmarks/tests не редактировать.
+
+Документация для пересылки готова в `DOCUMENTATION_HANDOFF.md`;28GitHub snapshot file/line links проверены, local-only links нет (`handoff_validation.json`). Нет необходимости заново выполнять полный аудит или broad benchmark.
 
 ## Baseline и ограничения
 

@@ -6,7 +6,7 @@
 |---|---|
 | Git | Установлен, `2.37.2.windows.2` |
 | Автор локальных commits | Настроен как Maxim; email уже задан в Git config. Для commit GitHub login не нужен |
-| Ветка | `codex/correctness-roadmap`, от audit SHA `ffe2c356c115f335b74b2f10117e19fe15585d46` |
+| Ветка / local commits | `codex/correctness-roadmap`, от audit SHA `ffe2c356c115f335b74b2f10117e19fe15585d46`; checkpoint2c26cee и RCTfixbd8a2be успешно созданы |
 | Чтение GitHub | `git ls-remote origin main` успешно: тот же SHA |
 | GitHub CLI | `gh` не найден в PATH |
 | Credential helper | Helper не настроен; установлен старый `git-credential-manager-core`2.0.785 |
