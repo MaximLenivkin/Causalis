@@ -1,0 +1,5 @@
+# Preserve raw command/profile/notebook evidence, including emitted whitespace.
+*.log -whitespace
+profile_*.txt -whitespace
+docs_notebook_markdown.txt -whitespace
+pytest_full.xml -whitespace

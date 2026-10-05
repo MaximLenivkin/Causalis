@@ -1,0 +1,131 @@
+﻿path,lines,owner,functions,module_docstring,syntax
+causalis/__init__.py,80,Root contracts/shared/DGP,1,True,OK
+causalis/data_contracts/__init__.py,86,Root contracts/shared/DGP,1,False,OK
+causalis/data_contracts/causal_diagnostic_data.py,130,Root contracts/shared/DGP,0,False,OK
+causalis/data_contracts/causal_estimate.py,151,Root contracts/shared/DGP,2,False,OK
+causalis/data_contracts/causaldata.py,619,Root contracts/shared/DGP,22,True,OK
+causalis/data_contracts/gate_contrast_estimate.py,99,Root contracts/shared/DGP,3,False,OK
+causalis/data_contracts/gate_estimate.py,361,Root contracts/shared/DGP,12,False,OK
+causalis/data_contracts/iv_causal_data.py,389,Root contracts/shared/DGP,13,True,OK
+causalis/data_contracts/iv_causal_estimate.py,75,Root contracts/shared/DGP,2,False,OK
+causalis/data_contracts/multicausal_estimate.py,204,Root contracts/shared/DGP,4,False,OK
+causalis/data_contracts/multicausaldata.py,603,Root contracts/shared/DGP,16,True,OK
+causalis/data_contracts/panel_data_did.py,994,Root contracts/shared/DGP,42,False,OK
+causalis/data_contracts/panel_data_scm.py,405,Root contracts/shared/DGP,21,False,OK
+causalis/data_contracts/panel_did_estimate.py,405,Root contracts/shared/DGP,19,False,OK
+causalis/data_contracts/panel_estimate.py,328,Root contracts/shared/DGP,5,False,OK
+causalis/data_contracts/rct_causal_data.py,303,Root contracts/shared/DGP,18,True,OK
+causalis/data_contracts/rct_estimates.py,53,Root contracts/shared/DGP,1,True,OK
+causalis/data_contracts/sensitivity_analysis_result.py,50,Root contracts/shared/DGP,6,False,OK
+causalis/dgp/__init__.py,114,Root contracts/shared/DGP,0,True,OK
+causalis/dgp/base.py,356,Root contracts/shared/DGP,8,False,OK
+causalis/dgp/causaldata/__init__.py,39,Root contracts/shared/DGP,0,False,OK
+causalis/dgp/causaldata/base.py,805,Root contracts/shared/DGP,11,True,OK
+causalis/dgp/causaldata/functional.py,1159,Root contracts/shared/DGP,18,True,OK
+causalis/dgp/causaldata/preperiod.py,197,Root contracts/shared/DGP,7,False,OK
+causalis/dgp/causaldata_instrumental/__init__.py,11,Root contracts/shared/DGP,0,False,OK
+causalis/dgp/causaldata_instrumental/base.py,448,Root contracts/shared/DGP,15,True,OK
+causalis/dgp/causaldata_instrumental/functional.py,176,Root contracts/shared/DGP,2,True,OK
+causalis/dgp/multicausaldata/__init__.py,50,Root contracts/shared/DGP,4,False,OK
+causalis/dgp/multicausaldata/base.py,551,Root contracts/shared/DGP,18,False,OK
+causalis/dgp/multicausaldata/functional.py,172,Root contracts/shared/DGP,1,True,OK
+causalis/dgp/panel_data_did/__init__.py,16,Root contracts/shared/DGP,0,False,OK
+causalis/dgp/panel_data_did/base.py,546,Root contracts/shared/DGP,16,False,OK
+causalis/dgp/panel_data_did/functional.py,387,Root contracts/shared/DGP,15,True,OK
+causalis/dgp/panel_data_scm/__init__.py,10,Root contracts/shared/DGP,0,False,OK
+causalis/dgp/panel_data_scm/base.py,661,Root contracts/shared/DGP,18,False,OK
+causalis/dgp/panel_data_scm/functional.py,620,Root contracts/shared/DGP,24,True,OK
+causalis/dgp/rct_causal_data.py,232,Root contracts/shared/DGP,2,True,OK
+causalis/scenarios/__init__.py,11,Root contracts/shared/DGP,0,False,OK
+causalis/scenarios/_orthogonal.py,54,DML,2,True,OK
+causalis/scenarios/classic_rct/__init__.py,20,Root contracts/shared/DGP,0,False,OK
+causalis/scenarios/classic_rct/dgp.py,262,Other scenarios,2,True,OK
+causalis/scenarios/classic_rct/inference/__init__.py,7,Root contracts/shared/DGP,0,True,OK
+causalis/scenarios/classic_rct/inference/conversion_ztest.py,197,Other scenarios,2,True,OK
+causalis/scenarios/classic_rct/inference/ttest.py,168,Other scenarios,1,True,OK
+causalis/scenarios/classic_rct/inference/welch_permutation_t_test.py,235,Other scenarios,4,True,OK
+causalis/scenarios/classic_rct/model.py,219,Other scenarios,4,True,OK
+causalis/scenarios/cuped/__init__.py,15,Root contracts/shared/DGP,0,False,OK
+causalis/scenarios/cuped/dgp.py,365,Other scenarios,7,True,OK
+causalis/scenarios/cuped/model.py,1233,Other scenarios,29,True,OK
+causalis/scenarios/cuped/refutation/__init__.py,55,Root contracts/shared/DGP,0,False,OK
+causalis/scenarios/cuped/refutation/config.py,101,Other scenarios,4,False,OK
+causalis/scenarios/cuped/refutation/forest_plot.py,139,Other scenarios,2,False,OK
+causalis/scenarios/cuped/refutation/regression_checks.py,990,Other scenarios,28,False,OK
+causalis/scenarios/did/__init__.py,39,Root contracts/shared/DGP,0,False,OK
+causalis/scenarios/did/dgp.py,535,Other scenarios,13,False,OK
+causalis/scenarios/did/model.py,1329,Other scenarios,41,False,OK
+causalis/scenarios/did/refutation/__init__.py,62,Root contracts/shared/DGP,4,False,OK
+causalis/scenarios/did/refutation/diagnostic_plots.py,316,Other scenarios,5,False,OK
+causalis/scenarios/did/refutation/diagnostics.py,1317,Other scenarios,21,False,OK
+causalis/scenarios/did/refutation/post_inference.py,1030,Other scenarios,19,False,OK
+causalis/scenarios/did/refutation/post_inference_plots.py,263,Other scenarios,3,False,OK
+causalis/scenarios/gate/__init__.py,40,DML,1,True,OK
+causalis/scenarios/gate/gate_plot.py,167,DML,2,False,OK
+causalis/scenarios/gate/model.py,1374,DML,18,True,OK
+causalis/scenarios/iv/__init__.py,24,Root contracts/shared/DGP,0,True,OK
+causalis/scenarios/iv/dgp.py,315,Other scenarios,8,True,OK
+causalis/scenarios/iv/model.py,874,Other scenarios,28,True,OK
+causalis/scenarios/iv/refutation/__init__.py,26,Root contracts/shared/DGP,0,True,OK
+causalis/scenarios/iv/refutation/diagnostics.py,625,Other scenarios,24,True,OK
+causalis/scenarios/iv/refutation/iv_confounders_balance.py,62,Other scenarios,1,False,OK
+causalis/scenarios/multi_unconfoundedness/__init__.py,4,DML,0,False,OK
+causalis/scenarios/multi_unconfoundedness/_utils.py,136,DML,6,True,OK
+causalis/scenarios/multi_unconfoundedness/dgp.py,680,DML,16,False,OK
+causalis/scenarios/multi_unconfoundedness/model.py,1278,DML,38,False,OK
+causalis/scenarios/multi_unconfoundedness/refutation/__init__.py,24,DML,0,True,OK
+causalis/scenarios/multi_unconfoundedness/refutation/overlap/__init__.py,10,DML,0,False,OK
+causalis/scenarios/multi_unconfoundedness/refutation/overlap/overlap_plot.py,520,DML,13,False,OK
+causalis/scenarios/multi_unconfoundedness/refutation/overlap/overlap_validation.py,519,DML,11,True,OK
+causalis/scenarios/multi_unconfoundedness/refutation/score/__init__.py,4,DML,0,False,OK
+causalis/scenarios/multi_unconfoundedness/refutation/score/residual_plots.py,463,DML,7,True,OK
+causalis/scenarios/multi_unconfoundedness/refutation/score/score_validation.py,840,DML,17,True,OK
+causalis/scenarios/multi_unconfoundedness/refutation/unconfoundedness/__init__.py,19,DML,0,False,OK
+causalis/scenarios/multi_unconfoundedness/refutation/unconfoundedness/sensitivity.py,1251,DML,38,False,OK
+causalis/scenarios/multi_unconfoundedness/refutation/unconfoundedness/unconfoundedness_validation.py,499,DML,12,True,OK
+causalis/scenarios/synthetic_control/__init__.py,33,Root contracts/shared/DGP,0,False,OK
+causalis/scenarios/synthetic_control/_utils.py,230,Other scenarios,7,False,OK
+causalis/scenarios/synthetic_control/dgp.py,281,Other scenarios,3,False,OK
+causalis/scenarios/synthetic_control/model.py,2143,Other scenarios,47,False,OK
+causalis/scenarios/synthetic_control/refutation/__init__.py,29,Root contracts/shared/DGP,0,False,OK
+causalis/scenarios/synthetic_control/refutation/diagnostic_plots.py,183,Other scenarios,6,False,OK
+causalis/scenarios/synthetic_control/refutation/donors_diagnostics.py,211,Other scenarios,7,False,OK
+causalis/scenarios/synthetic_control/refutation/outcome_panel_plot.py,204,Other scenarios,3,False,OK
+causalis/scenarios/synthetic_control/refutation/placebo.py,349,Other scenarios,14,False,OK
+causalis/scenarios/synthetic_control/refutation/scm_diagnostics.py,345,Other scenarios,7,False,OK
+causalis/scenarios/synthetic_control/refutation/sensitivity.py,173,Other scenarios,10,False,OK
+causalis/scenarios/unconfoundedness/__init__.py,32,DML,2,True,OK
+causalis/scenarios/unconfoundedness/_diagnostic_utils.py,140,DML,3,True,OK
+causalis/scenarios/unconfoundedness/_score_utils.py,188,DML,7,True,OK
+causalis/scenarios/unconfoundedness/_utils.py,136,DML,7,True,OK
+causalis/scenarios/unconfoundedness/dgp.py,790,DML,21,True,OK
+causalis/scenarios/unconfoundedness/model.py,1903,DML,52,True,OK
+causalis/scenarios/unconfoundedness/refutation/__init__.py,47,DML,0,True,OK
+causalis/scenarios/unconfoundedness/refutation/_shared.py,45,DML,2,True,OK
+causalis/scenarios/unconfoundedness/refutation/overlap/__init__.py,76,DML,0,True,OK
+causalis/scenarios/unconfoundedness/refutation/overlap/feature_importance_plot.py,226,DML,4,True,OK
+causalis/scenarios/unconfoundedness/refutation/overlap/overlap_plot.py,289,DML,5,True,OK
+causalis/scenarios/unconfoundedness/refutation/overlap/overlap_validation.py,909,DML,19,True,OK
+causalis/scenarios/unconfoundedness/refutation/overlap/reliability_plot.py,353,DML,4,True,OK
+causalis/scenarios/unconfoundedness/refutation/score/__init__.py,77,DML,0,True,OK
+causalis/scenarios/unconfoundedness/refutation/score/influence_plot.py,472,DML,5,True,OK
+causalis/scenarios/unconfoundedness/refutation/score/residual_plots.py,481,DML,5,True,OK
+causalis/scenarios/unconfoundedness/refutation/score/score_validation.py,719,DML,11,True,OK
+causalis/scenarios/unconfoundedness/refutation/unconfoundedness/__init__.py,89,DML,0,True,OK
+causalis/scenarios/unconfoundedness/refutation/unconfoundedness/love_plot.py,264,DML,4,True,OK
+causalis/scenarios/unconfoundedness/refutation/unconfoundedness/sensitivity.py,2409,DML,33,True,OK
+causalis/scenarios/unconfoundedness/refutation/unconfoundedness/unconfoundedness_validation.py,401,DML,5,True,OK
+causalis/scenarios/uplift/__init__.py,6,DML,0,True,OK
+causalis/scenarios/uplift/model.py,239,DML,7,True,OK
+causalis/scenarios/uplift/policy.py,722,DML,12,True,OK
+causalis/shared/__init__.py,22,Root contracts/shared/DGP,0,False,OK
+causalis/shared/confounder_clustering.py,445,Root contracts/shared/DGP,4,True,OK
+causalis/shared/confounders_balance.py,165,Root contracts/shared/DGP,2,False,OK
+causalis/shared/outcome_outliers.py,176,Root contracts/shared/DGP,1,False,OK
+causalis/shared/outcome_plots.py,651,Root contracts/shared/DGP,11,False,OK
+causalis/shared/outcome_stats.py,97,Root contracts/shared/DGP,1,True,OK
+causalis/shared/rct_design/__init__.py,9,Root contracts/shared/DGP,0,True,OK
+causalis/shared/rct_design/design.py,405,Root contracts/shared/DGP,11,True,OK
+causalis/shared/rct_design/split.py,114,Root contracts/shared/DGP,4,True,OK
+causalis/shared/srm.py,288,Root contracts/shared/DGP,3,True,OK
+causalis/shared/sutva_validation.py,27,Root contracts/shared/DGP,1,True,OK

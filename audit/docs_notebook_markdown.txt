@@ -1,0 +1,3362 @@
+## FILE D:\codex\Causalis\notebooks\cases\401k.ipynb CELL 1
+# Impact of 401(k) on Financial Assets
+## FILE D:\codex\Causalis\notebooks\cases\401k.ipynb CELL 2
+This notebook presents the **401k** case and the core analysis workflow.
+## FILE D:\codex\Causalis\notebooks\cases\401k.ipynb CELL 3
+## Data explanation
+1991 Survey of Income and Program Participation
+
+- **net_tfa** — *Net Total Financial Assets*.
+  Calculated as the sum of all liquid and interest-earning assets (IRA balances, 401(k) balances, checking accounts, U.S. savings bonds, other interest‐earning accounts, stocks, mutual funds, etc.) **minus** non‐mortgage debts.
+
+- **e401** — *401(k) Eligibility Indicator*.
+  Equals 1 if the individual's employer offers a 401(k) plan; otherwise 0.
+
+- **p401** — *401(k) Participation Indicator*.
+  Equals 1 if the individual participate in 401(k) plan; otherwise 0.
+
+- **age** — *Age*.
+  Age of the individual in years.
+
+- **inc** — *Annual Income*.
+  Annual income of the individual, measured in U.S. dollars for the year 1990.
+
+- **educ** — *Years of Education*.
+  Number of completed years of formal education.
+
+- **fsize** — *Family Size*.
+  Total number of persons living in the household.
+
+- **marr** — *Marital Status*.
+  Equals 1 if the individual is married; otherwise 0.
+
+- **twoearn** — *Two-Earner Household*.
+  Equals 1 if there are two wage earners in the household; otherwise 0.
+
+- **db** — *Defined-Benefit Pension Plan*.
+  Equals 1 if the individual is covered by a defined-benefit pension plan; otherwise 0.
+
+- **pira** — *IRA Participation*.
+  Equals 1 if the individual contributes to an Individual Retirement Account (IRA); otherwise 0.
+
+- **hown** — *Home Ownership*.
+  Equals 1 if the household owns its home; 0 if renting.
+
+We download it with fetch_401K function from doubleML.datasets
+## FILE D:\codex\Causalis\notebooks\cases\401k.ipynb CELL 4
+This dataset has a problem. confounders were measured in the same year as treatment and outcome,
+ like they are demographic factors that do not change over time. So inference might still be biased.
+## FILE D:\codex\Causalis\notebooks\cases\401k.ipynb CELL 8
+## EDA
+## FILE D:\codex\Causalis\notebooks\cases\401k.ipynb CELL 10
+Participants’ average net worth is ≈28k higher, but this gap cannot be causally attributed
+solely to participation. The classes are imbalanced—only 26% are treated.
+## FILE D:\codex\Causalis\notebooks\cases\401k.ipynb CELL 13
+Our outcome has large right tail
+## FILE D:\codex\Causalis\notebooks\cases\401k.ipynb CELL 16
+Treatment and control are unbalanced on all confounders except age and fsize; nonetheless,
+we retain age and fsize in the model to gain efficiency
+## FILE D:\codex\Causalis\notebooks\cases\401k.ipynb CELL 17
+## Inference
+## FILE D:\codex\Causalis\notebooks\cases\401k.ipynb CELL 19
+Average Treatment Effect is significant and equals 12486.5221 (ci_abs: 9791.0517, 15181.9924)
+## FILE D:\codex\Causalis\notebooks\cases\401k.ipynb CELL 20
+## Refutation
+## FILE D:\codex\Causalis\notebooks\cases\401k.ipynb CELL 21
+## Unconfoundedness
+## FILE D:\codex\Causalis\notebooks\cases\401k.ipynb CELL 23
+### Sensitivity
+## FILE D:\codex\Causalis\notebooks\cases\401k.ipynb CELL 27
+## SUTVA
+## FILE D:\codex\Causalis\notebooks\cases\401k.ipynb CELL 29
+## Score
+## FILE D:\codex\Causalis\notebooks\cases\401k.ipynb CELL 34
+## Overlap
+## FILE D:\codex\Causalis\notebooks\cases\401k.ipynb CELL 38
+We find no evidence of a violation of the overlap (positivity) assumption.
+## FILE D:\codex\Causalis\notebooks\cases\401k.ipynb CELL 39
+## Conclution
+## FILE D:\codex\Causalis\notebooks\cases\401k.ipynb CELL 40
+There are problems with design: confounders are measured not before treatment. So treatment affected confounders.
+However estimate is robust and in real life participation in 401k is increasing net financial assets. To keep in mind real CI bounds may differ from our estimation
+## FILE D:\codex\Causalis\notebooks\cases\classic_rct_average_bill.ipynb CELL 1
+# Increasing average bill AB test
+## FILE D:\codex\Causalis\notebooks\cases\classic_rct_average_bill.ipynb CELL 2
+This notebook presents the **classic rct average bill** case and the core analysis workflow.
+## FILE D:\codex\Causalis\notebooks\cases\classic_rct_average_bill.ipynb CELL 3
+We run a website that sells construction tools. The owner wants to add an option to buy an extended warranty for tools. This is a new paid add-on shown as an extra payment button on the checkout page.
+
+We split users into two groups:
+
+- Control: users who do not see the new payment button
+
+- Treatment: users who see the new payment button
+
+We will test hypothesis:
+
+$H_o$ - There is no difference in an average bill between treatment and control groups.
+
+$H_a$ - There is a difference in an average bill between treatment and control groups.
+## FILE D:\codex\Causalis\notebooks\cases\classic_rct_average_bill.ipynb CELL 4
+# Data
+## FILE D:\codex\Causalis\notebooks\cases\classic_rct_average_bill.ipynb CELL 5
+We will use DGP from causalis
+## FILE D:\codex\Causalis\notebooks\cases\classic_rct_average_bill.ipynb CELL 11
+# Monitoring
+## FILE D:\codex\Causalis\notebooks\cases\classic_rct_average_bill.ipynb CELL 12
+Our system is randomly splitting users. Half of them must have new onboarding, other half has not. We should monitor the split with SRM test. Read more at https://causalis.causalcraft.com/articles/srm
+## FILE D:\codex\Causalis\notebooks\cases\classic_rct_average_bill.ipynb CELL 14
+## Check the confounders balance
+## FILE D:\codex\Causalis\notebooks\cases\classic_rct_average_bill.ipynb CELL 15
+Are groups equal in terms of confounders? We need to choose with domain and business sense confounders and check balance of them.
+The standard benchmark:
+
+- $SMD > 0.1$
+- `ks_pvalue` < 0.05
+## FILE D:\codex\Causalis\notebooks\cases\classic_rct_average_bill.ipynb CELL 17
+As we see system splitted users randomly
+## FILE D:\codex\Causalis\notebooks\cases\classic_rct_average_bill.ipynb CELL 18
+# Estimation with Diff-in-Means
+## FILE D:\codex\Causalis\notebooks\cases\classic_rct_average_bill.ipynb CELL 21
+# Executive summary
+## FILE D:\codex\Causalis\notebooks\cases\classic_rct_average_bill.ipynb CELL 22
+We observed a statistically significant increase in average order value from 45.2 to 50.3 dollars (+ 5.06). The 95% confidence interval for the absolute lift is [3.59, 6.51].
+
+The decision is whether to roll out this change (scale it to all users).
+## FILE D:\codex\Causalis\notebooks\cases\cuped_design.ipynb CELL 1
+# Experiment planning: sample size and MDE
+
+Two complementary questions:
+
+- **`calculate_sample_size`**: How many participants do we need to detect a target effect?
+- **`calculate_mde`**: What effect can we detect with a fixed number of participants?
+
+Both functions use one named outcome and historical control data. Omit covariates for classic planning; pass an explicit list to enable CUPED.
+## FILE D:\codex\Causalis\notebooks\cases\cuped_design.ipynb CELL 3
+## Historical experiment
+
+Generate reproducible revenue data with a positive baseline. `prior_spend` is a pre-treatment covariate associated with revenue. Both planners estimate the baseline and variance using historical **control rows only**.
+## FILE D:\codex\Causalis\notebooks\cases\cuped_design.ipynb CELL 5
+## 1. Target effect → required sample size
+
+The default scenario compares relative MDEs **[0.5, 1, 5, 10, 20]%**. Each row below is a separate candidate experiment with an equal control/variant split.
+
+No covariates are supplied, so this uses classic sample variance even though `data` declares `prior_spend`.
+## FILE D:\codex\Causalis\notebooks\cases\cuped_design.ipynb CELL 7
+### Custom relative and absolute targets
+
+For `scenario="user"`, provide both `mde_type` and a list of positive targets. Relative inputs are percentages: **1 means 1%**. Absolute inputs are differences in revenue units. For a baseline of 20, a 1% relative target corresponds to an absolute difference of 0.2.
+## FILE D:\codex\Causalis\notebooks\cases\cuped_design.ipynb CELL 10
+### Compare classic and CUPED sample sizes
+
+Use the same percentage targets and allocation for both methods. Only CUPED receives an explicit covariate list. Historical variance is estimated once per call and reused across targets.
+## FILE D:\codex\Causalis\notebooks\cases\cuped_design.ipynb CELL 12
+## 2. Fixed audience → detectable effect
+
+`sample_size` is the **total** number of future participants across all groups. The following calls use the same 10,000-person audience and equal allocation. Both return absolute and relative MDE; only the second call enables CUPED.
+## FILE D:\codex\Causalis\notebooks\cases\cuped_design.ipynb CELL 14
+## 3. Allocation and diagnostic details
+
+Allocation keys match declared treatment groups and shares must sum to one. MDE calculation preserves the exact total using largest remainders; ties follow contract order, control first. Each group must receive at least one participant.
+
+`include_details=True` adds the baseline, raw and used variances, variance reduction, historical control size, significance, and power. Sample-size results also include achieved power after upward rounding.
+## FILE D:\codex\Causalis\notebooks\cases\cuped_design.ipynb CELL 17
+## 4. Format for presentation
+
+Keep numeric results unchanged and format a separate display copy. MDE columns contain **requested targets** in sample-size results and **calculated sensitivity** in MDE results.
+## FILE D:\codex\Causalis\notebooks\cases\cuped_design.ipynb CELL 19
+## Interpretation
+
+- Omitted covariates, `None`, and `[]` use classic planning without regression. Explicit covariates enable CUPED.
+- Relative values use the raw historical control mean. Relative target planning requires a positive mean; absolute planning and MDE calculation remain available otherwise, with relative output set to NaN.
+- `n_total` includes control once. Do not sum it across active-arm comparisons within a candidate experiment.
+- Planning assumes independent randomization units, two-sided normal power, and the same historical-control variance in future arms. Binary outcomes use the same fixed-variance approximation.
+- Power is per comparison, without a multiple-testing correction or joint detection guarantee. Small calculated samples remain normal-approximation planning estimates.
+## FILE D:\codex\Causalis\notebooks\cases\estimation_of_cx.ipynb CELL 1
+# Estimation of CX with MutliTreatment DLM
+## FILE D:\codex\Causalis\notebooks\cases\estimation_of_cx.ipynb CELL 2
+This notebook presents the **estimation of cx** case with MultitreatmentIRM model
+## FILE D:\codex\Causalis\notebooks\cases\estimation_of_cx.ipynb CELL 3
+# The problem
+## FILE D:\codex\Causalis\notebooks\cases\estimation_of_cx.ipynb CELL 4
+When analyzing customer experience, we encounter the problem that there may be multiple impacts that overlap. We can no longer encode treatments binary, so we create groups of unique clients that do not overlap. Let's look at an example from a large fintech company.
+## FILE D:\codex\Causalis\notebooks\cases\estimation_of_cx.ipynb CELL 5
+We think the effect depends on how users were exposed to the product.
+
+We segmented users and now want to estimate the effect for each group.
+## FILE D:\codex\Causalis\notebooks\cases\estimation_of_cx.ipynb CELL 6
+- **Target**
+  - `y` — binary target variable representing product utilization.
+
+- **Treatments (problems)**
+  - `neg_contact_flg` — negative contact to support
+  - `error_flg` — repeat application / error flag of application.
+  - `neg_contact_flg_error_flg` — joint treatment where both problem flags are present.
+  - `control` — baseline group with no problem flag.
+
+- **Strong confounders (past applications/utilization history)**
+  - `prev_apps` — past applications.
+  - `prev_util` — past utilization events.
+
+- **Features (covariates)**
+  - `age` — age.
+  - `risk_latent` — latent risk factor.
+  - `income` — income.
+  - `sessions_30d` — sessions in the last 30 days.
+  - `clicks_7d` — clicks in the last 7 days.
+  - `n_products` — number of products.
+  - `has_debt` — debt flag.
+  - `csat_prev` — previous CSAT score.
+  - `prev_contact` — past contact history.
+  - `prev_repeat` — past repeat-application history.
+  - `channel` — application channel, represented in the generated dataset as one-hot columns:
+    `channel_callcenter`, `channel_partner`, `channel_web` with `app` as the reference level.
+  - `region` — region, represented in the generated dataset as one-hot columns:
+    `region_B`, `region_C`, `region_D` with `A` as the reference level.
+
+- **Noise features**
+  - `product_emb_1`, `product_emb_2` — no-signal features.
+## FILE D:\codex\Causalis\notebooks\cases\estimation_of_cx.ipynb CELL 7
+# Data
+## FILE D:\codex\Causalis\notebooks\cases\estimation_of_cx.ipynb CELL 13
+# EDA
+## FILE D:\codex\Causalis\notebooks\cases\estimation_of_cx.ipynb CELL 19
+# Training the Model and Reviewing the Results
+## FILE D:\codex\Causalis\notebooks\cases\estimation_of_cx.ipynb CELL 22
+"Error" or "Negative Contact + Error" decreases probability to utilization in product by 11 p.p
+## FILE D:\codex\Causalis\notebooks\cases\estimation_of_cx.ipynb CELL 23
+# Refutation
+## FILE D:\codex\Causalis\notebooks\cases\estimation_of_cx.ipynb CELL 27
+Because “bad overlap” and “accurate point estimate” are different things here.
+
+- Your overlap is genuinely bad, not a plotting bug. The notebook diagnostics are extreme: `KS = 0.716 / 0.951 / 0.9997`, `AUC = 0.945 / 0.998 / 1.0`, and `clip_m_total = 0.43 / 0.85 / 0.999` for the three pairwise comparisons. That means the arms are almost perfectly separable in propensity space.
+- This is expected from the CX DGP. Treatment assignment is intentionally very predictable from observed history: `prev_contact` enters the contact logit with coefficient `2.20`, `prev_repeat` enters the repeat logit with coefficient `1.30`, and the joint arm literally uses `contact_logit + repeat_logit` as its score. So near-deterministic assignment is baked into the benchmark.
+- The outcome side is much easier than the treatment side. In this DGP the treatment effects are constant on the link scale: `theta=[0.0, 0.0, -0.65, -0.65]` and `tau=[None, None, None, None]` . So `neg_contact_flg` truly has zero effect, and `error_flg` and `neg_contact_flg_error_flg` have the same effect by construction.
+- There is also no hidden confounding in the generator defaults: `u_strength_y=0.0` and `u_strength_d=0.0` . So all the variables driving treatment are observed in `X`, which makes the synthetic problem much friendlier than real data.
+- `MultiTreatmentIRM` is not pure IPW. Its score is orthogonal / AIPW-style, combining outcome regression `g_hat` with residual weighting by `1 / m_hat`. If `g_hat` is learned well, the ATE can still be accurate even when overlap is weak.
+- You also have a huge sample. Even with poor overlap, the ESS ratios still leave thousands of effective observations: roughly `9.6k`, `5.3k`, and `3.8k` treated ESS, with about `11.3k` baseline ESS in each comparison. That is plenty for a simple constant-effect synthetic DGP.
+
+One subtlety: the overlap plot and overlap diagnostics prefer `m_hat_raw` when available, while estimation uses trimmed `m_hat` with threshold `0.01`. So the diagnostic picture is intentionally harsher than the exact weights used in the score.
+
+The takeaway is: this overlap is bad, but the estimate is still close to oracle because the benchmark is very favorable to outcome-model-based recovery. In real data, overlap this bad would make me treat the result as fragile and model-dependent, not reassuring. Your later sensitivity section is consistent with that: the bias-aware intervals get much wider even though the sampling CI is tight.
+
+If you want, I can next help you answer one of these precisely:
+1. whether the estimate is mostly coming from `g_hat` rather than IPW,
+2. how much trimming is rescuing the estimate,
+3. how to soften this DGP so overlap becomes realistic.
+## FILE D:\codex\Causalis\notebooks\cases\estimation_of_cx.ipynb CELL 28
+# Unconfoundedness
+## FILE D:\codex\Causalis\notebooks\cases\estimation_of_cx.ipynb CELL 31
+**`rep_uc` Meaning**
+`run_unconfoundedness_diagnostics()` is checking weighted covariate balance after reweighting by the estimated multiclass propensities `d_k / m_hat_k`, then computing standardized mean differences (SMDs) between each treatment arm and control in  It uses the trimmed `m_hat` from the estimate, not `m_hat_raw`, so this is already judging the “safer” propensities actually used by the score in
+
+Your numbers are a hard fail:
+- `control vs neg_contact_flg`: `balance_max_smd = 0.75095`, `balance_frac_violations = 0.30`
+- `control vs error_flg`: `balance_max_smd = 1.655942`, `balance_frac_violations = 0.45`
+- `control vs neg_contact_flg_error_flg`: `balance_max_smd = 1.924802`, `balance_frac_violations = 0.65`
+- Overall: `46.7%` of feature-comparison cells are still above the default SMD threshold `0.10`, and anything above `0.20` is already `RED` by the implementation in
+
+**Why This Happens**
+This does not mean the DGP violates unconfoundedness. In this synthetic CX setup, unconfoundedness is true by construction because treatment and outcome depend only on observed `X`, with no hidden `U` effect by default in the shared generator at  What fails is the practical balancing step induced by estimated propensities.
+
+The reason is the treatment assignment is intentionally very sharp:
+- `neg_contact_flg` is driven strongly by `prev_contact` with coefficient `2.20` in
+- `error_flg` is driven by `prev_repeat` and related history in
+- the joint arm uses the sum of both logits in
+
+So the arms live in different parts of covariate space. Poor overlap means IPW cannot create balanced pseudo-populations because there just are not enough comparable controls and treated units to reweight into each other. That’s exactly why overlap and balance both fail.
+
+**Why ATE Is Still Close**
+The estimate can still be near oracle because `MultiTreatmentIRM` is doubly robust / outcome-augmented, not pure IPW. Its score combines outcome regression `g_hat` with weighted residual terms in . In this benchmark the treatment effect structure is very simple on the link scale, with `theta=[0.0, 0.0, -0.65, -0.65]` and no extra `tau(X)` in So `g_hat` can recover a lot even when weighting is weak.
+
+That’s also why the pattern of errors makes sense:
+- `neg_contact_flg` has the least-bad overlap/balance and smallest absolute miss from oracle
+- `neg_contact_flg_error_flg` has the worst overlap/balance and the biggest miss
+
+So the clean interpretation is:
+- overlap diagnostics: bad
+- balance diagnostics: bad even after trimming
+- oracle vs estimate: still close because this synthetic problem is easy for the outcome model, not because the design is well supported
+## FILE D:\codex\Causalis\notebooks\cases\estimation_of_cx.ipynb CELL 32
+# Sensetivity analysis
+## FILE D:\codex\Causalis\notebooks\cases\estimation_of_cx.ipynb CELL 36
+# Summary
+A regular contact/support request is not a problem, while submitting the application multiple times leads to a decrease in product utilization.
+## FILE D:\codex\Causalis\notebooks\cases\in_store_navigation.ipynb CELL 1
+# Synthetic Control Method
+## FILE D:\codex\Causalis\notebooks\cases\in_store_navigation.ipynb CELL 2
+This notebook presents the **in store navigation** case and the core analysis workflow.
+## FILE D:\codex\Causalis\notebooks\cases\in_store_navigation.ipynb CELL 3
+# Data
+## FILE D:\codex\Causalis\notebooks\cases\in_store_navigation.ipynb CELL 7
+# EDA
+## FILE D:\codex\Causalis\notebooks\cases\in_store_navigation.ipynb CELL 12
+# Inference
+## FILE D:\codex\Causalis\notebooks\cases\in_store_navigation.ipynb CELL 15
+# Refutation
+## FILE D:\codex\Causalis\notebooks\cases\in_store_navigation.ipynb CELL 18
+## Placebo
+## FILE D:\codex\Causalis\notebooks\cases\in_store_navigation.ipynb CELL 21
+We pretend treatment has happened earlier.
+- placebo_treatment_start - where treatment starts
+- n_pre_before_placebo - how many periods were fitted before the treatment
+- n_post_after_placebo - how many periods were fitted after the treatment
+- average_att_placebo - average_post_effect
+- rejects_zero - p_value < alpha
+
+So weak robustness when we have many rows have rejects_zero = false and average_att_placebo is small
+## FILE D:\codex\Causalis\notebooks\cases\in_store_navigation.ipynb CELL 23
+How to read columns:
+
+- unit_id: unit used as treated in that placebo run.
+- pre_rmse: pre-treatment fit error (lower is better).
+- post_rmse: post-treatment fit error.
+- post_pre_rmspe_ratio: post_rmse / pre_rmse (main Abadie-style statistic).
+- average_post_gap: mean post-treatment gap (observed - synthetic).
+- max_abs_post_gap: largest absolute post gap.
+- rank_post_pre_rmspe_ratio: rank of ratio, descending (1 = largest ratio).
+- is_actual_treated: True for your real treated unit.
+
+Interpretation:
+You want the real treated unit (is_actual_treated=True) to have one of the largest post_pre_rmspe_ratio values (ideally rank near 1).
+If many placebo units have similar/larger ratios, treatment effect is less convincing.
+Also check pre_rmse: if pre-fit is poor for some placebos, their high ratios are less informative.
+## FILE D:\codex\Causalis\notebooks\cases\in_store_navigation.ipynb CELL 24
+## Sensitivity
+## FILE D:\codex\Causalis\notebooks\cases\in_store_navigation.ipynb CELL 26
+- dropped_donor: donor unit removed in that refit.
+- average_att_reestimated: ATT after removing that donor.
+- delta_vs_full_model: reestimated_ATT - original_full_model_ATT.
+Near 0  estimate is stable to that donor.
+Large |deltal  that donor is influential.
+- pre_rmse_reestimated: pre-treatment fit error after refit. Higher than baseline  worse pre-fit when donor is removed.
+- max_weight_afterrefit: largest donor weight in refit.Very high (close to 1)  dependence on one donor.
+-  effective_n_donors_after_refit: effective donor count (1 / sum (w^2)). Lower  concentration on fewer donors.
+## FILE D:\codex\Causalis\notebooks\cases\in_store_navigation.ipynb CELL 27
+## Model
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 1
+# Multi Unconfoundedness
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 2
+Multi Unconfoundedness is observational/quasi experimental scenario of causal inference with multiple treatments. Treatments are not randomly assigned so we need to control confounders to estimate causal effect
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 3
+# Data
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 4
+In our research we should estimate effect of different gamification mechanics.
+Our outcome is number of sessions per month.
+
+Treatments:
+- d_0: No mechanics used
+- d_1: Used first set of mechanics
+- d_2: Used second set of mechanics
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 5
+DGP is from Causalis. Read more at https://causalis.causalcraft.com/articles/generate_multitreatment_gamma_26
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 11
+# EDA
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 16
+As we see there are heavy tails in distribution of outcome. We won't trim them because high activity means high income of revenue for us
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 19
+And data is highly biased by confounders
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 20
+# Inference
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 22
+## Explanation of `MultiTreatmentIRM`
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 23
+
+### 0) Assumptions
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 24
+
+- **SUTVA / consistency**: no interference, no hidden treatment versions, and observed outcome equals the potential outcome under realized arm.
+- **Multi-arm unconfoundedness**:
+$$
+\left(Y(0),Y(1),\dots,Y(K-1)\right) \perp D \mid X
+$$
+where $D$ is one-hot with baseline arm $D_0$.
+- **Positivity / overlap**:
+$$
+\Pr(D_k=1\mid X=x)>0,\quad \forall k=0,\dots,K-1.
+$$
+In practice, the implementation enforces stability with propensity trimming.
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 25
+
+### 1) Data and estimand
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 26
+
+For each unit $i$ we observe $(Y_i, X_i, D_i)$ with one-hot $D_i=(D_{i0},\dots,D_{i,K-1})$ and $\sum_k D_{ik}=1$.
+
+`MultiTreatmentIRM` estimates vector contrasts against baseline:
+$$
+\theta_k = \mathbb{E}[Y(k)-Y(0)],\quad k=1,\dots,K-1.
+$$
+So outputs are pairwise ATEs such as `d_1 vs d_0`, `d_2 vs d_0`.
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 27
+
+### 2) Nuisance functions
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 28
+
+For each arm $k$:
+$$
+g_k(x)=\mathbb{E}[Y\mid X=x, D_k=1],\qquad
+m_k(x)=\Pr(D_k=1\mid X=x),\ \sum_{k=0}^{K-1}m_k(x)=1.
+$$
+These are estimated out-of-fold by cross-fitting (to reduce overfitting bias in final moments).
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 29
+
+### 3) Cross-fitting logic
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 30
+
+With folds $I_1,\dots,I_F$:
+1. Train multiclass propensity model on $I_f^c$, predict $\hat m_k$ on $I_f$.
+2. For each arm $k$, train outcome model on rows in $I_f^c$ where $D_k=1$, predict $\hat g_k$ on $I_f$.
+3. Repeat for all folds and stitch predictions.
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 31
+
+### 4) Multiclass trimming
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 32
+
+Predicted propensities are stabilized by lower-bound trimming and row renormalization:
+$$
+\tilde m_{ik}=\max(\hat m_{ik},\varepsilon),\qquad
+\hat m^{trim}_{ik}=\frac{\tilde m_{ik}}{\sum_{j=0}^{K-1}\tilde m_{ij}}.
+$$
+This keeps each row on the probability simplex and avoids exploding IPW weights.
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 33
+
+### 5) Orthogonal score for each contrast
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 34
+
+Define residuals and IPW representers:
+$$
+u_{ik}=Y_i-\hat g_k(X_i),\qquad
+h_{ik}=\frac{D_{ik}}{\hat m^{trim}_{ik}}.
+$$
+(If `normalize_ipw=True`, $h_{ik}$ is column-normalized in Hajek style.)
+
+For each active arm $k>0$ vs baseline $0$:
+$$
+\psi_{b,ik}=\big(\hat g_k(X_i)-\hat g_0(X_i)\big)+u_{ik}h_{ik}-u_{i0}h_{i0},
+\qquad \psi_a=-1.
+$$
+Moment condition:
+$$
+\mathbb{E}_n[\psi_a\theta_k+\psi_{b,\cdot k}]=0
+\ \Rightarrow\
+\hat\theta_k=\mathbb{E}_n[\psi_{b,\cdot k}].
+$$
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 35
+
+### 6) Inference
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 36
+
+Influence function per contrast:
+$$
+\widehat{IF}_{ik}=\psi_{b,ik}-\hat\theta_k.
+$$
+Then
+$$
+\widehat{SE}(\hat\theta_k)=\sqrt{\frac{\mathrm{Var}_n(\widehat{IF}_{\cdot k})}{n}},
+$$
+with Wald CI
+$$
+\hat\theta_k \pm z_{1-\alpha/2}\widehat{SE}(\hat\theta_k).
+$$
+P-values are normal-approximation; significance flag is Bonferroni-adjusted across $K-1$ contrasts.
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 37
+
+### 7) Relative effect reported by the model
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 38
+
+Baseline mean is estimated via orthogonal signal:
+$$
+\psi_{\mu_c,i}=\hat g_0(X_i)+u_{i0}h_{i0},\qquad \hat\mu_c=\mathbb{E}_n[\psi_{\mu_c}].
+$$
+Relative effect (%):
+$$
+\hat\tau_k^{rel}=100\cdot\frac{\hat\theta_k}{\hat\mu_c},
+$$
+with CI from delta-method variance (as implemented in `model.py`).
+
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 40
+# Refutation
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 41
+## Unconfoundedness
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 43
+## Sensitivity
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 47
+## Overlap
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 50
+## SUTVA
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 52
+## Score
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 55
+# Conclusion
+## FILE D:\codex\Causalis\notebooks\cases\multi_atte_test.ipynb CELL 56
+Set of mechanics labeled d_2 performed better and has effect 2.5355 (ci_abs: 2.4600, 2.6111) sessions per user. However, set of mechanics labeled d_1 perform worse than without mechanics -1.1772 (ci_abs: -1.2174, -1.1370) sessions. We need to turn them off
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 1
+# Probability to become a premium
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 2
+This notebook presents the **probability of premium** case and the core analysis workflow.
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 3
+We have lunched new section that tells about premium subscription advantage
+Treatment - Saw new section
+Outcome - Conversion to premium subscription
+Our covariate is probability of premium subscription predicted by our ML model.
+
+We will test hypothesis:
+
+$H_o$ - There is no difference in conversion between treatment and control groups.
+
+$H_a$ - There is a difference in conversion between treatment and control groups.
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 4
+## Data
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 5
+We will use DGP from Causalis. Read more at https://causalis.causalcraft.com/articles/generate_cuped_binary
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 10
+So we see that new section has higher conversion rate. Let's check if it is statistically significant and our test holds the indentification assumptions
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 11
+# Monitoring of the split
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 14
+There is no evidence of breaking unconfoundedness assumption
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 15
+# Inference
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 16
+We will use the `CUPEDModel` that implements the Lin (2013) "interacted adjustment" for ATE (Average Treatment Effect) estimation in randomized controlled trials (RCTs). This method is a robust version of ANCOVA that remains valid even when the treatment effect is heterogeneous with respect to the covariates.
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 17
+
+#### 1. Specification
+The model fits an Ordinary Least Squares (OLS) regression of the outcome $Y$ on the treatment indicator $D$ and centered pre-treatment covariates $X^c$. The specification includes full interactions between the treatment and the centered covariates:
+
+$$Y_i = \alpha + \tau D_i + \beta^T X_i^c + \gamma^T (D_i \cdot X_i^c) + \epsilon_i$$
+
+Where:
+- $Y_i$: Outcome for individual $i$.
+- $D_i$: Binary treatment indicator ($D_i \in \{0, 1\}$).
+- $X_i$: Vector of pre-treatment covariates.
+- $X_i^c = X_i - \bar{X}$: Centered covariates (where $\bar{X}$ is the sample mean).
+- $\alpha$: Intercept (represents the mean outcome of the control group when $X = \bar{X}$).
+- $\tau$: **Average Treatment Effect (ATE)** or Intent-to-Treat (ITT) effect.
+- $\beta$: Vector of coefficients for the main effects of the covariates.
+- $\gamma$: Vector of coefficients for the interaction terms between treatment and covariates.
+- $\epsilon_i$: Residual error term.
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 20
+Our result is significant with relative ci 7.5747% (ci_rel: 1.9572%, 13.1923%)
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 23
+CUPED is worked. We reduced variance
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 24
+# Let's check other assuptions
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 25
+## SUTVA
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 27
+1. We assume that there is no networking effect
+2. Metrics are valid
+3. Confounders and covariates meseared before the treatment and outcome after
+4. Lebeling treatment are consistent based of our logging system
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 28
+## Overlap
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 29
+Overlap is true by design
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 30
+## Regression specification
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 32
+Our regression specification is valid
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 33
+# In conclution
+## FILE D:\codex\Causalis\notebooks\cases\probability_of_premium.ipynb CELL 34
+The new section is performing better than the older. Effect is "0.0210 (ci_abs: 0.0054, 0.0365)" in p.p. Roll out to all users
+## FILE D:\codex\Causalis\notebooks\cases\retention_on_third.ipynb CELL 1
+# Achievements effect on Retention to third month in ecosystem
+## FILE D:\codex\Causalis\notebooks\cases\retention_on_third.ipynb CELL 2
+This notebook presents the **retention on third** case and the core analysis workflow.
+## FILE D:\codex\Causalis\notebooks\cases\retention_on_third.ipynb CELL 3
+We call 'Uncofoundedness' a scenario where a treatment is not randomly assigned to participants, so confounders effect on treatment assignment and outcome.
+
+Treatment - purchase in one category.
+
+We will test hypothesis:
+
+$H_o$ - There is no difference in retention to third month between treatment and control groups.
+
+$H_a$ - There is a difference in LTV between treatment and control groups.
+## FILE D:\codex\Causalis\notebooks\cases\retention_on_third.ipynb CELL 9
+# Inference
+## FILE D:\codex\Causalis\notebooks\cases\retention_on_third.ipynb CELL 12
+# Refutation
+## FILE D:\codex\Causalis\notebooks\cases\retention_on_third.ipynb CELL 13
+## Unconfoundedness
+## FILE D:\codex\Causalis\notebooks\cases\retention_on_third.ipynb CELL 15
+### Sensitivity
+## FILE D:\codex\Causalis\notebooks\cases\retention_on_third.ipynb CELL 19
+## SUTVA
+## FILE D:\codex\Causalis\notebooks\cases\retention_on_third.ipynb CELL 21
+## Score
+## FILE D:\codex\Causalis\notebooks\cases\retention_on_third.ipynb CELL 26
+## Overlap
+## FILE D:\codex\Causalis\notebooks\cases\retention_on_third.ipynb CELL 30
+# Conclusion
+## FILE D:\codex\Causalis\notebooks\cases\retention_on_third.ipynb CELL 31
+First purchase in our product is retention 0.1026 (ci_abs: 0.0948, 0.1105) p.p. Model is specified correctly and there is no evidence that assumptions are false
+## FILE D:\codex\Causalis\notebooks\research\ascm_comparison.ipynb CELL 1
+# Comparison of Augmented Synthetic Control Method (ASCM)
+
+This notebook compares the implementation of Augmented Synthetic Control in `causalis` and `pysyncon`.
+
+## FILE D:\codex\Causalis\notebooks\research\ascm_comparison.ipynb CELL 2
+This notebook presents the **ascm comparison** research workflow and key analysis steps.
+## FILE D:\codex\Causalis\notebooks\research\ascm_comparison.ipynb CELL 4
+## Data Generation
+
+We use the `generate_scm_gamma_26` function to generate synthetic panel data.
+
+## FILE D:\codex\Causalis\notebooks\research\ascm_comparison.ipynb CELL 6
+## CKit (causalis) ASCM
+
+We use the `AugmentedSyntheticControl` model with `lambda_aug=50`.
+
+## FILE D:\codex\Causalis\notebooks\research\ascm_comparison.ipynb CELL 8
+## PySyncon ASCM
+
+We prepare the `Dataprep` object and fit the `AugSynth` model.
+
+## FILE D:\codex\Causalis\notebooks\research\ascm_comparison.ipynb CELL 10
+## Results Comparison
+
+## FILE D:\codex\Causalis\notebooks\research\ascm_comparison.ipynb CELL 12
+### Explanation of Discrepancies
+
+The estimates differ because:
+1. **Time Period Alignment**: `causalis` automatically correctly identifies the pre-treatment period for the treated unit. In `pysyncon`, manually specifying `pre_periods` requires filtering by the treated unit to avoid including periods where donors are "pre-treatment" but the treated unit is already treated.
+2. **De-meaning (Intercept)**: `pysyncon` performs row-wise (cross-sectional) de-meaning by the donor average at each time point before applying Ridge. This effectively includes a time-specific intercept $\alpha_t$. This also alters the direction of the Ridge penalty.
+3. **Constraint Specification**: `causalis` explicitly enforces the sum-to-one constraint on augmented weights via a Lagrange multiplier in the original space, while `pysyncon` relies on cross-sectional de-meaning to satisfy the constraint (which is mathematically equivalent to solving with an intercept).
+
+## FILE D:\codex\Causalis\notebooks\research\benchmarking_diff_in_means.ipynb CELL 1
+# Benchmarking: DiffInMeans vs Scipy implementation
+## FILE D:\codex\Causalis\notebooks\research\benchmarking_diff_in_means.ipynb CELL 2
+This notebook presents the **benchmarking diff in means** research workflow and key analysis steps.
+## FILE D:\codex\Causalis\notebooks\research\benchmarking_diff_in_means.ipynb CELL 3
+Goal: verify that `DiffInMeans` implementations of `ttest`, `conversion_ztest`, and `bootstrap`
+match raw reference calculations from SciPy/Statsmodels.
+## FILE D:\codex\Causalis\notebooks\research\benchmarking_diff_in_means.ipynb CELL 7
+## 1) Welch t-test: model vs SciPy/Statsmodels
+## FILE D:\codex\Causalis\notebooks\research\benchmarking_diff_in_means.ipynb CELL 9
+## 2) Conversion z-test: model vs Statsmodels two-proportion tools
+## FILE D:\codex\Causalis\notebooks\research\benchmarking_diff_in_means.ipynb CELL 11
+## 3) Bootstrap diff-in-means: model vs SciPy bootstrap
+## FILE D:\codex\Causalis\notebooks\research\benchmarking_diff_in_means.ipynb CELL 13
+## 4) Confidence intervals side-by-side
+## FILE D:\codex\Causalis\notebooks\research\benchmarking_diff_in_means.ipynb CELL 15
+In conclusion: Diff_in_Means model is implemented correctly.
+## FILE D:\codex\Causalis\notebooks\research\classic_rct_gamma_26.ipynb CELL 1
+# DGP classic_rct_gamma_26
+
+## FILE D:\codex\Causalis\notebooks\research\classic_rct_gamma_26.ipynb CELL 2
+This notebook presents the **classic rct gamma 26** research workflow and key analysis steps.
+## FILE D:\codex\Causalis\notebooks\research\classic_rct_gamma_26.ipynb CELL 3
+# Math Explanation of the `classic_rct_gamma_26` DGP
+
+## FILE D:\codex\Causalis\notebooks\research\classic_rct_gamma_26.ipynb CELL 4
+The `classic_rct_gamma_26` function generates a synthetic dataset for a **Classic Randomized Controlled Trial (RCT)**. Treatment is assigned completely at random, and covariates $X$ affect the outcome (prognostic) but do not influence treatment assignment (no confounding).
+
+By default, it simulates a **revenue** experiment (gamma outcome) with 10,000 samples and a 50/50 split.
+
+## FILE D:\codex\Causalis\notebooks\research\classic_rct_gamma_26.ipynb CELL 5
+
+## Covariate Generation (Confounders)
+
+## FILE D:\codex\Causalis\notebooks\research\classic_rct_gamma_26.ipynb CELL 6
+Three binary covariates $X = [x_1, x_2, x_3]$ are generated independently:
+*   **`platform_ios`** ($x_1$): $x_1 \sim \text{Bernoulli}(0.5)$
+*   **`country_usa`** ($x_2$): $x_2 \sim \text{Bernoulli}(0.6)$
+*   **`source_paid`** ($x_3$): $x_3 \sim \text{Bernoulli}(0.3)$
+
+## FILE D:\codex\Causalis\notebooks\research\classic_rct_gamma_26.ipynb CELL 7
+
+## Treatment Assignment ($D$)
+
+## FILE D:\codex\Causalis\notebooks\research\classic_rct_gamma_26.ipynb CELL 8
+Since it is an RCT, the treatment $D$ is independent of $X$. It is assigned with a probability $P(D=1) = 0.5$:
+$$D \sim \text{Bernoulli}(0.5)$$
+The log-odds of treatment (intercept $\alpha_d$) is $0$.
+
+## FILE D:\codex\Causalis\notebooks\research\classic_rct_gamma_26.ipynb CELL 9
+## Outcome Generation (`revenue`)
+
+The outcome is a positive, skewed metric (e.g., revenue) modeled with a **Gamma** distribution using a log-mean link:
+$$Y \mid D, X \sim \text{Gamma}(k, \theta)$$
+$$\log \mathbb{E}[Y \mid D, X] = \log(k \cdot \theta_A) + \beta_y^\top X + g_y(X) + D \cdot \log(\theta_B/\theta_A)$$
+
+By default, $g_y(X)=0$ because `add_pre=False`. The nonlinear term is only included when `add_pre=True` (or when `g_y`/`use_prognostic` is provided).
+
+*   **Shape ($k$):** Default $k=2.0$.
+*   **Scale (control $\theta_A$):** Default $15.0$.
+*   **Scale (treatment $\theta_B$):** Default $16.5$.
+*   **Prognostic Coefficients ($\beta_y$):** Default $[0.25, 0.20, 0.45]$. These values shift the log-mean of revenue.
+
+## FILE D:\codex\Causalis\notebooks\research\classic_rct_gamma_26.ipynb CELL 10
+With the defaults, the group means are:
+$$\mathbb{E}[Y \mid D=0] = k \cdot \theta_A = 2.0 \times 15.0 = 30.0$$
+$$\mathbb{E}[Y \mid D=1] = k \cdot \theta_B = 2.0 \times 16.5 = 33.0$$
+This corresponds to a 10% uplift on the mean scale before covariate effects.
+
+## FILE D:\codex\Causalis\notebooks\research\classic_rct_gamma_26.ipynb CELL 11
+
+## Summary of Default Parameters
+
+## FILE D:\codex\Causalis\notebooks\research\classic_rct_gamma_26.ipynb CELL 12
+*   **$N$**: 10,000
+*   **Control Mean (baseline)**: $30.0$ at $X=0$
+*   **Treatment Mean (baseline)**: $33.0$ at $X=0$
+*   **Treatment Split**: 50%
+*   **Confounders**: 3 binary
+*   **Nonlinear $g_y(X)$**: only when `add_pre=True` or `g_y`/`use_prognostic` is provided
+
+## FILE D:\codex\Causalis\notebooks\research\classic_rct_gamma_26.ipynb CELL 13
+# DGP
+
+## FILE D:\codex\Causalis\notebooks\research\classic_rct_gamma_26.ipynb CELL 17
+# EDA
+## FILE D:\codex\Causalis\notebooks\research\classic_rct_gamma_26.ipynb CELL 20
+## Balance check
+## FILE D:\codex\Causalis\notebooks\research\dml_rct_did_iv.ipynb CELL 1
+# Единый DGP для DML vs RCT vs IV vs DiD
+
+Бизнес-событие во всех дизайнах одно: **первая успешная оплата ЖКХ в приложении**. Сначала генерируется один структурный мир клиентов и их потенциальные исходы, затем к нему применяются разные механизмы назначения воздействия.
+
+- **RCT / ITT:** эффект случайного промо на PnL.
+- **IV / LATE:** эффект первой оплаты для клиентов-комплаеров; промо служит инструментом.
+- **DML:** эффект органического начала использования при selection on observables.
+- **DiD:** динамика PnL после staggered adoption относительно ещё не начавших / never-treated.
+
+Названия `y`, `d`, `z`, propensity и oracle-полей следуют соглашениям `causalis.dgp`. Сам генератор общий, потому что готовые DGP в пакете создают независимые миры и не позволяют честно сравнивать дизайны на одних клиентах.
+## FILE D:\codex\Causalis\notebooks\research\dml_rct_did_iv.ipynb CELL 3
+## Параметры сценария
+
+Базовый сценарий удовлетворяет ключевым предпосылкам. Для stress-тестов меняйте `hidden_confounding`, `did_trend_violation`, `anticipation_strength` и `overlap_strength`.
+## FILE D:\codex\Causalis\notebooks\research\dml_rct_did_iv.ipynb CELL 6
+## Генерация датасетов
+## FILE D:\codex\Causalis\notebooks\research\dml_rct_did_iv.ipynb CELL 9
+## Быстрые sanity checks
+
+Эти проверки не являются оценивателями исследования, но подтверждают механику DGP. Wald ratio должен быть близок к oracle LATE, difference-in-means по `z` — к ITT.
+## FILE D:\codex\Causalis\notebooks\research\dml_rct_did_iv.ipynb CELL 13
+## Аналитические выборки без oracle leakage
+
+Используйте объекты `*_analysis` в моделях. Полные датафреймы сохраняют истину только для расчёта bias/RMSE/coverage.
+## FILE D:\codex\Causalis\notebooks\research\dml_rct_did_iv.ipynb CELL 15
+## Сценарии нарушений
+
+```python
+hidden_world = generate_causal_world(WorldConfig(hidden_confounding=1.0))
+bad_did_world = generate_causal_world(WorldConfig(did_trend_violation=1.0))
+anticipation_world = generate_causal_world(WorldConfig(anticipation_strength=0.3))
+poor_overlap_world = generate_causal_world(WorldConfig(overlap_strength=2.5))
+```
+
+При одинаковом `seed` потенциальные исходы и клиентские признаки остаются теми же; меняется только соответствующий механизм назначения/нарушения.
+## FILE D:\codex\Causalis\notebooks\research\dml_rct_did_iv.ipynb CELL 16
+## Опциональный экспорт
+
+Ячейка ниже намеренно не выполняется автоматически. Она сохраняет и аналитические, и oracle-версии рядом с notebook.
+## FILE D:\codex\Causalis\notebooks\research\dml_rct_did_iv.ipynb CELL 18
+# Проверяем
+## FILE D:\codex\Causalis\notebooks\research\dml_vs_psw.ipynb CELL 1
+# DML IRM vs Propensity Score Weighting (PSW)
+## FILE D:\codex\Causalis\notebooks\research\dml_vs_psw.ipynb CELL 2
+Causal Inference consists of two main parts: Identification Assumptions and Model Specification. SUTVA, Unconfoundedness, Overlap are strong assumptions that must be true to call our inference causal. Studies and quasi experiments often have problems with Identification Assumptions so in practice you spend time to prove them, not model specification
+## FILE D:\codex\Causalis\notebooks\research\dml_vs_psw.ipynb CELL 3
+However, in this notebook I will focus on model specification. Propensity Score Weighting is a classical baseline for observational studies, estimating ATTE from an estimated propensity model. It should perform worse than the DML IRM approach because:
+## FILE D:\codex\Causalis\notebooks\research\dml_vs_psw.ipynb CELL 4
+- uses only the propensity model and does not learn a separate outcome regression
+- is more sensitive to extreme or misscaled propensities because errors become large weights
+- does not use orthogonalization, so nuisance-model misspecification shows up directly in the estimate
+- does not use cross-fitting to control overfitting bias from flexible ML models
+- often has much worse effective sample size than the nominal row count when overlap is weak
+- provides a weaker default benchmark than a doubly robust IRM when both treatment and outcome are nonlinear
+## FILE D:\codex\Causalis\notebooks\research\dml_vs_psw.ipynb CELL 5
+We will compare absolute estimates on DGPs from Causalis between the IRM DML model implemented in Causalis and a hand-written PSW estimator.
+## FILE D:\codex\Causalis\notebooks\research\dml_vs_psw.ipynb CELL 7
+# generate_obs_hte_26_rich()
+## FILE D:\codex\Causalis\notebooks\research\dml_vs_psw.ipynb CELL 8
+Read more about dgp at https://causalis.causalcraft.com/articles/generate_obs_hte_26_rich
+## FILE D:\codex\Causalis\notebooks\research\dml_vs_psw.ipynb CELL 15
+DML IRM should be more stable than PSW on the rich nonlinear DGP, especially when PSW loses effective sample size through large ATT weights.
+## FILE D:\codex\Causalis\notebooks\research\dml_vs_psw.ipynb CELL 16
+# generate_obs_hte_binary_26()
+## FILE D:\codex\Causalis\notebooks\research\dml_vs_psw.ipynb CELL 17
+Read more about the dgp at https://causalis.causalcraft.com/articles/generate_obs_hte_binary_26
+## FILE D:\codex\Causalis\notebooks\research\dml_vs_psw.ipynb CELL 24
+# Conclusion
+## FILE D:\codex\Causalis\notebooks\research\dml_vs_psw.ipynb CELL 25
+I recommend using DML IRM as the default model specification for the unconfoundedness scenario, and treating PSW as a simple benchmark rather than the default estimator.
+## FILE D:\codex\Causalis\notebooks\research\doubleml_benchmark.ipynb CELL 1
+# Compare Implementation of DML IRM in Causalis and DML IRM in DoubleML
+## FILE D:\codex\Causalis\notebooks\research\doubleml_benchmark.ipynb CELL 2
+This notebook presents the **doubleml benchmark** research workflow and key analysis steps.
+## FILE D:\codex\Causalis\notebooks\research\doubleml_benchmark.ipynb CELL 3
+Comparing `IRM` model from Causalis with `dml.DoubleMLIRM` from DoubleML with default CatboostRegressor and CatboostClassifier for g0, g1 amd m
+## FILE D:\codex\Causalis\notebooks\research\doubleml_benchmark.ipynb CELL 4
+# DGP
+## FILE D:\codex\Causalis\notebooks\research\doubleml_benchmark.ipynb CELL 5
+We will use DGP: `generate_obs_hte_26_rich()`
+read more at [this notebook](https://causalis.causalcraft.com/articles/generate_obs_hte_26_rich)
+## FILE D:\codex\Causalis\notebooks\research\doubleml_benchmark.ipynb CELL 9
+# Comparison of Inference
+## FILE D:\codex\Causalis\notebooks\research\doubleml_benchmark.ipynb CELL 10
+## Causalis
+## FILE D:\codex\Causalis\notebooks\research\doubleml_benchmark.ipynb CELL 13
+## DoubleML
+## FILE D:\codex\Causalis\notebooks\research\doubleml_benchmark.ipynb CELL 18
+# Conclusion
+## FILE D:\codex\Causalis\notebooks\research\doubleml_benchmark.ipynb CELL 21
+With matched learners, fold count, trimming, and seeded sample splitting, Causalis and DoubleML agree up to numerical precision. The remaining movement is seed-to-seed benchmark variability, not a difference in the ATTE estimand.
+## FILE D:\codex\Causalis\notebooks\research\doubleml_multitreatment_benchmark.ipynb CELL 1
+# Benchmark MultiTreatmentIRM vs DoubleML Multitreatment (APOS)
+## FILE D:\codex\Causalis\notebooks\research\doubleml_multitreatment_benchmark.ipynb CELL 2
+This notebook presents the **doubleml multitreatment benchmark** research workflow and key analysis steps.
+## FILE D:\codex\Causalis\notebooks\research\doubleml_multitreatment_benchmark.ipynb CELL 3
+Compare `MultiTreatmentIRM` from Causalis with the DoubleML multitreatment realization (`DoubleMLAPOS`) on the same 3-arm DGP.
+## FILE D:\codex\Causalis\notebooks\research\doubleml_multitreatment_benchmark.ipynb CELL 4
+# DGP
+## FILE D:\codex\Causalis\notebooks\research\doubleml_multitreatment_benchmark.ipynb CELL 5
+Use `generate_multitreatment_irm_26()` with oracle effects so we can benchmark each active arm against control.
+## FILE D:\codex\Causalis\notebooks\research\doubleml_multitreatment_benchmark.ipynb CELL 10
+# Causalis: MultiTreatmentIRM
+## FILE D:\codex\Causalis\notebooks\research\doubleml_multitreatment_benchmark.ipynb CELL 13
+# DoubleML: multitreatment realization (APOS)
+## FILE D:\codex\Causalis\notebooks\research\generate_classic_rct_26.ipynb CELL 1
+# DGP generate_classic_rct_26
+## FILE D:\codex\Causalis\notebooks\research\generate_classic_rct_26.ipynb CELL 2
+This notebook presents the **generate classic rct 26** research workflow and key analysis steps.
+## FILE D:\codex\Causalis\notebooks\research\generate_classic_rct_26.ipynb CELL 3
+# Math Explanation of the `generate_classic_rct_26` DGP
+## FILE D:\codex\Causalis\notebooks\research\generate_classic_rct_26.ipynb CELL 4
+The `generate_classic_rct_26` function generates a synthetic dataset for a **Classic Randomized Controlled Trial (RCT)**. In this scenario, treatment is assigned completely at random, and covariates $X$ affect the outcome (prognostic) but do not influence the treatment assignment (no confounding).
+
+By default, it simulates a **conversion** experiment (binary outcome) with 10,000 samples and a 50/50 split.
+## FILE D:\codex\Causalis\notebooks\research\generate_classic_rct_26.ipynb CELL 5
+
+## Covariate Generation (Confounders)
+## FILE D:\codex\Causalis\notebooks\research\generate_classic_rct_26.ipynb CELL 6
+Three binary covariates $X = [x_1, x_2, x_3]$ are generated independently:
+*   **`platform_ios`** ($x_1$): $x_1 \sim \text{Bernoulli}(0.5)$
+*   **`country_usa`** ($x_2$): $x_2 \sim \text{Bernoulli}(0.6)$
+*   **`source_paid`** ($x_3$): $x_3 \sim \text{Bernoulli}(0.3)$
+## FILE D:\codex\Causalis\notebooks\research\generate_classic_rct_26.ipynb CELL 7
+
+## Treatment Assignment ($D$)
+## FILE D:\codex\Causalis\notebooks\research\generate_classic_rct_26.ipynb CELL 8
+Since it is an RCT, the treatment $D$ is independent of $X$. It is assigned with a probability $P(D=1) = 0.5$:
+$$D \sim \text{Bernoulli}(0.5)$$
+The log-odds of treatment (intercept $\alpha_d$) is $0$.
+## FILE D:\codex\Causalis\notebooks\research\generate_classic_rct_26.ipynb CELL 9
+## Outcome Generation (`conversion`)
+
+The outcome is a binary variable representing conversion. The probability of conversion for an individual is modeled using a logistic link function:
+$$P(\text{conversion}=1 \mid D, X) = \sigma(L)$$
+where $\sigma(z) = \frac{1}{1 + e^{-z}}$ is the sigmoid function.
+
+The latent linear predictor $L$ is defined as:
+$$L = \alpha_y + \sum_{j=1}^3 \beta_{y,j} x_j + g_y(X) + D \cdot \theta$$
+
+By default, $g_y(X)=0$ because `add_pre=False`. The nonlinear term is only included when `add_pre=True` (or when `g_y`/`use_prognostic` is provided).
+
+*   **Baseline Intercept ($\alpha_y$):**
+    Derived from the target control conversion rate $p_A = 0.10$.
+    $$\alpha_y = \text{logit}(0.10) = \ln\left(\frac{0.10}{0.90}\right) \approx -2.197$$
+    This sets the baseline rate at $X=0$; the marginal control rate can differ once $X$ shifts log-odds.
+*   **Treatment Effect ($\theta$):**
+    Derived from the target treatment conversion rate $p_B = 0.11$. It represents the shift in log-odds.
+    $$\theta = \text{logit}(0.11) - \text{logit}(0.10) = \ln\left(\frac{0.11}{0.89}\right) - \ln\left(\frac{0.10}{0.90}\right) \approx 0.106$$
+    This is a baseline log-odds shift; the marginal ATE on the probability scale is not exactly 1% once $X$ effects are present.
+*   **Prognostic Coefficients ($\beta_y$):**
+    By default, $\beta_y = [0.6, 0.4, 0.8]$. These values determine how much each covariate shifts the log-odds of conversion.
+
+## FILE D:\codex\Causalis\notebooks\research\generate_classic_rct_26.ipynb CELL 10
+
+The outcome is a binary variable representing conversion. The probability of conversion for an individual is modeled using a logistic link function:
+$$P(\text{conversion}=1 \mid D, X) = \sigma(L)$$
+where $\sigma(z) = \frac{1}{1 + e^{-z}}$ is the sigmoid function.
+
+The latent linear predictor $L$ is defined as:
+$$L = \alpha_y + \sum_{j=1}^3 \beta_{y,j} x_j + g_y(X) + D \cdot \theta$$
+
+*   **Baseline Intercept ($\alpha_y$):**
+    Derived from the target control conversion rate $p_A = 0.10$.
+    $$\alpha_y = \text{logit}(0.10) = \ln\left(\frac{0.10}{0.90}\right) \approx -2.197$$
+*   **Treatment Effect ($\theta$):**
+    Derived from the target treatment conversion rate $p_B = 0.11$. It represents the shift in log-odds.
+    $$\theta = \text{logit}(0.11) - \text{logit}(0.10) = \ln\left(\frac{0.11}{0.89}\right) - \ln\left(\frac{0.10}{0.90}\right) \approx 0.106$$
+    On the probability scale, this corresponds to an Average Treatment Effect (ATE) of $\approx 1\%$.
+*   **Prognostic Coefficients ($\beta_y$):**
+    By default, $\beta_y = [0.6, 0.4, 0.8]$. These values determine how much each covariate shifts the log-odds of conversion.
+## FILE D:\codex\Causalis\notebooks\research\generate_classic_rct_26.ipynb CELL 11
+
+## Summary of Default Parameters
+## FILE D:\codex\Causalis\notebooks\research\generate_classic_rct_26.ipynb CELL 12
+*   **$N$**: 10,000
+*   **Control Conversion (baseline $p_A$)**: 10% at $X=0$ (marginal rate can differ with $X$)
+*   **Treatment Conversion (baseline $p_B$)**: 11% at $X=0$ (marginal rate can differ with $X$)
+*   **Treatment Split**: 50%
+*   **Confounders**: 3 binary
+*   **Nonlinear $g_y(X)$**: only when `add_pre=True` or `g_y`/`use_prognostic` is provided
+
+## FILE D:\codex\Causalis\notebooks\research\generate_classic_rct_26.ipynb CELL 13
+# DGP
+## FILE D:\codex\Causalis\notebooks\research\generate_classic_rct_26.ipynb CELL 17
+# EDA
+## FILE D:\codex\Causalis\notebooks\research\generate_classic_rct_26.ipynb CELL 20
+## Balance check
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_binary.ipynb CELL 1
+# generate_cuped_binary_26
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_binary.ipynb CELL 2
+This notebook presents the **generate cuped binary** research workflow and key analysis steps.
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_binary.ipynb CELL 3
+The `make_cuped_binary_26` data generating process (DGP) creates a synthetic binary-outcome dataset with randomized treatment, richer confounders, structured heterogeneous treatment effects (HTE), and a calibrated pre-period covariate (`y_pre`) for CUPED benchmarking.
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_binary.ipynb CELL 4
+# 1. Confounders
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_binary.ipynb CELL 5
+
+The DGP uses mixed-type confounders sampled from independent marginals:
+- `tenure_months` ($X_1$): $\text{Lognormal}(\mu=2.5, \sigma=0.5)$
+- `spend_last_month` ($X_2$): $\text{Lognormal}(\mu=4.0, \sigma=0.8)$
+- `discount_rate` ($X_3$): $\text{Beta}(\text{mean}=0.1, \kappa=20)$
+- `support_tickets` ($X_4$): $\text{Poisson}(\lambda=1.8)$
+- `email_open_rate` ($X_5$): $\text{Beta}(\text{mean}=0.45, \kappa=14)$
+- `referral_count` ($X_6$): $\text{Poisson}(\lambda=0.8)$
+- `plan_tier` ($X_7$): Categorical with levels `free` (55%), `plus` (30%), `pro` (15%), encoded as `plan_tier_plus` and `plan_tier_pro`.
+- `region` ($X_8$): Categorical with levels `na` (80%), `eu` (20%), encoded as `region_eu`.
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_binary.ipynb CELL 6
+
+# 2. Treatment Assignment
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_binary.ipynb CELL 7
+
+Treatment is randomized with constant propensity:
+$$D \sim \text{Bernoulli}(0.5)$$
+This is implemented with $\alpha_d = \text{logit}(0.5)$ and no $X$- or latent-driven treatment terms.
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_binary.ipynb CELL 8
+
+# 3. Outcome Model
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_binary.ipynb CELL 9
+The outcome is binary with a logistic link:
+$$Y \sim \text{Bernoulli}(p), \quad \text{logit}(p)=\alpha_y + g_y(X) + \lambda U + D \cdot \tau(X)$$
+- $\alpha_y=-1.4$.
+- $U \sim \mathcal{N}(0,1)$ is a shared latent prognostic signal used only in the outcome equation (so treatment remains randomized/unconfounded).
+- $\lambda=1.2$ when `add_pre=True`, and $\lambda=0$ otherwise.
+- Baseline score $g_y(X)$ combines monotone transformations of confounders and segment indicators.
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_binary.ipynb CELL 10
+
+# 4. Heterogeneous Treatment Effect
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_binary.ipynb CELL 11
+
+Treatment effect is defined on the log-odds scale:
+$$\tau(X)=\text{clip}(\theta_{logit} \cdot g_t \cdot g_{sp} \cdot g_o \cdot g_{ticket} \cdot g_{ref} \cdot seg, 0, 2\theta_{logit})$$
+Where:
+- $g_t = \sigma(0.20 \cdot (\text{tenure} - 10))$
+- $g_{sp} = \sigma(0.55 \cdot (\log(1+\text{spend}) - 4))$
+- $g_o = 0.85 + 0.35 \cdot \text{email\_open\_rate}$
+- $g_{ticket} = \frac{1}{1+\exp(0.45 \cdot (\text{support\_tickets}-2.5))}$
+- $g_{ref} = 0.90 + 0.18 \cdot \tanh(0.8 \cdot \text{referral\_count})$
+- $seg = 1 + 0.12\,\mathbb{1}_{plan=plus} + 0.26\,\mathbb{1}_{plan=pro} + 0.06\,\mathbb{1}_{region=eu}$
+- $\theta_{logit}=0.38$ by default.
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_binary.ipynb CELL 12
+
+# 5. Pre-period Covariate
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_binary.ipynb CELL 13
+
+If `add_pre=True`, first define a centered probability-scale baseline signal:
+$$s(X,U)=\sigma\!\left(\alpha_y + g_y(X) + \lambda U\right)-\mathbb{E}\left[\sigma\!\left(\alpha_y + g_y(X) + \lambda U\right)\right]$$
+Then construct:
+$$y_{pre}=s(X,U)+\sigma_{noise}\epsilon, \quad \epsilon \sim \mathcal{N}(0,1)$$
+The noise scale is calibrated numerically so that $\text{corr}(y_{pre}, y)$ in the control group matches the target correlation (default $0.65$).
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_tweedie_26.ipynb CELL 1
+# generate_cuped_tweedie_26
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_tweedie_26.ipynb CELL 2
+This notebook presents the **generate cuped tweedie 26** research workflow and key analysis steps.
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_tweedie_26.ipynb CELL 3
+The `generate_cuped_tweedie_26` data generating process (DGP) creates a synthetic dataset characterized by a Tweedie-like outcome (zero-inflated with a heavy right tail), correlated confounders, and structured heterogeneous treatment effects (HTE). It also includes pre-period covariates (`y_pre` and `y_pre_2`) calibrated for CUPED benchmarks.
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_tweedie_26.ipynb CELL 4
+
+# 1. Confounders
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_tweedie_26.ipynb CELL 5
+
+Five confounders are generated using a Gaussian Copula to induce specific correlations:
+- `tenure_months` ($X_1$): $\text{Lognormal}(\mu=2.5, \sigma=0.5)$
+- `avg_sessions_week` ($X_2$): $\text{NegativeBinomial}(\mu=5, \alpha=0.5)$
+- `spend_last_month` ($X_3$): $\text{Lognormal}(\mu=4.0, \sigma=0.8)$
+- `discount_rate` ($X_4$): $\text{Beta}(\text{mean}=0.1, \kappa=20)$
+- `platform` ($X_5$): Categorical with levels `android` (65%), `ios` (30%), `web` (5%).
+
+**Correlations:** $\text{corr}(X_1, X_2) = 0.4$ and $\text{corr}(X_2, X_3) = 0.5$.
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_tweedie_26.ipynb CELL 6
+
+# 2. Treatment Assignment
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_tweedie_26.ipynb CELL 7
+
+The treatment $D$ is assigned via a Bernoulli trial with a constant propensity score (RCT):
+$$D \sim \text{Bernoulli}(0.5)$$
+*(Note: While the generator supports complex propensity models, `generate_cuped_tweedie_26` defaults to a balanced random assignment).*
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_tweedie_26.ipynb CELL 8
+
+# 3. Outcome Model
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_tweedie_26.ipynb CELL 9
+The outcome is generated as a two-part (hurdle) process:
+$$Y = I \cdot Y_{pos}$$
+
+#### A. Binary Indicator of Non-zero Outcome ($I$)
+$$I \sim \text{Bernoulli}(\sigma(\alpha_{zi} + u_{zi} \cdot U))$$
+- $\sigma(z) = \frac{1}{1 + e^{-z}}$ is the sigmoid function.
+- $\alpha_{zi} = 0.0$ (about 50% baseline non-zero rate).
+- $u_{zi} = 1.0$ when `add_pre=True`, and $0$ otherwise.
+
+#### B. Positive Outcome Value ($Y_{pos}$)
+If $I=1$, the value is drawn from a Gamma distribution:
+$$Y_{pos} \sim \text{Gamma}(\text{shape}=k, \text{scale}=\mu_{pos} / k)$$
+- $k = 2.0$ (shape parameter).
+- $\mu_{pos} = \exp(\text{loc})$, where $\text{loc}$ is the log-mean linear predictor:
+  $$\text{loc} = \alpha_y + D \cdot \tau(X) + u_y \cdot U$$
+- $\alpha_y = 2.0$.
+- $u_y = 1.0$ when `add_pre=True`, and $0$ otherwise.
+- $U \sim \mathcal{N}(0,1)$ is a shared latent prognostic driver used in the outcome/pre construction (treatment remains randomized because $u_d=0$).
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_tweedie_26.ipynb CELL 10
+# 4. Heterogeneous Treatment Effect
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_tweedie_26.ipynb CELL 11
+
+The treatment effect $\tau(X)$ is defined on the log-mean scale and incorporates monotone effects, diminishing returns, and categorical modifiers:
+$$\tau(X) = \text{clip}\left(\theta_{log} \cdot g_t(X_1) \cdot g_s(X_2) \cdot \text{seg}(X_5), 0, 2.5 \cdot \theta_{log}\right)$$
+Where:
+- $g_t(X_1) = \frac{1}{1 + \exp(-0.25 \cdot (X_1 - 12))}$ (saturating effect of tenure).
+- $g_s(X_2) = \frac{1}{1 + \exp(-0.35 \cdot (X_2 - 4))}$ (diminishing returns of sessions).
+- $\text{seg}(X_5) = 1 + 0.3 \cdot \mathbb{1}_{\text{platform}=\text{ios}}$ (premium segment modifier).
+- `generate_cuped_tweedie_26` uses $\theta_{log}=0.38$ by default.
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_tweedie_26.ipynb CELL 12
+# 5. Pre-period Covariate
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_tweedie_26.ipynb CELL 13
+
+The first pre-period covariate uses the same latent driver $A \sim \mathcal{N}(0,1)$ that also drives outcome stochasticity when `add_pre=True`:
+$$y_{pre} = base_1 + \sigma_{noise} \cdot \epsilon, \quad \epsilon \sim \mathcal{N}(0,1)$$
+where $base_1$ is built from the Tweedie two-part mechanism, and $\sigma_{noise}$ is numerically calibrated so that \n$$\mathrm{corr}(y_{pre}, y \mid d=0) \approx \rho_{target,1}$$
+with default $\rho_{target,1}=0.82$ in `generate_cuped_tweedie_26`.
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_tweedie_26.ipynb CELL 14
+
+# 6. Second Pre-period Covariate
+## FILE D:\codex\Causalis\notebooks\research\generate_cuped_tweedie_26.ipynb CELL 15
+
+The second pre-period covariate is constructed from a second noisy view of the same latent driver $A$ (not an orthogonalized independent latent):
+
+#### A. Latent-driven two-part base
+With standardized covariates $tenure_z, sessions_z, spend_z, discount_z$ and $a=z(A)$:
+$$zi\_score = 0.20 + 1.05a + 0.10\,tenure_z - 0.08\,discount_z$$
+$$p_{pos,2} = \sigma(zi\_score), \quad I_2 \sim \text{Bernoulli}(p_{pos,2})$$
+$$loc_2 = 1.90 + 0.95a + 0.10\,sessions_z + 0.08\,spend_z$$
+$$\mu_2 = e^{loc_2}, \quad Y_{2,+} \sim \text{Gamma}(shape=2.3, scale=\mu_2/2.3)$$
+$$base_2 = I_2 \cdot Y_{2,+}$$
+
+#### B. Feasibility blending and calibration
+If $\mathrm{corr}(base_2, y \mid d=0)$ is below the second target, the base is blended with $y_{pre}$:
+$$base_2^{mix} = (1-w)\,base_2 + w\,y_{pre}, \quad w \in [0.10,1.00]$$
+using the first $w$ on a grid that reaches the target (or the best achievable one). Then Gaussian noise is calibrated as:
+$$y_{pre,2} = base_2^{mix} + \sigma_2 \cdot \epsilon_2, \quad \epsilon_2 \sim \mathcal{N}(0,1)$$
+to match the requested second control-group correlation. If `pre_target_corr_2` is omitted, the default target is
+$$\rho_{target,2}=\min(\rho_{target,1},\,\min(0.72,\rho_{target,1}-0.10)).$$
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_binary_26.ipynb CELL 1
+# generate_multitreatment_binary_26()
+
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_binary_26.ipynb CELL 2
+This notebook presents the **generate multitreatment binary 26** research workflow and key analysis steps.
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_binary_26.ipynb CELL 3
+`generate_multitreatment_binary_26()` defines a **3-arm multi-treatment** observational DGP with correlated confounders and a binary outcome.
+
+Treatments are one-hot columns (`d_0`, `d_1`, `d_2`) and are sampled from a multinomial-logit propensity model calibrated toward target class shares $(0.50,0.25,0.25)$.
+
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_binary_26.ipynb CELL 4
+## 1. Confounders and Copula Correlation
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_binary_26.ipynb CELL 5
+The confounder vector $X=(X_1,\dots,X_8)$ uses:
+
+- $X_1$ (`tenure_months`) $\sim \mathcal{N}(24,12^2)$, clipped to $[0,120]$
+- $X_2$ (`weekly_active_days`) $\sim \mathcal{N}(4.0,1.5^2)$, clipped to $[0,7]$
+- $X_3$ (`annual_income_k`) $\sim \text{Gamma}(\text{shape}=4,\text{scale}=18)$, clipped at 300
+- $X_4$ (`premium_user`) $\sim \text{Bernoulli}(0.22)$
+- $X_5$ (`family_plan`) $\sim \text{Bernoulli}(0.38)$
+- $X_6$ (`recent_complaints`) $\sim \text{Poisson}(0.8)$, clipped at 10
+- $X_7$ (`discount_eligible`) $\sim \text{Bernoulli}(0.30)$
+- $X_8$ (`engagement_score`) $\sim \text{Beta}(\alpha,\beta)$ with mean $0.60$ and concentration $\kappa=16$
+
+Dependencies are induced with Gaussian copula correlation
+$$\Sigma_{ij}=0.30^{|i-j|}. $$
+
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_binary_26.ipynb CELL 6
+## 2. Treatment Assignment (Softmax)
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_binary_26.ipynb CELL 7
+Class scores are
+$$s_k(X)=\alpha_k + X^\top\beta_{d,k}, \quad k\in\{0,1,2\},$$
+with propensities
+$$m_k(X)=\frac{e^{s_k(X)}}{\sum_{j=0}^{2}e^{s_j(X)}}. $$
+
+Scenario coefficients:
+
+- $\beta_{d,0}=\mathbf{0}$
+- $\beta_{d,1}=[0.01,0.09,0.0018,0.45,0.20,0.08,0.30,0.28]$
+- $\beta_{d,2}=[-0.004,0.07,0.0012,0.30,0.12,0.10,0.18,0.22]$
+
+Treatment-score intercepts start at $(0.0,0.0,0.0)$ and are calibrated to match the target marginal rates.
+
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_binary_26.ipynb CELL 8
+## 3. Heterogeneous Effects on Logit Scale
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_binary_26.ipynb CELL 9
+
+Treatment shifts are additive on the link scale:
+$$\tau^{link}_k(X)=\theta_k + \tau_k(X), \qquad \theta=(0.0,-0.18,0.26).$$
+
+For `d_1` (enforced harmful relative to control):
+$$\tau_1(X)=\min\Big(-0.16 -0.0008\,\text{tenure}-0.020\,\text{activeDays}-0.08\,\text{premium}-0.03\,\text{complaints}-0.10(\text{engagement}-0.60),\,-0.02\Big).$$
+
+For `d_2` (enforced beneficial relative to control):
+$$\tau_2(X)=\max\Big(0.14 +0.020\,\text{activeDays}+0.028\log(1+\text{income})+0.05\,\text{familyPlan}-0.010\,\text{complaints}+0.12(\text{engagement}-0.60),\,0.02\Big).$$
+
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_binary_26.ipynb CELL 10
+## 4. Outcome Model (Binary Logistic)
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_binary_26.ipynb CELL 11
+
+Baseline logit:
+$$\eta_0(X)=\alpha_y + X^\top\beta_y, \qquad \alpha_y=-1.1,$$
+where
+$$\beta_y=[0.003,0.11,0.004,0.40,-0.25,-0.12,0.20,0.90].$$
+
+Observed logit under assigned treatment:
+$$\eta(X,D)=\eta_0(X)+\sum_{k=0}^{2}D_k\,\tau^{link}_k(X).$$
+
+Then
+$$P(Y=1\mid X,D)=\sigma(\eta)=\frac{1}{1+e^{-\eta}}, \qquad Y\sim\text{Bernoulli}(\sigma(\eta)).$$
+
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_binary_26.ipynb CELL 12
+## 5. Oracle Outputs
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_binary_26.ipynb CELL 13
+
+With `include_oracle=True`, the generated frame includes:
+
+- `m_d_k`: calibrated propensities
+- `tau_link_d_k`: link-scale treatment shifts
+- `g_d_k`: potential outcome probabilities under each arm
+- `cate_d_1`, `cate_d_2`: contrasts vs control on probability scale
+
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_gamma_26.ipynb CELL 1
+# generate_multitreatment_gamma_26()
+
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_gamma_26.ipynb CELL 2
+This notebook presents the **generate multitreatment gamma 26** research workflow and key analysis steps.
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_gamma_26.ipynb CELL 3
+`generate_multitreatment_gamma_26()` builds a **3-arm multi-treatment** observational DGP with correlated confounders and a Gamma outcome.
+
+Treatment columns are one-hot: $D=(D_0,D_1,D_2)$ with exactly one active class per row (`d_0`, `d_1`, `d_2`).
+
+The scenario is configured to target marginal treatment shares close to $(0.50, 0.25, 0.25)$.
+
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_gamma_26.ipynb CELL 4
+## 1. Confounders and Dependence
+
+The confounder vector is $X=(X_1,\dots,X_8)$ with marginals:
+
+- $X_1$ (`tenure_months`) $\sim \mathcal{N}(24, 12^2)$, clipped to $[0,120]$
+- $X_2$ (`avg_sessions_week`) $\sim \mathcal{N}(5, 2^2)$, clipped to $[0,40]$
+- $X_3$ (`spend_last_month`) $\sim \text{LogNormal}(\log 60, 0.9)$, clipped at 500
+- $X_4$ (`premium_user`) $\sim \text{Bernoulli}(0.25)$
+- $X_5$ (`urban_resident`) $\sim \text{Bernoulli}(0.60)$
+- $X_6$ (`support_tickets_q`) $\sim \text{Poisson}(1.5)$, clipped at 15
+- $X_7$ (`discount_eligible`) $\sim \text{Bernoulli}(0.35)$
+- $X_8$ (`credit_utilization`) $\sim \text{Beta}(\alpha,\beta)$ with mean $0.45$ and concentration $\kappa=20$
+
+Dependence is induced with a Gaussian copula whose correlation matrix is Toeplitz:
+$$\Sigma_{ij} = \rho^{|i-j|}, \quad \rho=0.30.$$
+
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_gamma_26.ipynb CELL 5
+## 2. Treatment Assignment (Multinomial Logit)
+
+For each class $k \in \{0,1,2\}$, define score
+$$s_k(X) = \alpha_k + X^\top\beta_{d,k}.$$
+Then propensity is softmax:
+$$m_k(X)=P(D_k=1\mid X)=\frac{\exp(s_k(X))}{\sum_{j=0}^2\exp(s_j(X))}. $$
+
+Coefficients used in this scenario:
+
+- $\beta_{d,0}=\mathbf{0}$
+- $\beta_{d,1}=[0.01, 0.10, 0.0015, 0.50, 0.20, 0.05, 0.35, 0.40]$
+- $\beta_{d,2}=[-0.005, 0.07, 0.0010, 0.35, 0.10, 0.08, 0.20, 0.25]$
+
+Treatment-score intercepts start at $(0.0,0.0,0.0)$, then are calibrated iteratively so mean class rates are close to target $(0.50,0.25,0.25)$.
+
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_gamma_26.ipynb CELL 6
+## 3. Treatment Effects on Link Scale
+
+The structural link shift for class $k$ is
+$$\tau^{link}_k(X)=\theta_k+\tau_k(X), \qquad \theta=(0.0,-0.05,0.10).$$
+
+Control has no heterogeneous residual: $\tau_0(X)=0$.
+
+For `d_1` (forced harmful vs control):
+$$\tau_1(X)=\min\Big(-0.22 -0.001\,\text{tenure}-0.006\,\text{sessions}-0.05\,\text{premium}-0.04\,\text{discount}-0.10(\text{credit}-0.45),\,-0.02\Big).$$
+
+For `d_2` (forced beneficial vs control):
+$$\tau_2(X)=\max\Big(0.16 +0.014\,\text{sessions}+0.030\log(1+\text{spend})+0.06\,\text{urban}-0.006\,\text{tickets}+0.12(\text{credit}-0.45),\,0.02\Big).$$
+
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_gamma_26.ipynb CELL 7
+## 4. Outcome Model (Gamma)
+
+Baseline linear predictor:
+$$\eta_0(X)=\alpha_y + X^\top\beta_y, \qquad \alpha_y=0,$$
+with
+$$\beta_y=[0.01,0.08,0.0015,0.35,0.12,0.06,0.20,0.50].$$
+
+Observed link for assigned treatment:
+$$\eta(X,D)=\eta_0(X)+\sum_{k=0}^2 D_k\,\tau^{link}_k(X).$$
+
+Gamma mean uses log link:
+$$\mu(X,D)=\exp(\eta(X,D)).$$
+Given shape $a=2.0$, outcome is sampled as
+$$Y\mid X,D \sim \text{Gamma}(\text{shape}=a,\,\text{scale}=\mu/a),$$
+so $\mathbb{E}[Y\mid X,D]=\mu$ and $\mathrm{Var}(Y\mid X,D)=\mu^2/a$.
+
+## FILE D:\codex\Causalis\notebooks\research\generate_multitreatment_gamma_26.ipynb CELL 8
+## 5. Oracle Quantities
+
+When `include_oracle=True`, the generator exposes:
+
+- `m_d_0`, `m_d_1`, `m_d_2`: calibrated propensities $m_k(X)$
+- `tau_link_d_k`: link-scale treatment shifts $\tau^{link}_k(X)$
+- `g_d_k`: potential outcome means on natural scale under class $k$
+- `cate_d_1 = g_{d_1}-g_{d_0}`, `cate_d_2 = g_{d_2}-g_{d_0}`
+
+## FILE D:\codex\Causalis\notebooks\research\generate_obs_hte_26_rich.ipynb CELL 1
+# generate_obs_hte_26_rich()
+## FILE D:\codex\Causalis\notebooks\research\generate_obs_hte_26_rich.ipynb CELL 2
+This notebook presents the **generate obs hte 26 rich** research workflow and key analysis steps.
+## FILE D:\codex\Causalis\notebooks\research\generate_obs_hte_26_rich.ipynb CELL 3
+
+The `generate_obs_hte_26_rich()` function provides a more complex and realistic observational dataset. It features 11 confounders, complex dependencies (including derived features), a low treatment rate, and a **Tweedie (zero-inflated Gamma)** outcome model.
+
+## FILE D:\codex\Causalis\notebooks\research\generate_obs_hte_26_rich.ipynb CELL 4
+#### 1. Confounders ($X$)
+The dataset contains 11 confounders $X = (X_1, \dots, X_{11})^T$:
+- $X_1$: `tenure_months`
+- $X_2$: `avg_sessions_week`
+- $X_3$: `spend_last_month`
+- $X_4$: `age_years`
+- $X_5$: `income_monthly`
+- $X_6$: `prior_purchases_12m`
+- $X_7$: `support_tickets_90d`
+- $X_8$: `premium_user`
+- $X_9$: `mobile_user`
+- $X_{10}$: `urban_resident`
+- $X_{11}$: `referred_user`
+
+**Base Features Sampling:**
+The base features $(X_1, X_2, X_3, X_4, X_5, X_{10})$ are sampled using a **Gaussian Copula** with the following correlation matrix:
+
+$$\Sigma = \begin{pmatrix}
+1.00 & 0.20 & 0.20 & 0.30 & 0.20 & 0.00 \\
+0.20 & 1.00 & 0.45 & -0.20 & 0.30 & 0.10 \\
+0.20 & 0.45 & 1.00 & -0.10 & 0.40 & 0.10 \\
+0.30 & -0.20 & -0.10 & 1.00 & 0.20 & -0.10 \\
+0.20 & 0.30 & 0.40 & 0.20 & 1.00 & 0.10 \\
+0.00 & 0.10 & 0.10 & -0.10 & 0.10 & 1.00
+\end{pmatrix}$$
+
+**Derived Features:**
+The remaining features are derived to mimic real-world behavioral dependencies:
+- **Premium User ($X_8$):** $\text{logit}(P(X_8=1)) = -5.0 + 0.7 \ln(1+X_2) + 0.45 \ln(1+X_3) + 0.35 \ln(1+X_5) + 0.015 X_1$
+- **Mobile User ($X_9$):** $\text{logit}(P(X_9=1)) = 1.5 - 0.03(X_4 - 35) + 0.30 X_{10} + 0.25 \ln(1+X_2)$
+- **Referred User ($X_{11}$):** $\text{logit}(P(X_{11}=1)) = -1.2 - 0.02(X_1 - 12) + 0.45 X_9 + 0.20 X_{10}$
+- **Prior Purchases ($X_6$):** $X_6 \sim \text{Poisson}(\lambda = \text{clip}(1.0 + 0.55 \ln(1+X_2) + 0.45 \ln(1+X_3) + 0.25 X_8, 0.1, 30.0))$
+- **Support Tickets ($X_7$):** $X_7 \sim \text{Poisson}(\lambda = \text{clip}(0.6 + 0.25 \ln(1+X_2) + 0.30(1-X_8) + 0.15 \tanh(\frac{X_4 - 45}{12}), 0.05, 10.0))$
+## FILE D:\codex\Causalis\notebooks\research\generate_obs_hte_26_rich.ipynb CELL 5
+#### 2. Treatment Assignment ($D$)
+The treatment $D \in \{0, 1\}$ is assigned with a target rate of **5%**:
+$$P(D=1|X) = \sigma\left( \alpha_d + \text{bound}\left( f_d(X), 2.0 \right) \right)$$
+where $f_d(X) = \sum_{j=1}^{11} \beta_{d,j} X_j + g_d(X)$ with
+$$\beta_d = (-0.004,\ 0,\ 0,\ -0.012,\ -0.00005,\ -0.04,\ 0.22,\ -0.45,\ -0.08,\ -0.12,\ 0.10),$$
+and
+$$\begin{aligned}
+g_d(X) &= -0.55\tanh\!\left(\ln\frac{1+X_3}{61}\right)
+ -0.20\ln\frac{1+X_2}{6}\tanh\!\left(\frac{X_1}{24}-1\right)
+ -0.25X_8(X_{10}-0.5)
+ -0.20X_9\tanh\!\left(\ln\frac{1+X_2}{4}\right)\\
+&\quad +0.30X_{11}\left(1-\tanh\frac{X_1}{36}\right)
+ +0.35\tanh\!\left(\ln\frac{1+X_7}{2.5}\right)
+ -0.25\tanh\!\left(\frac{\ln(1+X_5)-\ln 4001}{1.3}\right)
+ -0.12\tanh\!\left(\frac{X_1}{24}\right)
+ -0.10\tanh\!\left(\frac{X_4-45}{12}\right).
+\end{aligned}$$
+This design induces adverse selection (treated units can have lower observed outcomes than controls even when treatment helps on average).
+## FILE D:\codex\Causalis\notebooks\research\generate_obs_hte_26_rich.ipynb CELL 6
+#### 3. Heterogeneous Treatment Effect ($\tau(X)$)
+The treatment effect on the link (log-mean) scale is:
+$$\tau(X) = 0.08 + 0.08 \tanh\left(\ln\frac{1+X_2}{6}\right) + 0.11 X_8 + 0.03 X_9 + 0.03 X_{11} - 0.07 \tanh\frac{X_1}{48} - 0.05 \tanh\frac{X_4-40}{15} + 0.03 X_{10} \tanh\left(\ln\frac{1+X_3}{61}\right) - 0.04 \tanh\left(\ln\frac{1+X_7}{2.5}\right)$$
+and is clipped to $[0.005, 0.35]$.
+
+Important: this clipping is for $\tau(X)$ on the **link** scale, not for CATE itself.
+## FILE D:\codex\Causalis\notebooks\research\generate_obs_hte_26_rich.ipynb CELL 7
+#### 4. Outcome Model ($Y$)
+The outcome follows a **Tweedie (Two-part Hurdle)** model:
+1. **Zero-Inflation (Participation):**
+   $Y > 0$ with probability $p_{pos} = \sigma(\alpha_{zi} + \sum \beta_{zi,j} X_j + g_{zi}(X) + D \cdot \tau_{zi}(X))$
+   where $\alpha_{zi} = -0.8$, and the nonlinear components are:
+   $$g_{zi}(X) = 0.45 \tanh\left(\ln\frac{1+X_2}{5}\right) + 0.25 \tanh\left(\ln\frac{1+X_3}{51}\right) + 0.20 \ln(1+X_6) - 0.30 \tanh\left(\ln\frac{1+X_7}{2}\right) + 0.15 X_8 + 0.10 X_9$$
+   $$\tau_{zi}(X) = 0.03 + 0.02 X_8 + 0.015 X_{11} - 0.02 \tanh\frac{X_1}{48}$$
+
+2. **Positive Outcome (Magnitude):**
+   If $Y > 0$, then $Y \sim \text{Gamma}(\text{shape} = 2.2, \text{scale} = \mu_{pos} / 2.2)$
+   where $\ln(\mu_{pos}) = \sum \beta_{y,j} X_j + g_y(X) + D \cdot \tau(X)$. The baseline nonlinear part is:
+   $$g_y(X) = 1.4 \tanh\frac{X_1}{24} + 0.6 \left(\ln\frac{1+X_2}{6}\right)^2 + 0.25 \ln\frac{1+X_3}{61} \ln\frac{1+X_2}{6} + 0.35 \tanh\frac{\ln(1+X_5) - \ln 4001}{1.5} - 0.45 \ln(1+X_7) + 0.20 \ln(1+X_6) \tanh\frac{X_1}{18} + 0.30 X_9 \ln\frac{1+X_2}{6} + 0.25 X_8 (X_{10}-0.5) + 0.15 X_{11} \tanh(\frac{X_1}{12}-1) - 0.20 \tanh\frac{X_4-40}{15}$$
+   The oracle natural-scale CATE is always computed as
+   $$\mathrm{CATE}(X)=g_1(X)-g_0(X),$$
+   where $g_d(X)=\mathbb{E}[Y\mid X,D=d]$ under the two-part model.
+## FILE D:\codex\Causalis\notebooks\research\generate_obs_hte_binary_26.ipynb CELL 1
+# generate_obs_hte_binary_26()
+## FILE D:\codex\Causalis\notebooks\research\generate_obs_hte_binary_26.ipynb CELL 2
+This notebook presents the **generate obs hte binary 26** research workflow and key analysis steps.
+## FILE D:\codex\Causalis\notebooks\research\generate_obs_hte_binary_26.ipynb CELL 3
+
+The `generate_obs_hte_binary_26()` function provides a richer observational dataset with **binary outcomes**, nonlinear confounding, and heterogeneous treatment effects. It uses 11 confounders with behavior-driven derived features and a moderate target treatment rate.
+
+## FILE D:\codex\Causalis\notebooks\research\generate_obs_hte_binary_26.ipynb CELL 4
+#### 1. Confounders ($X$)
+The dataset contains 11 confounders $X = (X_1, \dots, X_{11})^T$:
+- $X_1$: `tenure_months`
+- $X_2$: `avg_sessions_week`
+- $X_3$: `spend_last_month`
+- $X_4$: `age_years`
+- $X_5$: `prior_purchases_12m`
+- $X_6$: `support_tickets_90d`
+- $X_7$: `premium_user`
+- $X_8$: `mobile_user`
+- $X_9$: `weekend_user`
+- $X_{10}$: `email_opt_in`
+- $X_{11}$: `referred_user`
+
+**Base Features Sampling:**
+The base features $(X_1, X_2, X_3, X_4, X_9)$ are sampled using a **Gaussian Copula** with correlation matrix:
+
+$$\Sigma = \begin{pmatrix}
+1.00 & 0.25 & 0.20 & 0.25 & 0.05 \\
+0.25 & 1.00 & 0.45 & -0.20 & 0.30 \\
+0.20 & 0.45 & 1.00 & -0.10 & 0.20 \\
+0.25 & -0.20 & -0.10 & 1.00 & -0.15 \\
+0.05 & 0.30 & 0.20 & -0.15 & 1.00
+\end{pmatrix}$$
+
+**Derived Features:**
+The remaining confounders are generated from behavior-linked models:
+- **Premium User ($X_7$):** $\text{logit}(P(X_7=1)) = -4.6 + 0.70 \ln(1+X_2) + 0.45 \ln(1+X_3) + 0.012 X_1 + 0.20 X_9$
+- **Mobile User ($X_8$):** $\text{logit}(P(X_8=1)) = 1.4 - 0.03(X_4 - 35) + 0.25 X_9 + 0.22 \ln(1+X_2)$
+- **Referred User ($X_{11}$):** $\text{logit}(P(X_{11}=1)) = -1.3 - 0.02(X_1 - 12) + 0.42 X_8 + 0.25 X_9$
+- **Email Opt-in ($X_{10}$):** $\text{logit}(P(X_{10}=1)) = -0.6 + 0.50 X_8 + 0.35 X_7 + 0.20 X_9 + 0.12 \ln(1+X_2)$
+- **Prior Purchases ($X_5$):** $X_5 \sim \text{Poisson}(\lambda = \text{clip}(0.9 + 0.52 \ln(1+X_2) + 0.40 \ln(1+X_3) + 0.24 X_7 + 0.12 X_{10}, 0.05, 25.0))$
+- **Support Tickets ($X_6$):** $X_6 \sim \text{Poisson}(\lambda = \text{clip}(0.55 + 0.22 \ln(1+X_2) + 0.32(1-X_7) + 0.18(1-X_{10}) + 0.12 \tanh(\frac{X_4 - 45}{12}), 0.05, 10.0))$
+
+## FILE D:\codex\Causalis\notebooks\research\generate_obs_hte_binary_26.ipynb CELL 5
+#### 2. Treatment Assignment ($D$)
+The treatment $D \in \{0, 1\}$ is assigned with a target rate of **15%**:
+$$P(D=1|X) = \sigma\left( \alpha_d + \text{bound}(f_d(X), 2.0) \right)$$
+where $f_d(X) = \sum_{j=1}^{11} \beta_{d,j} X_j + g_d(X)$ and
+$$g_d(X) = 0.85\tanh\left(\ln\frac{1+X_3}{61}\right) + 0.24\ln\frac{1+X_2}{6}\tanh\left(\frac{X_1}{24}-1\right) + 0.30X_7(X_9-0.5) + 0.22X_{10}\tanh\left(\ln\frac{1+X_2}{4}\right) + 0.25X_{11}\left(1-\tanh\frac{X_1}{36}\right) + 0.14\tanh\left(\ln\frac{1+X_6}{2.5}\right) - 0.10\tanh\left(\frac{X_4-45}{12}\right).$$
+
+## FILE D:\codex\Causalis\notebooks\research\generate_obs_hte_binary_26.ipynb CELL 6
+#### 3. Heterogeneous Treatment Effect ($\tau(X)$)
+For this binary-outcome scenario, treatment effect is on the **log-odds** scale:
+$$\tau(X) = 0.30 + 0.40\tanh\left(\ln\frac{1+X_2}{6}\right) + 0.45X_7 + 0.12X_8 + 0.10X_{10} + 0.12X_{11} - 0.32\tanh\frac{X_1}{48} - 0.18\tanh\frac{X_4-40}{15} + 0.10X_9\tanh\left(\ln\frac{1+X_3}{61}\right) - 0.12\tanh\left(\ln\frac{1+X_6}{2.5}\right).$$
+The treatment effect is clipped to $[-0.35, 1.4]$.
+
+## FILE D:\codex\Causalis\notebooks\research\generate_obs_hte_binary_26.ipynb CELL 7
+#### 4. Outcome Model ($Y$)
+The outcome is **binary** with logistic link:
+$$P(Y=1\mid X,D) = \sigma\left(\alpha_y + \sum_{j=1}^{11}\beta_{y,j}X_j + g_y(X) + D\cdot\tau(X)\right),$$
+with $\alpha_y = -1.7$.
+
+The nonlinear baseline component is:
+$$g_y(X) = 1.1\tanh\frac{X_1}{24} + 0.50\left(\ln\frac{1+X_2}{6}\right)^2 + 0.22\ln\frac{1+X_3}{61}\ln\frac{1+X_2}{6} - 0.35\ln(1+X_6) + 0.18\ln(1+X_5)\tanh\frac{X_1}{18} + 0.22X_8\ln\frac{1+X_2}{6} + 0.20X_7(X_9-0.5) + 0.18X_{10}\tanh\left(\frac{1}{2}\ln\frac{1+X_3}{61}\right) + 0.14X_{11}\tanh\left(\frac{X_1}{12}-1\right) - 0.20\tanh\frac{X_4-40}{15}.$$
+
+Oracle CATE is reported on the natural scale as a **risk difference** (`g1 - g0`).
+
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_gamma_26.ipynb CELL 1
+# `generate_scm_gamma_26()`
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_gamma_26.ipynb CELL 2
+This notebook presents the **generate scm gamma 26** research workflow and key analysis steps.
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_gamma_26.ipynb CELL 3
+
+This scenario produces synthetic panel data with one treated unit and multiple donors. It uses a low-level **Gamma DGP** to simulate realistic outcomes with time-varying exposure and latent rates.
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_gamma_26.ipynb CELL 4
+
+# DGP math
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_gamma_26.ipynb CELL 5
+
+The Data Generating Process (DGP) for the Gamma SCM scenario follows a hierarchical log-linear model for the mean $\mu$, with observations $y$ sampled from a Gamma distribution.
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_gamma_26.ipynb CELL 6
+
+## 1.1 Donor units
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_gamma_26.ipynb CELL 7
+
+For each donor unit $j$ at time $t$:
+1. **Exposure** $E_{tj}$:
+   $$\log(E_{tj}) = \alpha_j + \gamma_j (t - \bar{t}) + \epsilon_t^{\text{common\_exp}} + \epsilon_{tj}^{\text{donor\_exp}}$$
+   where $\epsilon_t^{\text{common\_exp}}$ and $\epsilon_{tj}^{\text{donor\_exp}}$ are AR(1) processes.
+2. **Mean** $\mu_{tj}$:
+   $$\mu_{tj} = E_{tj} \cdot \exp(\eta_{tj})$$
+   $$\eta_{tj} = \beta_j + \delta_j (t - \bar{t}) + \lambda_j S_t + L_t + \sum_{k} \phi_{jk} F_{tk} + \epsilon_{tj}^{\text{donor\_noise}}$$
+   where:
+   - $S_t$: monthly seasonality signal
+   - $L_t$: common factor (macro log index, AR(1))
+   - $F_{tk}$: latent factors (AR(1))
+   - $\epsilon_{tj}^{\text{donor\_noise}}$: donor-specific AR(1) noise
+3. **Outcome** $y_{tj}$:
+   $$y_{tj} \sim \text{Gamma}\left(k, \frac{\mu_{tj}}{k}\right)$$
+   where $k$ is the `gamma_shape` parameter.
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_gamma_26.ipynb CELL 8
+
+## 1.2 Treated unit
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_gamma_26.ipynb CELL 9
+
+The counterfactual mean $\mu_{t, cf}$ is a weighted combination of donors, potentially with a pre-fit mismatch:
+$$\mu_{t, cf} = \left( \sum_j w_j \mu_{tj} \right) \cdot \exp(\epsilon_t^{\text{mismatch}})$$
+where $w \sim \text{Dirichlet}(\alpha)$.
+
+Treatment is active only in post periods. For post step $k = 0,1,\dots,n_{post}-1$:
+$$r_k = 1 - e^{-(k+1)/2.5}, \qquad \tau_k^{\text{rate}} = (\beta_0 + \beta_1 k)\,r_k$$
+where $\beta_0$ is `treatment_effect_rate` and $\beta_1$ is `treatment_effect_slope`.
+
+Equivalently, in calendar time:
+$$\tau_t^{\text{rate}} = 0 \text{ in pre/anchor periods, and } \tau_t^{\text{rate}} = \tau_k^{\text{rate}} \text{ in post period } k.$$
+$$\mu_{t, treated} = \mu_{t, cf} \cdot (1 + \tau_t^{\text{rate}})$$
+
+The outcomes are:
+$$y_{t, cf} \sim \text{Gamma}\left(k, \frac{\mu_{t, cf}}{k}\right)$$
+$$y_{t, treated} = y_{t, cf} \cdot (1 + \tau_t^{\text{rate}})$$
+So for each $t$, $y_{t, treated}$ remains Gamma-distributed with mean $\mu_{t, treated}$, and $y_{t, treated} - y_{t, cf}$ is exactly the realized treatment effect.
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_gamma_26.ipynb CELL 10
+
+### 2. Oracle Treatment Effects (ATT)
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_gamma_26.ipynb CELL 11
+
+The Average Treatment Effect on the Treated (ATT) is the average impact of the intervention across all post-treatment periods. In this synthetic scenario, we can calculate it in two ways:
+
+1. **Realized ATT**: Based on observed vs. counterfactual outcomes.
+$$ \text{ATT}_{realized} = \frac{1}{T_{post}} \sum_{t \in \text{Post}} (Y_t - Y_t^{(0)}) $$
+In the data, this is the mean of `tau_realized_true` for the treated unit in post-periods.
+
+2. **Mean ATT**: Based on the underlying population means (the "signal").
+$$ \text{ATT}_{mean} = \frac{1}{T_{post}} \sum_{t \in \text{Post}} (\mu_t^{(1)} - \mu_t^{(0)}) $$
+In the data, this is the mean of `tau_mean_true` for the treated unit in post-periods.
+
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_gamma_26.ipynb CELL 15
+# EDA
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_poisson_26.ipynb CELL 1
+# generate_scm_poisson_26()
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_poisson_26.ipynb CELL 2
+This notebook presents the **generate scm poisson 26** research workflow and key analysis steps.
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_poisson_26.ipynb CELL 3
+This scenario produces synthetic panel data with one treated unit and multiple donors. It uses a low-level **Poisson DGP** to simulate realistic discrete outcomes with time-varying exposure and latent rates.
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_poisson_26.ipynb CELL 4
+
+# DGP math
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_poisson_26.ipynb CELL 5
+
+The Data Generating Process (DGP) for the Poisson SCM scenario follows a hierarchical log-linear model for the mean $\mu$, with observations $y$ sampled from a Poisson distribution.
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_poisson_26.ipynb CELL 6
+
+## 1.1 Donor units
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_poisson_26.ipynb CELL 7
+
+For each donor unit $j$ at time $t$:
+1. **Exposure** $E_{tj}$:
+   $$\log(E_{tj}) = \alpha_j + \gamma_j (t - \bar{t}) + \epsilon_t^{\text{common\_exp}} + \epsilon_{tj}^{\text{donor\_exp}}$$
+   where $\epsilon_t^{\text{common\_exp}}$ and $\epsilon_{tj}^{\text{donor\_exp}}$ are AR(1) processes.
+2. **Mean** $\mu_{tj}$:
+   $$\mu_{tj} = E_{tj} \cdot \exp(\eta_{tj})$$
+   $$\eta_{tj} = \beta_j + \delta_j (t - \bar{t}) + \lambda_j S_t + L_t + \sum_{k} \phi_{jk} F_{tk} + \epsilon_{tj}^{\text{donor\_noise}}$$
+   where:
+   - $S_t$: monthly seasonality signal
+   - $L_t$: common factor (macro log index, AR(1))
+   - $F_{tk}$: latent factors (AR(1))
+   - $\epsilon_{tj}^{\text{donor\_noise}}$: donor-specific AR(1) noise
+3. **Outcome** $y_{tj}$:
+   $$y_{tj} \sim \text{Poisson}(\mu_{tj})$$
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_poisson_26.ipynb CELL 8
+
+## 1.2 Treated unit
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_poisson_26.ipynb CELL 9
+
+The counterfactual mean $\mu_{t, cf}$ is a weighted combination of donors, potentially with a pre-fit mismatch:
+$$\mu_{t, cf} = \left( \sum_j w_j \mu_{tj} \right) \cdot \exp(\epsilon_t^{\text{mismatch}})$$
+where $w \sim \text{Dirichlet}(\alpha)$.
+
+The treated mean $\mu_{t, treated}$ is:
+$$\mu_{t, treated} = \mu_{t, cf} \cdot (1 + \tau_{t}^{\text{rate}})$$
+where $\tau_{t}^{\text{rate}}$ follows a post-treatment ramp-in path:
+$$\tau_{t_k}^{\text{rate}} = \left(\texttt{treatment\_effect\_rate} + \texttt{treatment\_effect\_slope}\cdot k\right)\left(1 - e^{-(k+1)/2.5}\right), \quad k=0,\dots,T_{post}-1,$$
+and $\tau_{t}^{\text{rate}} = 0$ for all pre-treatment and intervention-anchor periods.
+
+The outcomes $y_{t, cf}$ and $y_{t, treated}$ are coupled via a thinning/superposition property to maintain exact Poisson marginals while ensuring the realized effect is driven by the multiplier in expectation:
+- $y_{t, cf} \sim \text{Poisson}(\mu_{t, cf})$
+- If $\mu_{t, treated} \ge \mu_{t, cf}$:
+  $$y_{t, treated} = y_{t, cf} + \Delta_t, \quad \Delta_t \sim \text{Poisson}(\mu_{t, treated} - \mu_{t, cf})$$
+- If $\mu_{t, treated} < \mu_{t, cf}$:
+  $$y_{t, treated}\mid y_{t, cf} \sim \text{Binomial}\left(y_{t, cf}, \frac{\mu_{t, treated}}{\mu_{t, cf}}\right)$$
+
+This ensures that $E[y_{t, treated} - y_{t, cf} | \mu] = \mu_{t, treated} - \mu_{t, cf}$ and both marginals remain Poisson with means $\mu_{t, cf}$ and $\mu_{t, treated}$.
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_poisson_26.ipynb CELL 10
+
+### 2. Oracle Treatment Effects (ATT)
+The Average Treatment Effect on the Treated (ATT) is the average impact of the intervention across all post-treatment periods. In this synthetic scenario, we can calculate it in two ways:
+
+1. **Realized ATT**: Based on observed vs. counterfactual outcomes.
+$$ \text{ATT}_{realized} = \frac{1}{T_{post}} \sum_{t \in \text{Post}} (Y_t - Y_t^{(0)}) $$
+In the data, this is the mean of `tau_realized_true` for the treated unit in post-periods.
+
+2. **Mean ATT**: Based on the underlying population means (the "signal").
+$$ \text{ATT}_{mean} = \frac{1}{T_{post}} \sum_{t \in \text{Post}} (\mu_t^{(1)} - \mu_t^{(0)}) $$
+In the data, this is the mean of `tau_mean_true` for the treated unit in post-periods.
+
+## FILE D:\codex\Causalis\notebooks\research\generate_scm_poisson_26.ipynb CELL 14
+# EDA
+## FILE D:\codex\Causalis\notebooks\research\matching.ipynb CELL 1
+# DML IRM vs CausalML NearestNeighborMatch
+## FILE D:\codex\Causalis\notebooks\research\matching.ipynb CELL 2
+This notebook presents the **matching** research workflow and key analysis steps.
+## FILE D:\codex\Causalis\notebooks\research\matching.ipynb CELL 3
+Causal Inference consists of two main parts: Identification Assumptions and Model Specification. SUTVA, Unconfoundedness, Overlap are strong assumptions that must be true to call our inference causal. Studies and quasi experiments often have problems with Identification Assumptions so in practice you spend time to prove them, not model specification
+## FILE D:\codex\Causalis\notebooks\research\matching.ipynb CELL 4
+However, In this notebook I will focus on the model specification. Propensity Score matching is a classical ML non-parametric approcah, estimating ATTE. It must perform worse than DML approach because:
+## FILE D:\codex\Causalis\notebooks\research\matching.ipynb CELL 5
+- uses both the propensity model and the outcome model, not just propensity scores
+
+- is more robust to small model misspecification through orthogonalization
+
+- uses cross-fitting, which reduces overfitting bias from ML nuisance models
+
+- does not throw away as much data as matching often does
+
+- provides more principled statistical inference (standard errors, confidence intervals)
+
+- can estimate ATE or ATTE cleanly, not just the treated-group effect by default
+## FILE D:\codex\Causalis\notebooks\research\matching.ipynb CELL 6
+We will compare absolute estimates on DGPs from Causalis between IRM DML model implemented in Causalis and NearestNeighborMatch implemented in CausalML
+## FILE D:\codex\Causalis\notebooks\research\matching.ipynb CELL 8
+# generate_obs_hte_26_rich()
+## FILE D:\codex\Causalis\notebooks\research\matching.ipynb CELL 9
+Read more about dgp at https://causalis.causalcraft.com/articles/generate_obs_hte_26_rich
+## FILE D:\codex\Causalis\notebooks\research\matching.ipynb CELL 16
+DML IRM outperforms NearestNeighborMatch
+## FILE D:\codex\Causalis\notebooks\research\matching.ipynb CELL 17
+# generate_obs_hte_binary_26()
+## FILE D:\codex\Causalis\notebooks\research\matching.ipynb CELL 18
+read more about the dgp at https://causalis.causalcraft.com/articles/generate_obs_hte_binary_26
+## FILE D:\codex\Causalis\notebooks\research\matching.ipynb CELL 25
+DML IRM outperforms NearestNeighborMatch
+## FILE D:\codex\Causalis\notebooks\research\matching.ipynb CELL 26
+# Conclusion
+## FILE D:\codex\Causalis\notebooks\research\matching.ipynb CELL 27
+I recommend to use DML IRM for Unconfoundedness scenario as default model specification
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 1
+# Refutation flow for multi-treatment IRM
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 2
+This notebook presents the **refutation flow multi unconfoundedness** research workflow and key analysis steps.
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 3
+This notebook mirrors `refutation_flow.ipynb`, but for the
+`causalis.scenarios.multi_unconfoundedness` scenario.
+
+We estimate pairwise ATE contrasts against the baseline treatment `d_0`, then run:
+- overlap diagnostics,
+- score diagnostics,
+- unconfoundedness balance checks,
+- sensitivity analysis.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 6
+# Inference
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 9
+# Overlap
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 10
+For multi-treatment IRM, overlap is checked pairwise: baseline `d_0` vs each active treatment.
+Key metrics are reported by comparison (`d_0 vs d_1`, `d_0 vs d_2`, ...).
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 12
+## `edge_0.01_below`, `edge_0.01_above`
+Share of pairwise propensity mass near 0 or 1.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 14
+## `ks`
+Kolmogorov-Smirnov distance between pairwise score distributions.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 16
+## `auc`
+AUC for separating baseline vs active treatment using pairwise propensity score.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 18
+## `ess_ratio_treated`, `ess_ratio_baseline`
+Effective sample size ratios implied by inverse-propensity weights.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 20
+## `clip_m_total`
+Share of observations affected by propensity trimming in each comparison.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 22
+## Overall overlap verdict
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 24
+# Score
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 25
+Score diagnostics validate orthogonal moments and influence behavior for each baseline contrast.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 27
+## `psi_p99_over_med`, `psi_kurtosis`
+Tail diagnostics of influence values by comparison.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 29
+## Top influential observations
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 31
+## `max_|t|_gk`, `max_|t|_g0`, `max_|t|_mk`, `max_|t|_m0`
+Orthogonality derivative checks by comparison.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 33
+## `oos_tstat_fold`, `oos_tstat_strict`
+Out-of-sample moment tests.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 36
+# SUTVA
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 38
+# Unconfoundedness
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 40
+## `balance_max_smd`, `balance_frac_violations`
+Weighted SMD checks for each baseline-vs-treatment comparison.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 42
+## Worst covariates by weighted SMD
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow_multi_unconfoundedness.ipynb CELL 45
+## Sensitivity analysis
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 1
+# Refutation of DML IRM inference
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 2
+This notebook presents the **refutation flow** research workflow and key analysis steps.
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 3
+We will use DGP from Causalis. Read more at https://causalis.causalcraft.com/articles/generate_obs_hte_26_rich
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 6
+# Inference
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 9
+# Overlap
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 10
+## What “overlap/positivity” means
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 11
+**Binary treatment $T \in \{0,1\}$:**
+for all confounder values $x$ in your target population,
+
+$$
+0 < e(x) := P(T = 1 \mid X = x) < 1,
+$$
+
+often strengthened to **strong positivity**:
+there exists an $\varepsilon > 0$ such that
+
+$$
+\varepsilon \le e(x) \le 1 - \varepsilon
+\quad\text{almost surely.}
+$$
+
+---
+
+#### Why it matters
+
+* **Identification:**
+  Overlap + unconfoundedness are the two pillars that identify causal effects from observational data.
+  Without overlap, the effect is **not identified** — you must extrapolate or model-specify what never occurs.
+
+* **Estimation stability:**
+  IPW/DR estimators use weights
+
+  $$
+  w_1 = \frac{D}{e(X)}, \qquad
+  w_0 = \frac{1 - D}{1 - e(X)}.
+  $$
+
+  If $e(X)$ is near 0 or 1, these weights explode, causing huge variance and fragile estimates.
+
+* **Target population:**
+  With trimming or restriction, you may change *who* the effect describes —
+  e.g., ATE on the **region of common support**, not on the full population.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 12
+It's summary for overlap diagnostics
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 14
+## `edge_mass`
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 15
+`edge_0.01_below`, `edge_0.01_above`, `edge_0.02_below`, `edge_0.02_above`  are shares of units whose propensity is below or above the percents
+
+To keep in mind: DML IRM is clipping out the interval [0.02 and 0.98]
+
+Huge shares are dangerous for estimation in terms of weights exploding
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 16
+Flags in Causalis:
+
+For $ε=0.01$: YELLOW if either side 0.02 (2%), RED if 0.05 (5%).
+
+For $ε=0.02$: YELLOW if either side 0.05 (5%), RED if 0.10 (10%).
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 18
+## `ks - Kolmogorov–Smirnov statistic`
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 19
+Here KS is the **two-sample Kolmogorov–Smirnov statistic** comparing the distributions of the propensities for treated vs control:
+
+$$ D=\max_t |\hat F_A(t)-\hat F_B(t)| $$
+
+Interpretation:
+
+* (D=0): identical distributions (perfect overlap).
+* (D=1): complete separation (no overlap).
+* Your value **KS = 0.5116** means there exists a threshold (t) such that the share of treated with $(m\le t)$ differs from the share of controls with $(m\le t)$ by **~51 percentage points**. That’s why it’s flagged **RED** (your thresholds mark RED when KS > 0.35): treatment assignment is highly predictable from covariates ⇒ **poor overlap / strong confounding risk**.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 21
+## `AUC`
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 22
+### Probability definition (most intuitive)
+
+$$
+\text{AUC} = \Pr\big(s^+ > s^-\big)+\tfrac12\Pr\big(s^+ = s^-\big),
+$$
+where $(s^+)$ is a score from a random positive and $(s^-)$ from a random negative.
+So AUC is the fraction of all $(n_1 n_0)$ positive–negative pairs that are correctly ordered by the score (ties get half-credit).
+
+### Rank / Mann–Whitney formulation
+
+1. Rank all scores together (ascending). If there are ties, assign **average ranks** within each tied block.
+2. Let $(R_1)$ be the **sum of ranks** for the positives.
+3. Compute the Mann–Whitney (U) statistic for positives:
+
+   $$
+   U_1 = R_1 - \frac{n_1(n_1+1)}{2}.
+   $$
+
+4. Convert to AUC by normalizing:
+
+   $$
+   \boxed{\text{AUC} = \frac{U_1}{n_1 n_0}
+   = \frac{R_1 - \frac{n_1(n_1+1)}{2}}{n_1 n_0}}
+   $$
+
+   This is exactly what your function returns (with stable sorting and tie-averaged ranks).
+
+### ROC-integral view (equivalent)
+
+If $(\text{TPR}(t))$ and $(\text{FPR}(t))$ trace the ROC curve as the threshold $(t)$ moves,
+
+$$
+\text{AUC} = \int_0^1 \text{TPR}\big(\text{FPR}^{-1}(u)\big)du,
+$$
+
+i.e., the geometric area under the ROC.
+
+### Properties you should remember
+
+* **Range:** $(0 \le \text{AUC} \le 1)$; 0.5 = random ranking; 1 = perfect separation.
+* **Symmetry:** $(\text{AUC}(s,y) = 1 - \text{AUC}(s,1-y))$.
+* **Monotone invariance:** Any strictly increasing transform $(f)$ leaves AUC unchanged (only ranks matter).
+* **Ties:** Averaged ranks ⇒ adds the $(\tfrac12\Pr(s^+=s^-))$ term automatically.
+
+### In the propensity/overlap context
+
+* A **higher** AUC means treatment (D) is **more predictable** from covariates (bad for overlap/positivity).
+* For good overlap you actually want AUC **close to 0.5**.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 24
+## `ESS_treated_ratio`
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 25
+### Weights used
+
+For ATE-style IPW, the treated-arm weights are
+
+$$
+w_i = \frac{D_i}{m_i}
+\quad\Rightarrow\quad
+w_i =
+\begin{cases}
+1/m_i,& D_i=1\\
+0,& D_i=0
+\end{cases}
+$$
+
+so on the treated subset $(\{i:D_i=1\})$ the weights are simply $(1/m_i)$.
+
+### Effective sample size (ESS)
+
+Given the treated-arm weights $(w_1,\ldots,w_{n_1})$ (only for $(D=1)$),
+
+$$
+\mathrm{ESS} = \frac{\left(\sum_{i=1}^{n_1} w_i\right)^2}{\sum_{i=1}^{n_1} w_i^2}.
+$$
+
+This is exactly what `_ess(w)` computes.
+
+* If all treated weights are equal, ESS $(= n_1)$ (full efficiency).
+* If a few weights dominate, ESS drops (information concentrated in few units).
+
+### The reported metric
+
+$$
+\boxed{
+\mathrm{ESS}_{\text{treated ratio}}
+= \frac{\mathrm{ESS}}{n_1}
+= \frac{\left(\sum_i w_i\right)^2}{n_1 \sum_i w_i^2}
+}
+$$
+
+
+
+This lies in $(0,1]$. Near **1** ⇒ well-behaved weights; near **0** ⇒ severe instability.
+
+### Why it reflects overlap
+
+When propensities $(m_i)$ approach 0 for treated units, weights $(1/m_i)$ explode → large CV → **low ESS_treated_ratio**. Hence this metric is a direct, quantitative read on how much usable information remains in the treated group after IPW.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 27
+## `tails_w1_q99/med`
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 28
+$$
+\boxed{
+\texttt{tails\_w1\_q99/med}
+= \frac{Q_{0.99}(W_1)}{\mathrm{median}(W_1)}.
+}
+$$
+
+
+### Interpretation
+
+* It’s a **tail-heaviness index** for treated weights: how large the 99th-percentile weight is relative to a typical (median) weight.
+* **Scale-invariant**: if you re-scale weights (e.g., Hájek normalization), both numerator and denominator scale equally, so the ratio is unchanged.
+* Bigger $(\Rightarrow)$ **heavier right tail** $(\Rightarrow)$ more variance inflation for IPW (since variance depends on large $(w_i^2)$). It typically coincides with a **low $ESS_{\text{treated ratio}}$**.
+
+### Edge cases & thresholds
+
+* If $(\text{median}(W_1)=0)$ or undefined, the ratio is not meaningful (your code returns “NA” in that case; with positive treated weights this is rare).
+* Defaults: **YELLOW** if any of $({q95/med,q99/med,q999/med,\max/med})$ exceeds **10**; **RED** if any exceed **100**.
+  `tails_w1_q99/med` is one of these checks, focusing specifically on the 99th percentile.
+
+### Quick example
+
+If $\mathrm{median}(W_1) = 1.2$ and $Q_{0.99}(W_1) = 46.8$, then
+
+$$
+\texttt{tails\_w1\_q99/med}
+= \frac{46.8}{1.2} \approx 39,
+$$
+
+indicating heavy tails and a likely unstable ATE IPW.
+
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 30
+## `ATT_identity_relerr`
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 31
+With estimated propensities $(m_i=\hat m(X_i))$ and $(D_i\in\{0,1\})$:
+
+* **Left-hand side (controls odds sum):**
+  $$
+  \text{LHS} = \sum_{i=1}^n (1-D_i)\frac{m_i}{1-m_i}.
+  $$
+* **Right-hand side (treated count):**
+  $$
+  \text{RHS} = \sum_{i=1}^n D_i = n_1.
+  $$
+
+If $(\hat m\approx m)$ and overlap is ok, **LHS $(\approx)$ RHS**.
+
+You report the **relative error**:
+
+$$
+\boxed{
+\texttt{ATT\_identity\_relerr}
+= \frac{\big|\mathrm{LHS} - \mathrm{RHS}\big|}{\mathrm{RHS}}
+}
+$$
+
+(when $(n_1>0)$ otherwise it’s set to $(\infty)$).
+
+
+### How to read the number
+
+* Small $(\texttt{relerr})$ (e.g., (\le 5%)) ⇒ propensities are **reasonably calibrated** (especially on the control side) and ATT weights won’t be wildly off in total mass.
+* Large $(\texttt{relerr})$ ⇒ possible **miscalibration** of $(\hat m)$ (e.g., over/underestimation for controls), **poor overlap** (many controls with $(m_i\to 1)$ inflating $(m_i/(1-m_i)))$, or **clipping/trimming** effects.
+
+Your default flags (same as in the code):
+
+* **GREEN** if $(\texttt{relerr} \le 0.05)$
+* **YELLOW** if $(0.05 < \texttt{relerr} \le 0.10)$
+* **RED** if $(> 0.10)$
+
+### Quick intuition
+
+The term $(m/(1-m))$ is the **odds** of treatment. Summing that over **controls** should reconstruct the **treated count**. If it doesn’t, either the odds are off (propensity miscalibration) or the data lack support where you need it—both are red flags for ATT-IPW stability.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 33
+## `clip_m_total`
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 34
+look at edge_mass
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 36
+## `calib_ECE, calib_slope, calib_intercept`
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 37
+### calib_ECE = 0.018 (GREEN)
+
+**Math:** with 10 equal-width bins,
+
+$$
+\text{ECE}=\sum_{k=1}^{10}\frac{n_k}{n},|\bar y_k-\bar p_k|
+$$
+
+(weighted average gap between observed rate (\bar y_k) and mean prediction (\bar p_k) per bin).
+**Result:** ~1.8% average miscalibration → overall probabilities track outcomes well. Note the biggest bin error is in 0.5–0.6 (abs_error ≈ 0.162) but it’s tiny (95/10,000), so ECE stays low.
+
+### calib_slope (β) = 0.889 (GREEN)
+
+**Math (logistic recalibration):**
+
+$$
+\Pr(D=1\mid p)=\sigma(\alpha+\beta,\text{logit}(p)).
+$$
+
+**Interpretation:** (\beta<1) ⇒ predictions are a bit **over-confident** (too extreme); the optimal calibration slightly **flattens** them toward 0.5.
+
+### calib_intercept (α) = −0.107 (GREEN)
+
+**Math:** same model as above; (\alpha) is a vertical shift on the log-odds scale.
+**Interpretation:** Negative (\alpha) nudges probabilities **downward** overall (your model is, on average, a bit high), consistent with bins like 0.5–0.6 where $(\bar p_k > \bar y_k)$.
+
+All three fall well within your GREEN thresholds, so calibration looks solid despite minor mid-range overprediction.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 40
+# Score
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 41
+We need this score refutation tests for:
+* Catch overfitting/leakage: The out-of-sample moment check verifies that the AIPW score averages to ~0 on held-out folds using fold-specific θ and nuisances. If this fails, your effect can be an artifact of leakage or overfit learners rather than a real signal.
+* Verify Neyman orthogonality in practice: The Gateaux-derivative tests (orthogonality_derivatives) check that small, targeted perturbations to the nuisances (g₀, g₁, m) don’t move the score mean. Large |t| values flag miscalibration (e.g., biased propensity or outcome models) that breaks the orthogonality protection DML relies on.
+* Assess finite-sample stability: The influence diagnostics reveal heavy tails (p99/median, kurtosis) and top-influential points. Spiky ψ implies high variance and sensitivity—often due to near-0/1 propensities, poor overlap, or outliers.
+* ATTE-specific risks: For ATT/ATTE, only g₀ and m matter in the score. The added overlap metrics and trim curves show how reliant your estimate is on scarce, high-m controls—common failure mode for ATT.
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 43
+## `psi_p99_over_med`
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 44
+* Let $\psi_i$ be the per-unit **influence value** (EIF score) for your estimator.
+  We look at magnitudes $a_i \equiv |\psi_i|$.
+
+* Define the 99th percentile and the median of these magnitudes:
+
+  $$
+  q_{0.99} \equiv \operatorname{Quantile}_{0.99}(a_1,\dots,a_n),\qquad
+  m \equiv \operatorname{median}(a_1,\dots,a_n).
+  $$
+
+* The metric is the **scale-free tail ratio**:
+
+  $$
+  \boxed{
+  \texttt{psi\_p99\_over\_med}
+  = \frac{q_{0.99}}{m}
+  }
+  $$
+
+
+**Why this works (brief):**
+
+* Uses $|\psi_i|$ to ignore sign (only tail size matters).
+* Dividing by the **median** makes it scale-invariant and robust to a few large values.
+* Large values $\big(\gg 1\big)$ mean a small fraction of observations dominate uncertainty (heavy tails → unstable SE).
+
+**Quick read:**
+
+* $\approx 1!-!5$: tails tame/stable
+* $\gtrsim 10$: caution (heavy tails)
+* $\gtrsim 20$: likely unstable; check overlap, trim/clamp propensities, or robustify learners.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 46
+## `psi_kurtosis`
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 47
+* Let $\psi_i$ be the per-unit influence values and define centered residuals
+
+  $$
+  \tilde\psi_i \equiv \psi_i - \bar\psi,\qquad
+  \bar\psi \equiv \frac{1}{n}\sum_{i=1}^n \psi_i.
+  $$
+
+* Sample variance (with Bessel correction):
+
+  $$
+  s^2 \equiv \frac{1}{n-1}\sum_{i=1}^n \tilde\psi_i^2.
+  $$
+
+* Sample 4th central moment:
+
+  $$
+  \hat\mu_4 \equiv \frac{1}{n}\sum_{i=1}^n \tilde\psi_i^4.
+  $$
+
+* The reported metric (raw kurtosis, **not** excess):
+
+  $$
+  \boxed{
+  \texttt{psi\_kurtosis}
+  = \frac{\hat{\mu}_4}{s^4}
+  }
+  $$
+
+
+**Interpretation (quick):**
+
+* Normal reference $\approx 3$ (excess kurtosis $=0$).
+* Much larger $\Rightarrow$ heavier tails / more extreme $\psi_i$ outliers.
+* Rules of thumb used in the diagnostics: $\ge 10$ = caution, $\ge 30$ = severe.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 49
+#### $max_|t|_g1$, $max_|t|_g0$, $max_|t|_m$
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 50
+We work with a **basis** of functions
+
+$$
+\{h_b(X)\}_{b=0}^{B-1}
+\quad\text{(columns of }X_{\text{basis}}\text{; }h_0\equiv 1\text{ is the constant).}
+$$
+
+Let $(m_i^\tau \equiv \mathrm{clip}(m_i,\tau,1-\tau))$ be the clipped propensity (guards against division by zero).
+
+### ATE case
+
+For each basis function $(b)$, form a sample mean (Gateaux derivative estimator) and its standard error, then compute a t-statistic; finally take the maximum absolute value across bases.
+
+---
+
+### $(g_1)$ direction
+
+$$
+\widehat d_{g_1,b}
+= \frac{1}{n}\sum_{i=1}^n h_b(X_i)
+\Big(1 - \frac{D_i}{m_i^\tau}\Big),
+\qquad
+\mathrm{se}(\widehat d_{g_1,b})
+= \frac{\operatorname{sd}\!\left[h_b(X_i)
+\left(1-\frac{D_i}{m_i^\tau}\right)\right]}{\sqrt{n}}.
+$$
+
+$$
+t_{g_1,b} = \frac{\widehat d_{g_1,b}}{\mathrm{se}(\widehat d_{g_1,b})},
+\qquad
+\boxed{
+\max_{|t|_{g_1}} = \max_b |t_{g_1,b}|
+}.
+$$
+
+---
+
+### $(g_0)$ direction
+
+$$
+\widehat d_{g_0,b}
+= \frac{1}{n}\sum_{i=1}^n h_b(X_i)
+\Big(\frac{1-D_i}{1-m_i^\tau} - 1\Big),
+\qquad
+\mathrm{se}(\widehat d_{g_0,b})
+= \frac{\operatorname{sd}\!\left[h_b(X_i)
+\left(\frac{1-D_i}{1-m_i^\tau} - 1\right)\right]}{\sqrt{n}}.
+$$
+
+$$
+t_{g_0,b} = \frac{\widehat d_{g_0,b}}{\mathrm{se}(\widehat d_{g_0,b})},
+\qquad
+\boxed{
+\max_{|t|_{g_0}} = \max_b |t_{g_0,b}|
+}.
+$$
+
+---
+
+### $(m)$ direction
+
+$$
+S_i \equiv
+\frac{D_i(Y_i - g_{1,i})}{(m_i^\tau)^2}
++ \frac{(1-D_i)(Y_i - g_{0,i})}{(1 - m_i^\tau)^2}.
+$$
+
+$$
+\widehat d_{m,b}
+= -\frac{1}{n}\sum_{i=1}^n h_b(X_i) S_i,
+\qquad
+\mathrm{se}(\widehat d_{m,b})
+= \frac{\operatorname{sd}\!\left[h_b(X_i)S_i\right]}{\sqrt{n}}.
+$$
+
+$$
+t_{m,b} = \frac{\widehat d_{m,b}}{\mathrm{se}(\widehat d_{m,b})},
+\qquad
+\boxed{
+\max_{|t|_{m}} = \max_b |t_{m,b}|
+}.
+$$
+
+**Interpretation:** under Neyman orthogonality, each derivative mean $(\widehat d_{\bullet,b})$ should be approximately zero, so all $(|t_{\bullet,b}|)$ should be small. Large $(\max_{|t|})$ values flag miscalibration of the corresponding nuisance.
+
+---
+
+### ATTE / ATT case
+
+Let $(p_1 = \mathbb{E}[D])$ and define the odds $(o_i = m_i^\tau / (1 - m_i^\tau))$.
+
+* The $(g_1)$ derivative is identically zero:
+
+  $$
+  \Rightarrow\quad \max_{|t|_{g_1}} = 0.
+  $$
+
+* **$(g_0)$ direction**
+
+  $$
+  \widehat d_{g_0,b}
+  = \frac{1}{n}\sum_i h_b(X_i)\frac{(1-D_i)o_i - D_i}{p_1},
+  \qquad
+  t_{g_0,b}
+  = \frac{\widehat d_{g_0,b}}{\mathrm{se}(\widehat d_{g_0,b})},
+  \qquad
+  \max_{|t|_{g_0}} = \max_b |t_{g_0,b}|.
+  $$
+
+* **$(m)$ direction**
+
+  $$
+  \widehat d_{m,b}
+  = -\frac{1}{n}\sum_i h_b(X_i)
+  \frac{(1-D_i)(Y_i - g_{0,i})}
+       {p_1(1 - m_i^\tau)^2},
+  \qquad
+  \max_{|t|_{m}} = \max_b |t_{m,b}|.
+  $$
+
+---
+
+**Rule of thumb:**
+$(\max_{|t|} \lesssim 2)$ is “okay”; larger values indicate orthogonality breakdown — fix by recalibrating that nuisance, changing learners, features, or trimming.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 52
+## `oos_tstat_fold, oos_tstat_strict`
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 53
+Here’s the math behind the two OOS (out-of-sample) moment t-stats used in the diagnostics.
+Assume K-fold cross-fitting with held-out index sets $(I_k)$ (size $n_k$) and complements $(R_k)$.
+
+---
+
+### **Step 1 — Leave-fold-out $(\hat\theta_{-k})$**
+
+For the moment condition
+$(\mathbb{E}[\psi_a(W)\,\theta + \psi_b(W)] = 0)$,
+the leave-fold-out estimate used on fold $(k)$ is
+
+$$
+\hat\theta_{-k}
+= -\frac{\bar\psi_{b,R_k}}{\bar\psi_{a,R_k}},
+\qquad
+\bar\psi_{\cdot,R_k}
+= \frac{1}{|R_k|}\sum_{i\in R_k}\psi_{\cdot}(W_i).
+$$
+
+---
+
+### **Step 2 — Held-out scores on fold $(k)$**
+
+Define the fold-specific held-out score for $i\in I_k$:
+
+$$
+\psi_i^{(k)}
+= \psi_b(W_i) + \psi_a(W_i)\,\hat\theta_{-k}.
+$$
+
+Compute per-fold mean and variance:
+
+$$
+\bar\psi_k
+= \frac{1}{n_k}\sum_{i\in I_k}\psi_i^{(k)},
+\qquad
+s_k^2
+= \frac{1}{n_k-1}\sum_{i\in I_k}\!\big(\psi_i^{(k)}-\bar\psi_k\big)^2.
+$$
+
+---
+
+### OOS t-stat diagnostics
+
+---
+
+### **$(\texttt{oos\_tstat\_fold})$**
+
+A fold-aggregated, variance-weighted t-statistic:
+
+$$
+\boxed{
+\texttt{oos\_tstat\_fold}
+= \frac{\displaystyle \sum_{k=1}^K n_k\,\bar\psi_k}
+       {\displaystyle \sqrt{\sum_{k=1}^K n_k\,s_k^2}}
+}
+$$
+
+*Intuition:* averages fold means and scales by a fold-pooled standard error.
+
+---
+
+### **$(\texttt{oos\_tstat\_strict})$**
+
+A “strict” t-stat using every held-out observation directly:
+
+$$
+N = \sum_{k=1}^K n_k,
+\qquad
+\bar\psi_{\text{all}}
+= \frac{1}{N}\sum_{k=1}^K\sum_{i\in I_k}\psi_i^{(k)}.
+$$
+
+$$
+s_{\text{all}}^2
+= \frac{1}{N-1}
+  \sum_{k=1}^K\sum_{i\in I_k}
+  \big(\psi_i^{(k)} - \bar\psi_{\text{all}}\big)^2.
+$$
+
+$$
+\boxed{
+\texttt{oos\_tstat\_strict}
+= \frac{\bar\psi_{\text{all}}}{s_{\text{all}}/\sqrt{N}}
+}
+$$
+
+*Intuition:* computes a single overall mean and standard error across *all* held-out scores
+(often slightly more conservative).
+
+---
+
+### **Interpretation**
+
+Under a valid design and correct cross-fitting
+(so that $\mathbb{E}[\psi]=0$ out-of-sample), both statistics are approximately standard normal:
+
+$$
+\text{two-sided p-value}
+\approx 2\big(1 - \Phi(|t|)\big).
+$$
+
+Values near $0$ indicate that the moment condition holds out of sample.
+Large $|t|$ suggests overfitting, leakage, or nuisance miscalibration.
+
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 56
+# SUTVA
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 58
+Those assumptions are statistically untestable. We need design of research for them
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 59
+# Unconfoundedness
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 61
+## `balance\_max\_smd`
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 62
+
+
+For each covariate $(X_j)$, the (weighted) standardized mean difference is
+
+$$
+\mathrm{SMD}_j
+= \frac{\big|\mu_{1j} - \mu_{0j}\big|}
+       {\sqrt{\tfrac{1}{2}\big(\sigma_{1j}^2 + \sigma_{0j}^2\big)}}.
+$$
+
+Group means and variances are computed under the IPW weights implied by your estimand:
+
+* **ATE:** $w_{1i} = \tfrac{D_i}{\hat m_i}$, $w_{0i} = \tfrac{1-D_i}{1-\hat m_i}$
+* **ATTE:** $w_{1i} = D_i$, $w_{0i} = (1-D_i)\tfrac{\hat m_i}{1-\hat m_i}$
+
+(If `normalize=True`, each weight vector is divided by its mean.)
+
+Weighted means and variances:
+
+$$
+\mu_{gj} = \frac{\sum_i w_{gi} X_{ij}}{\sum_i w_{gi}},
+\qquad
+\sigma_{gj}^2 = \frac{\sum_i w_{gi}(X_{ij} - \mu_{gj})^2}{\sum_i w_{gi}},
+\qquad
+g \in \{0,1\}.
+$$
+
+Special cases in the code:
+
+* If both variances are $\approx 0$ and $|\mu_{1j}-\mu_{0j}| \approx 0$ ⇒ $\mathrm{SMD}_j = 0$
+* If both variances are $\approx 0$ but means differ ⇒ $\mathrm{SMD}_j = \infty$
+* If denominator is $\approx 0$ otherwise ⇒ $\mathrm{SMD}_j = \text{NaN}$
+
+Then
+
+$$
+\textbf{balance\_max\_smd}
+= \max_j \mathrm{SMD}_j,
+$$
+
+implemented as a `nanmax` over the vector of $\mathrm{SMD}_j$.
+NaNs are ignored; if any feature produced $\infty$, the max is $\infty$.
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 63
+## `balance\_frac\_violations`
+
+Let the SMD threshold be $\tau$ (default $0.10$).
+Define the set of **finite** SMDs:
+
+$$
+\mathcal{J} = \{ j : \ \mathrm{SMD}_j \text{ is finite} \}.
+$$
+
+Then the fraction of violations is
+
+$$
+\textbf{balance\_frac\_violations}
+= \frac{1}{|\mathcal{J}|}
+  \sum_{j \in \mathcal{J}} \mathbf{1}\{ \mathrm{SMD}_j \ge \tau \}.
+$$
+
+So it’s the share of covariates whose **weighted** SMD exceeds the threshold,
+computed only over finite SMDs (NaN / Inf are excluded from the denominator).
+
+---
+
+### Quick interpretation
+
+* Smaller is better. A common rule of thumb is $\mathrm{SMD} \le 0.10$.
+* `balance_max_smd` tells you the **worst** residual imbalance across covariates.
+* `balance_frac_violations` tells you **how many** covariates (as a fraction) still exceed the chosen threshold.
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 64
+## `Sensitivity analysis`
+## FILE D:\codex\Causalis\notebooks\research\refutation_flow.ipynb CELL 65
+### 1) `sensitivity_analysis`: bias-aware CI
+
+**Goal.**
+Start from your estimator $(\hat\theta)$ with sampling standard error $(se)$.
+Allow a controlled amount of *worst-case hidden cofounding* through three knobs $(cf_y, cf_d, \rho)$.
+Inflate the uncertainty by an additive “max bias”.
+
+---
+
+### **Step A — Sampling part**
+
+* Point estimate $\hat\theta$, standard error $se$, and $z_\alpha$ for level $(1-\alpha)$.
+* Usual sampling CI:
+*
+  $$
+  [\,\hat\theta - z_\alpha\,se,\ \hat\theta + z_\alpha\,se\,].
+  $$
+
+---
+
+### **Step B — Cofounding geometry**
+
+The code pulls sensitivity elements from the fitted IRM:
+
+* $\sigma^2$: the **asymptotic variance** of the estimator’s EIF
+  (so that $se = \sqrt{\sigma^2}$ in the module’s normalization).
+
+* $m_\alpha(i) \ge 0$: per-unit weight for the **outcome channel**
+  (how outcome-model misspecification moves the EIF).
+
+* $r(i)$ (“riesz\_rep”): per-unit weight for the **treatment channel**
+  (how propensity-model misspecification moves the EIF).
+
+We turn the user’s sensitivity knobs into a **quadratic budget** for adversarial cofounding:
+$$
+\begin{aligned}
+a_i &:= \sqrt{2\,m_\alpha(i)}, \\[1mm]
+b_i &:=
+\begin{cases}
+|r(i)|, & \text{(default, worst-case sign)} \\
+r(i),   & \text{(if \texttt{use\_signed\_rr=True})}
+\end{cases} \\[2mm]
+\text{base}_i &= a_i^2\,cf_y + b_i^2\,cf_d
+  + 2\,\rho\,\sqrt{cf_y\,cf_d}\,a_i b_i \ge 0, \\[2mm]
+\nu^2 &:= \mathbb{E}_n[\text{base}_i].
+\end{aligned}
+$$
+
+
+- $cf_y \ge 0$: strength of unobserved outcome disturbance
+- $cf_d \ge 0$: strength of unobserved treatment disturbance
+- $\rho \in [-1,1]$: their correlation
+
+This $\nu^2$ is a **dimensionless bias multiplier** — how sensitive the EIF is to those perturbations.
+
+---
+
+### **Step C — Max bias and intervals**
+
+Two equivalent forms appear in the code:
+
+$$
+\text{max\_bias}
+= \sqrt{\sigma^2\,\nu^2}
+= \big(\sqrt{\nu^2}\big)\,se.
+$$
+
+Then the module reports:
+
+* **Cofounding bounds for $\theta$:**
+
+  $$
+  [\,\hat\theta - \text{max\_bias},\; \hat\theta + \text{max\_bias}\,].
+  $$
+
+* **Bias-aware CI (sampling + cofounding, worst-case additive):**
+
+  $$
+  \Big[\,\hat\theta - (\text{max\_bias} + z_\alpha\,se),\;
+  \hat\theta + (\text{max\_bias} + z_\alpha\,se)\,\Big].
+  $$
+
+(So you’re adding sampling error and the adversarial bias *linearly* for a conservative envelope.)
+
+---
+
+**Notes & edge handling**
+
+* Numeric PSD clamping ensures $\text{base}_i \ge 0$; $\rho$ is clipped to $[-1,1]$.
+* If $cf_y = cf_d = 0 \Rightarrow \nu^2 = 0 \Rightarrow$ bias-aware CI collapses to the sampling CI.
+* Internally, a delta-method IF for $\text{max\_bias}$ is
+
+  $$
+  \psi_{\text{max}}(i)
+  = \frac{\sigma^2\,\psi_{\nu^2}(i) + \nu^2\,\psi_{\sigma^2}(i)}
+         {2\,\text{max\_bias}},
+  $$
+  matching $\text{max\_bias} = \sqrt{\sigma^2\nu^2}$ (used for coherent summaries).
+
+---
+
+### 2) `sensitivity_benchmark`: calibrating $(cf_y, cf_d, \rho)$ from omitted covariates
+
+**Goal.**
+Pick a set $Z$ of candidate “omitted” covariates (the `benchmarking_set`).
+Refit a **short** IRM that excludes $Z$ and compare it to the **long** (original) model.
+Use how well $Z$ explains residual variation to *derive* plausible $(cf_y, cf_d, \rho)$.
+
+---
+
+### **Step A — Long vs short estimates**
+
+* Long: $\hat\theta_{\text{long}}$ (original model).
+* Short: $\hat\theta_{\text{short}}$ (drop $Z$, same learners/hyperparams).
+* Report $\Delta = \hat\theta_{\text{long}} - \hat\theta_{\text{short}}$.
+
+---
+
+### **Step B — Residuals from the long model**
+
+Let $(g_1, g_0, \hat m)$ be the outcome and propensity learners:
+
+$$
+r_y := Y - \big(D g_1 + (1-D) g_0\big),
+\qquad
+r_d := D - \hat m.
+$$
+
+These are the EIF’s outcome and treatment residual components.
+
+---
+
+### **Step C — How much of each residual does $Z$ explain?**
+
+Regress $r_y$ on $Z$ and $r_d$ on $Z$ (unweighted OLS; **ATT** case uses ATT weights):
+
+* Obtain $R^2_y$ and $R^2_d$.
+* Convert to **signal-to-noise ratios** (the “strength” of cofounding channels):
+
+  $$
+  cf_y = \frac{R^2_y}{1 - R^2_y},
+  \qquad
+  cf_d = \frac{R^2_d}{1 - R^2_d}.
+  $$
+
+  (These are the same $R^2 / (1 - R^2)$ maps used in modern partial-$R^2$ robustness frameworks.)
+
+Compute the correlation between the **fitted** pieces from those two regressions:
+
+$$
+\rho = \operatorname{corr}\!\big(\widehat r_y(Z),\ \widehat r_d(Z)\big),
+$$
+
+weighted for ATT when applicable, then clipped to $[-1,1]$.
+
+---
+
+### **Outputs**
+
+A one-row DataFrame (indexed by the treatment name) with
+
+$$
+\{\, cf_y,\ cf_d,\ \rho,\ \hat\theta_{\text{long}},\
+\hat\theta_{\text{short}},\ \Delta \,\}.
+$$
+
+You can pass $(cf_y, cf_d, \rho)$ straight into `sensitivity_analysis` to get the associated bias-aware interval.
+Intuitively, this calibrates *how strong hidden stuff would need to be* by using a concrete, observed proxy $Z$.
+
+---
+
+## **How to read them together**
+
+1. Use `sensitivity_benchmark` with a plausible omitted set $Z$ to **derive** $(cf_y, cf_d, \rho)$ and observe the actual estimate shift $\Delta$.
+
+2. Plug those $(cf_y, cf_d, \rho)$ into `sensitivity_analysis` to get:
+
+   $$
+   \text{max\_bias} = \sqrt{\nu^2}\,se,
+   \qquad
+   \text{Bias-aware CI} = \hat\theta \pm (\text{max\_bias} + z_\alpha\,se).
+   $$
+
+Small $cf$ values (or $\rho \approx 0$) ⇒ tiny $\nu^2$ ⇒ bias-aware CI near the sampling CI.
+Large $cf$ values and $|\rho|\approx 1$ widen it, reflecting stronger plausible hidden cofounding.
+
+## FILE D:\codex\Causalis\notebooks\research\scm_diagnostics.ipynb CELL 1
+# ASCM Model Diagnostics
+## FILE D:\codex\Causalis\notebooks\research\scm_diagnostics.ipynb CELL 2
+This notebook presents the **scm diagnostics** research workflow and key analysis steps.
+## FILE D:\codex\Causalis\notebooks\research\scm_diagnostics.ipynb CELL 3
+## 1. Setup
+
+First, we generate synthetic data and fit an Augmented SCM model, following the baseline example.
+
+## FILE D:\codex\Causalis\notebooks\research\scm_diagnostics.ipynb CELL 5
+## 2. Mathematical Foundations: The `pre_scale` Metric
+
+Before running specific tests, `run_scm_diagnostics` calculates a baseline variability measure called `pre_scale` for the treated unit during the pre-treatment period. 
+
+Most diagnostic thresholds are defined as a percentage of this scale. This ensures that the "goodness of fit" is judged relative to the inherent volatility of the data.
+
+### Robust Scale Estimators
+
+To avoid being misled by outliers or trends, the function calculates four different scale metrics and takes the maximum:
+
+1. **Standard Deviation**: $\sigma = \sqrt{\frac{1}{n-1} \sum_{t=1}^{n} (x_t - \bar{x})^2}$
+
+2. **Median Absolute Deviation (MAD)**: Scaled to be consistent with $\sigma$ for a normal distribution:
+   $$MAD_{\text{scaled}} = 1.4826 \cdot \text{median}(|x_t - \text{median}(x)|)$$
+
+3. **Interquartile Range (IQR)**: Also scaled for normal consistency:
+   $$IQR_{\text{scaled}} = \frac{Q_{75} - Q_{25}}{1.349}$$
+
+4. **First-Difference Scale**: Calculated using the standard deviation of first differences, useful when there is a trend or high autocorrelation. Since $\text{Var}(X_t - X_{t-1}) = 2\sigma^2$ for i.i.d. variables, we scale by $\sqrt{2}$:
+   $$\text{diff\_scale} = \frac{\text{std}(\Delta x)}{\sqrt{2}}$$
+
+$$\text{pre\_scale} = \max(\sigma, MAD_{\text{scaled}}, IQR_{\text{scaled}}, \text{diff\_scale})$$
+
+## FILE D:\codex\Causalis\notebooks\research\scm_diagnostics.ipynb CELL 6
+## 3. Diagnostic Tests
+
+The diagnostics are divided into fit-based checks and model-based (weight) checks.
+
+## FILE D:\codex\Causalis\notebooks\research\scm_diagnostics.ipynb CELL 7
+### A. Fit-Based Diagnostics
+
+1. **Pre-treatment RMSE**: Checks if the overall fit in the pre-treatment period is tight.
+   $$RMSE_{pre} = \sqrt{\frac{1}{T_{pre}} \sum_{t=1}^{T_{pre}} (y_t - \hat{y}_t)^2} \le 0.20 \cdot \text{pre\_scale}$$
+
+2. **Max Absolute Pre-gap**: Checks for extreme outliers in the pre-treatment period.
+   $$\max_{t \in \text{pre}} |y_t - \hat{y}_t| \le 0.50 \cdot \text{pre\_scale}$$
+
+3. **Mean Gap Last K Pre-periods**: Checks for pre-trend drift right before the treatment (typically $k=3$). If the average gap is far from zero, the parallel trends assumption might be failing just as treatment begins.
+   $$|\frac{1}{k} \sum_{t=T_{pre}-k+1}^{T_{pre}} (y_t - \hat{y}_t)| \le 0.25 \cdot \text{pre\_scale}$$
+
+## FILE D:\codex\Causalis\notebooks\research\scm_diagnostics.ipynb CELL 8
+### B. Weight-Based Diagnostics
+
+Augmented SCM (ASCM) allows for weights that can be negative or greater than one to achieve a better pre-treatment fit (extrapolation). However, extreme weights indicate that the counterfactual relies on unstable linear combinations of donors.
+
+1. **Max Absolute Weight**: Detects extreme individual weights.
+   $$\max |w_j| \le 2.0 \text{ (default)}$$
+
+2. **L1 Norm of Weights**: Detects when the total sum of absolute weights is too high.
+   $$\sum |w_j| \le 5.0 \text{ (default)}$$
+
+3. **Negative Weight Share**: Measures how much the estimate relies on negative weights (pure extrapolation vs. interpolation).
+   $$\frac{\sum_{w_j < 0} |w_j|}{\sum |w_j|} \le 0.30$$
+
+## FILE D:\codex\Causalis\notebooks\research\scm_diagnostics.ipynb CELL 9
+## 4. Running the Diagnostics
+
+We can now execute `run_scm_diagnostics` and inspect the results table.
+
+## FILE D:\codex\Causalis\notebooks\research\scm_diagnostics.ipynb CELL 11
+## 5. Interpreting Flags
+
+- **GREEN**: Metric is within optimal tolerance. The estimate is likely robust.
+- **YELLOW**: Metric exceeds the warning threshold. Consider investigating the pre-treatment fit or donor pool. The estimate might be sensitive to small changes.
+- **RED**: Indicates a severe problem, such as optimizer failure or extreme fit issues. The estimate should be treated with high skepticism.
+
+## FILE D:\codex\Causalis\notebooks\research\scm_diagnostics.ipynb CELL 12
+## 6. Placebo Tests
+
+Robustness tests check if the treatment effect is unique to the treated unit and time.
+
+### A. Placebo-in-Space (Permutation Test)
+
+This test (Abadie et al. 2010) applies the SCM to every unit in the donor pool, treating each donor as the "treated" unit.
+
+1. For each donor unit $j \in \text{Donors}$, we fit a synthetic control model using only the remaining donors.
+2. We calculate the Root Mean Squared Prediction Error (RMSE) for both pre- and post-treatment periods:
+   $$RMSE_{pre,j} = \sqrt{\frac{1}{T_{pre}} \sum_{t=1}^{T_{pre}} (y_{j,t} - \hat{y}_{j,t})^2}$$
+   $$RMSE_{post,j} = \sqrt{\frac{1}{T_{post}} \sum_{t=T_{pre}+1}^{T} (y_{j,t} - \hat{y}_{j,t})^2}$$
+3. We compute the **RMSPE Ratio**:
+   $$R_j = \frac{RMSE_{post,j}}{RMSE_{pre,j}}$$
+4. **Interpretation**: If the actual treated unit's ratio $R_{treated}$ is much larger than the distribution of $R_j$ for placebo units, it indicates that the effect is statistically significant. The **p-value** is effectively:
+   $$p = \frac{\text{count}(R_j \ge R_{treated})}{N_{donors} + 1}$$
+
+### B. Placebo-in-Time (Falsification Test)
+
+This test shifts the treatment start date $T_{actual}$ to an earlier date $T_{placebo}$ within the true pre-treatment period.
+
+1. We choose $T_{placebo} < T_{actual}$ and a pseudo-post-horizon $H$.
+2. We fit the SCM on $[1, T_{placebo}]$ and measure the "effect" on $[T_{placebo}+1, T_{placebo}+H]$.
+3. Since no treatment occurred during this period, the estimated Average Treatment Effect on the Treated (ATT) should be close to zero and statistically insignificant.
+4. **Interpretation**: If the null hypothesis (ATT=0) is rejected for many placebo dates, it suggests that the parallel trends assumption is violated (e.g., due to pre-treatment anticipation effects or unobserved trends).
+
+## FILE D:\codex\Causalis\notebooks\research\scm_diagnostics.ipynb CELL 14
+## 7. Sensitivity Analysis
+
+Sensitivity tests assess how dependent the final estimate is on specific assumptions or data subsets.
+
+### Leave-One-Donor-Out (LODO) Sensitivity
+
+A common concern in SCM is that the result might be driven by a single, idiosyncratic donor unit. This test (Abadie et al. 2015) re-estimates the model $N_{donors}$ times, each time removing one unit from the donor pool.
+
+1. Let $J$ be the set of all available donor units.
+2. For each unit $j \in J$, we fit a new model using $J \setminus \{j\}$.
+3. We calculate the re-estimated treatment effect $ATT_j$ and the change relative to the full model:
+   $$\Delta_j = ATT_j - ATT_{full}$$
+4. **Interpretation**: 
+   - Small $\Delta_j$ for all $j$ indicates a robust estimate.
+   - A large $\Delta_j$ suggests that donor $j$ is highly influential. If that donor's pre-fit was poor or if it has unusual characteristics, the main estimate should be treated with caution.
+
+### Effective Number of Donors
+
+To understand how concentrated the weights are, we calculate the **Effective Number of Donors ($N_{eff}$)**, which is the inverse of the Herfindahl-Hirschman Index (HHI) of the weights:
+
+$$N_{eff} = \frac{1}{\sum_{j \in J} w_j^2}$$
+
+- $N_{eff} = 1$: The counterfactual is built using only one donor.
+- $N_{eff} = N_{donors}$: All donors have equal weights ($1/N_{donors}$).
+
+Lower $N_{eff}$ indicates higher reliance on a small subset of donors.
+
+#### Interpreting the Results Table
+
+- **dropped_donor**: Donor unit removed in that refit.
+- **average_att_reestimated**: ATT calculated after removing that donor.
+- **delta_vs_full_model**: $\Delta_j = ATT_j - ATT_{full\_model}$. Values near zero indicate the estimate is stable; large values suggest the donor is highly influential.
+- **pre_rmse_reestimated**: Pre-treatment fit error after refit. A significant increase suggests the dropped donor was essential for maintaining fit quality.
+- **max_weight_after_refit**: Largest donor weight in the refitted model.
+- **effective_n_donors_after_refit**: The effective number of donors ($N_{eff}$) for the refitted model.
+
+## FILE D:\codex\Causalis\notebooks\research\scm_diagnostics.ipynb CELL 16
+## 8. Diagnostic Visualizations
+
+Visualization is a critical step in assessing SCM results. It allows for a qualitative check of the pre-treatment fit and the post-treatment divergence.
+
+### Observed vs. Synthetic Plot
+
+This plot displays the time series of the actual treated unit alongside its synthetic counterfactual (both standard and augmented, if available).
+
+- **Pre-treatment period**: The closer the observed and synthetic lines are, the better the model's fit. A poor pre-fit (large gaps) suggests that the donor pool cannot adequately represent the treated unit.
+- **Post-treatment period**: Divergence between the lines indicates a treatment effect.
+
+### Gap Over Time Plot
+
+The gap plot shows the difference between the observed and synthetic outcomes:
+$$Gap_t = y_{1,t} - \hat{y}_{1,t}$$
+
+- In the **pre-treatment period**, the gap should ideally fluctuate closely around zero.
+- In the **post-treatment period**, the gap represents the estimated treatment effect ($ATT_t$) at each point in time.
+
+#### Interpreting the Gap:
+- If the gap is systematically positive (or negative) after treatment, it suggests a persistent effect.
+- If the gap fluctuates around zero even after treatment, it suggests no significant effect.
+
+## FILE D:\codex\Causalis\notebooks\scenarios\classic_rct.ipynb CELL 1
+# Scenario: Classic RCT
+## FILE D:\codex\Causalis\notebooks\scenarios\classic_rct.ipynb CELL 2
+We call 'Classic Randomized Controlled Trial' (RCT) a scenario where a treatment is randomly assigned to participants, and we do not have pre-experiment data of participants like pre-treatment outcome.
+
+Treatment - new onboarding for new users.
+
+We will test hypothesis:
+
+$H_o$ - There is no difference in conversion rate between treatment and control groups.
+
+$H_a$ - There is a difference in conversion rate between treatment and control groups.
+## FILE D:\codex\Causalis\notebooks\scenarios\classic_rct.ipynb CELL 3
+# Causal Assumptions
+## FILE D:\codex\Causalis\notebooks\scenarios\classic_rct.ipynb CELL 4
+**Unconfoundedness**: random assignment of treatment. Will be tested with SRM and Balance Check
+
+**Overlap**: each unit has a non-zero probability of assignment to every arm. By design
+
+**SUTVA**: no interference and consistent treatment definitions. By design
+## FILE D:\codex\Causalis\notebooks\scenarios\classic_rct.ipynb CELL 5
+# Data
+## FILE D:\codex\Causalis\notebooks\scenarios\classic_rct.ipynb CELL 6
+For the analysis you need data in pandas dataframe:
+- treatment column in binary format (1/0)
+- outcome column numeric format, measured after treatment time
+- user_id column (Optional, but useful)
+- confounders columns (Optional, measured before treatment time, numeric format, used for causal assumption check)
+## FILE D:\codex\Causalis\notebooks\scenarios\classic_rct.ipynb CELL 7
+We will take data from Causalis DGP. More you can read at https://causalis.causalcraft.com/articles/generate_classic_rct_26
+## FILE D:\codex\Causalis\notebooks\scenarios\classic_rct.ipynb CELL 10
+# EDA
+## FILE D:\codex\Causalis\notebooks\scenarios\classic_rct.ipynb CELL 13
+# SRM
+## FILE D:\codex\Causalis\notebooks\scenarios\classic_rct.ipynb CELL 14
+Our system is randomly splitting users. Half of them must have new onboarding, other half has not. We should monitor the split with SRM test. Read more at https://causalis.causalcraft.com/articles/srm
+## FILE D:\codex\Causalis\notebooks\scenarios\classic_rct.ipynb CELL 16
+# Confounders balance
+## FILE D:\codex\Causalis\notebooks\scenarios\classic_rct.ipynb CELL 17
+Are groups equal in terms of confounders? We need to choose with domain and business sense confounders and check balance of them.
+The standard benchmark:
+
+- $SMD > 0.1$
+- `ks_pvalue` < 0.05
+## FILE D:\codex\Causalis\notebooks\scenarios\classic_rct.ipynb CELL 19
+As we see system splitted users randomly
+## FILE D:\codex\Causalis\notebooks\scenarios\classic_rct.ipynb CELL 20
+# SUTVA
+## FILE D:\codex\Causalis\notebooks\scenarios\classic_rct.ipynb CELL 22
+# Estimation with Diff-in-Means
+## FILE D:\codex\Causalis\notebooks\scenarios\classic_rct.ipynb CELL 24
+In `Causalis.DiffInMeans` model implemented `ttest`, `conversion_ztest` and `welch_permutation_t_test`:
+- use `conversion_ztest` when users < 100k and outcome is binary
+- use `welch_permutation_t_test` when users < 10k or outcome is ratio metric or your metric is highly skewed
+- in other cases use `ttest`
+
+Read more in https://causalis.causalcraft.com/articles/rct-classic-model
+## FILE D:\codex\Causalis\notebooks\scenarios\classic_rct.ipynb CELL 25
+We will use `conversion_ztest` for our scenario
+## FILE D:\codex\Causalis\notebooks\scenarios\classic_rct.ipynb CELL 27
+Let's compare ATE with oracle effect
+## FILE D:\codex\Causalis\notebooks\scenarios\cuped.ipynb CELL 1
+# CUPED
+## FILE D:\codex\Causalis\notebooks\scenarios\cuped.ipynb CELL 2
+We call 'Controlled-experiment Using Pre-Experiment Data' (CUPED) a scenario where a treatment is randomly assigned to participants, and we have pre-experiment data of participants like pre-treatment outcome.
+
+Treatment - new product category for users.
+
+We will test hypothesis:
+
+$H_o$ - There is no difference in LTV between treatment and control groups.
+
+$H_a$ - There is a difference in LTV between treatment and control groups.
+## FILE D:\codex\Causalis\notebooks\scenarios\cuped.ipynb CELL 3
+# Causal Assumptions
+## FILE D:\codex\Causalis\notebooks\scenarios\cuped.ipynb CELL 4
+**Unconfoundedness**: random assignment of treatment. Will be tested with SRM and Balance Check
+
+**Overlap**: each unit has a non-zero probability of assignment to every arm. By design
+
+**SUTVA**: no interference and consistent treatment definitions. By design
+
+**Pre-treatment covariate**: exists and predicts outcome
+## FILE D:\codex\Causalis\notebooks\scenarios\cuped.ipynb CELL 5
+## Data
+## FILE D:\codex\Causalis\notebooks\scenarios\cuped.ipynb CELL 6
+For the analysis you need data in pandas dataframe:
+- treatment column in binary format (1/0)
+- outcome column numeric format, measured after treatment time
+- user_id column (Optional, but useful)
+- confounders columns (Optional, measured before treatment time, numeric format, used for causal assumption check, includes covariates for CUPED)
+## FILE D:\codex\Causalis\notebooks\scenarios\cuped.ipynb CELL 7
+We will take data from Causalis DGP. Read more at https://causalis.causalcraft.com/articles/make_cuped_tweedie_26
+## FILE D:\codex\Causalis\notebooks\scenarios\cuped.ipynb CELL 10
+# EDA
+## FILE D:\codex\Causalis\notebooks\scenarios\cuped.ipynb CELL 15
+We see heavy tale distribution
+## FILE D:\codex\Causalis\notebooks\scenarios\cuped.ipynb CELL 16
+# SRM
+## FILE D:\codex\Causalis\notebooks\scenarios\cuped.ipynb CELL 17
+Some system is randomly splitting users. Half must have new onboarding, other half has not. We should monitor the split with SRM test. Read more at https://causalis.causalcraft.com/articles/srm
+## FILE D:\codex\Causalis\notebooks\scenarios\cuped.ipynb CELL 19
+# Confounders balance
+## FILE D:\codex\Causalis\notebooks\scenarios\cuped.ipynb CELL 21
+- SRM is good
+- SMD < 0.1 and ks_pvalue > 0.05
+
+Split is random. Uncofoundedness is true
+## FILE D:\codex\Causalis\notebooks\scenarios\cuped.ipynb CELL 22
+# Inference with CUPED
+## FILE D:\codex\Causalis\notebooks\scenarios\cuped.ipynb CELL 23
+Read more about model specification at https://causalis.causalcraft.com/articles/cuped-model
+## FILE D:\codex\Causalis\notebooks\scenarios\cuped.ipynb CELL 26
+# Refutation
+## FILE D:\codex\Causalis\notebooks\scenarios\cuped.ipynb CELL 30
+let's compare it to oracle effect
+## FILE D:\codex\Causalis\notebooks\scenarios\did.ipynb CELL 1
+# Difference in difference
+## FILE D:\codex\Causalis\notebooks\scenarios\did.ipynb CELL 2
+We call 'Uncofoundedness' a scenario where a treatment is not randomly assigned to participants, so confounders effect on treatment assignment and outcome. We have client - level data. Confounders were measured before treatment and outcome after
+## FILE D:\codex\Causalis\notebooks\scenarios\did.ipynb CELL 5
+## Inference
+## FILE D:\codex\Causalis\notebooks\scenarios\did.ipynb CELL 8
+# Oracle effect
+## FILE D:\codex\Causalis\notebooks\scenarios\gate.ipynb CELL 1
+# GATE
+## FILE D:\codex\Causalis\notebooks\scenarios\gate.ipynb CELL 2
+We call 'GATE' a scenario where in observational study after fitting DML model we analyzing treatment effect heterogeneity between groups of clients
+## FILE D:\codex\Causalis\notebooks\scenarios\gate.ipynb CELL 3
+# Data
+## FILE D:\codex\Causalis\notebooks\scenarios\gate.ipynb CELL 4
+We will use DGP from Causalis. Read more at https://causalis.causalcraft.com/articles/generate_obs_hte_26_rich
+## FILE D:\codex\Causalis\notebooks\scenarios\gate.ipynb CELL 9
+Our data has strong treatment class disbalance. Only 5% of sample activated in treatment.
+
+Treatment group has lower mean LTV. It's too early to draw conclusions.
+## FILE D:\codex\Causalis\notebooks\scenarios\gate.ipynb CELL 11
+We see large right tale
+## FILE D:\codex\Causalis\notebooks\scenarios\gate.ipynb CELL 14
+We see many outliers. It's common situation for LTV metric. Dropping them will lead to a biased conclusion
+## FILE D:\codex\Causalis\notebooks\scenarios\gate.ipynb CELL 16
+As we see clients are differ on this confounders. We need to controll them to make causal inference
+## FILE D:\codex\Causalis\notebooks\scenarios\gate.ipynb CELL 17
+# ATTE
+## FILE D:\codex\Causalis\notebooks\scenarios\gate.ipynb CELL 18
+ATTE is right estimand here. We will estimate effect on clients that were treated, had first purchase in our product
+## FILE D:\codex\Causalis\notebooks\scenarios\gate.ipynb CELL 21
+Our estimate is 12.1542 dollars (ci_abs: 7.7933, 16.5152). Mean in treatment group is 58.5062 dollars, so without our product it would be 46.3520 dollars.
+## FILE D:\codex\Causalis\notebooks\scenarios\gate.ipynb CELL 22
+## GATET
+## FILE D:\codex\Causalis\notebooks\scenarios\gate.ipynb CELL 23
+## Quantile groups GATET
+## FILE D:\codex\Causalis\notebooks\scenarios\gate.ipynb CELL 26
+## Integer groups GATET
+## FILE D:\codex\Causalis\notebooks\scenarios\gate.ipynb CELL 28
+## Formal group comparisons
+
+- `result.summary()` answers which subgroup effects are different from `0`.
+- `result.contrast(...)` answers whether one subgroup effect differs from another.
+- `result.pairwise_summary(reference=...)` compares every subgroup against a chosen reference group.
+## FILE D:\codex\Causalis\notebooks\scenarios\gate.ipynb CELL 31
+## Manual groups GATET
+## FILE D:\codex\Causalis\notebooks\scenarios\gate.ipynb CELL 33
+## Multi-column indicator groups GATET
+
+Yes. `groups=` for `score="GATET"` can be a multi-column DataFrame of 0/1 subgroup indicators.
+
+The columns must define a strict partition of the fitted sample:
+- every column must be binary,
+- every row must belong to exactly one subgroup,
+- every subgroup must contain at least one treated observation.
+
+Groups with no controls are still accepted for GATET, but the estimator emits a warning because within-group overlap is degenerate.
+
+## FILE D:\codex\Causalis\notebooks\scenarios\iv.ipynb CELL 1
+# Instrumental Variables (IV)
+## FILE D:\codex\Causalis\notebooks\scenarios\iv.ipynb CELL 2
+In many scenarios, the treatment is not assigned randomly, and there are unobserved confounders that affect both the treatment and the outcome. In such cases, we can use an Instrumental Variable (IV) to estimate the Local Average Treatment Effect (LATE).
+## FILE D:\codex\Causalis\notebooks\scenarios\iv.ipynb CELL 3
+# Causal Assumptions
+## FILE D:\codex\Causalis\notebooks\scenarios\iv.ipynb CELL 4
+**First-stage strength**: instruments must be strongly correlated with the treatment.
+
+**Reduced form**: instrument must affect the outcome only through the treatment.
+
+**Instrument balance by Z**: instrument should be as good as random, independent of confounders.
+
+**Instrument propensity / predictability**: instrument assignment should not be perfectly predictable from observed confounders.
+
+**Subgroup first-stage stability**
+
+**Correct time order: X before Z, Z before D, D before Y**: by design
+## FILE D:\codex\Causalis\notebooks\scenarios\iv.ipynb CELL 5
+# Data
+## FILE D:\codex\Causalis\notebooks\scenarios\iv.ipynb CELL 6
+For the analysis you need data in pandas dataframe:
+- treatment column in binary format (1/0)
+- outcome column numeric format, measured after treatment time
+- instruments column in binary format (1/0), measured before treatment time
+- user_id column (Optional, but useful)
+- confounders columns (Optional, measured before instrument time, numeric format, used for causal assumption check)
+## FILE D:\codex\Causalis\notebooks\scenarios\iv.ipynb CELL 7
+We will use the `generate_offer_iv_26` DGP from `causalis`
+## FILE D:\codex\Causalis\notebooks\scenarios\iv.ipynb CELL 10
+# EDA
+## FILE D:\codex\Causalis\notebooks\scenarios\iv.ipynb CELL 13
+## Check the confounders balance for the instrument
+## FILE D:\codex\Causalis\notebooks\scenarios\iv.ipynb CELL 14
+Are groups equal in terms of confounders? We check the balance of confounders across the instrument assignment (`offer_eligible`).
+## FILE D:\codex\Causalis\notebooks\scenarios\iv.ipynb CELL 16
+# Inference
+## FILE D:\codex\Causalis\notebooks\scenarios\iv.ipynb CELL 19
+# Diagnostics
+## FILE D:\codex\Causalis\notebooks\scenarios\iv.ipynb CELL 25
+# Refutation
+## FILE D:\codex\Causalis\notebooks\scenarios\iv.ipynb CELL 26
+let's compare with oracle effect
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 1
+# Multi Unconfoundedness
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 2
+Multi Unconfoundedness is observational/quasi experimental scenario of causal inference with multiple treatments. Treatments are not randomly assigned so we need to control confounders to estimate causal effect
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 3
+# Data
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 4
+In our research we should estimate effect of different gamification mechanics.
+Our outcome is number of sessions per month.
+
+Treatments:
+- d_0: No mechanics used
+- d_1: Used first set of mechanics
+- d_2: Used second set of mechanics
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 5
+DGP is from Causalis. Read more at https://causalis.causalcraft.com/articles/generate_multitreatment_gamma_26
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 10
+# EDA
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 15
+As we see there are heavy tails in distribution of outcome. We won't trim them because high activity means high income of revenue for us
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 18
+And data is highly biased by confounders
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 19
+# Inference
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 21
+## Explanation of `MultiTreatmentIRM`
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 22
+
+### 0) Assumptions
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 23
+
+- **SUTVA / consistency**: no interference, no hidden treatment versions, and observed outcome equals the potential outcome under realized arm.
+- **Multi-arm unconfoundedness**:
+$$
+\left(Y(0),Y(1),\dots,Y(K-1)\right) \perp D \mid X
+$$
+where $D$ is one-hot with baseline arm $D_0$.
+- **Positivity / overlap**:
+$$
+\Pr(D_k=1\mid X=x)>0,\quad \forall k=0,\dots,K-1.
+$$
+In practice, the implementation enforces stability with propensity trimming.
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 24
+
+### 1) Data and estimand
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 25
+
+For each unit $i$ we observe $(Y_i, X_i, D_i)$ with one-hot $D_i=(D_{i0},\dots,D_{i,K-1})$ and $\sum_k D_{ik}=1$.
+
+`MultiTreatmentIRM` estimates vector contrasts against baseline:
+$$
+\theta_k = \mathbb{E}[Y(k)-Y(0)],\quad k=1,\dots,K-1.
+$$
+So outputs are pairwise ATEs such as `d_1 vs d_0`, `d_2 vs d_0`.
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 26
+
+### 2) Nuisance functions
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 27
+
+For each arm $k$:
+$$
+g_k(x)=\mathbb{E}[Y\mid X=x, D_k=1],\qquad
+m_k(x)=\Pr(D_k=1\mid X=x),\ \sum_{k=0}^{K-1}m_k(x)=1.
+$$
+These are estimated out-of-fold by cross-fitting (to reduce overfitting bias in final moments).
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 28
+
+### 3) Cross-fitting logic
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 29
+
+With folds $I_1,\dots,I_F$:
+1. Train multiclass propensity model on $I_f^c$, predict $\hat m_k$ on $I_f$.
+2. For each arm $k$, train outcome model on rows in $I_f^c$ where $D_k=1$, predict $\hat g_k$ on $I_f$.
+3. Repeat for all folds and stitch predictions.
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 30
+
+### 4) Multiclass trimming
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 31
+
+Predicted propensities are stabilized by lower-bound trimming and row renormalization:
+$$
+\tilde m_{ik}=\max(\hat m_{ik},\varepsilon),\qquad
+\hat m^{trim}_{ik}=\frac{\tilde m_{ik}}{\sum_{j=0}^{K-1}\tilde m_{ij}}.
+$$
+This keeps each row on the probability simplex and avoids exploding IPW weights.
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 32
+
+### 5) Orthogonal score for each contrast
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 33
+
+Define residuals and IPW representers:
+$$
+u_{ik}=Y_i-\hat g_k(X_i),\qquad
+h_{ik}=\frac{D_{ik}}{\hat m^{trim}_{ik}}.
+$$
+(If `normalize_ipw=True`, $h_{ik}$ is column-normalized in Hajek style.)
+
+For each active arm $k>0$ vs baseline $0$:
+$$
+\psi_{b,ik}=\big(\hat g_k(X_i)-\hat g_0(X_i)\big)+u_{ik}h_{ik}-u_{i0}h_{i0},
+\qquad \psi_a=-1.
+$$
+Moment condition:
+$$
+\mathbb{E}_n[\psi_a\theta_k+\psi_{b,\cdot k}]=0
+\ \Rightarrow\
+\hat\theta_k=\mathbb{E}_n[\psi_{b,\cdot k}].
+$$
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 34
+
+### 6) Inference
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 35
+
+Influence function per contrast:
+$$
+\widehat{IF}_{ik}=\psi_{b,ik}-\hat\theta_k.
+$$
+Then
+$$
+\widehat{SE}(\hat\theta_k)=\sqrt{\frac{\mathrm{Var}_n(\widehat{IF}_{\cdot k})}{n}},
+$$
+with Wald CI
+$$
+\hat\theta_k \pm z_{1-\alpha/2}\widehat{SE}(\hat\theta_k).
+$$
+P-values are normal-approximation; significance flag is Bonferroni-adjusted across $K-1$ contrasts.
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 36
+
+### 7) Relative effect reported by the model
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 37
+
+Baseline mean is estimated via orthogonal signal:
+$$
+\psi_{\mu_c,i}=\hat g_0(X_i)+u_{i0}h_{i0},\qquad \hat\mu_c=\mathbb{E}_n[\psi_{\mu_c}].
+$$
+Relative effect (%):
+$$
+\hat\tau_k^{rel}=100\cdot\frac{\hat\theta_k}{\hat\mu_c},
+$$
+with CI from delta-method variance (as implemented in `model.py`).
+
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 39
+# Refutation
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 40
+## Unconfoundedness
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 42
+## Sensitivity
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 46
+## Overlap
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 49
+## SUTVA
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 51
+## Score
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 54
+# Conclusion
+## FILE D:\codex\Causalis\notebooks\scenarios\multi_unconfoundedness.ipynb CELL 55
+Set of mechanics labeled d_2 performed better and has effect 2.5355 (ci_abs: 2.4600, 2.6111) sessions per user. However, set of mechanics labeled d_1 perform worse than without mechanics -1.1772 (ci_abs: -1.2174, -1.1370) sessions. We need to turn them off
+## FILE D:\codex\Causalis\notebooks\scenarios\SRM.ipynb CELL 1
+# Sample Ratio Mismatch
+## FILE D:\codex\Causalis\notebooks\scenarios\SRM.ipynb CELL 2
+# Math of Sample Ratio Mismatch (SRM)
+## FILE D:\codex\Causalis\notebooks\scenarios\SRM.ipynb CELL 3
+
+Sample Ratio Mismatch (SRM) is a diagnostic test used in Randomized Controlled Trials (RCTs) to detect if the actual distribution of participants between variants (e.g., Control and Treatment) significantly deviates from the intended design. It uses a **Pearson’s Chi-square Goodness-of-Fit test**.
+## FILE D:\codex\Causalis\notebooks\scenarios\SRM.ipynb CELL 4
+
+## 1. Setup
+## FILE D:\codex\Causalis\notebooks\scenarios\SRM.ipynb CELL 5
+
+- **Variants**: $k$ experimental groups (e.g., $k=2$ for Control and Treatment).
+- **Observed Counts ($O_i$)**: The actual number of users assigned to variant $i$.
+- **Total Sample Size ($N$)**: The sum of all observed counts, $N = \sum_{i=1}^k O_i$.
+- **Target Allocation ($p_i$)**: The intended probability of assignment for variant $i$ (e.g., $0.5$ for a 50/50 split).
+## FILE D:\codex\Causalis\notebooks\scenarios\SRM.ipynb CELL 6
+## 2. Expected Counts ($E_i$)
+## FILE D:\codex\Causalis\notebooks\scenarios\SRM.ipynb CELL 7
+
+The number of users we *expected* to see in each variant if the randomization worked perfectly:
+$$E_i = N \times p_i$$
+## FILE D:\codex\Causalis\notebooks\scenarios\SRM.ipynb CELL 8
+
+## 3. Chi-square Statistic ($\chi^2$)
+## FILE D:\codex\Causalis\notebooks\scenarios\SRM.ipynb CELL 9
+
+We calculate the cumulative squared deviation between observed and expected counts, normalized by the expected counts:
+$$\chi^2 = \sum_{i=1}^k \frac{(O_i - E_i)^2}{E_i}$$
+## FILE D:\codex\Causalis\notebooks\scenarios\SRM.ipynb CELL 10
+
+## 4. Hypothesis Testing
+## FILE D:\codex\Causalis\notebooks\scenarios\SRM.ipynb CELL 11
+
+- **Null Hypothesis ($H_0$)**: The observed counts follow the target distribution (no mismatch).
+- **Degrees of Freedom ($df$)**: $df = k - 1$.
+- **P-value**: The probability of observing a $\chi^2$ statistic as extreme as the one calculated, assuming $H_0$ is true. It is derived from the Chi-square distribution:
+  $$p\text{-value} = P(\chi^2_{df} > \chi^2_{calculated})$$
+- **Decision**: If $p\text{-value} < \alpha$ (where $\alpha$ is a conservative threshold like $0.001$), we reject $H_0$ and flag an **SRM**.
+## FILE D:\codex\Causalis\notebooks\scenarios\SRM.ipynb CELL 12
+
+# Example (50/50 split)
+## FILE D:\codex\Causalis\notebooks\scenarios\SRM.ipynb CELL 13
+
+If you intended to split 1,000 users evenly but observed **450** in Control and **550** in Treatment:
+1. $E_{control} = 1000 \times 0.5 = 500$
+2. $E_{treatment} = 1000 \times 0.5 = 500$
+3. $\chi^2 = \frac{(450-500)^2}{500} + \frac{(550-500)^2}{500} = \frac{2500}{500} + \frac{2500}{500} = 5 + 5 = 10$
+4. With $df=1$, a $\chi^2$ of 10 gives $p\text{-value} \approx 0.0015$, indicating a likely mismatch.
+## FILE D:\codex\Causalis\notebooks\scenarios\SRM.ipynb CELL 14
+# Real Example
+## FILE D:\codex\Causalis\notebooks\scenarios\SRM.ipynb CELL 18
+# Using without CausalData
+## FILE D:\codex\Causalis\notebooks\scenarios\synthetic_control.ipynb CELL 1
+# Synthetic Control Method
+## FILE D:\codex\Causalis\notebooks\scenarios\synthetic_control.ipynb CELL 2
+# Data
+## FILE D:\codex\Causalis\notebooks\scenarios\synthetic_control.ipynb CELL 6
+# EDA
+## FILE D:\codex\Causalis\notebooks\scenarios\synthetic_control.ipynb CELL 10
+# Inference
+## FILE D:\codex\Causalis\notebooks\scenarios\synthetic_control.ipynb CELL 12
+So the avarage effect per period is 3.9456 with (ci_abs: 0.3664, 7.5249)
+## FILE D:\codex\Causalis\notebooks\scenarios\synthetic_control.ipynb CELL 13
+# Refutation
+## FILE D:\codex\Causalis\notebooks\scenarios\synthetic_control.ipynb CELL 16
+As we see synthetic prediction of treated unit is close to real behavior before the intervention and has a gap after it
+## FILE D:\codex\Causalis\notebooks\scenarios\synthetic_control.ipynb CELL 17
+## Placebo
+## FILE D:\codex\Causalis\notebooks\scenarios\synthetic_control.ipynb CELL 20
+We pretend treatment has happened earlier.
+- placebo_treatment_start - where treatment starts
+- n_pre_before_placebo - how many periods were fitted before the treatment
+- n_post_after_placebo - how many periods were fitted after the treatment
+- average_att_placebo - average_post_effect
+- rejects_zero - p_value < alpha
+
+So weak robustness when we have many rows have rejects_zero = false and average_att_placebo is small
+## FILE D:\codex\Causalis\notebooks\scenarios\synthetic_control.ipynb CELL 22
+How to read columns:
+
+- unit_id: unit used as treated in that placebo run.
+- pre_rmse: pre-treatment fit error (lower is better).
+- post_rmse: post-treatment fit error.
+- post_pre_rmspe_ratio: post_rmse / pre_rmse (main Abadie-style statistic).
+- average_post_gap: mean post-treatment gap (observed - synthetic).
+- max_abs_post_gap: largest absolute post gap.
+- rank_post_pre_rmspe_ratio: rank of ratio, descending (1 = largest ratio).
+- is_actual_treated: True for your real treated unit.
+
+Interpretation:
+You want the real treated unit (is_actual_treated=True) to have one of the largest post_pre_rmspe_ratio values (ideally rank near 1).
+If many placebo units have similar/larger ratios, treatment effect is less convincing.
+Also check pre_rmse: if pre-fit is poor for some placebos, their high ratios are less informative.
+## FILE D:\codex\Causalis\notebooks\scenarios\synthetic_control.ipynb CELL 23
+## Sensitivity
+## FILE D:\codex\Causalis\notebooks\scenarios\synthetic_control.ipynb CELL 25
+- dropped_donor: donor unit removed in that refit.
+- average_att_reestimated: ATT after removing that donor.
+- delta_vs_full_model: reestimated_ATT - original_full_model_ATT.
+Near 0 → estimate is stable to that donor.
+Large |deltal → that donor is influential.
+- pre_rmse_reestimated: pre-treatment fit error after refit. Higher than baseline → worse pre-fit when donor is removed.
+- max_weight_afterrefit: largest donor weight in refit.Very high (close to 1) → dependence on one donor.
+-  effective_n_donors_after_refit: effective donor count (1 / sum (w^2)). Lower → concentration on fewer donors.
+## FILE D:\codex\Causalis\notebooks\scenarios\synthetic_control.ipynb CELL 26
+## Model
+## FILE D:\codex\Causalis\notebooks\scenarios\synthetic_control.ipynb CELL 28
+We can call our estimate robust
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 1
+# Unconfoundedness
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 2
+We call 'Uncofoundedness' a scenario where a treatment is not randomly assigned to participants, so confounders effect on treatment assignment and outcome. We have client - level data. Confounders were measured before treatment and outcome after
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 3
+Let's look at the example:
+
+In our ecosystem we have a product, which effect on LTV we want to estimate
+
+Treatment - first purchase in product.
+
+Outcome - LTV after first purchase.
+
+We will test hypothesis:
+
+$H_o$ - There is no difference in LTV between treatment and control groups.
+
+$H_a$ - There is a difference in LTV between treatment and control groups.
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 4
+# Causal Assumptions
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 5
+**Unconfoundedness**: We control all confounders
+
+**Overlap**: propensity distributions overlap
+
+**SUTVA**: no interference and consistent treatment definitions. By design
+
+**DML works correctly**: nuisance functions are correctly specified
+
+**No leakage**: confounders are measured before treatment
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 6
+# Data
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 7
+For the analysis you need data in pandas dataframe:
+- treatment column in binary format (1/0)
+- outcome column numeric format, measured after treatment time
+- user_id column (Optional, but useful)
+- confounders columns (Optional, measured before treatment time, numeric format, used for causal assumption check)
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 8
+We will take data from Causalis DGP.. Read more at https://causalis.causalcraft.com/articles/generate_obs_hte_26_rich
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 11
+# EDA
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 13
+Our data has strong treatment class disbalance. Only 5% of sample activated in treatment.
+
+Treatment group has lower mean LTV. It's too early to draw conclusions.
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 15
+We see large right tale
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 18
+We see many outliers. It's common situation for LTV metric. Dropping them will lead to a biased conclusion
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 20
+As we see clients are differ on this confounders. We need to controll them to make causal inference
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 21
+# Inference
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 22
+ATTE is right estimand here. We will estimate effect on clients that were treated, had first purchase in our product
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 23
+Read more about DML at https://causalis.causalcraft.com/articles/unconfoundedness-model
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 26
+Our estimate is 12.1542 dollars (ci_abs: 7.7933, 16.5152). Mean in treatment group is 58.5062 dollars, so without our product it would be 46.3520 dollars.
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 27
+# Refutation
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 28
+## Unconfoundedness
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 30
+balance_max_smd is 0.011635 so dml specification dealt with controlling confounders
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 31
+### Sensitivity
+
+By default, `rank_confounder_clusters(...).head(3)` selects two clusters by `importance_d * importance_y`, then the cluster with the highest `importance_d` among those not already selected. This reuses existing importances without extra model fits. Scores are unchanged, but mixed ordering is not necessarily descending by score. Use `ranking_method="joint"` to restore the previous ordering. This is a screening heuristic and does not guarantee higher benchmark `r2_d`.
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 35
+## SUTVA
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 37
+SUTVA is untestable from data alone, so we call it true by design
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 38
+## Score
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 42
+DML is specified correctly. There are many outliers in data that effect the score
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 43
+## Overlap
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 46
+Customers are not inclined to activate the our product
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 48
+if calib_ECE is YELLOW/RED look at `plot_propensity_reliability(dml_result)`
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 50
+Logistic recalibration trend is a fitted correction curve for your predicted propensities.
+
+The plot takes your original propensity p and fits this model:
+
+corrected_p = sigmoid(alpha + beta * logit(p))
+So the orange line answers:
+
+If I recalibrate these predicted probabilities to better match observed treatment frequencies, what corrected probability would I use?
+
+How to read it:
+
+- If orange line matches the diagonal: predictions are already well calibrated
+- If orange line is below the diagonal: model tends to overpredict treatment
+- If orange line is above the diagonal: model tends to underpredict treatment
+
+Rule of thumb:
+
+- ECE near 0 and slope near 1: great
+- ECE near 0 but slope far from 1: average calibration is fine, but probabilities are distorted in shape
+- Many tiny bad bins + one huge good bin: visually noisy, but often not a major practical issue
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 51
+Let's compare with oracle effect
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 53
+# Conclusion
+## FILE D:\codex\Causalis\notebooks\scenarios\unconfoundedness.ipynb CELL 54
+Estimated ATTE is 9.9026 (ci_abs: 4.4731, 15.3320) dollars. The DoubleML-compatible sensitivity protocol returns PASS for all three primary benchmarks, but with a limited robustness margin: `tenure_months` and `income_monthly` use boundary calibration (`cf_d_raw < 0` clipped to `cf_d=0`, `rho=1` fallback), while the `rho=1` adversarial scenario for `avg_sessions_week` fails.
+## FILE D:\codex\Causalis\notebooks\scenarios\uplift_policy.ipynb CELL 1
+# Uplift policy
+
+This notebook extends [Uplift](uplift.ipynb) using the same `generate_obs_hte_26_rich` dataset, client characteristics, continuous LTV-style outcome, and default IRM learners.
+
+It adds rule discovery with `UpliftPolicyTree`, independent evaluation of the frozen rules, and export of target / do-not-target client sets. The objective is positive expected uplift, with no treatment cost or capacity limit.
+
+## FILE D:\codex\Causalis\notebooks\scenarios\uplift_policy.ipynb CELL 4
+## Separate training, evaluation, and new clients
+
+The original uplift notebook samples a few fitted-data rows to illustrate scoring. Policy evaluation needs clients excluded from rule discovery, so here we split the generated population **before fitting any models**: 60% training, 30% evaluation, and 10% new clients.
+
+Keep the evaluation split untouched while selecting features, tree depth, or other model settings. Oracle columns such as `cate`, `g0`, `g1`, and `propensity` are synthetic ground truth for demonstration only; they are excluded from both IRMs and from policy features.
+
+## FILE D:\codex\Causalis\notebooks\scenarios\uplift_policy.ipynb CELL 9
+## Uplift / CATE scoring
+
+As in the original notebook, `estimate(score='ATTE')` estimates the historical average effect among treated clients. `predict_cate(...)` estimates the conditional average effect for clients with particular pre-treatment characteristics.
+
+The first scoring call fits and caches final full-sample outcome models. Here “full sample” means the **training split only**. Neither the evaluation clients nor the new clients enter those fits.
+
+## FILE D:\codex\Causalis\notebooks\scenarios\uplift_policy.ipynb CELL 14
+## Discover targeting rules
+
+`UpliftPolicyTree` uses the training IRM's cross-fitted outcome and propensity estimates to construct canonical doubly robust uplift signals. It does not use `predicted_cate`, oracle effects, or the cached ATTE score to train its rules.
+
+At each split, it maximizes the sum of positive child signal totals. Each leaf recommends treatment when its training mean signal is positive. Search is deterministic and greedy: it may miss interactions requiring an initially unhelpful split.
+
+All eleven confounders are available for rules in this example. `policy_features` can instead name a smaller subset without removing adjustment variables from IRM. Tree settings are fixed before evaluation. Training leaf means are descriptive, not independent effect estimates; `predicates` stores exact numeric thresholds alongside readable `conditions`.
+
+## FILE D:\codex\Causalis\notebooks\scenarios\uplift_policy.ipynb CELL 17
+## Evaluate the frozen rules on independent clients
+
+Fit a separate IRM on evaluation clients, using the same outcome, treatment, and confounder definitions. Its cross-fitted signals estimate the value of the already learned policy.
+
+- `policy_vs_none`: average incremental LTV per evaluation client versus treating nobody.
+- `policy_vs_all`: average incremental LTV versus treating everybody.
+- `all_vs_none`: the treat-everybody baseline versus treating nobody.
+
+Intervals use paired per-client DR signals and approximate normal inference. Rule intervals use GATE's HC3 calculation and are pointwise, not individual or simultaneous intervals. Unsupported or empty rules remain in the report with unavailable subgroup estimates. No evaluation clients are dropped from the overall comparison.
+
+Evaluation does not alter treatment decisions. If you revise the policy using these results, a new independent sample is needed for final evaluation.
+
+## FILE D:\codex\Causalis\notebooks\scenarios\uplift_policy.ipynb CELL 21
+
+## FILE D:\codex\Causalis\notebooks\scenarios\uplift_policy.ipynb CELL 23
+### Synthetic ground-truth check
+
+Because this is the same synthetic scenario as `uplift.ipynb`, we can compare the evaluation estimates with the policy's oracle gain. Oracle values below describe this evaluation sample; they are not inputs to learning, and should not be used to revise the policy on this held-out sample.
+
+## FILE D:\codex\Causalis\notebooks\scenarios\uplift_policy.ipynb CELL 25
+## Assign new clients
+
+Apply the frozen rules to the unused new-client split. Only IDs and pre-treatment policy features are required. Action `1` means target; `0` means do not target.
+
+The table below compares tree decisions with the earlier zero-cost CATE threshold for the same ten clients. These can disagree: a shallow policy applies a shared action within each interpretable rule, whereas the CATE scorer supplies a separate model prediction for each feature vector.
+
+## FILE D:\codex\Causalis\notebooks\scenarios\uplift_policy.ipynb CELL 28
+## Export client sets and rules
+
+Write CSV client lists and the full assignment table to `uplift_policy_exports` relative to the notebook working directory. JSON preserves the structured numeric rule thresholds.
+
+## FILE D:\codex\Causalis\notebooks\scenarios\uplift_policy.ipynb CELL 30
+Interpretation: CATE scores and rule-level effects describe average effects among clients with similar characteristics; they do not reveal a particular client's true individual treatment effect. A no-treatment decision does not establish that an individual cannot benefit.
+
+Causal interpretation requires unconfoundedness, adequate overlap, a well-defined intervention, and independent clients without relevant spillovers. Disjoint IDs alone cannot verify these assumptions. The rich generator has relatively uncommon treatment, so inspect arm counts, clipping, and evaluation uncertainty before interpreting learned rules.
+
+## FILE D:\codex\Causalis\notebooks\scenarios\uplift.ipynb CELL 1
+# Uplift
+## FILE D:\codex\Causalis\notebooks\scenarios\uplift.ipynb CELL 7
+# Uplift / CATE scoring
+
+`estimate(score='ATTE')` gives a historical average effect among treated clients. For targeting new clients we need CATE/uplift scores: expected treatment effect conditional on pre-treatment features.
+
+The uplift scorer is lazy: `IRM.fit(...)`, `estimate(score='ATTE')`, and `estimate(score='GATE')` do not train extra scoring models. The first `predict_cate(...)` call trains final full-sample outcome models and caches them for reuse.
+## FILE D:\codex\Causalis\notebooks\scenarios\uplift.ipynb CELL 9
+## Score new clients
+
+New scoring data must contain only pre-treatment features. In this synthetic notebook we sample rows from the generated data to mimic new clients, but we keep `cate` only as oracle ground truth for demonstration.
+## FILE D:\codex\Causalis\notebooks\scenarios\uplift.ipynb CELL 13
+## Simple targeting policy
+
+For a continuous LTV-style outcome, `predicted_cate` is already on the outcome scale. A simple policy targets clients when expected incremental LTV exceeds treatment cost.
+## FILE D:\codex\Causalis\notebooks\scenarios\uplift.ipynb CELL 15
+Interpretation: `predicted_cate` is not a true individual treatment effect. It is the model's estimate of the conditional average treatment effect for clients with similar pre-treatment features.

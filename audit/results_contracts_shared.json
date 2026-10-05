@@ -1,0 +1,50 @@
+{
+  "causaldata_inf": {
+    "accepted": true,
+    "dtype": "float64",
+    "estimate": {
+      "value": Infinity,
+      "p_value": NaN,
+      "ci_lower": NaN,
+      "ci_upper": NaN
+    },
+    "warnings": [
+      "invalid value encountered in subtract"
+    ]
+  },
+  "causaldata_complex": {
+    "accepted": true,
+    "dtype": "complex128",
+    "estimate": {
+      "exception": "TypeError",
+      "message": "ufunc 'stdtr' not supported for the input types, and the inputs could not be safely coerced to any supported types according to the casting rule ''safe''"
+    },
+    "warnings": [
+      "Casting complex values to real discards the imaginary part"
+    ]
+  },
+  "balance_zero_variance": {
+    "confounders": "x",
+    "mean_d_0": 3.0,
+    "mean_d_1": 5.0,
+    "abs_diff": 2.0,
+    "smd": 0.0,
+    "ks_pvalue": "0.00000"
+  },
+  "duplicate_index_outliers": {
+    "flag_count": 1,
+    "returned_rows": 2,
+    "returned_values": [
+      0.0,
+      100.0
+    ]
+  },
+  "nan_assignment_weight": {
+    "accepted": true,
+    "assigned_count": 0
+  },
+  "scm_infinite_outcome": {
+    "accepted": true,
+    "has_inf": true
+  }
+}

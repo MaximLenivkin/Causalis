@@ -1,0 +1,38 @@
+         6646 function calls (6549 primitive calls) in 0.030 seconds
+
+   Ordered by: cumulative time
+   List reduced from 340 to 30 due to restriction <30>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.030    0.030 D:\codex\Causalis\causalis\data_contracts\causaldata.py:56(from_df)
+        1    0.000    0.000    0.030    0.030 D:\codex\Causalis\.venv\Lib\site-packages\pydantic\main.py:253(__init__)
+        1    0.000    0.000    0.030    0.030 {method 'validate_python' of 'pydantic_core._pydantic_core.SchemaValidator' objects}
+        1    0.001    0.001    0.030    0.030 D:\codex\Causalis\causalis\data_contracts\causaldata.py:136(_validate_and_normalize)
+       53    0.001    0.000    0.013    0.000 D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\frame.py:4337(__getitem__)
+        1    0.000    0.000    0.010    0.010 D:\codex\Causalis\causalis\data_contracts\causaldata.py:352(_check_duplicate_column_values)
+        1    0.000    0.000    0.010    0.010 D:\codex\Causalis\causalis\data_contracts\causaldata.py:397(_column_value_signatures)
+       11    0.000    0.000    0.010    0.001 D:\codex\Causalis\causalis\data_contracts\causaldata.py:406(<genexpr>)
+       10    0.001    0.000    0.008    0.001 D:\codex\Causalis\causalis\data_contracts\causaldata.py:436(_column_value_signature)
+       10    0.007    0.001    0.007    0.001 {method 'update' of '_blake2.blake2b' objects}
+       51    0.000    0.000    0.006    0.000 D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\frame.py:4968(_get_item)
+       52    0.000    0.000    0.006    0.000 D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\frame.py:4292(_ixs)
+        2    0.000    0.000    0.004    0.002 D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\indexes\base.py:6288(_get_indexer_strict)
+       51    0.000    0.000    0.003    0.000 D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\frame.py:4956(_box_col_values)
+       51    0.001    0.000    0.002    0.000 D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\internals\managers.py:1226(iget)
+        1    0.000    0.000    0.002    0.002 D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\frame.py:13704(any)
+        4    0.000    0.000    0.002    0.000 D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\internals\managers.py:399(apply)
+        4    0.000    0.000    0.002    0.000 D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\indexes\base.py:7919(ensure_index)
+        1    0.000    0.000    0.002    0.002 D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\generic.py:11569(_logical_func)
+        1    0.000    0.000    0.002    0.002 D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\frame.py:13538(_reduce)
+        4    0.000    0.000    0.002    0.000 D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\indexes\base.py:486(__new__)
+        2    0.000    0.000    0.002    0.001 D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\generic.py:6348(astype)
+        2    0.000    0.000    0.002    0.001 D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\indexes\base.py:6252(get_indexer_for)
+        2    0.000    0.000    0.002    0.001 D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\indexes\base.py:3656(get_indexer)
+       10    0.001    0.000    0.002    0.000 D:\codex\Causalis\causalis\data_contracts\causaldata.py:285(_is_constant_series)
+        2    0.000    0.000    0.002    0.001 D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\generic.py:3998(take)
+        2    0.000    0.000    0.001    0.001 D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\indexes\base.py:4147(reindex)
+1415/1414    0.001    0.000    0.001    0.000 {built-in method builtins.isinstance}
+        1    0.000    0.000    0.001    0.001 D:\codex\Causalis\causalis\data_contracts\causaldata.py:260(_validate_and_cast_binary_treatment)
+       52    0.000    0.000    0.001    0.000 D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\frame.py:686(_constructor_sliced_from_mgr)
+
+

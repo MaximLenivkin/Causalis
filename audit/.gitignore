@@ -1,0 +1,19 @@
+# Keep reports, probes and small evidence files; exclude local runtime/build copies.
+__pycache__/
+/.mplconfig/
+/mplconfig/
+/mplcache/
+/docs_build_check/
+/docs_build_temp/
+/pytest_check_*/
+/pytest_block_*/
+/block*_test_temp/
+# These audit logs are intentional text evidence despite the repository *.log rule.
+!/pytest_full.log
+!/pytest_recheck.log
+!/docs_build.log
+!/docs_build_summary.log
+!/repro_*.log
+!/benchmark_data_path.log
+!/block*_tests.log
+!/block*_checks.log

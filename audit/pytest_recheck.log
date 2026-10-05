@@ -1,0 +1,36 @@
+...F                                                                     [100%]
+================================== FAILURES ===================================
+___________________ test_shared_design_and_input_unchanged ____________________
+
+data = RctCausalData(df=(360, 6), treatments=['control', 'a', 'b'], control_treatment='control', outcomes=['y1', 'y2'], confounders=['x'], user_id=None)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000280273CCE00>
+
+    def test_shared_design_and_input_unchanged(data, monkeypatch):
+        original = data.df.copy(deep=True)
+        def unexpected(*args, **kwargs):
+            raise AssertionError("Must not revalidate CausalData for each outcome")
+        monkeypatch.setattr(CausalData, "from_df", unexpected)
+        model = CUPEDModel().fit(data, covariates=["x"], run_checks=False)
+        for arm in ["a", "b"]:
+            first = model._comparison_models["y1"][arm]
+            second = model._comparison_models["y2"][arm]
+            assert first._data.df is second._data.df
+            for attr in ["_result", "_result_naive"]:
+                first_ols = getattr(first, attr).model
+                second_ols = getattr(second, attr).model
+                assert np.shares_memory(first_ols.exog, second_ols.exog)
+>               assert first_ols.pinv_wexog is second_ols.pinv_wexog
+E               assert array([[ 3.55887922e-03,  3.11807507e-18,  3.57638286e-04,\n        -1.85249231e-17,  1.29511742e-02, -8.79194770e-18,\n...        -2.29907761e-02, -1.23223555e-02, -1.43052704e-03,\n         8.32312994e-03,  4.28122698e-03, -4.11188052e-03]]) is array([[ 3.55887922e-03,  3.11807507e-18,  3.57638286e-04,\n        -1.85249231e-17,  1.29511742e-02, -8.79194770e-18,\n...        -2.29907761e-02, -1.23223555e-02, -1.43052704e-03,\n         8.32312994e-03,  4.28122698e-03, -4.11188052e-03]])
+E                +  where array([[ 3.55887922e-03,  3.11807507e-18,  3.57638286e-04,\n        -1.85249231e-17,  1.29511742e-02, -8.79194770e-18,\n...        -2.29907761e-02, -1.23223555e-02, -1.43052704e-03,\n         8.32312994e-03,  4.28122698e-03, -4.11188052e-03]]) = <statsmodels.regression.linear_model.OLS object at 0x000002804DF7B620>.pinv_wexog
+E                +  and   array([[ 3.55887922e-03,  3.11807507e-18,  3.57638286e-04,\n        -1.85249231e-17,  1.29511742e-02, -8.79194770e-18,\n...        -2.29907761e-02, -1.23223555e-02, -1.43052704e-03,\n         8.32312994e-03,  4.28122698e-03, -4.11188052e-03]]) = <statsmodels.regression.linear_model.OLS object at 0x000002804DF5C9E0>.pinv_wexog
+
+tests\statistics\test_cuped_rct.py:80: AssertionError
+============================== warnings summary ===============================
+tests/inference/test_irm_parallel_fit.py::test_parallel_cross_fit_matches_sequential
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1327: RuntimeWarning: Relative effect baseline |mu_c|=6.832e-02 is within 1.96 SE of 0 (SE=9.823e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/statistics/test_cuped_rct.py::test_shared_design_and_input_unchanged
+1 failed, 3 passed, 1 warning in 15.17s

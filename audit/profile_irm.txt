@@ -1,0 +1,43 @@
+         30740 function calls (30556 primitive calls) in 0.173 seconds
+
+   Ordered by: cumulative time
+   List reduced from 701 to 35 due to restriction <35>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.174    0.174 D:\codex\Causalis\audit\benchmark_data_path.py:136(causalis_fit)
+        1    0.000    0.000    0.173    0.173 D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1129(fit)
+        1    0.001    0.001    0.148    0.148 D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:771(_cross_fit_nuisances)
+        3    0.003    0.001    0.134    0.045 D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:701(_fit_nuisances_for_fold)
+        9    0.000    0.000    0.095    0.011 D:\codex\Causalis\.venv\Lib\site-packages\sklearn\base.py:1381(wrapper)
+        6    0.005    0.001    0.062    0.010 D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:667(_fit_outcome_nuisance_for_treatment)
+        3    0.000    0.000    0.048    0.016 D:\codex\Causalis\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:1332(fit)
+        6    0.000    0.000    0.039    0.006 D:\codex\Causalis\.venv\Lib\site-packages\sklearn\linear_model\_base.py:653(fit)
+       52    0.005    0.000    0.037    0.001 D:\codex\Causalis\.venv\Lib\site-packages\sklearn\utils\validation.py:733(check_array)
+        3    0.001    0.000    0.033    0.011 D:\codex\Causalis\.venv\Lib\site-packages\sklearn\linear_model\_logistic.py:219(_logistic_regression_path)
+       18    0.000    0.000    0.029    0.002 D:\codex\Causalis\.venv\Lib\site-packages\sklearn\utils\validation.py:2932(validate_data)
+        3    0.000    0.000    0.027    0.009 D:\codex\Causalis\.venv\Lib\site-packages\scipy\optimize\_minimize.py:54(minimize)
+        3    0.001    0.000    0.026    0.009 D:\codex\Causalis\.venv\Lib\site-packages\scipy\optimize\_lbfgsb_py.py:272(_minimize_lbfgsb)
+       15    0.000    0.000    0.022    0.001 D:\codex\Causalis\.venv\Lib\site-packages\scipy\optimize\_differentiable_functions.py:360(_update_fun)
+       12    0.000    0.000    0.022    0.002 D:\codex\Causalis\.venv\Lib\site-packages\scipy\_lib\_util.py:541(__call__)
+       24    0.001    0.000    0.022    0.001 D:\codex\Causalis\.venv\Lib\site-packages\scipy\optimize\_optimize.py:71(_compute_if_needed)
+       12    0.000    0.000    0.021    0.002 D:\codex\Causalis\.venv\Lib\site-packages\scipy\optimize\_optimize.py:78(__call__)
+       12    0.003    0.000    0.021    0.002 D:\codex\Causalis\.venv\Lib\site-packages\sklearn\linear_model\_linear_loss.py:291(loss_gradient)
+        9    0.001    0.000    0.021    0.002 D:\codex\Causalis\causalis\scenarios\unconfoundedness\_utils.py:40(_predict_prob_or_value)
+       12    0.000    0.000    0.019    0.002 D:\codex\Causalis\.venv\Lib\site-packages\scipy\optimize\_differentiable_functions.py:409(fun_and_grad)
+        6    0.002    0.000    0.016    0.003 D:\codex\Causalis\.venv\Lib\site-packages\sklearn\linear_model\_base.py:113(_preprocess_data)
+       52    0.000    0.000    0.015    0.000 D:\codex\Causalis\.venv\Lib\site-packages\sklearn\utils\validation.py:44(_nw_into_df_or_series)
+        1    0.000    0.000    0.015    0.015 D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:950(_store_fit_sample)
+        9    0.000    0.000    0.014    0.002 D:\codex\Causalis\.venv\Lib\site-packages\sklearn\utils\validation.py:1186(check_X_y)
+        1    0.000    0.000    0.014    0.014 D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:603(_compute_sample_fingerprint)
+       70    0.001    0.000    0.012    0.000 D:\codex\Causalis\.venv\Lib\site-packages\narwhals\stable\v2\dependencies.py:58(is_into_dataframe)
+        4    0.000    0.000    0.011    0.003 D:\codex\Causalis\.venv\Lib\site-packages\sklearn\model_selection\_split.py:377(split)
+        4    0.002    0.000    0.011    0.003 D:\codex\Causalis\.venv\Lib\site-packages\sklearn\model_selection\_split.py:116(split)
+       70    0.001    0.000    0.011    0.000 D:\codex\Causalis\.venv\Lib\site-packages\narwhals\dependencies.py:605(_is_native_dataframe)
+        3    0.010    0.003    0.011    0.004 D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:586(_hash_array)
+        6    0.001    0.000    0.011    0.002 D:\codex\Causalis\.venv\Lib\site-packages\scipy\linalg\_basic.py:1246(lstsq)
+       12    0.010    0.001    0.010    0.001 D:\codex\Causalis\.venv\Lib\site-packages\sklearn\_loss\loss.py:224(loss_gradient)
+       37    0.000    0.000    0.010    0.000 C:\Users\Maxim\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\inspect.py:3346(signature)
+       37    0.000    0.000    0.010    0.000 C:\Users\Maxim\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\inspect.py:3081(from_callable)
+       37    0.001    0.000    0.010    0.000 C:\Users\Maxim\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\inspect.py:2501(_signature_from_callable)
+
+

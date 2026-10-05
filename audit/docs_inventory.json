@@ -1,0 +1,233 @@
+{
+  "current_source_modules": 131,
+  "generated_api_modules": 126,
+  "notebooks": 40,
+  "missing_public_api_modules": [
+    "causalis.data_contracts.rct_causal_data",
+    "causalis.data_contracts.rct_estimates",
+    "causalis.dgp.rct_causal_data",
+    "causalis.scenarios.uplift.policy",
+    "causalis.shared.rct_design.design"
+  ],
+  "stale_api_modules": [
+    "causalis.shared.rct_design.mde"
+  ],
+  "notebook_import_flags": [
+    {
+      "file": "notebooks\\cases\\401k.ipynb",
+      "cell": 31,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "plot_influence_instability",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\cases\\401k.ipynb",
+      "cell": 33,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "plot_residual_diagnostics",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\cases\\401k.ipynb",
+      "cell": 35,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "plot_m_overlap",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\cases\\401k.ipynb",
+      "cell": 36,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "run_overlap_diagnostics",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\cases\\401k.ipynb",
+      "cell": 37,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "plot_propensity_reliability",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\cases\\multi_atte_test.ipynb",
+      "cell": 54,
+      "module": "causalis.scenarios.multi_unconfoundedness.refutation",
+      "name": "plot_residual_diagnostics",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\cases\\retention_on_third.ipynb",
+      "cell": 23,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "plot_influence_instability",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\cases\\retention_on_third.ipynb",
+      "cell": 25,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "plot_residual_diagnostics",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\cases\\retention_on_third.ipynb",
+      "cell": 27,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "plot_m_overlap",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\cases\\retention_on_third.ipynb",
+      "cell": 28,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "run_overlap_diagnostics",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\cases\\retention_on_third.ipynb",
+      "cell": 29,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "plot_propensity_reliability",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\research\\refutation_flow.ipynb",
+      "cell": 13,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "run_overlap_diagnostics",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\research\\refutation_flow.ipynb",
+      "cell": 42,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "run_score_diagnostics",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\research\\refutation_flow.ipynb",
+      "cell": 60,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "run_unconfoundedness_diagnostics",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\research\\refutation_flow.ipynb",
+      "cell": 66,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "sensitivity_analysis",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\research\\refutation_flow.ipynb",
+      "cell": 66,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "sensitivity_benchmark",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\research\\refutation_flow_multi_unconfoundedness.ipynb",
+      "cell": 11,
+      "module": "causalis.scenarios.multi_unconfoundedness.refutation",
+      "name": "run_overlap_diagnostics",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\research\\refutation_flow_multi_unconfoundedness.ipynb",
+      "cell": 26,
+      "module": "causalis.scenarios.multi_unconfoundedness.refutation",
+      "name": "run_score_diagnostics",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\research\\refutation_flow_multi_unconfoundedness.ipynb",
+      "cell": 39,
+      "module": "causalis.scenarios.multi_unconfoundedness.refutation",
+      "name": "run_unconfoundedness_diagnostics",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\scenarios\\multi_unconfoundedness.ipynb",
+      "cell": 53,
+      "module": "causalis.scenarios.multi_unconfoundedness.refutation",
+      "name": "plot_residual_diagnostics",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\scenarios\\unconfoundedness.ipynb",
+      "cell": 29,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "love_plot",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\scenarios\\unconfoundedness.ipynb",
+      "cell": 34,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "run_sensitivity_protocol",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\scenarios\\unconfoundedness.ipynb",
+      "cell": 40,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "plot_influence_instability",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\scenarios\\unconfoundedness.ipynb",
+      "cell": 41,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "plot_residual_diagnostics",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\scenarios\\unconfoundedness.ipynb",
+      "cell": 44,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "plot_m_overlap",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\scenarios\\unconfoundedness.ipynb",
+      "cell": 47,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "run_overlap_diagnostics",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    },
+    {
+      "file": "notebooks\\scenarios\\unconfoundedness.ipynb",
+      "cell": 49,
+      "module": "causalis.scenarios.unconfoundedness.refutation",
+      "name": "plot_propensity_reliability",
+      "status": "not in static namespace; verify",
+      "verified_status": "export exists (dynamic namespace)"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+exit_code=0
+alis/causalis.scenarios.unconfoundedness._diagnostic_utils
+writing output... [ 74%] apidocs/causalis/causalis.scenarios.unconfoundedness._score_utils
+writing output... [ 75%] apidocs/causalis/causalis.scenarios.unconfoundedness._utils
+writing output... [ 76%] apidocs/causalis/causalis.scenarios.unconfoundedness.dgp
+writing output... [ 77%] apidocs/causalis/causalis.scenarios.unconfoundedness.model
+writing output... [ 77%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation
+writing output... [ 78%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation._shared
+writing output... [ 79%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.overlap
+writing output... [ 80%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.overlap.feature_importance_plot
+writing output... [ 80%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.overlap.overlap_plot
+writing output... [ 81%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.overlap.overlap_validation
+writing output... [ 82%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.overlap.reliability_plot
+writing output... [ 83%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.score
+writing output... [ 83%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.score.influence_plot
+writing output... [ 84%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.score.residual_plots
+writing output... [ 85%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.score.score_validation
+writing output... [ 86%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.unconfoundedness
+writing output... [ 86%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.unconfoundedness.love_plot
+writing output... [ 87%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.unconfoundedness.sensitivity
+writing output... [ 88%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.unconfoundedness.unconfoundedness_validation
+writing output... [ 89%] apidocs/causalis/causalis.scenarios.uplift
+writing output... [ 89%] apidocs/causalis/causalis.scenarios.uplift.model
+writing output... [ 90%] apidocs/causalis/causalis.scenarios.uplift.policy
+writing output... [ 91%] apidocs/causalis/causalis.shared
+writing output... [ 92%] apidocs/causalis/causalis.shared.confounder_clustering
+writing output... [ 92%] apidocs/causalis/causalis.shared.confounders_balance
+writing output... [ 93%] apidocs/causalis/causalis.shared.outcome_outliers
+writing output... [ 94%] apidocs/causalis/causalis.shared.outcome_plots
+writing output... [ 95%] apidocs/causalis/causalis.shared.outcome_stats
+writing output... [ 95%] apidocs/causalis/causalis.shared.rct_design
+writing output... [ 96%] apidocs/causalis/causalis.shared.rct_design.design
+writing output... [ 97%] apidocs/causalis/causalis.shared.rct_design.split
+writing output... [ 98%] apidocs/causalis/causalis.shared.srm
+writing output... [ 98%] apidocs/causalis/causalis.shared.sutva_validation
+writing output... [ 99%] apidocs/index
+writing output... [100%] reference
+
+generating indices... genindex py-modindex done
+writing additional pages... search done
+dumping search index in English (code: en)... done
+dumping object inventory... done
+build succeeded.
+
+The HTML pages are in ..\..\docs_build_temp\generate_api_reference_v8weapag\build.
+Generated HTML API reference in D:\codex\Causalis\audit\docs_build_check\repo\notebooks\api\html
+
+html_modules=131

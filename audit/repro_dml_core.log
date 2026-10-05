@@ -1,0 +1,13 @@
+{"case": "DML-01_multi_ATTE_IF", "estimate": [2.0, 4.0], "actual_se": [0.16357216402190614, 0.32714432804381227], "correct_se": [0.0, 0.0]}
+{"case": "DML-02_binary_relative_ATT", "relative": 20.0, "actual_relative_se": 1.8333969940564225, "correct_relative_se": 0.0}
+{"case": "DML-03_stale_CATE_after_refit", "before_refit": 2.0, "after_refit": 2.0, "fresh_expected": 7.0}
+{"case": "DML-04_drop_weights", "retained": 60, "original": 120, "error": "weights must have shape (n,) with n=60, got shape (120,)."}
+{"case": "DML-05_infinite_balance_PASS", "binary_smd": [Infinity], "binary_pass": true, "multi_smd": [[Infinity]], "multi_pass": true}
+{"case": "DML-06_OOS_p1_by_identity", "fold_means": [-200.0, -66.66666666666666, 66.66666666666666, 200.0], "binary_t": 0.0, "binary_p": 1.0, "multi_p": [1.0]}
+{"case": "DML-07_negative_nu2_silenced", "nu2": -4798.4899500051015, "sensitivity_bound_width": 0.0, "CI_equals_sampling": true}
+{"case": "DML-08_RVa_not_CI_threshold", "reported_rva": 0.44537381548821053, "lower_CI_at_reported_rva": 0.15818117775044196, "H0": 0}
+{"case": "DML-09_Gate_cancellation", "actual_se": 0.0, "correct_se": 0.1}
+{"case": "DML-10_benchmark_long_residuals", "r2_y": [9.055428310267474e-09, 9.055428310267474e-09], "r2_d": [4.989943484520626e-07, 1.6123044727384775e-09], "effect_shift": [-7.785244558812239, -3.9324498104274777]}
+{"case": "DML-11_ATTE_sensitivity_nuisance_derivative", "actual_derivative": 62.49999999781152, "correct_orthogonal_derivative": -1.2123635428906708e-08}
+{"case": "DML-03_stale_CATE_after_refit", "before_refit": 2.0, "after_refit": 2.0, "fresh_expected": 7.0}
+{"case": "DML-03_stale_estimate_after_refit", "sensitivity_theta": 2.0, "new_sample_theta": 7.0}

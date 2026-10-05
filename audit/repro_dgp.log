@@ -1,0 +1,16 @@
+Could not save font_manager cache [Errno 13] Permission denied: 'C:\\Users\\Maxim\\.matplotlib\\fontlist-v3.11.0.json.matplotlib-lock'
+{
+  "uuid_20_bits": {
+    "n": 20000,
+    "duplicate_ids_in_raw": 212,
+    "contract_result": "1 validation error for CausalData\n  Value error, Column 'user_id' specified as user_id contains duplicate values. [type=value_error, input_value={'df':       user_id    y...], 'user_id': 'user_id'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error",
+    "expected_collision_pairs": 190.72532653808594
+  },
+  "multi_gamma_latent_oracle": {
+    "oracle_control": 1.0,
+    "true_control_mean_unclipped": 1.6487212707001282,
+    "empirical_control_mean": 1.6410195601847761,
+    "oracle_cate_1": 1.7182818284590446,
+    "true_cate_1_unclipped": 2.8329677996379363
+  }
+}
