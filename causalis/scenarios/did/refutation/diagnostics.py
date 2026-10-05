@@ -211,7 +211,7 @@ def did_support_table(
     ----------
     data : PanelDataDID
         The validated panel data object.
-    control_group : {"not_yet_or_never", "never_treated"}, default "not_yet_or_never"
+    control_group : {"not_yet_or_never", "not_yet_treated", "never_treated"}, default "not_yet_or_never"
         The definition of the comparison group.
     anticipation : int, default 0
         Number of periods before treatment to exclude from the control group
@@ -305,7 +305,7 @@ def raw_did_event_study_table(
     ----------
     data : PanelDataDID
         The validated panel data object.
-    control_group : {"not_yet_or_never", "never_treated"}, default "not_yet_or_never"
+    control_group : {"not_yet_or_never", "not_yet_treated", "never_treated"}, default "not_yet_or_never"
         The definition of the comparison group.
     anticipation : int, default 0
         Number of periods before treatment to exclude.
@@ -333,6 +333,11 @@ def raw_did_event_study_table(
 
     where :math:`C` is the comparison group. These are useful for visual
     inspection of parallel trends before applying more complex estimators.
+
+    A universal base admits the first analysis period as a pre-treatment
+    target when it precedes the fixed base. A varying base requires a
+    preceding observed period. The normalizing universal base and targets
+    in the anticipation window are omitted, as in ``data.att_gt_cells``.
 
     Examples
     --------
@@ -474,7 +479,7 @@ def did_covariate_balance_table(
     ----------
     data : PanelDataDID
         The validated panel data object.
-    control_group : {"not_yet_or_never", "never_treated"}, default "not_yet_or_never"
+    control_group : {"not_yet_or_never", "not_yet_treated", "never_treated"}, default "not_yet_or_never"
         The definition of the comparison group.
     anticipation : int, default 0
         Anticipation periods to exclude.
@@ -636,7 +641,7 @@ def did_base_design_table(
     ----------
     data : PanelDataDID
         The validated panel data object.
-    control_group : {"not_yet_or_never", "never_treated"}, default "not_yet_or_never"
+    control_group : {"not_yet_or_never", "not_yet_treated", "never_treated"}, default "not_yet_or_never"
         The definition of the comparison group.
     anticipation : int, default 0
         Anticipation periods to exclude.
@@ -843,7 +848,7 @@ def run_did_diagnostics(
     ----------
     data : PanelDataDID
         The validated panel data object.
-    control_group : {"not_yet_or_never", "never_treated"}, default "not_yet_or_never"
+    control_group : {"not_yet_or_never", "not_yet_treated", "never_treated"}, default "not_yet_or_never"
         The definition of the comparison group.
     anticipation : int, default 0
         Anticipation periods to exclude.

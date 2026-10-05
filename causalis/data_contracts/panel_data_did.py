@@ -808,6 +808,12 @@ class PanelDataDID(BaseModel):
         comparisons must be untreated at the later of the base and target
         dates plus ``anticipation`` analysis periods. Complete counts require
         observations at both dates, including on an unbalanced panel.
+
+        With ``include_pre_periods=True``, a universal base admits the first
+        analysis period as a target if it precedes the fixed base. A varying
+        base requires an observed preceding period and starts at the second
+        analysis period. The universal normalizing base is not returned as
+        a zero-valued cell; anticipation-window targets are also omitted.
         """
 
         if control_group not in {
@@ -859,7 +865,10 @@ class PanelDataDID(BaseModel):
                 continue
 
             cohort_units = set(self.cohort_units(cohort))
-            first_target_idx = 1 if include_pre_periods else cohort_idx
+            first_target_idx = (
+                (0 if base_period == "universal" else 1)
+                if include_pre_periods else cohort_idx
+            )
             for target_idx in range(first_target_idx, len(times)):
                 is_post = target_idx >= cohort_idx
                 pre_cutoff = cohort_idx - anticipation

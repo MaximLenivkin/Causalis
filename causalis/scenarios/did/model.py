@@ -998,7 +998,11 @@ class CallawaySantAnnaDID:
         - "varying": Uses :math:`t - 1` for pre-treatment comparisons;
           post-treatment cells use the universal base.
     include_pre_periods : bool, default False
-        Whether to estimate :math:`ATT(g,t)` for :math:`t < g` (pre-treatment testing).
+        Whether to estimate pre-treatment placebo contrasts outside the
+        anticipation window. With a universal base, targets earlier than
+        :math:`g - 1 - \\text{anticipation}` include the first analysis period;
+        the normalizing base itself is omitted. A varying base compares
+        adjacent periods and therefore requires a preceding observation.
     alpha : float, default 0.05
         Significance level for confidence intervals.
     diagnostic_data : bool, default True

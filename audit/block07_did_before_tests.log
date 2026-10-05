@@ -1,0 +1,1135 @@
+F.F.F.F.F.F.F.F..F.FFFFFFFFFFFFFFFFFFFF....                              [100%]
+================================== FAILURES ===================================
+_ test_support_enumerates_all_defined_date_pairs_in_stable_order[0-M-0-universal] _
+
+base_period = 'universal', anticipation = 0, frequency = 'M', start = 0
+
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("frequency", ["M", "2M"])
+    @pytest.mark.parametrize("start", [0, 1])
+    def test_support_enumerates_all_defined_date_pairs_in_stable_order(
+        base_period, anticipation, frequency, start,
+    ):
+        # Filtering an earlier source date changes the analysis axis, not calendar
+        # frequency units: its new first date remains a valid universal target.
+        panel = _panel(frequency=frequency, start=start)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        support = panel.att_gt_cells(base_period=base_period, anticipation=anticipation,
+                                     include_pre_periods=True, include_unsupported=True)
+        expected = [(cohort, time, base) for cohort in panel.cohorts
+                    for time, base in _date_pairs(times, cohort, anticipation, base_period)]
+        actual = list(support[["cohort", "time", "base_time"]].itertuples(index=False, name=None))
+>       assert actual == expected
+E       AssertionError: assert [(Period('202...', 'M')), ...] == [(Period('202...', 'M')), ...]
+E         
+E         At index 0 diff: (Period('2020-04', 'M'), Period('2020-02', 'M'), Period('2020-03', 'M')) != (Period('2020-04', 'M'), Period('2020-01', 'M'), Period('2020-03', 'M'))
+E         Right contains 2 more items, first extra item: (Period('2020-06', 'M'), Period('2020-06', 'M'), Period('2020-05', 'M'))
+E         Use -v to get more diff
+
+tests\scenarios\did\test_did_earliest_pre_period.py:78: AssertionError
+_ test_support_enumerates_all_defined_date_pairs_in_stable_order[0-M-1-universal] _
+
+base_period = 'universal', anticipation = 1, frequency = 'M', start = 0
+
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("frequency", ["M", "2M"])
+    @pytest.mark.parametrize("start", [0, 1])
+    def test_support_enumerates_all_defined_date_pairs_in_stable_order(
+        base_period, anticipation, frequency, start,
+    ):
+        # Filtering an earlier source date changes the analysis axis, not calendar
+        # frequency units: its new first date remains a valid universal target.
+        panel = _panel(frequency=frequency, start=start)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        support = panel.att_gt_cells(base_period=base_period, anticipation=anticipation,
+                                     include_pre_periods=True, include_unsupported=True)
+        expected = [(cohort, time, base) for cohort in panel.cohorts
+                    for time, base in _date_pairs(times, cohort, anticipation, base_period)]
+        actual = list(support[["cohort", "time", "base_time"]].itertuples(index=False, name=None))
+>       assert actual == expected
+E       AssertionError: assert [(Period('202...', 'M')), ...] == [(Period('202...', 'M')), ...]
+E         
+E         At index 0 diff: (Period('2020-04', 'M'), Period('2020-04', 'M'), Period('2020-02', 'M')) != (Period('2020-04', 'M'), Period('2020-01', 'M'), Period('2020-02', 'M'))
+E         Right contains 2 more items, first extra item: (Period('2020-06', 'M'), Period('2020-06', 'M'), Period('2020-04', 'M'))
+E         Use -v to get more diff
+
+tests\scenarios\did\test_did_earliest_pre_period.py:78: AssertionError
+_ test_support_enumerates_all_defined_date_pairs_in_stable_order[0-2M-0-universal] _
+
+base_period = 'universal', anticipation = 0, frequency = '2M', start = 0
+
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("frequency", ["M", "2M"])
+    @pytest.mark.parametrize("start", [0, 1])
+    def test_support_enumerates_all_defined_date_pairs_in_stable_order(
+        base_period, anticipation, frequency, start,
+    ):
+        # Filtering an earlier source date changes the analysis axis, not calendar
+        # frequency units: its new first date remains a valid universal target.
+        panel = _panel(frequency=frequency, start=start)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        support = panel.att_gt_cells(base_period=base_period, anticipation=anticipation,
+                                     include_pre_periods=True, include_unsupported=True)
+        expected = [(cohort, time, base) for cohort in panel.cohorts
+                    for time, base in _date_pairs(times, cohort, anticipation, base_period)]
+        actual = list(support[["cohort", "time", "base_time"]].itertuples(index=False, name=None))
+>       assert actual == expected
+E       AssertionError: assert [(Period('202..., '2M')), ...] == [(Period('202..., '2M')), ...]
+E         
+E         At index 0 diff: (Period('2020-07', '2M'), Period('2020-03', '2M'), Period('2020-05', '2M')) != (Period('2020-07', '2M'), Period('2020-01', '2M'), Period('2020-05', '2M'))
+E         Right contains 2 more items, first extra item: (Period('2020-11', '2M'), Period('2020-11', '2M'), Period('2020-09', '2M'))
+E         Use -v to get more diff
+
+tests\scenarios\did\test_did_earliest_pre_period.py:78: AssertionError
+_ test_support_enumerates_all_defined_date_pairs_in_stable_order[0-2M-1-universal] _
+
+base_period = 'universal', anticipation = 1, frequency = '2M', start = 0
+
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("frequency", ["M", "2M"])
+    @pytest.mark.parametrize("start", [0, 1])
+    def test_support_enumerates_all_defined_date_pairs_in_stable_order(
+        base_period, anticipation, frequency, start,
+    ):
+        # Filtering an earlier source date changes the analysis axis, not calendar
+        # frequency units: its new first date remains a valid universal target.
+        panel = _panel(frequency=frequency, start=start)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        support = panel.att_gt_cells(base_period=base_period, anticipation=anticipation,
+                                     include_pre_periods=True, include_unsupported=True)
+        expected = [(cohort, time, base) for cohort in panel.cohorts
+                    for time, base in _date_pairs(times, cohort, anticipation, base_period)]
+        actual = list(support[["cohort", "time", "base_time"]].itertuples(index=False, name=None))
+>       assert actual == expected
+E       AssertionError: assert [(Period('202..., '2M')), ...] == [(Period('202..., '2M')), ...]
+E         
+E         At index 0 diff: (Period('2020-07', '2M'), Period('2020-07', '2M'), Period('2020-03', '2M')) != (Period('2020-07', '2M'), Period('2020-01', '2M'), Period('2020-03', '2M'))
+E         Right contains 2 more items, first extra item: (Period('2020-11', '2M'), Period('2020-11', '2M'), Period('2020-07', '2M'))
+E         Use -v to get more diff
+
+tests\scenarios\did\test_did_earliest_pre_period.py:78: AssertionError
+_ test_support_enumerates_all_defined_date_pairs_in_stable_order[1-M-0-universal] _
+
+base_period = 'universal', anticipation = 0, frequency = 'M', start = 1
+
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("frequency", ["M", "2M"])
+    @pytest.mark.parametrize("start", [0, 1])
+    def test_support_enumerates_all_defined_date_pairs_in_stable_order(
+        base_period, anticipation, frequency, start,
+    ):
+        # Filtering an earlier source date changes the analysis axis, not calendar
+        # frequency units: its new first date remains a valid universal target.
+        panel = _panel(frequency=frequency, start=start)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        support = panel.att_gt_cells(base_period=base_period, anticipation=anticipation,
+                                     include_pre_periods=True, include_unsupported=True)
+        expected = [(cohort, time, base) for cohort in panel.cohorts
+                    for time, base in _date_pairs(times, cohort, anticipation, base_period)]
+        actual = list(support[["cohort", "time", "base_time"]].itertuples(index=False, name=None))
+>       assert actual == expected
+E       AssertionError: assert [(Period('202...', 'M')), ...] == [(Period('202...', 'M')), ...]
+E         
+E         At index 0 diff: (Period('2020-04', 'M'), Period('2020-04', 'M'), Period('2020-03', 'M')) != (Period('2020-04', 'M'), Period('2020-02', 'M'), Period('2020-03', 'M'))
+E         Right contains 2 more items, first extra item: (Period('2020-06', 'M'), Period('2020-06', 'M'), Period('2020-05', 'M'))
+E         Use -v to get more diff
+
+tests\scenarios\did\test_did_earliest_pre_period.py:78: AssertionError
+_ test_support_enumerates_all_defined_date_pairs_in_stable_order[1-M-1-universal] _
+
+base_period = 'universal', anticipation = 1, frequency = 'M', start = 1
+
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("frequency", ["M", "2M"])
+    @pytest.mark.parametrize("start", [0, 1])
+    def test_support_enumerates_all_defined_date_pairs_in_stable_order(
+        base_period, anticipation, frequency, start,
+    ):
+        # Filtering an earlier source date changes the analysis axis, not calendar
+        # frequency units: its new first date remains a valid universal target.
+        panel = _panel(frequency=frequency, start=start)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        support = panel.att_gt_cells(base_period=base_period, anticipation=anticipation,
+                                     include_pre_periods=True, include_unsupported=True)
+        expected = [(cohort, time, base) for cohort in panel.cohorts
+                    for time, base in _date_pairs(times, cohort, anticipation, base_period)]
+        actual = list(support[["cohort", "time", "base_time"]].itertuples(index=False, name=None))
+>       assert actual == expected
+E       AssertionError: assert [(Period('202...', 'M')), ...] == [(Period('202...', 'M')), ...]
+E         
+E         At index 4 diff: (Period('2020-06', 'M'), Period('2020-03', 'M'), Period('2020-04', 'M')) != (Period('2020-06', 'M'), Period('2020-02', 'M'), Period('2020-04', 'M'))
+E         Right contains one more item: (Period('2020-06', 'M'), Period('2020-07', 'M'), Period('2020-04', 'M'))
+E         Use -v to get more diff
+
+tests\scenarios\did\test_did_earliest_pre_period.py:78: AssertionError
+_ test_support_enumerates_all_defined_date_pairs_in_stable_order[1-2M-0-universal] _
+
+base_period = 'universal', anticipation = 0, frequency = '2M', start = 1
+
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("frequency", ["M", "2M"])
+    @pytest.mark.parametrize("start", [0, 1])
+    def test_support_enumerates_all_defined_date_pairs_in_stable_order(
+        base_period, anticipation, frequency, start,
+    ):
+        # Filtering an earlier source date changes the analysis axis, not calendar
+        # frequency units: its new first date remains a valid universal target.
+        panel = _panel(frequency=frequency, start=start)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        support = panel.att_gt_cells(base_period=base_period, anticipation=anticipation,
+                                     include_pre_periods=True, include_unsupported=True)
+        expected = [(cohort, time, base) for cohort in panel.cohorts
+                    for time, base in _date_pairs(times, cohort, anticipation, base_period)]
+        actual = list(support[["cohort", "time", "base_time"]].itertuples(index=False, name=None))
+>       assert actual == expected
+E       AssertionError: assert [(Period('202..., '2M')), ...] == [(Period('202..., '2M')), ...]
+E         
+E         At index 0 diff: (Period('2020-07', '2M'), Period('2020-07', '2M'), Period('2020-05', '2M')) != (Period('2020-07', '2M'), Period('2020-03', '2M'), Period('2020-05', '2M'))
+E         Right contains 2 more items, first extra item: (Period('2020-11', '2M'), Period('2020-11', '2M'), Period('2020-09', '2M'))
+E         Use -v to get more diff
+
+tests\scenarios\did\test_did_earliest_pre_period.py:78: AssertionError
+_ test_support_enumerates_all_defined_date_pairs_in_stable_order[1-2M-1-universal] _
+
+base_period = 'universal', anticipation = 1, frequency = '2M', start = 1
+
+    @pytest.mark.parametrize("base_period", ["universal", "varying"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("frequency", ["M", "2M"])
+    @pytest.mark.parametrize("start", [0, 1])
+    def test_support_enumerates_all_defined_date_pairs_in_stable_order(
+        base_period, anticipation, frequency, start,
+    ):
+        # Filtering an earlier source date changes the analysis axis, not calendar
+        # frequency units: its new first date remains a valid universal target.
+        panel = _panel(frequency=frequency, start=start)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        support = panel.att_gt_cells(base_period=base_period, anticipation=anticipation,
+                                     include_pre_periods=True, include_unsupported=True)
+        expected = [(cohort, time, base) for cohort in panel.cohorts
+                    for time, base in _date_pairs(times, cohort, anticipation, base_period)]
+        actual = list(support[["cohort", "time", "base_time"]].itertuples(index=False, name=None))
+>       assert actual == expected
+E       AssertionError: assert [(Period('202..., '2M')), ...] == [(Period('202..., '2M')), ...]
+E         
+E         At index 4 diff: (Period('2020-11', '2M'), Period('2020-05', '2M'), Period('2020-07', '2M')) != (Period('2020-11', '2M'), Period('2020-03', '2M'), Period('2020-07', '2M'))
+E         Right contains one more item: (Period('2020-11', '2M'), Period('2021-01', '2M'), Period('2020-07', '2M'))
+E         Use -v to get more diff
+
+tests\scenarios\did\test_did_earliest_pre_period.py:78: AssertionError
+__ test_short_pre_window_has_a_placebo_exactly_when_fixed_base_is_later[0-2] __
+
+anticipation = 0, focal_first = 2
+
+    @pytest.mark.parametrize("anticipation,focal_first", [(0, 1), (0, 2), (1, 2), (1, 3)])
+    def test_short_pre_window_has_a_placebo_exactly_when_fixed_base_is_later(
+        anticipation, focal_first,
+    ):
+        panel = _panel(focal_first=focal_first)
+        times = list(panel.analysis_times())
+        cohort = times[focal_first]
+        universal = panel.att_gt_cells(anticipation=anticipation, include_pre_periods=True)
+        pre = universal.loc[(universal.cohort == cohort) & ~universal.is_post_treatment]
+        expected_targets = times[:focal_first - anticipation - 1]
+>       assert pre.time.tolist() == expected_targets
+E       AssertionError: assert [] == [Period('2020-01', 'M')]
+E         
+E         Right contains one more item: Period('2020-01', 'M')
+E         Use -v to get more diff
+
+tests\scenarios\did\test_did_earliest_pre_period.py:97: AssertionError
+__ test_short_pre_window_has_a_placebo_exactly_when_fixed_base_is_later[1-3] __
+
+anticipation = 1, focal_first = 3
+
+    @pytest.mark.parametrize("anticipation,focal_first", [(0, 1), (0, 2), (1, 2), (1, 3)])
+    def test_short_pre_window_has_a_placebo_exactly_when_fixed_base_is_later(
+        anticipation, focal_first,
+    ):
+        panel = _panel(focal_first=focal_first)
+        times = list(panel.analysis_times())
+        cohort = times[focal_first]
+        universal = panel.att_gt_cells(anticipation=anticipation, include_pre_periods=True)
+        pre = universal.loc[(universal.cohort == cohort) & ~universal.is_post_treatment]
+        expected_targets = times[:focal_first - anticipation - 1]
+>       assert pre.time.tolist() == expected_targets
+E       AssertionError: assert [] == [Period('2020-01', 'M')]
+E         
+E         Right contains one more item: Period('2020-01', 'M')
+E         Use -v to get more diff
+
+tests\scenarios\did\test_did_earliest_pre_period.py:97: AssertionError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-0-never_treated] _
+
+control_group = 'never_treated', anticipation = 0, unbalanced = False
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+>       first = _row(support, focal, target)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =     cohort     time base_time  ...  n_control is_supported  unsupported_reason
+0  2020-04  2020-02   2020-03  ...     ...                
+9  2020-06  2020-07   2020-05  ...          3         True                    
+
+[10 rows x 16 columns]
+cohort = Period('2020-04', 'M'), time = Period('2020-01', 'M')
+
+    def _row(table, cohort, time):
+        selected = table.loc[(table.cohort == cohort) & (table.time == time)]
+>       assert len(selected) == 1, f"Expected one cell for {(cohort, time)}, found {len(selected)}"
+E       AssertionError: Expected one cell for (Period('2020-04', 'M'), Period('2020-01', 'M')), found 0
+E       assert 0 == 1
+E        +  where 0 = len(Empty DataFrame\nColumns: [cohort, time, base_time, event_time, control_group, anticipation, base_period, is_post_treat...ed_complete, n_control_available, n_control_complete, n_treated, n_control, is_supported, unsupported_reason]\nIndex: [])
+
+tests\scenarios\did\test_did_earliest_pre_period.py:57: AssertionError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-0-not_yet_treated] _
+
+control_group = 'not_yet_treated', anticipation = 0, unbalanced = False
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+>       first = _row(support, focal, target)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =     cohort     time  ... is_supported         unsupported_reason
+0  2020-04  2020-02  ...         True                ...lse  no_complete_control_units
+9  2020-06  2020-07  ...        False  no_complete_control_units
+
+[10 rows x 16 columns]
+cohort = Period('2020-04', 'M'), time = Period('2020-01', 'M')
+
+    def _row(table, cohort, time):
+        selected = table.loc[(table.cohort == cohort) & (table.time == time)]
+>       assert len(selected) == 1, f"Expected one cell for {(cohort, time)}, found {len(selected)}"
+E       AssertionError: Expected one cell for (Period('2020-04', 'M'), Period('2020-01', 'M')), found 0
+E       assert 0 == 1
+E        +  where 0 = len(Empty DataFrame\nColumns: [cohort, time, base_time, event_time, control_group, anticipation, base_period, is_post_treat...ed_complete, n_control_available, n_control_complete, n_treated, n_control, is_supported, unsupported_reason]\nIndex: [])
+
+tests\scenarios\did\test_did_earliest_pre_period.py:57: AssertionError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-0-not_yet_or_never] _
+
+control_group = 'not_yet_or_never', anticipation = 0, unbalanced = False
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+>       first = _row(support, focal, target)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =     cohort     time base_time  ...  n_control is_supported  unsupported_reason
+0  2020-04  2020-02   2020-03  ...     ...                
+9  2020-06  2020-07   2020-05  ...          3         True                    
+
+[10 rows x 16 columns]
+cohort = Period('2020-04', 'M'), time = Period('2020-01', 'M')
+
+    def _row(table, cohort, time):
+        selected = table.loc[(table.cohort == cohort) & (table.time == time)]
+>       assert len(selected) == 1, f"Expected one cell for {(cohort, time)}, found {len(selected)}"
+E       AssertionError: Expected one cell for (Period('2020-04', 'M'), Period('2020-01', 'M')), found 0
+E       assert 0 == 1
+E        +  where 0 = len(Empty DataFrame\nColumns: [cohort, time, base_time, event_time, control_group, anticipation, base_period, is_post_treat...ed_complete, n_control_available, n_control_complete, n_treated, n_control, is_supported, unsupported_reason]\nIndex: [])
+
+tests\scenarios\did\test_did_earliest_pre_period.py:57: AssertionError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-1-never_treated] _
+
+control_group = 'never_treated', anticipation = 1, unbalanced = False
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+>       first = _row(support, focal, target)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =     cohort     time base_time  ...  n_control is_supported  unsupported_reason
+0  2020-04  2020-04   2020-02  ...     ...                 
+7  2020-06  2020-07   2020-04  ...          3         True                    
+
+[8 rows x 16 columns]
+cohort = Period('2020-04', 'M'), time = Period('2020-01', 'M')
+
+    def _row(table, cohort, time):
+        selected = table.loc[(table.cohort == cohort) & (table.time == time)]
+>       assert len(selected) == 1, f"Expected one cell for {(cohort, time)}, found {len(selected)}"
+E       AssertionError: Expected one cell for (Period('2020-04', 'M'), Period('2020-01', 'M')), found 0
+E       assert 0 == 1
+E        +  where 0 = len(Empty DataFrame\nColumns: [cohort, time, base_time, event_time, control_group, anticipation, base_period, is_post_treat...ed_complete, n_control_available, n_control_complete, n_treated, n_control, is_supported, unsupported_reason]\nIndex: [])
+
+tests\scenarios\did\test_did_earliest_pre_period.py:57: AssertionError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-1-not_yet_treated] _
+
+control_group = 'not_yet_treated', anticipation = 1, unbalanced = False
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+>       first = _row(support, focal, target)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =     cohort     time  ... is_supported         unsupported_reason
+0  2020-04  2020-04  ...         True                ...alse  no_complete_control_units
+7  2020-06  2020-07  ...        False  no_complete_control_units
+
+[8 rows x 16 columns]
+cohort = Period('2020-04', 'M'), time = Period('2020-01', 'M')
+
+    def _row(table, cohort, time):
+        selected = table.loc[(table.cohort == cohort) & (table.time == time)]
+>       assert len(selected) == 1, f"Expected one cell for {(cohort, time)}, found {len(selected)}"
+E       AssertionError: Expected one cell for (Period('2020-04', 'M'), Period('2020-01', 'M')), found 0
+E       assert 0 == 1
+E        +  where 0 = len(Empty DataFrame\nColumns: [cohort, time, base_time, event_time, control_group, anticipation, base_period, is_post_treat...ed_complete, n_control_available, n_control_complete, n_treated, n_control, is_supported, unsupported_reason]\nIndex: [])
+
+tests\scenarios\did\test_did_earliest_pre_period.py:57: AssertionError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-1-not_yet_or_never] _
+
+control_group = 'not_yet_or_never', anticipation = 1, unbalanced = False
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+>       first = _row(support, focal, target)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =     cohort     time base_time  ...  n_control is_supported  unsupported_reason
+0  2020-04  2020-04   2020-02  ...     ...                 
+7  2020-06  2020-07   2020-04  ...          3         True                    
+
+[8 rows x 16 columns]
+cohort = Period('2020-04', 'M'), time = Period('2020-01', 'M')
+
+    def _row(table, cohort, time):
+        selected = table.loc[(table.cohort == cohort) & (table.time == time)]
+>       assert len(selected) == 1, f"Expected one cell for {(cohort, time)}, found {len(selected)}"
+E       AssertionError: Expected one cell for (Period('2020-04', 'M'), Period('2020-01', 'M')), found 0
+E       assert 0 == 1
+E        +  where 0 = len(Empty DataFrame\nColumns: [cohort, time, base_time, event_time, control_group, anticipation, base_period, is_post_treat...ed_complete, n_control_available, n_control_complete, n_treated, n_control, is_supported, unsupported_reason]\nIndex: [])
+
+tests\scenarios\did\test_did_earliest_pre_period.py:57: AssertionError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-0-never_treated] _
+
+control_group = 'never_treated', anticipation = 0, unbalanced = True
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+>       first = _row(support, focal, target)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =     cohort     time base_time  ...  n_control is_supported  unsupported_reason
+0  2020-04  2020-02   2020-03  ...     ...                
+9  2020-06  2020-07   2020-05  ...          3         True                    
+
+[10 rows x 16 columns]
+cohort = Period('2020-04', 'M'), time = Period('2020-01', 'M')
+
+    def _row(table, cohort, time):
+        selected = table.loc[(table.cohort == cohort) & (table.time == time)]
+>       assert len(selected) == 1, f"Expected one cell for {(cohort, time)}, found {len(selected)}"
+E       AssertionError: Expected one cell for (Period('2020-04', 'M'), Period('2020-01', 'M')), found 0
+E       assert 0 == 1
+E        +  where 0 = len(Empty DataFrame\nColumns: [cohort, time, base_time, event_time, control_group, anticipation, base_period, is_post_treat...ed_complete, n_control_available, n_control_complete, n_treated, n_control, is_supported, unsupported_reason]\nIndex: [])
+
+tests\scenarios\did\test_did_earliest_pre_period.py:57: AssertionError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-0-not_yet_treated] _
+
+control_group = 'not_yet_treated', anticipation = 0, unbalanced = True
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+>       first = _row(support, focal, target)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =     cohort     time  ... is_supported         unsupported_reason
+0  2020-04  2020-02  ...         True                ...lse  no_complete_control_units
+9  2020-06  2020-07  ...        False  no_complete_control_units
+
+[10 rows x 16 columns]
+cohort = Period('2020-04', 'M'), time = Period('2020-01', 'M')
+
+    def _row(table, cohort, time):
+        selected = table.loc[(table.cohort == cohort) & (table.time == time)]
+>       assert len(selected) == 1, f"Expected one cell for {(cohort, time)}, found {len(selected)}"
+E       AssertionError: Expected one cell for (Period('2020-04', 'M'), Period('2020-01', 'M')), found 0
+E       assert 0 == 1
+E        +  where 0 = len(Empty DataFrame\nColumns: [cohort, time, base_time, event_time, control_group, anticipation, base_period, is_post_treat...ed_complete, n_control_available, n_control_complete, n_treated, n_control, is_supported, unsupported_reason]\nIndex: [])
+
+tests\scenarios\did\test_did_earliest_pre_period.py:57: AssertionError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-0-not_yet_or_never] _
+
+control_group = 'not_yet_or_never', anticipation = 0, unbalanced = True
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+>       first = _row(support, focal, target)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =     cohort     time base_time  ...  n_control is_supported  unsupported_reason
+0  2020-04  2020-02   2020-03  ...     ...                
+9  2020-06  2020-07   2020-05  ...          3         True                    
+
+[10 rows x 16 columns]
+cohort = Period('2020-04', 'M'), time = Period('2020-01', 'M')
+
+    def _row(table, cohort, time):
+        selected = table.loc[(table.cohort == cohort) & (table.time == time)]
+>       assert len(selected) == 1, f"Expected one cell for {(cohort, time)}, found {len(selected)}"
+E       AssertionError: Expected one cell for (Period('2020-04', 'M'), Period('2020-01', 'M')), found 0
+E       assert 0 == 1
+E        +  where 0 = len(Empty DataFrame\nColumns: [cohort, time, base_time, event_time, control_group, anticipation, base_period, is_post_treat...ed_complete, n_control_available, n_control_complete, n_treated, n_control, is_supported, unsupported_reason]\nIndex: [])
+
+tests\scenarios\did\test_did_earliest_pre_period.py:57: AssertionError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-1-never_treated] _
+
+control_group = 'never_treated', anticipation = 1, unbalanced = True
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+>       first = _row(support, focal, target)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =     cohort     time base_time  ...  n_control is_supported  unsupported_reason
+0  2020-04  2020-04   2020-02  ...     ...                 
+7  2020-06  2020-07   2020-04  ...          3         True                    
+
+[8 rows x 16 columns]
+cohort = Period('2020-04', 'M'), time = Period('2020-01', 'M')
+
+    def _row(table, cohort, time):
+        selected = table.loc[(table.cohort == cohort) & (table.time == time)]
+>       assert len(selected) == 1, f"Expected one cell for {(cohort, time)}, found {len(selected)}"
+E       AssertionError: Expected one cell for (Period('2020-04', 'M'), Period('2020-01', 'M')), found 0
+E       assert 0 == 1
+E        +  where 0 = len(Empty DataFrame\nColumns: [cohort, time, base_time, event_time, control_group, anticipation, base_period, is_post_treat...ed_complete, n_control_available, n_control_complete, n_treated, n_control, is_supported, unsupported_reason]\nIndex: [])
+
+tests\scenarios\did\test_did_earliest_pre_period.py:57: AssertionError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-1-not_yet_treated] _
+
+control_group = 'not_yet_treated', anticipation = 1, unbalanced = True
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+>       first = _row(support, focal, target)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =     cohort     time  ... is_supported         unsupported_reason
+0  2020-04  2020-04  ...         True                ...alse  no_complete_control_units
+7  2020-06  2020-07  ...        False  no_complete_control_units
+
+[8 rows x 16 columns]
+cohort = Period('2020-04', 'M'), time = Period('2020-01', 'M')
+
+    def _row(table, cohort, time):
+        selected = table.loc[(table.cohort == cohort) & (table.time == time)]
+>       assert len(selected) == 1, f"Expected one cell for {(cohort, time)}, found {len(selected)}"
+E       AssertionError: Expected one cell for (Period('2020-04', 'M'), Period('2020-01', 'M')), found 0
+E       assert 0 == 1
+E        +  where 0 = len(Empty DataFrame\nColumns: [cohort, time, base_time, event_time, control_group, anticipation, base_period, is_post_treat...ed_complete, n_control_available, n_control_complete, n_treated, n_control, is_supported, unsupported_reason]\nIndex: [])
+
+tests\scenarios\did\test_did_earliest_pre_period.py:57: AssertionError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-1-not_yet_or_never] _
+
+control_group = 'not_yet_or_never', anticipation = 1, unbalanced = True
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+>       first = _row(support, focal, target)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =     cohort     time base_time  ...  n_control is_supported  unsupported_reason
+0  2020-04  2020-04   2020-02  ...     ...                 
+7  2020-06  2020-07   2020-04  ...          3         True                    
+
+[8 rows x 16 columns]
+cohort = Period('2020-04', 'M'), time = Period('2020-01', 'M')
+
+    def _row(table, cohort, time):
+        selected = table.loc[(table.cohort == cohort) & (table.time == time)]
+>       assert len(selected) == 1, f"Expected one cell for {(cohort, time)}, found {len(selected)}"
+E       AssertionError: Expected one cell for (Period('2020-04', 'M'), Period('2020-01', 'M')), found 0
+E       assert 0 == 1
+E        +  where 0 = len(Empty DataFrame\nColumns: [cohort, time, base_time, event_time, control_group, anticipation, base_period, is_post_treat...ed_complete, n_control_available, n_control_complete, n_treated, n_control, is_supported, unsupported_reason]\nIndex: [])
+
+tests\scenarios\did\test_did_earliest_pre_period.py:57: AssertionError
+_ test_first_placebo_matches_hand_computed_difference_and_nonzero_influence_se[0-dr] _
+
+estimator = 'dr', anticipation = 0
+
+    @pytest.mark.parametrize("estimator", ["dr", "ipw"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    def test_first_placebo_matches_hand_computed_difference_and_nonzero_influence_se(
+        estimator, anticipation,
+    ):
+        panel = _panel()
+        model = CallawaySantAnnaDID(estimator=estimator, anticipation=anticipation,
+                                  include_pre_periods=True).fit(panel)
+        estimate = model.estimate()
+        times = list(panel.analysis_times())
+>       cell = _row(estimate.att_gt, times[3], times[0])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:168: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =    cell_id   cohort     time  ... alpha  is_significant  inference
+0        0  2020-04  2020-02  ...  0.05            ...5            True  influence
+9        9  2020-06  2020-07  ...  0.05            True  influence
+
+[10 rows x 31 columns]
+cohort = Period('2020-04', 'M'), time = Period('2020-01', 'M')
+
+    def _row(table, cohort, time):
+        selected = table.loc[(table.cohort == cohort) & (table.time == time)]
+>       assert len(selected) == 1, f"Expected one cell for {(cohort, time)}, found {len(selected)}"
+E       AssertionError: Expected one cell for (Period('2020-04', 'M'), Period('2020-01', 'M')), found 0
+E       assert 0 == 1
+E        +  where 0 = len(Empty DataFrame\nColumns: [cell_id, cohort, time, base_time, event_time, is_post_treatment, att, n_units, n_treated_ava...hare, diagnostic_status, diagnostic_flags, se, ci_lower, ci_upper, p_value, alpha, is_significant, inference]\nIndex: [])
+
+tests\scenarios\did\test_did_earliest_pre_period.py:57: AssertionError
+_ test_first_placebo_matches_hand_computed_difference_and_nonzero_influence_se[0-ipw] _
+
+estimator = 'ipw', anticipation = 0
+
+    @pytest.mark.parametrize("estimator", ["dr", "ipw"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    def test_first_placebo_matches_hand_computed_difference_and_nonzero_influence_se(
+        estimator, anticipation,
+    ):
+        panel = _panel()
+        model = CallawaySantAnnaDID(estimator=estimator, anticipation=anticipation,
+                                  include_pre_periods=True).fit(panel)
+        estimate = model.estimate()
+        times = list(panel.analysis_times())
+>       cell = _row(estimate.att_gt, times[3], times[0])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:168: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =    cell_id   cohort     time  ... alpha  is_significant  inference
+0        0  2020-04  2020-02  ...  0.05            ...5            True  influence
+9        9  2020-06  2020-07  ...  0.05            True  influence
+
+[10 rows x 31 columns]
+cohort = Period('2020-04', 'M'), time = Period('2020-01', 'M')
+
+    def _row(table, cohort, time):
+        selected = table.loc[(table.cohort == cohort) & (table.time == time)]
+>       assert len(selected) == 1, f"Expected one cell for {(cohort, time)}, found {len(selected)}"
+E       AssertionError: Expected one cell for (Period('2020-04', 'M'), Period('2020-01', 'M')), found 0
+E       assert 0 == 1
+E        +  where 0 = len(Empty DataFrame\nColumns: [cell_id, cohort, time, base_time, event_time, is_post_treatment, att, n_units, n_treated_ava...hare, diagnostic_status, diagnostic_flags, se, ci_lower, ci_upper, p_value, alpha, is_significant, inference]\nIndex: [])
+
+tests\scenarios\did\test_did_earliest_pre_period.py:57: AssertionError
+_ test_first_placebo_matches_hand_computed_difference_and_nonzero_influence_se[1-dr] _
+
+estimator = 'dr', anticipation = 1
+
+    @pytest.mark.parametrize("estimator", ["dr", "ipw"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    def test_first_placebo_matches_hand_computed_difference_and_nonzero_influence_se(
+        estimator, anticipation,
+    ):
+        panel = _panel()
+        model = CallawaySantAnnaDID(estimator=estimator, anticipation=anticipation,
+                                  include_pre_periods=True).fit(panel)
+        estimate = model.estimate()
+        times = list(panel.analysis_times())
+>       cell = _row(estimate.att_gt, times[3], times[0])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:168: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =    cell_id   cohort     time  ... alpha  is_significant  inference
+0        0  2020-04  2020-04  ...  0.05            ...05            True  influence
+7        7  2020-06  2020-07  ...  0.05            True  influence
+
+[8 rows x 31 columns]
+cohort = Period('2020-04', 'M'), time = Period('2020-01', 'M')
+
+    def _row(table, cohort, time):
+        selected = table.loc[(table.cohort == cohort) & (table.time == time)]
+>       assert len(selected) == 1, f"Expected one cell for {(cohort, time)}, found {len(selected)}"
+E       AssertionError: Expected one cell for (Period('2020-04', 'M'), Period('2020-01', 'M')), found 0
+E       assert 0 == 1
+E        +  where 0 = len(Empty DataFrame\nColumns: [cell_id, cohort, time, base_time, event_time, is_post_treatment, att, n_units, n_treated_ava...hare, diagnostic_status, diagnostic_flags, se, ci_lower, ci_upper, p_value, alpha, is_significant, inference]\nIndex: [])
+
+tests\scenarios\did\test_did_earliest_pre_period.py:57: AssertionError
+_ test_first_placebo_matches_hand_computed_difference_and_nonzero_influence_se[1-ipw] _
+
+estimator = 'ipw', anticipation = 1
+
+    @pytest.mark.parametrize("estimator", ["dr", "ipw"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    def test_first_placebo_matches_hand_computed_difference_and_nonzero_influence_se(
+        estimator, anticipation,
+    ):
+        panel = _panel()
+        model = CallawaySantAnnaDID(estimator=estimator, anticipation=anticipation,
+                                  include_pre_periods=True).fit(panel)
+        estimate = model.estimate()
+        times = list(panel.analysis_times())
+>       cell = _row(estimate.att_gt, times[3], times[0])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:168: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =    cell_id   cohort     time  ... alpha  is_significant  inference
+0        0  2020-04  2020-04  ...  0.05            ...05            True  influence
+7        7  2020-06  2020-07  ...  0.05            True  influence
+
+[8 rows x 31 columns]
+cohort = Period('2020-04', 'M'), time = Period('2020-01', 'M')
+
+    def _row(table, cohort, time):
+        selected = table.loc[(table.cohort == cohort) & (table.time == time)]
+>       assert len(selected) == 1, f"Expected one cell for {(cohort, time)}, found {len(selected)}"
+E       AssertionError: Expected one cell for (Period('2020-04', 'M'), Period('2020-01', 'M')), found 0
+E       assert 0 == 1
+E        +  where 0 = len(Empty DataFrame\nColumns: [cell_id, cohort, time, base_time, event_time, is_post_treatment, att, n_units, n_treated_ava...hare, diagnostic_status, diagnostic_flags, se, ci_lower, ci_upper, p_value, alpha, is_significant, inference]\nIndex: [])
+
+tests\scenarios\did\test_did_earliest_pre_period.py:57: AssertionError
+_ test_missing_first_pairs_report_unsupported_cell_without_fabricating_estimate[focal-no_complete_treated_units] _
+
+missing_group = 'focal', reason = 'no_complete_treated_units'
+
+    @pytest.mark.parametrize("missing_group,reason", [
+        ("focal", "no_complete_treated_units"),
+        ("control", "no_complete_control_units"),
+    ])
+    def test_missing_first_pairs_report_unsupported_cell_without_fabricating_estimate(missing_group, reason):
+        groups = ["focal"] if missing_group == "focal" else ["future", "never"]
+        missing = [(f"{group}{i}", 0) for group in groups for i in range(3)]
+        panel = _panel(missing=missing)
+        times = list(panel.analysis_times())
+        settings = dict(include_pre_periods=True)
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+>       first = _row(support, times[3], times[0])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:205: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =     cohort     time base_time  ...  n_control is_supported  unsupported_reason
+0  2020-04  2020-02   2020-03  ...     ...                
+9  2020-06  2020-07   2020-05  ...          3         True                    
+
+[10 rows x 16 columns]
+cohort = Period('2020-04', 'M'), time = Period('2020-01', 'M')
+
+    def _row(table, cohort, time):
+        selected = table.loc[(table.cohort == cohort) & (table.time == time)]
+>       assert len(selected) == 1, f"Expected one cell for {(cohort, time)}, found {len(selected)}"
+E       AssertionError: Expected one cell for (Period('2020-04', 'M'), Period('2020-01', 'M')), found 0
+E       assert 0 == 1
+E        +  where 0 = len(Empty DataFrame\nColumns: [cohort, time, base_time, event_time, control_group, anticipation, base_period, is_post_treat...ed_complete, n_control_available, n_control_complete, n_treated, n_control, is_supported, unsupported_reason]\nIndex: [])
+
+tests\scenarios\did\test_did_earliest_pre_period.py:57: AssertionError
+_ test_missing_first_pairs_report_unsupported_cell_without_fabricating_estimate[control-no_complete_control_units] _
+
+missing_group = 'control', reason = 'no_complete_control_units'
+
+    @pytest.mark.parametrize("missing_group,reason", [
+        ("focal", "no_complete_treated_units"),
+        ("control", "no_complete_control_units"),
+    ])
+    def test_missing_first_pairs_report_unsupported_cell_without_fabricating_estimate(missing_group, reason):
+        groups = ["focal"] if missing_group == "focal" else ["future", "never"]
+        missing = [(f"{group}{i}", 0) for group in groups for i in range(3)]
+        panel = _panel(missing=missing)
+        times = list(panel.analysis_times())
+        settings = dict(include_pre_periods=True)
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+>       first = _row(support, times[3], times[0])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:205: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =     cohort     time base_time  ...  n_control is_supported  unsupported_reason
+0  2020-04  2020-02   2020-03  ...     ...                
+9  2020-06  2020-07   2020-05  ...          3         True                    
+
+[10 rows x 16 columns]
+cohort = Period('2020-04', 'M'), time = Period('2020-01', 'M')
+
+    def _row(table, cohort, time):
+        selected = table.loc[(table.cohort == cohort) & (table.time == time)]
+>       assert len(selected) == 1, f"Expected one cell for {(cohort, time)}, found {len(selected)}"
+E       AssertionError: Expected one cell for (Period('2020-04', 'M'), Period('2020-01', 'M')), found 0
+E       assert 0 == 1
+E        +  where 0 = len(Empty DataFrame\nColumns: [cohort, time, base_time, event_time, control_group, anticipation, base_period, is_post_treat...ed_complete, n_control_available, n_control_complete, n_treated, n_control, is_supported, unsupported_reason]\nIndex: [])
+
+tests\scenarios\did\test_did_earliest_pre_period.py:57: AssertionError
+_ test_first_universal_target_without_eligible_future_controls_is_reported_unsupported _
+
+    def test_first_universal_target_without_eligible_future_controls_is_reported_unsupported():
+        panel = _panel()
+        times = list(panel.analysis_times())
+        support = panel.att_gt_cells(control_group="not_yet_treated", include_pre_periods=True,
+                                     include_unsupported=True)
+>       first = _row(support, times[5], times[0])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:221: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+table =     cohort     time  ... is_supported         unsupported_reason
+0  2020-04  2020-02  ...         True                ...lse  no_complete_control_units
+9  2020-06  2020-07  ...        False  no_complete_control_units
+
+[10 rows x 16 columns]
+cohort = Period('2020-06', 'M'), time = Period('2020-01', 'M')
+
+    def _row(table, cohort, time):
+        selected = table.loc[(table.cohort == cohort) & (table.time == time)]
+>       assert len(selected) == 1, f"Expected one cell for {(cohort, time)}, found {len(selected)}"
+E       AssertionError: Expected one cell for (Period('2020-06', 'M'), Period('2020-01', 'M')), found 0
+E       assert 0 == 1
+E        +  where 0 = len(Empty DataFrame\nColumns: [cohort, time, base_time, event_time, control_group, anticipation, base_period, is_post_treat...ed_complete, n_control_available, n_control_complete, n_treated, n_control, is_supported, unsupported_reason]\nIndex: [])
+
+tests\scenarios\did\test_did_earliest_pre_period.py:57: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_support_enumerates_all_defined_date_pairs_in_stable_order[0-M-0-universal]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_support_enumerates_all_defined_date_pairs_in_stable_order[0-M-1-universal]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_support_enumerates_all_defined_date_pairs_in_stable_order[0-2M-0-universal]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_support_enumerates_all_defined_date_pairs_in_stable_order[0-2M-1-universal]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_support_enumerates_all_defined_date_pairs_in_stable_order[1-M-0-universal]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_support_enumerates_all_defined_date_pairs_in_stable_order[1-M-1-universal]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_support_enumerates_all_defined_date_pairs_in_stable_order[1-2M-0-universal]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_support_enumerates_all_defined_date_pairs_in_stable_order[1-2M-1-universal]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_short_pre_window_has_a_placebo_exactly_when_fixed_base_is_later[0-2]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_short_pre_window_has_a_placebo_exactly_when_fixed_base_is_later[1-3]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-0-never_treated]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-0-not_yet_treated]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-0-not_yet_or_never]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-1-never_treated]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-1-not_yet_treated]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-1-not_yet_or_never]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-0-never_treated]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-0-not_yet_treated]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-0-not_yet_or_never]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-1-never_treated]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-1-not_yet_treated]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-1-not_yet_or_never]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_placebo_matches_hand_computed_difference_and_nonzero_influence_se[0-dr]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_placebo_matches_hand_computed_difference_and_nonzero_influence_se[0-ipw]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_placebo_matches_hand_computed_difference_and_nonzero_influence_se[1-dr]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_placebo_matches_hand_computed_difference_and_nonzero_influence_se[1-ipw]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_missing_first_pairs_report_unsupported_cell_without_fabricating_estimate[focal-no_complete_treated_units]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_missing_first_pairs_report_unsupported_cell_without_fabricating_estimate[control-no_complete_control_units]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_universal_target_without_eligible_future_controls_is_reported_unsupported
+29 failed, 14 passed in 22.11s

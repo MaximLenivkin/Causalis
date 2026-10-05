@@ -1,0 +1,1109 @@
+....................FFFFFFFFFFFF........................................ [ 71%]
+.............................                                            [100%]
+================================== FAILURES ===================================
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-0-never_treated] _
+
+control_group = 'never_treated', anticipation = 0, unbalanced = False
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        first = _row(support, focal, target)
+        assert first.base_time == base
+        assert first.event_time == -3
+        assert first.n_treated_available == 3
+        assert first.n_control_available == available_controls
+        assert first.n_treated_complete == len(expected_treated)
+        assert first.n_control_complete == len(expected_control)
+        assert first.is_supported
+        ref_support = _row(did_support_table(panel, **settings), focal, target)
+        assert ref_support.n_treated_complete == len(expected_treated)
+        assert ref_support.n_control_complete == len(expected_control)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        cell = _row(estimate.att_gt, focal, target)
+        assert cell.base_time == base
+        local = estimate.diagnostics["unit_level"]
+        local = local.loc[local.cell_id == cell.cell_id]
+        assert local.unit.is_unique
+        assert set(local.loc[local.is_treated_cohort == 1, "unit"]) == expected_treated
+        assert set(local.loc[local.is_treated_cohort == 0, "unit"]) == expected_control
+        wide = original.pivot(index="unit", columns="time", values="y")
+        delta = wide[target] - wide[base]
+        expected_raw = delta.loc[sorted(expected_treated)].mean() - delta.loc[sorted(expected_control)].mean()
+        raw = _row(raw_did_event_study_table(panel, **settings), focal, target)
+        assert raw.raw_did == pytest.approx(expected_raw)
+        for table in [did_covariate_balance_table(panel, post_only=False, **settings),
+                      did_base_design_table(panel, post_only=False, **settings)]:
+            first = _row(table, focal, target)
+>           assert first.n_treated == len(expected_treated)
+                   ^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:153: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = support_cell_id               0
+cohort                  2020-04
+time                    2020-01
+base_time             ...
+control_design_rank           2
+condition_number       2.923988
+is_rank_deficient         False
+Name: 0, dtype: object
+name = 'n_treated'
+
+    @final
+    def __getattr__(self, name: str):
+        """
+        After regular attribute access, try looking up the name
+        This allows simpler access to columns for interactive use.
+        """
+        # Note: obj.x will always call obj.__getattribute__('x') prior to
+        # calling obj.__getattr__('x').
+        if (
+            name not in self._internal_names_set
+            and name not in self._metadata
+            and name not in self._accessors
+            and self._info_axis._can_hold_identifiers_and_holds_name(name)
+        ):
+            return self[name]
+>       return object.__getattribute__(self, name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Series' object has no attribute 'n_treated'
+
+.venv\Lib\site-packages\pandas\core\generic.py:6194: AttributeError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-0-not_yet_treated] _
+
+control_group = 'not_yet_treated', anticipation = 0, unbalanced = False
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        first = _row(support, focal, target)
+        assert first.base_time == base
+        assert first.event_time == -3
+        assert first.n_treated_available == 3
+        assert first.n_control_available == available_controls
+        assert first.n_treated_complete == len(expected_treated)
+        assert first.n_control_complete == len(expected_control)
+        assert first.is_supported
+        ref_support = _row(did_support_table(panel, **settings), focal, target)
+        assert ref_support.n_treated_complete == len(expected_treated)
+        assert ref_support.n_control_complete == len(expected_control)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        cell = _row(estimate.att_gt, focal, target)
+        assert cell.base_time == base
+        local = estimate.diagnostics["unit_level"]
+        local = local.loc[local.cell_id == cell.cell_id]
+        assert local.unit.is_unique
+        assert set(local.loc[local.is_treated_cohort == 1, "unit"]) == expected_treated
+        assert set(local.loc[local.is_treated_cohort == 0, "unit"]) == expected_control
+        wide = original.pivot(index="unit", columns="time", values="y")
+        delta = wide[target] - wide[base]
+        expected_raw = delta.loc[sorted(expected_treated)].mean() - delta.loc[sorted(expected_control)].mean()
+        raw = _row(raw_did_event_study_table(panel, **settings), focal, target)
+        assert raw.raw_did == pytest.approx(expected_raw)
+        for table in [did_covariate_balance_table(panel, post_only=False, **settings),
+                      did_base_design_table(panel, post_only=False, **settings)]:
+            first = _row(table, focal, target)
+>           assert first.n_treated == len(expected_treated)
+                   ^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:153: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = support_cell_id               0
+cohort                  2020-04
+time                    2020-01
+base_time             ...
+control_design_rank           2
+condition_number       2.923988
+is_rank_deficient         False
+Name: 0, dtype: object
+name = 'n_treated'
+
+    @final
+    def __getattr__(self, name: str):
+        """
+        After regular attribute access, try looking up the name
+        This allows simpler access to columns for interactive use.
+        """
+        # Note: obj.x will always call obj.__getattribute__('x') prior to
+        # calling obj.__getattr__('x').
+        if (
+            name not in self._internal_names_set
+            and name not in self._metadata
+            and name not in self._accessors
+            and self._info_axis._can_hold_identifiers_and_holds_name(name)
+        ):
+            return self[name]
+>       return object.__getattribute__(self, name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Series' object has no attribute 'n_treated'
+
+.venv\Lib\site-packages\pandas\core\generic.py:6194: AttributeError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-0-not_yet_or_never] _
+
+control_group = 'not_yet_or_never', anticipation = 0, unbalanced = False
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        first = _row(support, focal, target)
+        assert first.base_time == base
+        assert first.event_time == -3
+        assert first.n_treated_available == 3
+        assert first.n_control_available == available_controls
+        assert first.n_treated_complete == len(expected_treated)
+        assert first.n_control_complete == len(expected_control)
+        assert first.is_supported
+        ref_support = _row(did_support_table(panel, **settings), focal, target)
+        assert ref_support.n_treated_complete == len(expected_treated)
+        assert ref_support.n_control_complete == len(expected_control)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        cell = _row(estimate.att_gt, focal, target)
+        assert cell.base_time == base
+        local = estimate.diagnostics["unit_level"]
+        local = local.loc[local.cell_id == cell.cell_id]
+        assert local.unit.is_unique
+        assert set(local.loc[local.is_treated_cohort == 1, "unit"]) == expected_treated
+        assert set(local.loc[local.is_treated_cohort == 0, "unit"]) == expected_control
+        wide = original.pivot(index="unit", columns="time", values="y")
+        delta = wide[target] - wide[base]
+        expected_raw = delta.loc[sorted(expected_treated)].mean() - delta.loc[sorted(expected_control)].mean()
+        raw = _row(raw_did_event_study_table(panel, **settings), focal, target)
+        assert raw.raw_did == pytest.approx(expected_raw)
+        for table in [did_covariate_balance_table(panel, post_only=False, **settings),
+                      did_base_design_table(panel, post_only=False, **settings)]:
+            first = _row(table, focal, target)
+>           assert first.n_treated == len(expected_treated)
+                   ^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:153: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = support_cell_id               0
+cohort                  2020-04
+time                    2020-01
+base_time             ...
+control_design_rank           2
+condition_number       2.923988
+is_rank_deficient         False
+Name: 0, dtype: object
+name = 'n_treated'
+
+    @final
+    def __getattr__(self, name: str):
+        """
+        After regular attribute access, try looking up the name
+        This allows simpler access to columns for interactive use.
+        """
+        # Note: obj.x will always call obj.__getattribute__('x') prior to
+        # calling obj.__getattr__('x').
+        if (
+            name not in self._internal_names_set
+            and name not in self._metadata
+            and name not in self._accessors
+            and self._info_axis._can_hold_identifiers_and_holds_name(name)
+        ):
+            return self[name]
+>       return object.__getattribute__(self, name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Series' object has no attribute 'n_treated'
+
+.venv\Lib\site-packages\pandas\core\generic.py:6194: AttributeError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-1-never_treated] _
+
+control_group = 'never_treated', anticipation = 1, unbalanced = False
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        first = _row(support, focal, target)
+        assert first.base_time == base
+        assert first.event_time == -3
+        assert first.n_treated_available == 3
+        assert first.n_control_available == available_controls
+        assert first.n_treated_complete == len(expected_treated)
+        assert first.n_control_complete == len(expected_control)
+        assert first.is_supported
+        ref_support = _row(did_support_table(panel, **settings), focal, target)
+        assert ref_support.n_treated_complete == len(expected_treated)
+        assert ref_support.n_control_complete == len(expected_control)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        cell = _row(estimate.att_gt, focal, target)
+        assert cell.base_time == base
+        local = estimate.diagnostics["unit_level"]
+        local = local.loc[local.cell_id == cell.cell_id]
+        assert local.unit.is_unique
+        assert set(local.loc[local.is_treated_cohort == 1, "unit"]) == expected_treated
+        assert set(local.loc[local.is_treated_cohort == 0, "unit"]) == expected_control
+        wide = original.pivot(index="unit", columns="time", values="y")
+        delta = wide[target] - wide[base]
+        expected_raw = delta.loc[sorted(expected_treated)].mean() - delta.loc[sorted(expected_control)].mean()
+        raw = _row(raw_did_event_study_table(panel, **settings), focal, target)
+        assert raw.raw_did == pytest.approx(expected_raw)
+        for table in [did_covariate_balance_table(panel, post_only=False, **settings),
+                      did_base_design_table(panel, post_only=False, **settings)]:
+            first = _row(table, focal, target)
+>           assert first.n_treated == len(expected_treated)
+                   ^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:153: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = support_cell_id               0
+cohort                  2020-04
+time                    2020-01
+base_time             ...
+control_design_rank           2
+condition_number       2.923988
+is_rank_deficient         False
+Name: 0, dtype: object
+name = 'n_treated'
+
+    @final
+    def __getattr__(self, name: str):
+        """
+        After regular attribute access, try looking up the name
+        This allows simpler access to columns for interactive use.
+        """
+        # Note: obj.x will always call obj.__getattribute__('x') prior to
+        # calling obj.__getattr__('x').
+        if (
+            name not in self._internal_names_set
+            and name not in self._metadata
+            and name not in self._accessors
+            and self._info_axis._can_hold_identifiers_and_holds_name(name)
+        ):
+            return self[name]
+>       return object.__getattribute__(self, name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Series' object has no attribute 'n_treated'
+
+.venv\Lib\site-packages\pandas\core\generic.py:6194: AttributeError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-1-not_yet_treated] _
+
+control_group = 'not_yet_treated', anticipation = 1, unbalanced = False
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        first = _row(support, focal, target)
+        assert first.base_time == base
+        assert first.event_time == -3
+        assert first.n_treated_available == 3
+        assert first.n_control_available == available_controls
+        assert first.n_treated_complete == len(expected_treated)
+        assert first.n_control_complete == len(expected_control)
+        assert first.is_supported
+        ref_support = _row(did_support_table(panel, **settings), focal, target)
+        assert ref_support.n_treated_complete == len(expected_treated)
+        assert ref_support.n_control_complete == len(expected_control)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        cell = _row(estimate.att_gt, focal, target)
+        assert cell.base_time == base
+        local = estimate.diagnostics["unit_level"]
+        local = local.loc[local.cell_id == cell.cell_id]
+        assert local.unit.is_unique
+        assert set(local.loc[local.is_treated_cohort == 1, "unit"]) == expected_treated
+        assert set(local.loc[local.is_treated_cohort == 0, "unit"]) == expected_control
+        wide = original.pivot(index="unit", columns="time", values="y")
+        delta = wide[target] - wide[base]
+        expected_raw = delta.loc[sorted(expected_treated)].mean() - delta.loc[sorted(expected_control)].mean()
+        raw = _row(raw_did_event_study_table(panel, **settings), focal, target)
+        assert raw.raw_did == pytest.approx(expected_raw)
+        for table in [did_covariate_balance_table(panel, post_only=False, **settings),
+                      did_base_design_table(panel, post_only=False, **settings)]:
+            first = _row(table, focal, target)
+>           assert first.n_treated == len(expected_treated)
+                   ^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:153: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = support_cell_id               0
+cohort                  2020-04
+time                    2020-01
+base_time             ...
+control_design_rank           2
+condition_number       2.923988
+is_rank_deficient         False
+Name: 0, dtype: object
+name = 'n_treated'
+
+    @final
+    def __getattr__(self, name: str):
+        """
+        After regular attribute access, try looking up the name
+        This allows simpler access to columns for interactive use.
+        """
+        # Note: obj.x will always call obj.__getattribute__('x') prior to
+        # calling obj.__getattr__('x').
+        if (
+            name not in self._internal_names_set
+            and name not in self._metadata
+            and name not in self._accessors
+            and self._info_axis._can_hold_identifiers_and_holds_name(name)
+        ):
+            return self[name]
+>       return object.__getattribute__(self, name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Series' object has no attribute 'n_treated'
+
+.venv\Lib\site-packages\pandas\core\generic.py:6194: AttributeError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-1-not_yet_or_never] _
+
+control_group = 'not_yet_or_never', anticipation = 1, unbalanced = False
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        first = _row(support, focal, target)
+        assert first.base_time == base
+        assert first.event_time == -3
+        assert first.n_treated_available == 3
+        assert first.n_control_available == available_controls
+        assert first.n_treated_complete == len(expected_treated)
+        assert first.n_control_complete == len(expected_control)
+        assert first.is_supported
+        ref_support = _row(did_support_table(panel, **settings), focal, target)
+        assert ref_support.n_treated_complete == len(expected_treated)
+        assert ref_support.n_control_complete == len(expected_control)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        cell = _row(estimate.att_gt, focal, target)
+        assert cell.base_time == base
+        local = estimate.diagnostics["unit_level"]
+        local = local.loc[local.cell_id == cell.cell_id]
+        assert local.unit.is_unique
+        assert set(local.loc[local.is_treated_cohort == 1, "unit"]) == expected_treated
+        assert set(local.loc[local.is_treated_cohort == 0, "unit"]) == expected_control
+        wide = original.pivot(index="unit", columns="time", values="y")
+        delta = wide[target] - wide[base]
+        expected_raw = delta.loc[sorted(expected_treated)].mean() - delta.loc[sorted(expected_control)].mean()
+        raw = _row(raw_did_event_study_table(panel, **settings), focal, target)
+        assert raw.raw_did == pytest.approx(expected_raw)
+        for table in [did_covariate_balance_table(panel, post_only=False, **settings),
+                      did_base_design_table(panel, post_only=False, **settings)]:
+            first = _row(table, focal, target)
+>           assert first.n_treated == len(expected_treated)
+                   ^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:153: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = support_cell_id               0
+cohort                  2020-04
+time                    2020-01
+base_time             ...
+control_design_rank           2
+condition_number       2.923988
+is_rank_deficient         False
+Name: 0, dtype: object
+name = 'n_treated'
+
+    @final
+    def __getattr__(self, name: str):
+        """
+        After regular attribute access, try looking up the name
+        This allows simpler access to columns for interactive use.
+        """
+        # Note: obj.x will always call obj.__getattribute__('x') prior to
+        # calling obj.__getattr__('x').
+        if (
+            name not in self._internal_names_set
+            and name not in self._metadata
+            and name not in self._accessors
+            and self._info_axis._can_hold_identifiers_and_holds_name(name)
+        ):
+            return self[name]
+>       return object.__getattribute__(self, name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Series' object has no attribute 'n_treated'
+
+.venv\Lib\site-packages\pandas\core\generic.py:6194: AttributeError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-0-never_treated] _
+
+control_group = 'never_treated', anticipation = 0, unbalanced = True
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        first = _row(support, focal, target)
+        assert first.base_time == base
+        assert first.event_time == -3
+        assert first.n_treated_available == 3
+        assert first.n_control_available == available_controls
+        assert first.n_treated_complete == len(expected_treated)
+        assert first.n_control_complete == len(expected_control)
+        assert first.is_supported
+        ref_support = _row(did_support_table(panel, **settings), focal, target)
+        assert ref_support.n_treated_complete == len(expected_treated)
+        assert ref_support.n_control_complete == len(expected_control)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        cell = _row(estimate.att_gt, focal, target)
+        assert cell.base_time == base
+        local = estimate.diagnostics["unit_level"]
+        local = local.loc[local.cell_id == cell.cell_id]
+        assert local.unit.is_unique
+        assert set(local.loc[local.is_treated_cohort == 1, "unit"]) == expected_treated
+        assert set(local.loc[local.is_treated_cohort == 0, "unit"]) == expected_control
+        wide = original.pivot(index="unit", columns="time", values="y")
+        delta = wide[target] - wide[base]
+        expected_raw = delta.loc[sorted(expected_treated)].mean() - delta.loc[sorted(expected_control)].mean()
+        raw = _row(raw_did_event_study_table(panel, **settings), focal, target)
+        assert raw.raw_did == pytest.approx(expected_raw)
+        for table in [did_covariate_balance_table(panel, post_only=False, **settings),
+                      did_base_design_table(panel, post_only=False, **settings)]:
+            first = _row(table, focal, target)
+>           assert first.n_treated == len(expected_treated)
+                   ^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:153: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = support_cell_id               0
+cohort                  2020-04
+time                    2020-01
+base_time             ...
+control_design_rank           2
+condition_number       2.618034
+is_rank_deficient         False
+Name: 0, dtype: object
+name = 'n_treated'
+
+    @final
+    def __getattr__(self, name: str):
+        """
+        After regular attribute access, try looking up the name
+        This allows simpler access to columns for interactive use.
+        """
+        # Note: obj.x will always call obj.__getattribute__('x') prior to
+        # calling obj.__getattr__('x').
+        if (
+            name not in self._internal_names_set
+            and name not in self._metadata
+            and name not in self._accessors
+            and self._info_axis._can_hold_identifiers_and_holds_name(name)
+        ):
+            return self[name]
+>       return object.__getattribute__(self, name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Series' object has no attribute 'n_treated'
+
+.venv\Lib\site-packages\pandas\core\generic.py:6194: AttributeError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-0-not_yet_treated] _
+
+control_group = 'not_yet_treated', anticipation = 0, unbalanced = True
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        first = _row(support, focal, target)
+        assert first.base_time == base
+        assert first.event_time == -3
+        assert first.n_treated_available == 3
+        assert first.n_control_available == available_controls
+        assert first.n_treated_complete == len(expected_treated)
+        assert first.n_control_complete == len(expected_control)
+        assert first.is_supported
+        ref_support = _row(did_support_table(panel, **settings), focal, target)
+        assert ref_support.n_treated_complete == len(expected_treated)
+        assert ref_support.n_control_complete == len(expected_control)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        cell = _row(estimate.att_gt, focal, target)
+        assert cell.base_time == base
+        local = estimate.diagnostics["unit_level"]
+        local = local.loc[local.cell_id == cell.cell_id]
+        assert local.unit.is_unique
+        assert set(local.loc[local.is_treated_cohort == 1, "unit"]) == expected_treated
+        assert set(local.loc[local.is_treated_cohort == 0, "unit"]) == expected_control
+        wide = original.pivot(index="unit", columns="time", values="y")
+        delta = wide[target] - wide[base]
+        expected_raw = delta.loc[sorted(expected_treated)].mean() - delta.loc[sorted(expected_control)].mean()
+        raw = _row(raw_did_event_study_table(panel, **settings), focal, target)
+        assert raw.raw_did == pytest.approx(expected_raw)
+        for table in [did_covariate_balance_table(panel, post_only=False, **settings),
+                      did_base_design_table(panel, post_only=False, **settings)]:
+            first = _row(table, focal, target)
+>           assert first.n_treated == len(expected_treated)
+                   ^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:153: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = support_cell_id               0
+cohort                  2020-04
+time                    2020-01
+base_time             ...
+control_design_rank           2
+condition_number       6.854102
+is_rank_deficient         False
+Name: 0, dtype: object
+name = 'n_treated'
+
+    @final
+    def __getattr__(self, name: str):
+        """
+        After regular attribute access, try looking up the name
+        This allows simpler access to columns for interactive use.
+        """
+        # Note: obj.x will always call obj.__getattribute__('x') prior to
+        # calling obj.__getattr__('x').
+        if (
+            name not in self._internal_names_set
+            and name not in self._metadata
+            and name not in self._accessors
+            and self._info_axis._can_hold_identifiers_and_holds_name(name)
+        ):
+            return self[name]
+>       return object.__getattribute__(self, name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Series' object has no attribute 'n_treated'
+
+.venv\Lib\site-packages\pandas\core\generic.py:6194: AttributeError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-0-not_yet_or_never] _
+
+control_group = 'not_yet_or_never', anticipation = 0, unbalanced = True
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        first = _row(support, focal, target)
+        assert first.base_time == base
+        assert first.event_time == -3
+        assert first.n_treated_available == 3
+        assert first.n_control_available == available_controls
+        assert first.n_treated_complete == len(expected_treated)
+        assert first.n_control_complete == len(expected_control)
+        assert first.is_supported
+        ref_support = _row(did_support_table(panel, **settings), focal, target)
+        assert ref_support.n_treated_complete == len(expected_treated)
+        assert ref_support.n_control_complete == len(expected_control)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        cell = _row(estimate.att_gt, focal, target)
+        assert cell.base_time == base
+        local = estimate.diagnostics["unit_level"]
+        local = local.loc[local.cell_id == cell.cell_id]
+        assert local.unit.is_unique
+        assert set(local.loc[local.is_treated_cohort == 1, "unit"]) == expected_treated
+        assert set(local.loc[local.is_treated_cohort == 0, "unit"]) == expected_control
+        wide = original.pivot(index="unit", columns="time", values="y")
+        delta = wide[target] - wide[base]
+        expected_raw = delta.loc[sorted(expected_treated)].mean() - delta.loc[sorted(expected_control)].mean()
+        raw = _row(raw_did_event_study_table(panel, **settings), focal, target)
+        assert raw.raw_did == pytest.approx(expected_raw)
+        for table in [did_covariate_balance_table(panel, post_only=False, **settings),
+                      did_base_design_table(panel, post_only=False, **settings)]:
+            first = _row(table, focal, target)
+>           assert first.n_treated == len(expected_treated)
+                   ^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:153: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = support_cell_id               0
+cohort                  2020-04
+time                    2020-01
+base_time             ...
+control_design_rank           2
+condition_number       3.645323
+is_rank_deficient         False
+Name: 0, dtype: object
+name = 'n_treated'
+
+    @final
+    def __getattr__(self, name: str):
+        """
+        After regular attribute access, try looking up the name
+        This allows simpler access to columns for interactive use.
+        """
+        # Note: obj.x will always call obj.__getattribute__('x') prior to
+        # calling obj.__getattr__('x').
+        if (
+            name not in self._internal_names_set
+            and name not in self._metadata
+            and name not in self._accessors
+            and self._info_axis._can_hold_identifiers_and_holds_name(name)
+        ):
+            return self[name]
+>       return object.__getattribute__(self, name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Series' object has no attribute 'n_treated'
+
+.venv\Lib\site-packages\pandas\core\generic.py:6194: AttributeError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-1-never_treated] _
+
+control_group = 'never_treated', anticipation = 1, unbalanced = True
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        first = _row(support, focal, target)
+        assert first.base_time == base
+        assert first.event_time == -3
+        assert first.n_treated_available == 3
+        assert first.n_control_available == available_controls
+        assert first.n_treated_complete == len(expected_treated)
+        assert first.n_control_complete == len(expected_control)
+        assert first.is_supported
+        ref_support = _row(did_support_table(panel, **settings), focal, target)
+        assert ref_support.n_treated_complete == len(expected_treated)
+        assert ref_support.n_control_complete == len(expected_control)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        cell = _row(estimate.att_gt, focal, target)
+        assert cell.base_time == base
+        local = estimate.diagnostics["unit_level"]
+        local = local.loc[local.cell_id == cell.cell_id]
+        assert local.unit.is_unique
+        assert set(local.loc[local.is_treated_cohort == 1, "unit"]) == expected_treated
+        assert set(local.loc[local.is_treated_cohort == 0, "unit"]) == expected_control
+        wide = original.pivot(index="unit", columns="time", values="y")
+        delta = wide[target] - wide[base]
+        expected_raw = delta.loc[sorted(expected_treated)].mean() - delta.loc[sorted(expected_control)].mean()
+        raw = _row(raw_did_event_study_table(panel, **settings), focal, target)
+        assert raw.raw_did == pytest.approx(expected_raw)
+        for table in [did_covariate_balance_table(panel, post_only=False, **settings),
+                      did_base_design_table(panel, post_only=False, **settings)]:
+            first = _row(table, focal, target)
+>           assert first.n_treated == len(expected_treated)
+                   ^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:153: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = support_cell_id               0
+cohort                  2020-04
+time                    2020-01
+base_time             ...
+control_design_rank           2
+condition_number       2.618034
+is_rank_deficient         False
+Name: 0, dtype: object
+name = 'n_treated'
+
+    @final
+    def __getattr__(self, name: str):
+        """
+        After regular attribute access, try looking up the name
+        This allows simpler access to columns for interactive use.
+        """
+        # Note: obj.x will always call obj.__getattribute__('x') prior to
+        # calling obj.__getattr__('x').
+        if (
+            name not in self._internal_names_set
+            and name not in self._metadata
+            and name not in self._accessors
+            and self._info_axis._can_hold_identifiers_and_holds_name(name)
+        ):
+            return self[name]
+>       return object.__getattribute__(self, name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Series' object has no attribute 'n_treated'
+
+.venv\Lib\site-packages\pandas\core\generic.py:6194: AttributeError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-1-not_yet_treated] _
+
+control_group = 'not_yet_treated', anticipation = 1, unbalanced = True
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        first = _row(support, focal, target)
+        assert first.base_time == base
+        assert first.event_time == -3
+        assert first.n_treated_available == 3
+        assert first.n_control_available == available_controls
+        assert first.n_treated_complete == len(expected_treated)
+        assert first.n_control_complete == len(expected_control)
+        assert first.is_supported
+        ref_support = _row(did_support_table(panel, **settings), focal, target)
+        assert ref_support.n_treated_complete == len(expected_treated)
+        assert ref_support.n_control_complete == len(expected_control)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        cell = _row(estimate.att_gt, focal, target)
+        assert cell.base_time == base
+        local = estimate.diagnostics["unit_level"]
+        local = local.loc[local.cell_id == cell.cell_id]
+        assert local.unit.is_unique
+        assert set(local.loc[local.is_treated_cohort == 1, "unit"]) == expected_treated
+        assert set(local.loc[local.is_treated_cohort == 0, "unit"]) == expected_control
+        wide = original.pivot(index="unit", columns="time", values="y")
+        delta = wide[target] - wide[base]
+        expected_raw = delta.loc[sorted(expected_treated)].mean() - delta.loc[sorted(expected_control)].mean()
+        raw = _row(raw_did_event_study_table(panel, **settings), focal, target)
+        assert raw.raw_did == pytest.approx(expected_raw)
+        for table in [did_covariate_balance_table(panel, post_only=False, **settings),
+                      did_base_design_table(panel, post_only=False, **settings)]:
+            first = _row(table, focal, target)
+>           assert first.n_treated == len(expected_treated)
+                   ^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:153: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = support_cell_id               0
+cohort                  2020-04
+time                    2020-01
+base_time             ...
+control_design_rank           2
+condition_number       6.854102
+is_rank_deficient         False
+Name: 0, dtype: object
+name = 'n_treated'
+
+    @final
+    def __getattr__(self, name: str):
+        """
+        After regular attribute access, try looking up the name
+        This allows simpler access to columns for interactive use.
+        """
+        # Note: obj.x will always call obj.__getattribute__('x') prior to
+        # calling obj.__getattr__('x').
+        if (
+            name not in self._internal_names_set
+            and name not in self._metadata
+            and name not in self._accessors
+            and self._info_axis._can_hold_identifiers_and_holds_name(name)
+        ):
+            return self[name]
+>       return object.__getattribute__(self, name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Series' object has no attribute 'n_treated'
+
+.venv\Lib\site-packages\pandas\core\generic.py:6194: AttributeError
+_ test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-1-not_yet_or_never] _
+
+control_group = 'not_yet_or_never', anticipation = 1, unbalanced = True
+
+    @pytest.mark.parametrize("control_group", ["never_treated", "not_yet_treated", "not_yet_or_never"])
+    @pytest.mark.parametrize("anticipation", [0, 1])
+    @pytest.mark.parametrize("unbalanced", [False, True])
+    def test_first_cell_is_shared_by_support_model_raw_balance_and_design(
+        control_group, anticipation, unbalanced,
+    ):
+        missing = [("focal0", 0), ("future0", 0), ("never1", 0)] if unbalanced else []
+        panel = _panel(missing=missing, covariates=True)
+        original = panel.df_analysis()
+        times = list(panel.analysis_times())
+        settings = dict(control_group=control_group, anticipation=anticipation,
+                        base_period="universal", include_pre_periods=True)
+        focal, target, base = times[3], times[0], times[2 - anticipation]
+        expected_treated = {f"focal{i}" for i in range(3)}
+        expected_control = set()
+        if control_group != "never_treated":
+            expected_control |= {f"future{i}" for i in range(3)}
+        if control_group != "not_yet_treated":
+            expected_control |= {f"never{i}" for i in range(3)}
+        available_controls = len(expected_control)
+        if unbalanced:
+            expected_treated -= {"focal0"}
+            expected_control -= {"future0", "never1"}
+        support = panel.att_gt_cells(include_unsupported=True, **settings)
+        first = _row(support, focal, target)
+        assert first.base_time == base
+        assert first.event_time == -3
+        assert first.n_treated_available == 3
+        assert first.n_control_available == available_controls
+        assert first.n_treated_complete == len(expected_treated)
+        assert first.n_control_complete == len(expected_control)
+        assert first.is_supported
+        ref_support = _row(did_support_table(panel, **settings), focal, target)
+        assert ref_support.n_treated_complete == len(expected_treated)
+        assert ref_support.n_control_complete == len(expected_control)
+        estimate = CallawaySantAnnaDID(diagnostic_data=True, **settings).fit(panel).estimate()
+        cell = _row(estimate.att_gt, focal, target)
+        assert cell.base_time == base
+        local = estimate.diagnostics["unit_level"]
+        local = local.loc[local.cell_id == cell.cell_id]
+        assert local.unit.is_unique
+        assert set(local.loc[local.is_treated_cohort == 1, "unit"]) == expected_treated
+        assert set(local.loc[local.is_treated_cohort == 0, "unit"]) == expected_control
+        wide = original.pivot(index="unit", columns="time", values="y")
+        delta = wide[target] - wide[base]
+        expected_raw = delta.loc[sorted(expected_treated)].mean() - delta.loc[sorted(expected_control)].mean()
+        raw = _row(raw_did_event_study_table(panel, **settings), focal, target)
+        assert raw.raw_did == pytest.approx(expected_raw)
+        for table in [did_covariate_balance_table(panel, post_only=False, **settings),
+                      did_base_design_table(panel, post_only=False, **settings)]:
+            first = _row(table, focal, target)
+>           assert first.n_treated == len(expected_treated)
+                   ^^^^^^^^^^^^^^^
+
+tests\scenarios\did\test_did_earliest_pre_period.py:153: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = support_cell_id               0
+cohort                  2020-04
+time                    2020-01
+base_time             ...
+control_design_rank           2
+condition_number       3.645323
+is_rank_deficient         False
+Name: 0, dtype: object
+name = 'n_treated'
+
+    @final
+    def __getattr__(self, name: str):
+        """
+        After regular attribute access, try looking up the name
+        This allows simpler access to columns for interactive use.
+        """
+        # Note: obj.x will always call obj.__getattribute__('x') prior to
+        # calling obj.__getattr__('x').
+        if (
+            name not in self._internal_names_set
+            and name not in self._metadata
+            and name not in self._accessors
+            and self._info_axis._can_hold_identifiers_and_holds_name(name)
+        ):
+            return self[name]
+>       return object.__getattribute__(self, name)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'Series' object has no attribute 'n_treated'
+
+.venv\Lib\site-packages\pandas\core\generic.py:6194: AttributeError
+=========================== short test summary info ===========================
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-0-never_treated]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-0-not_yet_treated]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-0-not_yet_or_never]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-1-never_treated]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-1-not_yet_treated]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[False-1-not_yet_or_never]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-0-never_treated]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-0-not_yet_treated]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-0-not_yet_or_never]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-1-never_treated]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-1-not_yet_treated]
+FAILED tests/scenarios/did/test_did_earliest_pre_period.py::test_first_cell_is_shared_by_support_model_raw_balance_and_design[True-1-not_yet_or_never]
+12 failed, 89 passed in 105.92s (0:01:45)
