@@ -29,6 +29,22 @@ def _deterministic_ids(rng: np.random.Generator, n: int) -> List[str]:
     return [format(i, f"0{width}x") for i in order]
 
 
+def _random_ids(n: int) -> List[str]:
+    """Return unique, full UUID4 hex IDs, retrying any collision within a draw.
+
+    UUID4 uses operating-system randomness and is independent of the dataset's
+    ``random_state``. Use ``_deterministic_ids`` for reproducible identifiers.
+    """
+    identifiers = []
+    seen = set()
+    while len(identifiers) < n:
+        identifier = uuid.uuid4().hex
+        if identifier not in seen:
+            seen.add(identifier)
+            identifiers.append(identifier)
+    return identifiers
+
+
 def _add_ancillary_info(
     df: pd.DataFrame,
     n: int,
@@ -52,7 +68,9 @@ def _add_ancillary_info(
     rng : numpy.random.Generator
         The random number generator to use.
     deterministic_ids : bool
-        Whether to generate deterministic hex IDs instead of random UUIDs.
+        Whether to generate reproducible hex IDs using ``rng`` instead of full
+        random UUID4 hex strings. Both modes produce unique IDs within the frame;
+        random UUIDs are independent of the dataset's ``random_state``.
     x_cols : list of str
         Baseline columns to use for ancillary generation. Must not include y_pre.
 
@@ -115,7 +133,7 @@ def _add_ancillary_info(
     if deterministic_ids:
         user_ids = _deterministic_ids(rng, n)
     else:
-        user_ids = [uuid.uuid4().hex[:5] for _ in range(n)]
+        user_ids = _random_ids(n)
     df.insert(0, "user_id", user_ids)
     df["age"] = age
     df["cnt_trans"] = cnt_trans

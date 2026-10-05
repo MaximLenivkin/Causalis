@@ -80,3 +80,31 @@ def test_outcome_outliers_multicausal_default_treatment():
     assert outliers.shape[0] == 1
     assert outliers["y"].iloc[0] == 100
     assert outliers["t0"].iloc[0] == 1
+
+
+@pytest.mark.parametrize("multi", [False, True], ids=["binary", "multi"])
+@pytest.mark.parametrize("method", ["iqr", "zscore"])
+def test_outlier_rows_use_positions_when_index_labels_are_duplicated(multi, method):
+    # Four outliers share one label with each other and with ordinary rows in
+    # both arms. Label lookup would include ordinary rows and duplicate results.
+    frame = pd.DataFrame({
+        "y": [1] * 8 + [100, 110] + [2] * 8 + [200, 220],
+        "t0": [1] * 10 + [0] * 10,
+        "t1": [0] * 10 + [1] * 10,
+        "x": list(range(20)),
+    }, index=pd.Index(["shared"] * 20, name="sample"))
+    if multi:
+        data = MultiCausalData(
+            df=frame, outcome="y", treatment_names=["t0", "t1"],
+            confounders=["x"], control_treatment="t0",
+        )
+    else:
+        data = CausalData.from_df(frame, outcome="y", treatment="t1", confounders=["x"])
+    snapshot = data.df.copy(deep=True)
+
+    summary, outliers = outcome_outliers(data, method=method, z_thresh=1.5, return_rows=True)
+
+    assert summary.outlier_count.tolist() == [2, 2]
+    assert len(outliers) == summary.outlier_count.sum() == 4
+    pd.testing.assert_frame_equal(outliers, snapshot.iloc[[8, 9, 18, 19]])
+    pd.testing.assert_frame_equal(data.df, snapshot)

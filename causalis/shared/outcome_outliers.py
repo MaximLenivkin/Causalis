@@ -49,7 +49,7 @@ def outcome_outliers(
         Per-treatment summary with counts, rates, bounds, and flags.
     outliers : pandas.DataFrame
         Only returned when `return_rows=True`. Subset of `data.df` containing
-        flagged outlier rows.
+        flagged outlier rows, retaining the source index even when labels repeat.
 
     Notes
     -----
@@ -107,7 +107,9 @@ def outcome_outliers(
     if tail not in {"both", "lower", "upper"}:
         raise ValueError("tail must be 'both', 'lower', or 'upper'.")
 
-    df_valid = df[[t_col, y_col]].dropna()
+    # Group indices must identify row positions, because public contracts allow
+    # repeated DataFrame index labels. Keep raw_df's labels only in the output.
+    df_valid = df[[t_col, y_col]].reset_index(drop=True).dropna()
     if df_valid.empty:
         raise ValueError("No valid rows with both treatment and outcome present.")
     if not np.isfinite(df_valid[y_col].to_numpy(dtype=float)).all():
@@ -161,8 +163,8 @@ def outcome_outliers(
         )
 
         if return_rows and outlier_count:
-            flagged_index = g.index[mask]
-            flagged_rows.append(raw_df.loc[flagged_index])
+            flagged_positions = g.index[mask]
+            flagged_rows.append(raw_df.iloc[flagged_positions])
 
     summary = pd.DataFrame(rows)
 

@@ -10,6 +10,8 @@ The implementation mirrors the reference notebook in docs/cases/rct_design.ipynb
 from __future__ import annotations
 
 import hashlib
+import math
+from numbers import Real
 from typing import Dict, Optional
 
 import pandas as pd
@@ -22,6 +24,7 @@ def _validate_variants(variants: Dict[str, float]) -> None:
 
     Rules:
     - Dictionary must be non-empty
+    - Finite real numeric weights, excluding booleans
     - No negative weights
     - Sum must be > 0 and <= 1.0
     """
@@ -30,9 +33,17 @@ def _validate_variants(variants: Dict[str, float]) -> None:
 
     total = 0.0
     for name, weight in variants.items():
-        if weight < 0:
+        if isinstance(weight, bool) or not isinstance(weight, Real):
+            raise ValueError(f"Variant '{name}' weight must be a finite real number: {weight!r}")
+        try:
+            numeric_weight = float(weight)
+        except OverflowError:
+            raise ValueError(f"Variant '{name}' weight must be a finite real number: {weight!r}") from None
+        if not math.isfinite(numeric_weight):
+            raise ValueError(f"Variant '{name}' weight must be a finite real number: {weight!r}")
+        if numeric_weight < 0:
             raise ValueError(f"Variant '{name}' has negative weight: {weight}")
-        total += float(weight)
+        total += numeric_weight
 
     if total <= 0:
         raise ValueError("Sum of variant weights must be > 0")
@@ -72,8 +83,9 @@ def assign_variants_df(
     experiment_id : str
         Unique identifier for the experiment (versioned for reruns).
     variants : Dict[str, float]
-        Mapping from variant name to weight (coverage). Weights must be non-negative
-        and their sum must be in (0, 1]. If the sum is < 1, the remaining mass
+        Mapping from variant name to weight (coverage). Weights must be finite,
+        real, non-negative numbers (booleans are rejected), and their sum must be
+        in (0, 1]. If the sum is < 1, the remaining mass
         corresponds to "not in experiment" and the assignment will be None.
     salt : str, default "global_ab_salt"
         Secret string to de-correlate from other hash uses and make assignments
