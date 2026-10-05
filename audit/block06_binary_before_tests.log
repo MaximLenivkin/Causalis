@@ -1,0 +1,77 @@
+..................................................................FF.... [ 97%]
+..                                                                       [100%]
+================================== FAILURES ===================================
+__ test_numeric_path_does_not_sort_and_preserves_readonly_input[_is_binary0] __
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000220EB03E600>
+check = <function _is_binary at 0x00000220EC385300>
+
+    @pytest.mark.parametrize("check", [binary_utils._is_binary, multi_utils._is_binary])
+    def test_numeric_path_does_not_sort_and_preserves_readonly_input(monkeypatch, check):
+        values = np.tile([0.0, 1.0], 1000)[::3]
+        values.flags.writeable = False
+        before = values.copy()
+        def forbidden(*args, **kwargs):
+            raise AssertionError("numeric binary detection must not call unique or sort")
+        monkeypatch.setattr(np, "unique", forbidden)
+        monkeypatch.setattr(np, "sort", forbidden)
+>       assert check(values)
+               ^^^^^^^^^^^^^
+
+tests\inference\test_binary_numeric_checks.py:73: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\unconfoundedness\_utils.py:13: in _is_binary
+    uniq = np.unique(values)
+           ^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = (array([0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0.,
+       1., 0., 1., 0., 1., 0., 1., 0., 1.,...., 0., 1., 0., 1.,
+       0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0.,
+       1., 0., 1., 0.]),)
+kwargs = {}
+
+    def forbidden(*args, **kwargs):
+>       raise AssertionError("numeric binary detection must not call unique or sort")
+E       AssertionError: numeric binary detection must not call unique or sort
+
+tests\inference\test_binary_numeric_checks.py:70: AssertionError
+__ test_numeric_path_does_not_sort_and_preserves_readonly_input[_is_binary1] __
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000220EDEA9340>
+check = <function _is_binary at 0x00000220EE397880>
+
+    @pytest.mark.parametrize("check", [binary_utils._is_binary, multi_utils._is_binary])
+    def test_numeric_path_does_not_sort_and_preserves_readonly_input(monkeypatch, check):
+        values = np.tile([0.0, 1.0], 1000)[::3]
+        values.flags.writeable = False
+        before = values.copy()
+        def forbidden(*args, **kwargs):
+            raise AssertionError("numeric binary detection must not call unique or sort")
+        monkeypatch.setattr(np, "unique", forbidden)
+        monkeypatch.setattr(np, "sort", forbidden)
+>       assert check(values)
+               ^^^^^^^^^^^^^
+
+tests\inference\test_binary_numeric_checks.py:73: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\multi_unconfoundedness\_utils.py:12: in _is_binary
+    uniq = np.unique(values)
+           ^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = (array([0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0.,
+       1., 0., 1., 0., 1., 0., 1., 0., 1.,...., 0., 1., 0., 1.,
+       0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0., 1., 0.,
+       1., 0., 1., 0.]),)
+kwargs = {}
+
+    def forbidden(*args, **kwargs):
+>       raise AssertionError("numeric binary detection must not call unique or sort")
+E       AssertionError: numeric binary detection must not call unique or sort
+
+tests\inference\test_binary_numeric_checks.py:70: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/inference/test_binary_numeric_checks.py::test_numeric_path_does_not_sort_and_preserves_readonly_input[_is_binary0]
+FAILED tests/inference/test_binary_numeric_checks.py::test_numeric_path_does_not_sort_and_preserves_readonly_input[_is_binary1]
+2 failed, 72 passed in 13.64s

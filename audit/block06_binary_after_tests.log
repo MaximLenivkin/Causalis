@@ -1,0 +1,9 @@
+........................................................................ [ 64%]
+.......................................                                  [100%]
+============================== warnings summary ===============================
+tests/inference/test_irm_estimator.py::test_irm_ate_runs_and_shapes
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=5.351e-02 is within 1.96 SE of 0 (SE=7.132e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+111 passed, 1 warning in 18.86s

@@ -9,7 +9,16 @@ from sklearn.base import is_classifier
 
 
 def _is_binary(values: np.ndarray) -> bool:
-    """Check if an array contains only binary values (0 and 1)."""
+    """Require both 0 and 1, using linear comparisons for numeric arrays.
+
+    Object/string inputs retain the legacy unique-value fallback. Constants
+    are not binary outcomes for this estimator (unlike multi-treatment IRM).
+    """
+    values = np.asarray(values)
+    if values.dtype.kind in "biufc":
+        zero = values == 0
+        one = values == 1
+        return bool(np.all(zero | one) and np.any(zero) and np.any(one))
     uniq = np.unique(values)
     return np.array_equal(np.sort(uniq), np.array([0, 1])) or np.array_equal(np.sort(uniq), np.array([0.0, 1.0]))
 
