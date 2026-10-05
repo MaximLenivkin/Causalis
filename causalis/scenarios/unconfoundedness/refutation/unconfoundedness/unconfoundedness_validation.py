@@ -202,14 +202,15 @@ def _balance_smd(
         smd_unweighted[zero_both_u & (diff_u <= 1e-16)] = 0.0
         smd_unweighted[zero_both_u & (diff_u > 1e-16)] = np.inf
 
-    finite = np.isfinite(smd_weighted)
-    if np.any(finite):
-        frac_violations = float(np.mean(smd_weighted[finite] >= float(threshold)))
-        smd_max = float(np.nanmax(smd_weighted[finite]))
+    # Infinite SMD denotes separation and must count as an imbalance violation.
+    available = ~np.isnan(smd_weighted)
+    if np.any(available):
+        frac_violations = float(np.mean(smd_weighted[available] >= float(threshold)))
+        smd_max = float(np.max(smd_weighted[available]))
         balance_pass = bool((frac_violations < 0.10) and (smd_max < 2.0 * float(threshold)))
     else:
-        frac_violations = 0.0
-        balance_pass = True
+        frac_violations = float("nan")
+        balance_pass = False
         smd_max = float("nan")
 
     return {
@@ -225,7 +226,7 @@ def _balance_smd(
 def _grade(value: float, warn: float, strong: float) -> str:
     """Map a scalar diagnostic value to a traffic-light severity flag."""
     if value is None or not np.isfinite(value):
-        return "NA"
+        return "RED" if value is not None and np.isposinf(value) else "NA"
     value_f = float(value)
     if value_f < warn:
         return "GREEN"
@@ -272,6 +273,9 @@ def run_unconfoundedness_diagnostics(
 
     Smaller weighted SMDs are better. A common rule of thumb is to aim for
     :math:`|\mathrm{SMD}| < 0.10`.
+    Zero within-group variance with unequal means yields infinite SMD, which
+    counts as a violation and receives a RED flag. An entirely unavailable
+    balance statistic cannot pass.
 
     Parameters
     ----------

@@ -1,0 +1,380 @@
+FF.FFFFFFFFFFFFFFFFFFF                                                   [100%]
+================================== FAILURES ===================================
+_____ test_shared_balance_reports_signed_infinite_smd_for_separation[5.0] _____
+
+treated_level = 5.0
+
+    @pytest.mark.parametrize("treated_level", [5.0, 1.0])
+    def test_shared_balance_reports_signed_infinite_smd_for_separation(treated_level):
+        d = np.repeat([0, 1], 4)
+        data = CausalData(
+            df=pd.DataFrame({"d": d, "y": np.arange(8), "x": np.where(d, treated_level, 3.0)}),
+            treatment="d", outcome="y", confounders=["x"],
+        )
+        row = confounders_balance(data).iloc[0]
+>       assert row["smd"] == np.copysign(np.inf, treated_level - 3.0)
+E       AssertionError: assert np.float64(0.0) == np.float64(inf)
+E        +  where np.float64(inf) = <ufunc 'copysign'>(inf, (5.0 - 3.0))
+E        +    where <ufunc 'copysign'> = np.copysign
+E        +    and   inf = np.inf
+
+tests\refutation\test_balance_separation.py:32: AssertionError
+_____ test_shared_balance_reports_signed_infinite_smd_for_separation[1.0] _____
+
+treated_level = 1.0
+
+    @pytest.mark.parametrize("treated_level", [5.0, 1.0])
+    def test_shared_balance_reports_signed_infinite_smd_for_separation(treated_level):
+        d = np.repeat([0, 1], 4)
+        data = CausalData(
+            df=pd.DataFrame({"d": d, "y": np.arange(8), "x": np.where(d, treated_level, 3.0)}),
+            treatment="d", outcome="y", confounders=["x"],
+        )
+        row = confounders_balance(data).iloc[0]
+>       assert row["smd"] == np.copysign(np.inf, treated_level - 3.0)
+E       AssertionError: assert np.float64(0.0) == np.float64(-inf)
+E        +  where np.float64(-inf) = <ufunc 'copysign'>(inf, (1.0 - 3.0))
+E        +    where <ufunc 'copysign'> = np.copysign
+E        +    and   inf = np.inf
+
+tests\refutation\test_balance_separation.py:32: AssertionError
+____________ test_shared_balance_unavailable_moments_are_not_zero _____________
+
+    def test_shared_balance_unavailable_moments_are_not_zero():
+        table = _compute_balance_table(
+            pd.DataFrame({"x": [np.nan] * 4}), ["x"],
+            np.array([True, True, False, False]), np.array([False, False, True, True]),
+        )
+>       assert np.isnan(table.iloc[0]["smd"])
+E       AssertionError: assert np.False_
+E        +  where np.False_ = <ufunc 'isnan'>(np.float64(0.0))
+E        +    where <ufunc 'isnan'> = np.isnan
+
+tests\refutation\test_balance_separation.py:50: AssertionError
+__ test_infinite_smd_fails_public_report_and_is_red[False-False-ATE-binary] ___
+
+kind = 'binary', score = 'ATE', normalize = False, mixed = False
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("score", ["ATE", "ATTE"])
+    @pytest.mark.parametrize("normalize", [False, True])
+    @pytest.mark.parametrize("mixed", [False, True])
+    def test_infinite_smd_fails_public_report_and_is_red(kind, score, normalize, mixed):
+        report = _separation_report(kind, score=score, normalize=normalize, mixed=mixed)
+        balance = report["balance"]
+>       assert balance["smd_max"] == np.inf
+E       assert nan == inf
+E        +  where inf = np.inf
+
+tests\refutation\test_balance_separation.py:107: AssertionError
+___ test_infinite_smd_fails_public_report_and_is_red[False-False-ATE-multi] ___
+
+kind = 'multi', score = 'ATE', normalize = False, mixed = False
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("score", ["ATE", "ATTE"])
+    @pytest.mark.parametrize("normalize", [False, True])
+    @pytest.mark.parametrize("mixed", [False, True])
+    def test_infinite_smd_fails_public_report_and_is_red(kind, score, normalize, mixed):
+        report = _separation_report(kind, score=score, normalize=normalize, mixed=mixed)
+        balance = report["balance"]
+>       assert balance["smd_max"] == np.inf
+E       assert 0.0 == inf
+E        +  where inf = np.inf
+
+tests\refutation\test_balance_separation.py:107: AssertionError
+__ test_infinite_smd_fails_public_report_and_is_red[False-False-ATTE-binary] __
+
+kind = 'binary', score = 'ATTE', normalize = False, mixed = False
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("score", ["ATE", "ATTE"])
+    @pytest.mark.parametrize("normalize", [False, True])
+    @pytest.mark.parametrize("mixed", [False, True])
+    def test_infinite_smd_fails_public_report_and_is_red(kind, score, normalize, mixed):
+        report = _separation_report(kind, score=score, normalize=normalize, mixed=mixed)
+        balance = report["balance"]
+>       assert balance["smd_max"] == np.inf
+E       assert nan == inf
+E        +  where inf = np.inf
+
+tests\refutation\test_balance_separation.py:107: AssertionError
+__ test_infinite_smd_fails_public_report_and_is_red[False-False-ATTE-multi] ___
+
+kind = 'multi', score = 'ATTE', normalize = False, mixed = False
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("score", ["ATE", "ATTE"])
+    @pytest.mark.parametrize("normalize", [False, True])
+    @pytest.mark.parametrize("mixed", [False, True])
+    def test_infinite_smd_fails_public_report_and_is_red(kind, score, normalize, mixed):
+        report = _separation_report(kind, score=score, normalize=normalize, mixed=mixed)
+        balance = report["balance"]
+>       assert balance["smd_max"] == np.inf
+E       assert 0.0 == inf
+E        +  where inf = np.inf
+
+tests\refutation\test_balance_separation.py:107: AssertionError
+___ test_infinite_smd_fails_public_report_and_is_red[False-True-ATE-binary] ___
+
+kind = 'binary', score = 'ATE', normalize = True, mixed = False
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("score", ["ATE", "ATTE"])
+    @pytest.mark.parametrize("normalize", [False, True])
+    @pytest.mark.parametrize("mixed", [False, True])
+    def test_infinite_smd_fails_public_report_and_is_red(kind, score, normalize, mixed):
+        report = _separation_report(kind, score=score, normalize=normalize, mixed=mixed)
+        balance = report["balance"]
+>       assert balance["smd_max"] == np.inf
+E       assert nan == inf
+E        +  where inf = np.inf
+
+tests\refutation\test_balance_separation.py:107: AssertionError
+___ test_infinite_smd_fails_public_report_and_is_red[False-True-ATE-multi] ____
+
+kind = 'multi', score = 'ATE', normalize = True, mixed = False
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("score", ["ATE", "ATTE"])
+    @pytest.mark.parametrize("normalize", [False, True])
+    @pytest.mark.parametrize("mixed", [False, True])
+    def test_infinite_smd_fails_public_report_and_is_red(kind, score, normalize, mixed):
+        report = _separation_report(kind, score=score, normalize=normalize, mixed=mixed)
+        balance = report["balance"]
+>       assert balance["smd_max"] == np.inf
+E       assert 0.0 == inf
+E        +  where inf = np.inf
+
+tests\refutation\test_balance_separation.py:107: AssertionError
+__ test_infinite_smd_fails_public_report_and_is_red[False-True-ATTE-binary] ___
+
+kind = 'binary', score = 'ATTE', normalize = True, mixed = False
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("score", ["ATE", "ATTE"])
+    @pytest.mark.parametrize("normalize", [False, True])
+    @pytest.mark.parametrize("mixed", [False, True])
+    def test_infinite_smd_fails_public_report_and_is_red(kind, score, normalize, mixed):
+        report = _separation_report(kind, score=score, normalize=normalize, mixed=mixed)
+        balance = report["balance"]
+>       assert balance["smd_max"] == np.inf
+E       assert nan == inf
+E        +  where inf = np.inf
+
+tests\refutation\test_balance_separation.py:107: AssertionError
+___ test_infinite_smd_fails_public_report_and_is_red[False-True-ATTE-multi] ___
+
+kind = 'multi', score = 'ATTE', normalize = True, mixed = False
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("score", ["ATE", "ATTE"])
+    @pytest.mark.parametrize("normalize", [False, True])
+    @pytest.mark.parametrize("mixed", [False, True])
+    def test_infinite_smd_fails_public_report_and_is_red(kind, score, normalize, mixed):
+        report = _separation_report(kind, score=score, normalize=normalize, mixed=mixed)
+        balance = report["balance"]
+>       assert balance["smd_max"] == np.inf
+E       assert 0.0 == inf
+E        +  where inf = np.inf
+
+tests\refutation\test_balance_separation.py:107: AssertionError
+___ test_infinite_smd_fails_public_report_and_is_red[True-False-ATE-binary] ___
+
+kind = 'binary', score = 'ATE', normalize = False, mixed = True
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("score", ["ATE", "ATTE"])
+    @pytest.mark.parametrize("normalize", [False, True])
+    @pytest.mark.parametrize("mixed", [False, True])
+    def test_infinite_smd_fails_public_report_and_is_red(kind, score, normalize, mixed):
+        report = _separation_report(kind, score=score, normalize=normalize, mixed=mixed)
+        balance = report["balance"]
+>       assert balance["smd_max"] == np.inf
+E       assert 0.0 == inf
+E        +  where inf = np.inf
+
+tests\refutation\test_balance_separation.py:107: AssertionError
+___ test_infinite_smd_fails_public_report_and_is_red[True-False-ATE-multi] ____
+
+kind = 'multi', score = 'ATE', normalize = False, mixed = True
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("score", ["ATE", "ATTE"])
+    @pytest.mark.parametrize("normalize", [False, True])
+    @pytest.mark.parametrize("mixed", [False, True])
+    def test_infinite_smd_fails_public_report_and_is_red(kind, score, normalize, mixed):
+        report = _separation_report(kind, score=score, normalize=normalize, mixed=mixed)
+        balance = report["balance"]
+>       assert balance["smd_max"] == np.inf
+E       assert 0.0 == inf
+E        +  where inf = np.inf
+
+tests\refutation\test_balance_separation.py:107: AssertionError
+__ test_infinite_smd_fails_public_report_and_is_red[True-False-ATTE-binary] ___
+
+kind = 'binary', score = 'ATTE', normalize = False, mixed = True
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("score", ["ATE", "ATTE"])
+    @pytest.mark.parametrize("normalize", [False, True])
+    @pytest.mark.parametrize("mixed", [False, True])
+    def test_infinite_smd_fails_public_report_and_is_red(kind, score, normalize, mixed):
+        report = _separation_report(kind, score=score, normalize=normalize, mixed=mixed)
+        balance = report["balance"]
+>       assert balance["smd_max"] == np.inf
+E       assert 0.0 == inf
+E        +  where inf = np.inf
+
+tests\refutation\test_balance_separation.py:107: AssertionError
+___ test_infinite_smd_fails_public_report_and_is_red[True-False-ATTE-multi] ___
+
+kind = 'multi', score = 'ATTE', normalize = False, mixed = True
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("score", ["ATE", "ATTE"])
+    @pytest.mark.parametrize("normalize", [False, True])
+    @pytest.mark.parametrize("mixed", [False, True])
+    def test_infinite_smd_fails_public_report_and_is_red(kind, score, normalize, mixed):
+        report = _separation_report(kind, score=score, normalize=normalize, mixed=mixed)
+        balance = report["balance"]
+>       assert balance["smd_max"] == np.inf
+E       assert 0.0 == inf
+E        +  where inf = np.inf
+
+tests\refutation\test_balance_separation.py:107: AssertionError
+___ test_infinite_smd_fails_public_report_and_is_red[True-True-ATE-binary] ____
+
+kind = 'binary', score = 'ATE', normalize = True, mixed = True
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("score", ["ATE", "ATTE"])
+    @pytest.mark.parametrize("normalize", [False, True])
+    @pytest.mark.parametrize("mixed", [False, True])
+    def test_infinite_smd_fails_public_report_and_is_red(kind, score, normalize, mixed):
+        report = _separation_report(kind, score=score, normalize=normalize, mixed=mixed)
+        balance = report["balance"]
+>       assert balance["smd_max"] == np.inf
+E       assert 0.0 == inf
+E        +  where inf = np.inf
+
+tests\refutation\test_balance_separation.py:107: AssertionError
+____ test_infinite_smd_fails_public_report_and_is_red[True-True-ATE-multi] ____
+
+kind = 'multi', score = 'ATE', normalize = True, mixed = True
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("score", ["ATE", "ATTE"])
+    @pytest.mark.parametrize("normalize", [False, True])
+    @pytest.mark.parametrize("mixed", [False, True])
+    def test_infinite_smd_fails_public_report_and_is_red(kind, score, normalize, mixed):
+        report = _separation_report(kind, score=score, normalize=normalize, mixed=mixed)
+        balance = report["balance"]
+>       assert balance["smd_max"] == np.inf
+E       assert 0.0 == inf
+E        +  where inf = np.inf
+
+tests\refutation\test_balance_separation.py:107: AssertionError
+___ test_infinite_smd_fails_public_report_and_is_red[True-True-ATTE-binary] ___
+
+kind = 'binary', score = 'ATTE', normalize = True, mixed = True
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("score", ["ATE", "ATTE"])
+    @pytest.mark.parametrize("normalize", [False, True])
+    @pytest.mark.parametrize("mixed", [False, True])
+    def test_infinite_smd_fails_public_report_and_is_red(kind, score, normalize, mixed):
+        report = _separation_report(kind, score=score, normalize=normalize, mixed=mixed)
+        balance = report["balance"]
+>       assert balance["smd_max"] == np.inf
+E       assert 0.0 == inf
+E        +  where inf = np.inf
+
+tests\refutation\test_balance_separation.py:107: AssertionError
+___ test_infinite_smd_fails_public_report_and_is_red[True-True-ATTE-multi] ____
+
+kind = 'multi', score = 'ATTE', normalize = True, mixed = True
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("score", ["ATE", "ATTE"])
+    @pytest.mark.parametrize("normalize", [False, True])
+    @pytest.mark.parametrize("mixed", [False, True])
+    def test_infinite_smd_fails_public_report_and_is_red(kind, score, normalize, mixed):
+        report = _separation_report(kind, score=score, normalize=normalize, mixed=mixed)
+        balance = report["balance"]
+>       assert balance["smd_max"] == np.inf
+E       assert 0.0 == inf
+E        +  where inf = np.inf
+
+tests\refutation\test_balance_separation.py:107: AssertionError
+________________ test_all_unavailable_smd_cannot_pass[binary] _________________
+
+kind = 'binary'
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    def test_all_unavailable_smd_cannot_pass(kind):
+        d = np.repeat([0.0, 1.0], 4)
+        x = np.full((len(d), 1), np.nan)
+        if kind == "binary":
+            inputs = binary._BalanceInputs(
+                x=x, d=d, m_hat=np.full_like(d, 0.5), w_bar=None,
+                names=["x"], score="ATE", normalize=False,
+            )
+            balance = binary._balance_smd(inputs, threshold=0.1)
+        else:
+            inputs = multi._BalanceInputs(
+                x=x, d=np.column_stack([1 - d, d]), m_hat=np.full((len(d), 2), 0.5),
+                feature_names=["x"], treatment_names=["d0", "d1"], score="ATE", normalize=False,
+            )
+            balance = multi._balance_smd(inputs, threshold=0.1)
+>       assert balance["pass"] is False
+E       assert True is False
+
+tests\refutation\test_balance_separation.py:142: AssertionError
+_________________ test_all_unavailable_smd_cannot_pass[multi] _________________
+
+kind = 'multi'
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    def test_all_unavailable_smd_cannot_pass(kind):
+        d = np.repeat([0.0, 1.0], 4)
+        x = np.full((len(d), 1), np.nan)
+        if kind == "binary":
+            inputs = binary._BalanceInputs(
+                x=x, d=d, m_hat=np.full_like(d, 0.5), w_bar=None,
+                names=["x"], score="ATE", normalize=False,
+            )
+            balance = binary._balance_smd(inputs, threshold=0.1)
+        else:
+            inputs = multi._BalanceInputs(
+                x=x, d=np.column_stack([1 - d, d]), m_hat=np.full((len(d), 2), 0.5),
+                feature_names=["x"], treatment_names=["d0", "d1"], score="ATE", normalize=False,
+            )
+            balance = multi._balance_smd(inputs, threshold=0.1)
+>       assert balance["pass"] is False
+E       assert True is False
+
+tests\refutation\test_balance_separation.py:142: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/refutation/test_balance_separation.py::test_shared_balance_reports_signed_infinite_smd_for_separation[5.0]
+FAILED tests/refutation/test_balance_separation.py::test_shared_balance_reports_signed_infinite_smd_for_separation[1.0]
+FAILED tests/refutation/test_balance_separation.py::test_shared_balance_unavailable_moments_are_not_zero
+FAILED tests/refutation/test_balance_separation.py::test_infinite_smd_fails_public_report_and_is_red[False-False-ATE-binary]
+FAILED tests/refutation/test_balance_separation.py::test_infinite_smd_fails_public_report_and_is_red[False-False-ATE-multi]
+FAILED tests/refutation/test_balance_separation.py::test_infinite_smd_fails_public_report_and_is_red[False-False-ATTE-binary]
+FAILED tests/refutation/test_balance_separation.py::test_infinite_smd_fails_public_report_and_is_red[False-False-ATTE-multi]
+FAILED tests/refutation/test_balance_separation.py::test_infinite_smd_fails_public_report_and_is_red[False-True-ATE-binary]
+FAILED tests/refutation/test_balance_separation.py::test_infinite_smd_fails_public_report_and_is_red[False-True-ATE-multi]
+FAILED tests/refutation/test_balance_separation.py::test_infinite_smd_fails_public_report_and_is_red[False-True-ATTE-binary]
+FAILED tests/refutation/test_balance_separation.py::test_infinite_smd_fails_public_report_and_is_red[False-True-ATTE-multi]
+FAILED tests/refutation/test_balance_separation.py::test_infinite_smd_fails_public_report_and_is_red[True-False-ATE-binary]
+FAILED tests/refutation/test_balance_separation.py::test_infinite_smd_fails_public_report_and_is_red[True-False-ATE-multi]
+FAILED tests/refutation/test_balance_separation.py::test_infinite_smd_fails_public_report_and_is_red[True-False-ATTE-binary]
+FAILED tests/refutation/test_balance_separation.py::test_infinite_smd_fails_public_report_and_is_red[True-False-ATTE-multi]
+FAILED tests/refutation/test_balance_separation.py::test_infinite_smd_fails_public_report_and_is_red[True-True-ATE-binary]
+FAILED tests/refutation/test_balance_separation.py::test_infinite_smd_fails_public_report_and_is_red[True-True-ATE-multi]
+FAILED tests/refutation/test_balance_separation.py::test_infinite_smd_fails_public_report_and_is_red[True-True-ATTE-binary]
+FAILED tests/refutation/test_balance_separation.py::test_infinite_smd_fails_public_report_and_is_red[True-True-ATTE-multi]
+FAILED tests/refutation/test_balance_separation.py::test_all_unavailable_smd_cannot_pass[binary]
+FAILED tests/refutation/test_balance_separation.py::test_all_unavailable_smd_cannot_pass[multi]
+21 failed, 1 passed in 13.13s

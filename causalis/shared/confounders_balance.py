@@ -38,7 +38,14 @@ def _compute_balance_table(
         v_control = float(np.var(x[mask_d_0], ddof=1)) if np.sum(mask_d_0) > 1 else 0.0
         v_treated = float(np.var(x[mask_d_1], ddof=1)) if np.sum(mask_d_1) > 1 else 0.0
         pooled_std = float(np.sqrt((v_control + v_treated) / 2))
-        smd = float((mean_d_1 - mean_d_0) / pooled_std) if pooled_std > 0 else 0.0
+        mean_diff = mean_d_1 - mean_d_0
+        if not np.isfinite(mean_diff) or not np.isfinite(pooled_std):
+            smd = np.nan
+        elif pooled_std > 0:
+            smd = float(mean_diff / pooled_std)
+        else:
+            # Constant but different groups are fully separated, not balanced.
+            smd = float(np.copysign(np.inf, mean_diff)) if mean_diff != 0.0 else 0.0
 
         # Kolmogorov-Smirnov test
         try:
@@ -89,7 +96,9 @@ def confounders_balance(
       - mean_d_0: mean value for control group (t=0)
       - mean_d_1: mean value for treated group (t=1)
       - abs_diff: abs(mean_d_1 - mean_d_0)
-      - smd: standardized mean difference (Cohen's d using pooled std)
+      - smd: signed mean difference divided by sqrt((s_0^2 + s_1^2) / 2);
+        zero within-group variance gives signed infinity for unequal means
+        and zero for equal means; unavailable moments give NaN
       - ks_pvalue: p-value for the KS test (rounded to 5 decimal places, non-scientific)
 
     Parameters

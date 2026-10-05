@@ -25,7 +25,7 @@ class _BalanceInputs:
 
 def _grade(value: float, warn: float, strong: float) -> str:
     if value is None or not np.isfinite(value):
-        return "NA"
+        return "RED" if value is not None and np.isposinf(value) else "NA"
     v = float(value)
     if v < warn:
         return "GREEN"
@@ -264,15 +264,16 @@ def _balance_smd(inputs: _BalanceInputs, *, threshold: float) -> Dict[str, Any]:
 
         smd_unweighted_columns.append(smd_unweighted)
 
-        finite = np.isfinite(smd_weighted)
-        if np.any(finite):
-            frac_viol = float(np.mean(smd_weighted[finite] >= float(threshold)))
-            smd_max = float(np.nanmax(smd_weighted[finite]))
-            passed = bool((np.all(smd_weighted[finite] < float(threshold))) and (frac_viol < 0.10))
+        # Infinite SMD denotes separation, so retain it in all summaries.
+        available = ~np.isnan(smd_weighted)
+        if np.any(available):
+            frac_viol = float(np.mean(smd_weighted[available] >= float(threshold)))
+            smd_max = float(np.max(smd_weighted[available]))
+            passed = bool((np.all(smd_weighted[available] < float(threshold))) and (frac_viol < 0.10))
         else:
-            frac_viol = 0.0
+            frac_viol = float("nan")
             smd_max = float("nan")
-            passed = True
+            passed = False
 
         flag_max_smd = _grade(smd_max, float(threshold), 2.0 * float(threshold))
         flag_viol = _grade(frac_viol, 0.10, 0.25)
@@ -306,15 +307,15 @@ def _balance_smd(inputs: _BalanceInputs, *, threshold: float) -> Dict[str, Any]:
     )
 
     flat = smd_weighted_df.to_numpy().ravel()
-    finite = np.isfinite(flat)
-    if np.any(finite):
-        frac_violations = float(np.mean(flat[finite] >= float(threshold)))
-        smd_max = float(np.nanmax(flat[finite]))
-        passed = bool((np.all(flat[finite] < float(threshold))) and (frac_violations < 0.10))
+    available = ~np.isnan(flat)
+    if np.any(available):
+        frac_violations = float(np.mean(flat[available] >= float(threshold)))
+        smd_max = float(np.max(flat[available]))
+        passed = bool((np.all(flat[available] < float(threshold))) and (frac_violations < 0.10))
     else:
-        frac_violations = 0.0
+        frac_violations = float("nan")
         smd_max = float("nan")
-        passed = True
+        passed = False
 
     worst_features = smd_weighted_df.max(axis=1).sort_values(ascending=False).head(10)
 
@@ -406,6 +407,9 @@ def run_unconfoundedness_diagnostics(
 
     This implementation computes pairwise balance between baseline treatment 0
     and each active treatment k for either ATE or ATTE estimates.
+    Infinite SMD denotes separation, counts as a violation, and receives a RED
+    flag in both comparison and overall summaries. Entirely unavailable
+    balance statistics cannot pass.
     """
     if not isinstance(data, MultiCausalData):
         raise TypeError(f"data must be MultiCausalData, got {type(data).__name__}.")
