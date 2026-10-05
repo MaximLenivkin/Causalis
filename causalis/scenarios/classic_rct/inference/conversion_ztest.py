@@ -49,6 +49,20 @@ def conversion_ztest(
     is generally recommended as it performs better than the Wald interval
     when proportions are near 0 or 1.
 
+    Given the marginal Wilson intervals :math:`[L_0, U_0]` and
+    :math:`[L_1, U_1]`, the Newcombe hybrid interval without continuity
+    correction combines the one-sided distances in quadrature:
+
+    .. math::
+
+        \left[\hat{p}_1-\hat{p}_0 -
+        \sqrt{(\hat{p}_1-L_1)^2+(U_0-\hat{p}_0)^2},\quad
+        \hat{p}_1-\hat{p}_0 +
+        \sqrt{(U_1-\hat{p}_1)^2+(\hat{p}_0-L_0)^2}\right].
+
+    The absolute CI method and z-test standard error are selected separately.
+    The reported CI therefore need not be the inversion of the reported test.
+
     Examples
     --------
     >>> from causalis.scenarios.classic_rct.dgp import generate_classic_rct_26
@@ -83,6 +97,14 @@ def conversion_ztest(
     """
     if not 0 < alpha < 1:
         raise ValueError("alpha must be between 0 and 1 (exclusive)")
+    if not isinstance(ci_method, str) or ci_method not in (
+        "newcombe", "wald_unpooled", "wald_pooled"
+    ):
+        raise ValueError(
+            "ci_method must be one of 'newcombe', 'wald_unpooled', 'wald_pooled'"
+        )
+    if not isinstance(se_for_test, str) or se_for_test not in ("pooled", "unpooled"):
+        raise ValueError("se_for_test must be one of 'pooled', 'unpooled'")
 
     treatment_var = data.treatment
     outcome_var = data.outcome
@@ -158,7 +180,10 @@ def conversion_ztest(
     if ci_method == "newcombe":
         l0, u0 = wilson_ci(p0, n0, z_crit)
         l1, u1 = wilson_ci(p1, n1, z_crit)
-        absolute_ci = (float(l1 - u0), float(u1 - l0))
+        absolute_ci = (
+            absolute_diff - float(np.hypot(p1 - l1, u0 - p0)),
+            absolute_diff + float(np.hypot(u1 - p1, p0 - l0)),
+        )
     elif ci_method == "wald_pooled":
         p_pool = (x0 + x1) / (n0 + n1)
         se_ci = float(np.sqrt(p_pool * (1 - p_pool) * (1 / n0 + 1 / n1)))

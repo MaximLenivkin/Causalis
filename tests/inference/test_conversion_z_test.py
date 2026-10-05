@@ -1,5 +1,5 @@
 """
-Tests for the conversion_z_test function in the ATT inference module.
+Tests for binary-outcome inference in the classic RCT module.
 """
 
 import pytest
@@ -162,3 +162,56 @@ def test_diff_in_means_passes_kwargs():
 
     assert res_wald.ci_lower_absolute == res_direct_wald["absolute_ci"][0]
     assert res_wald.ci_upper_absolute == res_direct_wald["absolute_ci"][1]
+
+
+def _conversion_data_from_counts(x1, n1, x0, n0):
+    df = pd.DataFrame({
+        "treatment": np.r_[np.zeros(n0, dtype=int), np.ones(n1, dtype=int)],
+        "outcome": np.r_[
+            np.ones(x0, dtype=int), np.zeros(n0 - x0, dtype=int),
+            np.ones(x1, dtype=int), np.zeros(n1 - x1, dtype=int),
+        ],
+    })
+    return CausalData(df=df, outcome="outcome", treatment="treatment")
+
+
+@pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+@pytest.mark.parametrize("x1,n1,x0,n0", [
+    (7, 34, 1, 34),       # audit counterexample
+    (20, 100, 10, 100),   # ordinary conversion rates
+    (0, 40, 5, 60),       # a zero-success arm
+    (35, 40, 60, 60),     # an all-success arm
+    (1, 10, 0, 13),       # rare events and unequal arm sizes
+    (3, 5, 2, 17),        # small, unequal samples
+    (11, 15, 4, 12),
+])
+def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+    from statsmodels.stats.proportion import confint_proportions_2indep
+
+    data = _conversion_data_from_counts(x1, n1, x0, n0)
+    actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+    expected = confint_proportions_2indep(
+        x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+    )
+    np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+
+
+def test_newcombe_group_swap_negates_interval():
+    data = _conversion_data_from_counts(7, 34, 1, 34)
+    swapped = _conversion_data_from_counts(1, 34, 7, 34)
+    original_ci = conversion_ztest(data)["absolute_ci"]
+    swapped_ci = conversion_ztest(swapped)["absolute_ci"]
+    np.testing.assert_allclose(swapped_ci, (-original_ci[1], -original_ci[0]))
+
+
+@pytest.mark.parametrize("parameter,value", [
+    ("ci_method", "typo"),
+    ("ci_method", ""),
+    ("ci_method", None),
+    ("se_for_test", "typo"),
+    ("se_for_test", ""),
+    ("se_for_test", None),
+])
+def test_invalid_method_options_are_rejected(causal_data, parameter, value):
+    with pytest.raises(ValueError, match=parameter):
+        conversion_ztest(causal_data, **{parameter: value})

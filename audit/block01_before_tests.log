@@ -1,0 +1,892 @@
+........FFFFFFFFFFFFFFFFFFFFF.FFFFFF                                     [100%]
+================================== FAILURES ===================================
+_________ test_newcombe_matches_independent_reference[7-34-1-34-0.01] _________
+
+x1 = 7, n1 = 34, x0 = 1, n0 = 34, alpha = 0.01
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 2 / 2 (100%)
+E       Mismatch at indices:
+E        [0]: -0.12543011385869138 (ACTUAL), -0.04082301631626603 (DESIRED)
+E        [1]: 0.42074278852410263 (ACTUAL), 0.3963303078799614 (DESIRED)
+E       Max absolute difference among violations: 0.0846071
+E       Max relative difference among violations: 2.0725342
+E        ACTUAL: array([-0.12543 ,  0.420743])
+E        DESIRED: array([-0.040823,  0.39633 ])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+_________ test_newcombe_matches_independent_reference[7-34-1-34-0.05] _________
+
+x1 = 7, n1 = 34, x0 = 1, n0 = 34, alpha = 0.05
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 2 / 2 (100%)
+E       Mismatch at indices:
+E        [0]: -0.04566046393654016 (ACTUAL), 0.018921443885772937 (DESIRED)
+E        [1]: 0.36277297423536703 (ACTUAL), 0.3403686870327074 (DESIRED)
+E       Max absolute difference among violations: 0.06458191
+E       Max relative difference among violations: 3.4131596
+E        ACTUAL: array([-0.04566 ,  0.362773])
+E        DESIRED: array([0.018921, 0.340369])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+_________ test_newcombe_matches_independent_reference[7-34-1-34-0.1] __________
+
+x1 = 7, n1 = 34, x0 = 1, n0 = 34, alpha = 0.1
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 2 / 2 (100%)
+E       Mismatch at indices:
+E        [0]: -0.005944061303841994 (ACTUAL), 0.047476371664812195 (DESIRED)
+E        [1]: 0.3328701566770765 (ACTUAL), 0.3119831990663471 (DESIRED)
+E       Max absolute difference among violations: 0.05342043
+E       Max relative difference among violations: 1.12520041
+E        ACTUAL: array([-0.005944,  0.33287 ])
+E        DESIRED: array([0.047476, 0.311983])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+_______ test_newcombe_matches_independent_reference[20-100-10-100-0.01] _______
+
+x1 = 20, n1 = 100, x0 = 10, n0 = 100, alpha = 0.01
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 2 / 2 (100%)
+E       Mismatch at indices:
+E        [0]: -0.08659185845757443 (ACTUAL), -0.032766211416662555 (DESIRED)
+E        [1]: 0.27414772091440986 (ACTUAL), 0.23173796318376697 (DESIRED)
+E       Max absolute difference among violations: 0.05382565
+E       Max relative difference among violations: 1.64271805
+E        ACTUAL: array([-0.086592,  0.274148])
+E        DESIRED: array([-0.032766,  0.231738])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+_______ test_newcombe_matches_independent_reference[20-100-10-100-0.05] _______
+
+x1 = 20, n1 = 100, x0 = 10, n0 = 100, alpha = 0.05
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 2 / 2 (100%)
+E       Mismatch at indices:
+E        [0]: -0.04099872817388095 (ACTUAL), 0.00014902511855761913 (DESIRED)
+E        [1]: 0.2336000285324838 (ACTUAL), 0.19947387007806955 (DESIRED)
+E       Max absolute difference among violations: 0.04114775
+E       Max relative difference among violations: 276.11287071
+E        ACTUAL: array([-0.040999,  0.2336  ])
+E        DESIRED: array([1.490251e-04, 1.994739e-01])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+_______ test_newcombe_matches_independent_reference[20-100-10-100-0.1] ________
+
+x1 = 20, n1 = 100, x0 = 10, n0 = 100, alpha = 0.1
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 2 / 2 (100%)
+E       Mismatch at indices:
+E        [0]: -0.017853685950804415 (ACTUAL), 0.01664037054540557 (DESIRED)
+E        [1]: 0.21258514179416957 (ACTUAL), 0.18316532635083066 (DESIRED)
+E       Max absolute difference among violations: 0.03449406
+E       Max relative difference among violations: 2.07291397
+E        ACTUAL: array([-0.017854,  0.212585])
+E        DESIRED: array([0.01664 , 0.183165])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+_________ test_newcombe_matches_independent_reference[0-40-5-60-0.01] _________
+
+x1 = 0, n1 = 40, x0 = 5, n0 = 60, alpha = 0.01
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 1 / 2 (50%)
+E       Mismatch at index:
+E        [1]: 0.11403023345200468 (ACTUAL), 0.06923342027321887 (DESIRED)
+E       Max absolute difference among violations: 0.04479681
+E       Max relative difference among violations: 0.6470403
+E        ACTUAL: array([-0.221399,  0.11403 ])
+E        DESIRED: array([-0.221399,  0.069233])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+_________ test_newcombe_matches_independent_reference[0-40-5-60-0.05] _________
+
+x1 = 0, n1 = 40, x0 = 5, n0 = 60, alpha = 0.05
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 1 / 2 (50%)
+E       Mismatch at index:
+E        [1]: 0.05150114459555587 (ACTUAL), 0.01619857474467877 (DESIRED)
+E       Max absolute difference among violations: 0.03530257
+E       Max relative difference among violations: 2.17936272
+E        ACTUAL: array([-0.180689,  0.051501])
+E        DESIRED: array([-0.180689,  0.016199])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+_________ test_newcombe_matches_independent_reference[0-40-5-60-0.1] __________
+
+x1 = 0, n1 = 40, x0 = 5, n0 = 60, alpha = 0.1
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 1 / 2 (50%)
+E       Mismatch at index:
+E        [1]: 0.022201558441045724 (ACTUAL), -0.007222009604790178 (DESIRED)
+E       Max absolute difference among violations: 0.02942357
+E       Max relative difference among violations: 4.07415244
+E        ACTUAL: array([-0.16147 ,  0.022202])
+E        DESIRED: array([-0.16147 , -0.007222])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+________ test_newcombe_matches_independent_reference[35-40-60-60-0.01] ________
+
+x1 = 35, n1 = 40, x0 = 60, n0 = 60, alpha = 0.01
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 1 / 2 (50%)
+E       Mismatch at index:
+E        [1]: 0.05689311864826052 (ACTUAL), 0.004194859793513223 (DESIRED)
+E       Max absolute difference among violations: 0.05269826
+E       Max relative difference among violations: 12.56257931
+E        ACTUAL: array([-0.314027,  0.056893])
+E        DESIRED: array([-0.314027,  0.004195])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+________ test_newcombe_matches_independent_reference[35-40-60-60-0.05] ________
+
+x1 = 35, n1 = 40, x0 = 60, n0 = 60, alpha = 0.05
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 1 / 2 (50%)
+E       Mismatch at index:
+E        [1]: 0.0055768496326359385 (ACTUAL), -0.03238512289133384 (DESIRED)
+E       Max absolute difference among violations: 0.03796197
+E       Max relative difference among violations: 1.17220406
+E        ACTUAL: array([-0.261121,  0.005577])
+E        DESIRED: array([-0.261121, -0.032385])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+________ test_newcombe_matches_independent_reference[35-40-60-60-0.1] _________
+
+x1 = 35, n1 = 40, x0 = 60, n0 = 60, alpha = 0.1
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 1 / 2 (50%)
+E       Mismatch at index:
+E        [1]: -0.019044560104841013 (ACTUAL), -0.04879913615294405 (DESIRED)
+E       Max absolute difference among violations: 0.02975458
+E       Max relative difference among violations: 0.60973571
+E        ACTUAL: array([-0.235324, -0.019045])
+E        DESIRED: array([-0.235324, -0.048799])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+_________ test_newcombe_matches_independent_reference[1-10-0-13-0.01] _________
+
+x1 = 1, n1 = 10, x0 = 0, n0 = 13, alpha = 0.01
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 1 / 2 (50%)
+E       Mismatch at index:
+E        [0]: -0.3260619949812189 (ACTUAL), -0.2492215483709239 (DESIRED)
+E       Max absolute difference among violations: 0.07684045
+E       Max relative difference among violations: 0.30832184
+E        ACTUAL: array([-0.326062,  0.507232])
+E        DESIRED: array([-0.249222,  0.507232])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+_________ test_newcombe_matches_independent_reference[1-10-0-13-0.05] _________
+
+x1 = 1, n1 = 10, x0 = 0, n0 = 13, alpha = 0.05
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 1 / 2 (50%)
+E       Mismatch at index:
+E        [0]: -0.2102191592591255 (ACTUAL), -0.14242899014970614 (DESIRED)
+E       Max absolute difference among violations: 0.06779017
+E       Max relative difference among violations: 0.47595766
+E        ACTUAL: array([-0.210219,  0.40415 ])
+E        DESIRED: array([-0.142429,  0.40415 ])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+_________ test_newcombe_matches_independent_reference[1-10-0-13-0.1] __________
+
+x1 = 1, n1 = 10, x0 = 0, n0 = 13, alpha = 0.1
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 1 / 2 (50%)
+E       Mismatch at index:
+E        [0]: -0.14963187477797782 (ACTUAL), -0.08884173809718171 (DESIRED)
+E       Max absolute difference among violations: 0.06079014
+E       Max relative difference among violations: 0.684252
+E        ACTUAL: array([-0.149632,  0.347719])
+E        DESIRED: array([-0.088842,  0.347719])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+_________ test_newcombe_matches_independent_reference[3-5-2-17-0.01] __________
+
+x1 = 3, n1 = 5, x0 = 2, n0 = 17, alpha = 0.01
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 2 / 2 (100%)
+E       Mismatch at indices:
+E        [0]: -0.2579748170931187 (ACTUAL), -0.04823970931076271 (DESIRED)
+E        [1]: 0.8939572917905414 (ACTUAL), 0.8133651678154661 (DESIRED)
+E       Max absolute difference among violations: 0.20973511
+E       Max relative difference among violations: 4.3477689
+E        ACTUAL: array([-0.257975,  0.893957])
+E        DESIRED: array([-0.04824 ,  0.813365])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+_________ test_newcombe_matches_independent_reference[3-5-2-17-0.05] __________
+
+x1 = 3, n1 = 5, x0 = 2, n0 = 17, alpha = 0.05
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 2 / 2 (100%)
+E       Mismatch at indices:
+E        [0]: -0.11263922467284598 (ACTUAL), 0.04955683335894545 (DESIRED)
+E        [1]: 0.8494994520035593 (ACTUAL), 0.7771808906001436 (DESIRED)
+E       Max absolute difference among violations: 0.16219606
+E       Max relative difference among violations: 3.27293023
+E        ACTUAL: array([-0.112639,  0.849499])
+E        DESIRED: array([0.049557, 0.777181])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+__________ test_newcombe_matches_independent_reference[3-5-2-17-0.1] __________
+
+x1 = 3, n1 = 5, x0 = 2, n0 = 17, alpha = 0.1
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 2 / 2 (100%)
+E       Mismatch at indices:
+E        [0]: -0.028076413683201518 (ACTUAL), 0.10722061099941133 (DESIRED)
+E        [1]: 0.8175659517111655 (ACTUAL), 0.7511863567004131 (DESIRED)
+E       Max absolute difference among violations: 0.13529702
+E       Max relative difference among violations: 1.2618565
+E        ACTUAL: array([-0.028076,  0.817566])
+E        DESIRED: array([0.107221, 0.751186])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+________ test_newcombe_matches_independent_reference[11-15-4-12-0.01] _________
+
+x1 = 11, n1 = 15, x0 = 4, n0 = 12, alpha = 0.01
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 2 / 2 (100%)
+E       Mismatch at indices:
+E        [0]: -0.2735081574152675 (ACTUAL), -0.07645480476824223 (DESIRED)
+E        [1]: 0.81171055075611 (ACTUAL), 0.6928235262183516 (DESIRED)
+E       Max absolute difference among violations: 0.19705335
+E       Max relative difference among violations: 2.5773835
+E        ACTUAL: array([-0.273508,  0.811711])
+E        DESIRED: array([-0.076455,  0.692824])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+________ test_newcombe_matches_independent_reference[11-15-4-12-0.05] _________
+
+x1 = 11, n1 = 15, x0 = 4, n0 = 12, alpha = 0.05
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 2 / 2 (100%)
+E       Mismatch at indices:
+E        [0]: -0.12888225168700612 (ACTUAL), 0.02566392336686585 (DESIRED)
+E        [1]: 0.752905375651863 (ACTUAL), 0.6509482394558624 (DESIRED)
+E       Max absolute difference among violations: 0.15454618
+E       Max relative difference among violations: 6.02192318
+E        ACTUAL: array([-0.128882,  0.752905])
+E        DESIRED: array([0.025664, 0.650948])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+_________ test_newcombe_matches_independent_reference[11-15-4-12-0.1] _________
+
+x1 = 11, n1 = 15, x0 = 4, n0 = 12, alpha = 0.1
+
+    @pytest.mark.parametrize("alpha", [0.01, 0.05, 0.10])
+    @pytest.mark.parametrize("x1,n1,x0,n0", [
+        (7, 34, 1, 34),       # audit counterexample
+        (20, 100, 10, 100),   # ordinary conversion rates
+        (0, 40, 5, 60),       # a zero-success arm
+        (35, 40, 60, 60),     # an all-success arm
+        (1, 10, 0, 13),       # rare events and unequal arm sizes
+        (3, 5, 2, 17),        # small, unequal samples
+        (11, 15, 4, 12),
+    ])
+    def test_newcombe_matches_independent_reference(x1, n1, x0, n0, alpha):
+        from statsmodels.stats.proportion import confint_proportions_2indep
+    
+        data = _conversion_data_from_counts(x1, n1, x0, n0)
+        actual = conversion_ztest(data, alpha=alpha)["absolute_ci"]
+        expected = confint_proportions_2indep(
+            x1, n1, x0, n0, method="newcomb", compare="diff", alpha=alpha
+        )
+>       np.testing.assert_allclose(actual, expected, rtol=1e-12, atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-12, atol=1e-14
+E       
+E       Mismatched elements: 2 / 2 (100%)
+E       Mismatch at indices:
+E        [0]: -0.047334246505901234 (ACTUAL), 0.08326852231344267 (DESIRED)
+E        [1]: 0.7146969194386767 (ACTUAL), 0.6237443729928396 (DESIRED)
+E       Max absolute difference among violations: 0.13060277
+E       Max relative difference among violations: 1.56845306
+E        ACTUAL: array([-0.047334,  0.714697])
+E        DESIRED: array([0.083269, 0.623744])
+
+tests\inference\test_conversion_z_test.py:196: AssertionError
+__________ test_invalid_method_options_are_rejected[ci_method-typo] ___________
+
+causal_data = CausalData(df=(5000, 3), treatment='treatment', outcome='outcome', confounders=['age'])
+parameter = 'ci_method', value = 'typo'
+
+    @pytest.mark.parametrize("parameter,value", [
+        ("ci_method", "typo"),
+        ("ci_method", ""),
+        ("ci_method", None),
+        ("se_for_test", "typo"),
+        ("se_for_test", ""),
+        ("se_for_test", None),
+    ])
+    def test_invalid_method_options_are_rejected(causal_data, parameter, value):
+>       with pytest.raises(ValueError, match=parameter):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\inference\test_conversion_z_test.py:216: Failed
+____________ test_invalid_method_options_are_rejected[ci_method-] _____________
+
+causal_data = CausalData(df=(5000, 3), treatment='treatment', outcome='outcome', confounders=['age'])
+parameter = 'ci_method', value = ''
+
+    @pytest.mark.parametrize("parameter,value", [
+        ("ci_method", "typo"),
+        ("ci_method", ""),
+        ("ci_method", None),
+        ("se_for_test", "typo"),
+        ("se_for_test", ""),
+        ("se_for_test", None),
+    ])
+    def test_invalid_method_options_are_rejected(causal_data, parameter, value):
+>       with pytest.raises(ValueError, match=parameter):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\inference\test_conversion_z_test.py:216: Failed
+__________ test_invalid_method_options_are_rejected[ci_method-None] ___________
+
+causal_data = CausalData(df=(5000, 3), treatment='treatment', outcome='outcome', confounders=['age'])
+parameter = 'ci_method', value = None
+
+    @pytest.mark.parametrize("parameter,value", [
+        ("ci_method", "typo"),
+        ("ci_method", ""),
+        ("ci_method", None),
+        ("se_for_test", "typo"),
+        ("se_for_test", ""),
+        ("se_for_test", None),
+    ])
+    def test_invalid_method_options_are_rejected(causal_data, parameter, value):
+>       with pytest.raises(ValueError, match=parameter):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\inference\test_conversion_z_test.py:216: Failed
+_________ test_invalid_method_options_are_rejected[se_for_test-typo] __________
+
+causal_data = CausalData(df=(5000, 3), treatment='treatment', outcome='outcome', confounders=['age'])
+parameter = 'se_for_test', value = 'typo'
+
+    @pytest.mark.parametrize("parameter,value", [
+        ("ci_method", "typo"),
+        ("ci_method", ""),
+        ("ci_method", None),
+        ("se_for_test", "typo"),
+        ("se_for_test", ""),
+        ("se_for_test", None),
+    ])
+    def test_invalid_method_options_are_rejected(causal_data, parameter, value):
+>       with pytest.raises(ValueError, match=parameter):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\inference\test_conversion_z_test.py:216: Failed
+___________ test_invalid_method_options_are_rejected[se_for_test-] ____________
+
+causal_data = CausalData(df=(5000, 3), treatment='treatment', outcome='outcome', confounders=['age'])
+parameter = 'se_for_test', value = ''
+
+    @pytest.mark.parametrize("parameter,value", [
+        ("ci_method", "typo"),
+        ("ci_method", ""),
+        ("ci_method", None),
+        ("se_for_test", "typo"),
+        ("se_for_test", ""),
+        ("se_for_test", None),
+    ])
+    def test_invalid_method_options_are_rejected(causal_data, parameter, value):
+>       with pytest.raises(ValueError, match=parameter):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\inference\test_conversion_z_test.py:216: Failed
+_________ test_invalid_method_options_are_rejected[se_for_test-None] __________
+
+causal_data = CausalData(df=(5000, 3), treatment='treatment', outcome='outcome', confounders=['age'])
+parameter = 'se_for_test', value = None
+
+    @pytest.mark.parametrize("parameter,value", [
+        ("ci_method", "typo"),
+        ("ci_method", ""),
+        ("ci_method", None),
+        ("se_for_test", "typo"),
+        ("se_for_test", ""),
+        ("se_for_test", None),
+    ])
+    def test_invalid_method_options_are_rejected(causal_data, parameter, value):
+>       with pytest.raises(ValueError, match=parameter):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\inference\test_conversion_z_test.py:216: Failed
+=========================== short test summary info ===========================
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[7-34-1-34-0.01]
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[7-34-1-34-0.05]
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[7-34-1-34-0.1]
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[20-100-10-100-0.01]
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[20-100-10-100-0.05]
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[20-100-10-100-0.1]
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[0-40-5-60-0.01]
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[0-40-5-60-0.05]
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[0-40-5-60-0.1]
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[35-40-60-60-0.01]
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[35-40-60-60-0.05]
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[35-40-60-60-0.1]
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[1-10-0-13-0.01]
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[1-10-0-13-0.05]
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[1-10-0-13-0.1]
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[3-5-2-17-0.01]
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[3-5-2-17-0.05]
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[3-5-2-17-0.1]
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[11-15-4-12-0.01]
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[11-15-4-12-0.05]
+FAILED tests/inference/test_conversion_z_test.py::test_newcombe_matches_independent_reference[11-15-4-12-0.1]
+FAILED tests/inference/test_conversion_z_test.py::test_invalid_method_options_are_rejected[ci_method-typo]
+FAILED tests/inference/test_conversion_z_test.py::test_invalid_method_options_are_rejected[ci_method-]
+FAILED tests/inference/test_conversion_z_test.py::test_invalid_method_options_are_rejected[ci_method-None]
+FAILED tests/inference/test_conversion_z_test.py::test_invalid_method_options_are_rejected[se_for_test-typo]
+FAILED tests/inference/test_conversion_z_test.py::test_invalid_method_options_are_rejected[se_for_test-]
+FAILED tests/inference/test_conversion_z_test.py::test_invalid_method_options_are_rejected[se_for_test-None]
+27 failed, 9 passed in 31.11s
