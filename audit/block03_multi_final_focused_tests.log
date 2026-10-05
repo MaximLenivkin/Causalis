@@ -1,0 +1,300 @@
+FFFF......                                                               [100%]
+================================== FAILURES ===================================
+_ test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty[True-counts0] _
+
+counts = (100, 100, 100), store_diagnostics = True
+
+    @pytest.mark.parametrize("counts", [(100, 100, 100), (150, 60, 90)])
+    @pytest.mark.parametrize("store_diagnostics", [True, False])
+    def test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty(counts, store_diagnostics):
+        labels = np.repeat(np.arange(3), counts)
+        d = np.eye(3)[labels]
+        effects = np.array([0.0, 2.0, 4.0])
+        y = 10.0 + effects[labels]
+        g = np.tile(10.0 + effects, (len(y), 1))
+        m = np.tile(np.asarray(counts) / len(y), (len(y), 1))
+>       model = _fit_with_oracle_predictions(y, d, g, m, store_diagnostics=store_diagnostics)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\inference\test_multi_treatment_irm_ratio_if.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+y = array([10., 10., 10., 10., 10., 10., 10., 10., 10., 10., 10., 10., 10.,
+       10., 10., 10., 10., 10., 10., 10., 10.,...14., 14., 14., 14., 14., 14., 14.,
+       14., 14., 14., 14., 14., 14., 14., 14., 14., 14., 14., 14., 14.,
+       14.])
+d = array([[1., 0., 0.],
+       [1., 0., 0.],
+       [1., 0., 0.],
+       [1., 0., 0.],
+       [1., 0., 0.],
+       [1., 0...[0., 0., 1.],
+       [0., 0., 1.],
+       [0., 0., 1.],
+       [0., 0., 1.],
+       [0., 0., 1.],
+       [0., 0., 1.]])
+g = array([[10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.]...      [10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.]])
+m = array([[0.33333333, 0.33333333, 0.33333333],
+       [0.33333333, 0.33333333, 0.33333333],
+       [0.33333333, 0.333333...33, 0.33333333, 0.33333333],
+       [0.33333333, 0.33333333, 0.33333333],
+       [0.33333333, 0.33333333, 0.33333333]])
+store_diagnostics = True
+
+    def _fit_with_oracle_predictions(y, d, g, m, *, store_diagnostics=True):
+        """Run the fit lifecycle, then isolate inference using known nuisance values."""
+        n, k = d.shape
+        names = [f"d{j}" for j in range(k)]
+        frame = pd.DataFrame(d, columns=names)
+        frame["y"] = y
+        # Preserve the covariate behind these oracle means (an affine transform of
+        # x in the heterogeneous cases), rather than introducing unrelated X.
+        frame["x"] = g[:, 0]
+>       data = MultiCausalData(
+            df=frame,
+            outcome="y",
+            treatment_names=names,
+            control_treatment=names[0],
+            confounders=["x"],
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for MultiCausalData
+E         Value error, Column 'x' specified as confounder is constant (zero variance). [type=value_error, input_value={'df':       d0   d1   d2...', 'confounders': ['x']}, input_type=dict]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+tests\inference\test_multi_treatment_irm_ratio_if.py:24: ValidationError
+_ test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty[True-counts1] _
+
+counts = (150, 60, 90), store_diagnostics = True
+
+    @pytest.mark.parametrize("counts", [(100, 100, 100), (150, 60, 90)])
+    @pytest.mark.parametrize("store_diagnostics", [True, False])
+    def test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty(counts, store_diagnostics):
+        labels = np.repeat(np.arange(3), counts)
+        d = np.eye(3)[labels]
+        effects = np.array([0.0, 2.0, 4.0])
+        y = 10.0 + effects[labels]
+        g = np.tile(10.0 + effects, (len(y), 1))
+        m = np.tile(np.asarray(counts) / len(y), (len(y), 1))
+>       model = _fit_with_oracle_predictions(y, d, g, m, store_diagnostics=store_diagnostics)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\inference\test_multi_treatment_irm_ratio_if.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+y = array([10., 10., 10., 10., 10., 10., 10., 10., 10., 10., 10., 10., 10.,
+       10., 10., 10., 10., 10., 10., 10., 10.,...14., 14., 14., 14., 14., 14., 14.,
+       14., 14., 14., 14., 14., 14., 14., 14., 14., 14., 14., 14., 14.,
+       14.])
+d = array([[1., 0., 0.],
+       [1., 0., 0.],
+       [1., 0., 0.],
+       [1., 0., 0.],
+       [1., 0., 0.],
+       [1., 0...[0., 0., 1.],
+       [0., 0., 1.],
+       [0., 0., 1.],
+       [0., 0., 1.],
+       [0., 0., 1.],
+       [0., 0., 1.]])
+g = array([[10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.]...      [10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.]])
+m = array([[0.5, 0.2, 0.3],
+       [0.5, 0.2, 0.3],
+       [0.5, 0.2, 0.3],
+       [0.5, 0.2, 0.3],
+       [0.5, 0.2, 0.3]...      [0.5, 0.2, 0.3],
+       [0.5, 0.2, 0.3],
+       [0.5, 0.2, 0.3],
+       [0.5, 0.2, 0.3],
+       [0.5, 0.2, 0.3]])
+store_diagnostics = True
+
+    def _fit_with_oracle_predictions(y, d, g, m, *, store_diagnostics=True):
+        """Run the fit lifecycle, then isolate inference using known nuisance values."""
+        n, k = d.shape
+        names = [f"d{j}" for j in range(k)]
+        frame = pd.DataFrame(d, columns=names)
+        frame["y"] = y
+        # Preserve the covariate behind these oracle means (an affine transform of
+        # x in the heterogeneous cases), rather than introducing unrelated X.
+        frame["x"] = g[:, 0]
+>       data = MultiCausalData(
+            df=frame,
+            outcome="y",
+            treatment_names=names,
+            control_treatment=names[0],
+            confounders=["x"],
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for MultiCausalData
+E         Value error, Column 'x' specified as confounder is constant (zero variance). [type=value_error, input_value={'df':       d0   d1   d2...', 'confounders': ['x']}, input_type=dict]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+tests\inference\test_multi_treatment_irm_ratio_if.py:24: ValidationError
+_ test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty[False-counts0] _
+
+counts = (100, 100, 100), store_diagnostics = False
+
+    @pytest.mark.parametrize("counts", [(100, 100, 100), (150, 60, 90)])
+    @pytest.mark.parametrize("store_diagnostics", [True, False])
+    def test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty(counts, store_diagnostics):
+        labels = np.repeat(np.arange(3), counts)
+        d = np.eye(3)[labels]
+        effects = np.array([0.0, 2.0, 4.0])
+        y = 10.0 + effects[labels]
+        g = np.tile(10.0 + effects, (len(y), 1))
+        m = np.tile(np.asarray(counts) / len(y), (len(y), 1))
+>       model = _fit_with_oracle_predictions(y, d, g, m, store_diagnostics=store_diagnostics)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\inference\test_multi_treatment_irm_ratio_if.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+y = array([10., 10., 10., 10., 10., 10., 10., 10., 10., 10., 10., 10., 10.,
+       10., 10., 10., 10., 10., 10., 10., 10.,...14., 14., 14., 14., 14., 14., 14.,
+       14., 14., 14., 14., 14., 14., 14., 14., 14., 14., 14., 14., 14.,
+       14.])
+d = array([[1., 0., 0.],
+       [1., 0., 0.],
+       [1., 0., 0.],
+       [1., 0., 0.],
+       [1., 0., 0.],
+       [1., 0...[0., 0., 1.],
+       [0., 0., 1.],
+       [0., 0., 1.],
+       [0., 0., 1.],
+       [0., 0., 1.],
+       [0., 0., 1.]])
+g = array([[10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.]...      [10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.]])
+m = array([[0.33333333, 0.33333333, 0.33333333],
+       [0.33333333, 0.33333333, 0.33333333],
+       [0.33333333, 0.333333...33, 0.33333333, 0.33333333],
+       [0.33333333, 0.33333333, 0.33333333],
+       [0.33333333, 0.33333333, 0.33333333]])
+store_diagnostics = False
+
+    def _fit_with_oracle_predictions(y, d, g, m, *, store_diagnostics=True):
+        """Run the fit lifecycle, then isolate inference using known nuisance values."""
+        n, k = d.shape
+        names = [f"d{j}" for j in range(k)]
+        frame = pd.DataFrame(d, columns=names)
+        frame["y"] = y
+        # Preserve the covariate behind these oracle means (an affine transform of
+        # x in the heterogeneous cases), rather than introducing unrelated X.
+        frame["x"] = g[:, 0]
+>       data = MultiCausalData(
+            df=frame,
+            outcome="y",
+            treatment_names=names,
+            control_treatment=names[0],
+            confounders=["x"],
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for MultiCausalData
+E         Value error, Column 'x' specified as confounder is constant (zero variance). [type=value_error, input_value={'df':       d0   d1   d2...', 'confounders': ['x']}, input_type=dict]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+tests\inference\test_multi_treatment_irm_ratio_if.py:24: ValidationError
+_ test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty[False-counts1] _
+
+counts = (150, 60, 90), store_diagnostics = False
+
+    @pytest.mark.parametrize("counts", [(100, 100, 100), (150, 60, 90)])
+    @pytest.mark.parametrize("store_diagnostics", [True, False])
+    def test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty(counts, store_diagnostics):
+        labels = np.repeat(np.arange(3), counts)
+        d = np.eye(3)[labels]
+        effects = np.array([0.0, 2.0, 4.0])
+        y = 10.0 + effects[labels]
+        g = np.tile(10.0 + effects, (len(y), 1))
+        m = np.tile(np.asarray(counts) / len(y), (len(y), 1))
+>       model = _fit_with_oracle_predictions(y, d, g, m, store_diagnostics=store_diagnostics)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\inference\test_multi_treatment_irm_ratio_if.py:54: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+y = array([10., 10., 10., 10., 10., 10., 10., 10., 10., 10., 10., 10., 10.,
+       10., 10., 10., 10., 10., 10., 10., 10.,...14., 14., 14., 14., 14., 14., 14.,
+       14., 14., 14., 14., 14., 14., 14., 14., 14., 14., 14., 14., 14.,
+       14.])
+d = array([[1., 0., 0.],
+       [1., 0., 0.],
+       [1., 0., 0.],
+       [1., 0., 0.],
+       [1., 0., 0.],
+       [1., 0...[0., 0., 1.],
+       [0., 0., 1.],
+       [0., 0., 1.],
+       [0., 0., 1.],
+       [0., 0., 1.],
+       [0., 0., 1.]])
+g = array([[10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.]...      [10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.],
+       [10., 12., 14.]])
+m = array([[0.5, 0.2, 0.3],
+       [0.5, 0.2, 0.3],
+       [0.5, 0.2, 0.3],
+       [0.5, 0.2, 0.3],
+       [0.5, 0.2, 0.3]...      [0.5, 0.2, 0.3],
+       [0.5, 0.2, 0.3],
+       [0.5, 0.2, 0.3],
+       [0.5, 0.2, 0.3],
+       [0.5, 0.2, 0.3]])
+store_diagnostics = False
+
+    def _fit_with_oracle_predictions(y, d, g, m, *, store_diagnostics=True):
+        """Run the fit lifecycle, then isolate inference using known nuisance values."""
+        n, k = d.shape
+        names = [f"d{j}" for j in range(k)]
+        frame = pd.DataFrame(d, columns=names)
+        frame["y"] = y
+        # Preserve the covariate behind these oracle means (an affine transform of
+        # x in the heterogeneous cases), rather than introducing unrelated X.
+        frame["x"] = g[:, 0]
+>       data = MultiCausalData(
+            df=frame,
+            outcome="y",
+            treatment_names=names,
+            control_treatment=names[0],
+            confounders=["x"],
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for MultiCausalData
+E         Value error, Column 'x' specified as confounder is constant (zero variance). [type=value_error, input_value={'df':       d0   d1   d2...', 'confounders': ['x']}, input_type=dict]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+tests\inference\test_multi_treatment_irm_ratio_if.py:24: ValidationError
+=========================== short test summary info ===========================
+FAILED tests/inference/test_multi_treatment_irm_ratio_if.py::test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty[True-counts0]
+FAILED tests/inference/test_multi_treatment_irm_ratio_if.py::test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty[True-counts1]
+FAILED tests/inference/test_multi_treatment_irm_ratio_if.py::test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty[False-counts0]
+FAILED tests/inference/test_multi_treatment_irm_ratio_if.py::test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty[False-counts1]
+4 failed, 6 passed in 13.52s

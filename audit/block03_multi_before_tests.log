@@ -1,0 +1,242 @@
+FFFFF..F                                                                 [100%]
+================================== FAILURES ===================================
+_ test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty[True-counts0] _
+
+counts = (100, 100, 100), store_diagnostics = True
+
+    @pytest.mark.parametrize("counts", [(100, 100, 100), (150, 60, 90)])
+    @pytest.mark.parametrize("store_diagnostics", [True, False])
+    def test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty(counts, store_diagnostics):
+        labels = np.repeat(np.arange(3), counts)
+        d = np.eye(3)[labels]
+        effects = np.array([0.0, 2.0, 4.0])
+        y = 10.0 + effects[labels]
+        g = np.tile(10.0 + effects, (len(y), 1))
+        m = np.tile(np.asarray(counts) / len(y), (len(y), 1))
+        model = _fit_with_oracle_predictions(y, d, g, m, store_diagnostics=store_diagnostics)
+    
+        result = model.estimate(score="ATTE")
+    
+        np.testing.assert_allclose(result.value, effects[1:], atol=1e-13)
+>       np.testing.assert_allclose(model.psi_, 0.0, atol=1e-13)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-07, atol=1e-13
+E       
+E       Mismatched elements: 600 / 600 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: -2.0 (ACTUAL), 0.0 (DESIRED)
+E        [0, 1]: -4.0 (ACTUAL), 0.0 (DESIRED)
+E        [1, 0]: -2.0 (ACTUAL), 0.0 (DESIRED)
+E        [1, 1]: -4.0 (ACTUAL), 0.0 (DESIRED)
+E        [2, 0]: -2.0 (ACTUAL), 0.0 (DESIRED)
+E       Max absolute difference among violations: 8.
+E       Max relative difference among violations: inf
+E        ACTUAL: array([[-2., -4.],
+E              [-2., -4.],
+E              [-2., -4.],...
+E        DESIRED: array(0.)
+
+tests\inference\test_multi_treatment_irm_ratio_if.py:55: AssertionError
+_ test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty[True-counts1] _
+
+counts = (150, 60, 90), store_diagnostics = True
+
+    @pytest.mark.parametrize("counts", [(100, 100, 100), (150, 60, 90)])
+    @pytest.mark.parametrize("store_diagnostics", [True, False])
+    def test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty(counts, store_diagnostics):
+        labels = np.repeat(np.arange(3), counts)
+        d = np.eye(3)[labels]
+        effects = np.array([0.0, 2.0, 4.0])
+        y = 10.0 + effects[labels]
+        g = np.tile(10.0 + effects, (len(y), 1))
+        m = np.tile(np.asarray(counts) / len(y), (len(y), 1))
+        model = _fit_with_oracle_predictions(y, d, g, m, store_diagnostics=store_diagnostics)
+    
+        result = model.estimate(score="ATTE")
+    
+        np.testing.assert_allclose(result.value, effects[1:], atol=1e-13)
+>       np.testing.assert_allclose(model.psi_, 0.0, atol=1e-13)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-07, atol=1e-13
+E       
+E       Mismatched elements: 600 / 600 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: -2.0 (ACTUAL), 0.0 (DESIRED)
+E        [0, 1]: -4.000000000000001 (ACTUAL), 0.0 (DESIRED)
+E        [1, 0]: -2.0 (ACTUAL), 0.0 (DESIRED)
+E        [1, 1]: -4.000000000000001 (ACTUAL), 0.0 (DESIRED)
+E        [2, 0]: -2.0 (ACTUAL), 0.0 (DESIRED)
+E       Max absolute difference among violations: 9.33333333
+E       Max relative difference among violations: inf
+E        ACTUAL: array([[-2.      , -4.      ],
+E              [-2.      , -4.      ],
+E              [-2.      , -4.      ],...
+E        DESIRED: array(0.)
+
+tests\inference\test_multi_treatment_irm_ratio_if.py:55: AssertionError
+_ test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty[False-counts0] _
+
+counts = (100, 100, 100), store_diagnostics = False
+
+    @pytest.mark.parametrize("counts", [(100, 100, 100), (150, 60, 90)])
+    @pytest.mark.parametrize("store_diagnostics", [True, False])
+    def test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty(counts, store_diagnostics):
+        labels = np.repeat(np.arange(3), counts)
+        d = np.eye(3)[labels]
+        effects = np.array([0.0, 2.0, 4.0])
+        y = 10.0 + effects[labels]
+        g = np.tile(10.0 + effects, (len(y), 1))
+        m = np.tile(np.asarray(counts) / len(y), (len(y), 1))
+        model = _fit_with_oracle_predictions(y, d, g, m, store_diagnostics=store_diagnostics)
+    
+        result = model.estimate(score="ATTE")
+    
+        np.testing.assert_allclose(result.value, effects[1:], atol=1e-13)
+>       np.testing.assert_allclose(model.psi_, 0.0, atol=1e-13)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-07, atol=1e-13
+E       
+E       Mismatched elements: 600 / 600 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: -2.0 (ACTUAL), 0.0 (DESIRED)
+E        [0, 1]: -4.0 (ACTUAL), 0.0 (DESIRED)
+E        [1, 0]: -2.0 (ACTUAL), 0.0 (DESIRED)
+E        [1, 1]: -4.0 (ACTUAL), 0.0 (DESIRED)
+E        [2, 0]: -2.0 (ACTUAL), 0.0 (DESIRED)
+E       Max absolute difference among violations: 8.
+E       Max relative difference among violations: inf
+E        ACTUAL: array([[-2., -4.],
+E              [-2., -4.],
+E              [-2., -4.],...
+E        DESIRED: array(0.)
+
+tests\inference\test_multi_treatment_irm_ratio_if.py:55: AssertionError
+_ test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty[False-counts1] _
+
+counts = (150, 60, 90), store_diagnostics = False
+
+    @pytest.mark.parametrize("counts", [(100, 100, 100), (150, 60, 90)])
+    @pytest.mark.parametrize("store_diagnostics", [True, False])
+    def test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty(counts, store_diagnostics):
+        labels = np.repeat(np.arange(3), counts)
+        d = np.eye(3)[labels]
+        effects = np.array([0.0, 2.0, 4.0])
+        y = 10.0 + effects[labels]
+        g = np.tile(10.0 + effects, (len(y), 1))
+        m = np.tile(np.asarray(counts) / len(y), (len(y), 1))
+        model = _fit_with_oracle_predictions(y, d, g, m, store_diagnostics=store_diagnostics)
+    
+        result = model.estimate(score="ATTE")
+    
+        np.testing.assert_allclose(result.value, effects[1:], atol=1e-13)
+>       np.testing.assert_allclose(model.psi_, 0.0, atol=1e-13)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-07, atol=1e-13
+E       
+E       Mismatched elements: 600 / 600 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: -2.0 (ACTUAL), 0.0 (DESIRED)
+E        [0, 1]: -4.000000000000001 (ACTUAL), 0.0 (DESIRED)
+E        [1, 0]: -2.0 (ACTUAL), 0.0 (DESIRED)
+E        [1, 1]: -4.000000000000001 (ACTUAL), 0.0 (DESIRED)
+E        [2, 0]: -2.0 (ACTUAL), 0.0 (DESIRED)
+E       Max absolute difference among violations: 9.33333333
+E       Max relative difference among violations: inf
+E        ACTUAL: array([[-2.      , -4.      ],
+E              [-2.      , -4.      ],
+E              [-2.      , -4.      ],...
+E        DESIRED: array(0.)
+
+tests\inference\test_multi_treatment_irm_ratio_if.py:55: AssertionError
+____ test_att_influence_matches_empirical_contamination_derivative_and_se _____
+
+    def test_att_influence_matches_empirical_contamination_derivative_and_se():
+        y, d, g, m = _heterogeneous_oracle_sample()
+        n = len(y)
+        model = _fit_with_oracle_predictions(y, d, g, m)
+        result = model.estimate(score="ATTE", diagnostic_data=False)
+        uniform = np.full(n, 1.0 / n)
+        theta, baseline = _weighted_ratios(uniform, y, d, g, m)
+        np.testing.assert_allclose(result.value, theta, atol=1e-13)
+        np.testing.assert_allclose(result.control_mean_by_arm, baseline, atol=1e-13)
+    
+        # The directional derivative of P -> (1-epsilon)P + epsilon delta_i
+        # includes movement of the empirical treatment share, independent of psi_a.
+        eps = 1e-5
+        derivative = np.empty_like(model.psi_)
+        relative_derivative = np.empty_like(model.psi_)
+        for i in range(n):
+            direction = -uniform.copy()
+            direction[i] += 1.0
+            plus, baseline_plus = _weighted_ratios(uniform + eps * direction, y, d, g, m)
+            minus, baseline_minus = _weighted_ratios(uniform - eps * direction, y, d, g, m)
+            derivative[i] = (plus - minus) / (2.0 * eps)
+            relative_derivative[i] = (
+                100.0 * plus / baseline_plus - 100.0 * minus / baseline_minus
+            ) / (2.0 * eps)
+    
+>       np.testing.assert_allclose(model.psi_, derivative, rtol=2e-8, atol=2e-8)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-08, atol=2e-08
+E       
+E       Mismatched elements: 480 / 480 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: -0.04668545858372364 (ACTUAL), 0.891732794972011 (DESIRED)
+E        [0, 1]: 1.6142561109634865 (ACTUAL), 0.9768188023451251 (DESIRED)
+E        [1, 0]: 2.9503187210844164 (ACTUAL), -0.3607041740849581 (DESIRED)
+E        [1, 1]: 0.6374373087162372 (ACTUAL), 5.551115123125782e-12 (DESIRED)
+E        [2, 0]: -1.3593596167624946 (ACTUAL), -0.4209413633327052 (DESIRED)
+E       Max absolute difference among violations: 3.3110229
+E       Max relative difference among violations: 1.14830497e+11
+E        ACTUAL: array([[-4.668546e-02,  1.614256e+00],
+E              [ 2.950319e+00,  6.374373e-01],
+E              [-1.359360e+00,  1.783044e-01],...
+E        DESIRED: array([[ 8.917328e-01,  9.768188e-01],
+E              [-3.607042e-01,  5.551115e-12],
+E              [-4.209414e-01, -4.591329e-01],...
+
+tests\inference\test_multi_treatment_irm_ratio_if.py:114: AssertionError
+__________ test_att_oracle_wald_intervals_have_sampling_calibration ___________
+
+    def test_att_oracle_wald_intervals_have_sampling_calibration():
+        # IID treatment shares fluctuate between samples. A fixed-share IF creates
+        # spurious uncertainty from the nonzero treatment effects even with oracle g0.
+        rng = np.random.default_rng(4701)
+        repetitions, n = 600, 600
+        probabilities = np.array([0.5, 0.2, 0.3])
+        effects = np.array([0.0, 2.0, 4.0])
+        model = MultiTreatmentIRM()
+        model.n_treatments = 3
+        g = np.tile(10.0 + effects, (n, 1))
+        m = np.tile(probabilities, (n, 1))
+        values, standard_errors, covered = [], [], []
+        for _ in range(repetitions):
+            labels = rng.choice(3, size=n, p=probabilities)
+            d = np.eye(3)[labels]
+            y = 10.0 + effects[labels] + rng.normal(size=n)
+            _, _, _, psi_a, psi_b = model._compute_score_terms(y=y, d=d, g_hat=g, m_hat=m, score="ATTE")
+            theta, _, se, _, _, lower, upper, _ = model._solve_moment_and_inference(
+                psi_a=psi_a, psi_b=psi_b, alpha=0.05
+            )
+            values.append(theta)
+            standard_errors.append(se)
+            covered.append((lower <= effects[1:]) & (effects[1:] <= upper))
+    
+        coverage = np.mean(covered, axis=0)
+        empirical_sd = np.std(values, axis=0, ddof=1)
+        reported_sd = np.sqrt(np.mean(np.square(standard_errors), axis=0))
+>       assert np.all((coverage > 0.925) & (coverage < 0.98)), coverage
+E       AssertionError: array([1., 1.])
+E       assert np.False_
+E        +  where np.False_ = <function all at 0x000001AE43420130>((array([1., 1.]) > 0.925 & array([1., 1.]) < 0.98))
+E        +    where <function all at 0x000001AE43420130> = np.all
+
+tests\inference\test_multi_treatment_irm_ratio_if.py:185: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/inference/test_multi_treatment_irm_ratio_if.py::test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty[True-counts0]
+FAILED tests/inference/test_multi_treatment_irm_ratio_if.py::test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty[True-counts1]
+FAILED tests/inference/test_multi_treatment_irm_ratio_if.py::test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty[False-counts0]
+FAILED tests/inference/test_multi_treatment_irm_ratio_if.py::test_noiseless_constant_arm_effects_have_zero_att_sampling_uncertainty[False-counts1]
+FAILED tests/inference/test_multi_treatment_irm_ratio_if.py::test_att_influence_matches_empirical_contamination_derivative_and_se
+FAILED tests/inference/test_multi_treatment_irm_ratio_if.py::test_att_oracle_wald_intervals_have_sampling_calibration
+6 failed, 2 passed in 12.40s

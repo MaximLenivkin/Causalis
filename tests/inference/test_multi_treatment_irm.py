@@ -314,7 +314,8 @@ def test_multi_treatment_irm_atte_score_matches_closed_form_and_disables_hajek()
 
     np.testing.assert_allclose(psi_b, expected_psi_b, atol=1e-12, rtol=0.0)
     np.testing.assert_allclose(h, d / m_hat, atol=1e-12, rtol=0.0)
-    np.testing.assert_allclose(psi_a, -np.ones(y.shape[0], dtype=float), atol=0.0, rtol=0.0)
+    np.testing.assert_allclose(psi_a, -dk / pk[None, :], atol=0.0, rtol=0.0)
+    np.testing.assert_allclose(psi_a.mean(axis=0), -np.ones(d.shape[1] - 1), atol=0.0, rtol=0.0)
 
 
 def test_multi_treatment_irm_atte_api_uses_single_score():

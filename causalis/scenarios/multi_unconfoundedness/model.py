@@ -143,7 +143,7 @@ class MultiTreatmentIRM(BaseEstimator):
 
     .. math::
 
-        \mathbb{E}_n[\psi_a(W_i; \hat\eta)\theta_k + \psi_{b, k}(W_i; \hat\eta)] = 0,
+        \mathbb{E}_n[\psi_{a, k}(W_i; \hat\eta)\theta_k + \psi_{b, k}(W_i; \hat\eta)] = 0,
 
     which yields the closed-form estimate
 
@@ -152,7 +152,7 @@ class MultiTreatmentIRM(BaseEstimator):
         \hat\theta_k
         =
         -\frac{\mathbb{E}_n[\psi_{b, k}(W_i; \hat\eta)]}
-        {\mathbb{E}_n[\psi_a(W_i; \hat\eta)]}.
+        {\mathbb{E}_n[\psi_{a, k}(W_i; \hat\eta)]}.
 
     For the pairwise ATE, the score component for each active arm :math:`k > 0`
     is
@@ -185,8 +185,19 @@ class MultiTreatmentIRM(BaseEstimator):
         \frac{\tilde m_k(X)}{\tilde m_0(X)}
         (Y - \hat g_0(X)).
 
-    For ATTE, :math:`\psi_a = -1` in the solved moment equation and the
-    returned estimate object keeps the same shape and fields as for ATE.
+    For ATTE, :math:`\psi_{a, k} = -d_k/p_k`, with :math:`p_k` estimated by
+    the sample share in arm :math:`k`. Its sample mean is -1, so the point
+    estimate remains the mean of :math:`\psi_{b,k}`. The influence function
+    retains the random treatment-share denominator:
+
+    .. math::
+
+        IF_k = \psi_{b,k}^{ATTE} - \hat\theta_k d_k/\hat p_k.
+
+    Relative ATTE divides this effect by the counterfactual baseline mean
+    among units in arm :math:`k`. Both numerator and baseline use their
+    ratio influence functions in the delta-method interval. The returned
+    estimate object keeps the same shape and fields as for ATE.
     """
     def __init__(
         self,
@@ -725,6 +736,7 @@ class MultiTreatmentIRM(BaseEstimator):
                 + (u[:, 1:] * h[:, 1:])
                 - (u[:, [0]] * h[:, [0]])
             )
+            psi_a = -np.ones(y.shape[0], dtype=float)
         else:
             g0_hat = g_hat[:, [0]]
             residual0 = y_col - g0_hat
@@ -752,7 +764,9 @@ class MultiTreatmentIRM(BaseEstimator):
             # For ATTE, Y(k) is observed for treated units in arm k, so the
             # orthogonal score keeps only the baseline nuisance in final form.
             psi_b = (dk / pk[None, :]) * residual0 - (d0 / pk[None, :]) * ratio * residual0
-        psi_a = -np.ones(y.shape[0], dtype=float)
+            # Arm membership is a random ratio denominator. Replacing this
+            # derivative by its mean (-1) preserves roots but changes the IF.
+            psi_a = -dk / pk[None, :]
         return y_col, u, h, psi_a, psi_b
 
     def _solve_moment_and_inference(
@@ -763,24 +777,26 @@ class MultiTreatmentIRM(BaseEstimator):
         alpha: float,
     ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, float]:
         """Solve E_n[psi_a * theta + psi_b] = 0 and compute Wald inference."""
-        n = psi_a.shape[0]
-        J = float(np.mean(psi_a))
-        if abs(J) < 1e-16:
-            theta_hat = np.full(self.n_treatments - 1, np.nan, dtype=float)
-            influence = np.zeros((n, self.n_treatments - 1), dtype=float)
-            se = np.full(self.n_treatments - 1, np.nan, dtype=float)
-        else:
-            theta_hat = -np.mean(psi_b, axis=0) / J
-            psi_res = psi_b + psi_a[:, None] * theta_hat[None, :]
-            influence = -psi_res / J
-            var = (
-                np.var(influence, axis=0, ddof=1) / n
-                if n > 1
-                else np.full(influence.shape[1], np.nan, dtype=float)
-            )
-            se = np.sqrt(np.maximum(var, 0.0))
+        n, n_contrasts = psi_b.shape
+        psi_a_by_contrast = np.broadcast_to(
+            psi_a[:, None] if psi_a.ndim == 1 else psi_a, psi_b.shape
+        )
+        jacobian = np.mean(psi_a_by_contrast, axis=0)
+        valid = np.isfinite(jacobian) & (np.abs(jacobian) >= 1e-16)
+        theta_hat = np.full(n_contrasts, np.nan, dtype=float)
+        theta_hat[valid] = -np.mean(psi_b[:, valid], axis=0) / jacobian[valid]
+        influence = np.zeros_like(psi_b, dtype=float)
+        psi_res = psi_b[:, valid] + psi_a_by_contrast[:, valid] * theta_hat[None, valid]
+        influence[:, valid] = -psi_res / jacobian[None, valid]
+        var = (
+            np.var(influence, axis=0, ddof=1) / n
+            if n > 1
+            else np.full(n_contrasts, np.nan, dtype=float)
+        )
+        se = np.sqrt(np.maximum(var, 0.0))
+        se[~valid] = np.nan
 
-        t_stat = np.where(se > 0, theta_hat / se, np.nan)
+        t_stat = np.divide(theta_hat, se, out=np.full_like(theta_hat, np.nan), where=se > 0)
         pval = np.full_like(t_stat, np.nan, dtype=float)
         finite = np.isfinite(t_stat)
         pval[finite] = 2 * (1 - norm.cdf(np.abs(t_stat[finite])))
@@ -845,7 +861,9 @@ class MultiTreatmentIRM(BaseEstimator):
         ratio = m_hat[:, 1:] / m_hat[:, [0]]
         psi_mu_c = (dk / pk[None, :]) * g0_hat + (ratio / pk[None, :]) * d0 * residual0
         mu_c = np.mean(psi_mu_c, axis=0)
-        psi_mu_c_centered = psi_mu_c - mu_c[None, :]
+        # This baseline is also a ratio with arm-share denominator p_k.
+        # Its IF must match the population (iid), rather than fixed-share, ATT IF.
+        psi_mu_c_centered = psi_mu_c - (dk / pk[None, :]) * mu_c[None, :]
 
         tau_rel = np.full_like(theta_hat, np.nan, dtype=float)
         ci_low_rel = np.full_like(theta_hat, np.nan, dtype=float)
@@ -875,6 +893,7 @@ class MultiTreatmentIRM(BaseEstimator):
         d: np.ndarray,
         g_hat: np.ndarray,
         m_hat: np.ndarray,
+        psi_a: np.ndarray,
         psi_b: np.ndarray,
         influence: np.ndarray,
         score: str,
@@ -895,6 +914,7 @@ class MultiTreatmentIRM(BaseEstimator):
             y=y_col,
             x=np.asarray(x, dtype=float),
             g_hat=g_hat,
+            psi_a=psi_a,
             psi_b=psi_b,
             folds=self.folds_,
             trimming_threshold=self.trimming_threshold,
@@ -973,6 +993,7 @@ class MultiTreatmentIRM(BaseEstimator):
             d=d,
             g_hat=g_hat,
             m_hat=m_hat,
+            psi_a=psi_a,
             psi_b=psi_b,
             influence=influence,
             score=score_u,

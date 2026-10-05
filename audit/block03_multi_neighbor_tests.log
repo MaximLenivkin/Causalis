@@ -1,0 +1,29 @@
+........F..................................................              [100%]
+================================== FAILURES ===================================
+_ test_score_jacobian_payload_roundtrip_and_plugin_se_match_estimation[ATTE] __
+
+score = 'ATTE'
+
+    @pytest.mark.parametrize("score", ["ATE", "ATTE"])
+    def test_score_jacobian_payload_roundtrip_and_plugin_se_match_estimation(score):
+        y, d, g, m = _heterogeneous_oracle_sample()
+        model = _fit_with_oracle_predictions(y, d, g, m)
+        result = model.estimate(score=score)
+        diag = result.diagnostic_data
+        expected_shape = (len(y),) if score == "ATE" else (len(y), d.shape[1] - 1)
+        assert diag.psi_a.shape == expected_shape
+        np.testing.assert_array_equal(diag.psi_a, model.psi_a_)
+>       result.diagnostic_data = MultiUnconfoundednessDiagnosticData(**diag.model_dump())
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       pydantic_core._pydantic_core.ValidationError: 2 validation errors for MultiUnconfoundednessDiagnosticData
+E       sigma2.float
+E         Input should be a valid number [type=float_type, input_value=None, input_type=NoneType]
+E           For further information visit https://errors.pydantic.dev/2.13/v/float_type
+E       sigma2.is-instance[ndarray]
+E         Input should be an instance of ndarray [type=is_instance_of, input_value=None, input_type=NoneType]
+E           For further information visit https://errors.pydantic.dev/2.13/v/is_instance_of
+
+tests\inference\test_multi_treatment_irm_ratio_if.py:169: ValidationError
+=========================== short test summary info ===========================
+FAILED tests/inference/test_multi_treatment_irm_ratio_if.py::test_score_jacobian_payload_roundtrip_and_plugin_se_match_estimation[ATTE]
+1 failed, 58 passed in 20.19s

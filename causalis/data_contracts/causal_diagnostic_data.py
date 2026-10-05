@@ -60,6 +60,7 @@ class MultiUnconfoundednessDiagnosticData(DiagnosticData):
     y: Optional[np.ndarray] = None  # Outcomes
     x: Optional[np.ndarray] = None  # Confounders (for balance checks)
     g_hat: Optional[np.ndarray] = None  # Estimated outcome under control
+    psi_a: Optional[np.ndarray] = None  # Linear score Jacobian: (n,) ATE or (n, K-1) ATTE
     psi_b: Optional[np.ndarray] = None  # Orthogonal signal (for DML)
     folds: Optional[np.ndarray] = None  # Cross-fitting folds
     trimming_threshold: float = 0.0
