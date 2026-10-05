@@ -1,0 +1,36 @@
+{
+  "baseline_commit": "bb31a4b",
+  "cases": [
+    {
+      "outcomes": 1,
+      "before_seconds": 0.07688320009037852,
+      "after_seconds": 0.044517900329083204,
+      "speedup": 1.7270176608071364,
+      "max_ate_difference": 1.3322676295501878e-15,
+      "max_se_difference": 3.469446951953614e-18
+    },
+    {
+      "outcomes": 8,
+      "before_seconds": 0.41943669971078634,
+      "after_seconds": 0.14475869992747903,
+      "speedup": 2.897488716884823,
+      "max_ate_difference": 6.328271240363392e-15,
+      "max_se_difference": 3.469446951953614e-18
+    },
+    {
+      "outcomes": 32,
+      "before_seconds": 1.3159233997575939,
+      "after_seconds": 0.5100881000980735,
+      "speedup": 2.579796312645961,
+      "max_ate_difference": 1.5765166949677223e-14,
+      "max_se_difference": 3.469446951953614e-18
+    }
+  ],
+  "workers": "Sequential fresh processes",
+  "limits": [
+    "12000 rows,4 covariates,HC2,checks=True; only this RCT design",
+    "One warmup and3 repetitions; medians are local observations, not a guaranteed speedup",
+    "Input construction,estimate() and memory consumption are not timed or benchmarked",
+    "No comparison with a different library or dependency version matrix"
+  ]
+}

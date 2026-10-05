@@ -5,12 +5,12 @@ from typing import Any, Callable, Dict, Optional, Sequence
 
 import numpy as np
 import pandas as pd
-import statsmodels.api as sm
 from pydantic import BaseModel, Field
 
 from causalis.data_contracts.causal_diagnostic_data import CUPEDDiagnosticData
 from causalis.data_contracts.causal_estimate import CausalEstimate
 from causalis.dgp.causaldata import CausalData
+from causalis.scenarios.cuped._ols import OLSDesign, factor_design
 
 FLAG_GREEN = "GREEN"
 FLAG_YELLOW = "YELLOW"
@@ -65,13 +65,15 @@ def _normalize_flag(flag: Any) -> str:
     return value if value in FLAG_LEVEL else FLAG_GREEN
 
 
-def design_matrix_checks(design: pd.DataFrame) -> tuple[int, int, bool, float]:
+def design_matrix_checks(design: pd.DataFrame,
+                         decomposition: Optional[OLSDesign] = None) -> tuple[int, int, bool, float]:
     """Return rank/conditioning refutation checks for a numeric design matrix."""
     z = np.asarray(design, dtype=float)
     k = int(z.shape[1])
-    rank = int(np.linalg.matrix_rank(z))
+    decomposition = decomposition if decomposition is not None else factor_design(z)
+    rank = decomposition.rank
     full_rank = bool(rank == k)
-    cond = float(np.linalg.cond(z))
+    cond = decomposition.condition
     return k, rank, full_rank, cond
 
 
@@ -119,12 +121,13 @@ def leverage_and_cooks(
     y: np.ndarray,
     z: np.ndarray,
     params: np.ndarray,
+    decomposition: Optional[OLSDesign] = None,
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Compute leverage, Cook's distance, and internally studentized residuals."""
     n, k = z.shape
     resid = y - z @ params
-    xtx_inv = np.linalg.pinv(z.T @ z)
-    h = np.einsum("ij,jk,ik->i", z, xtx_inv, z)
+    decomposition = decomposition if decomposition is not None else factor_design(z)
+    h = decomposition.leverage
     h = np.clip(h, 0.0, 1.0)
 
     df_resid = max(int(n - k), 1)
@@ -145,6 +148,7 @@ def winsor_fit_tau(
     cov_type: str,
     use_t_fit: bool,
     winsor_q: Optional[float],
+    decomposition: Optional[OLSDesign] = None,
 ) -> Optional[float]:
     """Refit OLS on winsorized outcome and return treatment coefficient."""
     if winsor_q is None:
@@ -156,10 +160,10 @@ def winsor_fit_tau(
     lo, hi = np.quantile(yv, [q, 1.0 - q])
     y_w = np.clip(yv, lo, hi)
     try:
-        res = sm.OLS(y_w, design).fit(cov_type=cov_type, use_t=use_t_fit)
+        decomposition = decomposition if decomposition is not None else factor_design(np.asarray(design, dtype=float))
+        params = decomposition.pinv @ y_w
     except Exception:
         return None
-    params = np.asarray(res.params, dtype=float)
     if params.size < 2:
         return None
     tau_w = float(params[1])
@@ -182,7 +186,8 @@ def run_regression_checks(
     yv = y.to_numpy(dtype=float)
     n = int(len(yv))
 
-    k, rank, full_rank, cond = design_matrix_checks(design)
+    decomposition = getattr(result.model, "_cuped_design", None)
+    k, rank, full_rank, cond = design_matrix_checks(design, decomposition=decomposition)
 
     params = np.asarray(result.params, dtype=float)
     params_naive = np.asarray(result_naive.params, dtype=float)
@@ -210,7 +215,7 @@ def run_regression_checks(
     )
     vif = vif_from_corr(x_main)
 
-    h, cooks, std_resid = leverage_and_cooks(y=yv, z=z, params=params)
+    h, cooks, std_resid = leverage_and_cooks(y=yv, z=z, params=params, decomposition=decomposition)
     leverage_cutoff = float(2.0 * k / max(n, 1))
     cooks_cutoff = float(4.0 / max(n, 1))
     n_high_leverage = int(np.sum(h > leverage_cutoff))
@@ -239,6 +244,7 @@ def run_regression_checks(
         cov_type=cov_type,
         use_t_fit=use_t_fit,
         winsor_q=winsor_q,
+        decomposition=decomposition,
     )
     if ate_adj_winsor is not None and np.isfinite(ate_adj_winsor):
         ate_adj_winsor_gap: Optional[float] = float(ate_adj_winsor - ate_adj)

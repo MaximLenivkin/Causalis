@@ -22,6 +22,7 @@ from causalis.data_contracts.rct_estimates import RctEstimates
 from causalis.data_contracts.causal_estimate import CausalEstimate
 from causalis.data_contracts.causal_diagnostic_data import CUPEDDiagnosticData
 from causalis.scenarios.cuped.refutation.config import CUPEDRefutationConfig
+from causalis.scenarios.cuped._ols import factor_design, fit_from_design
 from causalis.scenarios.cuped.refutation.regression_checks import (
     RegressionChecks,
     design_matrix_checks,
@@ -201,6 +202,8 @@ class CUPEDModel:
         self._regression_assumptions_table: Optional[pd.DataFrame] = None
         self._comparison_models: Dict[str, Dict[str, CUPEDModel]] = {}
         self._control_treatment: Optional[str] = None
+        self._design_decomposition = self._naive_decomposition = None
+        self._batch_params = self._batch_naive_params = {}
 
     def fit(
         self,
@@ -238,6 +241,8 @@ class CUPEDModel:
         self._dropped_covariates = []
         self._p = 0
         self._use_t_effective = None
+        self._design_decomposition = self._naive_decomposition = None
+        self._batch_params = self._batch_naive_params = {}
         if not isinstance(data, (CausalData, RctCausalData)):
             raise TypeError("data must be CausalData or RctCausalData.")
         if isinstance(data, CausalData):
@@ -278,7 +283,8 @@ class CUPEDModel:
                 )
                 child = copy(self)
                 child._control_treatment = data.control_treatment
-                child._fit_single(projection, covariates, run_checks, design_source)
+                child._fit_single(projection, covariates, run_checks, design_source,
+                                  outcomes if design_source is None else None)
                 comparisons[name][arm] = child
                 design_source = child
 
@@ -295,6 +301,7 @@ class CUPEDModel:
         covariates: Optional[Sequence[str]] = None,
         run_checks: Optional[bool] = None,
         design_source: Optional[CUPEDModel] = None,
+        batch_outcomes: Optional[Sequence[str]] = None,
     ) -> CUPEDModel:
         """
         Fit CUPED-style regression adjustment (Lin-interacted OLS) on a CausalData object.
@@ -400,7 +407,9 @@ class CUPEDModel:
 
             design = self._build_design(d, t_name, Xc, df.index)
 
-            k_design, rank_design, full_rank_design, cond_number = design_matrix_checks(design)
+            self._design_decomposition = factor_design(np.asarray(design, dtype=float))
+            k_design, rank_design, full_rank_design, cond_number = design_matrix_checks(
+                design, decomposition=self._design_decomposition)
             if not full_rank_design:
                 raise ValueError(
                     f"Design matrix is rank deficient: rank={rank_design}, k={k_design}. "
@@ -419,12 +428,14 @@ class CUPEDModel:
             x_names = list(design_source._covariate_names)
             self._dropped_covariates = list(design_source._dropped_covariates)
             p = design_source._p
+            self._design_decomposition = design_source._design_decomposition
+            self._naive_decomposition = design_source._naive_decomposition
+            self._batch_params = design_source._batch_params
+            self._batch_naive_params = design_source._batch_naive_params
 
         # Fit adjusted model with requested covariance estimator
         use_t_fit = self._resolve_use_t(n=n)
         model = sm.OLS(y, design)
-        self._reuse_design_decomposition(model, design_source._result if design_source else None)
-        self._result = model.fit(cov_type=self.cov_type, use_t=use_t_fit)
 
         # Fit naive model: Y ~ 1 + D
         design_naive = (
@@ -432,8 +443,20 @@ class CUPEDModel:
             self._build_design(d, t_name, pd.DataFrame(index=df.index), df.index)
         )
         model_naive = sm.OLS(y, design_naive)
-        self._reuse_design_decomposition(model_naive, design_source._result_naive if design_source else None)
-        self._result_naive = model_naive.fit(cov_type=self.cov_type, use_t=use_t_fit)
+        if design_source is None:
+            self._naive_decomposition = (
+                self._design_decomposition if p == 0 else
+                factor_design(np.asarray(design_naive, dtype=float)))
+            names = list(batch_outcomes) if batch_outcomes is not None else [y_name]
+            responses = df[names].to_numpy(dtype=float)
+            coefficients = self._design_decomposition.pinv @ responses
+            naive_coefficients = self._naive_decomposition.pinv @ responses
+            self._batch_params = {name: coefficients[:, i] for i, name in enumerate(names)}
+            self._batch_naive_params = {name: naive_coefficients[:, i] for i, name in enumerate(names)}
+        self._result = fit_from_design(model, self._design_decomposition,
+                                       self._batch_params[y_name], self.cov_type, use_t_fit)
+        self._result_naive = fit_from_design(model_naive, self._naive_decomposition,
+                                             self._batch_naive_params[y_name], self.cov_type, use_t_fit)
         self._use_t_effective = use_t_fit
 
         if do_checks:
@@ -492,21 +515,6 @@ class CUPEDModel:
         design = pd.DataFrame(np.column_stack(values), columns=labels, index=index)
         design.attrs["cuped_main_covariates"] = labels[2::2]
         return design
-
-    @staticmethod
-    def _reuse_design_decomposition(model: Any, source_result: Any) -> None:
-        """Reuse statsmodels' pinv fit cache for an identical design only.
-
-        These cached quantities depend on exog, not on the outcome. If a
-        statsmodels version does not expose the cache, fall back to its fit.
-        """
-        if source_result is None:
-            return
-        source = source_result.model
-        names = ("pinv_wexog", "normalized_cov_params", "rank", "wexog_singular_values")
-        if all(hasattr(source, name) for name in names):
-            for name in names:
-                setattr(model, name, getattr(source, name))
 
     def estimate(
         self, alpha: Optional[float] = None, diagnostic_data: bool = True,
@@ -977,7 +985,6 @@ class CUPEDModel:
         try:
             z = np.asarray(design, dtype=float)
             resid = np.asarray(self._result.resid, dtype=float)
-            xtx_inv = np.linalg.pinv(z.T @ z)
         except Exception:
             return np.nan
 
@@ -985,7 +992,7 @@ class CUPEDModel:
             return np.nan
 
         with np.errstate(divide="ignore", over="ignore", invalid="ignore"):
-            tau_weights = z @ xtx_inv[:, 1]
+            tau_weights = self._design_decomposition.pinv[1]
             tau_if = tau_weights * resid * self._hc_influence_scale(z=z)
 
         var_tau_if = float(np.sum(tau_if ** 2))
@@ -1007,8 +1014,7 @@ class CUPEDModel:
             denom = max(n - k, 1)
             scale *= np.sqrt(float(n) / float(denom))
         elif cov_upper in {"HC2", "HC3"}:
-            xtx_inv = np.linalg.pinv(z.T @ z)
-            h = np.einsum("ij,jk,ik->i", z, xtx_inv, z)
+            h = self._design_decomposition.leverage
             one_minus_h = np.maximum(1.0 - np.clip(h, 0.0, 1.0), 1e-15)
             if cov_upper == "HC2":
                 scale /= np.sqrt(one_minus_h)

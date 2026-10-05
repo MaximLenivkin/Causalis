@@ -1,0 +1,1181 @@
+.FFFFFFFFFFFF                                                            [100%]
+================================== FAILURES ===================================
+_______ test_leverage_and_cooks_matches_qr_under_rescaling[30000000.0] ________
+
+scale = 30000000.0
+
+    @pytest.mark.parametrize("scale", [1., 3e7, 1e8])
+    def test_leverage_and_cooks_matches_qr_under_rescaling(scale):
+        frame = sample()
+        d, x, y = frame.d.to_numpy(), frame.x.to_numpy(), frame.y.to_numpy()
+        x = scale * (x - x.mean())
+        z = np.column_stack([np.ones(len(x)), d, x, d*x])
+        b, _, h_expected, _ = qr_reference(z, y, "nonrobust")
+        h, cooks, std = leverage_and_cooks(y, z, b)
+        residual = y - z @ b
+        mse = residual @ residual / (len(y) - z.shape[1])
+>       np.testing.assert_allclose(h, h_expected, atol=2e-9, rtol=2e-8)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-08, atol=2e-09
+E       
+E       Mismatched elements: 400 / 400 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: 0.006974047198031159 (ACTUAL), 0.010916259162999365 (DESIRED)
+E        [1]: 0.01154926648075989 (ACTUAL), 0.013061996205692568 (DESIRED)
+E        [2]: 0.006288638950095829 (ACTUAL), 0.00967074066906709 (DESIRED)
+E        [3]: 0.005418506062333622 (ACTUAL), 0.006863065727234465 (DESIRED)
+E        [4]: 0.0022642615078653215 (ACTUAL), 0.006029000476653534 (DESIRED)
+E       Max absolute difference among violations: 0.00441209
+E       Max relative difference among violations: 0.72907124
+E        ACTUAL: array([0.006974, 0.011549, 0.006289, 0.005419, 0.002264, 0.005654,
+E              0.016156, 0.003987, 0.001753, 0.005147, 0.002737, 0.003712,
+E              0.017402, 0.008148, 0.021503, 0.004499, 0.001392, 0.005649,...
+E        DESIRED: array([0.010916, 0.013062, 0.009671, 0.006863, 0.006029, 0.006974,
+E              0.01935 , 0.005344, 0.005478, 0.006587, 0.006529, 0.005082,
+E              0.020578, 0.009629, 0.024625, 0.005925, 0.005016, 0.007097,...
+
+tests\statistics\test_cuped_stable_design.py:53: AssertionError
+_______ test_leverage_and_cooks_matches_qr_under_rescaling[100000000.0] _______
+
+scale = 100000000.0
+
+    @pytest.mark.parametrize("scale", [1., 3e7, 1e8])
+    def test_leverage_and_cooks_matches_qr_under_rescaling(scale):
+        frame = sample()
+        d, x, y = frame.d.to_numpy(), frame.x.to_numpy(), frame.y.to_numpy()
+        x = scale * (x - x.mean())
+        z = np.column_stack([np.ones(len(x)), d, x, d*x])
+        b, _, h_expected, _ = qr_reference(z, y, "nonrobust")
+        h, cooks, std = leverage_and_cooks(y, z, b)
+        residual = y - z @ b
+        mse = residual @ residual / (len(y) - z.shape[1])
+>       np.testing.assert_allclose(h, h_expected, atol=2e-9, rtol=2e-8)
+E       AssertionError: 
+E       Not equal to tolerance rtol=2e-08, atol=2e-09
+E       
+E       Mismatched elements: 400 / 400 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: 0.005509102117701374 (ACTUAL), 0.010916259162999382 (DESIRED)
+E        [1]: 0.007599536218532647 (ACTUAL), 0.01306199620569256 (DESIRED)
+E        [2]: 0.005031833587302069 (ACTUAL), 0.009670740669067066 (DESIRED)
+E        [3]: 0.00164676755740951 (ACTUAL), 0.006863065727234464 (DESIRED)
+E        [4]: 0.000865266264606063 (ACTUAL), 0.006029000476653535 (DESIRED)
+E       Max absolute difference among violations: 0.00605165
+E       Max relative difference among violations: 0.99999764
+E        ACTUAL: array([5.509102e-03, 7.599536e-03, 5.031834e-03, 1.646768e-03,
+E              8.652663e-04, 2.205308e-03, 1.496871e-02, 4.445536e-04,
+E              3.686041e-04, 1.387644e-03, 1.327281e-03, 1.351411e-04,...
+E        DESIRED: array([0.010916, 0.013062, 0.009671, 0.006863, 0.006029, 0.006974,
+E              0.01935 , 0.005344, 0.005478, 0.006587, 0.006529, 0.005082,
+E              0.020578, 0.009629, 0.024625, 0.005925, 0.005016, 0.007097,...
+
+tests\statistics\test_cuped_stable_design.py:53: AssertionError
+________ test_scale_invariance_including_raw_control_relative_ci[HC0] _________
+
+self = Index(['intercept', 'd', 'x__centered', 'd:x', 'x2__centered', 'd:x2'], dtype='str')
+key = (slice(None, 2, None), slice(None, 2, None))
+
+    def get_loc(self, key):
+        """
+        Get integer location, slice or boolean mask for requested label.
+    
+        Parameters
+        ----------
+        key : label
+            The key to check its location if it is present in the index.
+    
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+            Integer location, slice or boolean mask.
+    
+        See Also
+        --------
+        Index.get_slice_bound : Calculate slice bound that corresponds to
+            given label.
+        Index.get_indexer : Computes indexer and mask for new index given
+            the current index.
+        Index.get_non_unique : Returns indexer and masks for new index given
+            the current index.
+        Index.get_indexer_for : Returns an indexer even when non-unique.
+    
+        Examples
+        --------
+        >>> unique_index = pd.Index(list("abc"))
+        >>> unique_index.get_loc("b")
+        1
+    
+        >>> monotonic_index = pd.Index(list("abbc"))
+        >>> monotonic_index.get_loc("b")
+        slice(1, 3, None)
+    
+        >>> non_monotonic_index = pd.Index(list("abcb"))
+        >>> non_monotonic_index.get_loc("b")
+        array([False,  True, False,  True])
+        """
+        casted_key = self._maybe_cast_indexer(key)
+        try:
+>           return self._engine.get_loc(casted_key)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\pandas\core\indexes\base.py:3641: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+pandas/_libs/index.pyx:168: in pandas._libs.index.IndexEngine.get_loc
+    ???
+pandas/_libs/index.pyx:176: in pandas._libs.index.IndexEngine.get_loc
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   KeyError: (slice(None, 2, None), slice(None, 2, None))
+
+pandas/_libs/index.pyx:583: KeyError
+
+The above exception was the direct cause of the following exception:
+
+cov_type = 'HC0'
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3", "nonrobust"])
+    def test_scale_invariance_including_raw_control_relative_ci(cov_type):
+        frame = sample()
+        estimates = []
+        models = []
+        for scale in (1., 3e7):
+            changed = frame.copy()
+            changed["x"] *= scale
+            data = CausalData.from_df(changed, "d", "y", ["x", "x2"])
+            model = CUPEDModel(cov_type=cov_type, relative_denominator="raw_control", use_t=False)
+            model.fit(data, covariates=["x", "x2"])
+            estimates.append(model.estimate())
+            models.append(model)
+            z = model._result.model.exog
+            b, cov, h, p = qr_reference(z, frame.y.to_numpy(), cov_type)
+            np.testing.assert_allclose(model._result.params[:2], b[:2], rtol=2e-7, atol=1e-7)
+>           np.testing.assert_allclose(model._result.cov_params()[:2, :2], cov[:2, :2], rtol=1e-7, atol=1e-9)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\statistics\test_cuped_stable_design.py:76: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\pandas\core\frame.py:4378: in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = Index(['intercept', 'd', 'x__centered', 'd:x', 'x2__centered', 'd:x2'], dtype='str')
+key = (slice(None, 2, None), slice(None, 2, None))
+
+    def get_loc(self, key):
+        """
+        Get integer location, slice or boolean mask for requested label.
+    
+        Parameters
+        ----------
+        key : label
+            The key to check its location if it is present in the index.
+    
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+            Integer location, slice or boolean mask.
+    
+        See Also
+        --------
+        Index.get_slice_bound : Calculate slice bound that corresponds to
+            given label.
+        Index.get_indexer : Computes indexer and mask for new index given
+            the current index.
+        Index.get_non_unique : Returns indexer and masks for new index given
+            the current index.
+        Index.get_indexer_for : Returns an indexer even when non-unique.
+    
+        Examples
+        --------
+        >>> unique_index = pd.Index(list("abc"))
+        >>> unique_index.get_loc("b")
+        1
+    
+        >>> monotonic_index = pd.Index(list("abbc"))
+        >>> monotonic_index.get_loc("b")
+        slice(1, 3, None)
+    
+        >>> non_monotonic_index = pd.Index(list("abcb"))
+        >>> non_monotonic_index.get_loc("b")
+        array([False,  True, False,  True])
+        """
+        casted_key = self._maybe_cast_indexer(key)
+        try:
+            return self._engine.get_loc(casted_key)
+        except KeyError as err:
+            if isinstance(casted_key, slice) or (
+                isinstance(casted_key, abc.Iterable)
+                and any(isinstance(x, slice) for x in casted_key)
+            ):
+>               raise InvalidIndexError(key) from err
+E               pandas.errors.InvalidIndexError: (slice(None, 2, None), slice(None, 2, None))
+
+.venv\Lib\site-packages\pandas\core\indexes\base.py:3647: InvalidIndexError
+________ test_scale_invariance_including_raw_control_relative_ci[HC1] _________
+
+self = Index(['intercept', 'd', 'x__centered', 'd:x', 'x2__centered', 'd:x2'], dtype='str')
+key = (slice(None, 2, None), slice(None, 2, None))
+
+    def get_loc(self, key):
+        """
+        Get integer location, slice or boolean mask for requested label.
+    
+        Parameters
+        ----------
+        key : label
+            The key to check its location if it is present in the index.
+    
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+            Integer location, slice or boolean mask.
+    
+        See Also
+        --------
+        Index.get_slice_bound : Calculate slice bound that corresponds to
+            given label.
+        Index.get_indexer : Computes indexer and mask for new index given
+            the current index.
+        Index.get_non_unique : Returns indexer and masks for new index given
+            the current index.
+        Index.get_indexer_for : Returns an indexer even when non-unique.
+    
+        Examples
+        --------
+        >>> unique_index = pd.Index(list("abc"))
+        >>> unique_index.get_loc("b")
+        1
+    
+        >>> monotonic_index = pd.Index(list("abbc"))
+        >>> monotonic_index.get_loc("b")
+        slice(1, 3, None)
+    
+        >>> non_monotonic_index = pd.Index(list("abcb"))
+        >>> non_monotonic_index.get_loc("b")
+        array([False,  True, False,  True])
+        """
+        casted_key = self._maybe_cast_indexer(key)
+        try:
+>           return self._engine.get_loc(casted_key)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\pandas\core\indexes\base.py:3641: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+pandas/_libs/index.pyx:168: in pandas._libs.index.IndexEngine.get_loc
+    ???
+pandas/_libs/index.pyx:176: in pandas._libs.index.IndexEngine.get_loc
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   KeyError: (slice(None, 2, None), slice(None, 2, None))
+
+pandas/_libs/index.pyx:583: KeyError
+
+The above exception was the direct cause of the following exception:
+
+cov_type = 'HC1'
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3", "nonrobust"])
+    def test_scale_invariance_including_raw_control_relative_ci(cov_type):
+        frame = sample()
+        estimates = []
+        models = []
+        for scale in (1., 3e7):
+            changed = frame.copy()
+            changed["x"] *= scale
+            data = CausalData.from_df(changed, "d", "y", ["x", "x2"])
+            model = CUPEDModel(cov_type=cov_type, relative_denominator="raw_control", use_t=False)
+            model.fit(data, covariates=["x", "x2"])
+            estimates.append(model.estimate())
+            models.append(model)
+            z = model._result.model.exog
+            b, cov, h, p = qr_reference(z, frame.y.to_numpy(), cov_type)
+            np.testing.assert_allclose(model._result.params[:2], b[:2], rtol=2e-7, atol=1e-7)
+>           np.testing.assert_allclose(model._result.cov_params()[:2, :2], cov[:2, :2], rtol=1e-7, atol=1e-9)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\statistics\test_cuped_stable_design.py:76: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\pandas\core\frame.py:4378: in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = Index(['intercept', 'd', 'x__centered', 'd:x', 'x2__centered', 'd:x2'], dtype='str')
+key = (slice(None, 2, None), slice(None, 2, None))
+
+    def get_loc(self, key):
+        """
+        Get integer location, slice or boolean mask for requested label.
+    
+        Parameters
+        ----------
+        key : label
+            The key to check its location if it is present in the index.
+    
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+            Integer location, slice or boolean mask.
+    
+        See Also
+        --------
+        Index.get_slice_bound : Calculate slice bound that corresponds to
+            given label.
+        Index.get_indexer : Computes indexer and mask for new index given
+            the current index.
+        Index.get_non_unique : Returns indexer and masks for new index given
+            the current index.
+        Index.get_indexer_for : Returns an indexer even when non-unique.
+    
+        Examples
+        --------
+        >>> unique_index = pd.Index(list("abc"))
+        >>> unique_index.get_loc("b")
+        1
+    
+        >>> monotonic_index = pd.Index(list("abbc"))
+        >>> monotonic_index.get_loc("b")
+        slice(1, 3, None)
+    
+        >>> non_monotonic_index = pd.Index(list("abcb"))
+        >>> non_monotonic_index.get_loc("b")
+        array([False,  True, False,  True])
+        """
+        casted_key = self._maybe_cast_indexer(key)
+        try:
+            return self._engine.get_loc(casted_key)
+        except KeyError as err:
+            if isinstance(casted_key, slice) or (
+                isinstance(casted_key, abc.Iterable)
+                and any(isinstance(x, slice) for x in casted_key)
+            ):
+>               raise InvalidIndexError(key) from err
+E               pandas.errors.InvalidIndexError: (slice(None, 2, None), slice(None, 2, None))
+
+.venv\Lib\site-packages\pandas\core\indexes\base.py:3647: InvalidIndexError
+________ test_scale_invariance_including_raw_control_relative_ci[HC2] _________
+
+self = Index(['intercept', 'd', 'x__centered', 'd:x', 'x2__centered', 'd:x2'], dtype='str')
+key = (slice(None, 2, None), slice(None, 2, None))
+
+    def get_loc(self, key):
+        """
+        Get integer location, slice or boolean mask for requested label.
+    
+        Parameters
+        ----------
+        key : label
+            The key to check its location if it is present in the index.
+    
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+            Integer location, slice or boolean mask.
+    
+        See Also
+        --------
+        Index.get_slice_bound : Calculate slice bound that corresponds to
+            given label.
+        Index.get_indexer : Computes indexer and mask for new index given
+            the current index.
+        Index.get_non_unique : Returns indexer and masks for new index given
+            the current index.
+        Index.get_indexer_for : Returns an indexer even when non-unique.
+    
+        Examples
+        --------
+        >>> unique_index = pd.Index(list("abc"))
+        >>> unique_index.get_loc("b")
+        1
+    
+        >>> monotonic_index = pd.Index(list("abbc"))
+        >>> monotonic_index.get_loc("b")
+        slice(1, 3, None)
+    
+        >>> non_monotonic_index = pd.Index(list("abcb"))
+        >>> non_monotonic_index.get_loc("b")
+        array([False,  True, False,  True])
+        """
+        casted_key = self._maybe_cast_indexer(key)
+        try:
+>           return self._engine.get_loc(casted_key)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\pandas\core\indexes\base.py:3641: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+pandas/_libs/index.pyx:168: in pandas._libs.index.IndexEngine.get_loc
+    ???
+pandas/_libs/index.pyx:176: in pandas._libs.index.IndexEngine.get_loc
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   KeyError: (slice(None, 2, None), slice(None, 2, None))
+
+pandas/_libs/index.pyx:583: KeyError
+
+The above exception was the direct cause of the following exception:
+
+cov_type = 'HC2'
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3", "nonrobust"])
+    def test_scale_invariance_including_raw_control_relative_ci(cov_type):
+        frame = sample()
+        estimates = []
+        models = []
+        for scale in (1., 3e7):
+            changed = frame.copy()
+            changed["x"] *= scale
+            data = CausalData.from_df(changed, "d", "y", ["x", "x2"])
+            model = CUPEDModel(cov_type=cov_type, relative_denominator="raw_control", use_t=False)
+            model.fit(data, covariates=["x", "x2"])
+            estimates.append(model.estimate())
+            models.append(model)
+            z = model._result.model.exog
+            b, cov, h, p = qr_reference(z, frame.y.to_numpy(), cov_type)
+            np.testing.assert_allclose(model._result.params[:2], b[:2], rtol=2e-7, atol=1e-7)
+>           np.testing.assert_allclose(model._result.cov_params()[:2, :2], cov[:2, :2], rtol=1e-7, atol=1e-9)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\statistics\test_cuped_stable_design.py:76: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\pandas\core\frame.py:4378: in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = Index(['intercept', 'd', 'x__centered', 'd:x', 'x2__centered', 'd:x2'], dtype='str')
+key = (slice(None, 2, None), slice(None, 2, None))
+
+    def get_loc(self, key):
+        """
+        Get integer location, slice or boolean mask for requested label.
+    
+        Parameters
+        ----------
+        key : label
+            The key to check its location if it is present in the index.
+    
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+            Integer location, slice or boolean mask.
+    
+        See Also
+        --------
+        Index.get_slice_bound : Calculate slice bound that corresponds to
+            given label.
+        Index.get_indexer : Computes indexer and mask for new index given
+            the current index.
+        Index.get_non_unique : Returns indexer and masks for new index given
+            the current index.
+        Index.get_indexer_for : Returns an indexer even when non-unique.
+    
+        Examples
+        --------
+        >>> unique_index = pd.Index(list("abc"))
+        >>> unique_index.get_loc("b")
+        1
+    
+        >>> monotonic_index = pd.Index(list("abbc"))
+        >>> monotonic_index.get_loc("b")
+        slice(1, 3, None)
+    
+        >>> non_monotonic_index = pd.Index(list("abcb"))
+        >>> non_monotonic_index.get_loc("b")
+        array([False,  True, False,  True])
+        """
+        casted_key = self._maybe_cast_indexer(key)
+        try:
+            return self._engine.get_loc(casted_key)
+        except KeyError as err:
+            if isinstance(casted_key, slice) or (
+                isinstance(casted_key, abc.Iterable)
+                and any(isinstance(x, slice) for x in casted_key)
+            ):
+>               raise InvalidIndexError(key) from err
+E               pandas.errors.InvalidIndexError: (slice(None, 2, None), slice(None, 2, None))
+
+.venv\Lib\site-packages\pandas\core\indexes\base.py:3647: InvalidIndexError
+________ test_scale_invariance_including_raw_control_relative_ci[HC3] _________
+
+self = Index(['intercept', 'd', 'x__centered', 'd:x', 'x2__centered', 'd:x2'], dtype='str')
+key = (slice(None, 2, None), slice(None, 2, None))
+
+    def get_loc(self, key):
+        """
+        Get integer location, slice or boolean mask for requested label.
+    
+        Parameters
+        ----------
+        key : label
+            The key to check its location if it is present in the index.
+    
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+            Integer location, slice or boolean mask.
+    
+        See Also
+        --------
+        Index.get_slice_bound : Calculate slice bound that corresponds to
+            given label.
+        Index.get_indexer : Computes indexer and mask for new index given
+            the current index.
+        Index.get_non_unique : Returns indexer and masks for new index given
+            the current index.
+        Index.get_indexer_for : Returns an indexer even when non-unique.
+    
+        Examples
+        --------
+        >>> unique_index = pd.Index(list("abc"))
+        >>> unique_index.get_loc("b")
+        1
+    
+        >>> monotonic_index = pd.Index(list("abbc"))
+        >>> monotonic_index.get_loc("b")
+        slice(1, 3, None)
+    
+        >>> non_monotonic_index = pd.Index(list("abcb"))
+        >>> non_monotonic_index.get_loc("b")
+        array([False,  True, False,  True])
+        """
+        casted_key = self._maybe_cast_indexer(key)
+        try:
+>           return self._engine.get_loc(casted_key)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\pandas\core\indexes\base.py:3641: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+pandas/_libs/index.pyx:168: in pandas._libs.index.IndexEngine.get_loc
+    ???
+pandas/_libs/index.pyx:176: in pandas._libs.index.IndexEngine.get_loc
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   KeyError: (slice(None, 2, None), slice(None, 2, None))
+
+pandas/_libs/index.pyx:583: KeyError
+
+The above exception was the direct cause of the following exception:
+
+cov_type = 'HC3'
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3", "nonrobust"])
+    def test_scale_invariance_including_raw_control_relative_ci(cov_type):
+        frame = sample()
+        estimates = []
+        models = []
+        for scale in (1., 3e7):
+            changed = frame.copy()
+            changed["x"] *= scale
+            data = CausalData.from_df(changed, "d", "y", ["x", "x2"])
+            model = CUPEDModel(cov_type=cov_type, relative_denominator="raw_control", use_t=False)
+            model.fit(data, covariates=["x", "x2"])
+            estimates.append(model.estimate())
+            models.append(model)
+            z = model._result.model.exog
+            b, cov, h, p = qr_reference(z, frame.y.to_numpy(), cov_type)
+            np.testing.assert_allclose(model._result.params[:2], b[:2], rtol=2e-7, atol=1e-7)
+>           np.testing.assert_allclose(model._result.cov_params()[:2, :2], cov[:2, :2], rtol=1e-7, atol=1e-9)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\statistics\test_cuped_stable_design.py:76: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\pandas\core\frame.py:4378: in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = Index(['intercept', 'd', 'x__centered', 'd:x', 'x2__centered', 'd:x2'], dtype='str')
+key = (slice(None, 2, None), slice(None, 2, None))
+
+    def get_loc(self, key):
+        """
+        Get integer location, slice or boolean mask for requested label.
+    
+        Parameters
+        ----------
+        key : label
+            The key to check its location if it is present in the index.
+    
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+            Integer location, slice or boolean mask.
+    
+        See Also
+        --------
+        Index.get_slice_bound : Calculate slice bound that corresponds to
+            given label.
+        Index.get_indexer : Computes indexer and mask for new index given
+            the current index.
+        Index.get_non_unique : Returns indexer and masks for new index given
+            the current index.
+        Index.get_indexer_for : Returns an indexer even when non-unique.
+    
+        Examples
+        --------
+        >>> unique_index = pd.Index(list("abc"))
+        >>> unique_index.get_loc("b")
+        1
+    
+        >>> monotonic_index = pd.Index(list("abbc"))
+        >>> monotonic_index.get_loc("b")
+        slice(1, 3, None)
+    
+        >>> non_monotonic_index = pd.Index(list("abcb"))
+        >>> non_monotonic_index.get_loc("b")
+        array([False,  True, False,  True])
+        """
+        casted_key = self._maybe_cast_indexer(key)
+        try:
+            return self._engine.get_loc(casted_key)
+        except KeyError as err:
+            if isinstance(casted_key, slice) or (
+                isinstance(casted_key, abc.Iterable)
+                and any(isinstance(x, slice) for x in casted_key)
+            ):
+>               raise InvalidIndexError(key) from err
+E               pandas.errors.InvalidIndexError: (slice(None, 2, None), slice(None, 2, None))
+
+.venv\Lib\site-packages\pandas\core\indexes\base.py:3647: InvalidIndexError
+_____ test_scale_invariance_including_raw_control_relative_ci[nonrobust] ______
+
+self = Index(['intercept', 'd', 'x__centered', 'd:x', 'x2__centered', 'd:x2'], dtype='str')
+key = (slice(None, 2, None), slice(None, 2, None))
+
+    def get_loc(self, key):
+        """
+        Get integer location, slice or boolean mask for requested label.
+    
+        Parameters
+        ----------
+        key : label
+            The key to check its location if it is present in the index.
+    
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+            Integer location, slice or boolean mask.
+    
+        See Also
+        --------
+        Index.get_slice_bound : Calculate slice bound that corresponds to
+            given label.
+        Index.get_indexer : Computes indexer and mask for new index given
+            the current index.
+        Index.get_non_unique : Returns indexer and masks for new index given
+            the current index.
+        Index.get_indexer_for : Returns an indexer even when non-unique.
+    
+        Examples
+        --------
+        >>> unique_index = pd.Index(list("abc"))
+        >>> unique_index.get_loc("b")
+        1
+    
+        >>> monotonic_index = pd.Index(list("abbc"))
+        >>> monotonic_index.get_loc("b")
+        slice(1, 3, None)
+    
+        >>> non_monotonic_index = pd.Index(list("abcb"))
+        >>> non_monotonic_index.get_loc("b")
+        array([False,  True, False,  True])
+        """
+        casted_key = self._maybe_cast_indexer(key)
+        try:
+>           return self._engine.get_loc(casted_key)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\pandas\core\indexes\base.py:3641: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+pandas/_libs/index.pyx:168: in pandas._libs.index.IndexEngine.get_loc
+    ???
+pandas/_libs/index.pyx:176: in pandas._libs.index.IndexEngine.get_loc
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   KeyError: (slice(None, 2, None), slice(None, 2, None))
+
+pandas/_libs/index.pyx:583: KeyError
+
+The above exception was the direct cause of the following exception:
+
+cov_type = 'nonrobust'
+
+    @pytest.mark.parametrize("cov_type", ["HC0", "HC1", "HC2", "HC3", "nonrobust"])
+    def test_scale_invariance_including_raw_control_relative_ci(cov_type):
+        frame = sample()
+        estimates = []
+        models = []
+        for scale in (1., 3e7):
+            changed = frame.copy()
+            changed["x"] *= scale
+            data = CausalData.from_df(changed, "d", "y", ["x", "x2"])
+            model = CUPEDModel(cov_type=cov_type, relative_denominator="raw_control", use_t=False)
+            model.fit(data, covariates=["x", "x2"])
+            estimates.append(model.estimate())
+            models.append(model)
+            z = model._result.model.exog
+            b, cov, h, p = qr_reference(z, frame.y.to_numpy(), cov_type)
+            np.testing.assert_allclose(model._result.params[:2], b[:2], rtol=2e-7, atol=1e-7)
+>           np.testing.assert_allclose(model._result.cov_params()[:2, :2], cov[:2, :2], rtol=1e-7, atol=1e-9)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\statistics\test_cuped_stable_design.py:76: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\pandas\core\frame.py:4378: in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = Index(['intercept', 'd', 'x__centered', 'd:x', 'x2__centered', 'd:x2'], dtype='str')
+key = (slice(None, 2, None), slice(None, 2, None))
+
+    def get_loc(self, key):
+        """
+        Get integer location, slice or boolean mask for requested label.
+    
+        Parameters
+        ----------
+        key : label
+            The key to check its location if it is present in the index.
+    
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+            Integer location, slice or boolean mask.
+    
+        See Also
+        --------
+        Index.get_slice_bound : Calculate slice bound that corresponds to
+            given label.
+        Index.get_indexer : Computes indexer and mask for new index given
+            the current index.
+        Index.get_non_unique : Returns indexer and masks for new index given
+            the current index.
+        Index.get_indexer_for : Returns an indexer even when non-unique.
+    
+        Examples
+        --------
+        >>> unique_index = pd.Index(list("abc"))
+        >>> unique_index.get_loc("b")
+        1
+    
+        >>> monotonic_index = pd.Index(list("abbc"))
+        >>> monotonic_index.get_loc("b")
+        slice(1, 3, None)
+    
+        >>> non_monotonic_index = pd.Index(list("abcb"))
+        >>> non_monotonic_index.get_loc("b")
+        array([False,  True, False,  True])
+        """
+        casted_key = self._maybe_cast_indexer(key)
+        try:
+            return self._engine.get_loc(casted_key)
+        except KeyError as err:
+            if isinstance(casted_key, slice) or (
+                isinstance(casted_key, abc.Iterable)
+                and any(isinstance(x, slice) for x in casted_key)
+            ):
+>               raise InvalidIndexError(key) from err
+E               pandas.errors.InvalidIndexError: (slice(None, 2, None), slice(None, 2, None))
+
+.venv\Lib\site-packages\pandas\core\indexes\base.py:3647: InvalidIndexError
+__________ test_near_collinear_sandwich_uses_stable_projection[HC2] ___________
+
+self = Index(['intercept', 'd', 'x__centered', 'd:x', 'x2__centered', 'd:x2'], dtype='str')
+key = (slice(None, 2, None), slice(None, 2, None))
+
+    def get_loc(self, key):
+        """
+        Get integer location, slice or boolean mask for requested label.
+    
+        Parameters
+        ----------
+        key : label
+            The key to check its location if it is present in the index.
+    
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+            Integer location, slice or boolean mask.
+    
+        See Also
+        --------
+        Index.get_slice_bound : Calculate slice bound that corresponds to
+            given label.
+        Index.get_indexer : Computes indexer and mask for new index given
+            the current index.
+        Index.get_non_unique : Returns indexer and masks for new index given
+            the current index.
+        Index.get_indexer_for : Returns an indexer even when non-unique.
+    
+        Examples
+        --------
+        >>> unique_index = pd.Index(list("abc"))
+        >>> unique_index.get_loc("b")
+        1
+    
+        >>> monotonic_index = pd.Index(list("abbc"))
+        >>> monotonic_index.get_loc("b")
+        slice(1, 3, None)
+    
+        >>> non_monotonic_index = pd.Index(list("abcb"))
+        >>> non_monotonic_index.get_loc("b")
+        array([False,  True, False,  True])
+        """
+        casted_key = self._maybe_cast_indexer(key)
+        try:
+>           return self._engine.get_loc(casted_key)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\pandas\core\indexes\base.py:3641: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+pandas/_libs/index.pyx:168: in pandas._libs.index.IndexEngine.get_loc
+    ???
+pandas/_libs/index.pyx:176: in pandas._libs.index.IndexEngine.get_loc
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   KeyError: (slice(None, 2, None), slice(None, 2, None))
+
+pandas/_libs/index.pyx:583: KeyError
+
+The above exception was the direct cause of the following exception:
+
+cov_type = 'HC2'
+
+    @pytest.mark.parametrize("cov_type", ["HC2", "HC3"])
+    def test_near_collinear_sandwich_uses_stable_projection(cov_type):
+        frame = sample(near_collinear=True)
+        data = CausalData.from_df(frame, "d", "y", ["x", "x2"])
+        model = CUPEDModel(cov_type=cov_type).fit(data, covariates=["x", "x2"])
+        b, cov, h, _ = qr_reference(model._result.model.exog, frame.y.to_numpy(), cov_type)
+        assert np.linalg.cond(model._result.model.exog) < 1e8
+>       np.testing.assert_allclose(model._result.cov_params()[:2, :2], cov[:2, :2], rtol=2e-6, atol=1e-8)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\statistics\test_cuped_stable_design.py:106: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\pandas\core\frame.py:4378: in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = Index(['intercept', 'd', 'x__centered', 'd:x', 'x2__centered', 'd:x2'], dtype='str')
+key = (slice(None, 2, None), slice(None, 2, None))
+
+    def get_loc(self, key):
+        """
+        Get integer location, slice or boolean mask for requested label.
+    
+        Parameters
+        ----------
+        key : label
+            The key to check its location if it is present in the index.
+    
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+            Integer location, slice or boolean mask.
+    
+        See Also
+        --------
+        Index.get_slice_bound : Calculate slice bound that corresponds to
+            given label.
+        Index.get_indexer : Computes indexer and mask for new index given
+            the current index.
+        Index.get_non_unique : Returns indexer and masks for new index given
+            the current index.
+        Index.get_indexer_for : Returns an indexer even when non-unique.
+    
+        Examples
+        --------
+        >>> unique_index = pd.Index(list("abc"))
+        >>> unique_index.get_loc("b")
+        1
+    
+        >>> monotonic_index = pd.Index(list("abbc"))
+        >>> monotonic_index.get_loc("b")
+        slice(1, 3, None)
+    
+        >>> non_monotonic_index = pd.Index(list("abcb"))
+        >>> non_monotonic_index.get_loc("b")
+        array([False,  True, False,  True])
+        """
+        casted_key = self._maybe_cast_indexer(key)
+        try:
+            return self._engine.get_loc(casted_key)
+        except KeyError as err:
+            if isinstance(casted_key, slice) or (
+                isinstance(casted_key, abc.Iterable)
+                and any(isinstance(x, slice) for x in casted_key)
+            ):
+>               raise InvalidIndexError(key) from err
+E               pandas.errors.InvalidIndexError: (slice(None, 2, None), slice(None, 2, None))
+
+.venv\Lib\site-packages\pandas\core\indexes\base.py:3647: InvalidIndexError
+__________ test_near_collinear_sandwich_uses_stable_projection[HC3] ___________
+
+self = Index(['intercept', 'd', 'x__centered', 'd:x', 'x2__centered', 'd:x2'], dtype='str')
+key = (slice(None, 2, None), slice(None, 2, None))
+
+    def get_loc(self, key):
+        """
+        Get integer location, slice or boolean mask for requested label.
+    
+        Parameters
+        ----------
+        key : label
+            The key to check its location if it is present in the index.
+    
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+            Integer location, slice or boolean mask.
+    
+        See Also
+        --------
+        Index.get_slice_bound : Calculate slice bound that corresponds to
+            given label.
+        Index.get_indexer : Computes indexer and mask for new index given
+            the current index.
+        Index.get_non_unique : Returns indexer and masks for new index given
+            the current index.
+        Index.get_indexer_for : Returns an indexer even when non-unique.
+    
+        Examples
+        --------
+        >>> unique_index = pd.Index(list("abc"))
+        >>> unique_index.get_loc("b")
+        1
+    
+        >>> monotonic_index = pd.Index(list("abbc"))
+        >>> monotonic_index.get_loc("b")
+        slice(1, 3, None)
+    
+        >>> non_monotonic_index = pd.Index(list("abcb"))
+        >>> non_monotonic_index.get_loc("b")
+        array([False,  True, False,  True])
+        """
+        casted_key = self._maybe_cast_indexer(key)
+        try:
+>           return self._engine.get_loc(casted_key)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\pandas\core\indexes\base.py:3641: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+pandas/_libs/index.pyx:168: in pandas._libs.index.IndexEngine.get_loc
+    ???
+pandas/_libs/index.pyx:176: in pandas._libs.index.IndexEngine.get_loc
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   KeyError: (slice(None, 2, None), slice(None, 2, None))
+
+pandas/_libs/index.pyx:583: KeyError
+
+The above exception was the direct cause of the following exception:
+
+cov_type = 'HC3'
+
+    @pytest.mark.parametrize("cov_type", ["HC2", "HC3"])
+    def test_near_collinear_sandwich_uses_stable_projection(cov_type):
+        frame = sample(near_collinear=True)
+        data = CausalData.from_df(frame, "d", "y", ["x", "x2"])
+        model = CUPEDModel(cov_type=cov_type).fit(data, covariates=["x", "x2"])
+        b, cov, h, _ = qr_reference(model._result.model.exog, frame.y.to_numpy(), cov_type)
+        assert np.linalg.cond(model._result.model.exog) < 1e8
+>       np.testing.assert_allclose(model._result.cov_params()[:2, :2], cov[:2, :2], rtol=2e-6, atol=1e-8)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\statistics\test_cuped_stable_design.py:106: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\pandas\core\frame.py:4378: in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = Index(['intercept', 'd', 'x__centered', 'd:x', 'x2__centered', 'd:x2'], dtype='str')
+key = (slice(None, 2, None), slice(None, 2, None))
+
+    def get_loc(self, key):
+        """
+        Get integer location, slice or boolean mask for requested label.
+    
+        Parameters
+        ----------
+        key : label
+            The key to check its location if it is present in the index.
+    
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+            Integer location, slice or boolean mask.
+    
+        See Also
+        --------
+        Index.get_slice_bound : Calculate slice bound that corresponds to
+            given label.
+        Index.get_indexer : Computes indexer and mask for new index given
+            the current index.
+        Index.get_non_unique : Returns indexer and masks for new index given
+            the current index.
+        Index.get_indexer_for : Returns an indexer even when non-unique.
+    
+        Examples
+        --------
+        >>> unique_index = pd.Index(list("abc"))
+        >>> unique_index.get_loc("b")
+        1
+    
+        >>> monotonic_index = pd.Index(list("abbc"))
+        >>> monotonic_index.get_loc("b")
+        slice(1, 3, None)
+    
+        >>> non_monotonic_index = pd.Index(list("abcb"))
+        >>> non_monotonic_index.get_loc("b")
+        array([False,  True, False,  True])
+        """
+        casted_key = self._maybe_cast_indexer(key)
+        try:
+            return self._engine.get_loc(casted_key)
+        except KeyError as err:
+            if isinstance(casted_key, slice) or (
+                isinstance(casted_key, abc.Iterable)
+                and any(isinstance(x, slice) for x in casted_key)
+            ):
+>               raise InvalidIndexError(key) from err
+E               pandas.errors.InvalidIndexError: (slice(None, 2, None), slice(None, 2, None))
+
+.venv\Lib\site-packages\pandas\core\indexes\base.py:3647: InvalidIndexError
+__________ test_batch_factorization_is_reused_without_ols_fit[False] __________
+
+checks = False
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000298A83A5130>
+
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_batch_factorization_is_reused_without_ols_fit(checks, monkeypatch):
+        frame = sample()
+        frame["y2"] = 2 * frame.y + frame.x2
+        frame["y3"] = -frame.y + frame.x
+        data = RctCausalData.from_df(frame, "d", ["y", "y2", "y3"], ["x", "x2"])
+        svd_calls = []
+        original = np.linalg.svd
+        def counted(a, *args, **kwargs):
+            svd_calls.append(a.shape)
+            return original(a, *args, **kwargs)
+        def forbidden(*args, **kwargs):
+            raise AssertionError("CUPED must solve from its owned factorization, without OLS.fit")
+        monkeypatch.setattr(np.linalg, "svd", counted)
+        monkeypatch.setattr(sm.OLS, "fit", forbidden)
+>       model = CUPEDModel().fit(data, covariates=["x", "x2"], run_checks=checks)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\statistics\test_cuped_stable_design.py:125: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\cuped\model.py:281: in fit
+    child._fit_single(projection, covariates, run_checks, design_source)
+causalis\scenarios\cuped\model.py:427: in _fit_single
+    self._result = model.fit(cov_type=self.cov_type, use_t=use_t_fit)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = (<statsmodels.regression.linear_model.OLS object at 0x00000298CF5AB530>,)
+kwargs = {'cov_type': 'HC2', 'use_t': True}
+
+    def forbidden(*args, **kwargs):
+>       raise AssertionError("CUPED must solve from its owned factorization, without OLS.fit")
+E       AssertionError: CUPED must solve from its owned factorization, without OLS.fit
+
+tests\statistics\test_cuped_stable_design.py:122: AssertionError
+__________ test_batch_factorization_is_reused_without_ols_fit[True] ___________
+
+checks = True
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000298CF60A4B0>
+
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_batch_factorization_is_reused_without_ols_fit(checks, monkeypatch):
+        frame = sample()
+        frame["y2"] = 2 * frame.y + frame.x2
+        frame["y3"] = -frame.y + frame.x
+        data = RctCausalData.from_df(frame, "d", ["y", "y2", "y3"], ["x", "x2"])
+        svd_calls = []
+        original = np.linalg.svd
+        def counted(a, *args, **kwargs):
+            svd_calls.append(a.shape)
+            return original(a, *args, **kwargs)
+        def forbidden(*args, **kwargs):
+            raise AssertionError("CUPED must solve from its owned factorization, without OLS.fit")
+        monkeypatch.setattr(np.linalg, "svd", counted)
+        monkeypatch.setattr(sm.OLS, "fit", forbidden)
+>       model = CUPEDModel().fit(data, covariates=["x", "x2"], run_checks=checks)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\statistics\test_cuped_stable_design.py:125: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\cuped\model.py:281: in fit
+    child._fit_single(projection, covariates, run_checks, design_source)
+causalis\scenarios\cuped\model.py:427: in _fit_single
+    self._result = model.fit(cov_type=self.cov_type, use_t=use_t_fit)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = (<statsmodels.regression.linear_model.OLS object at 0x00000298CF60BCE0>,)
+kwargs = {'cov_type': 'HC2', 'use_t': True}
+
+    def forbidden(*args, **kwargs):
+>       raise AssertionError("CUPED must solve from its owned factorization, without OLS.fit")
+E       AssertionError: CUPED must solve from its owned factorization, without OLS.fit
+
+tests\statistics\test_cuped_stable_design.py:122: AssertionError
+___________________ test_shared_design_and_input_unchanged ____________________
+
+data = RctCausalData(df=(360, 6), treatments=['control', 'a', 'b'], control_treatment='control', outcomes=['y1', 'y2'], confounders=['x'], user_id=None)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000298CF6093A0>
+
+    def test_shared_design_and_input_unchanged(data, monkeypatch):
+        original = data.df.copy(deep=True)
+        def unexpected(*args, **kwargs):
+            raise AssertionError("Must not revalidate CausalData for each outcome")
+        monkeypatch.setattr(CausalData, "from_df", unexpected)
+        model = CUPEDModel().fit(data, covariates=["x"], run_checks=False)
+        for arm in ["a", "b"]:
+            first = model._comparison_models["y1"][arm]
+            second = model._comparison_models["y2"][arm]
+            assert first._data.df is second._data.df
+            for attr in ["_result", "_result_naive"]:
+                first_ols = getattr(first, attr).model
+                second_ols = getattr(second, attr).model
+                assert np.shares_memory(first_ols.exog, second_ols.exog)
+>               assert first_ols.pinv_wexog is second_ols.pinv_wexog
+E               assert array([[ 3.55887922e-03,  3.11807507e-18,  3.57638286e-04,\n        -1.85249231e-17,  1.29511742e-02, -8.79194770e-18,\n...        -2.29907761e-02, -1.23223555e-02, -1.43052704e-03,\n         8.32312994e-03,  4.28122698e-03, -4.11188052e-03]]) is array([[ 3.55887922e-03,  3.11807507e-18,  3.57638286e-04,\n        -1.85249231e-17,  1.29511742e-02, -8.79194770e-18,\n...        -2.29907761e-02, -1.23223555e-02, -1.43052704e-03,\n         8.32312994e-03,  4.28122698e-03, -4.11188052e-03]])
+E                +  where array([[ 3.55887922e-03,  3.11807507e-18,  3.57638286e-04,\n        -1.85249231e-17,  1.29511742e-02, -8.79194770e-18,\n...        -2.29907761e-02, -1.23223555e-02, -1.43052704e-03,\n         8.32312994e-03,  4.28122698e-03, -4.11188052e-03]]) = <statsmodels.regression.linear_model.OLS object at 0x00000298CF60BA10>.pinv_wexog
+E                +  and   array([[ 3.55887922e-03,  3.11807507e-18,  3.57638286e-04,\n        -1.85249231e-17,  1.29511742e-02, -8.79194770e-18,\n...        -2.29907761e-02, -1.23223555e-02, -1.43052704e-03,\n         8.32312994e-03,  4.28122698e-03, -4.11188052e-03]]) = <statsmodels.regression.linear_model.OLS object at 0x00000298CF60B6E0>.pinv_wexog
+
+tests\statistics\test_cuped_rct.py:80: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/statistics/test_cuped_stable_design.py::test_leverage_and_cooks_matches_qr_under_rescaling[30000000.0]
+FAILED tests/statistics/test_cuped_stable_design.py::test_leverage_and_cooks_matches_qr_under_rescaling[100000000.0]
+FAILED tests/statistics/test_cuped_stable_design.py::test_scale_invariance_including_raw_control_relative_ci[HC0]
+FAILED tests/statistics/test_cuped_stable_design.py::test_scale_invariance_including_raw_control_relative_ci[HC1]
+FAILED tests/statistics/test_cuped_stable_design.py::test_scale_invariance_including_raw_control_relative_ci[HC2]
+FAILED tests/statistics/test_cuped_stable_design.py::test_scale_invariance_including_raw_control_relative_ci[HC3]
+FAILED tests/statistics/test_cuped_stable_design.py::test_scale_invariance_including_raw_control_relative_ci[nonrobust]
+FAILED tests/statistics/test_cuped_stable_design.py::test_near_collinear_sandwich_uses_stable_projection[HC2]
+FAILED tests/statistics/test_cuped_stable_design.py::test_near_collinear_sandwich_uses_stable_projection[HC3]
+FAILED tests/statistics/test_cuped_stable_design.py::test_batch_factorization_is_reused_without_ols_fit[False]
+FAILED tests/statistics/test_cuped_stable_design.py::test_batch_factorization_is_reused_without_ols_fit[True]
+FAILED tests/statistics/test_cuped_rct.py::test_shared_design_and_input_unchanged
+12 failed, 1 passed in 17.85s

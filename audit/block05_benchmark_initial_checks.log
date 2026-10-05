@@ -1,0 +1,26 @@
+D:\codex\Causalis\audit\block05_benchmark_test_temp\baseline\causalis\scenarios\iv\dgp.py:177: SyntaxWarning: invalid escape sequence '\e'
+  Z &= f_Z(X, \epsilon_Z) \\
+Traceback (most recent call last):
+  File "D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\indexes\base.py", line 3641, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 168, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 176, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 583, in pandas._libs.index.StringObjectEngine._check_type
+KeyError: 1
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\codex\Causalis\audit\benchmark_block05_cuped.py", line 48, in <module>
+    ate=[float(child._result.params[1]) for child in children],
+               ~~~~~~~~~~~~~~~~~~~~^^^
+  File "D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\series.py", line 959, in __getitem__
+    return self._get_value(key)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\series.py", line 1046, in _get_value
+    loc = self.index.get_loc(label)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\codex\Causalis\.venv\Lib\site-packages\pandas\core\indexes\base.py", line 3648, in get_loc
+    raise KeyError(key) from err
+KeyError: 1
