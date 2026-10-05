@@ -40,7 +40,7 @@ class MultiCausalData(BaseModel):
     - Disjoint roles for columns (outcome, treatment_names, confounders, user_id).
     - Non-empty normalized names for outcome and user_id (if provided).
     - Existence of all specified columns in the DataFrame.
-    - Numeric or boolean types for outcome and confounders.
+    - Real numeric or boolean types for outcome and confounders.
     - Finite values for outcome, confounders, and treatment_names.
     - Non-constant values for outcome, treatment_names, and confounders.
     - No NaN values in used columns.
@@ -313,8 +313,7 @@ class MultiCausalData(BaseModel):
             raise ValueError(f"Column '{user_id}' specified as user_id does not exist in the DataFrame.")
 
         # 4) outcome type + non-constant
-        if not (pdtypes.is_numeric_dtype(df[outcome]) or pdtypes.is_bool_dtype(df[outcome])):
-            raise ValueError(f"Column '{outcome}' specified as outcome must contain only int, float, or bool values.")
+        CausalData._validate_real_numeric_dtype(df[outcome], outcome, "outcome")
         if not np.isfinite(df[outcome].to_numpy(dtype=float, copy=False)).all():
             raise ValueError(f"Column '{outcome}' specified as outcome must contain only finite values.")
         if CausalData._is_constant_series(df[outcome]):
@@ -322,8 +321,7 @@ class MultiCausalData(BaseModel):
 
         # 5) confounders type + non-constant
         for c in confounders:
-            if not (pdtypes.is_numeric_dtype(df[c]) or pdtypes.is_bool_dtype(df[c])):
-                raise ValueError(f"Column '{c}' specified as confounder must contain only int, float, or bool values.")
+            CausalData._validate_real_numeric_dtype(df[c], c, "confounder")
             if not np.isfinite(df[c].to_numpy(dtype=float, copy=False)).all():
                 raise ValueError(f"Column '{c}' specified as confounder must contain only finite values.")
             if CausalData._is_constant_series(df[c]):
@@ -331,8 +329,7 @@ class MultiCausalData(BaseModel):
 
         # 5b) treatment type + finite checks (before binary casting)
         for t in treatment_names:
-            if not (pdtypes.is_numeric_dtype(df[t]) or pdtypes.is_bool_dtype(df[t])):
-                raise ValueError(f"Column '{t}' specified as treatment must contain only int, float, or bool values.")
+            CausalData._validate_real_numeric_dtype(df[t], t, "treatment")
             if not np.isfinite(df[t].to_numpy(dtype=float, copy=False)).all():
                 raise ValueError(f"Column '{t}' specified as treatment must contain only finite values.")
 

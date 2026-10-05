@@ -31,6 +31,7 @@ class CausalData(BaseModel):
     ----------
     df : pd.DataFrame
         The DataFrame containing the data_contracts restricted to outcome, treatment, and confounder columns.
+        Analysis columns must contain finite real numeric or boolean values.
         NaN values are not allowed in the used columns.
     treatment_name : str
         Column name representing the treatment variable.
@@ -143,7 +144,7 @@ class CausalData(BaseModel):
         2. Ensures role columns (treatment, outcome, user_id) are disjoint.
         3. Verifies that all specified columns exist in the DataFrame.
         4. Validates types and checks for constant variance in outcome, treatment, and confounders.
-        5. Ensures no NaN values are present in used columns.
+        5. Ensures no NaN values are present in used columns and analysis values are finite.
         6. Subsets the DataFrame to used columns and coerces binary treatment to int8.
         7. Checks for duplicate column values.
         8. Verifies user_id uniqueness.
@@ -198,8 +199,7 @@ class CausalData(BaseModel):
 
         # 4. Validate types and check for constant variance
         # Outcome
-        if not (pdtypes.is_numeric_dtype(df[outcome]) or pdtypes.is_bool_dtype(df[outcome])):
-            raise ValueError(f"Column '{outcome}' specified as outcome must contain only int, float, or bool values.")
+        self._validate_real_numeric_dtype(df[outcome], outcome, "outcome")
         if self._is_constant_series(df[outcome]):
             raise ValueError(
                 f"Column '{outcome}' specified as outcome is constant (has zero variance / single unique value), "
@@ -207,8 +207,7 @@ class CausalData(BaseModel):
             )
 
         # Treatment
-        if not (pdtypes.is_numeric_dtype(df[treatment]) or pdtypes.is_bool_dtype(df[treatment])):
-            raise ValueError(f"Column '{treatment}' specified as treatment must contain only int, float, or bool values.")
+        self._validate_real_numeric_dtype(df[treatment], treatment, "treatment")
         if self._is_constant_series(df[treatment]):
             raise ValueError(
                 f"Column '{treatment}' specified as treatment is constant (has zero variance / single unique value), "
@@ -219,8 +218,7 @@ class CausalData(BaseModel):
 
         # confounders
         for col in confounders:
-            if not (pdtypes.is_numeric_dtype(df[col]) or pdtypes.is_bool_dtype(df[col])):
-                raise ValueError(f"Column '{col}' specified as confounders must contain only int, float, or bool values.")
+            self._validate_real_numeric_dtype(df[col], col, "confounders")
             
             if self._is_constant_series(df[col]):
                 raise ValueError(
@@ -236,6 +234,10 @@ class CausalData(BaseModel):
         
         if df[cols_to_check].isna().any().any():
             raise ValueError("DataFrame contains NaN values in used columns, which are not allowed.")
+
+        for col in cols_to_check:
+            if col != user_id and not np.isfinite(df[col]).all():
+                raise ValueError(f"Column '{col}' must contain only finite numeric values.")
 
         # 5. Store only the relevant columns and canonicalize treatment.
         self.df = df[cols_to_check].copy()
@@ -258,15 +260,25 @@ class CausalData(BaseModel):
         return self
 
     @staticmethod
+    def _validate_real_numeric_dtype(series: pd.Series, name: str, role: str) -> None:
+        """Reject unsupported and complex dtypes before any lossy numeric cast."""
+        if not (pdtypes.is_numeric_dtype(series) or pdtypes.is_bool_dtype(series)):
+            raise ValueError(
+                f"Column '{name}' specified as {role} must contain only int, float, or bool values."
+            )
+        if pdtypes.is_complex_dtype(series):
+            raise ValueError(
+                f"Column '{name}' specified as {role} must contain only real numeric values; "
+                "complex values are not allowed."
+            )
+
+    @staticmethod
     def _validate_and_cast_binary_treatment(series: pd.Series, name: str) -> pd.Series:
         """Validate exact {0,1}/boolean treatment encoding and cast to int8."""
         if pdtypes.is_bool_dtype(series):
             return series.astype("int8")
 
-        if not pdtypes.is_numeric_dtype(series):
-            raise ValueError(
-                f"Column '{name}' specified as treatment must contain only int, float, or bool values."
-            )
+        CausalData._validate_real_numeric_dtype(series, name, "treatment")
 
         values = pd.unique(series)
         if not np.isfinite(np.asarray(values, dtype=float)).all():

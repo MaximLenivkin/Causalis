@@ -27,6 +27,7 @@ class IVCausalData(CausalData):
     ----------
     df : pd.DataFrame
         DataFrame restricted to the columns used by the IV analysis.
+        Analysis columns must contain finite real numeric or boolean values.
     treatment_name : str
         Column name representing the endogenous treatment variable.
     outcome_name : str
@@ -178,12 +179,7 @@ class IVCausalData(CausalData):
             )
 
         for col in self.instruments_names:
-            if not (
-                pdtypes.is_numeric_dtype(df[col]) or pdtypes.is_bool_dtype(df[col])
-            ):
-                raise ValueError(
-                    f"Column '{col}' specified as instruments must contain only int, float, or bool values."
-                )
+            self._validate_real_numeric_dtype(df[col], col, "instruments")
             if not self._is_binary_series(df[col]):
                 raise ValueError(
                     f"Column '{col}' specified as instrument must be binary encoded with values 0/1."

@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import date, datetime
 from typing import Hashable, Optional, Sequence, Union
 
+import numpy as np
 import pandas as pd
 from pydantic import BaseModel, ConfigDict, Field, PrivateAttr, model_validator
 
@@ -37,6 +38,7 @@ class PanelDataSCM(BaseModel):
     The model stores a validated internal dataframe snapshot used by all contract
     methods; mutating the public ``df`` attribute after construction does not
     affect validated contract behavior.
+    Outcome ``y`` must contain finite real numeric values.
     Outcome ``y`` must not contain null/NaN values. Represent missing panel
     periods by omitting unit-time rows, not by keeping rows with ``NaN`` outcome.
     For fiscal quarter/year semantics, pass ``time_col`` explicitly as
@@ -197,9 +199,20 @@ class PanelDataSCM(BaseModel):
         created_nan = y_num.isna() & ~df[self.y].isna()
         if bool(created_nan.any()):
             raise ValueError(f"{self.y!r} contains non-numeric values.")
+        if pd.api.types.is_complex_dtype(y_num):
+            raise ValueError(f"{self.y!r} must contain only real numeric values; complex values are not allowed.")
+        if not np.isfinite(y_num.to_numpy(dtype=float)).all():
+            raise ValueError(f"{self.y!r} must contain only finite numeric values.")
         df[self.y] = y_num
 
         treatment_raw = df[self.treated_time]
+        if pd.api.types.is_complex_dtype(treatment_raw) or (
+            pd.api.types.is_object_dtype(treatment_raw)
+            and pd.api.types.is_complex_dtype(pd.to_numeric(treatment_raw, errors="coerce"))
+        ):
+            raise ValueError(
+                f"{self.treated_time!r} must contain only real binary values; complex values are not allowed."
+            )
         treatment_allowed = {0, 1, True, False}
         if not set(treatment_raw.dropna().unique()).issubset(treatment_allowed):
             raise ValueError(f"{self.treated_time!r} must be boolean or 0/1.")

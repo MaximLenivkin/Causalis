@@ -1,0 +1,850 @@
+FF.FF.FF.FF.FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF............             [100%]
+================================== FAILURES ===================================
+______ test_cross_section_rejects_infinite_analysis_values[inf-y-binary] ______
+
+kind = 'binary', column = 'y', value = inf
+
+    @pytest.mark.parametrize("kind", ["binary", "iv", "multi"])
+    @pytest.mark.parametrize("column", ["y", "x"])
+    @pytest.mark.parametrize("value", [np.inf, -np.inf])
+    def test_cross_section_rejects_infinite_analysis_values(kind, column, value):
+        df = _cross_section()
+        df.loc[0, column] = value
+        original = df.copy(deep=True)
+    
+>       with pytest.raises(ValueError, match=rf"'{column}'.*finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:69: Failed
+________ test_cross_section_rejects_infinite_analysis_values[inf-y-iv] ________
+
+kind = 'iv', column = 'y', value = inf
+
+    @pytest.mark.parametrize("kind", ["binary", "iv", "multi"])
+    @pytest.mark.parametrize("column", ["y", "x"])
+    @pytest.mark.parametrize("value", [np.inf, -np.inf])
+    def test_cross_section_rejects_infinite_analysis_values(kind, column, value):
+        df = _cross_section()
+        df.loc[0, column] = value
+        original = df.copy(deep=True)
+    
+>       with pytest.raises(ValueError, match=rf"'{column}'.*finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:69: Failed
+______ test_cross_section_rejects_infinite_analysis_values[inf-x-binary] ______
+
+kind = 'binary', column = 'x', value = inf
+
+    @pytest.mark.parametrize("kind", ["binary", "iv", "multi"])
+    @pytest.mark.parametrize("column", ["y", "x"])
+    @pytest.mark.parametrize("value", [np.inf, -np.inf])
+    def test_cross_section_rejects_infinite_analysis_values(kind, column, value):
+        df = _cross_section()
+        df.loc[0, column] = value
+        original = df.copy(deep=True)
+    
+>       with pytest.raises(ValueError, match=rf"'{column}'.*finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:69: Failed
+________ test_cross_section_rejects_infinite_analysis_values[inf-x-iv] ________
+
+kind = 'iv', column = 'x', value = inf
+
+    @pytest.mark.parametrize("kind", ["binary", "iv", "multi"])
+    @pytest.mark.parametrize("column", ["y", "x"])
+    @pytest.mark.parametrize("value", [np.inf, -np.inf])
+    def test_cross_section_rejects_infinite_analysis_values(kind, column, value):
+        df = _cross_section()
+        df.loc[0, column] = value
+        original = df.copy(deep=True)
+    
+>       with pytest.raises(ValueError, match=rf"'{column}'.*finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:69: Failed
+_____ test_cross_section_rejects_infinite_analysis_values[-inf-y-binary] ______
+
+kind = 'binary', column = 'y', value = -inf
+
+    @pytest.mark.parametrize("kind", ["binary", "iv", "multi"])
+    @pytest.mark.parametrize("column", ["y", "x"])
+    @pytest.mark.parametrize("value", [np.inf, -np.inf])
+    def test_cross_section_rejects_infinite_analysis_values(kind, column, value):
+        df = _cross_section()
+        df.loc[0, column] = value
+        original = df.copy(deep=True)
+    
+>       with pytest.raises(ValueError, match=rf"'{column}'.*finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:69: Failed
+_______ test_cross_section_rejects_infinite_analysis_values[-inf-y-iv] ________
+
+kind = 'iv', column = 'y', value = -inf
+
+    @pytest.mark.parametrize("kind", ["binary", "iv", "multi"])
+    @pytest.mark.parametrize("column", ["y", "x"])
+    @pytest.mark.parametrize("value", [np.inf, -np.inf])
+    def test_cross_section_rejects_infinite_analysis_values(kind, column, value):
+        df = _cross_section()
+        df.loc[0, column] = value
+        original = df.copy(deep=True)
+    
+>       with pytest.raises(ValueError, match=rf"'{column}'.*finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:69: Failed
+_____ test_cross_section_rejects_infinite_analysis_values[-inf-x-binary] ______
+
+kind = 'binary', column = 'x', value = -inf
+
+    @pytest.mark.parametrize("kind", ["binary", "iv", "multi"])
+    @pytest.mark.parametrize("column", ["y", "x"])
+    @pytest.mark.parametrize("value", [np.inf, -np.inf])
+    def test_cross_section_rejects_infinite_analysis_values(kind, column, value):
+        df = _cross_section()
+        df.loc[0, column] = value
+        original = df.copy(deep=True)
+    
+>       with pytest.raises(ValueError, match=rf"'{column}'.*finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:69: Failed
+_______ test_cross_section_rejects_infinite_analysis_values[-inf-x-iv] ________
+
+kind = 'iv', column = 'x', value = -inf
+
+    @pytest.mark.parametrize("kind", ["binary", "iv", "multi"])
+    @pytest.mark.parametrize("column", ["y", "x"])
+    @pytest.mark.parametrize("value", [np.inf, -np.inf])
+    def test_cross_section_rejects_infinite_analysis_values(kind, column, value):
+        df = _cross_section()
+        df.loc[0, column] = value
+        original = df.copy(deep=True)
+    
+>       with pytest.raises(ValueError, match=rf"'{column}'.*finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:69: Failed
+_______ test_scm_rejects_infinite_outcome_after_numeric_coercion[inf0] ________
+
+value = inf
+
+    @pytest.mark.parametrize("value", [np.inf, -np.inf, "inf", "-inf"])
+    def test_scm_rejects_infinite_outcome_after_numeric_coercion(value):
+        df = _panel()
+        df["y"] = df["y"].astype(object)
+        df.loc[0, "y"] = value
+        original = df.copy(deep=True)
+    
+>       with pytest.raises(ValueError, match="'y'.*finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:81: Failed
+_______ test_scm_rejects_infinite_outcome_after_numeric_coercion[-inf0] _______
+
+value = -inf
+
+    @pytest.mark.parametrize("value", [np.inf, -np.inf, "inf", "-inf"])
+    def test_scm_rejects_infinite_outcome_after_numeric_coercion(value):
+        df = _panel()
+        df["y"] = df["y"].astype(object)
+        df.loc[0, "y"] = value
+        original = df.copy(deep=True)
+    
+>       with pytest.raises(ValueError, match="'y'.*finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:81: Failed
+_______ test_scm_rejects_infinite_outcome_after_numeric_coercion[inf1] ________
+
+value = 'inf'
+
+    @pytest.mark.parametrize("value", [np.inf, -np.inf, "inf", "-inf"])
+    def test_scm_rejects_infinite_outcome_after_numeric_coercion(value):
+        df = _panel()
+        df["y"] = df["y"].astype(object)
+        df.loc[0, "y"] = value
+        original = df.copy(deep=True)
+    
+>       with pytest.raises(ValueError, match="'y'.*finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:81: Failed
+_______ test_scm_rejects_infinite_outcome_after_numeric_coercion[-inf1] _______
+
+value = '-inf'
+
+    @pytest.mark.parametrize("value", [np.inf, -np.inf, "inf", "-inf"])
+    def test_scm_rejects_infinite_outcome_after_numeric_coercion(value):
+        df = _panel()
+        df["y"] = df["y"].astype(object)
+        df.loc[0, "y"] = value
+        original = df.copy(deep=True)
+    
+>       with pytest.raises(ValueError, match="'y'.*finite"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:81: Failed
+__ test_cross_section_rejects_complex_before_lossy_conversion[0.0-binary-y] ___
+
+kind = 'binary', column = 'y', imaginary = 0.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:102: Failed
+__ test_cross_section_rejects_complex_before_lossy_conversion[0.0-binary-x] ___
+
+kind = 'binary', column = 'x', imaginary = 0.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:102: Failed
+__ test_cross_section_rejects_complex_before_lossy_conversion[0.0-binary-d] ___
+
+kind = 'binary', column = 'd', imaginary = 0.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:102: Failed
+____ test_cross_section_rejects_complex_before_lossy_conversion[0.0-iv-y] _____
+
+kind = 'iv', column = 'y', imaginary = 0.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:102: Failed
+____ test_cross_section_rejects_complex_before_lossy_conversion[0.0-iv-x] _____
+
+kind = 'iv', column = 'x', imaginary = 0.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:102: Failed
+____ test_cross_section_rejects_complex_before_lossy_conversion[0.0-iv-d] _____
+
+kind = 'iv', column = 'd', imaginary = 0.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:102: Failed
+____ test_cross_section_rejects_complex_before_lossy_conversion[0.0-iv-z] _____
+
+kind = 'iv', column = 'z', imaginary = 0.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:102: Failed
+___ test_cross_section_rejects_complex_before_lossy_conversion[0.0-multi-y] ___
+
+kind = 'multi', column = 'y', imaginary = 0.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:102: Failed
+___ test_cross_section_rejects_complex_before_lossy_conversion[0.0-multi-x] ___
+
+kind = 'multi', column = 'x', imaginary = 0.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:102: Failed
+___ test_cross_section_rejects_complex_before_lossy_conversion[0.0-multi-d] ___
+
+kind = 'multi', column = 'd', imaginary = 0.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AssertionError: Regex pattern did not match.
+E             Expected regex: "'d'.*real"
+E             Actual message: "1 validation error for MultiCausalData\n  Value error, Treatment column 'd' must be bool/int/float binary; dtype=complex128. [type=value_error, input_value={'df':      y         d  ...', 'confounders': ['x']}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+
+tests\data\test_numeric_contract_boundaries.py:102: AssertionError
+___ test_cross_section_rejects_complex_before_lossy_conversion[0.0-multi-c] ___
+
+kind = 'multi', column = 'c', imaginary = 0.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AssertionError: Regex pattern did not match.
+E             Expected regex: "'c'.*real"
+E             Actual message: "1 validation error for MultiCausalData\n  Value error, Treatment column 'c' must be bool/int/float binary; dtype=complex128. [type=value_error, input_value={'df':      y  d  z    x ...', 'confounders': ['x']}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+
+tests\data\test_numeric_contract_boundaries.py:102: AssertionError
+__ test_cross_section_rejects_complex_before_lossy_conversion[2.0-binary-y] ___
+
+kind = 'binary', column = 'y', imaginary = 2.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:102: Failed
+__ test_cross_section_rejects_complex_before_lossy_conversion[2.0-binary-x] ___
+
+kind = 'binary', column = 'x', imaginary = 2.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:102: Failed
+__ test_cross_section_rejects_complex_before_lossy_conversion[2.0-binary-d] ___
+
+kind = 'binary', column = 'd', imaginary = 2.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:102: Failed
+____ test_cross_section_rejects_complex_before_lossy_conversion[2.0-iv-y] _____
+
+kind = 'iv', column = 'y', imaginary = 2.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:102: Failed
+____ test_cross_section_rejects_complex_before_lossy_conversion[2.0-iv-x] _____
+
+kind = 'iv', column = 'x', imaginary = 2.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:102: Failed
+____ test_cross_section_rejects_complex_before_lossy_conversion[2.0-iv-d] _____
+
+kind = 'iv', column = 'd', imaginary = 2.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AssertionError: Regex pattern did not match.
+E             Expected regex: "'d'.*real"
+E             Actual message: "1 validation error for IVCausalData\n  Value error, Column 'd' specified as treatment must be binary encoded with values 0/1. [type=value_error, input_value={'df':      y         d  ...x'], 'instruments': 'z'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+
+tests\data\test_numeric_contract_boundaries.py:102: AssertionError
+____ test_cross_section_rejects_complex_before_lossy_conversion[2.0-iv-z] _____
+
+kind = 'iv', column = 'z', imaginary = 2.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AssertionError: Regex pattern did not match.
+E             Expected regex: "'z'.*real"
+E             Actual message: "1 validation error for IVCausalData\n  Value error, Column 'z' specified as instrument must be binary encoded with values 0/1. [type=value_error, input_value={'df':      y  d         ...x'], 'instruments': 'z'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+
+tests\data\test_numeric_contract_boundaries.py:102: AssertionError
+___ test_cross_section_rejects_complex_before_lossy_conversion[2.0-multi-y] ___
+
+kind = 'multi', column = 'y', imaginary = 2.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:102: Failed
+___ test_cross_section_rejects_complex_before_lossy_conversion[2.0-multi-x] ___
+
+kind = 'multi', column = 'x', imaginary = 2.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:102: Failed
+___ test_cross_section_rejects_complex_before_lossy_conversion[2.0-multi-d] ___
+
+kind = 'multi', column = 'd', imaginary = 2.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AssertionError: Regex pattern did not match.
+E             Expected regex: "'d'.*real"
+E             Actual message: "1 validation error for MultiCausalData\n  Value error, Treatment column 'd' must be bool/int/float binary; dtype=complex128. [type=value_error, input_value={'df':      y         d  ...', 'confounders': ['x']}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+
+tests\data\test_numeric_contract_boundaries.py:102: AssertionError
+___ test_cross_section_rejects_complex_before_lossy_conversion[2.0-multi-c] ___
+
+kind = 'multi', column = 'c', imaginary = 2.0
+
+    @pytest.mark.parametrize("kind,column", _CROSS_COMPLEX_ROLES)
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_cross_section_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _cross_section()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AssertionError: Regex pattern did not match.
+E             Expected regex: "'c'.*real"
+E             Actual message: "1 validation error for MultiCausalData\n  Value error, Treatment column 'c' must be bool/int/float binary; dtype=complex128. [type=value_error, input_value={'df':      y  d  z    x ...', 'confounders': ['x']}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+
+tests\data\test_numeric_contract_boundaries.py:102: AssertionError
+________ test_panel_rejects_complex_before_lossy_conversion[0.0-did-y] ________
+
+kind = 'did', column = 'y', imaginary = 0.0
+
+    @pytest.mark.parametrize("kind,column", [("did", "y"), ("did", "x"), ("did", "d"),
+                                             ("scm", "y"), ("scm", "d")])
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_panel_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _panel()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:118: Failed
+________ test_panel_rejects_complex_before_lossy_conversion[0.0-did-x] ________
+
+kind = 'did', column = 'x', imaginary = 0.0
+
+    @pytest.mark.parametrize("kind,column", [("did", "y"), ("did", "x"), ("did", "d"),
+                                             ("scm", "y"), ("scm", "d")])
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_panel_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _panel()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:118: Failed
+________ test_panel_rejects_complex_before_lossy_conversion[0.0-did-d] ________
+
+kind = 'did', column = 'd', imaginary = 0.0
+
+    @pytest.mark.parametrize("kind,column", [("did", "y"), ("did", "x"), ("did", "d"),
+                                             ("scm", "y"), ("scm", "d")])
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_panel_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _panel()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:118: Failed
+________ test_panel_rejects_complex_before_lossy_conversion[0.0-scm-y] ________
+
+kind = 'scm', column = 'y', imaginary = 0.0
+
+    @pytest.mark.parametrize("kind,column", [("did", "y"), ("did", "x"), ("did", "d"),
+                                             ("scm", "y"), ("scm", "d")])
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_panel_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _panel()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:118: Failed
+________ test_panel_rejects_complex_before_lossy_conversion[0.0-scm-d] ________
+
+kind = 'scm', column = 'd', imaginary = 0.0
+
+    @pytest.mark.parametrize("kind,column", [("did", "y"), ("did", "x"), ("did", "d"),
+                                             ("scm", "y"), ("scm", "d")])
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_panel_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _panel()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:118: Failed
+________ test_panel_rejects_complex_before_lossy_conversion[2.0-did-y] ________
+
+kind = 'did', column = 'y', imaginary = 2.0
+
+    @pytest.mark.parametrize("kind,column", [("did", "y"), ("did", "x"), ("did", "d"),
+                                             ("scm", "y"), ("scm", "d")])
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_panel_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _panel()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:118: Failed
+________ test_panel_rejects_complex_before_lossy_conversion[2.0-did-x] ________
+
+kind = 'did', column = 'x', imaginary = 2.0
+
+    @pytest.mark.parametrize("kind,column", [("did", "y"), ("did", "x"), ("did", "d"),
+                                             ("scm", "y"), ("scm", "d")])
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_panel_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _panel()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:118: Failed
+________ test_panel_rejects_complex_before_lossy_conversion[2.0-did-d] ________
+
+kind = 'did', column = 'd', imaginary = 2.0
+
+    @pytest.mark.parametrize("kind,column", [("did", "y"), ("did", "x"), ("did", "d"),
+                                             ("scm", "y"), ("scm", "d")])
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_panel_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _panel()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AssertionError: Regex pattern did not match.
+E             Expected regex: "'d'.*real"
+E             Actual message: "1 validation error for PanelDataDID\n  Value error, 'd' must be boolean or 0/1. [type=value_error, input_value={'df':   unit     time   ...d', 'covariates': ['x']}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+
+tests\data\test_numeric_contract_boundaries.py:118: AssertionError
+________ test_panel_rejects_complex_before_lossy_conversion[2.0-scm-y] ________
+
+kind = 'scm', column = 'y', imaginary = 2.0
+
+    @pytest.mark.parametrize("kind,column", [("did", "y"), ("did", "x"), ("did", "d"),
+                                             ("scm", "y"), ("scm", "d")])
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_panel_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _panel()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           Failed: DID NOT RAISE ValueError
+
+tests\data\test_numeric_contract_boundaries.py:118: Failed
+________ test_panel_rejects_complex_before_lossy_conversion[2.0-scm-d] ________
+
+kind = 'scm', column = 'd', imaginary = 2.0
+
+    @pytest.mark.parametrize("kind,column", [("did", "y"), ("did", "x"), ("did", "d"),
+                                             ("scm", "y"), ("scm", "d")])
+    @pytest.mark.parametrize("imaginary", [0.0, 2.0])
+    def test_panel_rejects_complex_before_lossy_conversion(kind, column, imaginary):
+        df = _panel()
+        df[column] = df[column].astype(np.complex128) + imaginary * 1j
+        original = df.copy(deep=True)
+    
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+>           with pytest.raises(ValueError, match=rf"'{column}'.*real"):
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AssertionError: Regex pattern did not match.
+E             Expected regex: "'d'.*real"
+E             Actual message: "1 validation error for PanelDataSCM\n  Value error, 'd' must be boolean or 0/1. [type=value_error, input_value={'df':   unit     time   ...e', 'treated_time': 'd'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error"
+
+tests\data\test_numeric_contract_boundaries.py:118: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_infinite_analysis_values[inf-y-binary]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_infinite_analysis_values[inf-y-iv]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_infinite_analysis_values[inf-x-binary]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_infinite_analysis_values[inf-x-iv]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_infinite_analysis_values[-inf-y-binary]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_infinite_analysis_values[-inf-y-iv]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_infinite_analysis_values[-inf-x-binary]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_infinite_analysis_values[-inf-x-iv]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_scm_rejects_infinite_outcome_after_numeric_coercion[inf0]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_scm_rejects_infinite_outcome_after_numeric_coercion[-inf0]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_scm_rejects_infinite_outcome_after_numeric_coercion[inf1]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_scm_rejects_infinite_outcome_after_numeric_coercion[-inf1]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[0.0-binary-y]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[0.0-binary-x]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[0.0-binary-d]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[0.0-iv-y]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[0.0-iv-x]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[0.0-iv-d]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[0.0-iv-z]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[0.0-multi-y]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[0.0-multi-x]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[0.0-multi-d]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[0.0-multi-c]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[2.0-binary-y]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[2.0-binary-x]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[2.0-binary-d]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[2.0-iv-y]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[2.0-iv-x]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[2.0-iv-d]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[2.0-iv-z]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[2.0-multi-y]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[2.0-multi-x]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[2.0-multi-d]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_cross_section_rejects_complex_before_lossy_conversion[2.0-multi-c]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_panel_rejects_complex_before_lossy_conversion[0.0-did-y]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_panel_rejects_complex_before_lossy_conversion[0.0-did-x]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_panel_rejects_complex_before_lossy_conversion[0.0-did-d]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_panel_rejects_complex_before_lossy_conversion[0.0-scm-y]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_panel_rejects_complex_before_lossy_conversion[0.0-scm-d]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_panel_rejects_complex_before_lossy_conversion[2.0-did-y]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_panel_rejects_complex_before_lossy_conversion[2.0-did-x]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_panel_rejects_complex_before_lossy_conversion[2.0-did-d]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_panel_rejects_complex_before_lossy_conversion[2.0-scm-y]
+FAILED tests/data/test_numeric_contract_boundaries.py::test_panel_rejects_complex_before_lossy_conversion[2.0-scm-d]
+44 failed, 16 passed in 8.27s
