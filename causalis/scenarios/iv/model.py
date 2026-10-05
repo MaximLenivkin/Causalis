@@ -592,7 +592,21 @@ class IIVM(BaseEstimator):
         return predictions, fitted_models, folds
 
     def fit(self, data: Optional[IVCausalData] = None) -> "IIVM":
-        """Fit cross-fitted nuisance functions for IIVM."""
+        """Fit nuisances after clearing the previous fit and inference state.
+
+        Call ``estimate()`` after a successful fit before passing this model
+        to IV diagnostics. A failed refit leaves the model unfitted;
+        previously returned estimates remain usable.
+        """
+        for name in (
+            "y_", "d_", "z_", "X_", "predictions_", "models_", "folds_",
+            "causaldata_", "g_hat0_", "g_hat1_", "m_hat_", "m_hat_raw_",
+            "r_hat0_", "r_hat1_", "result_", "coef_", "se_", "t_stat_",
+            "pval_", "confint_", "psi_", "psi_a_", "psi_b_", "phi_y_",
+            "phi_d_", "summary_",
+        ):
+            if hasattr(self, name):
+                delattr(self, name)
         if data is not None:
             self.data = data
 

@@ -1,0 +1,631 @@
+FFFFFFF................FFFFFFFF                                          [100%]
+================================== FAILURES ===================================
+___ test_model_tables_equal_estimate_and_payload[cached-instrument_overlap] ___
+
+entrypoint = <function instrument_overlap at 0x000001E8F5EA19E0>, cached = True
+
+    @pytest.mark.parametrize("entrypoint", TABLES, ids=lambda fn: fn.__name__)
+    @pytest.mark.parametrize("cached", [True, False], ids=["cached", "lazy"])
+    def test_model_tables_equal_estimate_and_payload(entrypoint, cached):
+        model = _make_model().fit()
+        estimate = model.estimate()
+        if not cached:
+            _clear_payload_caches(estimate.diagnostic_data)
+        expected = entrypoint(estimate)
+        if not cached:
+            _clear_payload_caches(estimate.diagnostic_data)
+>       actual = entrypoint(model)
+                 ^^^^^^^^^^^^^^^^^
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\iv\refutation\diagnostics.py:434: in instrument_overlap
+    payload = _instrument_overlap_payload(result)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\iv\refutation\diagnostics.py:382: in _instrument_overlap_payload
+    diag = _resolve_diagnostic_data(result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+result = IIVM(status='fitted', n_folds=2, random_state=3)
+
+    def _resolve_diagnostic_data(result: Any) -> IVDiagnosticData:
+        """Resolve an IV estimate or IV diagnostic payload."""
+        if isinstance(result, IVDiagnosticData):
+            return result
+    
+        diagnostic_data = getattr(result, "diagnostic_data", None)
+        if diagnostic_data is None:
+>           raise ValueError(
+                "Missing result.diagnostic_data. Fit IIVM and call estimate() before "
+                "running IV diagnostics."
+            )
+E           ValueError: Missing result.diagnostic_data. Fit IIVM and call estimate() before running IV diagnostics.
+
+causalis\scenarios\iv\refutation\diagnostics.py:136: ValueError
+______ test_model_tables_equal_estimate_and_payload[cached-first_stage] _______
+
+entrypoint = <function first_stage at 0x000001E8F5EA1A80>, cached = True
+
+    @pytest.mark.parametrize("entrypoint", TABLES, ids=lambda fn: fn.__name__)
+    @pytest.mark.parametrize("cached", [True, False], ids=["cached", "lazy"])
+    def test_model_tables_equal_estimate_and_payload(entrypoint, cached):
+        model = _make_model().fit()
+        estimate = model.estimate()
+        if not cached:
+            _clear_payload_caches(estimate.diagnostic_data)
+        expected = entrypoint(estimate)
+        if not cached:
+            _clear_payload_caches(estimate.diagnostic_data)
+>       actual = entrypoint(model)
+                 ^^^^^^^^^^^^^^^^^
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\iv\refutation\diagnostics.py:487: in first_stage
+    payload = _first_stage_payload(result)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\iv\refutation\diagnostics.py:390: in _first_stage_payload
+    diag = _resolve_diagnostic_data(result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+result = IIVM(status='fitted', n_folds=2, random_state=3)
+
+    def _resolve_diagnostic_data(result: Any) -> IVDiagnosticData:
+        """Resolve an IV estimate or IV diagnostic payload."""
+        if isinstance(result, IVDiagnosticData):
+            return result
+    
+        diagnostic_data = getattr(result, "diagnostic_data", None)
+        if diagnostic_data is None:
+>           raise ValueError(
+                "Missing result.diagnostic_data. Fit IIVM and call estimate() before "
+                "running IV diagnostics."
+            )
+E           ValueError: Missing result.diagnostic_data. Fit IIVM and call estimate() before running IV diagnostics.
+
+causalis\scenarios\iv\refutation\diagnostics.py:136: ValueError
+______ test_model_tables_equal_estimate_and_payload[cached-reduced_form] ______
+
+entrypoint = <function reduced_form at 0x000001E8F5EA1B20>, cached = True
+
+    @pytest.mark.parametrize("entrypoint", TABLES, ids=lambda fn: fn.__name__)
+    @pytest.mark.parametrize("cached", [True, False], ids=["cached", "lazy"])
+    def test_model_tables_equal_estimate_and_payload(entrypoint, cached):
+        model = _make_model().fit()
+        estimate = model.estimate()
+        if not cached:
+            _clear_payload_caches(estimate.diagnostic_data)
+        expected = entrypoint(estimate)
+        if not cached:
+            _clear_payload_caches(estimate.diagnostic_data)
+>       actual = entrypoint(model)
+                 ^^^^^^^^^^^^^^^^^
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\iv\refutation\diagnostics.py:532: in reduced_form
+    payload = _reduced_form_payload(result)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\iv\refutation\diagnostics.py:401: in _reduced_form_payload
+    diag = _resolve_diagnostic_data(result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+result = IIVM(status='fitted', n_folds=2, random_state=3)
+
+    def _resolve_diagnostic_data(result: Any) -> IVDiagnosticData:
+        """Resolve an IV estimate or IV diagnostic payload."""
+        if isinstance(result, IVDiagnosticData):
+            return result
+    
+        diagnostic_data = getattr(result, "diagnostic_data", None)
+        if diagnostic_data is None:
+>           raise ValueError(
+                "Missing result.diagnostic_data. Fit IIVM and call estimate() before "
+                "running IV diagnostics."
+            )
+E           ValueError: Missing result.diagnostic_data. Fit IIVM and call estimate() before running IV diagnostics.
+
+causalis\scenarios\iv\refutation\diagnostics.py:136: ValueError
+____ test_model_tables_equal_estimate_and_payload[lazy-instrument_overlap] ____
+
+entrypoint = <function instrument_overlap at 0x000001E8F5EA19E0>, cached = False
+
+    @pytest.mark.parametrize("entrypoint", TABLES, ids=lambda fn: fn.__name__)
+    @pytest.mark.parametrize("cached", [True, False], ids=["cached", "lazy"])
+    def test_model_tables_equal_estimate_and_payload(entrypoint, cached):
+        model = _make_model().fit()
+        estimate = model.estimate()
+        if not cached:
+            _clear_payload_caches(estimate.diagnostic_data)
+        expected = entrypoint(estimate)
+        if not cached:
+            _clear_payload_caches(estimate.diagnostic_data)
+>       actual = entrypoint(model)
+                 ^^^^^^^^^^^^^^^^^
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\iv\refutation\diagnostics.py:434: in instrument_overlap
+    payload = _instrument_overlap_payload(result)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\iv\refutation\diagnostics.py:382: in _instrument_overlap_payload
+    diag = _resolve_diagnostic_data(result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+result = IIVM(status='fitted', n_folds=2, random_state=3)
+
+    def _resolve_diagnostic_data(result: Any) -> IVDiagnosticData:
+        """Resolve an IV estimate or IV diagnostic payload."""
+        if isinstance(result, IVDiagnosticData):
+            return result
+    
+        diagnostic_data = getattr(result, "diagnostic_data", None)
+        if diagnostic_data is None:
+>           raise ValueError(
+                "Missing result.diagnostic_data. Fit IIVM and call estimate() before "
+                "running IV diagnostics."
+            )
+E           ValueError: Missing result.diagnostic_data. Fit IIVM and call estimate() before running IV diagnostics.
+
+causalis\scenarios\iv\refutation\diagnostics.py:136: ValueError
+_______ test_model_tables_equal_estimate_and_payload[lazy-first_stage] ________
+
+entrypoint = <function first_stage at 0x000001E8F5EA1A80>, cached = False
+
+    @pytest.mark.parametrize("entrypoint", TABLES, ids=lambda fn: fn.__name__)
+    @pytest.mark.parametrize("cached", [True, False], ids=["cached", "lazy"])
+    def test_model_tables_equal_estimate_and_payload(entrypoint, cached):
+        model = _make_model().fit()
+        estimate = model.estimate()
+        if not cached:
+            _clear_payload_caches(estimate.diagnostic_data)
+        expected = entrypoint(estimate)
+        if not cached:
+            _clear_payload_caches(estimate.diagnostic_data)
+>       actual = entrypoint(model)
+                 ^^^^^^^^^^^^^^^^^
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\iv\refutation\diagnostics.py:487: in first_stage
+    payload = _first_stage_payload(result)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\iv\refutation\diagnostics.py:390: in _first_stage_payload
+    diag = _resolve_diagnostic_data(result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+result = IIVM(status='fitted', n_folds=2, random_state=3)
+
+    def _resolve_diagnostic_data(result: Any) -> IVDiagnosticData:
+        """Resolve an IV estimate or IV diagnostic payload."""
+        if isinstance(result, IVDiagnosticData):
+            return result
+    
+        diagnostic_data = getattr(result, "diagnostic_data", None)
+        if diagnostic_data is None:
+>           raise ValueError(
+                "Missing result.diagnostic_data. Fit IIVM and call estimate() before "
+                "running IV diagnostics."
+            )
+E           ValueError: Missing result.diagnostic_data. Fit IIVM and call estimate() before running IV diagnostics.
+
+causalis\scenarios\iv\refutation\diagnostics.py:136: ValueError
+_______ test_model_tables_equal_estimate_and_payload[lazy-reduced_form] _______
+
+entrypoint = <function reduced_form at 0x000001E8F5EA1B20>, cached = False
+
+    @pytest.mark.parametrize("entrypoint", TABLES, ids=lambda fn: fn.__name__)
+    @pytest.mark.parametrize("cached", [True, False], ids=["cached", "lazy"])
+    def test_model_tables_equal_estimate_and_payload(entrypoint, cached):
+        model = _make_model().fit()
+        estimate = model.estimate()
+        if not cached:
+            _clear_payload_caches(estimate.diagnostic_data)
+        expected = entrypoint(estimate)
+        if not cached:
+            _clear_payload_caches(estimate.diagnostic_data)
+>       actual = entrypoint(model)
+                 ^^^^^^^^^^^^^^^^^
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\iv\refutation\diagnostics.py:532: in reduced_form
+    payload = _reduced_form_payload(result)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\iv\refutation\diagnostics.py:401: in _reduced_form_payload
+    diag = _resolve_diagnostic_data(result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+result = IIVM(status='fitted', n_folds=2, random_state=3)
+
+    def _resolve_diagnostic_data(result: Any) -> IVDiagnosticData:
+        """Resolve an IV estimate or IV diagnostic payload."""
+        if isinstance(result, IVDiagnosticData):
+            return result
+    
+        diagnostic_data = getattr(result, "diagnostic_data", None)
+        if diagnostic_data is None:
+>           raise ValueError(
+                "Missing result.diagnostic_data. Fit IIVM and call estimate() before "
+                "running IV diagnostics."
+            )
+E           ValueError: Missing result.diagnostic_data. Fit IIVM and call estimate() before running IV diagnostics.
+
+causalis\scenarios\iv\refutation\diagnostics.py:136: ValueError
+________________ test_model_overlap_plot_equals_estimate_plot _________________
+
+    def test_model_overlap_plot_equals_estimate_plot():
+        model = _make_model().fit()
+        estimate = model.estimate()
+        figures = []
+        try:
+            expected = instrument_overlap_plot(estimate, bins=7)
+            figures.append(expected)
+>           actual = instrument_overlap_plot(model, bins=7)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\iv\refutation\diagnostics.py:582: in instrument_overlap_plot
+    diag = _resolve_diagnostic_data(result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+result = IIVM(status='fitted', n_folds=2, random_state=3)
+
+    def _resolve_diagnostic_data(result: Any) -> IVDiagnosticData:
+        """Resolve an IV estimate or IV diagnostic payload."""
+        if isinstance(result, IVDiagnosticData):
+            return result
+    
+        diagnostic_data = getattr(result, "diagnostic_data", None)
+        if diagnostic_data is None:
+>           raise ValueError(
+                "Missing result.diagnostic_data. Fit IIVM and call estimate() before "
+                "running IV diagnostics."
+            )
+E           ValueError: Missing result.diagnostic_data. Fit IIVM and call estimate() before running IV diagnostics.
+
+causalis\scenarios\iv\refutation\diagnostics.py:136: ValueError
+_ test_non_iv_diagnostic_payload_is_rejected[model_result-instrument_overlap] _
+
+entrypoint = <function instrument_overlap at 0x000001E8F5EA19E0>, nested = True
+
+    @pytest.mark.parametrize("entrypoint", ENTRYPOINTS, ids=lambda fn: fn.__name__)
+    @pytest.mark.parametrize("nested", [False, True], ids=["direct", "model_result"])
+    def test_non_iv_diagnostic_payload_is_rejected(entrypoint, nested):
+        invalid = SimpleNamespace(diagnostic_data={"z": [0, 1]})
+        source = SimpleNamespace(result_=invalid) if nested else invalid
+        with pytest.raises(TypeError, match="IVCausalEstimate.diagnostic_data"):
+>           entrypoint(source)
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:121: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\iv\refutation\diagnostics.py:434: in instrument_overlap
+    payload = _instrument_overlap_payload(result)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\iv\refutation\diagnostics.py:382: in _instrument_overlap_payload
+    diag = _resolve_diagnostic_data(result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+result = namespace(result_=namespace(diagnostic_data={'z': [0, 1]}))
+
+    def _resolve_diagnostic_data(result: Any) -> IVDiagnosticData:
+        """Resolve an IV estimate or IV diagnostic payload."""
+        if isinstance(result, IVDiagnosticData):
+            return result
+    
+        diagnostic_data = getattr(result, "diagnostic_data", None)
+        if diagnostic_data is None:
+>           raise ValueError(
+                "Missing result.diagnostic_data. Fit IIVM and call estimate() before "
+                "running IV diagnostics."
+            )
+E           ValueError: Missing result.diagnostic_data. Fit IIVM and call estimate() before running IV diagnostics.
+
+causalis\scenarios\iv\refutation\diagnostics.py:136: ValueError
+____ test_non_iv_diagnostic_payload_is_rejected[model_result-first_stage] _____
+
+entrypoint = <function first_stage at 0x000001E8F5EA1A80>, nested = True
+
+    @pytest.mark.parametrize("entrypoint", ENTRYPOINTS, ids=lambda fn: fn.__name__)
+    @pytest.mark.parametrize("nested", [False, True], ids=["direct", "model_result"])
+    def test_non_iv_diagnostic_payload_is_rejected(entrypoint, nested):
+        invalid = SimpleNamespace(diagnostic_data={"z": [0, 1]})
+        source = SimpleNamespace(result_=invalid) if nested else invalid
+        with pytest.raises(TypeError, match="IVCausalEstimate.diagnostic_data"):
+>           entrypoint(source)
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:121: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\iv\refutation\diagnostics.py:487: in first_stage
+    payload = _first_stage_payload(result)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\iv\refutation\diagnostics.py:390: in _first_stage_payload
+    diag = _resolve_diagnostic_data(result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+result = namespace(result_=namespace(diagnostic_data={'z': [0, 1]}))
+
+    def _resolve_diagnostic_data(result: Any) -> IVDiagnosticData:
+        """Resolve an IV estimate or IV diagnostic payload."""
+        if isinstance(result, IVDiagnosticData):
+            return result
+    
+        diagnostic_data = getattr(result, "diagnostic_data", None)
+        if diagnostic_data is None:
+>           raise ValueError(
+                "Missing result.diagnostic_data. Fit IIVM and call estimate() before "
+                "running IV diagnostics."
+            )
+E           ValueError: Missing result.diagnostic_data. Fit IIVM and call estimate() before running IV diagnostics.
+
+causalis\scenarios\iv\refutation\diagnostics.py:136: ValueError
+____ test_non_iv_diagnostic_payload_is_rejected[model_result-reduced_form] ____
+
+entrypoint = <function reduced_form at 0x000001E8F5EA1B20>, nested = True
+
+    @pytest.mark.parametrize("entrypoint", ENTRYPOINTS, ids=lambda fn: fn.__name__)
+    @pytest.mark.parametrize("nested", [False, True], ids=["direct", "model_result"])
+    def test_non_iv_diagnostic_payload_is_rejected(entrypoint, nested):
+        invalid = SimpleNamespace(diagnostic_data={"z": [0, 1]})
+        source = SimpleNamespace(result_=invalid) if nested else invalid
+        with pytest.raises(TypeError, match="IVCausalEstimate.diagnostic_data"):
+>           entrypoint(source)
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:121: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\iv\refutation\diagnostics.py:532: in reduced_form
+    payload = _reduced_form_payload(result)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\iv\refutation\diagnostics.py:401: in _reduced_form_payload
+    diag = _resolve_diagnostic_data(result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+result = namespace(result_=namespace(diagnostic_data={'z': [0, 1]}))
+
+    def _resolve_diagnostic_data(result: Any) -> IVDiagnosticData:
+        """Resolve an IV estimate or IV diagnostic payload."""
+        if isinstance(result, IVDiagnosticData):
+            return result
+    
+        diagnostic_data = getattr(result, "diagnostic_data", None)
+        if diagnostic_data is None:
+>           raise ValueError(
+                "Missing result.diagnostic_data. Fit IIVM and call estimate() before "
+                "running IV diagnostics."
+            )
+E           ValueError: Missing result.diagnostic_data. Fit IIVM and call estimate() before running IV diagnostics.
+
+causalis\scenarios\iv\refutation\diagnostics.py:136: ValueError
+_ test_non_iv_diagnostic_payload_is_rejected[model_result-instrument_overlap_plot] _
+
+entrypoint = <function instrument_overlap_plot at 0x000001E8F5EA1BC0>
+nested = True
+
+    @pytest.mark.parametrize("entrypoint", ENTRYPOINTS, ids=lambda fn: fn.__name__)
+    @pytest.mark.parametrize("nested", [False, True], ids=["direct", "model_result"])
+    def test_non_iv_diagnostic_payload_is_rejected(entrypoint, nested):
+        invalid = SimpleNamespace(diagnostic_data={"z": [0, 1]})
+        source = SimpleNamespace(result_=invalid) if nested else invalid
+        with pytest.raises(TypeError, match="IVCausalEstimate.diagnostic_data"):
+>           entrypoint(source)
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:121: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\iv\refutation\diagnostics.py:582: in instrument_overlap_plot
+    diag = _resolve_diagnostic_data(result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+result = namespace(result_=namespace(diagnostic_data={'z': [0, 1]}))
+
+    def _resolve_diagnostic_data(result: Any) -> IVDiagnosticData:
+        """Resolve an IV estimate or IV diagnostic payload."""
+        if isinstance(result, IVDiagnosticData):
+            return result
+    
+        diagnostic_data = getattr(result, "diagnostic_data", None)
+        if diagnostic_data is None:
+>           raise ValueError(
+                "Missing result.diagnostic_data. Fit IIVM and call estimate() before "
+                "running IV diagnostics."
+            )
+E           ValueError: Missing result.diagnostic_data. Fit IIVM and call estimate() before running IV diagnostics.
+
+causalis\scenarios\iv\refutation\diagnostics.py:136: ValueError
+_____ test_lazy_model_diagnostics_use_estimate_options_snapshot_and_late ______
+
+    def test_lazy_model_diagnostics_use_estimate_options_snapshot_and_late():
+        model = _make_model(threshold=0.9).fit()
+        with pytest.warns(RuntimeWarning, match="estimated first stage is weak"):
+            estimate = model.estimate()
+        expected = first_stage(estimate)
+        assert expected.loc[expected.metric == "weak_iv_flag", "value"].item() == "RED"
+        model.weak_iv_threshold = 0.01
+        _clear_payload_caches(estimate.diagnostic_data)
+    
+>       actual = first_stage(model)
+                 ^^^^^^^^^^^^^^^^^^
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:133: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\iv\refutation\diagnostics.py:487: in first_stage
+    payload = _first_stage_payload(result)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\iv\refutation\diagnostics.py:390: in _first_stage_payload
+    diag = _resolve_diagnostic_data(result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+result = IIVM(status='fitted', n_folds=2, random_state=3)
+
+    def _resolve_diagnostic_data(result: Any) -> IVDiagnosticData:
+        """Resolve an IV estimate or IV diagnostic payload."""
+        if isinstance(result, IVDiagnosticData):
+            return result
+    
+        diagnostic_data = getattr(result, "diagnostic_data", None)
+        if diagnostic_data is None:
+>           raise ValueError(
+                "Missing result.diagnostic_data. Fit IIVM and call estimate() before "
+                "running IV diagnostics."
+            )
+E           ValueError: Missing result.diagnostic_data. Fit IIVM and call estimate() before running IV diagnostics.
+
+causalis\scenarios\iv\refutation\diagnostics.py:136: ValueError
+_______ test_model_uses_newest_successful_estimate[instrument_overlap] ________
+
+entrypoint = <function instrument_overlap at 0x000001E8F5EA19E0>
+
+    @pytest.mark.parametrize("entrypoint", TABLES, ids=lambda fn: fn.__name__)
+    def test_model_uses_newest_successful_estimate(entrypoint):
+        model = _make_model().fit()
+        old_estimate = model.estimate(alpha=0.05)
+        old_expected = entrypoint(old_estimate)
+        model.fit(_make_model(seed=918).data)
+        new_estimate = model.estimate(alpha=0.1)
+    
+        assert model.result_ is new_estimate
+        assert new_estimate is not old_estimate
+>       pd.testing.assert_frame_equal(entrypoint(model), entrypoint(new_estimate))
+                                      ^^^^^^^^^^^^^^^^^
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:150: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\iv\refutation\diagnostics.py:434: in instrument_overlap
+    payload = _instrument_overlap_payload(result)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\iv\refutation\diagnostics.py:382: in _instrument_overlap_payload
+    diag = _resolve_diagnostic_data(result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+result = IIVM(status='fitted', n_folds=2, random_state=3)
+
+    def _resolve_diagnostic_data(result: Any) -> IVDiagnosticData:
+        """Resolve an IV estimate or IV diagnostic payload."""
+        if isinstance(result, IVDiagnosticData):
+            return result
+    
+        diagnostic_data = getattr(result, "diagnostic_data", None)
+        if diagnostic_data is None:
+>           raise ValueError(
+                "Missing result.diagnostic_data. Fit IIVM and call estimate() before "
+                "running IV diagnostics."
+            )
+E           ValueError: Missing result.diagnostic_data. Fit IIVM and call estimate() before running IV diagnostics.
+
+causalis\scenarios\iv\refutation\diagnostics.py:136: ValueError
+___________ test_model_uses_newest_successful_estimate[first_stage] ___________
+
+entrypoint = <function first_stage at 0x000001E8F5EA1A80>
+
+    @pytest.mark.parametrize("entrypoint", TABLES, ids=lambda fn: fn.__name__)
+    def test_model_uses_newest_successful_estimate(entrypoint):
+        model = _make_model().fit()
+        old_estimate = model.estimate(alpha=0.05)
+        old_expected = entrypoint(old_estimate)
+        model.fit(_make_model(seed=918).data)
+        new_estimate = model.estimate(alpha=0.1)
+    
+        assert model.result_ is new_estimate
+        assert new_estimate is not old_estimate
+>       pd.testing.assert_frame_equal(entrypoint(model), entrypoint(new_estimate))
+                                      ^^^^^^^^^^^^^^^^^
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:150: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\iv\refutation\diagnostics.py:487: in first_stage
+    payload = _first_stage_payload(result)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\iv\refutation\diagnostics.py:390: in _first_stage_payload
+    diag = _resolve_diagnostic_data(result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+result = IIVM(status='fitted', n_folds=2, random_state=3)
+
+    def _resolve_diagnostic_data(result: Any) -> IVDiagnosticData:
+        """Resolve an IV estimate or IV diagnostic payload."""
+        if isinstance(result, IVDiagnosticData):
+            return result
+    
+        diagnostic_data = getattr(result, "diagnostic_data", None)
+        if diagnostic_data is None:
+>           raise ValueError(
+                "Missing result.diagnostic_data. Fit IIVM and call estimate() before "
+                "running IV diagnostics."
+            )
+E           ValueError: Missing result.diagnostic_data. Fit IIVM and call estimate() before running IV diagnostics.
+
+causalis\scenarios\iv\refutation\diagnostics.py:136: ValueError
+__________ test_model_uses_newest_successful_estimate[reduced_form] ___________
+
+entrypoint = <function reduced_form at 0x000001E8F5EA1B20>
+
+    @pytest.mark.parametrize("entrypoint", TABLES, ids=lambda fn: fn.__name__)
+    def test_model_uses_newest_successful_estimate(entrypoint):
+        model = _make_model().fit()
+        old_estimate = model.estimate(alpha=0.05)
+        old_expected = entrypoint(old_estimate)
+        model.fit(_make_model(seed=918).data)
+        new_estimate = model.estimate(alpha=0.1)
+    
+        assert model.result_ is new_estimate
+        assert new_estimate is not old_estimate
+>       pd.testing.assert_frame_equal(entrypoint(model), entrypoint(new_estimate))
+                                      ^^^^^^^^^^^^^^^^^
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:150: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\iv\refutation\diagnostics.py:532: in reduced_form
+    payload = _reduced_form_payload(result)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\iv\refutation\diagnostics.py:401: in _reduced_form_payload
+    diag = _resolve_diagnostic_data(result)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+result = IIVM(status='fitted', n_folds=2, random_state=3)
+
+    def _resolve_diagnostic_data(result: Any) -> IVDiagnosticData:
+        """Resolve an IV estimate or IV diagnostic payload."""
+        if isinstance(result, IVDiagnosticData):
+            return result
+    
+        diagnostic_data = getattr(result, "diagnostic_data", None)
+        if diagnostic_data is None:
+>           raise ValueError(
+                "Missing result.diagnostic_data. Fit IIVM and call estimate() before "
+                "running IV diagnostics."
+            )
+E           ValueError: Missing result.diagnostic_data. Fit IIVM and call estimate() before running IV diagnostics.
+
+causalis\scenarios\iv\refutation\diagnostics.py:136: ValueError
+=========================== short test summary info ===========================
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_model_tables_equal_estimate_and_payload[cached-instrument_overlap]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_model_tables_equal_estimate_and_payload[cached-first_stage]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_model_tables_equal_estimate_and_payload[cached-reduced_form]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_model_tables_equal_estimate_and_payload[lazy-instrument_overlap]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_model_tables_equal_estimate_and_payload[lazy-first_stage]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_model_tables_equal_estimate_and_payload[lazy-reduced_form]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_model_overlap_plot_equals_estimate_plot
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_non_iv_diagnostic_payload_is_rejected[model_result-instrument_overlap]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_non_iv_diagnostic_payload_is_rejected[model_result-first_stage]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_non_iv_diagnostic_payload_is_rejected[model_result-reduced_form]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_non_iv_diagnostic_payload_is_rejected[model_result-instrument_overlap_plot]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_lazy_model_diagnostics_use_estimate_options_snapshot_and_late
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_model_uses_newest_successful_estimate[instrument_overlap]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_model_uses_newest_successful_estimate[first_stage]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_model_uses_newest_successful_estimate[reduced_form]
+15 failed, 16 passed in 15.36s

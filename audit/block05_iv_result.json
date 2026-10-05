@@ -1,0 +1,50 @@
+{
+  "finding": "SC-09",
+  "block_base_commit": "c55909491c8c50d603a8bf348b4beca11b623e02",
+  "changed_library_paths": [
+    "causalis/scenarios/iv/refutation/diagnostics.py",
+    "causalis/scenarios/iv/model.py"
+  ],
+  "new_regression_cases": 60,
+  "baseline_api_tests": {
+    "passed": 16,
+    "failed": 15,
+    "elapsed_seconds": 15.36,
+    "log": "block05_iv_before_tests.log"
+  },
+  "interim_tests": {
+    "passed": 52,
+    "failed": 0,
+    "warnings": 2,
+    "elapsed_seconds": 15.13,
+    "log": "block05_iv_after_tests.log"
+  },
+  "lifecycle_before_fit_state_clearing": {
+    "passed": 2,
+    "failed": 14,
+    "deselected": 39,
+    "elapsed_seconds": 14.20,
+    "log": "block05_iv_lifecycle_before_tests.log"
+  },
+  "final_focused_tests": {
+    "passed": 73,
+    "failed": 0,
+    "elapsed_seconds": 19.33,
+    "log": "block05_iv_final_tests.log",
+    "new_regression_cases": 60,
+    "neighbor_cases": 13,
+    "selected_modules": [
+      "tests/scenarios/iv/refutation/test_iv_model_diagnostics.py",
+      "tests/scenarios/iv/refutation/test_iv_diagnostics.py",
+      "tests/scenarios/iv/refutation/test_iv_confounders_balance.py",
+      "tests/inference/test_iivm.py",
+      "tests/scenarios/iv/test_dgp.py"
+    ]
+  },
+  "scope_limits": [
+    "Focused IV verification, not repository integration or compatibility matrix.",
+    "No nuisance/score/inference formulas changed.",
+    "No sensitivity modules or tests changed or executed.",
+    "Bare IVDiagnosticData retains default threshold for uncached first-stage computation because it has no model_options snapshot."
+  ]
+}

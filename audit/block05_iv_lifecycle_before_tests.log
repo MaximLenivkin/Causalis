@@ -1,0 +1,256 @@
+FFFFFFFFFFFFFF..                                                         [100%]
+================================== FAILURES ===================================
+_____ test_failed_refit_cannot_reuse_old_fit_or_inference[estimate-input] _____
+
+stage = 'input', attribute = 'estimate'
+
+    @pytest.mark.parametrize("stage", ["input", "learner"])
+    @pytest.mark.parametrize("attribute", ["estimate", "diagnostics_", "coef", "se", "pvalues", "summary", "confint"])
+    def test_failed_refit_cannot_reuse_old_fit_or_inference(stage, attribute):
+        model = _make_model().fit()
+        saved_estimate = model.estimate()
+        saved_summary = saved_estimate.summary()
+        _fail_refit(model, stage)
+    
+>       with pytest.raises(NotFittedError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE NotFittedError
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:201: Failed
+____ test_failed_refit_cannot_reuse_old_fit_or_inference[estimate-learner] ____
+
+stage = 'learner', attribute = 'estimate'
+
+    @pytest.mark.parametrize("stage", ["input", "learner"])
+    @pytest.mark.parametrize("attribute", ["estimate", "diagnostics_", "coef", "se", "pvalues", "summary", "confint"])
+    def test_failed_refit_cannot_reuse_old_fit_or_inference(stage, attribute):
+        model = _make_model().fit()
+        saved_estimate = model.estimate()
+        saved_summary = saved_estimate.summary()
+        _fail_refit(model, stage)
+    
+>       with pytest.raises(NotFittedError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE NotFittedError
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:201: Failed
+___ test_failed_refit_cannot_reuse_old_fit_or_inference[diagnostics_-input] ___
+
+stage = 'input', attribute = 'diagnostics_'
+
+    @pytest.mark.parametrize("stage", ["input", "learner"])
+    @pytest.mark.parametrize("attribute", ["estimate", "diagnostics_", "coef", "se", "pvalues", "summary", "confint"])
+    def test_failed_refit_cannot_reuse_old_fit_or_inference(stage, attribute):
+        model = _make_model().fit()
+        saved_estimate = model.estimate()
+        saved_summary = saved_estimate.summary()
+        _fail_refit(model, stage)
+    
+>       with pytest.raises(NotFittedError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE NotFittedError
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:201: Failed
+__ test_failed_refit_cannot_reuse_old_fit_or_inference[diagnostics_-learner] __
+
+stage = 'learner', attribute = 'diagnostics_'
+
+    @pytest.mark.parametrize("stage", ["input", "learner"])
+    @pytest.mark.parametrize("attribute", ["estimate", "diagnostics_", "coef", "se", "pvalues", "summary", "confint"])
+    def test_failed_refit_cannot_reuse_old_fit_or_inference(stage, attribute):
+        model = _make_model().fit()
+        saved_estimate = model.estimate()
+        saved_summary = saved_estimate.summary()
+        _fail_refit(model, stage)
+    
+>       with pytest.raises(NotFittedError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE NotFittedError
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:201: Failed
+_______ test_failed_refit_cannot_reuse_old_fit_or_inference[coef-input] _______
+
+stage = 'input', attribute = 'coef'
+
+    @pytest.mark.parametrize("stage", ["input", "learner"])
+    @pytest.mark.parametrize("attribute", ["estimate", "diagnostics_", "coef", "se", "pvalues", "summary", "confint"])
+    def test_failed_refit_cannot_reuse_old_fit_or_inference(stage, attribute):
+        model = _make_model().fit()
+        saved_estimate = model.estimate()
+        saved_summary = saved_estimate.summary()
+        _fail_refit(model, stage)
+    
+>       with pytest.raises(NotFittedError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE NotFittedError
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:201: Failed
+______ test_failed_refit_cannot_reuse_old_fit_or_inference[coef-learner] ______
+
+stage = 'learner', attribute = 'coef'
+
+    @pytest.mark.parametrize("stage", ["input", "learner"])
+    @pytest.mark.parametrize("attribute", ["estimate", "diagnostics_", "coef", "se", "pvalues", "summary", "confint"])
+    def test_failed_refit_cannot_reuse_old_fit_or_inference(stage, attribute):
+        model = _make_model().fit()
+        saved_estimate = model.estimate()
+        saved_summary = saved_estimate.summary()
+        _fail_refit(model, stage)
+    
+>       with pytest.raises(NotFittedError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE NotFittedError
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:201: Failed
+________ test_failed_refit_cannot_reuse_old_fit_or_inference[se-input] ________
+
+stage = 'input', attribute = 'se'
+
+    @pytest.mark.parametrize("stage", ["input", "learner"])
+    @pytest.mark.parametrize("attribute", ["estimate", "diagnostics_", "coef", "se", "pvalues", "summary", "confint"])
+    def test_failed_refit_cannot_reuse_old_fit_or_inference(stage, attribute):
+        model = _make_model().fit()
+        saved_estimate = model.estimate()
+        saved_summary = saved_estimate.summary()
+        _fail_refit(model, stage)
+    
+>       with pytest.raises(NotFittedError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE NotFittedError
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:201: Failed
+_______ test_failed_refit_cannot_reuse_old_fit_or_inference[se-learner] _______
+
+stage = 'learner', attribute = 'se'
+
+    @pytest.mark.parametrize("stage", ["input", "learner"])
+    @pytest.mark.parametrize("attribute", ["estimate", "diagnostics_", "coef", "se", "pvalues", "summary", "confint"])
+    def test_failed_refit_cannot_reuse_old_fit_or_inference(stage, attribute):
+        model = _make_model().fit()
+        saved_estimate = model.estimate()
+        saved_summary = saved_estimate.summary()
+        _fail_refit(model, stage)
+    
+>       with pytest.raises(NotFittedError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE NotFittedError
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:201: Failed
+_____ test_failed_refit_cannot_reuse_old_fit_or_inference[pvalues-input] ______
+
+stage = 'input', attribute = 'pvalues'
+
+    @pytest.mark.parametrize("stage", ["input", "learner"])
+    @pytest.mark.parametrize("attribute", ["estimate", "diagnostics_", "coef", "se", "pvalues", "summary", "confint"])
+    def test_failed_refit_cannot_reuse_old_fit_or_inference(stage, attribute):
+        model = _make_model().fit()
+        saved_estimate = model.estimate()
+        saved_summary = saved_estimate.summary()
+        _fail_refit(model, stage)
+    
+>       with pytest.raises(NotFittedError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE NotFittedError
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:201: Failed
+____ test_failed_refit_cannot_reuse_old_fit_or_inference[pvalues-learner] _____
+
+stage = 'learner', attribute = 'pvalues'
+
+    @pytest.mark.parametrize("stage", ["input", "learner"])
+    @pytest.mark.parametrize("attribute", ["estimate", "diagnostics_", "coef", "se", "pvalues", "summary", "confint"])
+    def test_failed_refit_cannot_reuse_old_fit_or_inference(stage, attribute):
+        model = _make_model().fit()
+        saved_estimate = model.estimate()
+        saved_summary = saved_estimate.summary()
+        _fail_refit(model, stage)
+    
+>       with pytest.raises(NotFittedError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE NotFittedError
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:201: Failed
+_____ test_failed_refit_cannot_reuse_old_fit_or_inference[summary-input] ______
+
+stage = 'input', attribute = 'summary'
+
+    @pytest.mark.parametrize("stage", ["input", "learner"])
+    @pytest.mark.parametrize("attribute", ["estimate", "diagnostics_", "coef", "se", "pvalues", "summary", "confint"])
+    def test_failed_refit_cannot_reuse_old_fit_or_inference(stage, attribute):
+        model = _make_model().fit()
+        saved_estimate = model.estimate()
+        saved_summary = saved_estimate.summary()
+        _fail_refit(model, stage)
+    
+>       with pytest.raises(NotFittedError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE NotFittedError
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:201: Failed
+____ test_failed_refit_cannot_reuse_old_fit_or_inference[summary-learner] _____
+
+stage = 'learner', attribute = 'summary'
+
+    @pytest.mark.parametrize("stage", ["input", "learner"])
+    @pytest.mark.parametrize("attribute", ["estimate", "diagnostics_", "coef", "se", "pvalues", "summary", "confint"])
+    def test_failed_refit_cannot_reuse_old_fit_or_inference(stage, attribute):
+        model = _make_model().fit()
+        saved_estimate = model.estimate()
+        saved_summary = saved_estimate.summary()
+        _fail_refit(model, stage)
+    
+>       with pytest.raises(NotFittedError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE NotFittedError
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:201: Failed
+_____ test_failed_refit_cannot_reuse_old_fit_or_inference[confint-input] ______
+
+stage = 'input', attribute = 'confint'
+
+    @pytest.mark.parametrize("stage", ["input", "learner"])
+    @pytest.mark.parametrize("attribute", ["estimate", "diagnostics_", "coef", "se", "pvalues", "summary", "confint"])
+    def test_failed_refit_cannot_reuse_old_fit_or_inference(stage, attribute):
+        model = _make_model().fit()
+        saved_estimate = model.estimate()
+        saved_summary = saved_estimate.summary()
+        _fail_refit(model, stage)
+    
+>       with pytest.raises(NotFittedError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE NotFittedError
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:201: Failed
+____ test_failed_refit_cannot_reuse_old_fit_or_inference[confint-learner] _____
+
+stage = 'learner', attribute = 'confint'
+
+    @pytest.mark.parametrize("stage", ["input", "learner"])
+    @pytest.mark.parametrize("attribute", ["estimate", "diagnostics_", "coef", "se", "pvalues", "summary", "confint"])
+    def test_failed_refit_cannot_reuse_old_fit_or_inference(stage, attribute):
+        model = _make_model().fit()
+        saved_estimate = model.estimate()
+        saved_summary = saved_estimate.summary()
+        _fail_refit(model, stage)
+    
+>       with pytest.raises(NotFittedError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE NotFittedError
+
+tests\scenarios\iv\refutation\test_iv_model_diagnostics.py:201: Failed
+=========================== short test summary info ===========================
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_failed_refit_cannot_reuse_old_fit_or_inference[estimate-input]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_failed_refit_cannot_reuse_old_fit_or_inference[estimate-learner]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_failed_refit_cannot_reuse_old_fit_or_inference[diagnostics_-input]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_failed_refit_cannot_reuse_old_fit_or_inference[diagnostics_-learner]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_failed_refit_cannot_reuse_old_fit_or_inference[coef-input]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_failed_refit_cannot_reuse_old_fit_or_inference[coef-learner]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_failed_refit_cannot_reuse_old_fit_or_inference[se-input]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_failed_refit_cannot_reuse_old_fit_or_inference[se-learner]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_failed_refit_cannot_reuse_old_fit_or_inference[pvalues-input]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_failed_refit_cannot_reuse_old_fit_or_inference[pvalues-learner]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_failed_refit_cannot_reuse_old_fit_or_inference[summary-input]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_failed_refit_cannot_reuse_old_fit_or_inference[summary-learner]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_failed_refit_cannot_reuse_old_fit_or_inference[confint-input]
+FAILED tests/scenarios/iv/refutation/test_iv_model_diagnostics.py::test_failed_refit_cannot_reuse_old_fit_or_inference[confint-learner]
+14 failed, 2 passed, 39 deselected in 14.20s

@@ -1,0 +1,12 @@
+....................................................                     [100%]
+============================== warnings summary ===============================
+causalis\scenarios\iv\refutation\diagnostics.py:522
+  D:\codex\Causalis\causalis\scenarios\iv\refutation\diagnostics.py:522: SyntaxWarning: invalid escape sequence '\m'
+    \theta = \frac{\mathbb{E}[Y|Z=1] - \mathbb{E}[Y|Z=0]}{\mathbb{E}[D|Z=1] - \mathbb{E}[D|Z=0]}
+
+causalis\scenarios\iv\refutation\diagnostics.py:566
+  D:\codex\Causalis\causalis\scenarios\iv\refutation\diagnostics.py:566: SyntaxWarning: invalid escape sequence '\m'
+    Visualizes the overlap of :math:`\mathbb{P}(Z=1|X)` between the :math:`Z=0` and
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+52 passed, 2 warnings in 15.13s

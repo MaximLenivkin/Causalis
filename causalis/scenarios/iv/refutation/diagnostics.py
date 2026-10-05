@@ -126,8 +126,14 @@ def _flag_first_stage(
     return "RED"
 
 
+def _resolve_result(result: Any) -> Any:
+    """Use an IV model's latest estimate, or retain an estimate/payload."""
+    return getattr(result, "result_", result)
+
+
 def _resolve_diagnostic_data(result: Any) -> IVDiagnosticData:
-    """Resolve an IV estimate or IV diagnostic payload."""
+    """Resolve an estimated IV model, estimate, or diagnostic payload."""
+    result = _resolve_result(result)
     if isinstance(result, IVDiagnosticData):
         return result
 
@@ -143,7 +149,7 @@ def _resolve_diagnostic_data(result: Any) -> IVDiagnosticData:
 
 
 def _model_option(result: Any, key: str, default: Any) -> Any:
-    options = getattr(result, "model_options", None)
+    options = getattr(_resolve_result(result), "model_options", None)
     if isinstance(options, dict):
         return options.get(key, default)
     return default
@@ -402,7 +408,7 @@ def _reduced_form_payload(result: Any) -> Dict[str, Any]:
     if diag.reduced_form is None:
         diag.reduced_form = compute_reduced_form_diagnostics(
             diag,
-            late_value=getattr(result, "value", None),
+            late_value=getattr(_resolve_result(result), "value", None),
         )
     diag.diagnostics["reduced_form"] = diag.reduced_form
     return diag.reduced_form
@@ -417,8 +423,9 @@ def instrument_overlap(result: Any) -> pd.DataFrame:
 
     Parameters
     ----------
-    result : IIVM or IVCausalEstimate
-        The fitted IV model or its estimation result.
+    result : IIVM, IVCausalEstimate, or IVDiagnosticData
+        The model after ``fit().estimate()``, its estimate, or diagnostic
+        payload. A model requires ``estimate()`` after its latest fit attempt.
 
     Returns
     -------
@@ -470,8 +477,9 @@ def first_stage(result: Any) -> pd.DataFrame:
 
     Parameters
     ----------
-    result : IIVM or IVCausalEstimate
-        The fitted IV model or its estimation result.
+    result : IIVM, IVCausalEstimate, or IVDiagnosticData
+        The model after ``fit().estimate()``, its estimate, or diagnostic
+        payload. A model requires ``estimate()`` after its latest fit attempt.
 
     Returns
     -------
@@ -515,8 +523,9 @@ def reduced_form(result: Any) -> pd.DataFrame:
 
     Parameters
     ----------
-    result : IIVM or IVCausalEstimate
-        The fitted IV model or its estimation result.
+    result : IIVM, IVCausalEstimate, or IVDiagnosticData
+        The model after ``fit().estimate()``, its estimate, or diagnostic
+        payload. A model requires ``estimate()`` after its latest fit attempt.
 
     Returns
     -------
@@ -559,8 +568,9 @@ def instrument_overlap_plot(
 
     Parameters
     ----------
-    result : IIVM or IVCausalEstimate
-        The fitted IV model or its estimation result.
+    result : IIVM, IVCausalEstimate, or IVDiagnosticData
+        The model after ``fit().estimate()``, its estimate, or diagnostic
+        payload. A model requires ``estimate()`` after its latest fit attempt.
     bins : str or int, default "fd"
         Binning strategy for histograms.
     ax : matplotlib.axes.Axes, optional

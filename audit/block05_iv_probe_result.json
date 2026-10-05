@@ -1,0 +1,12 @@
+{
+  "finding": "SC-09",
+  "scope": "IV diagnostic API resolution; historical probe only",
+  "result": {
+    "late": 2.0599090331725676,
+    "first_stage_result_works": [
+      7,
+      5
+    ],
+    "first_stage_model": "accepted"
+  }
+}
