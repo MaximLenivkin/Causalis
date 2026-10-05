@@ -44,7 +44,7 @@ B02–B06 — большие тематические блоки, внутри �
 2. Выбрать **один блок** и небольшой законченный commit. Источник finding → независимое reproduction/property/reference → patch → focused tests.
 3. Python — только `.venv\Scripts\python.exe`. Local environment manifest сохранён в audit; источник base suite известен.
 4. При Windows sandbox failures process/tmp использовать разрешённый запуск или writable `--basetemp`, не считать их bug библиотеки.
-5. После focused проверки запускать необходимые соседние tests. Полный suite — на интеграционных границах B03/B04/B05/B06; при текущем baseline учитывать известный SC-12, пока он не исправлен.
+5. После focused проверки запускать необходимые соседние tests. Suite вне отложенной sensitivity области — на интеграционных границах B03/B04/B05/B06; исключённые modules перечислять в evidence manifest. При текущем baseline учитывать известный SC-12, пока он не исправлен; не выдавать такой run за fully green/full sensitivity validation.
 6. Не повторять большой benchmark/весь suite после правки только prose. Для score changes нужны independent IF и coverage evidence; passing mirrored-formula tests недостаточно.
 7. Commit включает завершённую code/test/docstrings правку и короткий block log. Отчёт показывает, что закрыто, что осталось, как проверено и известные ограничения.
 8. Обновить `NEXT_SESSION.md`, отметить block/commit/test commands/следующее действие. **Остановиться на границе блока**, чтобы пользователь мог очистить контекст. Следующий блок начинается отдельным запросом пользователя.
@@ -64,9 +64,10 @@ B02–B06 — большие тематические блоки, внутри �
 - B00: завершён; локальный checkpoint **2c26cee** сохранил аудит/план/документы.
 - B01: завершён; commit **bd8a2be**, **67passing cases** в focused+neighbor checks; детали в `audit/BLOCK01_RCT.md`.
 - B02: завершён; commits **817c24c / add2f36 / a5a6e3a / c27e744**. ROOT-01–07, включая grouped DML-05, исправлены. Общая проверка: **606 passed**, 5 existing warnings; подробности в `audit/BLOCK02_CONTRACTS_SHARED_DGP.md`.
-- B03–B06: запланированы, не начаты.
+- B03: завершён; commits **c925907 / e6a9275 / 6084b34 / 113c693**. DML-01/02/04/06/09 и independent CATE part DML-03. Integration: **1143 passed, 1 known baseline SC-12 failed**, 76 warnings, 299.18s; 7 sensitivity modules исключены. Итог — `BLOCK03_DML_GATE_UPLIFT.md`, raw logs и selection/result JSON. New failures0; это не полностью зелёный suite.
+- B04–B06: запланированы, не начаты.
 - Sensitivity: отложено по прямой инструкции пользователя; дата возобновления не назначена.
-- Следующий блок B03 начинается после очистки контекста и нового запроса пользователя; автоматически в этом этапе не начинается.
+- На границе B03 работа остановлена; B04 начинается по следующему запросу пользователя.
 
 ## Дополнение после B02
 

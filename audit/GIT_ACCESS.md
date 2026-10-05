@@ -6,7 +6,7 @@
 |---|---|
 | Git | Установлен, `2.37.2.windows.2` |
 | Автор локальных commits | Настроен как Maxim; email уже задан в Git config. Для commit GitHub login не нужен |
-| Ветка / local commits | `codex/correctness-roadmap`, от audit SHA `ffe2c356c115f335b74b2f10117e19fe15585d46`; B00/B01 и четыре code commits B02 сохранены; текущий checkpoint через `git log -1` |
+| Ветка / local commits | `codex/correctness-roadmap`, от audit SHA `ffe2c356c115f335b74b2f10117e19fe15585d46`; B00–B03 сохранены, B03 code commits c925907/e6a9275/6084b34/113c693; текущий documentation checkpoint через `git log -1` |
 | Чтение GitHub | Исходный main совпадает с audit SHA; personal branch доступна |
 | GitHub CLI | Установлен2.102.0; executable `C:\Program Files\GitHub CLI\gh.exe`. Старый PATH текущего Codex процесса может его не видеть; использовать полный путь |
 | Credential helper | `gh auth setup-git` настроил GitHub helper; HTTPS push успешно проверен |

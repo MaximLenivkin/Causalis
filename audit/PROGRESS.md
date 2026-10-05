@@ -65,3 +65,20 @@
 - Финальная проверка artifacts: 36 GitHub handoff links и 188 absolute local links, issues 0; 21 changed/new Python files AST parsed; sensitivity paths changed 0. Новый verify_block02.py сохраняет отдельный validation JSON и не переписывает original report_validation.json.
 - Новый соседний DGP follow-up: marginal propensity oracle вместо softmax при U=0. Текущее поведение явно описано; изменение propensity API не входит в B03. Extreme coefficient guards, estimator output policy и near-zero SMD scale invariance также записаны как отдельные follow-ups.
 - NEXT_SESSION/FIX_PLAN обновлены для B03. На границе B02 работа остановлена; следующий блок начинается после нового запроса. Внешние PR/issues не создавались. Коммиты сохраняются в ранее подключённой личной ветке через обычный push.
+
+## 2026-10-05 — B03 начат
+
+- Пользователь попросил перейти к следующему блоку. Рабочий checkpoint `790c8ab`, branch/tracking совпадают с планом.
+- Три параллельных задания: multi ATTE IF, binary relative ATT/drop weights/CATE cache, OOS fold diagnostics. Root занимается stable GATE и итоговой интеграцией.
+- Sensitivity modules/tests не изменяются; upstream ещё не синхронизирован. Полный новый аудит и broad performance benchmark не повторяются.
+
+## 2026-10-05 — B03 завершён
+
+- Пользовательский scope выполнен: DML-01/02/04/06/09 и только independent CATE part DML-03. Root исправил centered GATE/GATET descriptive SSE; три агента независимо реализовали multi ratio IF, binary baseline/weights/cache и честную fold diagnostics. Root проверил diffs/derivations, staged законченные fixes и выполнил интеграцию.
+- Четыре code commits: **c9259072a24f5325f944cd37c4f203f33c39a5e7**, **e6a92759f3c8844999c53bd065a673e31330d604**, **6084b34d799e9af34228136c0a2e9549063638ac**, **113c693a0dd721c6e77dfe84bc647d2ffb4c7841**. Каждый сохраняет source/tests/notes/raw evidence. Source/tests после последней проверки не менялись.
+- Independent contamination derivatives, constant/proportional potential-outcome identities, outcome shift/permutation и fresh-fit equivalence проверены. Oracle IID sampling600×600: multi95%coverage0.9400/0.9433, binary relative coverage0.9550. Это ограниченная inference sanity check, не coverage fitted learners во всех DGP.
+- Итоговая repository integration вне sensitivity modules: **1143 passed, 1 failed, 76 warnings, 299.18s**. Единственный failure — прежний SC-12 `test_shared_design_and_input_unchanged`, line80 identity of statsmodels0.15 `pinv_wexog`. Этот assert не скрыт/не снят; CUPED source/tests не менялись. Новых failures нет, но suite не полностью зелёный.
+- `run_block03_integration.py` сохраняет exact args/exclusions. Семь sensitivity-named test modules не запускались; обычная estimator diagnostics по-прежнему может собирать existing sensitivity payload. Sensitivity formulas/fields/tests не исправлялись, generic scalar/sensitivity refit state остаётся deferred. Upstream не fetch/merge/rebase.
+- `BLOCK03_DML_GATE_UPLIFT.md` и B03_*_NOTES.md содержат mathematical derivations, compatibility и actual test evidence. Handoff дополнен готовыми английскими migration paragraphs и immutable personal-fork code links; публиковать вместе с соответствующим release, автору файл не отправлялся внешними инструментами.
+- Scope/artifact checks: **217 local links, 45 immutable GitHub handoff links, 19 Python AST, issues0**; 7 library paths, sensitivity paths0. Separate JSON сохраняет integration result и baseline failure; original audit snapshots не переписывались.
+- NEXT_SESSION/FIX_PLAN/README/GIT_ACCESS обновлены. После final documentation checkpoint выполняется обычный push в `origin/codex/correctness-roadmap` и проверка remote/local SHA. На границе B03 работа остановлена; следующий B04 DiD начинается по новому запросу пользователя. PR/issues не создавались.

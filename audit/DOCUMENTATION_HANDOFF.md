@@ -224,3 +224,61 @@ Source: [multi-treatment DGP](https://github.com/MaximLenivkin/Causalis/blob/c27
 > Supplying U overrides realized latent values for observed draws. Outcome oracle columns still use the Gaussian reference law, so they need not describe a supplied vector with a different law or dependence on X. The m_obs_<arm> columns describe assignment at realized U. The existing m_<arm> columns describe assignment at U=0 and generally differ from marginal P(D=arm | X) when latent noise affects treatment.
 
 Приёмка: не использовать `m_<arm>` как marginal propensity в latent-confounded benchmarks. Не интерпретировать среднее Gaussian-marginal CATE по treated как automatically true ATT при selection on U. Пересчитать benchmark targets после code update; при gamma example a=0, u_strength_y=1, theta1=1 baseline ≈1.64872 и marginal CATE ≈2.83297, с пренебрежимо малой clipping correction. Для иных latent laws требуется отдельная oracle specification.
+
+## Реализовано в B03: DML / GATE / Uplift migration
+
+Этот раздел относится к personal correctness branch, а не к исходному audit snapshot и не автоматически к опубликованному PyPI release. Выпускать site/API text вместе с соответствующими code fixes.
+
+### Multi-treatment ATT inference / P1
+
+Source: [multi ATT score / relative baseline](https://github.com/MaximLenivkin/Causalis/blob/e6a92759f3c8844999c53bd065a673e31330d604/causalis/scenarios/multi_unconfoundedness/model.py), [additive psi_a payload field](https://github.com/MaximLenivkin/Causalis/blob/e6a92759f3c8844999c53bd065a673e31330d604/causalis/data_contracts/causal_diagnostic_data.py).
+
+Предлагаемый текст:
+
+> For each active arm k, ATTE is an empirical ratio with the observed share p_k in that arm. The linear score coefficient is psi_a,k = -d_k/p_k, and its influence function is psi_b,k - theta_k*d_k/p_k. Replacing that coefficient by -1 preserves the point estimate but changes its sampling variance. MultiTreatmentIRM now stores psi_a with shape (n, K-1) for ATTE; the ATE coefficient remains a vector of length n.
+
+> Relative ATTE uses the counterfactual control mean among units in arm k. Its delta-method interval combines the ratio influence functions of both the effect and that baseline, including their covariance. Old saved estimates should be recomputed to obtain corrected absolute intervals. The return shapes of effect estimates are unchanged.
+
+Приёмка: source class docstring и score reconstruction согласованы; constant noiseless potential outcomes дают zero absolute SE, а proportional potential outcomes — zero relative SE. Не добавлять multi relative CI как отдельный исходный defect: прежние ошибки numerator/baseline могли сокращаться, обе части обновлены совместно.
+
+### Binary relative ATT baseline / P2
+
+Source: [binary IRM](https://github.com/MaximLenivkin/Causalis/blob/6084b34d799e9af34228136c0a2e9549063638ac/causalis/scenarios/unconfoundedness/model.py).
+
+> The relative ATT is 100 times ATT divided by the counterfactual control mean among treated units. The baseline is an empirical ratio and its influence function subtracts (D/p)*mu_0, where p is the observed treated share. The interval includes the covariance of the effect and baseline influence functions. The low-signal baseline check uses the same corrected baseline standard error.
+
+Приёмка: `Y(0)=10, Y(1)=12` дают relative ATT20% и zero sampling SE для любого достаточного nondegenerate sample; rare-treated share сама по себе не вызывает low-signal warning. Existing approximate weighted/Hájek ATE inference policy не изменена этим исправлением.
+
+### Overlap filtering and custom weights / P2
+
+Source: [raw weight validation / retained normalization](https://github.com/MaximLenivkin/Causalis/blob/6084b34d799e9af34228136c0a2e9549063638ac/causalis/scenarios/unconfoundedness/_score_utils.py), [fit snapshots](https://github.com/MaximLenivkin/Causalis/blob/6084b34d799e9af34228136c0a2e9549063638ac/causalis/scenarios/unconfoundedness/model.py).
+
+> Supply custom ATE weights in the order of the original input rows. fit() validates and copies weights and weights_bar before nuisance training. With overlap_policy='drop', the same retention mask applies to outcomes, predictions, identifiers, and weights. Estimation normalizes both weight vectors by the mean of weights over the retained sample. Changes to caller arrays or model.weights after fitting take effect only after a new fit().
+
+Приёмка: dictionaries, supported row/column shapes, repeated indices, diagnostics и repeated fit сохраняют positional alignment. Drop изменяет estimation population; эта правка не заменяет существующее предупреждение об approximate inference при normalized custom weights.
+
+### Refit and CATE / P1
+
+Source: [successful fit cache invalidation](https://github.com/MaximLenivkin/Causalis/blob/6084b34d799e9af34228136c0a2e9549063638ac/causalis/scenarios/unconfoundedness/model.py).
+
+> A successful IRM refit invalidates its cached CATE outcome models. The next predict_cate call rebuilds them using the current data, feature schema, and outcome learner. The predictions then match a fresh model fitted with the same configuration.
+
+Это independent T-learner cache fix; generic scalar estimate/sensitivity refit lifecycle исключён из текущего блока и не должен описываться как исправленный.
+
+### Fold stability and unavailable OOS inference / P2
+
+Source: [binary diagnostics](https://github.com/MaximLenivkin/Causalis/blob/113c693a0dd721c6e77dfe84bc647d2ffb4c7841/causalis/scenarios/unconfoundedness/refutation/score/score_validation.py), [multi diagnostics / legacy cache migration](https://github.com/MaximLenivkin/Causalis/blob/113c693a0dd721c6e77dfe84bc647d2ffb4c7841/causalis/scenarios/multi_unconfoundedness/refutation/score/score_validation.py).
+
+> The oos_moment_test entry reports descriptive fold stability from cached cross-fitted scores. It is not an independently calibrated validation experiment. Its legacy t-statistics and p-values are NaN, available is False, and the oos_moment flag is NA. fold_diagnostics_available separately indicates whether complete descriptive summaries can be computed.
+
+> Inspect fold_theta_range, fold_theta_gap_max_abs, fold_score_mean_rms, fold_score_mean_max_abs, and the fold table to see differences on the effect or score scale. These measures have no calibrated significance threshold. Equal-fold score averages can cancel exactly even when individual folds differ substantially. Cross-fitting alone does not validate the causal assumptions.
+
+Приёмка: example fold means0/100/200/300 показывает effect range300 и leave-fold gaps; больше не p=1/GREEN. Keep old keys для consumer migration, но обновить examples/summary interpretation; не заменять missing t/p values на0/1 в rendered tables. Multi ATTE legacy cache inconsistency отражается в `meta.psi_cache_status`; old estimates надо переоценить.
+
+### GATE numerical covariance / P2
+
+Source: [centered group variance](https://github.com/MaximLenivkin/Causalis/blob/c9259072a24f5325f944cd37c4f203f33c39a5e7/causalis/scenarios/gate/model.py).
+
+> GATE computes its HC covariance from squared deviations around each group mean. A large common shift of the orthogonal signal does not erase within-group variation. GATET uses the same centered calculation for descriptive signal spread; its ATT covariance continues to use centered ATT moment residuals.
+
+Приёмка: HC0/1/2/3 и public group contrasts сохраняют корректную SE при signals1e8±1. Не обещать universal extreme-value accuracy или measured speedup: алгоритм остаётся O(n+groups), broad benchmark относится к следующему performance блоку.
