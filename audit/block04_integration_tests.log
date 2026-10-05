@@ -1,0 +1,309 @@
+{
+  "scope": "Repository suite excluding deferred sensitivity test modules",
+  "excluded_modules": [
+    "tests/refutation/test_multi_sensitivity_benchmark.py",
+    "tests/refutation/test_sensitivity_benchmark.py",
+    "tests/refutation/test_sensitivity_combination.py",
+    "tests/refutation/test_sensitivity_integration_irm.py",
+    "tests/refutation/test_sensitivity_protocol.py",
+    "tests/refutation/test_sensitivity_rv_signed_rr.py",
+    "tests/refutation/test_trim_sensitivity_ate.py"
+  ],
+  "pytest_args": [
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp=audit/block04_integration_test_temp",
+    "tests",
+    "--ignore",
+    "tests/refutation/test_multi_sensitivity_benchmark.py",
+    "--ignore",
+    "tests/refutation/test_sensitivity_benchmark.py",
+    "--ignore",
+    "tests/refutation/test_sensitivity_combination.py",
+    "--ignore",
+    "tests/refutation/test_sensitivity_integration_irm.py",
+    "--ignore",
+    "tests/refutation/test_sensitivity_protocol.py",
+    "--ignore",
+    "tests/refutation/test_sensitivity_rv_signed_rr.py",
+    "--ignore",
+    "tests/refutation/test_trim_sensitivity_ate.py"
+  ],
+  "docs_build": "SKIP_DOCS_BUILD=true"
+}
+........................................................................ [  5%]
+........................................................................ [ 11%]
+........................................................................ [ 17%]
+........................................................................ [ 23%]
+........................................................................ [ 29%]
+....................................................binary_relative_att_oracle_sampling {"coverage_95": 0.955, "empirical_sd_percent": 2.9844819116168306, "mean_estimate_percent": 29.562383165311754, "mean_se_over_empirical_sd": 1.0008532045127816, "mean_se_percent": 2.9870282850521375, "n": 600, "repetitions": 600, "seed": 40317, "truth_percent": 29.88505747126437}
+.................... [ 34%]
+........................................................................ [ 40%]
+........................................................................ [ 46%]
+........................................................................ [ 52%]
+........................................................................ [ 58%]
+........................................................................ [ 63%]
+........................................................................ [ 69%]
+........................................................................ [ 75%]
+........................................................................ [ 81%]
+........................................................................ [ 87%]
+........................................................................ [ 92%]
+....................................F................................... [ 98%]
+...............                                                          [100%]
+================================== FAILURES ===================================
+___________________ test_shared_design_and_input_unchanged ____________________
+
+data = RctCausalData(df=(360, 6), treatments=['control', 'a', 'b'], control_treatment='control', outcomes=['y1', 'y2'], confounders=['x'], user_id=None)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001C313809520>
+
+    def test_shared_design_and_input_unchanged(data, monkeypatch):
+        original = data.df.copy(deep=True)
+        def unexpected(*args, **kwargs):
+            raise AssertionError("Must not revalidate CausalData for each outcome")
+        monkeypatch.setattr(CausalData, "from_df", unexpected)
+        model = CUPEDModel().fit(data, covariates=["x"], run_checks=False)
+        for arm in ["a", "b"]:
+            first = model._comparison_models["y1"][arm]
+            second = model._comparison_models["y2"][arm]
+            assert first._data.df is second._data.df
+            for attr in ["_result", "_result_naive"]:
+                first_ols = getattr(first, attr).model
+                second_ols = getattr(second, attr).model
+                assert np.shares_memory(first_ols.exog, second_ols.exog)
+>               assert first_ols.pinv_wexog is second_ols.pinv_wexog
+E               assert array([[ 3.55887922e-03,  3.11807507e-18,  3.57638286e-04,\n        -1.85249231e-17,  1.29511742e-02, -8.79194770e-18,\n...        -2.29907761e-02, -1.23223555e-02, -1.43052704e-03,\n         8.32312994e-03,  4.28122698e-03, -4.11188052e-03]]) is array([[ 3.55887922e-03,  3.11807507e-18,  3.57638286e-04,\n        -1.85249231e-17,  1.29511742e-02, -8.79194770e-18,\n...        -2.29907761e-02, -1.23223555e-02, -1.43052704e-03,\n         8.32312994e-03,  4.28122698e-03, -4.11188052e-03]])
+E                +  where array([[ 3.55887922e-03,  3.11807507e-18,  3.57638286e-04,\n        -1.85249231e-17,  1.29511742e-02, -8.79194770e-18,\n...        -2.29907761e-02, -1.23223555e-02, -1.43052704e-03,\n         8.32312994e-03,  4.28122698e-03, -4.11188052e-03]]) = <statsmodels.regression.linear_model.OLS object at 0x000001C3164A78C0>.pinv_wexog
+E                +  and   array([[ 3.55887922e-03,  3.11807507e-18,  3.57638286e-04,\n        -1.85249231e-17,  1.29511742e-02, -8.79194770e-18,\n...        -2.29907761e-02, -1.23223555e-02, -1.43052704e-03,\n         8.32312994e-03,  4.28122698e-03, -4.11188052e-03]]) = <statsmodels.regression.linear_model.OLS object at 0x000001C3164A79B0>.pinv_wexog
+
+tests\statistics\test_cuped_rct.py:80: AssertionError
+============================== warnings summary ===============================
+tests/data/test_diagnostic_data_storage.py::test_dml_ate_returns_diagnostic_data
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=1.307e-01 is within 1.64 SE of 0 (SE=1.442e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/data/test_diagnostic_data_storage.py::test_dml_att_returns_diagnostic_data
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=3.238e-01 is within 1.64 SE of 0 (SE=2.800e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_irm_att_normalize_ipw.py::test_att_normalize_ipw_invariance
+tests/inference/test_irm_score_identities.py::test_irm_atte_score_identities[True]
+tests/refutation/test_uncofoundedness_balance.py::test_uncofoundedness_balance_att[True]
+tests/refutation/test_uncofoundedness_refutation_api.py::test_atte_keeps_canonical_unnormalized_weights
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\_score_utils.py:31: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+    warnings.warn(
+
+tests/inference/test_irm_estimator.py::test_irm_ate_runs_and_shapes
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=5.351e-02 is within 1.96 SE of 0 (SE=7.132e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_irm_parallel_fit.py::test_parallel_cross_fit_matches_sequential
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=6.832e-02 is within 1.96 SE of 0 (SE=9.823e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_irm_relative_ci.py::test_relative_ci_delta_method_matches_formula_with_weights
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1257: RuntimeWarning: ATE custom weights are normalized by sample mean; SE/IF treats this normalization as fixed (approximate).
+    warnings.warn(
+
+tests/refutation/test_causal_estimate_refutation.py::test_overlap_diagnostics_with_causal_estimate
+tests/refutation/test_causal_estimate_refutation.py::test_score_diagnostics_with_causal_estimate
+tests/refutation/test_causal_estimate_refutation.py::test_unconfoundedness_diagnostics_with_causal_estimate
+tests/refutation/test_causal_estimate_refutation.py::test_unconfoundedness_diagnostics_returns_balance_outputs
+tests/refutation/test_causal_estimate_refutation.py::test_score_diagnostics_with_missing_y_d_falls_back_to_causal_data
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=8.931e-03 is within 1.96 SE of 0 (SE=7.917e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_diagnostic_data_flag.py::test_fit_store_diagnostics_controls_ate_payload
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=1.701e-01 is within 1.96 SE of 0 (SE=1.963e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_diagnostic_data_flag.py::test_fit_store_diagnostics_controls_ate_payload
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=2.367e-01 is within 1.96 SE of 0 (SE=1.692e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_diagnostic_data_flag.py::test_fit_store_diagnostics_controls_atte_payload
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=1.188e-01 is within 1.96 SE of 0 (SE=4.837e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_diagnostic_data_flag.py::test_diagnostics_use_cached_x_without_reloading_dataframe
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=2.216e-01 is within 1.96 SE of 0 (SE=2.182e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_diagnostic_data_flag.py::test_repeated_estimate_calls_are_stable_with_reused_intermediates
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=6.383e-03 is within 1.96 SE of 0 (SE=1.629e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_diagnostic_data_flag.py::test_lightweight_mode_skips_model_level_diagnostic_caches
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=3.929e-02 is within 1.96 SE of 0 (SE=1.371e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_diagnostic_data_flag.py::test_lightweight_mode_estimate_uses_cached_targets_without_reloading_dataframe
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=1.896e-01 is within 1.96 SE of 0 (SE=1.606e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_diagnostic_data_flag.py::test_lightweight_mode_matches_full_mode_on_unchanged_data[ATE]
+tests/refutation/test_diagnostic_data_flag.py::test_lightweight_mode_matches_full_mode_on_unchanged_data[ATE]
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=7.306e-02 is within 1.96 SE of 0 (SE=1.458e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_diagnostic_data_flag.py::test_lightweight_mode_matches_full_mode_on_unchanged_data[ATTE]
+tests/refutation/test_diagnostic_data_flag.py::test_lightweight_mode_matches_full_mode_on_unchanged_data[ATTE]
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=3.107e-01 is within 1.96 SE of 0 (SE=1.753e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_diagnostic_data_flag.py::test_lightweight_mode_estimate_is_stable_after_data_reordering
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=3.042e-02 is within 1.96 SE of 0 (SE=1.564e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_feature_importance_diagnostics.py::test_feature_importance_is_collected_with_default_diagnostics
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=1.742e-02 is within 1.96 SE of 0 (SE=1.633e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_feature_importance_diagnostics.py::test_feature_importance_payload_uses_tree_native_importances
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=4.803e-01 is within 1.96 SE of 0 (SE=3.693e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_feature_importance_diagnostics.py::test_feature_importance_payload_uses_coef_native_importances
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=4.060e-02 is within 1.96 SE of 0 (SE=1.405e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_feature_importance_diagnostics.py::test_plot_feature_importance_returns_figure
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=6.479e-01 is within 1.96 SE of 0 (SE=4.684e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_feature_importance_diagnostics.py::test_plot_feature_importance_raises_without_diagnostic_payload
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=6.955e-01 is within 1.96 SE of 0 (SE=4.287e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_feature_importance_diagnostics.py::test_plot_feature_importance_raises_when_no_native_importance_available
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=8.570e-01 is within 1.96 SE of 0 (SE=5.179e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_feature_importance_diagnostics.py::test_feature_importance_is_skipped_when_diagnostics_are_disabled
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=5.934e-01 is within 1.96 SE of 0 (SE=6.364e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_orthogonality_att.py::test_atte_derivative_wrt_g1_is_zero
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=1.424e-01 is within 1.96 SE of 0 (SE=1.407e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_orthogonality_att.py::test_atte_has_expected_columns_and_finite_main_stats
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=7.362e-02 is within 1.96 SE of 0 (SE=1.080e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_orthogonality_default_basis.py::test_default_basis_uses_all_confounders_plus_constant
+tests/refutation/test_orthogonality_default_basis.py::test_explicit_n_basis_funcs_is_respected
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=5.999e-02 is within 1.96 SE of 0 (SE=1.993e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_orthogonality_fastpath.py::test_score_diagnostics_is_deterministic_for_fixed_estimate
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=1.140e-01 is within 1.96 SE of 0 (SE=1.083e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_orthogonality_irm.py::test_score_diagnostics_att_runs_and_returns_expected_columns
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=1.457e-01 is within 1.96 SE of 0 (SE=1.865e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_orthogonality_naming.py::test_score_diagnostics_derivative_column_names
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=1.702e-01 is within 1.96 SE of 0 (SE=1.477e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_orthogonality_naming.py::test_score_diagnostics_att_score_normalization_and_basic_outputs
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=6.828e-02 is within 1.96 SE of 0 (SE=1.341e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_orthogonality_nullable_float_cofounds.py::test_refute_irm_orthogonality_with_nullable_float_confounders_runs
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=1.480e-01 is within 1.96 SE of 0 (SE=1.328e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_overlap_score_refutation_api.py: 4 warnings
+tests/refutation/test_score_diagnostics_entrypoint.py: 2 warnings
+tests/refutation/test_score_flags.py: 2 warnings
+tests/refutation/test_score_flags_in_run.py: 1 warning
+tests/refutation/test_score_se_plugin_flag.py: 2 warnings
+tests/refutation/test_uncofoundedness_balance.py: 1 warning
+tests/refutation/test_uncofoundedness_balance_extras.py: 1 warning
+tests/refutation/test_uncofoundedness_refutation_api.py: 2 warnings
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1251: RuntimeWarning: normalize_ipw=True (H�jek) uses approximate SE/IF; denominator variability is treated as fixed.
+    warnings.warn(
+
+tests/refutation/test_overlap_score_refutation_api.py::test_overlap_single_api_with_causal_estimate
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=3.730e-02 is within 1.64 SE of 0 (SE=4.553e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_overlap_score_refutation_api.py::test_overlap_single_api_with_causal_estimate_and_causal_data_fallback
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=4.566e-02 is within 1.64 SE of 0 (SE=4.039e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_overlap_score_refutation_api.py::test_score_single_api_with_causal_estimate
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=7.565e-03 is within 1.64 SE of 0 (SE=4.664e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_overlap_score_refutation_api.py::test_score_single_api_with_causal_estimate_and_causal_data_fallback
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=2.334e-03 is within 1.64 SE of 0 (SE=4.628e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_score_diagnostics_entrypoint.py::test_run_score_diagnostics_with_causal_estimate_and_data
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=2.397e-02 is within 1.64 SE of 0 (SE=4.336e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_score_diagnostics_entrypoint.py::test_run_score_diagnostics_falls_back_to_causal_data_when_y_d_missing
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=1.102e-02 is within 1.64 SE of 0 (SE=5.016e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_score_flags.py::test_score_diagnostics_flag_keys_are_present
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=3.921e-02 is within 1.64 SE of 0 (SE=5.608e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_score_flags_in_run.py::test_run_score_diagnostics_has_flags_by_default
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=2.304e-02 is within 1.96 SE of 0 (SE=6.686e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_score_flags_practical.py::test_score_flags_and_thresholds_present
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=4.103e-02 is within 1.96 SE of 0 (SE=6.020e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_score_flags_practical.py::test_summary_flags_align_with_report_flags
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=1.917e-02 is within 1.96 SE of 0 (SE=5.104e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_score_se_plugin_flag.py::test_se_plugin_metric_present_and_finite
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=6.599e-03 is within 1.96 SE of 0 (SE=7.787e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_score_se_plugin_flag.py::test_summary_contains_flag_column_and_expected_metrics
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=3.656e-02 is within 1.96 SE of 0 (SE=5.197e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_uncofoundedness_refutation_api.py::test_uncofoundedness_single_api_with_causal_estimate
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=3.267e-02 is within 1.64 SE of 0 (SE=4.322e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_uncofoundedness_refutation_api.py::test_uncofoundedness_single_api_with_causal_estimate_and_causal_data_fallback
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=2.879e-02 is within 1.64 SE of 0 (SE=3.866e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_uncofoundedness_refutation_api.py::test_atte_keeps_canonical_unnormalized_weights
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=6.496e-02 is within 1.64 SE of 0 (SE=3.977e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/scenarios/synthetic_control/refutation/test_scm_diagnostics.py::test_scm_diagnostics_skips_scale_based_pre_checks_when_pre_is_flat
+  D:\codex\Causalis\causalis\scenarios\synthetic_control\model.py:1499: RuntimeWarning: Average ATT t-test fold dispersion is numerically zero; returning a degenerate interval.
+    result = self._compute_average_att_ttest(
+
+tests/test_no_tests_imports_in_causalis.py::test_causalis_has_no_imports_from_tests
+  D:\codex\Causalis\causalis\scenarios\iv\dgp.py:177: SyntaxWarning: invalid escape sequence '\e'
+    Z &= f_Z(X, \epsilon_Z) \\
+
+tests/test_no_tests_imports_in_causalis.py::test_causalis_has_no_imports_from_tests
+  D:\codex\Causalis\causalis\scenarios\iv\refutation\diagnostics.py:514: SyntaxWarning: invalid escape sequence '\m'
+    \theta = \frac{\mathbb{E}[Y|Z=1] - \mathbb{E}[Y|Z=0]}{\mathbb{E}[D|Z=1] - \mathbb{E}[D|Z=0]}
+
+tests/test_no_tests_imports_in_causalis.py::test_causalis_has_no_imports_from_tests
+  D:\codex\Causalis\causalis\scenarios\iv\refutation\diagnostics.py:557: SyntaxWarning: invalid escape sequence '\m'
+    Visualizes the overlap of :math:`\mathbb{P}(Z=1|X)` between the :math:`Z=0` and
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/statistics/test_cuped_rct.py::test_shared_design_and_input_unchanged
+1 failed, 1238 passed, 76 warnings in 340.04s (0:05:40)

@@ -1,0 +1,34 @@
+{
+  "scope": "Repository suite excluding deferred sensitivity test modules",
+  "excluded_modules": [
+    "tests/refutation/test_multi_sensitivity_benchmark.py",
+    "tests/refutation/test_sensitivity_benchmark.py",
+    "tests/refutation/test_sensitivity_combination.py",
+    "tests/refutation/test_sensitivity_integration_irm.py",
+    "tests/refutation/test_sensitivity_protocol.py",
+    "tests/refutation/test_sensitivity_rv_signed_rr.py",
+    "tests/refutation/test_trim_sensitivity_ate.py"
+  ],
+  "pytest_args": [
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp=audit/block04_integration_test_temp",
+    "tests",
+    "--ignore",
+    "tests/refutation/test_multi_sensitivity_benchmark.py",
+    "--ignore",
+    "tests/refutation/test_sensitivity_benchmark.py",
+    "--ignore",
+    "tests/refutation/test_sensitivity_combination.py",
+    "--ignore",
+    "tests/refutation/test_sensitivity_integration_irm.py",
+    "--ignore",
+    "tests/refutation/test_sensitivity_protocol.py",
+    "--ignore",
+    "tests/refutation/test_sensitivity_rv_signed_rr.py",
+    "--ignore",
+    "tests/refutation/test_trim_sensitivity_ate.py"
+  ],
+  "docs_build": "SKIP_DOCS_BUILD=true"
+}

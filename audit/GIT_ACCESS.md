@@ -1,6 +1,6 @@
 # Git: доступ и подключение личного fork
 
-Проверено 2026-10-05 в `D:\codex\Causalis`.
+Проверено 2026-10-05 в `D:\codex\Causalis`. B04 code checkpoints: `87228e267aed3dc71dadd4bbe19b969a95463591` (clusters), `57dbba1e2ecc0c1cab413b1da7f40cfdd8b22131` (DiD controls/full IF/aggregation). Финальный documentation checkpoint и remote/local equality проверяются на границе блока.
 
 | Проверка | Результат |
 |---|---|

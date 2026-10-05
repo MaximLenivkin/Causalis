@@ -282,3 +282,39 @@ Source: [centered group variance](https://github.com/MaximLenivkin/Causalis/blob
 > GATE computes its HC covariance from squared deviations around each group mean. A large common shift of the orthogonal signal does not erase within-group variation. GATET uses the same centered calculation for descriptive signal spread; its ATT covariance continues to use centered ATT moment residuals.
 
 Приёмка: HC0/1/2/3 и public group contrasts сохраняют корректную SE при signals1e8±1. Не обещать universal extreme-value accuracy или measured speedup: алгоритм остаётся O(n+groups), broad benchmark относится к следующему performance блоку.
+
+## Дополнение после B04: DiD / P1
+
+Implementation: [comparison rule](https://github.com/MaximLenivkin/Causalis/blob/57dbba1e2ecc0c1cab413b1da7f40cfdd8b22131/causalis/data_contracts/_did_comparison_units.py), [cell and aggregation IF](https://github.com/MaximLenivkin/Causalis/blob/57dbba1e2ecc0c1cab413b1da7f40cfdd8b22131/causalis/scenarios/did/model.py), [cluster guard/covariance](https://github.com/MaximLenivkin/Causalis/blob/87228e267aed3dc71dadd4bbe19b969a95463591/causalis/scenarios/did/model.py). Эти изменения пока находятся в personal fork; сайт должен публиковать новое поведение вместе с включающим их release.
+
+### Comparison populations and base periods
+
+> A comparison unit is excluded if it belongs to the evaluated cohort. Later-treated controls must remain untreated, including the anticipation window, at both the base and target dates. This rule also applies to pre-treatment comparisons, whose universal base may be later than the target. Support, estimation, raw DiD and design diagnostics use the same comparison rule and require observed outcomes at both dates.
+
+> A varying base uses the previous period for pre-treatment comparisons. Post-treatment cells use the cohort's universal base. PanelDataDID.comparison_units remains a post-treatment convenience API and accepts optional base_time and anticipation; use att_gt_cells to inspect pre-treatment support.
+
+Приёмка: собственная cohort отсутствует среди controls; unit rows уникальны внутри cell, counts/support/refutation согласованы при universal/varying, anticipation и incomplete panel. Изменение controls может изменить pre-effect, support и число skipped cells; необходимо re-fit. Earliest universal placebo пока не добавлен: enumeration сохраняет прежнюю границу analysis-index1.
+
+### Normalized IPW and traditional DR uncertainty
+
+> Cell influence functions include both normalized-mean denominators and the estimation of logistic propensity coefficients. DR, and its aipw alias, also include the estimation of control OLS coefficients. This is the traditional MLE/OLS procedure. A common outcome trend cancels from normalized IPW uncertainty as well as from its point estimate.
+
+> Fixed ridge regularization and active propensity clipping can change the estimator's probability limit. The corrected sandwich measures uncertainty for the implemented functional; it does not remove this bias or verify conditional parallel trends. Regular inference requires stable clipping regions, design rank and support. The improved IPT/WLS estimator is a separate method.
+
+Reference: [official traditional DRDID](https://github.com/pedrohcgs/DRDID/blob/85807cfbddbd64cc6f3f8ba37f52d07c6c3acc65/R/drdid_panel.R), [Sant'Anna–Zhao](https://arxiv.org/abs/1812.01723). Causalis сохраняет собственную clipping/ridge policy; точное численное совпадение с R-пакетом при всех настройках не обещается.
+
+Migration: re-fit/re-estimate DiD для новых SE/CI/p-values. На неизменной post comparison sample cell ATT не меняется. Не утверждать, что новые intervals всегда шире или coverage всегда выше: estimated-nuisance simulations в двух DGP дали93.5%/95.67% при nominal95%, и первый сохраняет finite-sample gap.
+
+### Estimated population weights and missing periods
+
+> Simple, calendar and event aggregations include uncertainty from estimating their treated complete-pair shares, along with the joint uncertainty of cell effects. Even deterministic but different cohort effects can produce a nonzero population aggregate standard error because the cohort mixture is estimated.
+
+> On balanced panels, complete-pair shares coincide with the corresponding cohort shares. On incomplete panels, the unchanged weighting policy averages effects from observed two-period treated subpopulations. It does not automatically recover full-cohort effects under informative missingness. Cohort tables use fixed equal weights across included post-treatment cells.
+
+Reference: [official did estimated-weight contribution](https://github.com/bcallaway11/did/blob/74b88eb07f1faa644df1271055a0f77848f6550c/R/compute.aggte.R). Complete-pair generalization и independent derivatives описаны в [methodology notes](https://github.com/MaximLenivkin/Causalis/blob/57dbba1e2ecc0c1cab413b1da7f40cfdd8b22131/audit/B04_METHOD_REVIEW.md). Приёмка: heterogeneous deterministic cohorts дают positive simple/calendar/event SE, shared controls сохраняют covariance; нельзя складывать cell SE как independent errors.
+
+### Clustered bootstrap and actual defaults
+
+> Both analytical and multiplier-bootstrap inference require at least two independent clusters. bootstrap_replications must be zero or at least two. Cluster multiplier draws share the analytical method's centered covariance and finite-cluster correction; a fixed seed remains reproducible, but bootstrap outputs can differ from earlier versions. Two clusters satisfy the computational guard and do not guarantee reliable coverage.
+
+Актуальные constructor defaults: propensity_clip=1e-6, logit_ridge=1e-8, max_condition_number=1e8. min_treated_per_cell/min_control_per_cell/min_control_ess/max_propensity_clip_share/max_condition_number — diagnostic thresholds; превышение само по себе не является автоматическим skip. Source docstrings исправлены в linked implementation; generated API пересобрать от release commit. Дополнительные примеры generators из прежнего checklist всё ещё требуют исправления автором документации.

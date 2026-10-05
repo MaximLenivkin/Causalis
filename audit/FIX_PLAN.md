@@ -65,9 +65,12 @@ B02–B06 — большие тематические блоки, внутри �
 - B01: завершён; commit **bd8a2be**, **67passing cases** в focused+neighbor checks; детали в `audit/BLOCK01_RCT.md`.
 - B02: завершён; commits **817c24c / add2f36 / a5a6e3a / c27e744**. ROOT-01–07, включая grouped DML-05, исправлены. Общая проверка: **606 passed**, 5 existing warnings; подробности в `audit/BLOCK02_CONTRACTS_SHARED_DGP.md`.
 - B03: завершён; commits **c925907 / e6a9275 / 6084b34 / 113c693**. DML-01/02/04/06/09 и independent CATE part DML-03. Integration: **1143 passed, 1 known baseline SC-12 failed**, 76 warnings, 299.18s; 7 sensitivity modules исключены. Итог — `BLOCK03_DML_GATE_UPLIFT.md`, raw logs и selection/result JSON. New failures0; это не полностью зелёный suite.
-- B04–B06: запланированы, не начаты.
+- B04: завершён; commits **87228e2 / 57dbba1**. SC-01/02/03/04/11: aligned controls, full normalized MLE/OLS cell IF, estimated complete-pair aggregate shares, cluster guard/covariance. Integration: **1238 passed,1 known SC-12 failed**,76warnings,340.04s;7sensitivity modules исключены. Итог — `BLOCK04_DID.md`, independent derivations и raw evidence. Добавлены95testcases. Не полностью зелёный suite.
+- B05–B06: запланированы, не начаты.
 - Sensitivity: отложено по прямой инструкции пользователя; дата возобновления не назначена.
-- На границе B03 работа остановлена; B04 начинается по следующему запросу пользователя.
+- На границе B04 работа остановлена; B05 начинается по следующему запросу пользователя.
+
+Дополнение B04: сохраняются traditional MLE/OLS и прежний complete-pair estimand. Correct IF не убирает fixed ridge/clipping bias и не гарантирует finite-sample/few-cluster coverage. Earliest universal pre placebo (analysis-index0) пока пропущен прежним enumeration: отдельный support follow-up. Численная устойчивость IF map проверена, optimizer scale invariance не заявляется.
 
 ## Дополнение после B02
 
