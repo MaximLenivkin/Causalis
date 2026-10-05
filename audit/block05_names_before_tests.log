@@ -1,0 +1,1440 @@
+FF.FFFFF.FFFFF.FFFFF.FFF                                                 [100%]
+================================== FAILURES ===================================
+_ test_column_renaming_preserves_full_estimate[False-delta-intercept-covariates0] _
+
+treatment = 'intercept', covariates = [], method = 'delta', checks = False
+
+    @pytest.mark.parametrize("treatment,covariates", [
+        ("intercept", []), ("x__centered", ["x"]),
+        ("d:x", ["x"]), ("d", ["x__centered"]),
+        ("intercept", ["intercept__cuped_1", "x"]),
+        ("d", ["x__centered", "d:x"]),
+    ])
+    @pytest.mark.parametrize("method", ["delta", "bootstrap"])
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_column_renaming_preserves_full_estimate(treatment, covariates, method, checks):
+        rng = np.random.default_rng(1067)
+        n = 240
+        d = np.arange(n) % 2
+        x = rng.normal(size=(n, len(covariates)))
+        y = 20 + 2 * d + rng.normal(size=n)
+        if covariates:
+            y += x @ np.arange(1, len(covariates) + 1) + .7 * d * x[:, 0]
+        frame = pd.DataFrame(x, columns=covariates)
+        frame[treatment] = d
+        frame["outcome"] = y
+        original = frame.copy(deep=True)
+        data = CausalData.from_df(frame, treatment, "outcome", covariates)
+        renamed = {treatment: "safe_d", **{name: f"safe_x{i}" for i, name in enumerate(covariates)}}
+        safe_names = [renamed[name] for name in covariates]
+        safe = CausalData.from_df(frame.rename(columns=renamed), "safe_d", "outcome", safe_names)
+        options = dict(relative_ci_method=method, relative_ci_bootstrap_draws=40,
+                       relative_ci_bootstrap_seed=86,
+                       refutation_config=CUPEDRefutationConfig(check_action="ignore"))
+        model = CUPEDModel(**options).fit(data, covariates=covariates, run_checks=checks)
+        reference = CUPEDModel(**options).fit(safe, covariates=safe_names, run_checks=checks)
+>       actual, expected = model.estimate(), reference.estimate()
+                           ^^^^^^^^^^^^^^^^
+
+tests\statistics\test_cuped_design_names.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CUPEDModel(cov_type='HC2', alpha=0.05, centering_scope='global', relative_ci_method='delta', relative_denominator='adj...or_q=0.01, tiny_one_minus_h_tol=1e-08), use_t=auto, use_t_auto_n_threshold=5000, use_t_effective=True, status='fitted')
+alpha = None, diagnostic_data = True, outcome = None, treatment = None
+
+    def estimate(
+        self, alpha: Optional[float] = None, diagnostic_data: bool = True,
+        *, outcome: Optional[str] = None, treatment: Optional[str] = None,
+    ) -> CausalEstimate | RctEstimates:
+        """
+        Return the adjusted ATE/ITT estimate and inference.
+    
+        Parameters
+        ----------
+        alpha : float, optional
+            Override the instance significance level for confidence intervals.
+        diagnostic_data : bool, default True
+            Whether to include diagnostic data_contracts in the result.
+    
+        Returns
+        -------
+        CausalEstimate or RctEstimates
+            One results object, or outcome-to-treatment mappings for multiple
+            comparisons. Selectors restrict results to fitted comparisons.
+        """
+        self._require_fitted()
+    
+        if self._comparison_models:
+            selected = self._select_comparisons(outcome, treatment)
+            if sum(len(arms) for arms in selected.values()) == 1:
+                child = next(iter(next(iter(selected.values())).values()))
+                return child.estimate(alpha=alpha, diagnostic_data=diagnostic_data)
+            return RctEstimates({
+                name: {arm: child.estimate(alpha=alpha, diagnostic_data=diagnostic_data)
+                       for arm, child in arms.items()}
+                for name, arms in selected.items()
+            })
+        self._validate_single_selection(outcome, treatment)
+    
+        a = self._validate_alpha(self.alpha if alpha is None else alpha)
+    
+        # Coef index: 0 intercept, 1 treatment, then covariates / interactions
+        params = np.asarray(self._result.params, dtype=float)
+        bse = np.asarray(self._result.bse, dtype=float)
+        pvalues = np.asarray(self._result.pvalues, dtype=float)
+    
+>       tau = float(params[1])
+                    ^^^^^^^^^
+E       IndexError: index 1 is out of bounds for axis 0 with size 1
+
+causalis\scenarios\cuped\model.py:536: IndexError
+_ test_column_renaming_preserves_full_estimate[False-delta-x__centered-covariates1] _
+
+treatment = 'x__centered', covariates = ['x'], method = 'delta', checks = False
+
+    @pytest.mark.parametrize("treatment,covariates", [
+        ("intercept", []), ("x__centered", ["x"]),
+        ("d:x", ["x"]), ("d", ["x__centered"]),
+        ("intercept", ["intercept__cuped_1", "x"]),
+        ("d", ["x__centered", "d:x"]),
+    ])
+    @pytest.mark.parametrize("method", ["delta", "bootstrap"])
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_column_renaming_preserves_full_estimate(treatment, covariates, method, checks):
+        rng = np.random.default_rng(1067)
+        n = 240
+        d = np.arange(n) % 2
+        x = rng.normal(size=(n, len(covariates)))
+        y = 20 + 2 * d + rng.normal(size=n)
+        if covariates:
+            y += x @ np.arange(1, len(covariates) + 1) + .7 * d * x[:, 0]
+        frame = pd.DataFrame(x, columns=covariates)
+        frame[treatment] = d
+        frame["outcome"] = y
+        original = frame.copy(deep=True)
+        data = CausalData.from_df(frame, treatment, "outcome", covariates)
+        renamed = {treatment: "safe_d", **{name: f"safe_x{i}" for i, name in enumerate(covariates)}}
+        safe_names = [renamed[name] for name in covariates]
+        safe = CausalData.from_df(frame.rename(columns=renamed), "safe_d", "outcome", safe_names)
+        options = dict(relative_ci_method=method, relative_ci_bootstrap_draws=40,
+                       relative_ci_bootstrap_seed=86,
+                       refutation_config=CUPEDRefutationConfig(check_action="ignore"))
+        model = CUPEDModel(**options).fit(data, covariates=covariates, run_checks=checks)
+        reference = CUPEDModel(**options).fit(safe, covariates=safe_names, run_checks=checks)
+        actual, expected = model.estimate(), reference.estimate()
+        for name in ("value", "p_value", "ci_lower_absolute", "ci_upper_absolute",
+                     "value_relative", "ci_lower_relative", "ci_upper_relative",
+                     "adjusted_control_mean", "adjusted_treatment_mean"):
+>           assert getattr(actual, name) == pytest.approx(getattr(expected, name), abs=1e-10)
+E           assert 1.22907417640812 == 1.7268246711851987 � 1.0e-10
+E             
+E             comparison failed
+E             Obtained: 1.22907417640812
+E             Expected: 1.7268246711851987 � 1.0e-10
+
+tests\statistics\test_cuped_design_names.py:44: AssertionError
+___ test_column_renaming_preserves_full_estimate[False-delta-d-covariates3] ___
+
+treatment = 'd', covariates = ['x__centered'], method = 'delta', checks = False
+
+    @pytest.mark.parametrize("treatment,covariates", [
+        ("intercept", []), ("x__centered", ["x"]),
+        ("d:x", ["x"]), ("d", ["x__centered"]),
+        ("intercept", ["intercept__cuped_1", "x"]),
+        ("d", ["x__centered", "d:x"]),
+    ])
+    @pytest.mark.parametrize("method", ["delta", "bootstrap"])
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_column_renaming_preserves_full_estimate(treatment, covariates, method, checks):
+        rng = np.random.default_rng(1067)
+        n = 240
+        d = np.arange(n) % 2
+        x = rng.normal(size=(n, len(covariates)))
+        y = 20 + 2 * d + rng.normal(size=n)
+        if covariates:
+            y += x @ np.arange(1, len(covariates) + 1) + .7 * d * x[:, 0]
+        frame = pd.DataFrame(x, columns=covariates)
+        frame[treatment] = d
+        frame["outcome"] = y
+        original = frame.copy(deep=True)
+        data = CausalData.from_df(frame, treatment, "outcome", covariates)
+        renamed = {treatment: "safe_d", **{name: f"safe_x{i}" for i, name in enumerate(covariates)}}
+        safe_names = [renamed[name] for name in covariates]
+        safe = CausalData.from_df(frame.rename(columns=renamed), "safe_d", "outcome", safe_names)
+        options = dict(relative_ci_method=method, relative_ci_bootstrap_draws=40,
+                       relative_ci_bootstrap_seed=86,
+                       refutation_config=CUPEDRefutationConfig(check_action="ignore"))
+        model = CUPEDModel(**options).fit(data, covariates=covariates, run_checks=checks)
+        reference = CUPEDModel(**options).fit(safe, covariates=safe_names, run_checks=checks)
+        actual, expected = model.estimate(), reference.estimate()
+        for name in ("value", "p_value", "ci_lower_absolute", "ci_upper_absolute",
+                     "value_relative", "ci_lower_relative", "ci_upper_relative",
+                     "adjusted_control_mean", "adjusted_treatment_mean"):
+            assert getattr(actual, name) == pytest.approx(getattr(expected, name), abs=1e-10)
+        assert model._result.model.exog.shape[1] == 2 + 2 * len(covariates)
+        assert len(set(model._result.model.exog_names)) == model._result.model.exog.shape[1]
+        for name in ("beta_covariates", "gamma_interactions"):
+>           np.testing.assert_allclose(getattr(actual.diagnostic_data, name),
+                                       getattr(expected.diagnostic_data, name), atol=1e-12)
+E           AssertionError: 
+E           Not equal to tolerance rtol=1e-07, atol=1e-12
+E           
+E           (shapes (2,), (1,) mismatch)
+E            ACTUAL: array([1.119816, 0.629645])
+E            DESIRED: array([1.119816])
+
+tests\statistics\test_cuped_design_names.py:48: AssertionError
+_ test_column_renaming_preserves_full_estimate[False-delta-intercept-covariates4] _
+
+treatment = 'intercept', covariates = ['intercept__cuped_1', 'x']
+method = 'delta', checks = False
+
+    @pytest.mark.parametrize("treatment,covariates", [
+        ("intercept", []), ("x__centered", ["x"]),
+        ("d:x", ["x"]), ("d", ["x__centered"]),
+        ("intercept", ["intercept__cuped_1", "x"]),
+        ("d", ["x__centered", "d:x"]),
+    ])
+    @pytest.mark.parametrize("method", ["delta", "bootstrap"])
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_column_renaming_preserves_full_estimate(treatment, covariates, method, checks):
+        rng = np.random.default_rng(1067)
+        n = 240
+        d = np.arange(n) % 2
+        x = rng.normal(size=(n, len(covariates)))
+        y = 20 + 2 * d + rng.normal(size=n)
+        if covariates:
+            y += x @ np.arange(1, len(covariates) + 1) + .7 * d * x[:, 0]
+        frame = pd.DataFrame(x, columns=covariates)
+        frame[treatment] = d
+        frame["outcome"] = y
+        original = frame.copy(deep=True)
+        data = CausalData.from_df(frame, treatment, "outcome", covariates)
+        renamed = {treatment: "safe_d", **{name: f"safe_x{i}" for i, name in enumerate(covariates)}}
+        safe_names = [renamed[name] for name in covariates]
+        safe = CausalData.from_df(frame.rename(columns=renamed), "safe_d", "outcome", safe_names)
+        options = dict(relative_ci_method=method, relative_ci_bootstrap_draws=40,
+                       relative_ci_bootstrap_seed=86,
+                       refutation_config=CUPEDRefutationConfig(check_action="ignore"))
+        model = CUPEDModel(**options).fit(data, covariates=covariates, run_checks=checks)
+        reference = CUPEDModel(**options).fit(safe, covariates=safe_names, run_checks=checks)
+>       actual, expected = model.estimate(), reference.estimate()
+                           ^^^^^^^^^^^^^^^^
+
+tests\statistics\test_cuped_design_names.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CUPEDModel(cov_type='HC2', alpha=0.05, centering_scope='global', relative_ci_method='delta', relative_denominator='adj...or_q=0.01, tiny_one_minus_h_tol=1e-08), use_t=auto, use_t_auto_n_threshold=5000, use_t_effective=True, status='fitted')
+alpha = None, diagnostic_data = True, outcome = None, treatment = None
+
+    def estimate(
+        self, alpha: Optional[float] = None, diagnostic_data: bool = True,
+        *, outcome: Optional[str] = None, treatment: Optional[str] = None,
+    ) -> CausalEstimate | RctEstimates:
+        """
+        Return the adjusted ATE/ITT estimate and inference.
+    
+        Parameters
+        ----------
+        alpha : float, optional
+            Override the instance significance level for confidence intervals.
+        diagnostic_data : bool, default True
+            Whether to include diagnostic data_contracts in the result.
+    
+        Returns
+        -------
+        CausalEstimate or RctEstimates
+            One results object, or outcome-to-treatment mappings for multiple
+            comparisons. Selectors restrict results to fitted comparisons.
+        """
+        self._require_fitted()
+    
+        if self._comparison_models:
+            selected = self._select_comparisons(outcome, treatment)
+            if sum(len(arms) for arms in selected.values()) == 1:
+                child = next(iter(next(iter(selected.values())).values()))
+                return child.estimate(alpha=alpha, diagnostic_data=diagnostic_data)
+            return RctEstimates({
+                name: {arm: child.estimate(alpha=alpha, diagnostic_data=diagnostic_data)
+                       for arm, child in arms.items()}
+                for name, arms in selected.items()
+            })
+        self._validate_single_selection(outcome, treatment)
+    
+        a = self._validate_alpha(self.alpha if alpha is None else alpha)
+    
+        # Coef index: 0 intercept, 1 treatment, then covariates / interactions
+        params = np.asarray(self._result.params, dtype=float)
+        bse = np.asarray(self._result.bse, dtype=float)
+        pvalues = np.asarray(self._result.pvalues, dtype=float)
+    
+        tau = float(params[1])
+        se = float(bse[1])
+        p_value = float(pvalues[1])
+    
+        ci = self._result.conf_int(alpha=a)
+        ci_arr = np.asarray(ci, dtype=float)
+        ci_low = float(ci_arr[1, 0])
+        ci_high = float(ci_arr[1, 1])
+    
+        # Relative effect: adjusted ATE divided by the configured denominator.
+        # By default, both numerator and denominator are regression-adjusted:
+        # 100 * tau / intercept, evaluated at the analysis-sample covariate mean.
+        # raw_control instead uses the observed control-group outcome mean.
+        y_internal = np.asarray(self._result.model.endog, dtype=float)
+        design_internal = np.asarray(self._result.model.exog, dtype=float)
+        d_internal = np.asarray(design_internal[:, 1], dtype=float)
+        treated_mask = d_internal == 1.0
+        control_mask = d_internal == 0.0
+        mu_t = float(np.mean(y_internal[treated_mask])) if np.any(treated_mask) else np.nan
+        mu_c = float(np.mean(y_internal[control_mask])) if np.any(control_mask) else np.nan
+        relative_denominator_value = self._relative_denominator_value(
+            params=params,
+            y=y_internal,
+            control_mask=control_mask,
+        )
+    
+        tau_rel = np.nan
+        ci_low_rel = np.nan
+        ci_high_rel = np.nan
+    
+        crit = self._critical_from_ci(tau=tau, se=se, ci_low=ci_low, ci_high=ci_high)
+        if self._is_valid_relative_denominator(relative_denominator_value) and np.isfinite(crit):
+            tau_rel = 100.0 * tau / relative_denominator_value
+            if self.relative_ci_method == "bootstrap":
+                # Bootstrap jointly captures uncertainty in tau and the denominator.
+                ci_low_rel, ci_high_rel = self._relative_ci_bootstrap(alpha=a)
+            else:
+                ci_low_rel, ci_high_rel = self._relative_ci_delta(
+                    tau=tau,
+                    denominator=relative_denominator_value,
+                    y=y_internal,
+                    design=design_internal,
+                    control_mask=control_mask,
+                    crit=crit,
+                )
+    
+        diag = None
+        if diagnostic_data:
+            params_naive = np.asarray(self._result_naive.params, dtype=float)
+            bse_naive = np.asarray(self._result_naive.bse, dtype=float)
+>           ate_naive = float(params_naive[1])
+                              ^^^^^^^^^^^^^^^
+E           IndexError: index 1 is out of bounds for axis 0 with size 1
+
+causalis\scenarios\cuped\model.py:586: IndexError
+___ test_column_renaming_preserves_full_estimate[False-delta-d-covariates5] ___
+
+treatment = 'd', covariates = ['x__centered', 'd:x'], method = 'delta'
+checks = False
+
+    @pytest.mark.parametrize("treatment,covariates", [
+        ("intercept", []), ("x__centered", ["x"]),
+        ("d:x", ["x"]), ("d", ["x__centered"]),
+        ("intercept", ["intercept__cuped_1", "x"]),
+        ("d", ["x__centered", "d:x"]),
+    ])
+    @pytest.mark.parametrize("method", ["delta", "bootstrap"])
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_column_renaming_preserves_full_estimate(treatment, covariates, method, checks):
+        rng = np.random.default_rng(1067)
+        n = 240
+        d = np.arange(n) % 2
+        x = rng.normal(size=(n, len(covariates)))
+        y = 20 + 2 * d + rng.normal(size=n)
+        if covariates:
+            y += x @ np.arange(1, len(covariates) + 1) + .7 * d * x[:, 0]
+        frame = pd.DataFrame(x, columns=covariates)
+        frame[treatment] = d
+        frame["outcome"] = y
+        original = frame.copy(deep=True)
+        data = CausalData.from_df(frame, treatment, "outcome", covariates)
+        renamed = {treatment: "safe_d", **{name: f"safe_x{i}" for i, name in enumerate(covariates)}}
+        safe_names = [renamed[name] for name in covariates]
+        safe = CausalData.from_df(frame.rename(columns=renamed), "safe_d", "outcome", safe_names)
+        options = dict(relative_ci_method=method, relative_ci_bootstrap_draws=40,
+                       relative_ci_bootstrap_seed=86,
+                       refutation_config=CUPEDRefutationConfig(check_action="ignore"))
+        model = CUPEDModel(**options).fit(data, covariates=covariates, run_checks=checks)
+        reference = CUPEDModel(**options).fit(safe, covariates=safe_names, run_checks=checks)
+        actual, expected = model.estimate(), reference.estimate()
+        for name in ("value", "p_value", "ci_lower_absolute", "ci_upper_absolute",
+                     "value_relative", "ci_lower_relative", "ci_upper_relative",
+                     "adjusted_control_mean", "adjusted_treatment_mean"):
+>           assert getattr(actual, name) == pytest.approx(getattr(expected, name), abs=1e-10)
+E           assert 1.901343199947501 == 1.9005657160030367 � 1.0e-10
+E             
+E             comparison failed
+E             Obtained: 1.901343199947501
+E             Expected: 1.9005657160030367 � 1.0e-10
+
+tests\statistics\test_cuped_design_names.py:44: AssertionError
+_ test_column_renaming_preserves_full_estimate[False-bootstrap-intercept-covariates0] _
+
+treatment = 'intercept', covariates = [], method = 'bootstrap', checks = False
+
+    @pytest.mark.parametrize("treatment,covariates", [
+        ("intercept", []), ("x__centered", ["x"]),
+        ("d:x", ["x"]), ("d", ["x__centered"]),
+        ("intercept", ["intercept__cuped_1", "x"]),
+        ("d", ["x__centered", "d:x"]),
+    ])
+    @pytest.mark.parametrize("method", ["delta", "bootstrap"])
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_column_renaming_preserves_full_estimate(treatment, covariates, method, checks):
+        rng = np.random.default_rng(1067)
+        n = 240
+        d = np.arange(n) % 2
+        x = rng.normal(size=(n, len(covariates)))
+        y = 20 + 2 * d + rng.normal(size=n)
+        if covariates:
+            y += x @ np.arange(1, len(covariates) + 1) + .7 * d * x[:, 0]
+        frame = pd.DataFrame(x, columns=covariates)
+        frame[treatment] = d
+        frame["outcome"] = y
+        original = frame.copy(deep=True)
+        data = CausalData.from_df(frame, treatment, "outcome", covariates)
+        renamed = {treatment: "safe_d", **{name: f"safe_x{i}" for i, name in enumerate(covariates)}}
+        safe_names = [renamed[name] for name in covariates]
+        safe = CausalData.from_df(frame.rename(columns=renamed), "safe_d", "outcome", safe_names)
+        options = dict(relative_ci_method=method, relative_ci_bootstrap_draws=40,
+                       relative_ci_bootstrap_seed=86,
+                       refutation_config=CUPEDRefutationConfig(check_action="ignore"))
+        model = CUPEDModel(**options).fit(data, covariates=covariates, run_checks=checks)
+        reference = CUPEDModel(**options).fit(safe, covariates=safe_names, run_checks=checks)
+>       actual, expected = model.estimate(), reference.estimate()
+                           ^^^^^^^^^^^^^^^^
+
+tests\statistics\test_cuped_design_names.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CUPEDModel(cov_type='HC2', alpha=0.05, centering_scope='global', relative_ci_method='bootstrap', relative_denominator=...or_q=0.01, tiny_one_minus_h_tol=1e-08), use_t=auto, use_t_auto_n_threshold=5000, use_t_effective=True, status='fitted')
+alpha = None, diagnostic_data = True, outcome = None, treatment = None
+
+    def estimate(
+        self, alpha: Optional[float] = None, diagnostic_data: bool = True,
+        *, outcome: Optional[str] = None, treatment: Optional[str] = None,
+    ) -> CausalEstimate | RctEstimates:
+        """
+        Return the adjusted ATE/ITT estimate and inference.
+    
+        Parameters
+        ----------
+        alpha : float, optional
+            Override the instance significance level for confidence intervals.
+        diagnostic_data : bool, default True
+            Whether to include diagnostic data_contracts in the result.
+    
+        Returns
+        -------
+        CausalEstimate or RctEstimates
+            One results object, or outcome-to-treatment mappings for multiple
+            comparisons. Selectors restrict results to fitted comparisons.
+        """
+        self._require_fitted()
+    
+        if self._comparison_models:
+            selected = self._select_comparisons(outcome, treatment)
+            if sum(len(arms) for arms in selected.values()) == 1:
+                child = next(iter(next(iter(selected.values())).values()))
+                return child.estimate(alpha=alpha, diagnostic_data=diagnostic_data)
+            return RctEstimates({
+                name: {arm: child.estimate(alpha=alpha, diagnostic_data=diagnostic_data)
+                       for arm, child in arms.items()}
+                for name, arms in selected.items()
+            })
+        self._validate_single_selection(outcome, treatment)
+    
+        a = self._validate_alpha(self.alpha if alpha is None else alpha)
+    
+        # Coef index: 0 intercept, 1 treatment, then covariates / interactions
+        params = np.asarray(self._result.params, dtype=float)
+        bse = np.asarray(self._result.bse, dtype=float)
+        pvalues = np.asarray(self._result.pvalues, dtype=float)
+    
+>       tau = float(params[1])
+                    ^^^^^^^^^
+E       IndexError: index 1 is out of bounds for axis 0 with size 1
+
+causalis\scenarios\cuped\model.py:536: IndexError
+_ test_column_renaming_preserves_full_estimate[False-bootstrap-x__centered-covariates1] _
+
+treatment = 'x__centered', covariates = ['x'], method = 'bootstrap'
+checks = False
+
+    @pytest.mark.parametrize("treatment,covariates", [
+        ("intercept", []), ("x__centered", ["x"]),
+        ("d:x", ["x"]), ("d", ["x__centered"]),
+        ("intercept", ["intercept__cuped_1", "x"]),
+        ("d", ["x__centered", "d:x"]),
+    ])
+    @pytest.mark.parametrize("method", ["delta", "bootstrap"])
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_column_renaming_preserves_full_estimate(treatment, covariates, method, checks):
+        rng = np.random.default_rng(1067)
+        n = 240
+        d = np.arange(n) % 2
+        x = rng.normal(size=(n, len(covariates)))
+        y = 20 + 2 * d + rng.normal(size=n)
+        if covariates:
+            y += x @ np.arange(1, len(covariates) + 1) + .7 * d * x[:, 0]
+        frame = pd.DataFrame(x, columns=covariates)
+        frame[treatment] = d
+        frame["outcome"] = y
+        original = frame.copy(deep=True)
+        data = CausalData.from_df(frame, treatment, "outcome", covariates)
+        renamed = {treatment: "safe_d", **{name: f"safe_x{i}" for i, name in enumerate(covariates)}}
+        safe_names = [renamed[name] for name in covariates]
+        safe = CausalData.from_df(frame.rename(columns=renamed), "safe_d", "outcome", safe_names)
+        options = dict(relative_ci_method=method, relative_ci_bootstrap_draws=40,
+                       relative_ci_bootstrap_seed=86,
+                       refutation_config=CUPEDRefutationConfig(check_action="ignore"))
+        model = CUPEDModel(**options).fit(data, covariates=covariates, run_checks=checks)
+        reference = CUPEDModel(**options).fit(safe, covariates=safe_names, run_checks=checks)
+        actual, expected = model.estimate(), reference.estimate()
+        for name in ("value", "p_value", "ci_lower_absolute", "ci_upper_absolute",
+                     "value_relative", "ci_lower_relative", "ci_upper_relative",
+                     "adjusted_control_mean", "adjusted_treatment_mean"):
+>           assert getattr(actual, name) == pytest.approx(getattr(expected, name), abs=1e-10)
+E           assert 1.22907417640812 == 1.7268246711851987 � 1.0e-10
+E             
+E             comparison failed
+E             Obtained: 1.22907417640812
+E             Expected: 1.7268246711851987 � 1.0e-10
+
+tests\statistics\test_cuped_design_names.py:44: AssertionError
+_ test_column_renaming_preserves_full_estimate[False-bootstrap-d-covariates3] _
+
+treatment = 'd', covariates = ['x__centered'], method = 'bootstrap'
+checks = False
+
+    @pytest.mark.parametrize("treatment,covariates", [
+        ("intercept", []), ("x__centered", ["x"]),
+        ("d:x", ["x"]), ("d", ["x__centered"]),
+        ("intercept", ["intercept__cuped_1", "x"]),
+        ("d", ["x__centered", "d:x"]),
+    ])
+    @pytest.mark.parametrize("method", ["delta", "bootstrap"])
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_column_renaming_preserves_full_estimate(treatment, covariates, method, checks):
+        rng = np.random.default_rng(1067)
+        n = 240
+        d = np.arange(n) % 2
+        x = rng.normal(size=(n, len(covariates)))
+        y = 20 + 2 * d + rng.normal(size=n)
+        if covariates:
+            y += x @ np.arange(1, len(covariates) + 1) + .7 * d * x[:, 0]
+        frame = pd.DataFrame(x, columns=covariates)
+        frame[treatment] = d
+        frame["outcome"] = y
+        original = frame.copy(deep=True)
+        data = CausalData.from_df(frame, treatment, "outcome", covariates)
+        renamed = {treatment: "safe_d", **{name: f"safe_x{i}" for i, name in enumerate(covariates)}}
+        safe_names = [renamed[name] for name in covariates]
+        safe = CausalData.from_df(frame.rename(columns=renamed), "safe_d", "outcome", safe_names)
+        options = dict(relative_ci_method=method, relative_ci_bootstrap_draws=40,
+                       relative_ci_bootstrap_seed=86,
+                       refutation_config=CUPEDRefutationConfig(check_action="ignore"))
+        model = CUPEDModel(**options).fit(data, covariates=covariates, run_checks=checks)
+        reference = CUPEDModel(**options).fit(safe, covariates=safe_names, run_checks=checks)
+        actual, expected = model.estimate(), reference.estimate()
+        for name in ("value", "p_value", "ci_lower_absolute", "ci_upper_absolute",
+                     "value_relative", "ci_lower_relative", "ci_upper_relative",
+                     "adjusted_control_mean", "adjusted_treatment_mean"):
+            assert getattr(actual, name) == pytest.approx(getattr(expected, name), abs=1e-10)
+        assert model._result.model.exog.shape[1] == 2 + 2 * len(covariates)
+        assert len(set(model._result.model.exog_names)) == model._result.model.exog.shape[1]
+        for name in ("beta_covariates", "gamma_interactions"):
+>           np.testing.assert_allclose(getattr(actual.diagnostic_data, name),
+                                       getattr(expected.diagnostic_data, name), atol=1e-12)
+E           AssertionError: 
+E           Not equal to tolerance rtol=1e-07, atol=1e-12
+E           
+E           (shapes (2,), (1,) mismatch)
+E            ACTUAL: array([1.119816, 0.629645])
+E            DESIRED: array([1.119816])
+
+tests\statistics\test_cuped_design_names.py:48: AssertionError
+_ test_column_renaming_preserves_full_estimate[False-bootstrap-intercept-covariates4] _
+
+treatment = 'intercept', covariates = ['intercept__cuped_1', 'x']
+method = 'bootstrap', checks = False
+
+    @pytest.mark.parametrize("treatment,covariates", [
+        ("intercept", []), ("x__centered", ["x"]),
+        ("d:x", ["x"]), ("d", ["x__centered"]),
+        ("intercept", ["intercept__cuped_1", "x"]),
+        ("d", ["x__centered", "d:x"]),
+    ])
+    @pytest.mark.parametrize("method", ["delta", "bootstrap"])
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_column_renaming_preserves_full_estimate(treatment, covariates, method, checks):
+        rng = np.random.default_rng(1067)
+        n = 240
+        d = np.arange(n) % 2
+        x = rng.normal(size=(n, len(covariates)))
+        y = 20 + 2 * d + rng.normal(size=n)
+        if covariates:
+            y += x @ np.arange(1, len(covariates) + 1) + .7 * d * x[:, 0]
+        frame = pd.DataFrame(x, columns=covariates)
+        frame[treatment] = d
+        frame["outcome"] = y
+        original = frame.copy(deep=True)
+        data = CausalData.from_df(frame, treatment, "outcome", covariates)
+        renamed = {treatment: "safe_d", **{name: f"safe_x{i}" for i, name in enumerate(covariates)}}
+        safe_names = [renamed[name] for name in covariates]
+        safe = CausalData.from_df(frame.rename(columns=renamed), "safe_d", "outcome", safe_names)
+        options = dict(relative_ci_method=method, relative_ci_bootstrap_draws=40,
+                       relative_ci_bootstrap_seed=86,
+                       refutation_config=CUPEDRefutationConfig(check_action="ignore"))
+        model = CUPEDModel(**options).fit(data, covariates=covariates, run_checks=checks)
+        reference = CUPEDModel(**options).fit(safe, covariates=safe_names, run_checks=checks)
+>       actual, expected = model.estimate(), reference.estimate()
+                           ^^^^^^^^^^^^^^^^
+
+tests\statistics\test_cuped_design_names.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CUPEDModel(cov_type='HC2', alpha=0.05, centering_scope='global', relative_ci_method='bootstrap', relative_denominator=...or_q=0.01, tiny_one_minus_h_tol=1e-08), use_t=auto, use_t_auto_n_threshold=5000, use_t_effective=True, status='fitted')
+alpha = None, diagnostic_data = True, outcome = None, treatment = None
+
+    def estimate(
+        self, alpha: Optional[float] = None, diagnostic_data: bool = True,
+        *, outcome: Optional[str] = None, treatment: Optional[str] = None,
+    ) -> CausalEstimate | RctEstimates:
+        """
+        Return the adjusted ATE/ITT estimate and inference.
+    
+        Parameters
+        ----------
+        alpha : float, optional
+            Override the instance significance level for confidence intervals.
+        diagnostic_data : bool, default True
+            Whether to include diagnostic data_contracts in the result.
+    
+        Returns
+        -------
+        CausalEstimate or RctEstimates
+            One results object, or outcome-to-treatment mappings for multiple
+            comparisons. Selectors restrict results to fitted comparisons.
+        """
+        self._require_fitted()
+    
+        if self._comparison_models:
+            selected = self._select_comparisons(outcome, treatment)
+            if sum(len(arms) for arms in selected.values()) == 1:
+                child = next(iter(next(iter(selected.values())).values()))
+                return child.estimate(alpha=alpha, diagnostic_data=diagnostic_data)
+            return RctEstimates({
+                name: {arm: child.estimate(alpha=alpha, diagnostic_data=diagnostic_data)
+                       for arm, child in arms.items()}
+                for name, arms in selected.items()
+            })
+        self._validate_single_selection(outcome, treatment)
+    
+        a = self._validate_alpha(self.alpha if alpha is None else alpha)
+    
+        # Coef index: 0 intercept, 1 treatment, then covariates / interactions
+        params = np.asarray(self._result.params, dtype=float)
+        bse = np.asarray(self._result.bse, dtype=float)
+        pvalues = np.asarray(self._result.pvalues, dtype=float)
+    
+        tau = float(params[1])
+        se = float(bse[1])
+        p_value = float(pvalues[1])
+    
+        ci = self._result.conf_int(alpha=a)
+        ci_arr = np.asarray(ci, dtype=float)
+        ci_low = float(ci_arr[1, 0])
+        ci_high = float(ci_arr[1, 1])
+    
+        # Relative effect: adjusted ATE divided by the configured denominator.
+        # By default, both numerator and denominator are regression-adjusted:
+        # 100 * tau / intercept, evaluated at the analysis-sample covariate mean.
+        # raw_control instead uses the observed control-group outcome mean.
+        y_internal = np.asarray(self._result.model.endog, dtype=float)
+        design_internal = np.asarray(self._result.model.exog, dtype=float)
+        d_internal = np.asarray(design_internal[:, 1], dtype=float)
+        treated_mask = d_internal == 1.0
+        control_mask = d_internal == 0.0
+        mu_t = float(np.mean(y_internal[treated_mask])) if np.any(treated_mask) else np.nan
+        mu_c = float(np.mean(y_internal[control_mask])) if np.any(control_mask) else np.nan
+        relative_denominator_value = self._relative_denominator_value(
+            params=params,
+            y=y_internal,
+            control_mask=control_mask,
+        )
+    
+        tau_rel = np.nan
+        ci_low_rel = np.nan
+        ci_high_rel = np.nan
+    
+        crit = self._critical_from_ci(tau=tau, se=se, ci_low=ci_low, ci_high=ci_high)
+        if self._is_valid_relative_denominator(relative_denominator_value) and np.isfinite(crit):
+            tau_rel = 100.0 * tau / relative_denominator_value
+            if self.relative_ci_method == "bootstrap":
+                # Bootstrap jointly captures uncertainty in tau and the denominator.
+                ci_low_rel, ci_high_rel = self._relative_ci_bootstrap(alpha=a)
+            else:
+                ci_low_rel, ci_high_rel = self._relative_ci_delta(
+                    tau=tau,
+                    denominator=relative_denominator_value,
+                    y=y_internal,
+                    design=design_internal,
+                    control_mask=control_mask,
+                    crit=crit,
+                )
+    
+        diag = None
+        if diagnostic_data:
+            params_naive = np.asarray(self._result_naive.params, dtype=float)
+            bse_naive = np.asarray(self._result_naive.bse, dtype=float)
+>           ate_naive = float(params_naive[1])
+                              ^^^^^^^^^^^^^^^
+E           IndexError: index 1 is out of bounds for axis 0 with size 1
+
+causalis\scenarios\cuped\model.py:586: IndexError
+_ test_column_renaming_preserves_full_estimate[False-bootstrap-d-covariates5] _
+
+treatment = 'd', covariates = ['x__centered', 'd:x'], method = 'bootstrap'
+checks = False
+
+    @pytest.mark.parametrize("treatment,covariates", [
+        ("intercept", []), ("x__centered", ["x"]),
+        ("d:x", ["x"]), ("d", ["x__centered"]),
+        ("intercept", ["intercept__cuped_1", "x"]),
+        ("d", ["x__centered", "d:x"]),
+    ])
+    @pytest.mark.parametrize("method", ["delta", "bootstrap"])
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_column_renaming_preserves_full_estimate(treatment, covariates, method, checks):
+        rng = np.random.default_rng(1067)
+        n = 240
+        d = np.arange(n) % 2
+        x = rng.normal(size=(n, len(covariates)))
+        y = 20 + 2 * d + rng.normal(size=n)
+        if covariates:
+            y += x @ np.arange(1, len(covariates) + 1) + .7 * d * x[:, 0]
+        frame = pd.DataFrame(x, columns=covariates)
+        frame[treatment] = d
+        frame["outcome"] = y
+        original = frame.copy(deep=True)
+        data = CausalData.from_df(frame, treatment, "outcome", covariates)
+        renamed = {treatment: "safe_d", **{name: f"safe_x{i}" for i, name in enumerate(covariates)}}
+        safe_names = [renamed[name] for name in covariates]
+        safe = CausalData.from_df(frame.rename(columns=renamed), "safe_d", "outcome", safe_names)
+        options = dict(relative_ci_method=method, relative_ci_bootstrap_draws=40,
+                       relative_ci_bootstrap_seed=86,
+                       refutation_config=CUPEDRefutationConfig(check_action="ignore"))
+        model = CUPEDModel(**options).fit(data, covariates=covariates, run_checks=checks)
+        reference = CUPEDModel(**options).fit(safe, covariates=safe_names, run_checks=checks)
+        actual, expected = model.estimate(), reference.estimate()
+        for name in ("value", "p_value", "ci_lower_absolute", "ci_upper_absolute",
+                     "value_relative", "ci_lower_relative", "ci_upper_relative",
+                     "adjusted_control_mean", "adjusted_treatment_mean"):
+>           assert getattr(actual, name) == pytest.approx(getattr(expected, name), abs=1e-10)
+E           assert 1.901343199947501 == 1.9005657160030367 � 1.0e-10
+E             
+E             comparison failed
+E             Obtained: 1.901343199947501
+E             Expected: 1.9005657160030367 � 1.0e-10
+
+tests\statistics\test_cuped_design_names.py:44: AssertionError
+_ test_column_renaming_preserves_full_estimate[True-delta-intercept-covariates0] _
+
+treatment = 'intercept', covariates = [], method = 'delta', checks = True
+
+    @pytest.mark.parametrize("treatment,covariates", [
+        ("intercept", []), ("x__centered", ["x"]),
+        ("d:x", ["x"]), ("d", ["x__centered"]),
+        ("intercept", ["intercept__cuped_1", "x"]),
+        ("d", ["x__centered", "d:x"]),
+    ])
+    @pytest.mark.parametrize("method", ["delta", "bootstrap"])
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_column_renaming_preserves_full_estimate(treatment, covariates, method, checks):
+        rng = np.random.default_rng(1067)
+        n = 240
+        d = np.arange(n) % 2
+        x = rng.normal(size=(n, len(covariates)))
+        y = 20 + 2 * d + rng.normal(size=n)
+        if covariates:
+            y += x @ np.arange(1, len(covariates) + 1) + .7 * d * x[:, 0]
+        frame = pd.DataFrame(x, columns=covariates)
+        frame[treatment] = d
+        frame["outcome"] = y
+        original = frame.copy(deep=True)
+        data = CausalData.from_df(frame, treatment, "outcome", covariates)
+        renamed = {treatment: "safe_d", **{name: f"safe_x{i}" for i, name in enumerate(covariates)}}
+        safe_names = [renamed[name] for name in covariates]
+        safe = CausalData.from_df(frame.rename(columns=renamed), "safe_d", "outcome", safe_names)
+        options = dict(relative_ci_method=method, relative_ci_bootstrap_draws=40,
+                       relative_ci_bootstrap_seed=86,
+                       refutation_config=CUPEDRefutationConfig(check_action="ignore"))
+>       model = CUPEDModel(**options).fit(data, covariates=covariates, run_checks=checks)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\statistics\test_cuped_design_names.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\cuped\model.py:248: in fit
+    return self._fit_single(data, covariates, run_checks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\cuped\model.py:450: in _fit_single
+    self._regression_checks = run_regression_checks(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+y = 0      20.574218
+1      22.658368
+2      20.056727
+3      22.735991
+4      19.699228
+         ...    
+235    22.537390
+236    21.385856
+237    22.376838
+238    21.191449
+239    21.689686
+Name: outcome, Length: 240, dtype: float64
+design =      intercept
+0          0.0
+1          1.0
+2          0.0
+3          1.0
+4          0.0
+..         ...
+235        1.0
+236        0.0
+237        1.0
+238        0.0
+239        1.0
+
+[240 rows x 1 columns]
+result = <statsmodels.regression.linear_model.RegressionResultsWrapper object at 0x00000278C8C343B0>
+result_naive = <statsmodels.regression.linear_model.RegressionResultsWrapper object at 0x00000278C8CC5490>
+cov_type = 'HC2', use_t_fit = True, corr_near_one_tol = 1e-10
+tiny_one_minus_h_tol = 1e-08, winsor_q = 0.01
+
+    def run_regression_checks(
+        y: pd.Series,
+        design: pd.DataFrame,
+        result: Any,
+        result_naive: Any,
+        cov_type: str,
+        use_t_fit: bool,
+        corr_near_one_tol: float,
+        tiny_one_minus_h_tol: float,
+        winsor_q: Optional[float],
+    ) -> RegressionChecks:
+        """Build a compact payload with design, residual, and influence refutation checks."""
+        z = np.asarray(design, dtype=float)
+        yv = y.to_numpy(dtype=float)
+        n = int(len(yv))
+    
+        k, rank, full_rank, cond = design_matrix_checks(design)
+    
+        params = np.asarray(result.params, dtype=float)
+        params_naive = np.asarray(result_naive.params, dtype=float)
+        bse_naive = np.asarray(result_naive.bse, dtype=float)
+    
+>       ate_adj = float(params[1])
+                        ^^^^^^^^^
+E       IndexError: index 1 is out of bounds for axis 0 with size 1
+
+causalis\scenarios\cuped\refutation\regression_checks.py:191: IndexError
+_ test_column_renaming_preserves_full_estimate[True-delta-x__centered-covariates1] _
+
+treatment = 'x__centered', covariates = ['x'], method = 'delta', checks = True
+
+    @pytest.mark.parametrize("treatment,covariates", [
+        ("intercept", []), ("x__centered", ["x"]),
+        ("d:x", ["x"]), ("d", ["x__centered"]),
+        ("intercept", ["intercept__cuped_1", "x"]),
+        ("d", ["x__centered", "d:x"]),
+    ])
+    @pytest.mark.parametrize("method", ["delta", "bootstrap"])
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_column_renaming_preserves_full_estimate(treatment, covariates, method, checks):
+        rng = np.random.default_rng(1067)
+        n = 240
+        d = np.arange(n) % 2
+        x = rng.normal(size=(n, len(covariates)))
+        y = 20 + 2 * d + rng.normal(size=n)
+        if covariates:
+            y += x @ np.arange(1, len(covariates) + 1) + .7 * d * x[:, 0]
+        frame = pd.DataFrame(x, columns=covariates)
+        frame[treatment] = d
+        frame["outcome"] = y
+        original = frame.copy(deep=True)
+        data = CausalData.from_df(frame, treatment, "outcome", covariates)
+        renamed = {treatment: "safe_d", **{name: f"safe_x{i}" for i, name in enumerate(covariates)}}
+        safe_names = [renamed[name] for name in covariates]
+        safe = CausalData.from_df(frame.rename(columns=renamed), "safe_d", "outcome", safe_names)
+        options = dict(relative_ci_method=method, relative_ci_bootstrap_draws=40,
+                       relative_ci_bootstrap_seed=86,
+                       refutation_config=CUPEDRefutationConfig(check_action="ignore"))
+        model = CUPEDModel(**options).fit(data, covariates=covariates, run_checks=checks)
+        reference = CUPEDModel(**options).fit(safe, covariates=safe_names, run_checks=checks)
+        actual, expected = model.estimate(), reference.estimate()
+        for name in ("value", "p_value", "ci_lower_absolute", "ci_upper_absolute",
+                     "value_relative", "ci_lower_relative", "ci_upper_relative",
+                     "adjusted_control_mean", "adjusted_treatment_mean"):
+>           assert getattr(actual, name) == pytest.approx(getattr(expected, name), abs=1e-10)
+E           assert 1.22907417640812 == 1.7268246711851987 � 1.0e-10
+E             
+E             comparison failed
+E             Obtained: 1.22907417640812
+E             Expected: 1.7268246711851987 � 1.0e-10
+
+tests\statistics\test_cuped_design_names.py:44: AssertionError
+___ test_column_renaming_preserves_full_estimate[True-delta-d-covariates3] ____
+
+treatment = 'd', covariates = ['x__centered'], method = 'delta', checks = True
+
+    @pytest.mark.parametrize("treatment,covariates", [
+        ("intercept", []), ("x__centered", ["x"]),
+        ("d:x", ["x"]), ("d", ["x__centered"]),
+        ("intercept", ["intercept__cuped_1", "x"]),
+        ("d", ["x__centered", "d:x"]),
+    ])
+    @pytest.mark.parametrize("method", ["delta", "bootstrap"])
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_column_renaming_preserves_full_estimate(treatment, covariates, method, checks):
+        rng = np.random.default_rng(1067)
+        n = 240
+        d = np.arange(n) % 2
+        x = rng.normal(size=(n, len(covariates)))
+        y = 20 + 2 * d + rng.normal(size=n)
+        if covariates:
+            y += x @ np.arange(1, len(covariates) + 1) + .7 * d * x[:, 0]
+        frame = pd.DataFrame(x, columns=covariates)
+        frame[treatment] = d
+        frame["outcome"] = y
+        original = frame.copy(deep=True)
+        data = CausalData.from_df(frame, treatment, "outcome", covariates)
+        renamed = {treatment: "safe_d", **{name: f"safe_x{i}" for i, name in enumerate(covariates)}}
+        safe_names = [renamed[name] for name in covariates]
+        safe = CausalData.from_df(frame.rename(columns=renamed), "safe_d", "outcome", safe_names)
+        options = dict(relative_ci_method=method, relative_ci_bootstrap_draws=40,
+                       relative_ci_bootstrap_seed=86,
+                       refutation_config=CUPEDRefutationConfig(check_action="ignore"))
+        model = CUPEDModel(**options).fit(data, covariates=covariates, run_checks=checks)
+        reference = CUPEDModel(**options).fit(safe, covariates=safe_names, run_checks=checks)
+        actual, expected = model.estimate(), reference.estimate()
+        for name in ("value", "p_value", "ci_lower_absolute", "ci_upper_absolute",
+                     "value_relative", "ci_lower_relative", "ci_upper_relative",
+                     "adjusted_control_mean", "adjusted_treatment_mean"):
+            assert getattr(actual, name) == pytest.approx(getattr(expected, name), abs=1e-10)
+        assert model._result.model.exog.shape[1] == 2 + 2 * len(covariates)
+        assert len(set(model._result.model.exog_names)) == model._result.model.exog.shape[1]
+        for name in ("beta_covariates", "gamma_interactions"):
+>           np.testing.assert_allclose(getattr(actual.diagnostic_data, name),
+                                       getattr(expected.diagnostic_data, name), atol=1e-12)
+E           AssertionError: 
+E           Not equal to tolerance rtol=1e-07, atol=1e-12
+E           
+E           (shapes (2,), (1,) mismatch)
+E            ACTUAL: array([1.119816, 0.629645])
+E            DESIRED: array([1.119816])
+
+tests\statistics\test_cuped_design_names.py:48: AssertionError
+_ test_column_renaming_preserves_full_estimate[True-delta-intercept-covariates4] _
+
+treatment = 'intercept', covariates = ['intercept__cuped_1', 'x']
+method = 'delta', checks = True
+
+    @pytest.mark.parametrize("treatment,covariates", [
+        ("intercept", []), ("x__centered", ["x"]),
+        ("d:x", ["x"]), ("d", ["x__centered"]),
+        ("intercept", ["intercept__cuped_1", "x"]),
+        ("d", ["x__centered", "d:x"]),
+    ])
+    @pytest.mark.parametrize("method", ["delta", "bootstrap"])
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_column_renaming_preserves_full_estimate(treatment, covariates, method, checks):
+        rng = np.random.default_rng(1067)
+        n = 240
+        d = np.arange(n) % 2
+        x = rng.normal(size=(n, len(covariates)))
+        y = 20 + 2 * d + rng.normal(size=n)
+        if covariates:
+            y += x @ np.arange(1, len(covariates) + 1) + .7 * d * x[:, 0]
+        frame = pd.DataFrame(x, columns=covariates)
+        frame[treatment] = d
+        frame["outcome"] = y
+        original = frame.copy(deep=True)
+        data = CausalData.from_df(frame, treatment, "outcome", covariates)
+        renamed = {treatment: "safe_d", **{name: f"safe_x{i}" for i, name in enumerate(covariates)}}
+        safe_names = [renamed[name] for name in covariates]
+        safe = CausalData.from_df(frame.rename(columns=renamed), "safe_d", "outcome", safe_names)
+        options = dict(relative_ci_method=method, relative_ci_bootstrap_draws=40,
+                       relative_ci_bootstrap_seed=86,
+                       refutation_config=CUPEDRefutationConfig(check_action="ignore"))
+>       model = CUPEDModel(**options).fit(data, covariates=covariates, run_checks=checks)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\statistics\test_cuped_design_names.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\cuped\model.py:248: in fit
+    return self._fit_single(data, covariates, run_checks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\cuped\model.py:450: in _fit_single
+    self._regression_checks = run_regression_checks(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+y = 0      21.287902
+1      21.946679
+2      20.614626
+3      18.383428
+4      21.344779
+         ...    
+235    23.032165
+236    21.612027
+237    17.492183
+238    22.672155
+239    21.756570
+Name: outcome, Length: 240, dtype: float64
+design =      intercept  intercept__cuped_1__centered  ...  x__centered  intercept:x
+0          0.0                      0.6096...753445     0.000000
+239        1.0                     -0.234341  ...     0.183267     0.183267
+
+[240 rows x 5 columns]
+result = <statsmodels.regression.linear_model.RegressionResultsWrapper object at 0x00000278C8CC75F0>
+result_naive = <statsmodels.regression.linear_model.RegressionResultsWrapper object at 0x00000278C8CC5A90>
+cov_type = 'HC2', use_t_fit = True, corr_near_one_tol = 1e-10
+tiny_one_minus_h_tol = 1e-08, winsor_q = 0.01
+
+    def run_regression_checks(
+        y: pd.Series,
+        design: pd.DataFrame,
+        result: Any,
+        result_naive: Any,
+        cov_type: str,
+        use_t_fit: bool,
+        corr_near_one_tol: float,
+        tiny_one_minus_h_tol: float,
+        winsor_q: Optional[float],
+    ) -> RegressionChecks:
+        """Build a compact payload with design, residual, and influence refutation checks."""
+        z = np.asarray(design, dtype=float)
+        yv = y.to_numpy(dtype=float)
+        n = int(len(yv))
+    
+        k, rank, full_rank, cond = design_matrix_checks(design)
+    
+        params = np.asarray(result.params, dtype=float)
+        params_naive = np.asarray(result_naive.params, dtype=float)
+        bse_naive = np.asarray(result_naive.bse, dtype=float)
+    
+        ate_adj = float(params[1])
+>       ate_naive = float(params_naive[1])
+                          ^^^^^^^^^^^^^^^
+E       IndexError: index 1 is out of bounds for axis 0 with size 1
+
+causalis\scenarios\cuped\refutation\regression_checks.py:192: IndexError
+___ test_column_renaming_preserves_full_estimate[True-delta-d-covariates5] ____
+
+treatment = 'd', covariates = ['x__centered', 'd:x'], method = 'delta'
+checks = True
+
+    @pytest.mark.parametrize("treatment,covariates", [
+        ("intercept", []), ("x__centered", ["x"]),
+        ("d:x", ["x"]), ("d", ["x__centered"]),
+        ("intercept", ["intercept__cuped_1", "x"]),
+        ("d", ["x__centered", "d:x"]),
+    ])
+    @pytest.mark.parametrize("method", ["delta", "bootstrap"])
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_column_renaming_preserves_full_estimate(treatment, covariates, method, checks):
+        rng = np.random.default_rng(1067)
+        n = 240
+        d = np.arange(n) % 2
+        x = rng.normal(size=(n, len(covariates)))
+        y = 20 + 2 * d + rng.normal(size=n)
+        if covariates:
+            y += x @ np.arange(1, len(covariates) + 1) + .7 * d * x[:, 0]
+        frame = pd.DataFrame(x, columns=covariates)
+        frame[treatment] = d
+        frame["outcome"] = y
+        original = frame.copy(deep=True)
+        data = CausalData.from_df(frame, treatment, "outcome", covariates)
+        renamed = {treatment: "safe_d", **{name: f"safe_x{i}" for i, name in enumerate(covariates)}}
+        safe_names = [renamed[name] for name in covariates]
+        safe = CausalData.from_df(frame.rename(columns=renamed), "safe_d", "outcome", safe_names)
+        options = dict(relative_ci_method=method, relative_ci_bootstrap_draws=40,
+                       relative_ci_bootstrap_seed=86,
+                       refutation_config=CUPEDRefutationConfig(check_action="ignore"))
+        model = CUPEDModel(**options).fit(data, covariates=covariates, run_checks=checks)
+        reference = CUPEDModel(**options).fit(safe, covariates=safe_names, run_checks=checks)
+        actual, expected = model.estimate(), reference.estimate()
+        for name in ("value", "p_value", "ci_lower_absolute", "ci_upper_absolute",
+                     "value_relative", "ci_lower_relative", "ci_upper_relative",
+                     "adjusted_control_mean", "adjusted_treatment_mean"):
+>           assert getattr(actual, name) == pytest.approx(getattr(expected, name), abs=1e-10)
+E           assert 1.901343199947501 == 1.9005657160030367 � 1.0e-10
+E             
+E             comparison failed
+E             Obtained: 1.901343199947501
+E             Expected: 1.9005657160030367 � 1.0e-10
+
+tests\statistics\test_cuped_design_names.py:44: AssertionError
+_ test_column_renaming_preserves_full_estimate[True-bootstrap-intercept-covariates0] _
+
+treatment = 'intercept', covariates = [], method = 'bootstrap', checks = True
+
+    @pytest.mark.parametrize("treatment,covariates", [
+        ("intercept", []), ("x__centered", ["x"]),
+        ("d:x", ["x"]), ("d", ["x__centered"]),
+        ("intercept", ["intercept__cuped_1", "x"]),
+        ("d", ["x__centered", "d:x"]),
+    ])
+    @pytest.mark.parametrize("method", ["delta", "bootstrap"])
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_column_renaming_preserves_full_estimate(treatment, covariates, method, checks):
+        rng = np.random.default_rng(1067)
+        n = 240
+        d = np.arange(n) % 2
+        x = rng.normal(size=(n, len(covariates)))
+        y = 20 + 2 * d + rng.normal(size=n)
+        if covariates:
+            y += x @ np.arange(1, len(covariates) + 1) + .7 * d * x[:, 0]
+        frame = pd.DataFrame(x, columns=covariates)
+        frame[treatment] = d
+        frame["outcome"] = y
+        original = frame.copy(deep=True)
+        data = CausalData.from_df(frame, treatment, "outcome", covariates)
+        renamed = {treatment: "safe_d", **{name: f"safe_x{i}" for i, name in enumerate(covariates)}}
+        safe_names = [renamed[name] for name in covariates]
+        safe = CausalData.from_df(frame.rename(columns=renamed), "safe_d", "outcome", safe_names)
+        options = dict(relative_ci_method=method, relative_ci_bootstrap_draws=40,
+                       relative_ci_bootstrap_seed=86,
+                       refutation_config=CUPEDRefutationConfig(check_action="ignore"))
+>       model = CUPEDModel(**options).fit(data, covariates=covariates, run_checks=checks)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\statistics\test_cuped_design_names.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\cuped\model.py:248: in fit
+    return self._fit_single(data, covariates, run_checks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\cuped\model.py:450: in _fit_single
+    self._regression_checks = run_regression_checks(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+y = 0      20.574218
+1      22.658368
+2      20.056727
+3      22.735991
+4      19.699228
+         ...    
+235    22.537390
+236    21.385856
+237    22.376838
+238    21.191449
+239    21.689686
+Name: outcome, Length: 240, dtype: float64
+design =      intercept
+0          0.0
+1          1.0
+2          0.0
+3          1.0
+4          0.0
+..         ...
+235        1.0
+236        0.0
+237        1.0
+238        0.0
+239        1.0
+
+[240 rows x 1 columns]
+result = <statsmodels.regression.linear_model.RegressionResultsWrapper object at 0x00000278C8C343B0>
+result_naive = <statsmodels.regression.linear_model.RegressionResultsWrapper object at 0x00000278C8DA45C0>
+cov_type = 'HC2', use_t_fit = True, corr_near_one_tol = 1e-10
+tiny_one_minus_h_tol = 1e-08, winsor_q = 0.01
+
+    def run_regression_checks(
+        y: pd.Series,
+        design: pd.DataFrame,
+        result: Any,
+        result_naive: Any,
+        cov_type: str,
+        use_t_fit: bool,
+        corr_near_one_tol: float,
+        tiny_one_minus_h_tol: float,
+        winsor_q: Optional[float],
+    ) -> RegressionChecks:
+        """Build a compact payload with design, residual, and influence refutation checks."""
+        z = np.asarray(design, dtype=float)
+        yv = y.to_numpy(dtype=float)
+        n = int(len(yv))
+    
+        k, rank, full_rank, cond = design_matrix_checks(design)
+    
+        params = np.asarray(result.params, dtype=float)
+        params_naive = np.asarray(result_naive.params, dtype=float)
+        bse_naive = np.asarray(result_naive.bse, dtype=float)
+    
+>       ate_adj = float(params[1])
+                        ^^^^^^^^^
+E       IndexError: index 1 is out of bounds for axis 0 with size 1
+
+causalis\scenarios\cuped\refutation\regression_checks.py:191: IndexError
+_ test_column_renaming_preserves_full_estimate[True-bootstrap-x__centered-covariates1] _
+
+treatment = 'x__centered', covariates = ['x'], method = 'bootstrap'
+checks = True
+
+    @pytest.mark.parametrize("treatment,covariates", [
+        ("intercept", []), ("x__centered", ["x"]),
+        ("d:x", ["x"]), ("d", ["x__centered"]),
+        ("intercept", ["intercept__cuped_1", "x"]),
+        ("d", ["x__centered", "d:x"]),
+    ])
+    @pytest.mark.parametrize("method", ["delta", "bootstrap"])
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_column_renaming_preserves_full_estimate(treatment, covariates, method, checks):
+        rng = np.random.default_rng(1067)
+        n = 240
+        d = np.arange(n) % 2
+        x = rng.normal(size=(n, len(covariates)))
+        y = 20 + 2 * d + rng.normal(size=n)
+        if covariates:
+            y += x @ np.arange(1, len(covariates) + 1) + .7 * d * x[:, 0]
+        frame = pd.DataFrame(x, columns=covariates)
+        frame[treatment] = d
+        frame["outcome"] = y
+        original = frame.copy(deep=True)
+        data = CausalData.from_df(frame, treatment, "outcome", covariates)
+        renamed = {treatment: "safe_d", **{name: f"safe_x{i}" for i, name in enumerate(covariates)}}
+        safe_names = [renamed[name] for name in covariates]
+        safe = CausalData.from_df(frame.rename(columns=renamed), "safe_d", "outcome", safe_names)
+        options = dict(relative_ci_method=method, relative_ci_bootstrap_draws=40,
+                       relative_ci_bootstrap_seed=86,
+                       refutation_config=CUPEDRefutationConfig(check_action="ignore"))
+        model = CUPEDModel(**options).fit(data, covariates=covariates, run_checks=checks)
+        reference = CUPEDModel(**options).fit(safe, covariates=safe_names, run_checks=checks)
+        actual, expected = model.estimate(), reference.estimate()
+        for name in ("value", "p_value", "ci_lower_absolute", "ci_upper_absolute",
+                     "value_relative", "ci_lower_relative", "ci_upper_relative",
+                     "adjusted_control_mean", "adjusted_treatment_mean"):
+>           assert getattr(actual, name) == pytest.approx(getattr(expected, name), abs=1e-10)
+E           assert 1.22907417640812 == 1.7268246711851987 � 1.0e-10
+E             
+E             comparison failed
+E             Obtained: 1.22907417640812
+E             Expected: 1.7268246711851987 � 1.0e-10
+
+tests\statistics\test_cuped_design_names.py:44: AssertionError
+_ test_column_renaming_preserves_full_estimate[True-bootstrap-d-covariates3] __
+
+treatment = 'd', covariates = ['x__centered'], method = 'bootstrap'
+checks = True
+
+    @pytest.mark.parametrize("treatment,covariates", [
+        ("intercept", []), ("x__centered", ["x"]),
+        ("d:x", ["x"]), ("d", ["x__centered"]),
+        ("intercept", ["intercept__cuped_1", "x"]),
+        ("d", ["x__centered", "d:x"]),
+    ])
+    @pytest.mark.parametrize("method", ["delta", "bootstrap"])
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_column_renaming_preserves_full_estimate(treatment, covariates, method, checks):
+        rng = np.random.default_rng(1067)
+        n = 240
+        d = np.arange(n) % 2
+        x = rng.normal(size=(n, len(covariates)))
+        y = 20 + 2 * d + rng.normal(size=n)
+        if covariates:
+            y += x @ np.arange(1, len(covariates) + 1) + .7 * d * x[:, 0]
+        frame = pd.DataFrame(x, columns=covariates)
+        frame[treatment] = d
+        frame["outcome"] = y
+        original = frame.copy(deep=True)
+        data = CausalData.from_df(frame, treatment, "outcome", covariates)
+        renamed = {treatment: "safe_d", **{name: f"safe_x{i}" for i, name in enumerate(covariates)}}
+        safe_names = [renamed[name] for name in covariates]
+        safe = CausalData.from_df(frame.rename(columns=renamed), "safe_d", "outcome", safe_names)
+        options = dict(relative_ci_method=method, relative_ci_bootstrap_draws=40,
+                       relative_ci_bootstrap_seed=86,
+                       refutation_config=CUPEDRefutationConfig(check_action="ignore"))
+        model = CUPEDModel(**options).fit(data, covariates=covariates, run_checks=checks)
+        reference = CUPEDModel(**options).fit(safe, covariates=safe_names, run_checks=checks)
+        actual, expected = model.estimate(), reference.estimate()
+        for name in ("value", "p_value", "ci_lower_absolute", "ci_upper_absolute",
+                     "value_relative", "ci_lower_relative", "ci_upper_relative",
+                     "adjusted_control_mean", "adjusted_treatment_mean"):
+            assert getattr(actual, name) == pytest.approx(getattr(expected, name), abs=1e-10)
+        assert model._result.model.exog.shape[1] == 2 + 2 * len(covariates)
+        assert len(set(model._result.model.exog_names)) == model._result.model.exog.shape[1]
+        for name in ("beta_covariates", "gamma_interactions"):
+>           np.testing.assert_allclose(getattr(actual.diagnostic_data, name),
+                                       getattr(expected.diagnostic_data, name), atol=1e-12)
+E           AssertionError: 
+E           Not equal to tolerance rtol=1e-07, atol=1e-12
+E           
+E           (shapes (2,), (1,) mismatch)
+E            ACTUAL: array([1.119816, 0.629645])
+E            DESIRED: array([1.119816])
+
+tests\statistics\test_cuped_design_names.py:48: AssertionError
+_ test_column_renaming_preserves_full_estimate[True-bootstrap-intercept-covariates4] _
+
+treatment = 'intercept', covariates = ['intercept__cuped_1', 'x']
+method = 'bootstrap', checks = True
+
+    @pytest.mark.parametrize("treatment,covariates", [
+        ("intercept", []), ("x__centered", ["x"]),
+        ("d:x", ["x"]), ("d", ["x__centered"]),
+        ("intercept", ["intercept__cuped_1", "x"]),
+        ("d", ["x__centered", "d:x"]),
+    ])
+    @pytest.mark.parametrize("method", ["delta", "bootstrap"])
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_column_renaming_preserves_full_estimate(treatment, covariates, method, checks):
+        rng = np.random.default_rng(1067)
+        n = 240
+        d = np.arange(n) % 2
+        x = rng.normal(size=(n, len(covariates)))
+        y = 20 + 2 * d + rng.normal(size=n)
+        if covariates:
+            y += x @ np.arange(1, len(covariates) + 1) + .7 * d * x[:, 0]
+        frame = pd.DataFrame(x, columns=covariates)
+        frame[treatment] = d
+        frame["outcome"] = y
+        original = frame.copy(deep=True)
+        data = CausalData.from_df(frame, treatment, "outcome", covariates)
+        renamed = {treatment: "safe_d", **{name: f"safe_x{i}" for i, name in enumerate(covariates)}}
+        safe_names = [renamed[name] for name in covariates]
+        safe = CausalData.from_df(frame.rename(columns=renamed), "safe_d", "outcome", safe_names)
+        options = dict(relative_ci_method=method, relative_ci_bootstrap_draws=40,
+                       relative_ci_bootstrap_seed=86,
+                       refutation_config=CUPEDRefutationConfig(check_action="ignore"))
+>       model = CUPEDModel(**options).fit(data, covariates=covariates, run_checks=checks)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\statistics\test_cuped_design_names.py:38: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\scenarios\cuped\model.py:248: in fit
+    return self._fit_single(data, covariates, run_checks)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\cuped\model.py:450: in _fit_single
+    self._regression_checks = run_regression_checks(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+y = 0      21.287902
+1      21.946679
+2      20.614626
+3      18.383428
+4      21.344779
+         ...    
+235    23.032165
+236    21.612027
+237    17.492183
+238    22.672155
+239    21.756570
+Name: outcome, Length: 240, dtype: float64
+design =      intercept  intercept__cuped_1__centered  ...  x__centered  intercept:x
+0          0.0                      0.6096...753445     0.000000
+239        1.0                     -0.234341  ...     0.183267     0.183267
+
+[240 rows x 5 columns]
+result = <statsmodels.regression.linear_model.RegressionResultsWrapper object at 0x00000278C8DA53A0>
+result_naive = <statsmodels.regression.linear_model.RegressionResultsWrapper object at 0x00000278C8DA7AA0>
+cov_type = 'HC2', use_t_fit = True, corr_near_one_tol = 1e-10
+tiny_one_minus_h_tol = 1e-08, winsor_q = 0.01
+
+    def run_regression_checks(
+        y: pd.Series,
+        design: pd.DataFrame,
+        result: Any,
+        result_naive: Any,
+        cov_type: str,
+        use_t_fit: bool,
+        corr_near_one_tol: float,
+        tiny_one_minus_h_tol: float,
+        winsor_q: Optional[float],
+    ) -> RegressionChecks:
+        """Build a compact payload with design, residual, and influence refutation checks."""
+        z = np.asarray(design, dtype=float)
+        yv = y.to_numpy(dtype=float)
+        n = int(len(yv))
+    
+        k, rank, full_rank, cond = design_matrix_checks(design)
+    
+        params = np.asarray(result.params, dtype=float)
+        params_naive = np.asarray(result_naive.params, dtype=float)
+        bse_naive = np.asarray(result_naive.bse, dtype=float)
+    
+        ate_adj = float(params[1])
+>       ate_naive = float(params_naive[1])
+                          ^^^^^^^^^^^^^^^
+E       IndexError: index 1 is out of bounds for axis 0 with size 1
+
+causalis\scenarios\cuped\refutation\regression_checks.py:192: IndexError
+_ test_column_renaming_preserves_full_estimate[True-bootstrap-d-covariates5] __
+
+treatment = 'd', covariates = ['x__centered', 'd:x'], method = 'bootstrap'
+checks = True
+
+    @pytest.mark.parametrize("treatment,covariates", [
+        ("intercept", []), ("x__centered", ["x"]),
+        ("d:x", ["x"]), ("d", ["x__centered"]),
+        ("intercept", ["intercept__cuped_1", "x"]),
+        ("d", ["x__centered", "d:x"]),
+    ])
+    @pytest.mark.parametrize("method", ["delta", "bootstrap"])
+    @pytest.mark.parametrize("checks", [False, True])
+    def test_column_renaming_preserves_full_estimate(treatment, covariates, method, checks):
+        rng = np.random.default_rng(1067)
+        n = 240
+        d = np.arange(n) % 2
+        x = rng.normal(size=(n, len(covariates)))
+        y = 20 + 2 * d + rng.normal(size=n)
+        if covariates:
+            y += x @ np.arange(1, len(covariates) + 1) + .7 * d * x[:, 0]
+        frame = pd.DataFrame(x, columns=covariates)
+        frame[treatment] = d
+        frame["outcome"] = y
+        original = frame.copy(deep=True)
+        data = CausalData.from_df(frame, treatment, "outcome", covariates)
+        renamed = {treatment: "safe_d", **{name: f"safe_x{i}" for i, name in enumerate(covariates)}}
+        safe_names = [renamed[name] for name in covariates]
+        safe = CausalData.from_df(frame.rename(columns=renamed), "safe_d", "outcome", safe_names)
+        options = dict(relative_ci_method=method, relative_ci_bootstrap_draws=40,
+                       relative_ci_bootstrap_seed=86,
+                       refutation_config=CUPEDRefutationConfig(check_action="ignore"))
+        model = CUPEDModel(**options).fit(data, covariates=covariates, run_checks=checks)
+        reference = CUPEDModel(**options).fit(safe, covariates=safe_names, run_checks=checks)
+        actual, expected = model.estimate(), reference.estimate()
+        for name in ("value", "p_value", "ci_lower_absolute", "ci_upper_absolute",
+                     "value_relative", "ci_lower_relative", "ci_upper_relative",
+                     "adjusted_control_mean", "adjusted_treatment_mean"):
+>           assert getattr(actual, name) == pytest.approx(getattr(expected, name), abs=1e-10)
+E           assert 1.901343199947501 == 1.9005657160030367 � 1.0e-10
+E             
+E             comparison failed
+E             Obtained: 1.901343199947501
+E             Expected: 1.9005657160030367 � 1.0e-10
+
+tests\statistics\test_cuped_design_names.py:44: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/statistics/test_cuped_design_names.py::test_column_renaming_preserves_full_estimate[False-delta-intercept-covariates0]
+FAILED tests/statistics/test_cuped_design_names.py::test_column_renaming_preserves_full_estimate[False-delta-x__centered-covariates1]
+FAILED tests/statistics/test_cuped_design_names.py::test_column_renaming_preserves_full_estimate[False-delta-d-covariates3]
+FAILED tests/statistics/test_cuped_design_names.py::test_column_renaming_preserves_full_estimate[False-delta-intercept-covariates4]
+FAILED tests/statistics/test_cuped_design_names.py::test_column_renaming_preserves_full_estimate[False-delta-d-covariates5]
+FAILED tests/statistics/test_cuped_design_names.py::test_column_renaming_preserves_full_estimate[False-bootstrap-intercept-covariates0]
+FAILED tests/statistics/test_cuped_design_names.py::test_column_renaming_preserves_full_estimate[False-bootstrap-x__centered-covariates1]
+FAILED tests/statistics/test_cuped_design_names.py::test_column_renaming_preserves_full_estimate[False-bootstrap-d-covariates3]
+FAILED tests/statistics/test_cuped_design_names.py::test_column_renaming_preserves_full_estimate[False-bootstrap-intercept-covariates4]
+FAILED tests/statistics/test_cuped_design_names.py::test_column_renaming_preserves_full_estimate[False-bootstrap-d-covariates5]
+FAILED tests/statistics/test_cuped_design_names.py::test_column_renaming_preserves_full_estimate[True-delta-intercept-covariates0]
+FAILED tests/statistics/test_cuped_design_names.py::test_column_renaming_preserves_full_estimate[True-delta-x__centered-covariates1]
+FAILED tests/statistics/test_cuped_design_names.py::test_column_renaming_preserves_full_estimate[True-delta-d-covariates3]
+FAILED tests/statistics/test_cuped_design_names.py::test_column_renaming_preserves_full_estimate[True-delta-intercept-covariates4]
+FAILED tests/statistics/test_cuped_design_names.py::test_column_renaming_preserves_full_estimate[True-delta-d-covariates5]
+FAILED tests/statistics/test_cuped_design_names.py::test_column_renaming_preserves_full_estimate[True-bootstrap-intercept-covariates0]
+FAILED tests/statistics/test_cuped_design_names.py::test_column_renaming_preserves_full_estimate[True-bootstrap-x__centered-covariates1]
+FAILED tests/statistics/test_cuped_design_names.py::test_column_renaming_preserves_full_estimate[True-bootstrap-d-covariates3]
+FAILED tests/statistics/test_cuped_design_names.py::test_column_renaming_preserves_full_estimate[True-bootstrap-intercept-covariates4]
+FAILED tests/statistics/test_cuped_design_names.py::test_column_renaming_preserves_full_estimate[True-bootstrap-d-covariates5]
+20 failed, 4 passed in 35.60s

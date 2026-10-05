@@ -197,7 +197,10 @@ def run_regression_checks(
     else:
         ate_gap_over_se_naive = None
 
-    main_cov_cols = [str(c) for c in design.columns if str(c).endswith("__centered")]
+    main_cov_cols = design.attrs.get("cuped_main_covariates")
+    if main_cov_cols is None:
+        # External callers may supply a legacy labeled design.
+        main_cov_cols = [str(c) for c in design.columns if str(c).endswith("__centered")]
     x_main = design[main_cov_cols] if main_cov_cols else pd.DataFrame(index=design.index)
     p_main_covariates = int(x_main.shape[1])
     dup_pairs = (

@@ -393,22 +393,12 @@ class CUPEDModel:
             # Global (full-sample) centering only. Do not center within treatment groups.
             if len(x_names) > 0:
                 Xc = self._center_covariates_global(x_df)
-                centered_names = [f"{c}__centered" for c in x_names]
-                Xc.columns = centered_names
                 p = Xc.shape[1]
             else:
                 Xc = pd.DataFrame(index=df.index)
-                centered_names = []
                 p = 0
 
-            # Design matrix with explicit names: [intercept, D, Xc, D*Xc]
-            design_columns = {"intercept": np.ones(n, dtype=float), t_name: d}
-            if p > 0:
-                for raw_name, centered_name in zip(x_names, centered_names):
-                    centered_values = Xc[centered_name].to_numpy(dtype=float)
-                    design_columns[centered_name] = centered_values
-                    design_columns[f"{t_name}:{raw_name}"] = d * centered_values
-            design = pd.DataFrame(design_columns, index=df.index)
+            design = self._build_design(d, t_name, Xc, df.index)
 
             k_design, rank_design, full_rank_design, cond_number = design_matrix_checks(design)
             if not full_rank_design:
@@ -439,7 +429,7 @@ class CUPEDModel:
         # Fit naive model: Y ~ 1 + D
         design_naive = (
             design_source._result_naive.model.data.orig_exog if design_source else
-            pd.DataFrame({"intercept": np.ones(n, dtype=float), t_name: d}, index=df.index)
+            self._build_design(d, t_name, pd.DataFrame(index=df.index), df.index)
         )
         model_naive = sm.OLS(y, design_naive)
         self._reuse_design_decomposition(model_naive, design_source._result_naive if design_source else None)
@@ -476,6 +466,32 @@ class CUPEDModel:
         self._data = data
         self._is_fitted = True
         return self
+
+    @staticmethod
+    def _build_design(d: np.ndarray, treatment: str, centered: pd.DataFrame,
+                      index: pd.Index) -> pd.DataFrame:
+        """Build [1, D, X1, D*X1, ...] without user-name collisions.
+
+        Names are display labels. Column roles are recorded separately so a
+        treatment ending in '__centered' cannot become a diagnostic covariate.
+        """
+        names = ["intercept", treatment]
+        values = [np.ones(len(d), dtype=float), d]
+        for raw_name in centered.columns:
+            x = centered[raw_name].to_numpy(dtype=float)
+            names.extend([f"{raw_name}__centered", f"{treatment}:{raw_name}"])
+            values.extend([x, d * x])
+        labels: list[str] = []
+        used: set[str] = set()
+        for i, name in enumerate(names):
+            label = name
+            while label in used:
+                label += f"__cuped_{i}"
+            labels.append(label)
+            used.add(label)
+        design = pd.DataFrame(np.column_stack(values), columns=labels, index=index)
+        design.attrs["cuped_main_covariates"] = labels[2::2]
+        return design
 
     @staticmethod
     def _reuse_design_decomposition(model: Any, source_result: Any) -> None:
@@ -604,13 +620,9 @@ class CUPEDModel:
                 gamma_cov = np.zeros((0,), dtype=float)
                 cov_outcome_corr = np.zeros((0,), dtype=float)
             else:
-                # Extract by explicit design names; do not rely on positional blocks.
-                exog_names = list(self._result.model.exog_names)
-                beta_cov, gamma_cov = self._extract_beta_gamma_by_name(
-                    params=params,
-                    exog_names=exog_names,
-                    treatment_name=str(self._data.treatment_name) if self._data is not None else "treatment",
-                )
+                # Roles follow _build_design's interleaved column order.
+                beta_cov = np.asarray(params[2::2], dtype=float)
+                gamma_cov = np.asarray(params[3::2], dtype=float)
                 cov_raw = self._data.df[list(self._covariate_names)].to_numpy(dtype=float)
                 cov_outcome_corr = self._covariate_corr_with_outcome(cov_raw=cov_raw, y=y_internal)
 
@@ -1091,17 +1103,12 @@ class CUPEDModel:
                 continue
 
             y_b = df_b[y_name].astype(float)
-            design_b = pd.DataFrame(
-                {"intercept": np.ones(len(df_b), dtype=float), t_name: d_b},
-                index=df_b.index,
-            )
             if len(x_names) > 0:
                 X_b = df_b[x_names].astype(float)
                 Xc_b = self._center_covariates_global(X_b)
-                for raw_name in x_names:
-                    centered_values = Xc_b[raw_name].to_numpy(dtype=float)
-                    design_b[f"{raw_name}__centered"] = centered_values
-                    design_b[f"{t_name}:{raw_name}"] = d_b * centered_values
+            else:
+                Xc_b = pd.DataFrame(index=df_b.index)
+            design_b = self._build_design(d_b, t_name, Xc_b, df_b.index)
 
             try:
                 # Use plain OLS in bootstrap re-fits for robust, stable resampling.
@@ -1181,34 +1188,6 @@ class CUPEDModel:
             if np.isfinite(x_std) and x_std > 0.0:
                 out[j] = float(np.corrcoef(xj, y)[0, 1])
         return out
-
-    @staticmethod
-    def _extract_beta_gamma_by_name(
-        params: np.ndarray, exog_names: List[str], treatment_name: str
-    ) -> tuple[np.ndarray, np.ndarray]:
-        """
-        Extract Lin main-effect and interaction coefficients by design names.
-
-        Parameters
-        ----------
-        params : numpy.ndarray
-            Full parameter vector from fitted model.
-        exog_names : list[str]
-            Exogenous column names in fitted design order.
-        treatment_name : str
-            Treatment column name used in interaction prefixes.
-
-        Returns
-        -------
-        tuple[numpy.ndarray, numpy.ndarray]
-            `(beta_covariates, gamma_interactions)` arrays in design order.
-        """
-        beta_idx = [i for i, name in enumerate(exog_names) if str(name).endswith("__centered")]
-        gamma_prefix = f"{treatment_name}:"
-        gamma_idx = [i for i, name in enumerate(exog_names) if str(name).startswith(gamma_prefix)]
-        beta_cov = np.asarray(params[beta_idx], dtype=float) if beta_idx else np.zeros((0,), dtype=float)
-        gamma_cov = np.asarray(params[gamma_idx], dtype=float) if gamma_idx else np.zeros((0,), dtype=float)
-        return beta_cov, gamma_cov
 
     def _require_fitted(self) -> None:
         if not self._is_fitted or (self._result is None and not self._comparison_models):
