@@ -63,6 +63,11 @@ B02–B06 — большие тематические блоки, внутри �
 
 - B00: завершён; локальный checkpoint **2c26cee** сохранил аудит/план/документы.
 - B01: завершён; commit **bd8a2be**, **67passing cases** в focused+neighbor checks; детали в `audit/BLOCK01_RCT.md`.
-- B02–B06: запланированы, не начаты.
+- B02: завершён; commits **817c24c / add2f36 / a5a6e3a / c27e744**. ROOT-01–07, включая grouped DML-05, исправлены. Общая проверка: **606 passed**, 5 existing warnings; подробности в `audit/BLOCK02_CONTRACTS_SHARED_DGP.md`.
+- B03–B06: запланированы, не начаты.
 - Sensitivity: отложено по прямой инструкции пользователя; дата возобновления не назначена.
-- Следующий блокB02 выбирается после очистки контекста и нового запроса пользователя; автоматически в этом этапе не начинается.
+- Следующий блок B03 начинается после очистки контекста и нового запроса пользователя; автоматически в этом этапе не начинается.
+
+## Дополнение после B02
+
+Multi-treatment `m_<arm>` при latent treatment noise пока означает softmax при U=0. Для true observed-X propensity требуется интегрирование softmax по Gaussian U; новые class docstrings явно различают эти величины. Отдельный follow-up после основного correctness backlog: выбрать совместимый API для marginal propensity oracle и определить ATT/oracle semantics при supplied U. Это новое соседнее замечание, не повторно открытый ROOT-01 outcome fix. Extreme DGP coefficient guards, estimator output finite policy и SMD near-zero scale invariance также требуют отдельных scope/validation решений.

@@ -6,14 +6,14 @@
 |---|---|
 | Git | Установлен, `2.37.2.windows.2` |
 | Автор локальных commits | Настроен как Maxim; email уже задан в Git config. Для commit GitHub login не нужен |
-| Ветка / local commits | `codex/correctness-roadmap`, от audit SHA `ffe2c356c115f335b74b2f10117e19fe15585d46`; checkpoint2c26cee и RCTfixbd8a2be успешно созданы |
+| Ветка / local commits | `codex/correctness-roadmap`, от audit SHA `ffe2c356c115f335b74b2f10117e19fe15585d46`; B00/B01 и четыре code commits B02 сохранены; текущий checkpoint через `git log -1` |
 | Чтение GitHub | Исходный main совпадает с audit SHA; personal branch доступна |
 | GitHub CLI | Установлен2.102.0; executable `C:\Program Files\GitHub CLI\gh.exe`. Старый PATH текущего Codex процесса может его не видеть; использовать полный путь |
 | Credential helper | `gh auth setup-git` настроил GitHub helper; HTTPS push успешно проверен |
 | Авторизация GitHub | Активен **MaximLenivkin**, credential в keyring; scopes `repo`, `workflow`, `read:org`, `gist`. Токен не выводился |
 | Права аккаунта | Upstream:read безpush; personal fork:push/admin подтверждены API |
 | Fork | [MaximLenivkin/Causalis](https://github.com/MaximLenivkin/Causalis), parent `causalis-causalcraft/Causalis` |
-| Удалённая ветка | [codex/correctness-roadmap](https://github.com/MaximLenivkin/Causalis/tree/codex/correctness-roadmap); первые3commits успешно pushed, local tracking установлен |
+| Удалённая ветка | [codex/correctness-roadmap](https://github.com/MaximLenivkin/Causalis/tree/codex/correctness-roadmap); local tracking установлен, обычный push используется для checkpoints; latest remote SHA проверяется на завершении каждого блока |
 
 Первый sandbox network вызов был заблокирован локальным proxy; разрешённый сетевой запуск успешно прочитал repository. Это не признак отсутствия доступа к публичному проекту. Локальные Git mutations выполняются с разрешением на `.git`; они уже разрешены пользовательским запросом и успешно создают branch.
 

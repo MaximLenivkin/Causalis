@@ -1,0 +1,21 @@
+{
+  "start_commit": "d092e8d42f384118c316fb36ecd4b452d7d030ef",
+  "local_links_checked": 188,
+  "python_files_parsed": 21,
+  "library_paths_changed": [
+    "causalis/data_contracts/causaldata.py",
+    "causalis/data_contracts/iv_causal_data.py",
+    "causalis/data_contracts/multicausaldata.py",
+    "causalis/data_contracts/panel_data_did.py",
+    "causalis/data_contracts/panel_data_scm.py",
+    "causalis/dgp/base.py",
+    "causalis/dgp/multicausaldata/base.py",
+    "causalis/scenarios/multi_unconfoundedness/refutation/unconfoundedness/unconfoundedness_validation.py",
+    "causalis/scenarios/unconfoundedness/refutation/unconfoundedness/unconfoundedness_validation.py",
+    "causalis/shared/confounders_balance.py",
+    "causalis/shared/outcome_outliers.py",
+    "causalis/shared/rct_design/split.py"
+  ],
+  "sensitivity_paths_changed": [],
+  "issues": []
+}

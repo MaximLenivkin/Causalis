@@ -176,3 +176,51 @@ p_rank = (1 + count(R_placebo >= R_treated)) / (J + 1)
 Не добавлять обещания отсутствующих возможностей: GATE contrasts, held-out policy evaluation, DID simultaneous multiplier bands и SCM conformal уже есть; DR/R CATE, repeated/group CF и weak-IV robust sets — отдельные future features. Homepage «state-of-the-art/best-in-class/production-ready» подкреплять versioned benchmarks/assumption/support list.
 
 Прочитаны markdown всех40notebooks и ключевые статьи сайта; все40 notebooks не переисполнялись. Из27подозрительных import flags после runtime проверки actual export errors0. Ошибка web extractor отдельной страницы не классифицируется как broken URL. Эти границы не меняют подтверждённых текстовых несогласованностей выше.
+
+## Дополнение после B02: публиковать вместе с исправленным кодом
+
+В личной ветке `MaximLenivkin/Causalis:codex/correctness-roadmap` исправлены семь grouped findings contracts/shared/DGP. Общая проверка: 606 passing tests. Эти изменения **пока не означают upstream release**: сначала включить code commits в выбранный release, затем синхронизировать сайт/API. Ниже готовые английские тексты для описания нового поведения.
+
+### Конечные вещественные данные / P2
+
+Source: [CausalData / inherited IV validation](https://github.com/MaximLenivkin/Causalis/blob/817c24c9b00e8896bb578b3568476c178bc024e4/causalis/data_contracts/causaldata.py), [PanelDataSCM](https://github.com/MaximLenivkin/Causalis/blob/817c24c9b00e8896bb578b3568476c178bc024e4/causalis/data_contracts/panel_data_scm.py). Complex checks также добавлены в MultiCausalData и PanelDataDID.
+
+> Analysis columns must contain finite real numeric values, with boolean values accepted where supported by the contract. Infinity and complex values are rejected with ValueError before estimation. A zero imaginary component does not make a complex dtype supported. Panel outcome and covariate columns retain their documented numeric-string conversion. Invalid values are not automatically replaced or imputed.
+
+Migration: datasets, ранее содержавшие Inf/complex, теперь явно отклоняются. Не обещать finite estimates при любых конечных inputs: numerical degeneracy расчётов — отдельная проверка.
+
+### SMD при полном разделении групп / P2
+
+Source: [shared balance](https://github.com/MaximLenivkin/Causalis/blob/add2f36652a7bb7d814975234255f7993f96f240/causalis/shared/confounders_balance.py), [binary weighted report](https://github.com/MaximLenivkin/Causalis/blob/add2f36652a7bb7d814975234255f7993f96f240/causalis/scenarios/unconfoundedness/refutation/unconfoundedness/unconfoundedness_validation.py). Multi comparison/overall reports используют тот же принцип.
+
+> The shared balance table divides the signed difference in group means by sqrt((s0²+s1²)/2). If both within-group variances are zero, unequal means yield signed infinity and identical means yield zero. Weighted DML diagnostics use absolute SMD. Infinite SMD indicates separation: it counts as a violation, fails the balance summary, and receives a RED flag. Entirely unavailable statistics cannot pass. These checks assess measured covariates and do not establish unconfoundedness.
+
+Убрать label «Cohen's d using pooled std», если подразумевается sample-size-weighted pooled variance: фактический denominator выше. Поддержать отображение Inf; не превращать его в 0/NA при форматировании или сериализации отчёта.
+
+### UUID IDs и строки выбросов / P2
+
+Source: [ID generation](https://github.com/MaximLenivkin/Causalis/blob/a5a6e3a4887c7ac22aa86b36883398a34bbb5d76/causalis/dgp/base.py), [outlier rows](https://github.com/MaximLenivkin/Causalis/blob/a5a6e3a4887c7ac22aa86b36883398a34bbb5d76/causalis/shared/outcome_outliers.py).
+
+> Random user identifiers are full 32-character UUID4 hex strings and are unique within the generated dataset. They use operating-system randomness and are independent of random_state. Set deterministic_ids=True for reproducible identifiers. Do not assume a fixed identifier length across both modes.
+
+> With return_rows=True, outcome_outliers returns exactly the flagged source rows by position and preserves their original index labels, including repeated labels.
+
+Migration: random ID length изменилась с 5 на 32; formulas IQR/z-score и grouping order сохранены.
+
+### Allocation weights / P2
+
+Source: [split validation](https://github.com/MaximLenivkin/Causalis/blob/a5a6e3a4887c7ac22aa86b36883398a34bbb5d76/causalis/shared/rct_design/split.py).
+
+> Variant weights must be finite, nonnegative real numbers, excluding booleans, with a total in (0, 1]. NaN, infinity, strings, complex values, and unsupported numeric types are rejected before assignment. Weights are not normalized. If the total is below one, the remaining coverage is unassigned.
+
+Supported numeric interface — `numbers.Real`; Decimal не зарегистрирован как Real и сейчас отвергается. Hashing и assignments для допустимых float weights не менялись.
+
+### Latent-U outcome oracle / P1
+
+Source: [multi-treatment DGP](https://github.com/MaximLenivkin/Causalis/blob/c27e74406ffacee460ee6deb7c4be7669d1394e1/causalis/dgp/multicausaldata/base.py).
+
+> The g_<arm> columns are natural-scale potential-outcome means under the reference law U ~ N(0,1), independent of X. They integrate out U; cate_<arm> is their difference from control. Exponential links use the same clipping as the observed outcome draws. Binary means use deterministic numerical integration. With latent treatment confounding, these means differ from E[Y | D=arm, X].
+
+> Supplying U overrides realized latent values for observed draws. Outcome oracle columns still use the Gaussian reference law, so they need not describe a supplied vector with a different law or dependence on X. The m_obs_<arm> columns describe assignment at realized U. The existing m_<arm> columns describe assignment at U=0 and generally differ from marginal P(D=arm | X) when latent noise affects treatment.
+
+Приёмка: не использовать `m_<arm>` как marginal propensity в latent-confounded benchmarks. Не интерпретировать среднее Gaussian-marginal CATE по treated как automatically true ATT при selection on U. Пересчитать benchmark targets после code update; при gamma example a=0, u_strength_y=1, theta1=1 baseline ≈1.64872 и marginal CATE ≈2.83297, с пренебрежимо малой clipping correction. Для иных latent laws требуется отдельная oracle specification.

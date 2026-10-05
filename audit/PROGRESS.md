@@ -53,3 +53,15 @@
 - Origin переименован в upstream; новыйorigin указывает на personalfork. Ветка `codex/correctness-roadmap` pushed с commits2c26cee/bd8a2be/a3846ba, local tracking настроен. Code tests не повторялись: на этом этапе менялась только Git setup/documentation.
 - Проверка первогоpush:remote/localHEAD совпадают — `a3846baa0a07e7d81c3ea8850e130cb2de6d6ba4`; remote копия трёх commits подтверждена.
 - NEXT_SESSION/FIX_PLAN/DOCHANDOFF обновлены; sensitivity остаётся отложенным, B02 не начат, PR не создан.
+
+## 2026-10-05 — B02 завершён
+
+- По новому запросу пользователя выполнен один следующий блок: contracts/shared/DGP. Три сабагента независимо исправили numeric validation, utilities и latent-U outcome oracle; root исправил shared/binary/multi balance, проверил diffs и выполнил интеграцию.
+- Закрыты ROOT-01–07, включая grouped ROOT-04/DML-05: один P1 и шесть P2. Sensitivity files/formulas/tests не менялись; проверка paths относительно начала B02 не нашла sensitivity изменений.
+- До source fixes сохранены failing regressions. Scoped passes: contracts 147, balance 50, utilities 34, oracle 45; эти наборы пересекаются и не суммируются как unique coverage.
+- Общая проверка финального кода: **606 passed**, 5 existing warnings, 123.61 s. `block02_integration_tests.log` охватывает data/shared, multi DGP, публичные balance/Love plot, outliers и соседние RCT inference tests. Полный suite и performance benchmark не повторялись; известный SC-12 остаётся в B05.
+- Созданы code commits **817c24c / add2f36 / a5a6e3a / c27e744**, каждый с code/tests/evidence. Итоговый отчёт — BLOCK02_CONTRACTS_SHARED_DGP.md; B02_*_NOTES.md сохраняют derivations, commands и compatibility limits.
+- DOCUMENTATION_HANDOFF.md дополнен готовыми английскими migration/oracle текстами и immutable GitHub code links. verify_handoff.py теперь проверяет snapshot links как upstream audit, так и personal implementation commits.
+- Финальная проверка artifacts: 36 GitHub handoff links и 188 absolute local links, issues 0; 21 changed/new Python files AST parsed; sensitivity paths changed 0. Новый verify_block02.py сохраняет отдельный validation JSON и не переписывает original report_validation.json.
+- Новый соседний DGP follow-up: marginal propensity oracle вместо softmax при U=0. Текущее поведение явно описано; изменение propensity API не входит в B03. Extreme coefficient guards, estimator output policy и near-zero SMD scale invariance также записаны как отдельные follow-ups.
+- NEXT_SESSION/FIX_PLAN обновлены для B03. На границе B02 работа остановлена; следующий блок начинается после нового запроса. Внешние PR/issues не создавались. Коммиты сохраняются в ранее подключённой личной ветке через обычный push.

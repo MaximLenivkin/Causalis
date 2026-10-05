@@ -1,0 +1,29 @@
+........................................................................ [ 11%]
+........................................................................ [ 23%]
+........................................................................ [ 35%]
+........................................................................ [ 47%]
+........................................................................ [ 59%]
+........................................................................ [ 71%]
+........................................................................ [ 83%]
+........................................................................ [ 95%]
+..............................                                           [100%]
+============================== warnings summary ===============================
+tests/data/test_diagnostic_data_storage.py::test_dml_ate_returns_diagnostic_data
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1327: RuntimeWarning: Relative effect baseline |mu_c|=1.307e-01 is within 1.64 SE of 0 (SE=1.442e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/data/test_diagnostic_data_storage.py::test_dml_att_returns_diagnostic_data
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1327: RuntimeWarning: Relative effect baseline |mu_c|=3.238e-01 is within 1.64 SE of 0 (SE=2.785e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_uncofoundedness_balance.py::test_uncofoundedness_balance_ate[True]
+tests/refutation/test_uncofoundedness_balance_extras.py::test_uncofoundedness_balance_extras_outputs
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1213: RuntimeWarning: normalize_ipw=True (H�jek) uses approximate SE/IF; denominator variability is treated as fixed.
+    warnings.warn(
+
+tests/refutation/test_uncofoundedness_balance.py::test_uncofoundedness_balance_att[True]
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\_score_utils.py:31: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+606 passed, 5 warnings in 123.61s (0:02:03)
