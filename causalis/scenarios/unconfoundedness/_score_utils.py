@@ -111,20 +111,10 @@ def _resolve_ate_weights(
     return w, w_bar
 
 
-def _resolve_irm_weights(
-    *,
-    n: int,
-    m_hat_adj: Optional[np.ndarray],
-    d: np.ndarray,
-    score: Optional[str] = None,
-    weights: Optional[np.ndarray | dict[str, Any]] = None,
+def _resolve_custom_ate_weight_vectors(
+    *, n: int, weights: np.ndarray | dict[str, Any],
 ) -> Tuple[np.ndarray, np.ndarray]:
-    """Compute score and representer weights for binary-treatment IRM."""
-    score_u = _normalize_ate_atte_score(score)
-
-    if weights is not None and score_u != "ATE":
-        raise ValueError(f"weights are only supported for score='ATE', but got score='{score_u}'")
-
+    """Validate unnormalized custom weights against the input sample."""
     def _to_1d(arr: Any, *, name: str) -> np.ndarray:
         vec = np.asarray(arr, dtype=float)
         if vec.ndim == 1:
@@ -139,39 +129,62 @@ def _resolve_irm_weights(
             raise ValueError(f"{name} must contain only finite values.")
         return vec
 
+    if isinstance(weights, np.ndarray):
+        w = _to_1d(weights, name="weights")
+    elif isinstance(weights, dict):
+        if "weights" not in weights:
+            raise ValueError("weights dict must contain key 'weights'.")
+        w = _to_1d(weights["weights"], name="weights['weights']")
+    else:
+        raise TypeError("weights must be None, np.ndarray, or dict")
+
+    w_bar = w
+    if isinstance(weights, dict) and "weights_bar" in weights:
+        w_bar_arr = np.asarray(weights["weights_bar"], dtype=float)
+        if w_bar_arr.ndim == 2:
+            if w_bar_arr.shape[0] == n and w_bar_arr.shape[1] >= 1:
+                if w_bar_arr.shape[1] > 1:
+                    warnings.warn(
+                        "weights['weights_bar'] has multiple columns; using the first column.",
+                        RuntimeWarning,
+                    )
+                w_bar = w_bar_arr[:, 0]
+            elif w_bar_arr.shape == (1, n):
+                w_bar = w_bar_arr.reshape(-1)
+            else:
+                raise ValueError(
+                    "weights['weights_bar'] must be shape (n,), (n,1), (1,n), or (n,r) for r>=1."
+                )
+        else:
+            w_bar = _to_1d(w_bar_arr, name="weights['weights_bar']")
+        if not np.all(np.isfinite(w_bar)):
+            raise ValueError("weights['weights_bar'] must contain only finite values.")
+
+    mean_w = float(np.mean(w))
+    if not np.isfinite(mean_w) or mean_w <= 1e-12:
+        raise ValueError("weights must have a strictly positive finite mean.")
+    return w, w_bar
+
+
+def _resolve_irm_weights(
+    *,
+    n: int,
+    m_hat_adj: Optional[np.ndarray],
+    d: np.ndarray,
+    score: Optional[str] = None,
+    weights: Optional[np.ndarray | dict[str, Any]] = None,
+) -> Tuple[np.ndarray, np.ndarray]:
+    """Compute score and representer weights for binary-treatment IRM."""
+    score_u = _normalize_ate_atte_score(score)
+
+    if weights is not None and score_u != "ATE":
+        raise ValueError(f"weights are only supported for score='ATE', but got score='{score_u}'")
+
     if score_u == "ATE":
         if weights is None:
-            w = np.ones(n, dtype=float)
-        elif isinstance(weights, np.ndarray):
-            w = _to_1d(weights, name="weights")
-        elif isinstance(weights, dict):
-            if "weights" not in weights:
-                raise ValueError("weights dict must contain key 'weights'.")
-            w = _to_1d(weights["weights"], name="weights['weights']")
+            w = w_bar = np.ones(n, dtype=float)
         else:
-            raise TypeError("weights must be None, np.ndarray, or dict")
-
-        w_bar = w
-        if isinstance(weights, dict) and "weights_bar" in weights:
-            w_bar_arr = np.asarray(weights["weights_bar"], dtype=float)
-            if w_bar_arr.ndim == 2:
-                if w_bar_arr.shape[0] == n and w_bar_arr.shape[1] >= 1:
-                    if w_bar_arr.shape[1] > 1:
-                        warnings.warn(
-                            "weights['weights_bar'] has multiple columns; using the first column.",
-                            RuntimeWarning,
-                        )
-                    w_bar = w_bar_arr[:, 0]
-                elif w_bar_arr.shape == (1, n):
-                    w_bar = w_bar_arr.reshape(-1)
-                else:
-                    raise ValueError(
-                        "weights['weights_bar'] must be shape (n,), (n,1), (1,n), or (n,r) for r>=1."
-                    )
-            else:
-                w_bar = _to_1d(w_bar_arr, name="weights['weights_bar']")
-            if not np.all(np.isfinite(w_bar)):
-                raise ValueError("weights['weights_bar'] must contain only finite values.")
+            w, w_bar = _resolve_custom_ate_weight_vectors(n=n, weights=weights)
     elif score_u == "ATTE":
         if m_hat_adj is None:
             raise ValueError("m_hat required for ATTE weights computation")

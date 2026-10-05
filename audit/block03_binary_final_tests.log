@@ -1,0 +1,3 @@
+..........binary_relative_att_oracle_sampling {"coverage_95": 0.955, "empirical_sd_percent": 2.9844819116168306, "mean_estimate_percent": 29.562383165311754, "mean_se_over_empirical_sd": 1.0008532045127816, "mean_se_percent": 2.9870282850521375, "n": 600, "repetitions": 600, "seed": 40317, "truth_percent": 29.88505747126437}
+................................                               [100%]
+42 passed in 13.83s

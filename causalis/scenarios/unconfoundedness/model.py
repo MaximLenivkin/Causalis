@@ -43,6 +43,7 @@ from causalis.scenarios.unconfoundedness._diagnostic_utils import (
 from causalis.scenarios.unconfoundedness._score_utils import (
     _compute_ipw_components as _compute_irm_ipw_components,
     _normalize_ipw_terms as _normalize_irm_ipw_terms,
+    _resolve_custom_ate_weight_vectors,
     _resolve_irm_weights,
     _use_normalized_ipw as _use_normalized_irm_ipw,
 )
@@ -88,6 +89,10 @@ class IRM(BaseEstimator):
         - If array of shape (n,), used as ATE weights (w). Assumed E[w|X] = w.
         - If dict, can contain 'weights' (w) and 'weights_bar' (E[w|X]).
         - For ATTE, computed internally (w=D/P(D=1), w_bar=m(X)/P(D=1)).
+        Custom weights must match the original input rows. ``fit()`` validates
+        and snapshots them before training, applies the same overlap retention
+        mask, and normalizes by the retained mean at estimation. Changes to
+        ``weights`` after fitting take effect only after a new ``fit()``.
         Note: If weights depend on treatment or outcome, E[w|X] must be provided for correct sensitivity analysis.
     relative_baseline_min : float, default 1e-8
         Minimum absolute baseline value used for relative effects. If |mu_c| is below this
@@ -935,6 +940,20 @@ class IRM(BaseEstimator):
         else:
             folds = full_sample_folds
 
+        if self._fit_weights_full_ is not None:
+            retained_weights = {
+                key: values[overlap_mask].copy()
+                for key, values in self._fit_weights_full_.items()
+            }
+            _resolve_custom_ate_weight_vectors(
+                n=int(np.sum(overlap_mask)), weights=retained_weights,
+            )
+            for values in retained_weights.values():
+                values.setflags(write=False)
+            self._fit_weights_ = retained_weights
+        else:
+            self._fit_weights_ = None
+
         self.g0_hat_ = g0_hat
         self.g1_hat_ = g1_hat
         self.m_hat_ = m_policy
@@ -949,6 +968,15 @@ class IRM(BaseEstimator):
 
     def _store_fit_sample(self, X: np.ndarray, y: np.ndarray, d: np.ndarray) -> None:
         """Persist immutable fit-time targets and optional diagnostic covariates."""
+        fit_weights_full = None
+        if self.weights is not None:
+            w, w_bar = _resolve_custom_ate_weight_vectors(n=len(y), weights=self.weights)
+            fit_weights_full = {
+                "weights": w.copy(), "weights_bar": w_bar.copy(),
+            }
+            for values in fit_weights_full.values():
+                values.setflags(write=False)
+        self._fit_weights_full_ = fit_weights_full
         self._fit_data_roles_ = (
             self.data.outcome.name,
             self.data.treatment.name,
@@ -1040,7 +1068,7 @@ class IRM(BaseEstimator):
             m_hat_adj=m_hat_adj,
             d=d,
             score=self.score if score is None else score,
-            weights=self.weights,
+            weights=getattr(self, "_fit_weights_", self.weights),
         )
 
     def _use_normalized_ipw(
@@ -1182,6 +1210,14 @@ class IRM(BaseEstimator):
             feature_importance=feature_importance,
         )
 
+        # Lazy T-learner models are derived from the previous fit's data/schema
+        # and outcome learner. Rebuild them on the next scoring request.
+        for name in (
+            "_uplift_g0_model_", "_uplift_g1_model_",
+            "_uplift_feature_names_", "_uplift_y_is_binary_",
+        ):
+            self.__dict__.pop(name, None)
+
         return self
 
     def _validate_estimate_request(self, score: str, alpha: float) -> str:
@@ -1204,7 +1240,9 @@ class IRM(BaseEstimator):
         """Return flags for inference paths that use ratio-style approximations."""
         return {
             "se_approx_hajek": bool(score == "ATE" and normalize_ipw_effective),
-            "se_approx_weight_norm": bool(score == "ATE" and self.weights is not None),
+            "se_approx_weight_norm": bool(
+                score == "ATE" and getattr(self, "_fit_weights_used_", self.weights is not None)
+            ),
         }
 
     def _warn_if_inference_is_approximate(self, approx_flags: Dict[str, bool]) -> None:
@@ -1282,6 +1320,7 @@ class IRM(BaseEstimator):
         u0: np.ndarray,
         h0: np.ndarray,
         z: float,
+        score: str,
     ) -> Tuple[float, float, float, float, float]:
         """Compute relative effect and delta-method interval."""
         n = len(w)
@@ -1289,7 +1328,10 @@ class IRM(BaseEstimator):
         psi_mu_c = w * g0_hat + w_bar * (u0 * h0)
 
         mu_c = float(np.mean(psi_mu_c))
-        mu_c_var = float(np.var(psi_mu_c, ddof=1)) / n if n > 1 else 0.0
+        # ATT baseline is a ratio with the same empirical treated share as
+        # the absolute ATT. Its IF subtracts w*mu_c, rather than mu_c alone.
+        IF_mu = psi_mu_c - (w * mu_c if score == "ATTE" else mu_c)
+        mu_c_var = float(np.var(IF_mu, ddof=1)) / n if n > 1 else 0.0
         mu_c_se = float(np.sqrt(max(mu_c_var, 0.0)))
         tau_rel = np.nan
         ci_low_rel = np.nan
@@ -1303,7 +1345,6 @@ class IRM(BaseEstimator):
 
         if np.isfinite(mu_c) and not (baseline_too_small or baseline_low_signal):
             tau_rel = 100.0 * theta_hat / mu_c
-            IF_mu = psi_mu_c - mu_c
             with np.errstate(divide="ignore", invalid="ignore"):
                 # Delta-method IF for tau_rel = 100 * theta / mu_c.
                 IF_rel = 100.0 * (IF / mu_c - (theta_hat * IF_mu) / (mu_c**2))
@@ -1543,6 +1584,7 @@ class IRM(BaseEstimator):
                 u0=components["u0"],
                 h0=components["h0"],
                 z=z,
+                score=score,
             )
         )
         self.mu_c_ = mu_c

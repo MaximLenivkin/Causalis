@@ -1,0 +1,1792 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF.....FFF                                 [100%]
+================================== FAILURES ===================================
+_ test_constant_potential_outcomes_have_zero_relative_att_uncertainty[2-False] _
+
+normalize_ipw = False, n_treated = 2
+
+    @pytest.mark.parametrize("normalize_ipw", [False, True])
+    @pytest.mark.parametrize("n_treated", [2, 12, 60])
+    def test_constant_potential_outcomes_have_zero_relative_att_uncertainty(
+        normalize_ipw, n_treated
+    ):
+        n = 120
+        d = np.zeros(n, dtype=int)
+        d[np.linspace(0, n - 1, n_treated, dtype=int)] = 1
+        data = CausalData(
+            df=pd.DataFrame({"y": 10.0 + 2.0 * d, "d": d, "x": np.linspace(-1, 1, n)}),
+            outcome="y", treatment="d", confounders=["x"],
+        )
+        model = IRM(
+            data, ml_g=DummyRegressor(), ml_m=DummyClassifier(strategy="prior"),
+            n_folds=2, normalize_ipw=normalize_ipw, random_state=3,
+        ).fit()
+        with warnings.catch_warnings(record=True) as captured:
+            warnings.simplefilter("always")
+            result = model.estimate(score="ATTE")
+    
+>       assert not any("Relative effect baseline" in str(item.message) for item in captured)
+E       assert not True
+E        +  where True = any(<generator object test_constant_potential_outcomes_have_zero_relative_att_uncertainty.<locals>.<genexpr> at 0x0000029F90A23D80>)
+
+tests\inference\test_irm_atte_relative_if.py:36: AssertionError
+_ test_constant_potential_outcomes_have_zero_relative_att_uncertainty[2-True] _
+
+normalize_ipw = True, n_treated = 2
+
+    @pytest.mark.parametrize("normalize_ipw", [False, True])
+    @pytest.mark.parametrize("n_treated", [2, 12, 60])
+    def test_constant_potential_outcomes_have_zero_relative_att_uncertainty(
+        normalize_ipw, n_treated
+    ):
+        n = 120
+        d = np.zeros(n, dtype=int)
+        d[np.linspace(0, n - 1, n_treated, dtype=int)] = 1
+        data = CausalData(
+            df=pd.DataFrame({"y": 10.0 + 2.0 * d, "d": d, "x": np.linspace(-1, 1, n)}),
+            outcome="y", treatment="d", confounders=["x"],
+        )
+        model = IRM(
+            data, ml_g=DummyRegressor(), ml_m=DummyClassifier(strategy="prior"),
+            n_folds=2, normalize_ipw=normalize_ipw, random_state=3,
+        ).fit()
+        with warnings.catch_warnings(record=True) as captured:
+            warnings.simplefilter("always")
+            result = model.estimate(score="ATTE")
+    
+>       assert not any("Relative effect baseline" in str(item.message) for item in captured)
+E       assert not True
+E        +  where True = any(<generator object test_constant_potential_outcomes_have_zero_relative_att_uncertainty.<locals>.<genexpr> at 0x0000029F90B18BA0>)
+
+tests\inference\test_irm_atte_relative_if.py:36: AssertionError
+_ test_constant_potential_outcomes_have_zero_relative_att_uncertainty[12-False] _
+
+normalize_ipw = False, n_treated = 12
+
+    @pytest.mark.parametrize("normalize_ipw", [False, True])
+    @pytest.mark.parametrize("n_treated", [2, 12, 60])
+    def test_constant_potential_outcomes_have_zero_relative_att_uncertainty(
+        normalize_ipw, n_treated
+    ):
+        n = 120
+        d = np.zeros(n, dtype=int)
+        d[np.linspace(0, n - 1, n_treated, dtype=int)] = 1
+        data = CausalData(
+            df=pd.DataFrame({"y": 10.0 + 2.0 * d, "d": d, "x": np.linspace(-1, 1, n)}),
+            outcome="y", treatment="d", confounders=["x"],
+        )
+        model = IRM(
+            data, ml_g=DummyRegressor(), ml_m=DummyClassifier(strategy="prior"),
+            n_folds=2, normalize_ipw=normalize_ipw, random_state=3,
+        ).fit()
+        with warnings.catch_warnings(record=True) as captured:
+            warnings.simplefilter("always")
+            result = model.estimate(score="ATTE")
+    
+        assert not any("Relative effect baseline" in str(item.message) for item in captured)
+        assert result.value == pytest.approx(2.0)
+        assert result.value_relative == pytest.approx(20.0)
+        assert model.se_[0] == pytest.approx(0.0, abs=1e-13)
+>       assert model.se_relative_[0] == pytest.approx(0.0, abs=1e-12)
+E       assert np.float64(5.500190982169268) == 0.0 � 1.0e-12
+E         
+E         comparison failed
+E         Obtained: 5.500190982169268
+E         Expected: 0.0 � 1.0e-12
+
+tests\inference\test_irm_atte_relative_if.py:40: AssertionError
+_ test_constant_potential_outcomes_have_zero_relative_att_uncertainty[12-True] _
+
+normalize_ipw = True, n_treated = 12
+
+    @pytest.mark.parametrize("normalize_ipw", [False, True])
+    @pytest.mark.parametrize("n_treated", [2, 12, 60])
+    def test_constant_potential_outcomes_have_zero_relative_att_uncertainty(
+        normalize_ipw, n_treated
+    ):
+        n = 120
+        d = np.zeros(n, dtype=int)
+        d[np.linspace(0, n - 1, n_treated, dtype=int)] = 1
+        data = CausalData(
+            df=pd.DataFrame({"y": 10.0 + 2.0 * d, "d": d, "x": np.linspace(-1, 1, n)}),
+            outcome="y", treatment="d", confounders=["x"],
+        )
+        model = IRM(
+            data, ml_g=DummyRegressor(), ml_m=DummyClassifier(strategy="prior"),
+            n_folds=2, normalize_ipw=normalize_ipw, random_state=3,
+        ).fit()
+        with warnings.catch_warnings(record=True) as captured:
+            warnings.simplefilter("always")
+            result = model.estimate(score="ATTE")
+    
+        assert not any("Relative effect baseline" in str(item.message) for item in captured)
+        assert result.value == pytest.approx(2.0)
+        assert result.value_relative == pytest.approx(20.0)
+        assert model.se_[0] == pytest.approx(0.0, abs=1e-13)
+>       assert model.se_relative_[0] == pytest.approx(0.0, abs=1e-12)
+E       assert np.float64(5.500190982169268) == 0.0 � 1.0e-12
+E         
+E         comparison failed
+E         Obtained: 5.500190982169268
+E         Expected: 0.0 � 1.0e-12
+
+tests\inference\test_irm_atte_relative_if.py:40: AssertionError
+_ test_constant_potential_outcomes_have_zero_relative_att_uncertainty[60-False] _
+
+normalize_ipw = False, n_treated = 60
+
+    @pytest.mark.parametrize("normalize_ipw", [False, True])
+    @pytest.mark.parametrize("n_treated", [2, 12, 60])
+    def test_constant_potential_outcomes_have_zero_relative_att_uncertainty(
+        normalize_ipw, n_treated
+    ):
+        n = 120
+        d = np.zeros(n, dtype=int)
+        d[np.linspace(0, n - 1, n_treated, dtype=int)] = 1
+        data = CausalData(
+            df=pd.DataFrame({"y": 10.0 + 2.0 * d, "d": d, "x": np.linspace(-1, 1, n)}),
+            outcome="y", treatment="d", confounders=["x"],
+        )
+        model = IRM(
+            data, ml_g=DummyRegressor(), ml_m=DummyClassifier(strategy="prior"),
+            n_folds=2, normalize_ipw=normalize_ipw, random_state=3,
+        ).fit()
+        with warnings.catch_warnings(record=True) as captured:
+            warnings.simplefilter("always")
+            result = model.estimate(score="ATTE")
+    
+        assert not any("Relative effect baseline" in str(item.message) for item in captured)
+        assert result.value == pytest.approx(2.0)
+        assert result.value_relative == pytest.approx(20.0)
+        assert model.se_[0] == pytest.approx(0.0, abs=1e-13)
+>       assert model.se_relative_[0] == pytest.approx(0.0, abs=1e-12)
+E       assert np.float64(1.8333969940564225) == 0.0 � 1.0e-12
+E         
+E         comparison failed
+E         Obtained: 1.8333969940564225
+E         Expected: 0.0 � 1.0e-12
+
+tests\inference\test_irm_atte_relative_if.py:40: AssertionError
+_ test_constant_potential_outcomes_have_zero_relative_att_uncertainty[60-True] _
+
+normalize_ipw = True, n_treated = 60
+
+    @pytest.mark.parametrize("normalize_ipw", [False, True])
+    @pytest.mark.parametrize("n_treated", [2, 12, 60])
+    def test_constant_potential_outcomes_have_zero_relative_att_uncertainty(
+        normalize_ipw, n_treated
+    ):
+        n = 120
+        d = np.zeros(n, dtype=int)
+        d[np.linspace(0, n - 1, n_treated, dtype=int)] = 1
+        data = CausalData(
+            df=pd.DataFrame({"y": 10.0 + 2.0 * d, "d": d, "x": np.linspace(-1, 1, n)}),
+            outcome="y", treatment="d", confounders=["x"],
+        )
+        model = IRM(
+            data, ml_g=DummyRegressor(), ml_m=DummyClassifier(strategy="prior"),
+            n_folds=2, normalize_ipw=normalize_ipw, random_state=3,
+        ).fit()
+        with warnings.catch_warnings(record=True) as captured:
+            warnings.simplefilter("always")
+            result = model.estimate(score="ATTE")
+    
+        assert not any("Relative effect baseline" in str(item.message) for item in captured)
+        assert result.value == pytest.approx(2.0)
+        assert result.value_relative == pytest.approx(20.0)
+        assert model.se_[0] == pytest.approx(0.0, abs=1e-13)
+>       assert model.se_relative_[0] == pytest.approx(0.0, abs=1e-12)
+E       assert np.float64(1.8333969940564225) == 0.0 � 1.0e-12
+E         
+E         comparison failed
+E         Obtained: 1.8333969940564225
+E         Expected: 0.0 � 1.0e-12
+
+tests\inference\test_irm_atte_relative_if.py:40: AssertionError
+_ test_relative_att_matches_contamination_derivative_with_covariance[4.0-False] _
+
+normalize_ipw = False, baseline = 4.0
+
+    @pytest.mark.parametrize("normalize_ipw", [False, True])
+    @pytest.mark.parametrize("baseline", [4.0, -4.0])
+    def test_relative_att_matches_contamination_derivative_with_covariance(
+        normalize_ipw, baseline
+    ):
+        rng = np.random.default_rng(710)
+        n = 300
+        x = rng.normal(size=n)
+        d = rng.binomial(1, 1.0 / (1.0 + np.exp(0.4 - 0.6 * x)))
+        y = baseline + 0.5 * x + d * (0.7 + 0.35 * x) + rng.normal(scale=0.3, size=n)
+        data = CausalData(
+            df=pd.DataFrame({"x": x, "d": d, "y": y}),
+            outcome="y", treatment="d", confounders=["x"],
+        )
+        model = IRM(
+            data, ml_g=LinearRegression(), ml_m=LogisticRegression(), n_folds=3,
+            normalize_ipw=normalize_ipw, random_state=13,
+        ).fit()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            result = model.estimate(score="ATTE", alpha=0.1)
+    
+        # The relative ATT is a ratio of two unnormalized population moments.
+        # Perturb the empirical distribution, keeping nuisance predictions fixed.
+        # This directly differentiates the target ratio rather than centering a
+        # normalized baseline signal as though the treated share were fixed.
+        g0 = model.g0_hat_
+        odds = model.m_hat_ / (1.0 - model.m_hat_)
+        numerator = d * (y - g0) - (1 - d) * odds * (y - g0)
+        denominator = d * g0 + (1 - d) * odds * (y - g0)
+        num_mean, den_mean = numerator.mean(), denominator.mean()
+        eps = 1e-5
+        ratio_plus = 100.0 * ((1 - eps) * num_mean + eps * numerator) / (
+            (1 - eps) * den_mean + eps * denominator
+        )
+        ratio_minus = 100.0 * ((1 + eps) * num_mean - eps * numerator) / (
+            (1 + eps) * den_mean - eps * denominator
+        )
+        derivative = (ratio_plus - ratio_minus) / (2 * eps)
+        expected_se = derivative.std(ddof=1) / np.sqrt(n)
+        value = 100.0 * num_mean / den_mean
+        z = norm.ppf(0.95)
+    
+        assert result.value_relative == pytest.approx(value, rel=1e-12)
+>       assert model.se_relative_[0] == pytest.approx(expected_se, rel=2e-8)
+E       assert np.float64(1.9054497199158933) == 1.1740314410595958 � 2.3e-08
+E         
+E         comparison failed
+E         Obtained: 1.9054497199158933
+E         Expected: 1.1740314410595958 � 2.3e-08
+
+tests\inference\test_irm_atte_relative_if.py:89: AssertionError
+_ test_relative_att_matches_contamination_derivative_with_covariance[4.0-True] _
+
+normalize_ipw = True, baseline = 4.0
+
+    @pytest.mark.parametrize("normalize_ipw", [False, True])
+    @pytest.mark.parametrize("baseline", [4.0, -4.0])
+    def test_relative_att_matches_contamination_derivative_with_covariance(
+        normalize_ipw, baseline
+    ):
+        rng = np.random.default_rng(710)
+        n = 300
+        x = rng.normal(size=n)
+        d = rng.binomial(1, 1.0 / (1.0 + np.exp(0.4 - 0.6 * x)))
+        y = baseline + 0.5 * x + d * (0.7 + 0.35 * x) + rng.normal(scale=0.3, size=n)
+        data = CausalData(
+            df=pd.DataFrame({"x": x, "d": d, "y": y}),
+            outcome="y", treatment="d", confounders=["x"],
+        )
+        model = IRM(
+            data, ml_g=LinearRegression(), ml_m=LogisticRegression(), n_folds=3,
+            normalize_ipw=normalize_ipw, random_state=13,
+        ).fit()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            result = model.estimate(score="ATTE", alpha=0.1)
+    
+        # The relative ATT is a ratio of two unnormalized population moments.
+        # Perturb the empirical distribution, keeping nuisance predictions fixed.
+        # This directly differentiates the target ratio rather than centering a
+        # normalized baseline signal as though the treated share were fixed.
+        g0 = model.g0_hat_
+        odds = model.m_hat_ / (1.0 - model.m_hat_)
+        numerator = d * (y - g0) - (1 - d) * odds * (y - g0)
+        denominator = d * g0 + (1 - d) * odds * (y - g0)
+        num_mean, den_mean = numerator.mean(), denominator.mean()
+        eps = 1e-5
+        ratio_plus = 100.0 * ((1 - eps) * num_mean + eps * numerator) / (
+            (1 - eps) * den_mean + eps * denominator
+        )
+        ratio_minus = 100.0 * ((1 + eps) * num_mean - eps * numerator) / (
+            (1 + eps) * den_mean - eps * denominator
+        )
+        derivative = (ratio_plus - ratio_minus) / (2 * eps)
+        expected_se = derivative.std(ddof=1) / np.sqrt(n)
+        value = 100.0 * num_mean / den_mean
+        z = norm.ppf(0.95)
+    
+        assert result.value_relative == pytest.approx(value, rel=1e-12)
+>       assert model.se_relative_[0] == pytest.approx(expected_se, rel=2e-8)
+E       assert np.float64(1.9054497199158933) == 1.1740314410595958 � 2.3e-08
+E         
+E         comparison failed
+E         Obtained: 1.9054497199158933
+E         Expected: 1.1740314410595958 � 2.3e-08
+
+tests\inference\test_irm_atte_relative_if.py:89: AssertionError
+_ test_relative_att_matches_contamination_derivative_with_covariance[-4.0-False] _
+
+normalize_ipw = False, baseline = -4.0
+
+    @pytest.mark.parametrize("normalize_ipw", [False, True])
+    @pytest.mark.parametrize("baseline", [4.0, -4.0])
+    def test_relative_att_matches_contamination_derivative_with_covariance(
+        normalize_ipw, baseline
+    ):
+        rng = np.random.default_rng(710)
+        n = 300
+        x = rng.normal(size=n)
+        d = rng.binomial(1, 1.0 / (1.0 + np.exp(0.4 - 0.6 * x)))
+        y = baseline + 0.5 * x + d * (0.7 + 0.35 * x) + rng.normal(scale=0.3, size=n)
+        data = CausalData(
+            df=pd.DataFrame({"x": x, "d": d, "y": y}),
+            outcome="y", treatment="d", confounders=["x"],
+        )
+        model = IRM(
+            data, ml_g=LinearRegression(), ml_m=LogisticRegression(), n_folds=3,
+            normalize_ipw=normalize_ipw, random_state=13,
+        ).fit()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            result = model.estimate(score="ATTE", alpha=0.1)
+    
+        # The relative ATT is a ratio of two unnormalized population moments.
+        # Perturb the empirical distribution, keeping nuisance predictions fixed.
+        # This directly differentiates the target ratio rather than centering a
+        # normalized baseline signal as though the treated share were fixed.
+        g0 = model.g0_hat_
+        odds = model.m_hat_ / (1.0 - model.m_hat_)
+        numerator = d * (y - g0) - (1 - d) * odds * (y - g0)
+        denominator = d * g0 + (1 - d) * odds * (y - g0)
+        num_mean, den_mean = numerator.mean(), denominator.mean()
+        eps = 1e-5
+        ratio_plus = 100.0 * ((1 - eps) * num_mean + eps * numerator) / (
+            (1 - eps) * den_mean + eps * denominator
+        )
+        ratio_minus = 100.0 * ((1 + eps) * num_mean - eps * numerator) / (
+            (1 + eps) * den_mean - eps * denominator
+        )
+        derivative = (ratio_plus - ratio_minus) / (2 * eps)
+        expected_se = derivative.std(ddof=1) / np.sqrt(n)
+        value = 100.0 * num_mean / den_mean
+        z = norm.ppf(0.95)
+    
+        assert result.value_relative == pytest.approx(value, rel=1e-12)
+>       assert model.se_relative_[0] == pytest.approx(expected_se, rel=2e-8)
+E       assert np.float64(2.1766709978354757) == 1.4253105919592735 � 2.9e-08
+E         
+E         comparison failed
+E         Obtained: 2.1766709978354757
+E         Expected: 1.4253105919592735 � 2.9e-08
+
+tests\inference\test_irm_atte_relative_if.py:89: AssertionError
+_ test_relative_att_matches_contamination_derivative_with_covariance[-4.0-True] _
+
+normalize_ipw = True, baseline = -4.0
+
+    @pytest.mark.parametrize("normalize_ipw", [False, True])
+    @pytest.mark.parametrize("baseline", [4.0, -4.0])
+    def test_relative_att_matches_contamination_derivative_with_covariance(
+        normalize_ipw, baseline
+    ):
+        rng = np.random.default_rng(710)
+        n = 300
+        x = rng.normal(size=n)
+        d = rng.binomial(1, 1.0 / (1.0 + np.exp(0.4 - 0.6 * x)))
+        y = baseline + 0.5 * x + d * (0.7 + 0.35 * x) + rng.normal(scale=0.3, size=n)
+        data = CausalData(
+            df=pd.DataFrame({"x": x, "d": d, "y": y}),
+            outcome="y", treatment="d", confounders=["x"],
+        )
+        model = IRM(
+            data, ml_g=LinearRegression(), ml_m=LogisticRegression(), n_folds=3,
+            normalize_ipw=normalize_ipw, random_state=13,
+        ).fit()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            result = model.estimate(score="ATTE", alpha=0.1)
+    
+        # The relative ATT is a ratio of two unnormalized population moments.
+        # Perturb the empirical distribution, keeping nuisance predictions fixed.
+        # This directly differentiates the target ratio rather than centering a
+        # normalized baseline signal as though the treated share were fixed.
+        g0 = model.g0_hat_
+        odds = model.m_hat_ / (1.0 - model.m_hat_)
+        numerator = d * (y - g0) - (1 - d) * odds * (y - g0)
+        denominator = d * g0 + (1 - d) * odds * (y - g0)
+        num_mean, den_mean = numerator.mean(), denominator.mean()
+        eps = 1e-5
+        ratio_plus = 100.0 * ((1 - eps) * num_mean + eps * numerator) / (
+            (1 - eps) * den_mean + eps * denominator
+        )
+        ratio_minus = 100.0 * ((1 + eps) * num_mean - eps * numerator) / (
+            (1 + eps) * den_mean - eps * denominator
+        )
+        derivative = (ratio_plus - ratio_minus) / (2 * eps)
+        expected_se = derivative.std(ddof=1) / np.sqrt(n)
+        value = 100.0 * num_mean / den_mean
+        z = norm.ppf(0.95)
+    
+        assert result.value_relative == pytest.approx(value, rel=1e-12)
+>       assert model.se_relative_[0] == pytest.approx(expected_se, rel=2e-8)
+E       assert np.float64(2.1766709978354757) == 1.4253105919592735 � 2.9e-08
+E         
+E         comparison failed
+E         Obtained: 2.1766709978354757
+E         Expected: 1.4253105919592735 � 2.9e-08
+
+tests\inference\test_irm_atte_relative_if.py:89: AssertionError
+_ test_drop_weights_match_manual_retained_score_and_preserve_inputs[False-array] _
+
+shape = 'array', store_diagnostics = False
+
+    @pytest.mark.parametrize("shape", ["array", "array_col", "array_row", "dict", "dict_col", "dict_row", "dict_multi"])
+    @pytest.mark.parametrize("store_diagnostics", [False, True])
+    def test_drop_weights_match_manual_retained_score_and_preserve_inputs(shape, store_diagnostics):
+        data = _data()
+        original = data.df.copy(deep=True)
+        n = len(original)
+        raw_w = np.linspace(0.3, 2.0, n)
+        raw_bar = np.linspace(2.5, 0.8, n)
+        if shape.startswith("array"):
+            weights = raw_w.copy()
+            if shape == "array_col":
+                weights = weights[:, None]
+            elif shape == "array_row":
+                weights = weights[None, :]
+            raw_bar = raw_w
+        else:
+            bar = raw_bar.copy()
+            if shape == "dict_col":
+                bar = bar[:, None]
+            elif shape == "dict_row":
+                bar = bar[None, :]
+            elif shape == "dict_multi":
+                bar = np.column_stack([bar, np.full(n, 999)])
+            weights = {"weights": raw_w.copy(), "weights_bar": bar}
+        originals = {key: value.copy() for key, value in weights.items()} if isinstance(weights, dict) else weights.copy()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            model = _fit(data, weights, store_diagnostics=store_diagnostics)
+>           result = _estimate(model)
+                     ^^^^^^^^^^^^^^^^
+
+tests\inference\test_irm_fit_weight_alignment.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\inference\test_irm_fit_weight_alignment.py:49: in _estimate
+    return model.estimate(score="ATE")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1522: in estimate
+    components = self._compute_estimate_components(
+causalis\scenarios\unconfoundedness\model.py:1105: in _compute_estimate_components
+    w, w_bar = self._get_weights(n, m_hat, d, score=score)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1038: in _get_weights
+    return _resolve_irm_weights(
+causalis\scenarios\unconfoundedness\_score_utils.py:146: in _resolve_irm_weights
+    w = _to_1d(weights, name="weights")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+arr = array([0.3       , 0.31428571, 0.32857143, 0.34285714, 0.35714286,
+       0.37142857, 0.38571429, 0.4       , 0.414285...57, 1.88571429, 1.9       , 1.91428571, 1.92857143,
+       1.94285714, 1.95714286, 1.97142857, 1.98571429, 2.        ])
+name = 'weights'
+
+    def _to_1d(arr: Any, *, name: str) -> np.ndarray:
+        vec = np.asarray(arr, dtype=float)
+        if vec.ndim == 1:
+            pass
+        elif vec.ndim == 2 and 1 in vec.shape:
+            vec = vec.reshape(-1)
+        else:
+            raise ValueError(f"{name} must be 1D with shape (n,), got shape {vec.shape}.")
+        if vec.shape[0] != n:
+>           raise ValueError(f"{name} must have shape (n,) with n={n}, got shape {vec.shape}.")
+E           ValueError: weights must have shape (n,) with n=80, got shape (120,).
+
+causalis\scenarios\unconfoundedness\_score_utils.py:137: ValueError
+_ test_drop_weights_match_manual_retained_score_and_preserve_inputs[False-array_col] _
+
+shape = 'array_col', store_diagnostics = False
+
+    @pytest.mark.parametrize("shape", ["array", "array_col", "array_row", "dict", "dict_col", "dict_row", "dict_multi"])
+    @pytest.mark.parametrize("store_diagnostics", [False, True])
+    def test_drop_weights_match_manual_retained_score_and_preserve_inputs(shape, store_diagnostics):
+        data = _data()
+        original = data.df.copy(deep=True)
+        n = len(original)
+        raw_w = np.linspace(0.3, 2.0, n)
+        raw_bar = np.linspace(2.5, 0.8, n)
+        if shape.startswith("array"):
+            weights = raw_w.copy()
+            if shape == "array_col":
+                weights = weights[:, None]
+            elif shape == "array_row":
+                weights = weights[None, :]
+            raw_bar = raw_w
+        else:
+            bar = raw_bar.copy()
+            if shape == "dict_col":
+                bar = bar[:, None]
+            elif shape == "dict_row":
+                bar = bar[None, :]
+            elif shape == "dict_multi":
+                bar = np.column_stack([bar, np.full(n, 999)])
+            weights = {"weights": raw_w.copy(), "weights_bar": bar}
+        originals = {key: value.copy() for key, value in weights.items()} if isinstance(weights, dict) else weights.copy()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            model = _fit(data, weights, store_diagnostics=store_diagnostics)
+>           result = _estimate(model)
+                     ^^^^^^^^^^^^^^^^
+
+tests\inference\test_irm_fit_weight_alignment.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\inference\test_irm_fit_weight_alignment.py:49: in _estimate
+    return model.estimate(score="ATE")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1522: in estimate
+    components = self._compute_estimate_components(
+causalis\scenarios\unconfoundedness\model.py:1105: in _compute_estimate_components
+    w, w_bar = self._get_weights(n, m_hat, d, score=score)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1038: in _get_weights
+    return _resolve_irm_weights(
+causalis\scenarios\unconfoundedness\_score_utils.py:146: in _resolve_irm_weights
+    w = _to_1d(weights, name="weights")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+arr = array([[0.3       ],
+       [0.31428571],
+       [0.32857143],
+       [0.34285714],
+       [0.35714286],
+       [0.371...[1.92857143],
+       [1.94285714],
+       [1.95714286],
+       [1.97142857],
+       [1.98571429],
+       [2.        ]])
+name = 'weights'
+
+    def _to_1d(arr: Any, *, name: str) -> np.ndarray:
+        vec = np.asarray(arr, dtype=float)
+        if vec.ndim == 1:
+            pass
+        elif vec.ndim == 2 and 1 in vec.shape:
+            vec = vec.reshape(-1)
+        else:
+            raise ValueError(f"{name} must be 1D with shape (n,), got shape {vec.shape}.")
+        if vec.shape[0] != n:
+>           raise ValueError(f"{name} must have shape (n,) with n={n}, got shape {vec.shape}.")
+E           ValueError: weights must have shape (n,) with n=80, got shape (120,).
+
+causalis\scenarios\unconfoundedness\_score_utils.py:137: ValueError
+_ test_drop_weights_match_manual_retained_score_and_preserve_inputs[False-array_row] _
+
+shape = 'array_row', store_diagnostics = False
+
+    @pytest.mark.parametrize("shape", ["array", "array_col", "array_row", "dict", "dict_col", "dict_row", "dict_multi"])
+    @pytest.mark.parametrize("store_diagnostics", [False, True])
+    def test_drop_weights_match_manual_retained_score_and_preserve_inputs(shape, store_diagnostics):
+        data = _data()
+        original = data.df.copy(deep=True)
+        n = len(original)
+        raw_w = np.linspace(0.3, 2.0, n)
+        raw_bar = np.linspace(2.5, 0.8, n)
+        if shape.startswith("array"):
+            weights = raw_w.copy()
+            if shape == "array_col":
+                weights = weights[:, None]
+            elif shape == "array_row":
+                weights = weights[None, :]
+            raw_bar = raw_w
+        else:
+            bar = raw_bar.copy()
+            if shape == "dict_col":
+                bar = bar[:, None]
+            elif shape == "dict_row":
+                bar = bar[None, :]
+            elif shape == "dict_multi":
+                bar = np.column_stack([bar, np.full(n, 999)])
+            weights = {"weights": raw_w.copy(), "weights_bar": bar}
+        originals = {key: value.copy() for key, value in weights.items()} if isinstance(weights, dict) else weights.copy()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            model = _fit(data, weights, store_diagnostics=store_diagnostics)
+>           result = _estimate(model)
+                     ^^^^^^^^^^^^^^^^
+
+tests\inference\test_irm_fit_weight_alignment.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\inference\test_irm_fit_weight_alignment.py:49: in _estimate
+    return model.estimate(score="ATE")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1522: in estimate
+    components = self._compute_estimate_components(
+causalis\scenarios\unconfoundedness\model.py:1105: in _compute_estimate_components
+    w, w_bar = self._get_weights(n, m_hat, d, score=score)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1038: in _get_weights
+    return _resolve_irm_weights(
+causalis\scenarios\unconfoundedness\_score_utils.py:146: in _resolve_irm_weights
+    w = _to_1d(weights, name="weights")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+arr = array([[0.3       , 0.31428571, 0.32857143, 0.34285714, 0.35714286,
+        0.37142857, 0.38571429, 0.4       , 0.4142..., 1.88571429, 1.9       , 1.91428571, 1.92857143,
+        1.94285714, 1.95714286, 1.97142857, 1.98571429, 2.        ]])
+name = 'weights'
+
+    def _to_1d(arr: Any, *, name: str) -> np.ndarray:
+        vec = np.asarray(arr, dtype=float)
+        if vec.ndim == 1:
+            pass
+        elif vec.ndim == 2 and 1 in vec.shape:
+            vec = vec.reshape(-1)
+        else:
+            raise ValueError(f"{name} must be 1D with shape (n,), got shape {vec.shape}.")
+        if vec.shape[0] != n:
+>           raise ValueError(f"{name} must have shape (n,) with n={n}, got shape {vec.shape}.")
+E           ValueError: weights must have shape (n,) with n=80, got shape (120,).
+
+causalis\scenarios\unconfoundedness\_score_utils.py:137: ValueError
+_ test_drop_weights_match_manual_retained_score_and_preserve_inputs[False-dict] _
+
+shape = 'dict', store_diagnostics = False
+
+    @pytest.mark.parametrize("shape", ["array", "array_col", "array_row", "dict", "dict_col", "dict_row", "dict_multi"])
+    @pytest.mark.parametrize("store_diagnostics", [False, True])
+    def test_drop_weights_match_manual_retained_score_and_preserve_inputs(shape, store_diagnostics):
+        data = _data()
+        original = data.df.copy(deep=True)
+        n = len(original)
+        raw_w = np.linspace(0.3, 2.0, n)
+        raw_bar = np.linspace(2.5, 0.8, n)
+        if shape.startswith("array"):
+            weights = raw_w.copy()
+            if shape == "array_col":
+                weights = weights[:, None]
+            elif shape == "array_row":
+                weights = weights[None, :]
+            raw_bar = raw_w
+        else:
+            bar = raw_bar.copy()
+            if shape == "dict_col":
+                bar = bar[:, None]
+            elif shape == "dict_row":
+                bar = bar[None, :]
+            elif shape == "dict_multi":
+                bar = np.column_stack([bar, np.full(n, 999)])
+            weights = {"weights": raw_w.copy(), "weights_bar": bar}
+        originals = {key: value.copy() for key, value in weights.items()} if isinstance(weights, dict) else weights.copy()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            model = _fit(data, weights, store_diagnostics=store_diagnostics)
+>           result = _estimate(model)
+                     ^^^^^^^^^^^^^^^^
+
+tests\inference\test_irm_fit_weight_alignment.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\inference\test_irm_fit_weight_alignment.py:49: in _estimate
+    return model.estimate(score="ATE")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1522: in estimate
+    components = self._compute_estimate_components(
+causalis\scenarios\unconfoundedness\model.py:1105: in _compute_estimate_components
+    w, w_bar = self._get_weights(n, m_hat, d, score=score)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1038: in _get_weights
+    return _resolve_irm_weights(
+causalis\scenarios\unconfoundedness\_score_utils.py:150: in _resolve_irm_weights
+    w = _to_1d(weights["weights"], name="weights['weights']")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+arr = array([0.3       , 0.31428571, 0.32857143, 0.34285714, 0.35714286,
+       0.37142857, 0.38571429, 0.4       , 0.414285...57, 1.88571429, 1.9       , 1.91428571, 1.92857143,
+       1.94285714, 1.95714286, 1.97142857, 1.98571429, 2.        ])
+name = "weights['weights']"
+
+    def _to_1d(arr: Any, *, name: str) -> np.ndarray:
+        vec = np.asarray(arr, dtype=float)
+        if vec.ndim == 1:
+            pass
+        elif vec.ndim == 2 and 1 in vec.shape:
+            vec = vec.reshape(-1)
+        else:
+            raise ValueError(f"{name} must be 1D with shape (n,), got shape {vec.shape}.")
+        if vec.shape[0] != n:
+>           raise ValueError(f"{name} must have shape (n,) with n={n}, got shape {vec.shape}.")
+E           ValueError: weights['weights'] must have shape (n,) with n=80, got shape (120,).
+
+causalis\scenarios\unconfoundedness\_score_utils.py:137: ValueError
+_ test_drop_weights_match_manual_retained_score_and_preserve_inputs[False-dict_col] _
+
+shape = 'dict_col', store_diagnostics = False
+
+    @pytest.mark.parametrize("shape", ["array", "array_col", "array_row", "dict", "dict_col", "dict_row", "dict_multi"])
+    @pytest.mark.parametrize("store_diagnostics", [False, True])
+    def test_drop_weights_match_manual_retained_score_and_preserve_inputs(shape, store_diagnostics):
+        data = _data()
+        original = data.df.copy(deep=True)
+        n = len(original)
+        raw_w = np.linspace(0.3, 2.0, n)
+        raw_bar = np.linspace(2.5, 0.8, n)
+        if shape.startswith("array"):
+            weights = raw_w.copy()
+            if shape == "array_col":
+                weights = weights[:, None]
+            elif shape == "array_row":
+                weights = weights[None, :]
+            raw_bar = raw_w
+        else:
+            bar = raw_bar.copy()
+            if shape == "dict_col":
+                bar = bar[:, None]
+            elif shape == "dict_row":
+                bar = bar[None, :]
+            elif shape == "dict_multi":
+                bar = np.column_stack([bar, np.full(n, 999)])
+            weights = {"weights": raw_w.copy(), "weights_bar": bar}
+        originals = {key: value.copy() for key, value in weights.items()} if isinstance(weights, dict) else weights.copy()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            model = _fit(data, weights, store_diagnostics=store_diagnostics)
+>           result = _estimate(model)
+                     ^^^^^^^^^^^^^^^^
+
+tests\inference\test_irm_fit_weight_alignment.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\inference\test_irm_fit_weight_alignment.py:49: in _estimate
+    return model.estimate(score="ATE")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1522: in estimate
+    components = self._compute_estimate_components(
+causalis\scenarios\unconfoundedness\model.py:1105: in _compute_estimate_components
+    w, w_bar = self._get_weights(n, m_hat, d, score=score)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1038: in _get_weights
+    return _resolve_irm_weights(
+causalis\scenarios\unconfoundedness\_score_utils.py:150: in _resolve_irm_weights
+    w = _to_1d(weights["weights"], name="weights['weights']")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+arr = array([0.3       , 0.31428571, 0.32857143, 0.34285714, 0.35714286,
+       0.37142857, 0.38571429, 0.4       , 0.414285...57, 1.88571429, 1.9       , 1.91428571, 1.92857143,
+       1.94285714, 1.95714286, 1.97142857, 1.98571429, 2.        ])
+name = "weights['weights']"
+
+    def _to_1d(arr: Any, *, name: str) -> np.ndarray:
+        vec = np.asarray(arr, dtype=float)
+        if vec.ndim == 1:
+            pass
+        elif vec.ndim == 2 and 1 in vec.shape:
+            vec = vec.reshape(-1)
+        else:
+            raise ValueError(f"{name} must be 1D with shape (n,), got shape {vec.shape}.")
+        if vec.shape[0] != n:
+>           raise ValueError(f"{name} must have shape (n,) with n={n}, got shape {vec.shape}.")
+E           ValueError: weights['weights'] must have shape (n,) with n=80, got shape (120,).
+
+causalis\scenarios\unconfoundedness\_score_utils.py:137: ValueError
+_ test_drop_weights_match_manual_retained_score_and_preserve_inputs[False-dict_row] _
+
+shape = 'dict_row', store_diagnostics = False
+
+    @pytest.mark.parametrize("shape", ["array", "array_col", "array_row", "dict", "dict_col", "dict_row", "dict_multi"])
+    @pytest.mark.parametrize("store_diagnostics", [False, True])
+    def test_drop_weights_match_manual_retained_score_and_preserve_inputs(shape, store_diagnostics):
+        data = _data()
+        original = data.df.copy(deep=True)
+        n = len(original)
+        raw_w = np.linspace(0.3, 2.0, n)
+        raw_bar = np.linspace(2.5, 0.8, n)
+        if shape.startswith("array"):
+            weights = raw_w.copy()
+            if shape == "array_col":
+                weights = weights[:, None]
+            elif shape == "array_row":
+                weights = weights[None, :]
+            raw_bar = raw_w
+        else:
+            bar = raw_bar.copy()
+            if shape == "dict_col":
+                bar = bar[:, None]
+            elif shape == "dict_row":
+                bar = bar[None, :]
+            elif shape == "dict_multi":
+                bar = np.column_stack([bar, np.full(n, 999)])
+            weights = {"weights": raw_w.copy(), "weights_bar": bar}
+        originals = {key: value.copy() for key, value in weights.items()} if isinstance(weights, dict) else weights.copy()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            model = _fit(data, weights, store_diagnostics=store_diagnostics)
+>           result = _estimate(model)
+                     ^^^^^^^^^^^^^^^^
+
+tests\inference\test_irm_fit_weight_alignment.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\inference\test_irm_fit_weight_alignment.py:49: in _estimate
+    return model.estimate(score="ATE")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1522: in estimate
+    components = self._compute_estimate_components(
+causalis\scenarios\unconfoundedness\model.py:1105: in _compute_estimate_components
+    w, w_bar = self._get_weights(n, m_hat, d, score=score)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1038: in _get_weights
+    return _resolve_irm_weights(
+causalis\scenarios\unconfoundedness\_score_utils.py:150: in _resolve_irm_weights
+    w = _to_1d(weights["weights"], name="weights['weights']")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+arr = array([0.3       , 0.31428571, 0.32857143, 0.34285714, 0.35714286,
+       0.37142857, 0.38571429, 0.4       , 0.414285...57, 1.88571429, 1.9       , 1.91428571, 1.92857143,
+       1.94285714, 1.95714286, 1.97142857, 1.98571429, 2.        ])
+name = "weights['weights']"
+
+    def _to_1d(arr: Any, *, name: str) -> np.ndarray:
+        vec = np.asarray(arr, dtype=float)
+        if vec.ndim == 1:
+            pass
+        elif vec.ndim == 2 and 1 in vec.shape:
+            vec = vec.reshape(-1)
+        else:
+            raise ValueError(f"{name} must be 1D with shape (n,), got shape {vec.shape}.")
+        if vec.shape[0] != n:
+>           raise ValueError(f"{name} must have shape (n,) with n={n}, got shape {vec.shape}.")
+E           ValueError: weights['weights'] must have shape (n,) with n=80, got shape (120,).
+
+causalis\scenarios\unconfoundedness\_score_utils.py:137: ValueError
+_ test_drop_weights_match_manual_retained_score_and_preserve_inputs[False-dict_multi] _
+
+shape = 'dict_multi', store_diagnostics = False
+
+    @pytest.mark.parametrize("shape", ["array", "array_col", "array_row", "dict", "dict_col", "dict_row", "dict_multi"])
+    @pytest.mark.parametrize("store_diagnostics", [False, True])
+    def test_drop_weights_match_manual_retained_score_and_preserve_inputs(shape, store_diagnostics):
+        data = _data()
+        original = data.df.copy(deep=True)
+        n = len(original)
+        raw_w = np.linspace(0.3, 2.0, n)
+        raw_bar = np.linspace(2.5, 0.8, n)
+        if shape.startswith("array"):
+            weights = raw_w.copy()
+            if shape == "array_col":
+                weights = weights[:, None]
+            elif shape == "array_row":
+                weights = weights[None, :]
+            raw_bar = raw_w
+        else:
+            bar = raw_bar.copy()
+            if shape == "dict_col":
+                bar = bar[:, None]
+            elif shape == "dict_row":
+                bar = bar[None, :]
+            elif shape == "dict_multi":
+                bar = np.column_stack([bar, np.full(n, 999)])
+            weights = {"weights": raw_w.copy(), "weights_bar": bar}
+        originals = {key: value.copy() for key, value in weights.items()} if isinstance(weights, dict) else weights.copy()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            model = _fit(data, weights, store_diagnostics=store_diagnostics)
+>           result = _estimate(model)
+                     ^^^^^^^^^^^^^^^^
+
+tests\inference\test_irm_fit_weight_alignment.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\inference\test_irm_fit_weight_alignment.py:49: in _estimate
+    return model.estimate(score="ATE")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1522: in estimate
+    components = self._compute_estimate_components(
+causalis\scenarios\unconfoundedness\model.py:1105: in _compute_estimate_components
+    w, w_bar = self._get_weights(n, m_hat, d, score=score)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1038: in _get_weights
+    return _resolve_irm_weights(
+causalis\scenarios\unconfoundedness\_score_utils.py:150: in _resolve_irm_weights
+    w = _to_1d(weights["weights"], name="weights['weights']")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+arr = array([0.3       , 0.31428571, 0.32857143, 0.34285714, 0.35714286,
+       0.37142857, 0.38571429, 0.4       , 0.414285...57, 1.88571429, 1.9       , 1.91428571, 1.92857143,
+       1.94285714, 1.95714286, 1.97142857, 1.98571429, 2.        ])
+name = "weights['weights']"
+
+    def _to_1d(arr: Any, *, name: str) -> np.ndarray:
+        vec = np.asarray(arr, dtype=float)
+        if vec.ndim == 1:
+            pass
+        elif vec.ndim == 2 and 1 in vec.shape:
+            vec = vec.reshape(-1)
+        else:
+            raise ValueError(f"{name} must be 1D with shape (n,), got shape {vec.shape}.")
+        if vec.shape[0] != n:
+>           raise ValueError(f"{name} must have shape (n,) with n={n}, got shape {vec.shape}.")
+E           ValueError: weights['weights'] must have shape (n,) with n=80, got shape (120,).
+
+causalis\scenarios\unconfoundedness\_score_utils.py:137: ValueError
+_ test_drop_weights_match_manual_retained_score_and_preserve_inputs[True-array] _
+
+shape = 'array', store_diagnostics = True
+
+    @pytest.mark.parametrize("shape", ["array", "array_col", "array_row", "dict", "dict_col", "dict_row", "dict_multi"])
+    @pytest.mark.parametrize("store_diagnostics", [False, True])
+    def test_drop_weights_match_manual_retained_score_and_preserve_inputs(shape, store_diagnostics):
+        data = _data()
+        original = data.df.copy(deep=True)
+        n = len(original)
+        raw_w = np.linspace(0.3, 2.0, n)
+        raw_bar = np.linspace(2.5, 0.8, n)
+        if shape.startswith("array"):
+            weights = raw_w.copy()
+            if shape == "array_col":
+                weights = weights[:, None]
+            elif shape == "array_row":
+                weights = weights[None, :]
+            raw_bar = raw_w
+        else:
+            bar = raw_bar.copy()
+            if shape == "dict_col":
+                bar = bar[:, None]
+            elif shape == "dict_row":
+                bar = bar[None, :]
+            elif shape == "dict_multi":
+                bar = np.column_stack([bar, np.full(n, 999)])
+            weights = {"weights": raw_w.copy(), "weights_bar": bar}
+        originals = {key: value.copy() for key, value in weights.items()} if isinstance(weights, dict) else weights.copy()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            model = _fit(data, weights, store_diagnostics=store_diagnostics)
+>           result = _estimate(model)
+                     ^^^^^^^^^^^^^^^^
+
+tests\inference\test_irm_fit_weight_alignment.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\inference\test_irm_fit_weight_alignment.py:49: in _estimate
+    return model.estimate(score="ATE")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1522: in estimate
+    components = self._compute_estimate_components(
+causalis\scenarios\unconfoundedness\model.py:1105: in _compute_estimate_components
+    w, w_bar = self._get_weights(n, m_hat, d, score=score)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1038: in _get_weights
+    return _resolve_irm_weights(
+causalis\scenarios\unconfoundedness\_score_utils.py:146: in _resolve_irm_weights
+    w = _to_1d(weights, name="weights")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+arr = array([0.3       , 0.31428571, 0.32857143, 0.34285714, 0.35714286,
+       0.37142857, 0.38571429, 0.4       , 0.414285...57, 1.88571429, 1.9       , 1.91428571, 1.92857143,
+       1.94285714, 1.95714286, 1.97142857, 1.98571429, 2.        ])
+name = 'weights'
+
+    def _to_1d(arr: Any, *, name: str) -> np.ndarray:
+        vec = np.asarray(arr, dtype=float)
+        if vec.ndim == 1:
+            pass
+        elif vec.ndim == 2 and 1 in vec.shape:
+            vec = vec.reshape(-1)
+        else:
+            raise ValueError(f"{name} must be 1D with shape (n,), got shape {vec.shape}.")
+        if vec.shape[0] != n:
+>           raise ValueError(f"{name} must have shape (n,) with n={n}, got shape {vec.shape}.")
+E           ValueError: weights must have shape (n,) with n=80, got shape (120,).
+
+causalis\scenarios\unconfoundedness\_score_utils.py:137: ValueError
+_ test_drop_weights_match_manual_retained_score_and_preserve_inputs[True-array_col] _
+
+shape = 'array_col', store_diagnostics = True
+
+    @pytest.mark.parametrize("shape", ["array", "array_col", "array_row", "dict", "dict_col", "dict_row", "dict_multi"])
+    @pytest.mark.parametrize("store_diagnostics", [False, True])
+    def test_drop_weights_match_manual_retained_score_and_preserve_inputs(shape, store_diagnostics):
+        data = _data()
+        original = data.df.copy(deep=True)
+        n = len(original)
+        raw_w = np.linspace(0.3, 2.0, n)
+        raw_bar = np.linspace(2.5, 0.8, n)
+        if shape.startswith("array"):
+            weights = raw_w.copy()
+            if shape == "array_col":
+                weights = weights[:, None]
+            elif shape == "array_row":
+                weights = weights[None, :]
+            raw_bar = raw_w
+        else:
+            bar = raw_bar.copy()
+            if shape == "dict_col":
+                bar = bar[:, None]
+            elif shape == "dict_row":
+                bar = bar[None, :]
+            elif shape == "dict_multi":
+                bar = np.column_stack([bar, np.full(n, 999)])
+            weights = {"weights": raw_w.copy(), "weights_bar": bar}
+        originals = {key: value.copy() for key, value in weights.items()} if isinstance(weights, dict) else weights.copy()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            model = _fit(data, weights, store_diagnostics=store_diagnostics)
+>           result = _estimate(model)
+                     ^^^^^^^^^^^^^^^^
+
+tests\inference\test_irm_fit_weight_alignment.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\inference\test_irm_fit_weight_alignment.py:49: in _estimate
+    return model.estimate(score="ATE")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1522: in estimate
+    components = self._compute_estimate_components(
+causalis\scenarios\unconfoundedness\model.py:1105: in _compute_estimate_components
+    w, w_bar = self._get_weights(n, m_hat, d, score=score)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1038: in _get_weights
+    return _resolve_irm_weights(
+causalis\scenarios\unconfoundedness\_score_utils.py:146: in _resolve_irm_weights
+    w = _to_1d(weights, name="weights")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+arr = array([[0.3       ],
+       [0.31428571],
+       [0.32857143],
+       [0.34285714],
+       [0.35714286],
+       [0.371...[1.92857143],
+       [1.94285714],
+       [1.95714286],
+       [1.97142857],
+       [1.98571429],
+       [2.        ]])
+name = 'weights'
+
+    def _to_1d(arr: Any, *, name: str) -> np.ndarray:
+        vec = np.asarray(arr, dtype=float)
+        if vec.ndim == 1:
+            pass
+        elif vec.ndim == 2 and 1 in vec.shape:
+            vec = vec.reshape(-1)
+        else:
+            raise ValueError(f"{name} must be 1D with shape (n,), got shape {vec.shape}.")
+        if vec.shape[0] != n:
+>           raise ValueError(f"{name} must have shape (n,) with n={n}, got shape {vec.shape}.")
+E           ValueError: weights must have shape (n,) with n=80, got shape (120,).
+
+causalis\scenarios\unconfoundedness\_score_utils.py:137: ValueError
+_ test_drop_weights_match_manual_retained_score_and_preserve_inputs[True-array_row] _
+
+shape = 'array_row', store_diagnostics = True
+
+    @pytest.mark.parametrize("shape", ["array", "array_col", "array_row", "dict", "dict_col", "dict_row", "dict_multi"])
+    @pytest.mark.parametrize("store_diagnostics", [False, True])
+    def test_drop_weights_match_manual_retained_score_and_preserve_inputs(shape, store_diagnostics):
+        data = _data()
+        original = data.df.copy(deep=True)
+        n = len(original)
+        raw_w = np.linspace(0.3, 2.0, n)
+        raw_bar = np.linspace(2.5, 0.8, n)
+        if shape.startswith("array"):
+            weights = raw_w.copy()
+            if shape == "array_col":
+                weights = weights[:, None]
+            elif shape == "array_row":
+                weights = weights[None, :]
+            raw_bar = raw_w
+        else:
+            bar = raw_bar.copy()
+            if shape == "dict_col":
+                bar = bar[:, None]
+            elif shape == "dict_row":
+                bar = bar[None, :]
+            elif shape == "dict_multi":
+                bar = np.column_stack([bar, np.full(n, 999)])
+            weights = {"weights": raw_w.copy(), "weights_bar": bar}
+        originals = {key: value.copy() for key, value in weights.items()} if isinstance(weights, dict) else weights.copy()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            model = _fit(data, weights, store_diagnostics=store_diagnostics)
+>           result = _estimate(model)
+                     ^^^^^^^^^^^^^^^^
+
+tests\inference\test_irm_fit_weight_alignment.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\inference\test_irm_fit_weight_alignment.py:49: in _estimate
+    return model.estimate(score="ATE")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1522: in estimate
+    components = self._compute_estimate_components(
+causalis\scenarios\unconfoundedness\model.py:1105: in _compute_estimate_components
+    w, w_bar = self._get_weights(n, m_hat, d, score=score)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1038: in _get_weights
+    return _resolve_irm_weights(
+causalis\scenarios\unconfoundedness\_score_utils.py:146: in _resolve_irm_weights
+    w = _to_1d(weights, name="weights")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+arr = array([[0.3       , 0.31428571, 0.32857143, 0.34285714, 0.35714286,
+        0.37142857, 0.38571429, 0.4       , 0.4142..., 1.88571429, 1.9       , 1.91428571, 1.92857143,
+        1.94285714, 1.95714286, 1.97142857, 1.98571429, 2.        ]])
+name = 'weights'
+
+    def _to_1d(arr: Any, *, name: str) -> np.ndarray:
+        vec = np.asarray(arr, dtype=float)
+        if vec.ndim == 1:
+            pass
+        elif vec.ndim == 2 and 1 in vec.shape:
+            vec = vec.reshape(-1)
+        else:
+            raise ValueError(f"{name} must be 1D with shape (n,), got shape {vec.shape}.")
+        if vec.shape[0] != n:
+>           raise ValueError(f"{name} must have shape (n,) with n={n}, got shape {vec.shape}.")
+E           ValueError: weights must have shape (n,) with n=80, got shape (120,).
+
+causalis\scenarios\unconfoundedness\_score_utils.py:137: ValueError
+_ test_drop_weights_match_manual_retained_score_and_preserve_inputs[True-dict] _
+
+shape = 'dict', store_diagnostics = True
+
+    @pytest.mark.parametrize("shape", ["array", "array_col", "array_row", "dict", "dict_col", "dict_row", "dict_multi"])
+    @pytest.mark.parametrize("store_diagnostics", [False, True])
+    def test_drop_weights_match_manual_retained_score_and_preserve_inputs(shape, store_diagnostics):
+        data = _data()
+        original = data.df.copy(deep=True)
+        n = len(original)
+        raw_w = np.linspace(0.3, 2.0, n)
+        raw_bar = np.linspace(2.5, 0.8, n)
+        if shape.startswith("array"):
+            weights = raw_w.copy()
+            if shape == "array_col":
+                weights = weights[:, None]
+            elif shape == "array_row":
+                weights = weights[None, :]
+            raw_bar = raw_w
+        else:
+            bar = raw_bar.copy()
+            if shape == "dict_col":
+                bar = bar[:, None]
+            elif shape == "dict_row":
+                bar = bar[None, :]
+            elif shape == "dict_multi":
+                bar = np.column_stack([bar, np.full(n, 999)])
+            weights = {"weights": raw_w.copy(), "weights_bar": bar}
+        originals = {key: value.copy() for key, value in weights.items()} if isinstance(weights, dict) else weights.copy()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            model = _fit(data, weights, store_diagnostics=store_diagnostics)
+>           result = _estimate(model)
+                     ^^^^^^^^^^^^^^^^
+
+tests\inference\test_irm_fit_weight_alignment.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\inference\test_irm_fit_weight_alignment.py:49: in _estimate
+    return model.estimate(score="ATE")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1522: in estimate
+    components = self._compute_estimate_components(
+causalis\scenarios\unconfoundedness\model.py:1105: in _compute_estimate_components
+    w, w_bar = self._get_weights(n, m_hat, d, score=score)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1038: in _get_weights
+    return _resolve_irm_weights(
+causalis\scenarios\unconfoundedness\_score_utils.py:150: in _resolve_irm_weights
+    w = _to_1d(weights["weights"], name="weights['weights']")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+arr = array([0.3       , 0.31428571, 0.32857143, 0.34285714, 0.35714286,
+       0.37142857, 0.38571429, 0.4       , 0.414285...57, 1.88571429, 1.9       , 1.91428571, 1.92857143,
+       1.94285714, 1.95714286, 1.97142857, 1.98571429, 2.        ])
+name = "weights['weights']"
+
+    def _to_1d(arr: Any, *, name: str) -> np.ndarray:
+        vec = np.asarray(arr, dtype=float)
+        if vec.ndim == 1:
+            pass
+        elif vec.ndim == 2 and 1 in vec.shape:
+            vec = vec.reshape(-1)
+        else:
+            raise ValueError(f"{name} must be 1D with shape (n,), got shape {vec.shape}.")
+        if vec.shape[0] != n:
+>           raise ValueError(f"{name} must have shape (n,) with n={n}, got shape {vec.shape}.")
+E           ValueError: weights['weights'] must have shape (n,) with n=80, got shape (120,).
+
+causalis\scenarios\unconfoundedness\_score_utils.py:137: ValueError
+_ test_drop_weights_match_manual_retained_score_and_preserve_inputs[True-dict_col] _
+
+shape = 'dict_col', store_diagnostics = True
+
+    @pytest.mark.parametrize("shape", ["array", "array_col", "array_row", "dict", "dict_col", "dict_row", "dict_multi"])
+    @pytest.mark.parametrize("store_diagnostics", [False, True])
+    def test_drop_weights_match_manual_retained_score_and_preserve_inputs(shape, store_diagnostics):
+        data = _data()
+        original = data.df.copy(deep=True)
+        n = len(original)
+        raw_w = np.linspace(0.3, 2.0, n)
+        raw_bar = np.linspace(2.5, 0.8, n)
+        if shape.startswith("array"):
+            weights = raw_w.copy()
+            if shape == "array_col":
+                weights = weights[:, None]
+            elif shape == "array_row":
+                weights = weights[None, :]
+            raw_bar = raw_w
+        else:
+            bar = raw_bar.copy()
+            if shape == "dict_col":
+                bar = bar[:, None]
+            elif shape == "dict_row":
+                bar = bar[None, :]
+            elif shape == "dict_multi":
+                bar = np.column_stack([bar, np.full(n, 999)])
+            weights = {"weights": raw_w.copy(), "weights_bar": bar}
+        originals = {key: value.copy() for key, value in weights.items()} if isinstance(weights, dict) else weights.copy()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            model = _fit(data, weights, store_diagnostics=store_diagnostics)
+>           result = _estimate(model)
+                     ^^^^^^^^^^^^^^^^
+
+tests\inference\test_irm_fit_weight_alignment.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\inference\test_irm_fit_weight_alignment.py:49: in _estimate
+    return model.estimate(score="ATE")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1522: in estimate
+    components = self._compute_estimate_components(
+causalis\scenarios\unconfoundedness\model.py:1105: in _compute_estimate_components
+    w, w_bar = self._get_weights(n, m_hat, d, score=score)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1038: in _get_weights
+    return _resolve_irm_weights(
+causalis\scenarios\unconfoundedness\_score_utils.py:150: in _resolve_irm_weights
+    w = _to_1d(weights["weights"], name="weights['weights']")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+arr = array([0.3       , 0.31428571, 0.32857143, 0.34285714, 0.35714286,
+       0.37142857, 0.38571429, 0.4       , 0.414285...57, 1.88571429, 1.9       , 1.91428571, 1.92857143,
+       1.94285714, 1.95714286, 1.97142857, 1.98571429, 2.        ])
+name = "weights['weights']"
+
+    def _to_1d(arr: Any, *, name: str) -> np.ndarray:
+        vec = np.asarray(arr, dtype=float)
+        if vec.ndim == 1:
+            pass
+        elif vec.ndim == 2 and 1 in vec.shape:
+            vec = vec.reshape(-1)
+        else:
+            raise ValueError(f"{name} must be 1D with shape (n,), got shape {vec.shape}.")
+        if vec.shape[0] != n:
+>           raise ValueError(f"{name} must have shape (n,) with n={n}, got shape {vec.shape}.")
+E           ValueError: weights['weights'] must have shape (n,) with n=80, got shape (120,).
+
+causalis\scenarios\unconfoundedness\_score_utils.py:137: ValueError
+_ test_drop_weights_match_manual_retained_score_and_preserve_inputs[True-dict_row] _
+
+shape = 'dict_row', store_diagnostics = True
+
+    @pytest.mark.parametrize("shape", ["array", "array_col", "array_row", "dict", "dict_col", "dict_row", "dict_multi"])
+    @pytest.mark.parametrize("store_diagnostics", [False, True])
+    def test_drop_weights_match_manual_retained_score_and_preserve_inputs(shape, store_diagnostics):
+        data = _data()
+        original = data.df.copy(deep=True)
+        n = len(original)
+        raw_w = np.linspace(0.3, 2.0, n)
+        raw_bar = np.linspace(2.5, 0.8, n)
+        if shape.startswith("array"):
+            weights = raw_w.copy()
+            if shape == "array_col":
+                weights = weights[:, None]
+            elif shape == "array_row":
+                weights = weights[None, :]
+            raw_bar = raw_w
+        else:
+            bar = raw_bar.copy()
+            if shape == "dict_col":
+                bar = bar[:, None]
+            elif shape == "dict_row":
+                bar = bar[None, :]
+            elif shape == "dict_multi":
+                bar = np.column_stack([bar, np.full(n, 999)])
+            weights = {"weights": raw_w.copy(), "weights_bar": bar}
+        originals = {key: value.copy() for key, value in weights.items()} if isinstance(weights, dict) else weights.copy()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            model = _fit(data, weights, store_diagnostics=store_diagnostics)
+>           result = _estimate(model)
+                     ^^^^^^^^^^^^^^^^
+
+tests\inference\test_irm_fit_weight_alignment.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\inference\test_irm_fit_weight_alignment.py:49: in _estimate
+    return model.estimate(score="ATE")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1522: in estimate
+    components = self._compute_estimate_components(
+causalis\scenarios\unconfoundedness\model.py:1105: in _compute_estimate_components
+    w, w_bar = self._get_weights(n, m_hat, d, score=score)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1038: in _get_weights
+    return _resolve_irm_weights(
+causalis\scenarios\unconfoundedness\_score_utils.py:150: in _resolve_irm_weights
+    w = _to_1d(weights["weights"], name="weights['weights']")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+arr = array([0.3       , 0.31428571, 0.32857143, 0.34285714, 0.35714286,
+       0.37142857, 0.38571429, 0.4       , 0.414285...57, 1.88571429, 1.9       , 1.91428571, 1.92857143,
+       1.94285714, 1.95714286, 1.97142857, 1.98571429, 2.        ])
+name = "weights['weights']"
+
+    def _to_1d(arr: Any, *, name: str) -> np.ndarray:
+        vec = np.asarray(arr, dtype=float)
+        if vec.ndim == 1:
+            pass
+        elif vec.ndim == 2 and 1 in vec.shape:
+            vec = vec.reshape(-1)
+        else:
+            raise ValueError(f"{name} must be 1D with shape (n,), got shape {vec.shape}.")
+        if vec.shape[0] != n:
+>           raise ValueError(f"{name} must have shape (n,) with n={n}, got shape {vec.shape}.")
+E           ValueError: weights['weights'] must have shape (n,) with n=80, got shape (120,).
+
+causalis\scenarios\unconfoundedness\_score_utils.py:137: ValueError
+_ test_drop_weights_match_manual_retained_score_and_preserve_inputs[True-dict_multi] _
+
+shape = 'dict_multi', store_diagnostics = True
+
+    @pytest.mark.parametrize("shape", ["array", "array_col", "array_row", "dict", "dict_col", "dict_row", "dict_multi"])
+    @pytest.mark.parametrize("store_diagnostics", [False, True])
+    def test_drop_weights_match_manual_retained_score_and_preserve_inputs(shape, store_diagnostics):
+        data = _data()
+        original = data.df.copy(deep=True)
+        n = len(original)
+        raw_w = np.linspace(0.3, 2.0, n)
+        raw_bar = np.linspace(2.5, 0.8, n)
+        if shape.startswith("array"):
+            weights = raw_w.copy()
+            if shape == "array_col":
+                weights = weights[:, None]
+            elif shape == "array_row":
+                weights = weights[None, :]
+            raw_bar = raw_w
+        else:
+            bar = raw_bar.copy()
+            if shape == "dict_col":
+                bar = bar[:, None]
+            elif shape == "dict_row":
+                bar = bar[None, :]
+            elif shape == "dict_multi":
+                bar = np.column_stack([bar, np.full(n, 999)])
+            weights = {"weights": raw_w.copy(), "weights_bar": bar}
+        originals = {key: value.copy() for key, value in weights.items()} if isinstance(weights, dict) else weights.copy()
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            model = _fit(data, weights, store_diagnostics=store_diagnostics)
+>           result = _estimate(model)
+                     ^^^^^^^^^^^^^^^^
+
+tests\inference\test_irm_fit_weight_alignment.py:80: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\inference\test_irm_fit_weight_alignment.py:49: in _estimate
+    return model.estimate(score="ATE")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1522: in estimate
+    components = self._compute_estimate_components(
+causalis\scenarios\unconfoundedness\model.py:1105: in _compute_estimate_components
+    w, w_bar = self._get_weights(n, m_hat, d, score=score)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1038: in _get_weights
+    return _resolve_irm_weights(
+causalis\scenarios\unconfoundedness\_score_utils.py:150: in _resolve_irm_weights
+    w = _to_1d(weights["weights"], name="weights['weights']")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+arr = array([0.3       , 0.31428571, 0.32857143, 0.34285714, 0.35714286,
+       0.37142857, 0.38571429, 0.4       , 0.414285...57, 1.88571429, 1.9       , 1.91428571, 1.92857143,
+       1.94285714, 1.95714286, 1.97142857, 1.98571429, 2.        ])
+name = "weights['weights']"
+
+    def _to_1d(arr: Any, *, name: str) -> np.ndarray:
+        vec = np.asarray(arr, dtype=float)
+        if vec.ndim == 1:
+            pass
+        elif vec.ndim == 2 and 1 in vec.shape:
+            vec = vec.reshape(-1)
+        else:
+            raise ValueError(f"{name} must be 1D with shape (n,), got shape {vec.shape}.")
+        if vec.shape[0] != n:
+>           raise ValueError(f"{name} must have shape (n,) with n={n}, got shape {vec.shape}.")
+E           ValueError: weights['weights'] must have shape (n,) with n=80, got shape (120,).
+
+causalis\scenarios\unconfoundedness\_score_utils.py:137: ValueError
+__ test_weights_snapshot_survives_mutation_and_refit_uses_full_sample[clip] ___
+
+policy = 'clip'
+
+    @pytest.mark.parametrize("policy", ["clip", "drop"])
+    def test_weights_snapshot_survives_mutation_and_refit_uses_full_sample(policy):
+        data = _data()
+        original = data.df.copy(deep=True)
+        w = np.linspace(0.3, 2.0, len(data.df))
+        w_bar = np.linspace(2.5, 0.8, len(data.df))
+        weights = {"weights": w, "weights_bar": w_bar}
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            model = IRM(data, weights=weights, ml_g=LinearRegression(), ml_m=FeaturePropensity(), n_folds=3,
+                        overlap_policy=policy, overlap_threshold=0.1, random_state=7).fit()
+        first = _estimate(model)
+        first_psi = model.psi_.copy()
+        w[:] = w[::-1].copy()
+        w_bar[:] = w_bar[::-1].copy()
+        model.weights = None
+        second = _estimate(model)
+>       assert second.value == pytest.approx(first.value)
+E       assert 0.5062209968276328 == 0.677173810007977 � 6.8e-07
+E         
+E         comparison failed
+E         Obtained: 0.5062209968276328
+E         Expected: 0.677173810007977 � 6.8e-07
+
+tests\inference\test_irm_fit_weight_alignment.py:123: AssertionError
+__ test_weights_snapshot_survives_mutation_and_refit_uses_full_sample[drop] ___
+
+policy = 'drop'
+
+    @pytest.mark.parametrize("policy", ["clip", "drop"])
+    def test_weights_snapshot_survives_mutation_and_refit_uses_full_sample(policy):
+        data = _data()
+        original = data.df.copy(deep=True)
+        w = np.linspace(0.3, 2.0, len(data.df))
+        w_bar = np.linspace(2.5, 0.8, len(data.df))
+        weights = {"weights": w, "weights_bar": w_bar}
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", RuntimeWarning)
+            model = IRM(data, weights=weights, ml_g=LinearRegression(), ml_m=FeaturePropensity(), n_folds=3,
+                        overlap_policy=policy, overlap_threshold=0.1, random_state=7).fit()
+>       first = _estimate(model)
+                ^^^^^^^^^^^^^^^^
+
+tests\inference\test_irm_fit_weight_alignment.py:117: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\inference\test_irm_fit_weight_alignment.py:49: in _estimate
+    return model.estimate(score="ATE")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1522: in estimate
+    components = self._compute_estimate_components(
+causalis\scenarios\unconfoundedness\model.py:1105: in _compute_estimate_components
+    w, w_bar = self._get_weights(n, m_hat, d, score=score)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis\scenarios\unconfoundedness\model.py:1038: in _get_weights
+    return _resolve_irm_weights(
+causalis\scenarios\unconfoundedness\_score_utils.py:150: in _resolve_irm_weights
+    w = _to_1d(weights["weights"], name="weights['weights']")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+arr = array([0.3       , 0.31428571, 0.32857143, 0.34285714, 0.35714286,
+       0.37142857, 0.38571429, 0.4       , 0.414285...57, 1.88571429, 1.9       , 1.91428571, 1.92857143,
+       1.94285714, 1.95714286, 1.97142857, 1.98571429, 2.        ])
+name = "weights['weights']"
+
+    def _to_1d(arr: Any, *, name: str) -> np.ndarray:
+        vec = np.asarray(arr, dtype=float)
+        if vec.ndim == 1:
+            pass
+        elif vec.ndim == 2 and 1 in vec.shape:
+            vec = vec.reshape(-1)
+        else:
+            raise ValueError(f"{name} must be 1D with shape (n,), got shape {vec.shape}.")
+        if vec.shape[0] != n:
+>           raise ValueError(f"{name} must have shape (n,) with n={n}, got shape {vec.shape}.")
+E           ValueError: weights['weights'] must have shape (n,) with n=80, got shape (120,).
+
+causalis\scenarios\unconfoundedness\_score_utils.py:137: ValueError
+____ test_invalid_full_sample_weights_fail_before_nuisance_fitting[length] ____
+
+invalid = 'length'
+
+    @pytest.mark.parametrize("invalid", ["length", "bar_length", "nonfinite", "bar_nonfinite", "zero_mean", "missing_key"])
+    def test_invalid_full_sample_weights_fail_before_nuisance_fitting(invalid):
+        data = _data()
+        n = len(data.df)
+        weights = {"weights": np.ones(n), "weights_bar": np.ones(n)}
+        if invalid == "length":
+            weights["weights"] = np.ones(n - 1)
+        elif invalid == "bar_length":
+            weights["weights_bar"] = np.ones(n - 1)
+        elif invalid == "nonfinite":
+            weights["weights"][0] = np.inf
+        elif invalid == "bar_nonfinite":
+            weights["weights_bar"][0] = np.nan
+        elif invalid == "zero_mean":
+            weights["weights"][:] = 0
+        else:
+            del weights["weights"]
+        FeaturePropensity.fit_calls = 0
+>       with pytest.raises(ValueError, match="weights"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\inference\test_irm_fit_weight_alignment.py:157: Failed
+__ test_invalid_full_sample_weights_fail_before_nuisance_fitting[bar_length] __
+
+invalid = 'bar_length'
+
+    @pytest.mark.parametrize("invalid", ["length", "bar_length", "nonfinite", "bar_nonfinite", "zero_mean", "missing_key"])
+    def test_invalid_full_sample_weights_fail_before_nuisance_fitting(invalid):
+        data = _data()
+        n = len(data.df)
+        weights = {"weights": np.ones(n), "weights_bar": np.ones(n)}
+        if invalid == "length":
+            weights["weights"] = np.ones(n - 1)
+        elif invalid == "bar_length":
+            weights["weights_bar"] = np.ones(n - 1)
+        elif invalid == "nonfinite":
+            weights["weights"][0] = np.inf
+        elif invalid == "bar_nonfinite":
+            weights["weights_bar"][0] = np.nan
+        elif invalid == "zero_mean":
+            weights["weights"][:] = 0
+        else:
+            del weights["weights"]
+        FeaturePropensity.fit_calls = 0
+>       with pytest.raises(ValueError, match="weights"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\inference\test_irm_fit_weight_alignment.py:157: Failed
+__ test_invalid_full_sample_weights_fail_before_nuisance_fitting[nonfinite] ___
+
+invalid = 'nonfinite'
+
+    @pytest.mark.parametrize("invalid", ["length", "bar_length", "nonfinite", "bar_nonfinite", "zero_mean", "missing_key"])
+    def test_invalid_full_sample_weights_fail_before_nuisance_fitting(invalid):
+        data = _data()
+        n = len(data.df)
+        weights = {"weights": np.ones(n), "weights_bar": np.ones(n)}
+        if invalid == "length":
+            weights["weights"] = np.ones(n - 1)
+        elif invalid == "bar_length":
+            weights["weights_bar"] = np.ones(n - 1)
+        elif invalid == "nonfinite":
+            weights["weights"][0] = np.inf
+        elif invalid == "bar_nonfinite":
+            weights["weights_bar"][0] = np.nan
+        elif invalid == "zero_mean":
+            weights["weights"][:] = 0
+        else:
+            del weights["weights"]
+        FeaturePropensity.fit_calls = 0
+>       with pytest.raises(ValueError, match="weights"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\inference\test_irm_fit_weight_alignment.py:157: Failed
+_ test_invalid_full_sample_weights_fail_before_nuisance_fitting[bar_nonfinite] _
+
+invalid = 'bar_nonfinite'
+
+    @pytest.mark.parametrize("invalid", ["length", "bar_length", "nonfinite", "bar_nonfinite", "zero_mean", "missing_key"])
+    def test_invalid_full_sample_weights_fail_before_nuisance_fitting(invalid):
+        data = _data()
+        n = len(data.df)
+        weights = {"weights": np.ones(n), "weights_bar": np.ones(n)}
+        if invalid == "length":
+            weights["weights"] = np.ones(n - 1)
+        elif invalid == "bar_length":
+            weights["weights_bar"] = np.ones(n - 1)
+        elif invalid == "nonfinite":
+            weights["weights"][0] = np.inf
+        elif invalid == "bar_nonfinite":
+            weights["weights_bar"][0] = np.nan
+        elif invalid == "zero_mean":
+            weights["weights"][:] = 0
+        else:
+            del weights["weights"]
+        FeaturePropensity.fit_calls = 0
+>       with pytest.raises(ValueError, match="weights"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\inference\test_irm_fit_weight_alignment.py:157: Failed
+__ test_invalid_full_sample_weights_fail_before_nuisance_fitting[zero_mean] ___
+
+invalid = 'zero_mean'
+
+    @pytest.mark.parametrize("invalid", ["length", "bar_length", "nonfinite", "bar_nonfinite", "zero_mean", "missing_key"])
+    def test_invalid_full_sample_weights_fail_before_nuisance_fitting(invalid):
+        data = _data()
+        n = len(data.df)
+        weights = {"weights": np.ones(n), "weights_bar": np.ones(n)}
+        if invalid == "length":
+            weights["weights"] = np.ones(n - 1)
+        elif invalid == "bar_length":
+            weights["weights_bar"] = np.ones(n - 1)
+        elif invalid == "nonfinite":
+            weights["weights"][0] = np.inf
+        elif invalid == "bar_nonfinite":
+            weights["weights_bar"][0] = np.nan
+        elif invalid == "zero_mean":
+            weights["weights"][:] = 0
+        else:
+            del weights["weights"]
+        FeaturePropensity.fit_calls = 0
+>       with pytest.raises(ValueError, match="weights"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\inference\test_irm_fit_weight_alignment.py:157: Failed
+_ test_invalid_full_sample_weights_fail_before_nuisance_fitting[missing_key] __
+
+invalid = 'missing_key'
+
+    @pytest.mark.parametrize("invalid", ["length", "bar_length", "nonfinite", "bar_nonfinite", "zero_mean", "missing_key"])
+    def test_invalid_full_sample_weights_fail_before_nuisance_fitting(invalid):
+        data = _data()
+        n = len(data.df)
+        weights = {"weights": np.ones(n), "weights_bar": np.ones(n)}
+        if invalid == "length":
+            weights["weights"] = np.ones(n - 1)
+        elif invalid == "bar_length":
+            weights["weights_bar"] = np.ones(n - 1)
+        elif invalid == "nonfinite":
+            weights["weights"][0] = np.inf
+        elif invalid == "bar_nonfinite":
+            weights["weights_bar"][0] = np.nan
+        elif invalid == "zero_mean":
+            weights["weights"][:] = 0
+        else:
+            del weights["weights"]
+        FeaturePropensity.fit_calls = 0
+>       with pytest.raises(ValueError, match="weights"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\inference\test_irm_fit_weight_alignment.py:157: Failed
+_ test_successful_refit_rebuilds_lazy_cate_cache_and_matches_fresh_model[outcome] _
+
+change = 'outcome'
+
+    @pytest.mark.parametrize("change", ["outcome", "features", "learner"])
+    def test_successful_refit_rebuilds_lazy_cate_cache_and_matches_fresh_model(change):
+        from sklearn.dummy import DummyRegressor
+    
+        CountingRegressor.reset()
+        data = _make_continuous_causal_data()
+        model = IRM(data, ml_g=CountingRegressor(), ml_m=CountingClassifier(), n_folds=3, random_state=42).fit()
+        old = model.predict_cate(data.X.iloc[:8])
+        old_g0, old_g1 = model._uplift_g0_model_, model._uplift_g1_model_
+        frame = data.df.copy(deep=True)
+        if change == "outcome":
+            frame["y"] += 4.0 * frame["d"]
+        elif change == "features":
+            frame.rename(columns={"x1": "z1", "x2": "z2"}, inplace=True)
+        else:
+            model.ml_g = DummyRegressor()
+        names = ["z1", "z2"] if change == "features" else ["x1", "x2"]
+        new_data = CausalData(df=frame, outcome="y", treatment="d", confounders=names, user_id="user_id")
+        model.fit(new_data)
+        for name in ("_uplift_g0_model_", "_uplift_g1_model_", "_uplift_feature_names_", "_uplift_y_is_binary_"):
+>           assert not hasattr(model, name)
+E           AssertionError: assert not True
+E            +  where True = hasattr(IRM(status='fitted', n_folds=3, random_state=42), '_uplift_g0_model_')
+
+tests\scenarios\uplift\test_irm_predict_cate.py:221: AssertionError
+_ test_successful_refit_rebuilds_lazy_cate_cache_and_matches_fresh_model[features] _
+
+change = 'features'
+
+    @pytest.mark.parametrize("change", ["outcome", "features", "learner"])
+    def test_successful_refit_rebuilds_lazy_cate_cache_and_matches_fresh_model(change):
+        from sklearn.dummy import DummyRegressor
+    
+        CountingRegressor.reset()
+        data = _make_continuous_causal_data()
+        model = IRM(data, ml_g=CountingRegressor(), ml_m=CountingClassifier(), n_folds=3, random_state=42).fit()
+        old = model.predict_cate(data.X.iloc[:8])
+        old_g0, old_g1 = model._uplift_g0_model_, model._uplift_g1_model_
+        frame = data.df.copy(deep=True)
+        if change == "outcome":
+            frame["y"] += 4.0 * frame["d"]
+        elif change == "features":
+            frame.rename(columns={"x1": "z1", "x2": "z2"}, inplace=True)
+        else:
+            model.ml_g = DummyRegressor()
+        names = ["z1", "z2"] if change == "features" else ["x1", "x2"]
+        new_data = CausalData(df=frame, outcome="y", treatment="d", confounders=names, user_id="user_id")
+        model.fit(new_data)
+        for name in ("_uplift_g0_model_", "_uplift_g1_model_", "_uplift_feature_names_", "_uplift_y_is_binary_"):
+>           assert not hasattr(model, name)
+E           AssertionError: assert not True
+E            +  where True = hasattr(IRM(status='fitted', n_folds=3, random_state=42), '_uplift_g0_model_')
+
+tests\scenarios\uplift\test_irm_predict_cate.py:221: AssertionError
+_ test_successful_refit_rebuilds_lazy_cate_cache_and_matches_fresh_model[learner] _
+
+change = 'learner'
+
+    @pytest.mark.parametrize("change", ["outcome", "features", "learner"])
+    def test_successful_refit_rebuilds_lazy_cate_cache_and_matches_fresh_model(change):
+        from sklearn.dummy import DummyRegressor
+    
+        CountingRegressor.reset()
+        data = _make_continuous_causal_data()
+        model = IRM(data, ml_g=CountingRegressor(), ml_m=CountingClassifier(), n_folds=3, random_state=42).fit()
+        old = model.predict_cate(data.X.iloc[:8])
+        old_g0, old_g1 = model._uplift_g0_model_, model._uplift_g1_model_
+        frame = data.df.copy(deep=True)
+        if change == "outcome":
+            frame["y"] += 4.0 * frame["d"]
+        elif change == "features":
+            frame.rename(columns={"x1": "z1", "x2": "z2"}, inplace=True)
+        else:
+            model.ml_g = DummyRegressor()
+        names = ["z1", "z2"] if change == "features" else ["x1", "x2"]
+        new_data = CausalData(df=frame, outcome="y", treatment="d", confounders=names, user_id="user_id")
+        model.fit(new_data)
+        for name in ("_uplift_g0_model_", "_uplift_g1_model_", "_uplift_feature_names_", "_uplift_y_is_binary_"):
+>           assert not hasattr(model, name)
+E           AssertionError: assert not True
+E            +  where True = hasattr(IRM(status='fitted', n_folds=3, random_state=42), '_uplift_g0_model_')
+
+tests\scenarios\uplift\test_irm_predict_cate.py:221: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/inference/test_irm_atte_relative_if.py::test_constant_potential_outcomes_have_zero_relative_att_uncertainty[2-False]
+FAILED tests/inference/test_irm_atte_relative_if.py::test_constant_potential_outcomes_have_zero_relative_att_uncertainty[2-True]
+FAILED tests/inference/test_irm_atte_relative_if.py::test_constant_potential_outcomes_have_zero_relative_att_uncertainty[12-False]
+FAILED tests/inference/test_irm_atte_relative_if.py::test_constant_potential_outcomes_have_zero_relative_att_uncertainty[12-True]
+FAILED tests/inference/test_irm_atte_relative_if.py::test_constant_potential_outcomes_have_zero_relative_att_uncertainty[60-False]
+FAILED tests/inference/test_irm_atte_relative_if.py::test_constant_potential_outcomes_have_zero_relative_att_uncertainty[60-True]
+FAILED tests/inference/test_irm_atte_relative_if.py::test_relative_att_matches_contamination_derivative_with_covariance[4.0-False]
+FAILED tests/inference/test_irm_atte_relative_if.py::test_relative_att_matches_contamination_derivative_with_covariance[4.0-True]
+FAILED tests/inference/test_irm_atte_relative_if.py::test_relative_att_matches_contamination_derivative_with_covariance[-4.0-False]
+FAILED tests/inference/test_irm_atte_relative_if.py::test_relative_att_matches_contamination_derivative_with_covariance[-4.0-True]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_drop_weights_match_manual_retained_score_and_preserve_inputs[False-array]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_drop_weights_match_manual_retained_score_and_preserve_inputs[False-array_col]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_drop_weights_match_manual_retained_score_and_preserve_inputs[False-array_row]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_drop_weights_match_manual_retained_score_and_preserve_inputs[False-dict]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_drop_weights_match_manual_retained_score_and_preserve_inputs[False-dict_col]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_drop_weights_match_manual_retained_score_and_preserve_inputs[False-dict_row]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_drop_weights_match_manual_retained_score_and_preserve_inputs[False-dict_multi]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_drop_weights_match_manual_retained_score_and_preserve_inputs[True-array]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_drop_weights_match_manual_retained_score_and_preserve_inputs[True-array_col]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_drop_weights_match_manual_retained_score_and_preserve_inputs[True-array_row]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_drop_weights_match_manual_retained_score_and_preserve_inputs[True-dict]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_drop_weights_match_manual_retained_score_and_preserve_inputs[True-dict_col]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_drop_weights_match_manual_retained_score_and_preserve_inputs[True-dict_row]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_drop_weights_match_manual_retained_score_and_preserve_inputs[True-dict_multi]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_weights_snapshot_survives_mutation_and_refit_uses_full_sample[clip]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_weights_snapshot_survives_mutation_and_refit_uses_full_sample[drop]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_invalid_full_sample_weights_fail_before_nuisance_fitting[length]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_invalid_full_sample_weights_fail_before_nuisance_fitting[bar_length]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_invalid_full_sample_weights_fail_before_nuisance_fitting[nonfinite]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_invalid_full_sample_weights_fail_before_nuisance_fitting[bar_nonfinite]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_invalid_full_sample_weights_fail_before_nuisance_fitting[zero_mean]
+FAILED tests/inference/test_irm_fit_weight_alignment.py::test_invalid_full_sample_weights_fail_before_nuisance_fitting[missing_key]
+FAILED tests/scenarios/uplift/test_irm_predict_cate.py::test_successful_refit_rebuilds_lazy_cate_cache_and_matches_fresh_model[outcome]
+FAILED tests/scenarios/uplift/test_irm_predict_cate.py::test_successful_refit_rebuilds_lazy_cate_cache_and_matches_fresh_model[features]
+FAILED tests/scenarios/uplift/test_irm_predict_cate.py::test_successful_refit_rebuilds_lazy_cate_cache_and_matches_fresh_model[learner]
+35 failed, 5 passed in 17.04s

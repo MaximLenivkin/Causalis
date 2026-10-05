@@ -1,0 +1,36 @@
+........................................................................ [ 60%]
+...............................................                          [100%]
+============================== warnings summary ===============================
+tests/inference/test_irm_estimator.py::test_irm_ate_runs_and_shapes
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=5.351e-02 is within 1.96 SE of 0 (SE=7.132e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_irm_relative_ci.py::test_relative_ci_delta_method_matches_formula_with_weights
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1257: RuntimeWarning: ATE custom weights are normalized by sample mean; SE/IF treats this normalization as fixed (approximate).
+    warnings.warn(
+
+tests/inference/test_irm_att_normalize_ipw.py::test_att_normalize_ipw_invariance
+tests/inference/test_irm_score_identities.py::test_irm_atte_score_identities[True]
+tests/refutation/test_uncofoundedness_refutation_api.py::test_atte_keeps_canonical_unnormalized_weights
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\_score_utils.py:31: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+    warnings.warn(
+
+tests/refutation/test_uncofoundedness_refutation_api.py::test_uncofoundedness_single_api_with_causal_estimate
+tests/refutation/test_uncofoundedness_refutation_api.py::test_uncofoundedness_single_api_with_causal_estimate_and_causal_data_fallback
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1251: RuntimeWarning: normalize_ipw=True (H�jek) uses approximate SE/IF; denominator variability is treated as fixed.
+    warnings.warn(
+
+tests/refutation/test_uncofoundedness_refutation_api.py::test_uncofoundedness_single_api_with_causal_estimate
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=3.267e-02 is within 1.64 SE of 0 (SE=4.322e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_uncofoundedness_refutation_api.py::test_uncofoundedness_single_api_with_causal_estimate_and_causal_data_fallback
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=2.879e-02 is within 1.64 SE of 0 (SE=3.866e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_uncofoundedness_refutation_api.py::test_atte_keeps_canonical_unnormalized_weights
+  D:\codex\Causalis\causalis\scenarios\unconfoundedness\model.py:1368: RuntimeWarning: Relative effect baseline |mu_c|=6.496e-02 is within 1.64 SE of 0 (SE=3.977e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+119 passed, 10 warnings in 27.39s

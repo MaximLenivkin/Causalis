@@ -196,3 +196,37 @@ def test_estimate_cate_points_to_predict_cate():
 
     with pytest.raises(NotImplementedError, match="predict_cate"):
         model.estimate(score="CATE")
+
+
+@pytest.mark.parametrize("change", ["outcome", "features", "learner"])
+def test_successful_refit_rebuilds_lazy_cate_cache_and_matches_fresh_model(change):
+    from sklearn.dummy import DummyRegressor
+
+    CountingRegressor.reset()
+    data = _make_continuous_causal_data()
+    model = IRM(data, ml_g=CountingRegressor(), ml_m=CountingClassifier(), n_folds=3, random_state=42).fit()
+    old = model.predict_cate(data.X.iloc[:8])
+    old_g0, old_g1 = model._uplift_g0_model_, model._uplift_g1_model_
+    frame = data.df.copy(deep=True)
+    if change == "outcome":
+        frame["y"] += 4.0 * frame["d"]
+    elif change == "features":
+        frame.rename(columns={"x1": "z1", "x2": "z2"}, inplace=True)
+    else:
+        model.ml_g = DummyRegressor()
+    names = ["z1", "z2"] if change == "features" else ["x1", "x2"]
+    new_data = CausalData(df=frame, outcome="y", treatment="d", confounders=names, user_id="user_id")
+    model.fit(new_data)
+    for name in ("_uplift_g0_model_", "_uplift_g1_model_", "_uplift_feature_names_", "_uplift_y_is_binary_"):
+        assert not hasattr(model, name)
+    scoring = new_data.X.iloc[:8].copy()
+    result = model.predict_cate(scoring)
+    fresh = IRM(new_data, ml_g=model.ml_g, ml_m=CountingClassifier(), n_folds=3, random_state=42).fit()
+    np.testing.assert_allclose(result, fresh.predict_cate(scoring), rtol=1e-12, atol=1e-12)
+    assert model._uplift_g0_model_ is not old_g0
+    assert model._uplift_g1_model_ is not old_g1
+    if change == "outcome":
+        np.testing.assert_allclose(result, old + 4.0, atol=1e-12)
+    cached_calls = CountingRegressor.fit_calls
+    np.testing.assert_array_equal(model.predict_cate(scoring), result)
+    assert CountingRegressor.fit_calls == cached_calls
