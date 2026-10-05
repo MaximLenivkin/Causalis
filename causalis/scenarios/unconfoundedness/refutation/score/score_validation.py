@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import math
 from typing import Any, Dict, Optional, Tuple
 
 import numpy as np
@@ -251,23 +250,30 @@ def _grade(value: float, warn: float, strong: float) -> str:
     return "RED"
 
 
-def _two_sided_pvalue_from_t(t_stat: float) -> float:
-    """Approximate a two-sided Gaussian p-value from a t-like statistic."""
-    if not np.isfinite(t_stat):
-        return float("nan")
-    return float(math.erfc(abs(float(t_stat)) / math.sqrt(2.0)))
-
-
 def _oos_moment_test_from_psi(
     psi_a: np.ndarray,
     psi_b: np.ndarray,
     folds: np.ndarray,
 ) -> Dict[str, Any]:
-    """Compute out-of-sample moment checks using fold-wise leave-one-fold fits."""
-    fold_rows = []
-    psi_all: list[np.ndarray] = []
+    """Describe fold stability without claiming an independent OOS test.
 
+    The complement solution reuses already cross-fitted score arrays; it does
+    not refit nuisances on the complement. With equally sized ATE folds, the
+    sum of the held-out score means is identically zero. More generally these
+    fold residuals are dependent, so a Gaussian aggregate p-value is not
+    justified. Legacy test fields remain present as NaN, with available=False.
+
+    Effect ranges and leave-fold gaps are descriptive values on the effect
+    scale. The score-mean RMS uses fold sample sizes as weights. Complete
+    summaries require at least two folds with finite complement and fold
+    solutions; incomplete rows remain visible in fold_table.
+    """
+    fold_rows = []
+    psi_a = np.asarray(psi_a, dtype=float).ravel()
+    psi_b = np.asarray(psi_b, dtype=float).ravel()
     fold_ids = np.asarray(folds).ravel()
+    if psi_a.size != psi_b.size or fold_ids.size != psi_b.size:
+        raise ValueError("Score arrays and folds must have matching sample size.")
     unique_folds = np.unique(fold_ids)
 
     for fold_value in unique_folds:
@@ -281,9 +287,15 @@ def _oos_moment_test_from_psi(
 
         mean_a_train = float(np.mean(psi_a[train_mask]))
         mean_b_train = float(np.mean(psi_b[train_mask]))
+        mean_a_test = float(np.mean(psi_a[test_mask]))
+        mean_b_test = float(np.mean(psi_b[test_mask]))
+        theta_fold = (
+            float(-mean_b_test / mean_a_test)
+            if np.isfinite(mean_a_test) and abs(mean_a_test) > 1e-12 and np.isfinite(mean_b_test)
+            else float("nan")
+        )
         if (not np.isfinite(mean_a_train)) or abs(mean_a_train) <= 1e-12 or (not np.isfinite(mean_b_train)):
             theta_minus_k = float("nan")
-            psi_k = np.array([], dtype=float)
             mean_k = float("nan")
             var_k = float("nan")
         else:
@@ -291,8 +303,6 @@ def _oos_moment_test_from_psi(
             psi_k = np.asarray(psi_b[test_mask] + psi_a[test_mask] * theta_minus_k, dtype=float).ravel()
             mean_k = float(np.mean(psi_k)) if psi_k.size > 0 else float("nan")
             var_k = float(np.var(psi_k, ddof=1)) if psi_k.size > 1 else float("nan")
-            if psi_k.size > 0 and np.all(np.isfinite(psi_k)):
-                psi_all.append(psi_k)
 
         fold_rows.append(
             {
@@ -301,43 +311,57 @@ def _oos_moment_test_from_psi(
                 "theta_minus_k": theta_minus_k,
                 "psi_mean": mean_k,
                 "psi_var": var_k,
+                "theta_fold": theta_fold,
+                "theta_gap": theta_fold - theta_minus_k,
             }
         )
 
     fold_table = pd.DataFrame(fold_rows)
-    required_cols = ["fold", "n", "theta_minus_k", "psi_mean", "psi_var"]
+    required_cols = ["fold", "n", "theta_minus_k", "psi_mean", "psi_var", "theta_fold", "theta_gap"]
     if fold_table.empty:
         fold_table = pd.DataFrame(columns=required_cols)
     else:
         fold_table = fold_table[required_cols]
 
-    t_fold = float("nan")
-    if not fold_table.empty and np.all(np.isfinite(fold_table["psi_mean"].to_numpy(dtype=float))) and np.all(
-        np.isfinite(fold_table["psi_var"].to_numpy(dtype=float))
-    ):
+    complete = bool(
+        len(fold_table) >= 2
+        and np.all(np.isfinite(fold_table[["psi_mean", "theta_fold", "theta_gap"]].to_numpy(dtype=float)))
+    )
+    rms_mean = max_mean = theta_range = max_gap = float("nan")
+    if complete:
         n_k = fold_table["n"].to_numpy(dtype=float)
         mean_k = fold_table["psi_mean"].to_numpy(dtype=float)
-        var_k = fold_table["psi_var"].to_numpy(dtype=float)
-        denom = float(np.sqrt(np.sum(n_k * var_k)))
-        if denom > 0.0 and np.isfinite(denom):
-            t_fold = float(np.sum(n_k * mean_k) / denom)
-
-    t_strict = float("nan")
-    if psi_all:
-        psi_concat = np.concatenate(psi_all)
-        if psi_concat.size > 1 and np.all(np.isfinite(psi_concat)):
-            psi_mean_all = float(np.mean(psi_concat))
-            psi_var_all = float(np.var(psi_concat, ddof=1))
-            denom = float(np.sqrt(psi_var_all / psi_concat.size)) if psi_var_all > 0.0 else float("nan")
-            if np.isfinite(denom) and denom > 0.0:
-                t_strict = float(psi_mean_all / denom)
+        max_mean = float(np.max(np.abs(mean_k)))
+        # Scale before squaring to avoid overflow for large finite means.
+        rms_mean = (
+            float(max_mean * np.sqrt(np.sum((n_k / n_k.sum()) * (mean_k / max_mean) ** 2)))
+            if max_mean > 0.0 else 0.0
+        )
+        theta_range = float(np.ptp(fold_table["theta_fold"].to_numpy(dtype=float)))
+        max_gap = float(np.max(np.abs(fold_table["theta_gap"].to_numpy(dtype=float))))
+    if complete:
+        fold_reason = None
+    elif psi_b.size == 0:
+        fold_reason = "Score arrays and matching fold assignments are required."
+    elif unique_folds.size < 2:
+        fold_reason = "At least two nonempty folds are required."
+    else:
+        fold_reason = "Some fold or complement solutions are undefined (nonfinite scores or zero Jacobian)."
 
     return {
-        "available": bool(not fold_table.empty and (np.isfinite(t_fold) or np.isfinite(t_strict))),
-        "oos_tstat_fold": t_fold,
-        "oos_tstat_strict": t_strict,
-        "p_value_fold": _two_sided_pvalue_from_t(t_fold),
-        "p_value_strict": _two_sided_pvalue_from_t(t_strict),
+        "available": False,
+        "inference_status": "unavailable",
+        "reason": "Cached cross-fitted scores are reused; an independent OOS test is not calibrated.",
+        "oos_tstat_fold": float("nan"),
+        "oos_tstat_strict": float("nan"),
+        "p_value_fold": float("nan"),
+        "p_value_strict": float("nan"),
+        "fold_diagnostics_available": complete,
+        "fold_diagnostics_reason": fold_reason,
+        "fold_score_mean_rms": rms_mean,
+        "fold_score_mean_max_abs": max_mean,
+        "fold_theta_range": theta_range,
+        "fold_theta_gap_max_abs": max_gap,
         "fold_table": fold_table,
     }
 
@@ -367,12 +391,20 @@ def run_score_diagnostics(
         \right]
         - \hat\theta.
 
-    Good score behavior means:
+    Score checks include:
 
     - the empirical score average is close to zero,
     - finite-basis derivatives with respect to nuisance parts are small,
     - the influence distribution is not driven by a tiny number of very large
       :math:`|\hat\psi_i|`.
+
+    A score average near zero is a fitted estimating equation, not evidence
+    of model validity. ``oos_moment_test`` contains descriptive fold stability
+    only: it reuses cached cross-fit scores, so legacy t-statistics/p-values
+    are NaN, ``available=False`` and its traffic-light flag is ``NA``. Inspect
+    ``fold_theta_range``, ``fold_theta_gap_max_abs`` and the fold table for
+    differences on the effect scale; no calibrated significance threshold
+    is supplied. A genuine OOS test requires a separate validation design.
 
     Parameters
     ----------
@@ -394,7 +426,7 @@ def run_score_diagnostics(
     -------
     Dict[str, Any]
         Diagnostic report with orthogonality checks, influence summaries,
-        optional out-of-sample tests, and a summary table.
+        descriptive fold stability (without OOS inference), and a summary table.
 
     Raises
     ------
@@ -626,14 +658,9 @@ def run_score_diagnostics(
         "t_strong": 4.0,
     }
 
-    oos_moment_test = {
-        "available": False,
-        "oos_tstat_fold": float("nan"),
-        "oos_tstat_strict": float("nan"),
-        "p_value_fold": float("nan"),
-        "p_value_strict": float("nan"),
-        "fold_table": pd.DataFrame(columns=["fold", "n", "theta_minus_k", "psi_mean", "psi_var"]),
-    }
+    oos_moment_test = _oos_moment_test_from_psi(
+        psi_a=np.array([]), psi_b=np.array([]), folds=np.array([]),
+    )
     if psi_b is not None and folds is not None and psi_b.size == d.size and folds.size == d.size:
         oos_moment_test = _oos_moment_test_from_psi(psi_a=psi_a, psi_b=psi_b, folds=folds)
 
@@ -708,6 +735,13 @@ def run_score_diagnostics(
                     "value": oos_abs_t,
                     "flag": flags["oos_moment"],
                 },
+                *[
+                    {"metric": metric, "value": oos_moment_test[metric], "flag": "NA"}
+                    for metric in (
+                        "fold_score_mean_rms", "fold_score_mean_max_abs",
+                        "fold_theta_range", "fold_theta_gap_max_abs",
+                    )
+                ],
             ]
         )
         summary = pd.DataFrame(summary_rows)

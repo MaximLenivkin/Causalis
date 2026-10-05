@@ -69,7 +69,7 @@ def test_score_diagnostics_prefers_estimator_psi_when_available():
     assert np.isclose(float(report["influence_diagnostics"]["se_plugin"]), expected_se)
 
 
-def test_score_diagnostics_reports_oos_moment_tstats_from_folds():
+def test_score_diagnostics_reports_fold_stability_without_oos_inference():
     d = np.array([1, 0, 1, 0, 1, 0, 1, 0], dtype=int)
     y = np.linspace(0.1, 0.8, d.size)
     x1 = np.linspace(-1.0, 1.0, d.size)
@@ -97,11 +97,14 @@ def test_score_diagnostics_reports_oos_moment_tstats_from_folds():
     report = run_score_diagnostics(data, estimate, return_summary=True)
     oos = report["oos_moment_test"]
 
-    assert oos["available"] is True
-    assert np.isclose(float(oos["oos_tstat_fold"]), 0.0)
-    assert np.isclose(float(oos["oos_tstat_strict"]), 0.0)
-    assert np.isclose(float(oos["p_value_fold"]), 1.0)
-    assert np.isclose(float(oos["p_value_strict"]), 1.0)
+    assert oos["available"] is False
+    assert oos["fold_diagnostics_available"] is True
+    assert oos["inference_status"] == "unavailable"
+    for key in ["oos_tstat_fold", "oos_tstat_strict", "p_value_fold", "p_value_strict"]:
+        assert np.isnan(oos[key])
+    assert report["flags"]["oos_moment"] == "NA"
+    assert np.isclose(oos["fold_theta_range"], 5.0)
+    assert np.isclose(oos["fold_score_mean_rms"], 5.0)
     assert isinstance(oos["fold_table"], pd.DataFrame)
     assert oos["fold_table"].shape[0] == 2
 
@@ -109,7 +112,9 @@ def test_score_diagnostics_reports_oos_moment_tstats_from_folds():
     assert "oos_max_abs_t" in set(summary["metric"])
     summary_oos = summary.loc[summary["metric"] == "oos_max_abs_t"]
     assert not summary_oos.empty
-    assert np.isclose(float(summary_oos["value"].iloc[0]), 0.0)
+    assert np.isnan(float(summary_oos["value"].iloc[0]))
+    assert summary_oos["flag"].iloc[0] == "NA"
+    assert "fold_theta_range" in set(summary["metric"])
 
 
 def test_unconfoundedness_uses_w_bar_for_weighted_ate_balance():

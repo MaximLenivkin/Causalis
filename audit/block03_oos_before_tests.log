@@ -1,0 +1,606 @@
+FFFFFFFFFFFFFFFFF                                                        [100%]
+================================== FAILURES ===================================
+_ test_large_equal_fold_differences_are_visible_without_spurious_inference[False-binary] _
+
+kind = 'binary', jitter = False
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("jitter", [False, True])
+    def test_large_equal_fold_differences_are_visible_without_spurious_inference(kind, jitter):
+        b = np.repeat([0., 100., 200., 300.], 2)
+        if jitter:
+            b += np.tile([-1., 1.], 4)
+        out = _diagnose(kind, b, np.repeat(np.arange(4), 2))
+>       assert out["available"] is False
+E       assert True is False
+
+tests\refutation\test_oos_fold_diagnostics.py:40: AssertionError
+_ test_large_equal_fold_differences_are_visible_without_spurious_inference[False-multi] _
+
+kind = 'multi', jitter = False
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("jitter", [False, True])
+    def test_large_equal_fold_differences_are_visible_without_spurious_inference(kind, jitter):
+        b = np.repeat([0., 100., 200., 300.], 2)
+        if jitter:
+            b += np.tile([-1., 1.], 4)
+>       out = _diagnose(kind, b, np.repeat(np.arange(4), 2))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\refutation\test_oos_fold_diagnostics.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+kind = 'multi', b = array([  0.,   0., 100., 100., 200., 200., 300., 300.])
+folds = array([0, 0, 1, 1, 2, 2, 3, 3]), a = None
+
+    def _diagnose(kind, b, folds, a=None):
+        if kind == "binary":
+            return _oos_moment_test_from_psi(
+                psi_a=-np.ones_like(b) if a is None else a, psi_b=b, folds=folds,
+            )
+        out = _oos_moment_test(
+            psi_b=np.column_stack([b, 2 * b]), folds=folds,
+            comparison_labels=["first", "second"],
+            **({} if a is None else {"psi_a": np.column_stack([a, a])}),
+        )
+        first = out["by_comparison"].iloc[0].to_dict()
+        first.update(
+>           available=out["available"], inference_status=out["inference_status"],
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+            reason=out["reason"], fold_table=out["fold_table"].query("comparison == 'first'"),
+        )
+E       KeyError: 'inference_status'
+
+tests\refutation\test_oos_fold_diagnostics.py:27: KeyError
+_ test_large_equal_fold_differences_are_visible_without_spurious_inference[True-binary] _
+
+kind = 'binary', jitter = True
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("jitter", [False, True])
+    def test_large_equal_fold_differences_are_visible_without_spurious_inference(kind, jitter):
+        b = np.repeat([0., 100., 200., 300.], 2)
+        if jitter:
+            b += np.tile([-1., 1.], 4)
+        out = _diagnose(kind, b, np.repeat(np.arange(4), 2))
+>       assert out["available"] is False
+E       assert True is False
+
+tests\refutation\test_oos_fold_diagnostics.py:40: AssertionError
+_ test_large_equal_fold_differences_are_visible_without_spurious_inference[True-multi] _
+
+kind = 'multi', jitter = True
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("jitter", [False, True])
+    def test_large_equal_fold_differences_are_visible_without_spurious_inference(kind, jitter):
+        b = np.repeat([0., 100., 200., 300.], 2)
+        if jitter:
+            b += np.tile([-1., 1.], 4)
+>       out = _diagnose(kind, b, np.repeat(np.arange(4), 2))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\refutation\test_oos_fold_diagnostics.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+kind = 'multi', b = array([ -1.,   1.,  99., 101., 199., 201., 299., 301.])
+folds = array([0, 0, 1, 1, 2, 2, 3, 3]), a = None
+
+    def _diagnose(kind, b, folds, a=None):
+        if kind == "binary":
+            return _oos_moment_test_from_psi(
+                psi_a=-np.ones_like(b) if a is None else a, psi_b=b, folds=folds,
+            )
+        out = _oos_moment_test(
+            psi_b=np.column_stack([b, 2 * b]), folds=folds,
+            comparison_labels=["first", "second"],
+            **({} if a is None else {"psi_a": np.column_stack([a, a])}),
+        )
+        first = out["by_comparison"].iloc[0].to_dict()
+        first.update(
+>           available=out["available"], inference_status=out["inference_status"],
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+            reason=out["reason"], fold_table=out["fold_table"].query("comparison == 'first'"),
+        )
+E       KeyError: 'inference_status'
+
+tests\refutation\test_oos_fold_diagnostics.py:27: KeyError
+_ test_identical_constant_folds_have_zero_stability_metrics_and_no_pvalue[binary] _
+
+kind = 'binary'
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    def test_identical_constant_folds_have_zero_stability_metrics_and_no_pvalue(kind):
+        out = _diagnose(kind, np.full(9, 7.), np.repeat(np.arange(3), 3))
+>       assert bool(out["fold_diagnostics_available"])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'fold_diagnostics_available'
+
+tests\refutation\test_oos_fold_diagnostics.py:58: KeyError
+_ test_identical_constant_folds_have_zero_stability_metrics_and_no_pvalue[multi] _
+
+kind = 'multi'
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    def test_identical_constant_folds_have_zero_stability_metrics_and_no_pvalue(kind):
+>       out = _diagnose(kind, np.full(9, 7.), np.repeat(np.arange(3), 3))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\refutation\test_oos_fold_diagnostics.py:57: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+kind = 'multi', b = array([7., 7., 7., 7., 7., 7., 7., 7., 7.])
+folds = array([0, 0, 0, 1, 1, 1, 2, 2, 2]), a = None
+
+    def _diagnose(kind, b, folds, a=None):
+        if kind == "binary":
+            return _oos_moment_test_from_psi(
+                psi_a=-np.ones_like(b) if a is None else a, psi_b=b, folds=folds,
+            )
+        out = _oos_moment_test(
+            psi_b=np.column_stack([b, 2 * b]), folds=folds,
+            comparison_labels=["first", "second"],
+            **({} if a is None else {"psi_a": np.column_stack([a, a])}),
+        )
+        first = out["by_comparison"].iloc[0].to_dict()
+        first.update(
+>           available=out["available"], inference_status=out["inference_status"],
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+            reason=out["reason"], fold_table=out["fold_table"].query("comparison == 'first'"),
+        )
+E       KeyError: 'inference_status'
+
+tests\refutation\test_oos_fold_diagnostics.py:27: KeyError
+_ test_unequal_folds_use_sample_weighted_rms_and_keep_raw_effect_scale[binary] _
+
+kind = 'binary'
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    def test_unequal_folds_use_sample_weighted_rms_and_keep_raw_effect_scale(kind):
+        b = np.repeat([0., 10., 20.], [2, 3, 4])
+        out = _diagnose(kind, b, np.repeat(np.arange(3), [2, 3, 4]))
+        expected_means = np.array([-110 / 7, -10 / 3, 14.])
+        np.testing.assert_allclose(out["fold_table"]["psi_mean"], expected_means)
+>       assert out["fold_score_mean_rms"] == pytest.approx(np.sqrt((2 * (110 / 7)**2 + 3 * (10 / 3)**2 + 4 * 14**2) / 9))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'fold_score_mean_rms'
+
+tests\refutation\test_oos_fold_diagnostics.py:70: KeyError
+_ test_unequal_folds_use_sample_weighted_rms_and_keep_raw_effect_scale[multi] _
+
+kind = 'multi'
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    def test_unequal_folds_use_sample_weighted_rms_and_keep_raw_effect_scale(kind):
+        b = np.repeat([0., 10., 20.], [2, 3, 4])
+>       out = _diagnose(kind, b, np.repeat(np.arange(3), [2, 3, 4]))
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\refutation\test_oos_fold_diagnostics.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+kind = 'multi', b = array([ 0.,  0., 10., 10., 10., 20., 20., 20., 20.])
+folds = array([0, 0, 1, 1, 1, 2, 2, 2, 2]), a = None
+
+    def _diagnose(kind, b, folds, a=None):
+        if kind == "binary":
+            return _oos_moment_test_from_psi(
+                psi_a=-np.ones_like(b) if a is None else a, psi_b=b, folds=folds,
+            )
+        out = _oos_moment_test(
+            psi_b=np.column_stack([b, 2 * b]), folds=folds,
+            comparison_labels=["first", "second"],
+            **({} if a is None else {"psi_a": np.column_stack([a, a])}),
+        )
+        first = out["by_comparison"].iloc[0].to_dict()
+        first.update(
+>           available=out["available"], inference_status=out["inference_status"],
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^
+            reason=out["reason"], fold_table=out["fold_table"].query("comparison == 'first'"),
+        )
+E       KeyError: 'inference_status'
+
+tests\refutation\test_oos_fold_diagnostics.py:27: KeyError
+_ test_unavailable_fold_inputs_do_not_report_partial_stability_as_complete[single_fold-binary] _
+
+kind = 'binary', case = 'single_fold'
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("case", ["single_fold", "zero_train_jacobian", "nonfinite"])
+    def test_unavailable_fold_inputs_do_not_report_partial_stability_as_complete(kind, case):
+        b = np.arange(6, dtype=float)
+        folds = np.repeat([0, 1], 3)
+        a = -np.ones(6)
+        if case == "single_fold":
+            folds[:] = 0
+        elif case == "zero_train_jacobian":
+            a[3:] = 0
+        else:
+            b[2] = np.nan
+        out = _diagnose(kind, b, folds, a)
+        assert not out["available"]
+>       assert not out["fold_diagnostics_available"]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'fold_diagnostics_available'
+
+tests\refutation\test_oos_fold_diagnostics.py:89: KeyError
+_ test_unavailable_fold_inputs_do_not_report_partial_stability_as_complete[single_fold-multi] _
+
+kind = 'multi', case = 'single_fold'
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("case", ["single_fold", "zero_train_jacobian", "nonfinite"])
+    def test_unavailable_fold_inputs_do_not_report_partial_stability_as_complete(kind, case):
+        b = np.arange(6, dtype=float)
+        folds = np.repeat([0, 1], 3)
+        a = -np.ones(6)
+        if case == "single_fold":
+            folds[:] = 0
+        elif case == "zero_train_jacobian":
+            a[3:] = 0
+        else:
+            b[2] = np.nan
+>       out = _diagnose(kind, b, folds, a)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\refutation\test_oos_fold_diagnostics.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+kind = 'multi', b = array([0., 1., 2., 3., 4., 5.])
+folds = array([0, 0, 0, 0, 0, 0]), a = array([-1., -1., -1., -1., -1., -1.])
+
+    def _diagnose(kind, b, folds, a=None):
+        if kind == "binary":
+            return _oos_moment_test_from_psi(
+                psi_a=-np.ones_like(b) if a is None else a, psi_b=b, folds=folds,
+            )
+>       out = _oos_moment_test(
+            psi_b=np.column_stack([b, 2 * b]), folds=folds,
+            comparison_labels=["first", "second"],
+            **({} if a is None else {"psi_a": np.column_stack([a, a])}),
+        )
+E       TypeError: _oos_moment_test() got an unexpected keyword argument 'psi_a'
+
+tests\refutation\test_oos_fold_diagnostics.py:20: TypeError
+_ test_unavailable_fold_inputs_do_not_report_partial_stability_as_complete[zero_train_jacobian-binary] _
+
+kind = 'binary', case = 'zero_train_jacobian'
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("case", ["single_fold", "zero_train_jacobian", "nonfinite"])
+    def test_unavailable_fold_inputs_do_not_report_partial_stability_as_complete(kind, case):
+        b = np.arange(6, dtype=float)
+        folds = np.repeat([0, 1], 3)
+        a = -np.ones(6)
+        if case == "single_fold":
+            folds[:] = 0
+        elif case == "zero_train_jacobian":
+            a[3:] = 0
+        else:
+            b[2] = np.nan
+        out = _diagnose(kind, b, folds, a)
+>       assert not out["available"]
+E       assert not True
+
+tests\refutation\test_oos_fold_diagnostics.py:88: AssertionError
+_ test_unavailable_fold_inputs_do_not_report_partial_stability_as_complete[zero_train_jacobian-multi] _
+
+kind = 'multi', case = 'zero_train_jacobian'
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("case", ["single_fold", "zero_train_jacobian", "nonfinite"])
+    def test_unavailable_fold_inputs_do_not_report_partial_stability_as_complete(kind, case):
+        b = np.arange(6, dtype=float)
+        folds = np.repeat([0, 1], 3)
+        a = -np.ones(6)
+        if case == "single_fold":
+            folds[:] = 0
+        elif case == "zero_train_jacobian":
+            a[3:] = 0
+        else:
+            b[2] = np.nan
+>       out = _diagnose(kind, b, folds, a)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\refutation\test_oos_fold_diagnostics.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+kind = 'multi', b = array([0., 1., 2., 3., 4., 5.])
+folds = array([0, 0, 0, 1, 1, 1]), a = array([-1., -1., -1.,  0.,  0.,  0.])
+
+    def _diagnose(kind, b, folds, a=None):
+        if kind == "binary":
+            return _oos_moment_test_from_psi(
+                psi_a=-np.ones_like(b) if a is None else a, psi_b=b, folds=folds,
+            )
+>       out = _oos_moment_test(
+            psi_b=np.column_stack([b, 2 * b]), folds=folds,
+            comparison_labels=["first", "second"],
+            **({} if a is None else {"psi_a": np.column_stack([a, a])}),
+        )
+E       TypeError: _oos_moment_test() got an unexpected keyword argument 'psi_a'
+
+tests\refutation\test_oos_fold_diagnostics.py:20: TypeError
+_ test_unavailable_fold_inputs_do_not_report_partial_stability_as_complete[nonfinite-binary] _
+
+kind = 'binary', case = 'nonfinite'
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("case", ["single_fold", "zero_train_jacobian", "nonfinite"])
+    def test_unavailable_fold_inputs_do_not_report_partial_stability_as_complete(kind, case):
+        b = np.arange(6, dtype=float)
+        folds = np.repeat([0, 1], 3)
+        a = -np.ones(6)
+        if case == "single_fold":
+            folds[:] = 0
+        elif case == "zero_train_jacobian":
+            a[3:] = 0
+        else:
+            b[2] = np.nan
+        out = _diagnose(kind, b, folds, a)
+        assert not out["available"]
+>       assert not out["fold_diagnostics_available"]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'fold_diagnostics_available'
+
+tests\refutation\test_oos_fold_diagnostics.py:89: KeyError
+_ test_unavailable_fold_inputs_do_not_report_partial_stability_as_complete[nonfinite-multi] _
+
+kind = 'multi', case = 'nonfinite'
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("case", ["single_fold", "zero_train_jacobian", "nonfinite"])
+    def test_unavailable_fold_inputs_do_not_report_partial_stability_as_complete(kind, case):
+        b = np.arange(6, dtype=float)
+        folds = np.repeat([0, 1], 3)
+        a = -np.ones(6)
+        if case == "single_fold":
+            folds[:] = 0
+        elif case == "zero_train_jacobian":
+            a[3:] = 0
+        else:
+            b[2] = np.nan
+>       out = _diagnose(kind, b, folds, a)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\refutation\test_oos_fold_diagnostics.py:87: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+kind = 'multi', b = array([ 0.,  1., nan,  3.,  4.,  5.])
+folds = array([0, 0, 0, 1, 1, 1]), a = array([-1., -1., -1., -1., -1., -1.])
+
+    def _diagnose(kind, b, folds, a=None):
+        if kind == "binary":
+            return _oos_moment_test_from_psi(
+                psi_a=-np.ones_like(b) if a is None else a, psi_b=b, folds=folds,
+            )
+>       out = _oos_moment_test(
+            psi_b=np.column_stack([b, 2 * b]), folds=folds,
+            comparison_labels=["first", "second"],
+            **({} if a is None else {"psi_a": np.column_stack([a, a])}),
+        )
+E       TypeError: _oos_moment_test() got an unexpected keyword argument 'psi_a'
+
+tests\refutation\test_oos_fold_diagnostics.py:20: TypeError
+____ test_ratio_fold_effects_use_jacobians_instead_of_signal_means[binary] ____
+
+self = Index(['fold', 'n', 'theta_minus_k', 'psi_mean', 'psi_var'], dtype='str')
+key = 'theta_fold'
+
+    def get_loc(self, key):
+        """
+        Get integer location, slice or boolean mask for requested label.
+    
+        Parameters
+        ----------
+        key : label
+            The key to check its location if it is present in the index.
+    
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+            Integer location, slice or boolean mask.
+    
+        See Also
+        --------
+        Index.get_slice_bound : Calculate slice bound that corresponds to
+            given label.
+        Index.get_indexer : Computes indexer and mask for new index given
+            the current index.
+        Index.get_non_unique : Returns indexer and masks for new index given
+            the current index.
+        Index.get_indexer_for : Returns an indexer even when non-unique.
+    
+        Examples
+        --------
+        >>> unique_index = pd.Index(list("abc"))
+        >>> unique_index.get_loc("b")
+        1
+    
+        >>> monotonic_index = pd.Index(list("abbc"))
+        >>> monotonic_index.get_loc("b")
+        slice(1, 3, None)
+    
+        >>> non_monotonic_index = pd.Index(list("abcb"))
+        >>> non_monotonic_index.get_loc("b")
+        array([False,  True, False,  True])
+        """
+        casted_key = self._maybe_cast_indexer(key)
+        try:
+>           return self._engine.get_loc(casted_key)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv\Lib\site-packages\pandas\core\indexes\base.py:3641: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+pandas/_libs/index.pyx:168: in pandas._libs.index.IndexEngine.get_loc
+    ???
+pandas/_libs/index.pyx:197: in pandas._libs.index.IndexEngine.get_loc
+    ???
+pandas/_libs/hashtable_class_helper.pxi:7668: in pandas._libs.hashtable.PyObjectHashTable.get_item
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   KeyError: 'theta_fold'
+
+pandas/_libs/hashtable_class_helper.pxi:7676: KeyError
+
+The above exception was the direct cause of the following exception:
+
+kind = 'binary'
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    def test_ratio_fold_effects_use_jacobians_instead_of_signal_means(kind):
+        # Three equal-size folds, with treated shares 1/3, 2/3, 1/3.
+        d = np.array([1., 0., 0., 1., 1., 0., 1., 0., 0.])
+        a = -d / np.mean(d)
+        b = -a * np.repeat([2., 4., 8.], 3)
+        out = _diagnose(kind, b, np.repeat(np.arange(3), 3), a)
+>       np.testing.assert_allclose(out["fold_table"]["theta_fold"], [2., 4., 8.])
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\refutation\test_oos_fold_diagnostics.py:101: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+.venv\Lib\site-packages\pandas\core\frame.py:4378: in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = Index(['fold', 'n', 'theta_minus_k', 'psi_mean', 'psi_var'], dtype='str')
+key = 'theta_fold'
+
+    def get_loc(self, key):
+        """
+        Get integer location, slice or boolean mask for requested label.
+    
+        Parameters
+        ----------
+        key : label
+            The key to check its location if it is present in the index.
+    
+        Returns
+        -------
+        int if unique index, slice if monotonic index, else mask
+            Integer location, slice or boolean mask.
+    
+        See Also
+        --------
+        Index.get_slice_bound : Calculate slice bound that corresponds to
+            given label.
+        Index.get_indexer : Computes indexer and mask for new index given
+            the current index.
+        Index.get_non_unique : Returns indexer and masks for new index given
+            the current index.
+        Index.get_indexer_for : Returns an indexer even when non-unique.
+    
+        Examples
+        --------
+        >>> unique_index = pd.Index(list("abc"))
+        >>> unique_index.get_loc("b")
+        1
+    
+        >>> monotonic_index = pd.Index(list("abbc"))
+        >>> monotonic_index.get_loc("b")
+        slice(1, 3, None)
+    
+        >>> non_monotonic_index = pd.Index(list("abcb"))
+        >>> non_monotonic_index.get_loc("b")
+        array([False,  True, False,  True])
+        """
+        casted_key = self._maybe_cast_indexer(key)
+        try:
+            return self._engine.get_loc(casted_key)
+        except KeyError as err:
+            if isinstance(casted_key, slice) or (
+                isinstance(casted_key, abc.Iterable)
+                and any(isinstance(x, slice) for x in casted_key)
+            ):
+                raise InvalidIndexError(key) from err
+>           raise KeyError(key) from err
+E           KeyError: 'theta_fold'
+
+.venv\Lib\site-packages\pandas\core\indexes\base.py:3648: KeyError
+____ test_ratio_fold_effects_use_jacobians_instead_of_signal_means[multi] _____
+
+kind = 'multi'
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    def test_ratio_fold_effects_use_jacobians_instead_of_signal_means(kind):
+        # Three equal-size folds, with treated shares 1/3, 2/3, 1/3.
+        d = np.array([1., 0., 0., 1., 1., 0., 1., 0., 0.])
+        a = -d / np.mean(d)
+        b = -a * np.repeat([2., 4., 8.], 3)
+>       out = _diagnose(kind, b, np.repeat(np.arange(3), 3), a)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\refutation\test_oos_fold_diagnostics.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+kind = 'multi'
+b = array([ 4.5,  0. ,  0. ,  9. ,  9. ,  0. , 18. ,  0. ,  0. ])
+folds = array([0, 0, 0, 1, 1, 1, 2, 2, 2])
+a = array([-2.25, -0.  , -0.  , -2.25, -2.25, -0.  , -2.25, -0.  , -0.  ])
+
+    def _diagnose(kind, b, folds, a=None):
+        if kind == "binary":
+            return _oos_moment_test_from_psi(
+                psi_a=-np.ones_like(b) if a is None else a, psi_b=b, folds=folds,
+            )
+>       out = _oos_moment_test(
+            psi_b=np.column_stack([b, 2 * b]), folds=folds,
+            comparison_labels=["first", "second"],
+            **({} if a is None else {"psi_a": np.column_stack([a, a])}),
+        )
+E       TypeError: _oos_moment_test() got an unexpected keyword argument 'psi_a'
+
+tests\refutation\test_oos_fold_diagnostics.py:20: TypeError
+__________ test_multi_atte_score_reconstruction_uses_ratio_influence __________
+
+    def test_multi_atte_score_reconstruction_uses_ratio_influence():
+        labels = np.array([0, 1, 2, 0, 1, 2])
+        d = np.eye(3)[labels]
+        theta = np.array([2., 4.])
+        y = np.array([0., 2., 4., 0., 2., 4.])
+        psi, psi_b, _, _ = _compute_psi_from_nuisances(
+            y=y, d=d, g_hat=np.zeros((6, 3)), m=np.full((6, 3), 1 / 3),
+            theta=theta, score="ATTE", normalize_ipw=False,
+        )
+>       np.testing.assert_allclose(psi, 0., atol=1e-14)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-07, atol=1e-14
+E       
+E       Mismatched elements: 12 / 12 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: -2.0 (ACTUAL), 0.0 (DESIRED)
+E        [0, 1]: -4.0 (ACTUAL), 0.0 (DESIRED)
+E        [1, 0]: 4.0 (ACTUAL), 0.0 (DESIRED)
+E        [1, 1]: -4.0 (ACTUAL), 0.0 (DESIRED)
+E        [2, 0]: -2.0 (ACTUAL), 0.0 (DESIRED)
+E       Max absolute difference among violations: 8.
+E       Max relative difference among violations: inf
+E        ACTUAL: array([[-2., -4.],
+E              [ 4., -4.],
+E              [-2.,  8.],...
+E        DESIRED: array(0.)
+
+tests\refutation\test_oos_fold_diagnostics.py:115: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/refutation/test_oos_fold_diagnostics.py::test_large_equal_fold_differences_are_visible_without_spurious_inference[False-binary]
+FAILED tests/refutation/test_oos_fold_diagnostics.py::test_large_equal_fold_differences_are_visible_without_spurious_inference[False-multi]
+FAILED tests/refutation/test_oos_fold_diagnostics.py::test_large_equal_fold_differences_are_visible_without_spurious_inference[True-binary]
+FAILED tests/refutation/test_oos_fold_diagnostics.py::test_large_equal_fold_differences_are_visible_without_spurious_inference[True-multi]
+FAILED tests/refutation/test_oos_fold_diagnostics.py::test_identical_constant_folds_have_zero_stability_metrics_and_no_pvalue[binary]
+FAILED tests/refutation/test_oos_fold_diagnostics.py::test_identical_constant_folds_have_zero_stability_metrics_and_no_pvalue[multi]
+FAILED tests/refutation/test_oos_fold_diagnostics.py::test_unequal_folds_use_sample_weighted_rms_and_keep_raw_effect_scale[binary]
+FAILED tests/refutation/test_oos_fold_diagnostics.py::test_unequal_folds_use_sample_weighted_rms_and_keep_raw_effect_scale[multi]
+FAILED tests/refutation/test_oos_fold_diagnostics.py::test_unavailable_fold_inputs_do_not_report_partial_stability_as_complete[single_fold-binary]
+FAILED tests/refutation/test_oos_fold_diagnostics.py::test_unavailable_fold_inputs_do_not_report_partial_stability_as_complete[single_fold-multi]
+FAILED tests/refutation/test_oos_fold_diagnostics.py::test_unavailable_fold_inputs_do_not_report_partial_stability_as_complete[zero_train_jacobian-binary]
+FAILED tests/refutation/test_oos_fold_diagnostics.py::test_unavailable_fold_inputs_do_not_report_partial_stability_as_complete[zero_train_jacobian-multi]
+FAILED tests/refutation/test_oos_fold_diagnostics.py::test_unavailable_fold_inputs_do_not_report_partial_stability_as_complete[nonfinite-binary]
+FAILED tests/refutation/test_oos_fold_diagnostics.py::test_unavailable_fold_inputs_do_not_report_partial_stability_as_complete[nonfinite-multi]
+FAILED tests/refutation/test_oos_fold_diagnostics.py::test_ratio_fold_effects_use_jacobians_instead_of_signal_means[binary]
+FAILED tests/refutation/test_oos_fold_diagnostics.py::test_ratio_fold_effects_use_jacobians_instead_of_signal_means[multi]
+FAILED tests/refutation/test_oos_fold_diagnostics.py::test_multi_atte_score_reconstruction_uses_ratio_influence
+17 failed in 12.51s

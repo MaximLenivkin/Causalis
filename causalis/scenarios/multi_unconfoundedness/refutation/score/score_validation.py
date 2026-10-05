@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import math
 import warnings
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -11,6 +10,9 @@ import pandas as pd
 
 from causalis.data_contracts.multicausal_estimate import MultiCausalEstimate
 from causalis.data_contracts.multicausaldata import MultiCausalData
+from causalis.scenarios.unconfoundedness.refutation.score.score_validation import (
+    _oos_moment_test_from_psi,
+)
 from causalis.scenarios.multi_unconfoundedness._utils import (
     _normalize_multiclass_ipw_terms,
     _normalize_rows_to_simplex,
@@ -27,12 +29,6 @@ def _grade(value: float, warn: float, strong: float) -> str:
     if v < strong:
         return "YELLOW"
     return "RED"
-
-
-def _two_sided_pvalue_from_t(t_stat: float) -> float:
-    if not np.isfinite(t_stat):
-        return float("nan")
-    return float(math.erfc(abs(float(t_stat)) / math.sqrt(2.0)))
 
 
 def _validate_estimate_matches_data(data: MultiCausalData, estimate: MultiCausalEstimate) -> None:
@@ -170,7 +166,8 @@ def _compute_psi_from_nuisances(
         if np.any(~np.isfinite(ratio)):
             raise RuntimeError("ATTE requested but the e_k/e_0 ratio contains non-finite values.")
         psi_b = (dk / pk[None, :]) * residual0 - (d0 / pk[None, :]) * ratio * residual0
-    psi = psi_b - theta[None, :]
+    psi_a = -np.ones_like(psi_b) if score_u == "ATE" else -dk / pk[None, :]
+    psi = psi_b + psi_a * theta[None, :]
     return psi, psi_b, h, u
 
 
@@ -393,128 +390,48 @@ def _oos_moment_test(
     psi_b: np.ndarray,
     folds: Optional[np.ndarray],
     comparison_labels: List[str],
+    psi_a: Optional[np.ndarray] = None,
 ) -> Dict[str, Any]:
-    j = psi_b.shape[1]
-    if folds is None:
-        return {
-            "available": False,
-            "by_comparison": pd.DataFrame(
-                {
-                    "comparison": comparison_labels,
-                    "oos_tstat_fold": [float("nan")] * j,
-                    "oos_tstat_strict": [float("nan")] * j,
-                    "p_value_fold": [float("nan")] * j,
-                    "p_value_strict": [float("nan")] * j,
-                }
-            ),
-            "fold_table": pd.DataFrame(columns=["comparison", "fold", "n", "theta_minus_k", "psi_mean", "psi_var"]),
-        }
+    """Describe fold stability for each linear score, without OOS inference.
 
-    folds_arr = np.asarray(folds).ravel()
-    n = folds_arr.size
-    if n != psi_b.shape[0]:
-        return {
-            "available": False,
-            "by_comparison": pd.DataFrame(
-                {
-                    "comparison": comparison_labels,
-                    "oos_tstat_fold": [float("nan")] * j,
-                    "oos_tstat_strict": [float("nan")] * j,
-                    "p_value_fold": [float("nan")] * j,
-                    "p_value_strict": [float("nan")] * j,
-                }
-            ),
-            "fold_table": pd.DataFrame(columns=["comparison", "fold", "n", "theta_minus_k", "psi_mean", "psi_var"]),
-        }
-
-    unique_folds = np.unique(folds_arr)
-    fold_rows: List[Dict[str, Any]] = []
-    by_comp_rows: List[Dict[str, Any]] = []
-
+    The binary helper supplies the same psi_a * theta + psi_b algebra per
+    contrast. ATTE needs its ratio Jacobian; ATE defaults to minus one.
+    Legacy t-statistics and p-values are unavailable in every case because
+    cached cross-fitted scores do not provide an independent validation test.
+    """
+    psi_b = np.asarray(psi_b, dtype=float)
+    n, j = psi_b.shape
+    if len(comparison_labels) != j:
+        raise ValueError("comparison_labels must match the number of score columns.")
+    if psi_a is None:
+        psi_a = -np.ones_like(psi_b)
+    else:
+        psi_a = np.asarray(psi_a, dtype=float)
+        if psi_a.ndim == 1 and psi_a.size == n:
+            psi_a = np.broadcast_to(psi_a[:, None], (n, j))
+        if psi_a.shape != psi_b.shape:
+            raise ValueError("psi_a must have shape (n,) or match psi_b shape (n, J).")
+    folds_arr = None if folds is None else np.asarray(folds).ravel()
+    valid_folds = folds_arr is not None and folds_arr.size == n
+    rows = []
+    tables = []
     for idx, comp in enumerate(comparison_labels):
-        psi_b_j = psi_b[:, idx]
-        psi_all: List[np.ndarray] = []
-
-        for fold_value in unique_folds:
-            test_mask = folds_arr == fold_value
-            train_mask = ~test_mask
-            n_test = int(np.sum(test_mask))
-            n_train = int(np.sum(train_mask))
-
-            if n_test == 0 or n_train == 0:
-                continue
-
-            theta_minus_k = float(np.mean(psi_b_j[train_mask]))
-            psi_k = np.asarray(psi_b_j[test_mask] - theta_minus_k, dtype=float).ravel()
-            psi_mean = float(np.mean(psi_k)) if psi_k.size > 0 else float("nan")
-            psi_var = float(np.var(psi_k, ddof=1)) if psi_k.size > 1 else float("nan")
-            if psi_k.size > 0 and np.all(np.isfinite(psi_k)):
-                psi_all.append(psi_k)
-
-            fold_rows.append(
-                {
-                    "comparison": comp,
-                    "fold": int(fold_value),
-                    "n": n_test,
-                    "theta_minus_k": theta_minus_k,
-                    "psi_mean": psi_mean,
-                    "psi_var": psi_var,
-                }
-            )
-
-        fold_df_comp = pd.DataFrame([row for row in fold_rows if row["comparison"] == comp])
-
-        t_fold = float("nan")
-        if not fold_df_comp.empty:
-            n_k = fold_df_comp["n"].to_numpy(dtype=float)
-            mean_k = fold_df_comp["psi_mean"].to_numpy(dtype=float)
-            var_k = fold_df_comp["psi_var"].to_numpy(dtype=float)
-            finite = np.isfinite(n_k) & np.isfinite(mean_k) & np.isfinite(var_k)
-            if np.any(finite):
-                denom = float(np.sqrt(np.sum(n_k[finite] * var_k[finite])))
-                if denom > 0.0 and np.isfinite(denom):
-                    t_fold = float(np.sum(n_k[finite] * mean_k[finite]) / denom)
-
-        t_strict = float("nan")
-        if psi_all:
-            psi_concat = np.concatenate(psi_all)
-            if psi_concat.size > 1 and np.all(np.isfinite(psi_concat)):
-                psi_mean_all = float(np.mean(psi_concat))
-                psi_var_all = float(np.var(psi_concat, ddof=1))
-                denom = float(np.sqrt(psi_var_all / psi_concat.size)) if psi_var_all > 0.0 else float("nan")
-                if np.isfinite(denom) and denom > 0.0:
-                    t_strict = float(psi_mean_all / denom)
-
-        by_comp_rows.append(
-            {
-                "comparison": comp,
-                "oos_tstat_fold": t_fold,
-                "oos_tstat_strict": t_strict,
-                "p_value_fold": _two_sided_pvalue_from_t(t_fold),
-                "p_value_strict": _two_sided_pvalue_from_t(t_strict),
-            }
+        result = _oos_moment_test_from_psi(
+            psi_a=psi_a[:, idx] if valid_folds else np.array([]),
+            psi_b=psi_b[:, idx] if valid_folds else np.array([]),
+            folds=folds_arr if valid_folds else np.array([]),
         )
-
-    by_comp_df = pd.DataFrame(by_comp_rows)
-    if by_comp_df.empty:
-        by_comp_df = pd.DataFrame(
-            {
-                "comparison": comparison_labels,
-                "oos_tstat_fold": [float("nan")] * j,
-                "oos_tstat_strict": [float("nan")] * j,
-                "p_value_fold": [float("nan")] * j,
-                "p_value_strict": [float("nan")] * j,
-            }
-        )
-
-    available = bool(np.any(np.isfinite(by_comp_df[["oos_tstat_fold", "oos_tstat_strict"]].to_numpy(dtype=float))))
-
-    fold_table = pd.DataFrame(fold_rows)
-    if fold_table.empty:
-        fold_table = pd.DataFrame(columns=["comparison", "fold", "n", "theta_minus_k", "psi_mean", "psi_var"])
-
+        table = result.pop("fold_table")
+        table.insert(0, "comparison", comp)
+        tables.append(table)
+        rows.append({"comparison": comp, **result})
+    by_comp_df = pd.DataFrame(rows)
+    fold_table = pd.concat(tables, ignore_index=True)
     return {
-        "available": available,
+        "available": False,
+        "inference_status": "unavailable",
+        "reason": "Cached cross-fitted scores are reused; an independent OOS test is not calibrated.",
+        "fold_diagnostics_available": bool(by_comp_df["fold_diagnostics_available"].all()),
         "by_comparison": by_comp_df,
         "fold_table": fold_table,
     }
@@ -528,7 +445,20 @@ def run_score_diagnostics(
     n_basis_funcs: Optional[int] = None,
     return_summary: bool = True,
 ) -> Dict[str, Any]:
-    """Run score diagnostics for multi-treatment baseline contrasts."""
+    """Run score diagnostics for multi-treatment baseline contrasts.
+
+    ``oos_moment_test`` reports descriptive fold stability by comparison,
+    including effect ranges and leave-fold gaps. It reuses cached cross-fit
+    scores, rather than refitting nuisances on a separate validation split.
+    Consequently ``available=False``, legacy t-statistics and p-values are
+    NaN, and ``flags['oos_moment']`` is ``NA``. Fold summaries are ungraded
+    and do not certify model validity. ATTE fold solutions use the ratio
+    Jacobian ``-d_k / p_k`` rather than a constant ATE Jacobian.
+    Cached ATTE residuals incompatible with ``psi_b + psi_a * theta`` are
+    reconstructed and identified in ``meta['psi_cache_status']``. This does
+    not repair uncertainty intervals stored in an older estimate; re-estimate
+    with the current model for corrected estimator inference.
+    """
 
     if not isinstance(data, MultiCausalData):
         raise TypeError(f"data must be MultiCausalData, got {type(data).__name__}.")
@@ -629,6 +559,7 @@ def run_score_diagnostics(
 
     psi_override = getattr(diag, "psi", None)
     used_estimator_psi = False
+    psi_cache_status = "missing"
     if psi_override is not None:
         psi_override = np.asarray(psi_override, dtype=float)
         if psi_override.ndim == 1 and j == 1:
@@ -636,8 +567,10 @@ def run_score_diagnostics(
         if psi_override.shape == psi_comp.shape:
             psi = psi_override
             used_estimator_psi = True
+            psi_cache_status = "used"
         else:
             psi = psi_comp
+            psi_cache_status = "invalid_shape"
     else:
         psi = psi_comp
 
@@ -653,6 +586,30 @@ def run_score_diagnostics(
     else:
         psi_b = psi_b_comp
 
+    # Older diagnostic payloads lack psi_a. Reconstruct the correct score
+    # Jacobian as a fallback; new payloads preserve the estimator's Jacobian.
+    psi_a = (
+        -np.ones_like(psi_b) if score == "ATE"
+        else -d[:, 1:] / d[:, 1:].mean(axis=0)[None, :]
+    )
+    psi_a_override = getattr(diag, "psi_a", None)
+    used_estimator_psi_a = False
+    if psi_a_override is not None:
+        psi_a_override = np.asarray(psi_a_override, dtype=float)
+        if score == "ATE" and psi_a_override.ndim == 1 and psi_a_override.size == n:
+            psi_a_override = np.broadcast_to(psi_a_override[:, None], psi_b.shape)
+        if psi_a_override.shape == psi_b.shape:
+            psi_a = psi_a_override
+            used_estimator_psi_a = True
+    reconstructed_psi = psi_b + psi_a * theta[None, :]
+    if score == "ATTE" and used_estimator_psi and not np.allclose(
+        psi, reconstructed_psi, rtol=1e-10, atol=1e-12, equal_nan=True,
+    ):
+        used_estimator_psi = False
+        psi_cache_status = "inconsistent_atte_score"
+    if not used_estimator_psi:
+        psi = reconstructed_psi
+
     folds = getattr(diag, "folds", None)
     folds_arr = None if folds is None else np.asarray(folds).reshape(-1)
 
@@ -664,6 +621,7 @@ def run_score_diagnostics(
         & np.all(np.isfinite(x_basis), axis=1)
         & np.all(np.isfinite(psi), axis=1)
         & np.all(np.isfinite(psi_b), axis=1)
+        & np.all(np.isfinite(psi_a), axis=1)
         & np.all(np.isfinite(h_ortho), axis=1)
     )
     if folds_arr is not None and folds_arr.size == n:
@@ -676,6 +634,7 @@ def run_score_diagnostics(
     x_basis = x_basis[finite_rows]
     psi = psi[finite_rows]
     psi_b = psi_b[finite_rows]
+    psi_a = psi_a[finite_rows]
     h_ortho = h_ortho[finite_rows]
     u = u[finite_rows]
     folds_arr = folds_arr[finite_rows] if folds_arr is not None and folds_arr.size == n else None
@@ -706,7 +665,7 @@ def run_score_diagnostics(
         comparison_labels=comparison_labels,
     )
 
-    oos = _oos_moment_test(psi_b=psi_b, folds=folds_arr, comparison_labels=comparison_labels)
+    oos = _oos_moment_test(psi_a=psi_a, psi_b=psi_b, folds=folds_arr, comparison_labels=comparison_labels)
     oos_df = oos["by_comparison"].copy()
 
     comp_diag = infl_df.merge(ortho_max, on="comparison", how="left")
@@ -735,13 +694,7 @@ def run_score_diagnostics(
         flag_kurt = _grade(float(row["kurtosis"]), thresholds["kurt_warn"], thresholds["kurt_strong"])
         flag_ortho = _grade(float(row["max_|t|"]), thresholds["t_warn"], thresholds["t_strong"])
 
-        oos_abs_t = np.nanmax(
-            [
-                abs(float(row["oos_tstat_fold"])) if np.isfinite(row["oos_tstat_fold"]) else np.nan,
-                abs(float(row["oos_tstat_strict"])) if np.isfinite(row["oos_tstat_strict"]) else np.nan,
-            ]
-        )
-        flag_oos = _grade(float(oos_abs_t), thresholds["t_warn"], thresholds["t_strong"])
+        flag_oos = "NA"
 
         overall_flag_comp = _worst_flag([flag_tail, flag_kurt, flag_ortho, flag_oos])
 
@@ -768,6 +721,13 @@ def run_score_diagnostics(
                 {"comparison": comparison, "metric": "max_|t|", "value": float(row["max_|t|"]), "flag": flag_ortho},
                 {"comparison": comparison, "metric": "oos_tstat_fold", "value": float(row["oos_tstat_fold"]), "flag": flag_oos},
                 {"comparison": comparison, "metric": "oos_tstat_strict", "value": float(row["oos_tstat_strict"]), "flag": flag_oos},
+                *[
+                    {"comparison": comparison, "metric": metric, "value": float(row[metric]), "flag": "NA"}
+                    for metric in (
+                        "fold_score_mean_rms", "fold_score_mean_max_abs",
+                        "fold_theta_range", "fold_theta_gap_max_abs",
+                    )
+                ],
             ]
         )
 
@@ -821,6 +781,8 @@ def run_score_diagnostics(
             "K": int(k),
             "comparisons": list(comparison_labels),
             "used_estimator_psi": bool(used_estimator_psi),
+            "used_estimator_psi_a": bool(used_estimator_psi_a),
+            "psi_cache_status": psi_cache_status,
             "orthogonality_derivatives_use_score_normalization": bool(
                 normalize_ipw_for_orthogonality == normalize_ipw
             ),
