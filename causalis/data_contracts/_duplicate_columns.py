@@ -15,9 +15,11 @@ def sampled_signature_groups(
 ) -> dict[tuple[str, int, str], list[str]]:
     """Group at most 64 positions, retaining first-column group order.
 
-    This uses the same fingerprint as full-column screening. An equal pair
-    cannot have different sampled fingerprints; collisions merely cause an
-    extra full-column comparison. Matching samples never establish equality.
+    This uses the same fingerprint as full-column screening. Validated numeric
+    columns with equal values cannot have different sampled fingerprints;
+    collisions merely cause an extra full-column comparison. Optional object
+    user IDs retain the existing distinct fingerprint category. Matching
+    samples never establish equality.
     """
     positions = np.linspace(0, len(df) - 1, min(len(df), 64), dtype=np.intp)
     groups: dict[tuple[str, int, str], list[str]] = {}

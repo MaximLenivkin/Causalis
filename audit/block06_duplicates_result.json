@@ -1,0 +1,35 @@
+{
+  "baseline_commit": "bf2ea87534e4eaf82266cb61d905b7e876cc2e1d",
+  "scope": "duplicate-column screening and exact equality only",
+  "new_cases": 71,
+  "focused_tests": {
+    "passed": 156,
+    "failed": 0,
+    "warnings": 0,
+    "seconds": 15.94,
+    "exit_code": 0
+  },
+  "reference": "Independent legacy full-column signatures plus full-object-array equality; exact public frame/error comparison",
+  "screen_positions": 64,
+  "exact_boxing_chunk_rows": 65536,
+  "full_hash_calls_distinct_columns": 0,
+  "preserved_error_order": [
+    "CausalData global groups",
+    "IVCausalData global groups",
+    "MultiCausalData global groups",
+    "RctCausalData nested sample/full groups"
+  ],
+  "preserved_fingerprint_categories": [
+    "numeric/bool float64 normalized signed zero",
+    "object/string/datetime separate category"
+  ],
+  "performance_benchmark_run": false,
+  "full_integration_run": false,
+  "sensitivity_changed_or_targeted": false,
+  "limitations": [
+    "No latency/peak-RSS claim before root sequential benchmark",
+    "Candidate full hashes still use O(n) arrays",
+    "Object/numeric ID equality boundary intentionally unchanged",
+    "Version matrix not run by this subtask"
+  ]
+}
