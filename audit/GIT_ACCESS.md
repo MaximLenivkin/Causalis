@@ -89,3 +89,7 @@ Source/tests commit **9fb8041300410b560da80a45cabac4b541d1629d** pushed normally
 Текущий account **MaximLenivkin** проверен живым API; personal fork push подтверждён фактическим обычным push. Branch/remotes не изменены. Source/tests checkpoint **1e2b544f7f91a57ad3e049572915a4b3891b084a** pushed в `origin/codex/correctness-roadmap`. [CI37530152376](https://github.com/MaximLenivkin/Causalis/actions/runs/37530152376) completed/success: все шесть jobs и скачанные artifacts проверены, каждый2039passed. Последующие изменения только в audit; final documentation checkpoint определяется `git log -1`.
 
 Разрешённый сетевой запуск требуется при sandbox DNS restrictions. Partial clone может подгружать недостающие исторические blobs во время `git show`; это отличается от отсутствующего файла в linked commit. Повторный login, fork setup и upstream sync не требуются. Final audit-only ordinary push не перезапускает source matrix. Remote/local equality и clean tree проверяются на завершении. PR, upstream push, release и внешние сообщения не выполнялись.
+
+## 2026-10-07 — B10 personal checkpoint
+
+Source/tests95a8b7599fb129fb2c5973f50e9b4a8018732f6c pushed обычным способом в origin/codex/correctness-roadmap. CI37532909989 completed/success: все6jobs/artifacts2072passed каждый, exactsource95a. После него меняются только audit artifacts. Итоговый checkpoint — git log -1; remote/local equality и clean tree проверяются после финального ordinary push. Existing GitHub credentials использованы без нового login; upstream не обновлялся, PR/release не создавались.

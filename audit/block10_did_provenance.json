@@ -1,0 +1,72 @@
+{
+  "baseline": "83b63836dbd0c4793c24dd95ff7dc18c443792ad",
+  "current_head": "95a8b7599fb129fb2c5973f50e9b4a8018732f6c",
+  "fixture": "tests/scenarios/did/refutation/test_did_post_inference_diagnostics.py",
+  "fixture_sha256": "61d91d7e296e47dbbd0eb800822ea5b58a7b440d5c3e57dac7daf6fb524042fb",
+  "fixture_unchanged": true,
+  "called_package_sha256": {
+    "causalis/data_contracts/_did_comparison_units.py": "72f92910fd87bef0fc3aa01d177f8fbfba461a3d6c6100c9d9490673089fa0e0",
+    "causalis/data_contracts/panel_data_did.py": "01ef50d6aea358314a2ad55f77fa349d26f14881594542f4f89dd23898bfbcba",
+    "causalis/data_contracts/panel_did_estimate.py": "d9a7dc66bb58fdd801949d88313a3b218e0f0493da048816c5874fd013f23a06",
+    "causalis/scenarios/did/model.py": "e6f2bde0b16c9810696aa74fcff03e3058ef75a445b19dbc5c83a1f29b8ef8ed",
+    "causalis/scenarios/did/refutation/post_inference.py": "e9ae23ef142e0e8be2b41bd5bdfe694abb72bb5e2738f8ae4d6c1d2527c8549a"
+  },
+  "called_package_unchanged": true,
+  "changed_copula_path_called": false,
+  "overall_flag": "YELLOW",
+  "cell_aggregates_equal_b09": true,
+  "non_green_report_rows": [
+    {
+      "test": "overall_inference_reliability",
+      "flag": "YELLOW",
+      "value": "yellow",
+      "threshold": "all checks GREEN for robust reliance",
+      "message": "I would treat the results as directionally useful, but not fully robust until yellow diagnostics are addressed."
+    },
+    {
+      "test": "fitted_pre_period_placebo",
+      "flag": "YELLOW",
+      "value": 378254753641406.06,
+      "threshold": "max |t| <= 10",
+      "message": "Fitted pre-period placebo cells show a large standardized deviation."
+    }
+  ],
+  "pre_cell_aggregates": [
+    {
+      "cell_id": 0,
+      "att": 1.1102230246251558e-16,
+      "se": 2.9351198205368013e-31,
+      "t_stat": 378254753641406.06,
+      "abs_t_stat": 378254753641406.06
+    },
+    {
+      "cell_id": 1,
+      "att": 9.875882056045989e-18,
+      "se": 1.9305699180236354e-16,
+      "t_stat": 0.051155267487831446,
+      "abs_t_stat": 0.051155267487831446
+    },
+    {
+      "cell_id": 5,
+      "att": -5.551115123125783e-17,
+      "se": 0.0,
+      "t_stat": 0.0,
+      "abs_t_stat": 0.0
+    },
+    {
+      "cell_id": 6,
+      "att": -9.92265232838527e-18,
+      "se": 1.9306421495418166e-16,
+      "t_stat": -0.05139560602020489,
+      "abs_t_stat": 0.05139560602020489
+    },
+    {
+      "cell_id": 7,
+      "att": -9.918249982295734e-18,
+      "se": 1.930635336159977e-16,
+      "t_stat": -0.05137298482282562,
+      "abs_t_stat": 0.05137298482282562
+    }
+  ],
+  "individual_rows_saved": false
+}

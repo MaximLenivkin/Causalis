@@ -1,0 +1,2393 @@
+FFFFFFFFFFFF.FFFFFFF..FFFFFFFFFFF                                        [100%]
+=================================== FAILURES ===================================
+___ test_each_categorical_coordinate_uses_its_own_gaussian_uniform[cnn--0.3] ___
+
+order = 'cnn', rho = -0.3
+
+    @pytest.mark.parametrize("rho", [-0.3, 0.0, 0.6])
+    @pytest.mark.parametrize("order", ["cnn", "ncc", "cnc"])
+    def test_each_categorical_coordinate_uses_its_own_gaussian_uniform(order, rho):
+        first = {
+            "name": "first",
+            "dist": "categorical",
+            "categories": ["base", "low", "high"],
+            "probs": [1, 2, 1],
+        }
+        second = {
+            "name": "second",
+            "dist": "categorical",
+            "categories": ["off", "on"],
+            "probs": [0.65, 0.35],
+        }
+        numeric = {"name": "numeric", "dist": "normal", "mu": 2.0, "sd": 1.5}
+        if order == "cnn":
+            specs = [
+                first,
+                numeric,
+                {"name": "other", "dist": "uniform", "a": -1.0, "b": 3.0},
+            ]
+        elif order == "ncc":
+            specs = [numeric, first, second]
+        else:
+            specs = [first, numeric, second]
+        expected, names, reference_rng = _sample_reference(specs, rho=rho)
+        actual_rng = np.random.default_rng(SEED)
+>       actual, actual_names = _gaussian_copula(actual_rng, 257, specs, _corr(3, rho))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/data/test_copula_categorical_coordinates.py:132: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rng = Generator(PCG64) at 0x113B491C0, n = 257
+specs = [{'name': 'first', 'dist': 'categorical', 'categories': ['base', 'low', 'high'], 'probs': [1, 2, 1]}, {'name': 'numeric', 'dist': 'normal', 'mu': 2.0, 'sd': 1.5}, {'name': 'other', 'dist': 'uniform', 'a': -1.0, 'b': 3.0}]
+corr = array([[ 1. , -0.3, -0.3],
+       [-0.3,  1. , -0.3],
+       [-0.3, -0.3,  1. ]])
+
+    def _gaussian_copula(
+        rng: np.random.Generator,
+        n: int,
+        specs: List[Dict[str, Any]],
+        corr: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, List[str]]:
+        """
+        Generate mixed-type confounders X using a Gaussian copula.
+    
+        Parameters
+        ----------
+        rng : numpy.random.Generator
+            The random number generator to use.
+        n : int
+            Number of samples to generate.
+        specs : list of dict
+            Schema for confounder distributions. See `CausalDatasetGenerator` for details.
+        corr : numpy.ndarray, optional
+            Correlation matrix for the latent Gaussian variables. If None, uses identity.
+    
+        Returns
+        -------
+        X : numpy.ndarray
+            Generated confounder matrix.
+        names : list of str
+            Names of the generated columns.
+        """
+        d = len(specs)
+        if d == 0:
+            return np.empty((n, 0)), []
+    
+        if corr is None:
+            corr = np.eye(d)
+        corr = np.asarray(corr, dtype=float)
+        corr = _nearest_psd(corr)
+    
+        # Cholesky after nearest-PSD correction with small jitter for stability
+        L = np.linalg.cholesky(corr + 1e-10 * np.eye(d))
+        Z = rng.normal(size=(n, d)) @ L.T
+        U = norm.cdf(Z)  # (0,1)
+    
+        cols = []
+        names = []
+    
+        for j, spec in enumerate(specs):
+            name = spec.get("name") or f"x{j+1}"
+            dist = str(spec.get("dist", "normal")).lower()
+    
+            if dist == "categorical":
+                cats = list(spec.get("categories", [0, 1, 2]))
+                probs = np.asarray(spec.get("probs", None), dtype=float) if spec.get("probs", None) is not None else None
+                if probs is None:
+                    probs = np.ones(len(cats)) / len(cats)
+                probs = probs / probs.sum()
+                # Use U[:,j] as a categorical draw by CDF thresholds
+                thr = np.cumsum(probs)
+>               draw = np.searchsorted(thr, u, side="right")
+                                            ^
+E               UnboundLocalError: cannot access local variable 'u' where it is not associated with a value
+
+.venv/b10-copula-fv3licvj/base.py:307: UnboundLocalError
+___ test_each_categorical_coordinate_uses_its_own_gaussian_uniform[cnn-0.0] ____
+
+order = 'cnn', rho = 0.0
+
+    @pytest.mark.parametrize("rho", [-0.3, 0.0, 0.6])
+    @pytest.mark.parametrize("order", ["cnn", "ncc", "cnc"])
+    def test_each_categorical_coordinate_uses_its_own_gaussian_uniform(order, rho):
+        first = {
+            "name": "first",
+            "dist": "categorical",
+            "categories": ["base", "low", "high"],
+            "probs": [1, 2, 1],
+        }
+        second = {
+            "name": "second",
+            "dist": "categorical",
+            "categories": ["off", "on"],
+            "probs": [0.65, 0.35],
+        }
+        numeric = {"name": "numeric", "dist": "normal", "mu": 2.0, "sd": 1.5}
+        if order == "cnn":
+            specs = [
+                first,
+                numeric,
+                {"name": "other", "dist": "uniform", "a": -1.0, "b": 3.0},
+            ]
+        elif order == "ncc":
+            specs = [numeric, first, second]
+        else:
+            specs = [first, numeric, second]
+        expected, names, reference_rng = _sample_reference(specs, rho=rho)
+        actual_rng = np.random.default_rng(SEED)
+>       actual, actual_names = _gaussian_copula(actual_rng, 257, specs, _corr(3, rho))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/data/test_copula_categorical_coordinates.py:132: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rng = Generator(PCG64) at 0x113B4BCA0, n = 257
+specs = [{'name': 'first', 'dist': 'categorical', 'categories': ['base', 'low', 'high'], 'probs': [1, 2, 1]}, {'name': 'numeric', 'dist': 'normal', 'mu': 2.0, 'sd': 1.5}, {'name': 'other', 'dist': 'uniform', 'a': -1.0, 'b': 3.0}]
+corr = array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]])
+
+    def _gaussian_copula(
+        rng: np.random.Generator,
+        n: int,
+        specs: List[Dict[str, Any]],
+        corr: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, List[str]]:
+        """
+        Generate mixed-type confounders X using a Gaussian copula.
+    
+        Parameters
+        ----------
+        rng : numpy.random.Generator
+            The random number generator to use.
+        n : int
+            Number of samples to generate.
+        specs : list of dict
+            Schema for confounder distributions. See `CausalDatasetGenerator` for details.
+        corr : numpy.ndarray, optional
+            Correlation matrix for the latent Gaussian variables. If None, uses identity.
+    
+        Returns
+        -------
+        X : numpy.ndarray
+            Generated confounder matrix.
+        names : list of str
+            Names of the generated columns.
+        """
+        d = len(specs)
+        if d == 0:
+            return np.empty((n, 0)), []
+    
+        if corr is None:
+            corr = np.eye(d)
+        corr = np.asarray(corr, dtype=float)
+        corr = _nearest_psd(corr)
+    
+        # Cholesky after nearest-PSD correction with small jitter for stability
+        L = np.linalg.cholesky(corr + 1e-10 * np.eye(d))
+        Z = rng.normal(size=(n, d)) @ L.T
+        U = norm.cdf(Z)  # (0,1)
+    
+        cols = []
+        names = []
+    
+        for j, spec in enumerate(specs):
+            name = spec.get("name") or f"x{j+1}"
+            dist = str(spec.get("dist", "normal")).lower()
+    
+            if dist == "categorical":
+                cats = list(spec.get("categories", [0, 1, 2]))
+                probs = np.asarray(spec.get("probs", None), dtype=float) if spec.get("probs", None) is not None else None
+                if probs is None:
+                    probs = np.ones(len(cats)) / len(cats)
+                probs = probs / probs.sum()
+                # Use U[:,j] as a categorical draw by CDF thresholds
+                thr = np.cumsum(probs)
+>               draw = np.searchsorted(thr, u, side="right")
+                                            ^
+E               UnboundLocalError: cannot access local variable 'u' where it is not associated with a value
+
+.venv/b10-copula-fv3licvj/base.py:307: UnboundLocalError
+___ test_each_categorical_coordinate_uses_its_own_gaussian_uniform[cnn-0.6] ____
+
+order = 'cnn', rho = 0.6
+
+    @pytest.mark.parametrize("rho", [-0.3, 0.0, 0.6])
+    @pytest.mark.parametrize("order", ["cnn", "ncc", "cnc"])
+    def test_each_categorical_coordinate_uses_its_own_gaussian_uniform(order, rho):
+        first = {
+            "name": "first",
+            "dist": "categorical",
+            "categories": ["base", "low", "high"],
+            "probs": [1, 2, 1],
+        }
+        second = {
+            "name": "second",
+            "dist": "categorical",
+            "categories": ["off", "on"],
+            "probs": [0.65, 0.35],
+        }
+        numeric = {"name": "numeric", "dist": "normal", "mu": 2.0, "sd": 1.5}
+        if order == "cnn":
+            specs = [
+                first,
+                numeric,
+                {"name": "other", "dist": "uniform", "a": -1.0, "b": 3.0},
+            ]
+        elif order == "ncc":
+            specs = [numeric, first, second]
+        else:
+            specs = [first, numeric, second]
+        expected, names, reference_rng = _sample_reference(specs, rho=rho)
+        actual_rng = np.random.default_rng(SEED)
+>       actual, actual_names = _gaussian_copula(actual_rng, 257, specs, _corr(3, rho))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/data/test_copula_categorical_coordinates.py:132: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rng = Generator(PCG64) at 0x113BE4900, n = 257
+specs = [{'name': 'first', 'dist': 'categorical', 'categories': ['base', 'low', 'high'], 'probs': [1, 2, 1]}, {'name': 'numeric', 'dist': 'normal', 'mu': 2.0, 'sd': 1.5}, {'name': 'other', 'dist': 'uniform', 'a': -1.0, 'b': 3.0}]
+corr = array([[1. , 0.6, 0.6],
+       [0.6, 1. , 0.6],
+       [0.6, 0.6, 1. ]])
+
+    def _gaussian_copula(
+        rng: np.random.Generator,
+        n: int,
+        specs: List[Dict[str, Any]],
+        corr: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, List[str]]:
+        """
+        Generate mixed-type confounders X using a Gaussian copula.
+    
+        Parameters
+        ----------
+        rng : numpy.random.Generator
+            The random number generator to use.
+        n : int
+            Number of samples to generate.
+        specs : list of dict
+            Schema for confounder distributions. See `CausalDatasetGenerator` for details.
+        corr : numpy.ndarray, optional
+            Correlation matrix for the latent Gaussian variables. If None, uses identity.
+    
+        Returns
+        -------
+        X : numpy.ndarray
+            Generated confounder matrix.
+        names : list of str
+            Names of the generated columns.
+        """
+        d = len(specs)
+        if d == 0:
+            return np.empty((n, 0)), []
+    
+        if corr is None:
+            corr = np.eye(d)
+        corr = np.asarray(corr, dtype=float)
+        corr = _nearest_psd(corr)
+    
+        # Cholesky after nearest-PSD correction with small jitter for stability
+        L = np.linalg.cholesky(corr + 1e-10 * np.eye(d))
+        Z = rng.normal(size=(n, d)) @ L.T
+        U = norm.cdf(Z)  # (0,1)
+    
+        cols = []
+        names = []
+    
+        for j, spec in enumerate(specs):
+            name = spec.get("name") or f"x{j+1}"
+            dist = str(spec.get("dist", "normal")).lower()
+    
+            if dist == "categorical":
+                cats = list(spec.get("categories", [0, 1, 2]))
+                probs = np.asarray(spec.get("probs", None), dtype=float) if spec.get("probs", None) is not None else None
+                if probs is None:
+                    probs = np.ones(len(cats)) / len(cats)
+                probs = probs / probs.sum()
+                # Use U[:,j] as a categorical draw by CDF thresholds
+                thr = np.cumsum(probs)
+>               draw = np.searchsorted(thr, u, side="right")
+                                            ^
+E               UnboundLocalError: cannot access local variable 'u' where it is not associated with a value
+
+.venv/b10-copula-fv3licvj/base.py:307: UnboundLocalError
+___ test_each_categorical_coordinate_uses_its_own_gaussian_uniform[ncc--0.3] ___
+
+order = 'ncc', rho = -0.3
+
+    @pytest.mark.parametrize("rho", [-0.3, 0.0, 0.6])
+    @pytest.mark.parametrize("order", ["cnn", "ncc", "cnc"])
+    def test_each_categorical_coordinate_uses_its_own_gaussian_uniform(order, rho):
+        first = {
+            "name": "first",
+            "dist": "categorical",
+            "categories": ["base", "low", "high"],
+            "probs": [1, 2, 1],
+        }
+        second = {
+            "name": "second",
+            "dist": "categorical",
+            "categories": ["off", "on"],
+            "probs": [0.65, 0.35],
+        }
+        numeric = {"name": "numeric", "dist": "normal", "mu": 2.0, "sd": 1.5}
+        if order == "cnn":
+            specs = [
+                first,
+                numeric,
+                {"name": "other", "dist": "uniform", "a": -1.0, "b": 3.0},
+            ]
+        elif order == "ncc":
+            specs = [numeric, first, second]
+        else:
+            specs = [first, numeric, second]
+        expected, names, reference_rng = _sample_reference(specs, rho=rho)
+        actual_rng = np.random.default_rng(SEED)
+        actual, actual_names = _gaussian_copula(actual_rng, 257, specs, _corr(3, rho))
+        assert actual_names == names
+>       np.testing.assert_allclose(actual, expected, rtol=1e-11, atol=1e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-11, atol=1e-11
+E       
+E       Mismatched elements: 396 / 1028 (38.5%)
+E       First 5 mismatches are at indices:
+E        [0, 1]: 1.0 (ACTUAL), 0.0 (DESIRED)
+E        [0, 2]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E        [1, 1]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E        [1, 3]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E        [2, 1]: 1.0 (ACTUAL), 0.0 (DESIRED)
+E       Max absolute difference among violations: 1.
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([[ 1.896838,  1.      ,  0.      ,  0.      ],
+E              [-0.072332,  0.      ,  0.      ,  0.      ],
+E              [ 2.587106,  1.      ,  0.      ,  1.      ],...
+E        DESIRED: array([[ 1.896838,  0.      ,  1.      ,  0.      ],
+E              [-0.072332,  1.      ,  0.      ,  1.      ],
+E              [ 2.587106,  0.      ,  0.      ,  1.      ],...
+
+tests/data/test_copula_categorical_coordinates.py:134: AssertionError
+___ test_each_categorical_coordinate_uses_its_own_gaussian_uniform[ncc-0.0] ____
+
+order = 'ncc', rho = 0.0
+
+    @pytest.mark.parametrize("rho", [-0.3, 0.0, 0.6])
+    @pytest.mark.parametrize("order", ["cnn", "ncc", "cnc"])
+    def test_each_categorical_coordinate_uses_its_own_gaussian_uniform(order, rho):
+        first = {
+            "name": "first",
+            "dist": "categorical",
+            "categories": ["base", "low", "high"],
+            "probs": [1, 2, 1],
+        }
+        second = {
+            "name": "second",
+            "dist": "categorical",
+            "categories": ["off", "on"],
+            "probs": [0.65, 0.35],
+        }
+        numeric = {"name": "numeric", "dist": "normal", "mu": 2.0, "sd": 1.5}
+        if order == "cnn":
+            specs = [
+                first,
+                numeric,
+                {"name": "other", "dist": "uniform", "a": -1.0, "b": 3.0},
+            ]
+        elif order == "ncc":
+            specs = [numeric, first, second]
+        else:
+            specs = [first, numeric, second]
+        expected, names, reference_rng = _sample_reference(specs, rho=rho)
+        actual_rng = np.random.default_rng(SEED)
+        actual, actual_names = _gaussian_copula(actual_rng, 257, specs, _corr(3, rho))
+        assert actual_names == names
+>       np.testing.assert_allclose(actual, expected, rtol=1e-11, atol=1e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-11, atol=1e-11
+E       
+E       Mismatched elements: 361 / 1028 (35.1%)
+E       First 5 mismatches are at indices:
+E        [0, 1]: 1.0 (ACTUAL), 0.0 (DESIRED)
+E        [0, 2]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E        [1, 1]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E        [1, 3]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E        [2, 1]: 1.0 (ACTUAL), 0.0 (DESIRED)
+E       Max absolute difference among violations: 1.
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([[ 1.896838,  1.      ,  0.      ,  0.      ],
+E              [-0.072332,  0.      ,  0.      ,  0.      ],
+E              [ 2.587106,  1.      ,  0.      ,  1.      ],...
+E        DESIRED: array([[ 1.896838,  0.      ,  1.      ,  0.      ],
+E              [-0.072332,  1.      ,  0.      ,  1.      ],
+E              [ 2.587106,  0.      ,  0.      ,  1.      ],...
+
+tests/data/test_copula_categorical_coordinates.py:134: AssertionError
+___ test_each_categorical_coordinate_uses_its_own_gaussian_uniform[ncc-0.6] ____
+
+order = 'ncc', rho = 0.6
+
+    @pytest.mark.parametrize("rho", [-0.3, 0.0, 0.6])
+    @pytest.mark.parametrize("order", ["cnn", "ncc", "cnc"])
+    def test_each_categorical_coordinate_uses_its_own_gaussian_uniform(order, rho):
+        first = {
+            "name": "first",
+            "dist": "categorical",
+            "categories": ["base", "low", "high"],
+            "probs": [1, 2, 1],
+        }
+        second = {
+            "name": "second",
+            "dist": "categorical",
+            "categories": ["off", "on"],
+            "probs": [0.65, 0.35],
+        }
+        numeric = {"name": "numeric", "dist": "normal", "mu": 2.0, "sd": 1.5}
+        if order == "cnn":
+            specs = [
+                first,
+                numeric,
+                {"name": "other", "dist": "uniform", "a": -1.0, "b": 3.0},
+            ]
+        elif order == "ncc":
+            specs = [numeric, first, second]
+        else:
+            specs = [first, numeric, second]
+        expected, names, reference_rng = _sample_reference(specs, rho=rho)
+        actual_rng = np.random.default_rng(SEED)
+        actual, actual_names = _gaussian_copula(actual_rng, 257, specs, _corr(3, rho))
+        assert actual_names == names
+>       np.testing.assert_allclose(actual, expected, rtol=1e-11, atol=1e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-11, atol=1e-11
+E       
+E       Mismatched elements: 238 / 1028 (23.2%)
+E       First 5 mismatches are at indices:
+E        [0, 1]: 1.0 (ACTUAL), 0.0 (DESIRED)
+E        [0, 2]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E        [2, 1]: 1.0 (ACTUAL), 0.0 (DESIRED)
+E        [6, 1]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E        [13, 1]: 1.0 (ACTUAL), 0.0 (DESIRED)
+E       Max absolute difference among violations: 1.
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([[ 1.896838,  1.      ,  0.      ,  0.      ],
+E              [-0.072332,  0.      ,  0.      ,  0.      ],
+E              [ 2.587106,  1.      ,  0.      ,  1.      ],...
+E        DESIRED: array([[ 1.896838,  0.      ,  1.      ,  0.      ],
+E              [-0.072332,  0.      ,  0.      ,  0.      ],
+E              [ 2.587106,  0.      ,  0.      ,  1.      ],...
+
+tests/data/test_copula_categorical_coordinates.py:134: AssertionError
+___ test_each_categorical_coordinate_uses_its_own_gaussian_uniform[cnc--0.3] ___
+
+order = 'cnc', rho = -0.3
+
+    @pytest.mark.parametrize("rho", [-0.3, 0.0, 0.6])
+    @pytest.mark.parametrize("order", ["cnn", "ncc", "cnc"])
+    def test_each_categorical_coordinate_uses_its_own_gaussian_uniform(order, rho):
+        first = {
+            "name": "first",
+            "dist": "categorical",
+            "categories": ["base", "low", "high"],
+            "probs": [1, 2, 1],
+        }
+        second = {
+            "name": "second",
+            "dist": "categorical",
+            "categories": ["off", "on"],
+            "probs": [0.65, 0.35],
+        }
+        numeric = {"name": "numeric", "dist": "normal", "mu": 2.0, "sd": 1.5}
+        if order == "cnn":
+            specs = [
+                first,
+                numeric,
+                {"name": "other", "dist": "uniform", "a": -1.0, "b": 3.0},
+            ]
+        elif order == "ncc":
+            specs = [numeric, first, second]
+        else:
+            specs = [first, numeric, second]
+        expected, names, reference_rng = _sample_reference(specs, rho=rho)
+        actual_rng = np.random.default_rng(SEED)
+>       actual, actual_names = _gaussian_copula(actual_rng, 257, specs, _corr(3, rho))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/data/test_copula_categorical_coordinates.py:132: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rng = Generator(PCG64) at 0x113B48D60, n = 257
+specs = [{'name': 'first', 'dist': 'categorical', 'categories': ['base', 'low', 'high'], 'probs': [1, 2, 1]}, {'name': 'numeri..., 'mu': 2.0, 'sd': 1.5}, {'name': 'second', 'dist': 'categorical', 'categories': ['off', 'on'], 'probs': [0.65, 0.35]}]
+corr = array([[ 1. , -0.3, -0.3],
+       [-0.3,  1. , -0.3],
+       [-0.3, -0.3,  1. ]])
+
+    def _gaussian_copula(
+        rng: np.random.Generator,
+        n: int,
+        specs: List[Dict[str, Any]],
+        corr: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, List[str]]:
+        """
+        Generate mixed-type confounders X using a Gaussian copula.
+    
+        Parameters
+        ----------
+        rng : numpy.random.Generator
+            The random number generator to use.
+        n : int
+            Number of samples to generate.
+        specs : list of dict
+            Schema for confounder distributions. See `CausalDatasetGenerator` for details.
+        corr : numpy.ndarray, optional
+            Correlation matrix for the latent Gaussian variables. If None, uses identity.
+    
+        Returns
+        -------
+        X : numpy.ndarray
+            Generated confounder matrix.
+        names : list of str
+            Names of the generated columns.
+        """
+        d = len(specs)
+        if d == 0:
+            return np.empty((n, 0)), []
+    
+        if corr is None:
+            corr = np.eye(d)
+        corr = np.asarray(corr, dtype=float)
+        corr = _nearest_psd(corr)
+    
+        # Cholesky after nearest-PSD correction with small jitter for stability
+        L = np.linalg.cholesky(corr + 1e-10 * np.eye(d))
+        Z = rng.normal(size=(n, d)) @ L.T
+        U = norm.cdf(Z)  # (0,1)
+    
+        cols = []
+        names = []
+    
+        for j, spec in enumerate(specs):
+            name = spec.get("name") or f"x{j+1}"
+            dist = str(spec.get("dist", "normal")).lower()
+    
+            if dist == "categorical":
+                cats = list(spec.get("categories", [0, 1, 2]))
+                probs = np.asarray(spec.get("probs", None), dtype=float) if spec.get("probs", None) is not None else None
+                if probs is None:
+                    probs = np.ones(len(cats)) / len(cats)
+                probs = probs / probs.sum()
+                # Use U[:,j] as a categorical draw by CDF thresholds
+                thr = np.cumsum(probs)
+>               draw = np.searchsorted(thr, u, side="right")
+                                            ^
+E               UnboundLocalError: cannot access local variable 'u' where it is not associated with a value
+
+.venv/b10-copula-fv3licvj/base.py:307: UnboundLocalError
+___ test_each_categorical_coordinate_uses_its_own_gaussian_uniform[cnc-0.0] ____
+
+order = 'cnc', rho = 0.0
+
+    @pytest.mark.parametrize("rho", [-0.3, 0.0, 0.6])
+    @pytest.mark.parametrize("order", ["cnn", "ncc", "cnc"])
+    def test_each_categorical_coordinate_uses_its_own_gaussian_uniform(order, rho):
+        first = {
+            "name": "first",
+            "dist": "categorical",
+            "categories": ["base", "low", "high"],
+            "probs": [1, 2, 1],
+        }
+        second = {
+            "name": "second",
+            "dist": "categorical",
+            "categories": ["off", "on"],
+            "probs": [0.65, 0.35],
+        }
+        numeric = {"name": "numeric", "dist": "normal", "mu": 2.0, "sd": 1.5}
+        if order == "cnn":
+            specs = [
+                first,
+                numeric,
+                {"name": "other", "dist": "uniform", "a": -1.0, "b": 3.0},
+            ]
+        elif order == "ncc":
+            specs = [numeric, first, second]
+        else:
+            specs = [first, numeric, second]
+        expected, names, reference_rng = _sample_reference(specs, rho=rho)
+        actual_rng = np.random.default_rng(SEED)
+>       actual, actual_names = _gaussian_copula(actual_rng, 257, specs, _corr(3, rho))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/data/test_copula_categorical_coordinates.py:132: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rng = Generator(PCG64) at 0x113AE2F80, n = 257
+specs = [{'name': 'first', 'dist': 'categorical', 'categories': ['base', 'low', 'high'], 'probs': [1, 2, 1]}, {'name': 'numeri..., 'mu': 2.0, 'sd': 1.5}, {'name': 'second', 'dist': 'categorical', 'categories': ['off', 'on'], 'probs': [0.65, 0.35]}]
+corr = array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]])
+
+    def _gaussian_copula(
+        rng: np.random.Generator,
+        n: int,
+        specs: List[Dict[str, Any]],
+        corr: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, List[str]]:
+        """
+        Generate mixed-type confounders X using a Gaussian copula.
+    
+        Parameters
+        ----------
+        rng : numpy.random.Generator
+            The random number generator to use.
+        n : int
+            Number of samples to generate.
+        specs : list of dict
+            Schema for confounder distributions. See `CausalDatasetGenerator` for details.
+        corr : numpy.ndarray, optional
+            Correlation matrix for the latent Gaussian variables. If None, uses identity.
+    
+        Returns
+        -------
+        X : numpy.ndarray
+            Generated confounder matrix.
+        names : list of str
+            Names of the generated columns.
+        """
+        d = len(specs)
+        if d == 0:
+            return np.empty((n, 0)), []
+    
+        if corr is None:
+            corr = np.eye(d)
+        corr = np.asarray(corr, dtype=float)
+        corr = _nearest_psd(corr)
+    
+        # Cholesky after nearest-PSD correction with small jitter for stability
+        L = np.linalg.cholesky(corr + 1e-10 * np.eye(d))
+        Z = rng.normal(size=(n, d)) @ L.T
+        U = norm.cdf(Z)  # (0,1)
+    
+        cols = []
+        names = []
+    
+        for j, spec in enumerate(specs):
+            name = spec.get("name") or f"x{j+1}"
+            dist = str(spec.get("dist", "normal")).lower()
+    
+            if dist == "categorical":
+                cats = list(spec.get("categories", [0, 1, 2]))
+                probs = np.asarray(spec.get("probs", None), dtype=float) if spec.get("probs", None) is not None else None
+                if probs is None:
+                    probs = np.ones(len(cats)) / len(cats)
+                probs = probs / probs.sum()
+                # Use U[:,j] as a categorical draw by CDF thresholds
+                thr = np.cumsum(probs)
+>               draw = np.searchsorted(thr, u, side="right")
+                                            ^
+E               UnboundLocalError: cannot access local variable 'u' where it is not associated with a value
+
+.venv/b10-copula-fv3licvj/base.py:307: UnboundLocalError
+___ test_each_categorical_coordinate_uses_its_own_gaussian_uniform[cnc-0.6] ____
+
+order = 'cnc', rho = 0.6
+
+    @pytest.mark.parametrize("rho", [-0.3, 0.0, 0.6])
+    @pytest.mark.parametrize("order", ["cnn", "ncc", "cnc"])
+    def test_each_categorical_coordinate_uses_its_own_gaussian_uniform(order, rho):
+        first = {
+            "name": "first",
+            "dist": "categorical",
+            "categories": ["base", "low", "high"],
+            "probs": [1, 2, 1],
+        }
+        second = {
+            "name": "second",
+            "dist": "categorical",
+            "categories": ["off", "on"],
+            "probs": [0.65, 0.35],
+        }
+        numeric = {"name": "numeric", "dist": "normal", "mu": 2.0, "sd": 1.5}
+        if order == "cnn":
+            specs = [
+                first,
+                numeric,
+                {"name": "other", "dist": "uniform", "a": -1.0, "b": 3.0},
+            ]
+        elif order == "ncc":
+            specs = [numeric, first, second]
+        else:
+            specs = [first, numeric, second]
+        expected, names, reference_rng = _sample_reference(specs, rho=rho)
+        actual_rng = np.random.default_rng(SEED)
+>       actual, actual_names = _gaussian_copula(actual_rng, 257, specs, _corr(3, rho))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/data/test_copula_categorical_coordinates.py:132: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rng = Generator(PCG64) at 0x113BE5C40, n = 257
+specs = [{'name': 'first', 'dist': 'categorical', 'categories': ['base', 'low', 'high'], 'probs': [1, 2, 1]}, {'name': 'numeri..., 'mu': 2.0, 'sd': 1.5}, {'name': 'second', 'dist': 'categorical', 'categories': ['off', 'on'], 'probs': [0.65, 0.35]}]
+corr = array([[1. , 0.6, 0.6],
+       [0.6, 1. , 0.6],
+       [0.6, 0.6, 1. ]])
+
+    def _gaussian_copula(
+        rng: np.random.Generator,
+        n: int,
+        specs: List[Dict[str, Any]],
+        corr: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, List[str]]:
+        """
+        Generate mixed-type confounders X using a Gaussian copula.
+    
+        Parameters
+        ----------
+        rng : numpy.random.Generator
+            The random number generator to use.
+        n : int
+            Number of samples to generate.
+        specs : list of dict
+            Schema for confounder distributions. See `CausalDatasetGenerator` for details.
+        corr : numpy.ndarray, optional
+            Correlation matrix for the latent Gaussian variables. If None, uses identity.
+    
+        Returns
+        -------
+        X : numpy.ndarray
+            Generated confounder matrix.
+        names : list of str
+            Names of the generated columns.
+        """
+        d = len(specs)
+        if d == 0:
+            return np.empty((n, 0)), []
+    
+        if corr is None:
+            corr = np.eye(d)
+        corr = np.asarray(corr, dtype=float)
+        corr = _nearest_psd(corr)
+    
+        # Cholesky after nearest-PSD correction with small jitter for stability
+        L = np.linalg.cholesky(corr + 1e-10 * np.eye(d))
+        Z = rng.normal(size=(n, d)) @ L.T
+        U = norm.cdf(Z)  # (0,1)
+    
+        cols = []
+        names = []
+    
+        for j, spec in enumerate(specs):
+            name = spec.get("name") or f"x{j+1}"
+            dist = str(spec.get("dist", "normal")).lower()
+    
+            if dist == "categorical":
+                cats = list(spec.get("categories", [0, 1, 2]))
+                probs = np.asarray(spec.get("probs", None), dtype=float) if spec.get("probs", None) is not None else None
+                if probs is None:
+                    probs = np.ones(len(cats)) / len(cats)
+                probs = probs / probs.sum()
+                # Use U[:,j] as a categorical draw by CDF thresholds
+                thr = np.cumsum(probs)
+>               draw = np.searchsorted(thr, u, side="right")
+                                            ^
+E               UnboundLocalError: cannot access local variable 'u' where it is not associated with a value
+
+.venv/b10-copula-fv3licvj/base.py:307: UnboundLocalError
+_ test_first_categorical_default_explicit_and_unnormalized_probabilities[None] _
+
+probabilities = None
+
+    @pytest.mark.parametrize("probabilities", [None, [0.2, 0.5, 0.3], [2.0, 5.0, 3.0]])
+    def test_first_categorical_default_explicit_and_unnormalized_probabilities(
+        probabilities,
+    ):
+        spec = {
+            "name": "segment",
+            "dist": "categorical",
+            "categories": ["base", "mid", "top"],
+        }
+        if probabilities is not None:
+            spec["probs"] = probabilities
+        expected, names, reference_rng = _sample_reference([spec], n=200)
+        actual_rng = np.random.default_rng(SEED)
+>       actual, actual_names = _gaussian_copula(actual_rng, 200, [spec])
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/data/test_copula_categorical_coordinates.py:152: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rng = Generator(PCG64) at 0x113BE5380, n = 200
+specs = [{'name': 'segment', 'dist': 'categorical', 'categories': ['base', 'mid', 'top']}]
+corr = array([[1.]])
+
+    def _gaussian_copula(
+        rng: np.random.Generator,
+        n: int,
+        specs: List[Dict[str, Any]],
+        corr: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, List[str]]:
+        """
+        Generate mixed-type confounders X using a Gaussian copula.
+    
+        Parameters
+        ----------
+        rng : numpy.random.Generator
+            The random number generator to use.
+        n : int
+            Number of samples to generate.
+        specs : list of dict
+            Schema for confounder distributions. See `CausalDatasetGenerator` for details.
+        corr : numpy.ndarray, optional
+            Correlation matrix for the latent Gaussian variables. If None, uses identity.
+    
+        Returns
+        -------
+        X : numpy.ndarray
+            Generated confounder matrix.
+        names : list of str
+            Names of the generated columns.
+        """
+        d = len(specs)
+        if d == 0:
+            return np.empty((n, 0)), []
+    
+        if corr is None:
+            corr = np.eye(d)
+        corr = np.asarray(corr, dtype=float)
+        corr = _nearest_psd(corr)
+    
+        # Cholesky after nearest-PSD correction with small jitter for stability
+        L = np.linalg.cholesky(corr + 1e-10 * np.eye(d))
+        Z = rng.normal(size=(n, d)) @ L.T
+        U = norm.cdf(Z)  # (0,1)
+    
+        cols = []
+        names = []
+    
+        for j, spec in enumerate(specs):
+            name = spec.get("name") or f"x{j+1}"
+            dist = str(spec.get("dist", "normal")).lower()
+    
+            if dist == "categorical":
+                cats = list(spec.get("categories", [0, 1, 2]))
+                probs = np.asarray(spec.get("probs", None), dtype=float) if spec.get("probs", None) is not None else None
+                if probs is None:
+                    probs = np.ones(len(cats)) / len(cats)
+                probs = probs / probs.sum()
+                # Use U[:,j] as a categorical draw by CDF thresholds
+                thr = np.cumsum(probs)
+>               draw = np.searchsorted(thr, u, side="right")
+                                            ^
+E               UnboundLocalError: cannot access local variable 'u' where it is not associated with a value
+
+.venv/b10-copula-fv3licvj/base.py:307: UnboundLocalError
+_ test_first_categorical_default_explicit_and_unnormalized_probabilities[probabilities1] _
+
+probabilities = [0.2, 0.5, 0.3]
+
+    @pytest.mark.parametrize("probabilities", [None, [0.2, 0.5, 0.3], [2.0, 5.0, 3.0]])
+    def test_first_categorical_default_explicit_and_unnormalized_probabilities(
+        probabilities,
+    ):
+        spec = {
+            "name": "segment",
+            "dist": "categorical",
+            "categories": ["base", "mid", "top"],
+        }
+        if probabilities is not None:
+            spec["probs"] = probabilities
+        expected, names, reference_rng = _sample_reference([spec], n=200)
+        actual_rng = np.random.default_rng(SEED)
+>       actual, actual_names = _gaussian_copula(actual_rng, 200, [spec])
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/data/test_copula_categorical_coordinates.py:152: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rng = Generator(PCG64) at 0x113BE4900, n = 200
+specs = [{'name': 'segment', 'dist': 'categorical', 'categories': ['base', 'mid', 'top'], 'probs': [0.2, 0.5, 0.3]}]
+corr = array([[1.]])
+
+    def _gaussian_copula(
+        rng: np.random.Generator,
+        n: int,
+        specs: List[Dict[str, Any]],
+        corr: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, List[str]]:
+        """
+        Generate mixed-type confounders X using a Gaussian copula.
+    
+        Parameters
+        ----------
+        rng : numpy.random.Generator
+            The random number generator to use.
+        n : int
+            Number of samples to generate.
+        specs : list of dict
+            Schema for confounder distributions. See `CausalDatasetGenerator` for details.
+        corr : numpy.ndarray, optional
+            Correlation matrix for the latent Gaussian variables. If None, uses identity.
+    
+        Returns
+        -------
+        X : numpy.ndarray
+            Generated confounder matrix.
+        names : list of str
+            Names of the generated columns.
+        """
+        d = len(specs)
+        if d == 0:
+            return np.empty((n, 0)), []
+    
+        if corr is None:
+            corr = np.eye(d)
+        corr = np.asarray(corr, dtype=float)
+        corr = _nearest_psd(corr)
+    
+        # Cholesky after nearest-PSD correction with small jitter for stability
+        L = np.linalg.cholesky(corr + 1e-10 * np.eye(d))
+        Z = rng.normal(size=(n, d)) @ L.T
+        U = norm.cdf(Z)  # (0,1)
+    
+        cols = []
+        names = []
+    
+        for j, spec in enumerate(specs):
+            name = spec.get("name") or f"x{j+1}"
+            dist = str(spec.get("dist", "normal")).lower()
+    
+            if dist == "categorical":
+                cats = list(spec.get("categories", [0, 1, 2]))
+                probs = np.asarray(spec.get("probs", None), dtype=float) if spec.get("probs", None) is not None else None
+                if probs is None:
+                    probs = np.ones(len(cats)) / len(cats)
+                probs = probs / probs.sum()
+                # Use U[:,j] as a categorical draw by CDF thresholds
+                thr = np.cumsum(probs)
+>               draw = np.searchsorted(thr, u, side="right")
+                                            ^
+E               UnboundLocalError: cannot access local variable 'u' where it is not associated with a value
+
+.venv/b10-copula-fv3licvj/base.py:307: UnboundLocalError
+_ test_first_categorical_default_explicit_and_unnormalized_probabilities[probabilities2] _
+
+probabilities = [2.0, 5.0, 3.0]
+
+    @pytest.mark.parametrize("probabilities", [None, [0.2, 0.5, 0.3], [2.0, 5.0, 3.0]])
+    def test_first_categorical_default_explicit_and_unnormalized_probabilities(
+        probabilities,
+    ):
+        spec = {
+            "name": "segment",
+            "dist": "categorical",
+            "categories": ["base", "mid", "top"],
+        }
+        if probabilities is not None:
+            spec["probs"] = probabilities
+        expected, names, reference_rng = _sample_reference([spec], n=200)
+        actual_rng = np.random.default_rng(SEED)
+>       actual, actual_names = _gaussian_copula(actual_rng, 200, [spec])
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/data/test_copula_categorical_coordinates.py:152: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rng = Generator(PCG64) at 0x113BE6C00, n = 200
+specs = [{'name': 'segment', 'dist': 'categorical', 'categories': ['base', 'mid', 'top'], 'probs': [2.0, 5.0, 3.0]}]
+corr = array([[1.]])
+
+    def _gaussian_copula(
+        rng: np.random.Generator,
+        n: int,
+        specs: List[Dict[str, Any]],
+        corr: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, List[str]]:
+        """
+        Generate mixed-type confounders X using a Gaussian copula.
+    
+        Parameters
+        ----------
+        rng : numpy.random.Generator
+            The random number generator to use.
+        n : int
+            Number of samples to generate.
+        specs : list of dict
+            Schema for confounder distributions. See `CausalDatasetGenerator` for details.
+        corr : numpy.ndarray, optional
+            Correlation matrix for the latent Gaussian variables. If None, uses identity.
+    
+        Returns
+        -------
+        X : numpy.ndarray
+            Generated confounder matrix.
+        names : list of str
+            Names of the generated columns.
+        """
+        d = len(specs)
+        if d == 0:
+            return np.empty((n, 0)), []
+    
+        if corr is None:
+            corr = np.eye(d)
+        corr = np.asarray(corr, dtype=float)
+        corr = _nearest_psd(corr)
+    
+        # Cholesky after nearest-PSD correction with small jitter for stability
+        L = np.linalg.cholesky(corr + 1e-10 * np.eye(d))
+        Z = rng.normal(size=(n, d)) @ L.T
+        U = norm.cdf(Z)  # (0,1)
+    
+        cols = []
+        names = []
+    
+        for j, spec in enumerate(specs):
+            name = spec.get("name") or f"x{j+1}"
+            dist = str(spec.get("dist", "normal")).lower()
+    
+            if dist == "categorical":
+                cats = list(spec.get("categories", [0, 1, 2]))
+                probs = np.asarray(spec.get("probs", None), dtype=float) if spec.get("probs", None) is not None else None
+                if probs is None:
+                    probs = np.ones(len(cats)) / len(cats)
+                probs = probs / probs.sum()
+                # Use U[:,j] as a categorical draw by CDF thresholds
+                thr = np.cumsum(probs)
+>               draw = np.searchsorted(thr, u, side="right")
+                                            ^
+E               UnboundLocalError: cannot access local variable 'u' where it is not associated with a value
+
+.venv/b10-copula-fv3licvj/base.py:307: UnboundLocalError
+__________ test_single_category_emits_existing_onlylevel_schema[True] __________
+
+first = True
+
+    @pytest.mark.parametrize("first", [False, True])
+    def test_single_category_emits_existing_onlylevel_schema(first):
+        singleton = {"name": "constant", "dist": "categorical", "categories": ["sole"]}
+        numeric = {"name": "numeric", "dist": "normal"}
+        specs = [singleton, numeric] if first else [numeric, singleton]
+        expected, names, reference_rng = _sample_reference(specs, n=11)
+        actual_rng = np.random.default_rng(SEED)
+>       actual, actual_names = _gaussian_copula(actual_rng, 11, specs)
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/data/test_copula_categorical_coordinates.py:166: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rng = Generator(PCG64) at 0x113B491C0, n = 11
+specs = [{'name': 'constant', 'dist': 'categorical', 'categories': ['sole']}, {'name': 'numeric', 'dist': 'normal'}]
+corr = array([[1., 0.],
+       [0., 1.]])
+
+    def _gaussian_copula(
+        rng: np.random.Generator,
+        n: int,
+        specs: List[Dict[str, Any]],
+        corr: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, List[str]]:
+        """
+        Generate mixed-type confounders X using a Gaussian copula.
+    
+        Parameters
+        ----------
+        rng : numpy.random.Generator
+            The random number generator to use.
+        n : int
+            Number of samples to generate.
+        specs : list of dict
+            Schema for confounder distributions. See `CausalDatasetGenerator` for details.
+        corr : numpy.ndarray, optional
+            Correlation matrix for the latent Gaussian variables. If None, uses identity.
+    
+        Returns
+        -------
+        X : numpy.ndarray
+            Generated confounder matrix.
+        names : list of str
+            Names of the generated columns.
+        """
+        d = len(specs)
+        if d == 0:
+            return np.empty((n, 0)), []
+    
+        if corr is None:
+            corr = np.eye(d)
+        corr = np.asarray(corr, dtype=float)
+        corr = _nearest_psd(corr)
+    
+        # Cholesky after nearest-PSD correction with small jitter for stability
+        L = np.linalg.cholesky(corr + 1e-10 * np.eye(d))
+        Z = rng.normal(size=(n, d)) @ L.T
+        U = norm.cdf(Z)  # (0,1)
+    
+        cols = []
+        names = []
+    
+        for j, spec in enumerate(specs):
+            name = spec.get("name") or f"x{j+1}"
+            dist = str(spec.get("dist", "normal")).lower()
+    
+            if dist == "categorical":
+                cats = list(spec.get("categories", [0, 1, 2]))
+                probs = np.asarray(spec.get("probs", None), dtype=float) if spec.get("probs", None) is not None else None
+                if probs is None:
+                    probs = np.ones(len(cats)) / len(cats)
+                probs = probs / probs.sum()
+                # Use U[:,j] as a categorical draw by CDF thresholds
+                thr = np.cumsum(probs)
+>               draw = np.searchsorted(thr, u, side="right")
+                                            ^
+E               UnboundLocalError: cannot access local variable 'u' where it is not associated with a value
+
+.venv/b10-copula-fv3licvj/base.py:307: UnboundLocalError
+_ test_category_threshold_and_saturated_tails_have_explicit_interval_semantics _
+
+    def test_category_threshold_and_saturated_tails_have_explicit_interval_semantics():
+>       actual, names = _categorical_from_fixed_normals(
+            [-1000.0, -1.0, 0.0, 1.0, 1000.0], ["low", "high"], [0.5, 0.5]
+        )
+
+tests/data/test_copula_categorical_coordinates.py:205: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/data/test_copula_categorical_coordinates.py:188: in _categorical_from_fixed_normals
+    actual, names = _gaussian_copula(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rng = <tests.data.test_copula_categorical_coordinates._FixedNormals object at 0x113b45490>
+n = 5
+specs = [{'name': 'segment', 'dist': 'categorical', 'categories': ['low', 'high'], 'probs': [0.5, 0.5]}]
+corr = array([[1.]])
+
+    def _gaussian_copula(
+        rng: np.random.Generator,
+        n: int,
+        specs: List[Dict[str, Any]],
+        corr: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, List[str]]:
+        """
+        Generate mixed-type confounders X using a Gaussian copula.
+    
+        Parameters
+        ----------
+        rng : numpy.random.Generator
+            The random number generator to use.
+        n : int
+            Number of samples to generate.
+        specs : list of dict
+            Schema for confounder distributions. See `CausalDatasetGenerator` for details.
+        corr : numpy.ndarray, optional
+            Correlation matrix for the latent Gaussian variables. If None, uses identity.
+    
+        Returns
+        -------
+        X : numpy.ndarray
+            Generated confounder matrix.
+        names : list of str
+            Names of the generated columns.
+        """
+        d = len(specs)
+        if d == 0:
+            return np.empty((n, 0)), []
+    
+        if corr is None:
+            corr = np.eye(d)
+        corr = np.asarray(corr, dtype=float)
+        corr = _nearest_psd(corr)
+    
+        # Cholesky after nearest-PSD correction with small jitter for stability
+        L = np.linalg.cholesky(corr + 1e-10 * np.eye(d))
+        Z = rng.normal(size=(n, d)) @ L.T
+        U = norm.cdf(Z)  # (0,1)
+    
+        cols = []
+        names = []
+    
+        for j, spec in enumerate(specs):
+            name = spec.get("name") or f"x{j+1}"
+            dist = str(spec.get("dist", "normal")).lower()
+    
+            if dist == "categorical":
+                cats = list(spec.get("categories", [0, 1, 2]))
+                probs = np.asarray(spec.get("probs", None), dtype=float) if spec.get("probs", None) is not None else None
+                if probs is None:
+                    probs = np.ones(len(cats)) / len(cats)
+                probs = probs / probs.sum()
+                # Use U[:,j] as a categorical draw by CDF thresholds
+                thr = np.cumsum(probs)
+>               draw = np.searchsorted(thr, u, side="right")
+                                            ^
+E               UnboundLocalError: cannot access local variable 'u' where it is not associated with a value
+
+.venv/b10-copula-fv3licvj/base.py:307: UnboundLocalError
+_ test_upper_saturation_never_selects_zero_probability_tail[categories0-probabilities0-expected0] _
+
+categories = ['possible', 'zero'], probabilities = [1.0, 0.0]
+expected = [[0.0]]
+
+    @pytest.mark.parametrize(
+        "categories,probabilities,expected",
+        [
+            (["possible", "zero"], [1.0, 0.0], [[0.0]]),
+            (["base", "possible", "zero"], [0.5, 0.5, 0.0], [[1.0, 0.0]]),
+        ],
+    )
+    def test_upper_saturation_never_selects_zero_probability_tail(
+        categories, probabilities, expected
+    ):
+>       actual, _ = _categorical_from_fixed_normals([1000.0], categories, probabilities)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/data/test_copula_categorical_coordinates.py:222: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/data/test_copula_categorical_coordinates.py:188: in _categorical_from_fixed_normals
+    actual, names = _gaussian_copula(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rng = <tests.data.test_copula_categorical_coordinates._FixedNormals object at 0x113be0920>
+n = 1
+specs = [{'name': 'segment', 'dist': 'categorical', 'categories': ['possible', 'zero'], 'probs': [1.0, 0.0]}]
+corr = array([[1.]])
+
+    def _gaussian_copula(
+        rng: np.random.Generator,
+        n: int,
+        specs: List[Dict[str, Any]],
+        corr: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, List[str]]:
+        """
+        Generate mixed-type confounders X using a Gaussian copula.
+    
+        Parameters
+        ----------
+        rng : numpy.random.Generator
+            The random number generator to use.
+        n : int
+            Number of samples to generate.
+        specs : list of dict
+            Schema for confounder distributions. See `CausalDatasetGenerator` for details.
+        corr : numpy.ndarray, optional
+            Correlation matrix for the latent Gaussian variables. If None, uses identity.
+    
+        Returns
+        -------
+        X : numpy.ndarray
+            Generated confounder matrix.
+        names : list of str
+            Names of the generated columns.
+        """
+        d = len(specs)
+        if d == 0:
+            return np.empty((n, 0)), []
+    
+        if corr is None:
+            corr = np.eye(d)
+        corr = np.asarray(corr, dtype=float)
+        corr = _nearest_psd(corr)
+    
+        # Cholesky after nearest-PSD correction with small jitter for stability
+        L = np.linalg.cholesky(corr + 1e-10 * np.eye(d))
+        Z = rng.normal(size=(n, d)) @ L.T
+        U = norm.cdf(Z)  # (0,1)
+    
+        cols = []
+        names = []
+    
+        for j, spec in enumerate(specs):
+            name = spec.get("name") or f"x{j+1}"
+            dist = str(spec.get("dist", "normal")).lower()
+    
+            if dist == "categorical":
+                cats = list(spec.get("categories", [0, 1, 2]))
+                probs = np.asarray(spec.get("probs", None), dtype=float) if spec.get("probs", None) is not None else None
+                if probs is None:
+                    probs = np.ones(len(cats)) / len(cats)
+                probs = probs / probs.sum()
+                # Use U[:,j] as a categorical draw by CDF thresholds
+                thr = np.cumsum(probs)
+>               draw = np.searchsorted(thr, u, side="right")
+                                            ^
+E               UnboundLocalError: cannot access local variable 'u' where it is not associated with a value
+
+.venv/b10-copula-fv3licvj/base.py:307: UnboundLocalError
+_ test_upper_saturation_never_selects_zero_probability_tail[categories1-probabilities1-expected1] _
+
+categories = ['base', 'possible', 'zero'], probabilities = [0.5, 0.5, 0.0]
+expected = [[1.0, 0.0]]
+
+    @pytest.mark.parametrize(
+        "categories,probabilities,expected",
+        [
+            (["possible", "zero"], [1.0, 0.0], [[0.0]]),
+            (["base", "possible", "zero"], [0.5, 0.5, 0.0], [[1.0, 0.0]]),
+        ],
+    )
+    def test_upper_saturation_never_selects_zero_probability_tail(
+        categories, probabilities, expected
+    ):
+>       actual, _ = _categorical_from_fixed_normals([1000.0], categories, probabilities)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/data/test_copula_categorical_coordinates.py:222: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/data/test_copula_categorical_coordinates.py:188: in _categorical_from_fixed_normals
+    actual, names = _gaussian_copula(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rng = <tests.data.test_copula_categorical_coordinates._FixedNormals object at 0x113be3da0>
+n = 1
+specs = [{'name': 'segment', 'dist': 'categorical', 'categories': ['base', 'possible', 'zero'], 'probs': [0.5, 0.5, 0.0]}]
+corr = array([[1.]])
+
+    def _gaussian_copula(
+        rng: np.random.Generator,
+        n: int,
+        specs: List[Dict[str, Any]],
+        corr: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, List[str]]:
+        """
+        Generate mixed-type confounders X using a Gaussian copula.
+    
+        Parameters
+        ----------
+        rng : numpy.random.Generator
+            The random number generator to use.
+        n : int
+            Number of samples to generate.
+        specs : list of dict
+            Schema for confounder distributions. See `CausalDatasetGenerator` for details.
+        corr : numpy.ndarray, optional
+            Correlation matrix for the latent Gaussian variables. If None, uses identity.
+    
+        Returns
+        -------
+        X : numpy.ndarray
+            Generated confounder matrix.
+        names : list of str
+            Names of the generated columns.
+        """
+        d = len(specs)
+        if d == 0:
+            return np.empty((n, 0)), []
+    
+        if corr is None:
+            corr = np.eye(d)
+        corr = np.asarray(corr, dtype=float)
+        corr = _nearest_psd(corr)
+    
+        # Cholesky after nearest-PSD correction with small jitter for stability
+        L = np.linalg.cholesky(corr + 1e-10 * np.eye(d))
+        Z = rng.normal(size=(n, d)) @ L.T
+        U = norm.cdf(Z)  # (0,1)
+    
+        cols = []
+        names = []
+    
+        for j, spec in enumerate(specs):
+            name = spec.get("name") or f"x{j+1}"
+            dist = str(spec.get("dist", "normal")).lower()
+    
+            if dist == "categorical":
+                cats = list(spec.get("categories", [0, 1, 2]))
+                probs = np.asarray(spec.get("probs", None), dtype=float) if spec.get("probs", None) is not None else None
+                if probs is None:
+                    probs = np.ones(len(cats)) / len(cats)
+                probs = probs / probs.sum()
+                # Use U[:,j] as a categorical draw by CDF thresholds
+                thr = np.cumsum(probs)
+>               draw = np.searchsorted(thr, u, side="right")
+                                            ^
+E               UnboundLocalError: cannot access local variable 'u' where it is not associated with a value
+
+.venv/b10-copula-fv3licvj/base.py:307: UnboundLocalError
+________ test_lower_saturation_skips_zero_probability_leading_category _________
+
+    def test_lower_saturation_skips_zero_probability_leading_category():
+>       actual, names = _categorical_from_fixed_normals(
+            [-1000.0], ["zero", "possible", "other"], [0.0, 0.5, 0.5]
+        )
+
+tests/data/test_copula_categorical_coordinates.py:227: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/data/test_copula_categorical_coordinates.py:188: in _categorical_from_fixed_normals
+    actual, names = _gaussian_copula(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rng = <tests.data.test_copula_categorical_coordinates._FixedNormals object at 0x113be2840>
+n = 1
+specs = [{'name': 'segment', 'dist': 'categorical', 'categories': ['zero', 'possible', 'other'], 'probs': [0.0, 0.5, 0.5]}]
+corr = array([[1.]])
+
+    def _gaussian_copula(
+        rng: np.random.Generator,
+        n: int,
+        specs: List[Dict[str, Any]],
+        corr: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, List[str]]:
+        """
+        Generate mixed-type confounders X using a Gaussian copula.
+    
+        Parameters
+        ----------
+        rng : numpy.random.Generator
+            The random number generator to use.
+        n : int
+            Number of samples to generate.
+        specs : list of dict
+            Schema for confounder distributions. See `CausalDatasetGenerator` for details.
+        corr : numpy.ndarray, optional
+            Correlation matrix for the latent Gaussian variables. If None, uses identity.
+    
+        Returns
+        -------
+        X : numpy.ndarray
+            Generated confounder matrix.
+        names : list of str
+            Names of the generated columns.
+        """
+        d = len(specs)
+        if d == 0:
+            return np.empty((n, 0)), []
+    
+        if corr is None:
+            corr = np.eye(d)
+        corr = np.asarray(corr, dtype=float)
+        corr = _nearest_psd(corr)
+    
+        # Cholesky after nearest-PSD correction with small jitter for stability
+        L = np.linalg.cholesky(corr + 1e-10 * np.eye(d))
+        Z = rng.normal(size=(n, d)) @ L.T
+        U = norm.cdf(Z)  # (0,1)
+    
+        cols = []
+        names = []
+    
+        for j, spec in enumerate(specs):
+            name = spec.get("name") or f"x{j+1}"
+            dist = str(spec.get("dist", "normal")).lower()
+    
+            if dist == "categorical":
+                cats = list(spec.get("categories", [0, 1, 2]))
+                probs = np.asarray(spec.get("probs", None), dtype=float) if spec.get("probs", None) is not None else None
+                if probs is None:
+                    probs = np.ones(len(cats)) / len(cats)
+                probs = probs / probs.sum()
+                # Use U[:,j] as a categorical draw by CDF thresholds
+                thr = np.cumsum(probs)
+>               draw = np.searchsorted(thr, u, side="right")
+                                            ^
+E               UnboundLocalError: cannot access local variable 'u' where it is not associated with a value
+
+.venv/b10-copula-fv3licvj/base.py:307: UnboundLocalError
+_ test_tiny_valid_category_intervals_are_not_erased_by_numeric_inverse_cdf_clipping[lower] _
+
+tail = 'lower'
+
+    @pytest.mark.parametrize("tail", ["lower", "upper"])
+    def test_tiny_valid_category_intervals_are_not_erased_by_numeric_inverse_cdf_clipping(
+        tail,
+    ):
+        if tail == "lower":
+            probabilities = [5e-13, 0.4, 0.6 - 5e-13]
+            gaussian = norm.ppf(1e-13)
+            expected = [[0.0, 0.0]]
+        else:
+            probabilities = [0.5, 0.5 - 5e-13, 5e-13]
+            gaussian = norm.isf(1e-13)
+            expected = [[0.0, 1.0]]
+>       actual, _ = _categorical_from_fixed_normals(
+            [gaussian], ["base", "mid", "top"], probabilities
+        )
+
+tests/data/test_copula_categorical_coordinates.py:246: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/data/test_copula_categorical_coordinates.py:188: in _categorical_from_fixed_normals
+    actual, names = _gaussian_copula(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rng = <tests.data.test_copula_categorical_coordinates._FixedNormals object at 0x113be3c20>
+n = 1
+specs = [{'name': 'segment', 'dist': 'categorical', 'categories': ['base', 'mid', 'top'], 'probs': [5e-13, 0.4, 0.5999999999994999]}]
+corr = array([[1.]])
+
+    def _gaussian_copula(
+        rng: np.random.Generator,
+        n: int,
+        specs: List[Dict[str, Any]],
+        corr: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, List[str]]:
+        """
+        Generate mixed-type confounders X using a Gaussian copula.
+    
+        Parameters
+        ----------
+        rng : numpy.random.Generator
+            The random number generator to use.
+        n : int
+            Number of samples to generate.
+        specs : list of dict
+            Schema for confounder distributions. See `CausalDatasetGenerator` for details.
+        corr : numpy.ndarray, optional
+            Correlation matrix for the latent Gaussian variables. If None, uses identity.
+    
+        Returns
+        -------
+        X : numpy.ndarray
+            Generated confounder matrix.
+        names : list of str
+            Names of the generated columns.
+        """
+        d = len(specs)
+        if d == 0:
+            return np.empty((n, 0)), []
+    
+        if corr is None:
+            corr = np.eye(d)
+        corr = np.asarray(corr, dtype=float)
+        corr = _nearest_psd(corr)
+    
+        # Cholesky after nearest-PSD correction with small jitter for stability
+        L = np.linalg.cholesky(corr + 1e-10 * np.eye(d))
+        Z = rng.normal(size=(n, d)) @ L.T
+        U = norm.cdf(Z)  # (0,1)
+    
+        cols = []
+        names = []
+    
+        for j, spec in enumerate(specs):
+            name = spec.get("name") or f"x{j+1}"
+            dist = str(spec.get("dist", "normal")).lower()
+    
+            if dist == "categorical":
+                cats = list(spec.get("categories", [0, 1, 2]))
+                probs = np.asarray(spec.get("probs", None), dtype=float) if spec.get("probs", None) is not None else None
+                if probs is None:
+                    probs = np.ones(len(cats)) / len(cats)
+                probs = probs / probs.sum()
+                # Use U[:,j] as a categorical draw by CDF thresholds
+                thr = np.cumsum(probs)
+>               draw = np.searchsorted(thr, u, side="right")
+                                            ^
+E               UnboundLocalError: cannot access local variable 'u' where it is not associated with a value
+
+.venv/b10-copula-fv3licvj/base.py:307: UnboundLocalError
+_ test_tiny_valid_category_intervals_are_not_erased_by_numeric_inverse_cdf_clipping[upper] _
+
+tail = 'upper'
+
+    @pytest.mark.parametrize("tail", ["lower", "upper"])
+    def test_tiny_valid_category_intervals_are_not_erased_by_numeric_inverse_cdf_clipping(
+        tail,
+    ):
+        if tail == "lower":
+            probabilities = [5e-13, 0.4, 0.6 - 5e-13]
+            gaussian = norm.ppf(1e-13)
+            expected = [[0.0, 0.0]]
+        else:
+            probabilities = [0.5, 0.5 - 5e-13, 5e-13]
+            gaussian = norm.isf(1e-13)
+            expected = [[0.0, 1.0]]
+>       actual, _ = _categorical_from_fixed_normals(
+            [gaussian], ["base", "mid", "top"], probabilities
+        )
+
+tests/data/test_copula_categorical_coordinates.py:246: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/data/test_copula_categorical_coordinates.py:188: in _categorical_from_fixed_normals
+    actual, names = _gaussian_copula(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rng = <tests.data.test_copula_categorical_coordinates._FixedNormals object at 0x113be1550>
+n = 1
+specs = [{'name': 'segment', 'dist': 'categorical', 'categories': ['base', 'mid', 'top'], 'probs': [0.5, 0.4999999999995, 5e-13]}]
+corr = array([[1.]])
+
+    def _gaussian_copula(
+        rng: np.random.Generator,
+        n: int,
+        specs: List[Dict[str, Any]],
+        corr: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, List[str]]:
+        """
+        Generate mixed-type confounders X using a Gaussian copula.
+    
+        Parameters
+        ----------
+        rng : numpy.random.Generator
+            The random number generator to use.
+        n : int
+            Number of samples to generate.
+        specs : list of dict
+            Schema for confounder distributions. See `CausalDatasetGenerator` for details.
+        corr : numpy.ndarray, optional
+            Correlation matrix for the latent Gaussian variables. If None, uses identity.
+    
+        Returns
+        -------
+        X : numpy.ndarray
+            Generated confounder matrix.
+        names : list of str
+            Names of the generated columns.
+        """
+        d = len(specs)
+        if d == 0:
+            return np.empty((n, 0)), []
+    
+        if corr is None:
+            corr = np.eye(d)
+        corr = np.asarray(corr, dtype=float)
+        corr = _nearest_psd(corr)
+    
+        # Cholesky after nearest-PSD correction with small jitter for stability
+        L = np.linalg.cholesky(corr + 1e-10 * np.eye(d))
+        Z = rng.normal(size=(n, d)) @ L.T
+        U = norm.cdf(Z)  # (0,1)
+    
+        cols = []
+        names = []
+    
+        for j, spec in enumerate(specs):
+            name = spec.get("name") or f"x{j+1}"
+            dist = str(spec.get("dist", "normal")).lower()
+    
+            if dist == "categorical":
+                cats = list(spec.get("categories", [0, 1, 2]))
+                probs = np.asarray(spec.get("probs", None), dtype=float) if spec.get("probs", None) is not None else None
+                if probs is None:
+                    probs = np.ones(len(cats)) / len(cats)
+                probs = probs / probs.sum()
+                # Use U[:,j] as a categorical draw by CDF thresholds
+                thr = np.cumsum(probs)
+>               draw = np.searchsorted(thr, u, side="right")
+                                            ^
+E               UnboundLocalError: cannot access local variable 'u' where it is not associated with a value
+
+.venv/b10-copula-fv3licvj/base.py:307: UnboundLocalError
+_ test_observed_normal_category_correlation_matches_discretized_gaussian_law[-0.75] _
+
+rho = -0.75
+
+    @pytest.mark.parametrize("rho", [-0.75, 0.0, 0.75])
+    def test_observed_normal_category_correlation_matches_discretized_gaussian_law(rho):
+        specs = [
+            {"name": "normal", "dist": "normal"},
+            {"name": "category", "dist": "categorical", "categories": [0, 1]},
+        ]
+        values, names = _gaussian_copula(
+            np.random.default_rng(SEED), 20000, specs, _corr(2, rho)
+        )
+        assert names == ["normal", "category_1"]
+        observed = np.corrcoef(values.T)[0, 1]
+        # Corr(Z0, 1{Z1 >= 0}) = rho*sqrt(2/pi), distinct from latent rho.
+        expected = rho * np.sqrt(2.0 / np.pi)
+>       assert observed == pytest.approx(expected, abs=0.025)
+E       assert np.float64(0.7954975670451878) == -0.5984134206021491 ± 0.025
+E         
+E         comparison failed
+E         Obtained: 0.7954975670451878
+E         Expected: -0.5984134206021491 ± 0.025
+
+tests/data/test_copula_categorical_coordinates.py:280: AssertionError
+_ test_observed_normal_category_correlation_matches_discretized_gaussian_law[0.0] _
+
+rho = 0.0
+
+    @pytest.mark.parametrize("rho", [-0.75, 0.0, 0.75])
+    def test_observed_normal_category_correlation_matches_discretized_gaussian_law(rho):
+        specs = [
+            {"name": "normal", "dist": "normal"},
+            {"name": "category", "dist": "categorical", "categories": [0, 1]},
+        ]
+        values, names = _gaussian_copula(
+            np.random.default_rng(SEED), 20000, specs, _corr(2, rho)
+        )
+        assert names == ["normal", "category_1"]
+        observed = np.corrcoef(values.T)[0, 1]
+        # Corr(Z0, 1{Z1 >= 0}) = rho*sqrt(2/pi), distinct from latent rho.
+        expected = rho * np.sqrt(2.0 / np.pi)
+>       assert observed == pytest.approx(expected, abs=0.025)
+E       assert np.float64(0.7954975670451878) == 0.0 ± 0.025
+E         
+E         comparison failed
+E         Obtained: 0.7954975670451878
+E         Expected: 0.0 ± 0.025
+
+tests/data/test_copula_categorical_coordinates.py:280: AssertionError
+_ test_observed_normal_category_correlation_matches_discretized_gaussian_law[0.75] _
+
+rho = 0.75
+
+    @pytest.mark.parametrize("rho", [-0.75, 0.0, 0.75])
+    def test_observed_normal_category_correlation_matches_discretized_gaussian_law(rho):
+        specs = [
+            {"name": "normal", "dist": "normal"},
+            {"name": "category", "dist": "categorical", "categories": [0, 1]},
+        ]
+        values, names = _gaussian_copula(
+            np.random.default_rng(SEED), 20000, specs, _corr(2, rho)
+        )
+        assert names == ["normal", "category_1"]
+        observed = np.corrcoef(values.T)[0, 1]
+        # Corr(Z0, 1{Z1 >= 0}) = rho*sqrt(2/pi), distinct from latent rho.
+        expected = rho * np.sqrt(2.0 / np.pi)
+>       assert observed == pytest.approx(expected, abs=0.025)
+E       assert np.float64(0.7954975670451878) == 0.5984134206021491 ± 0.025
+E         
+E         comparison failed
+E         Obtained: 0.7954975670451878
+E         Expected: 0.5984134206021491 ± 0.025
+
+tests/data/test_copula_categorical_coordinates.py:280: AssertionError
+_ test_full_binary_and_multi_generation_uses_correct_expanded_coordinates[False-binary] _
+
+kind = 'binary', first = False
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("first", [False, True])
+    def test_full_binary_and_multi_generation_uses_correct_expanded_coordinates(
+        kind, first
+    ):
+        specs = _public_specs(first)
+        expected, names, _ = _sample_reference(specs, rho=-0.4)
+        coefficients = np.array([0.6, -0.2, 0.3])
+        options = dict(
+            confounder_specs=specs,
+            use_copula=True,
+            copula_corr=_corr(2, -0.4),
+            seed=SEED,
+            beta_y=coefficients,
+            alpha_y=0.2,
+            sigma_y=0.3,
+        )
+        if kind == "binary":
+            generator = CausalDatasetGenerator(
+                theta=0.7, beta_d=np.array([0.1, 0.2, -0.15]), **options
+            )
+            oracle_names = ["g0", "g1"]
+        else:
+            generator = MultiCausalDatasetGenerator(
+                n_treatments=2,
+                theta=[0.0, 0.7],
+                beta_d=np.array([0.1, 0.2, -0.15]),
+                **options,
+            )
+            oracle_names = ["g_d_0", "g_d_1"]
+        frame = generator.generate(257)
+        assert [column for column in frame.columns if column in names] == names
+>       np.testing.assert_allclose(frame[names], expected, rtol=1e-11, atol=1e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-11, atol=1e-11
+E       
+E       Mismatched elements: 245 / 771 (31.8%)
+E       First 5 mismatches are at indices:
+E        [0, 1]: 1.0 (ACTUAL), 0.0 (DESIRED)
+E        [0, 2]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E        [1, 1]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E        [2, 1]: 1.0 (ACTUAL), 0.0 (DESIRED)
+E        [2, 2]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E       Max absolute difference among violations: 1.
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([[ 9.449802e-01,  1.000000e+00,  0.000000e+00],
+E              [-9.949343e-02,  0.000000e+00,  0.000000e+00],
+E              [ 4.948927e-01,  1.000000e+00,  0.000000e+00],...
+E        DESIRED: array([[ 9.449802e-01,  0.000000e+00,  1.000000e+00],
+E              [-9.949343e-02,  1.000000e+00,  0.000000e+00],
+E              [ 4.948927e-01,  0.000000e+00,  1.000000e+00],...
+
+tests/data/test_copula_categorical_coordinates.py:330: AssertionError
+_ test_full_binary_and_multi_generation_uses_correct_expanded_coordinates[False-multi] _
+
+kind = 'multi', first = False
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("first", [False, True])
+    def test_full_binary_and_multi_generation_uses_correct_expanded_coordinates(
+        kind, first
+    ):
+        specs = _public_specs(first)
+        expected, names, _ = _sample_reference(specs, rho=-0.4)
+        coefficients = np.array([0.6, -0.2, 0.3])
+        options = dict(
+            confounder_specs=specs,
+            use_copula=True,
+            copula_corr=_corr(2, -0.4),
+            seed=SEED,
+            beta_y=coefficients,
+            alpha_y=0.2,
+            sigma_y=0.3,
+        )
+        if kind == "binary":
+            generator = CausalDatasetGenerator(
+                theta=0.7, beta_d=np.array([0.1, 0.2, -0.15]), **options
+            )
+            oracle_names = ["g0", "g1"]
+        else:
+            generator = MultiCausalDatasetGenerator(
+                n_treatments=2,
+                theta=[0.0, 0.7],
+                beta_d=np.array([0.1, 0.2, -0.15]),
+                **options,
+            )
+            oracle_names = ["g_d_0", "g_d_1"]
+        frame = generator.generate(257)
+        assert [column for column in frame.columns if column in names] == names
+>       np.testing.assert_allclose(frame[names], expected, rtol=1e-11, atol=1e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-11, atol=1e-11
+E       
+E       Mismatched elements: 245 / 771 (31.8%)
+E       First 5 mismatches are at indices:
+E        [0, 1]: 1.0 (ACTUAL), 0.0 (DESIRED)
+E        [0, 2]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E        [1, 1]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E        [2, 1]: 1.0 (ACTUAL), 0.0 (DESIRED)
+E        [2, 2]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E       Max absolute difference among violations: 1.
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([[ 9.449802e-01,  1.000000e+00,  0.000000e+00],
+E              [-9.949343e-02,  0.000000e+00,  0.000000e+00],
+E              [ 4.948927e-01,  1.000000e+00,  0.000000e+00],...
+E        DESIRED: array([[ 9.449802e-01,  0.000000e+00,  1.000000e+00],
+E              [-9.949343e-02,  1.000000e+00,  0.000000e+00],
+E              [ 4.948927e-01,  0.000000e+00,  1.000000e+00],...
+
+tests/data/test_copula_categorical_coordinates.py:330: AssertionError
+_ test_full_binary_and_multi_generation_uses_correct_expanded_coordinates[True-binary] _
+
+kind = 'binary', first = True
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("first", [False, True])
+    def test_full_binary_and_multi_generation_uses_correct_expanded_coordinates(
+        kind, first
+    ):
+        specs = _public_specs(first)
+        expected, names, _ = _sample_reference(specs, rho=-0.4)
+        coefficients = np.array([0.6, -0.2, 0.3])
+        options = dict(
+            confounder_specs=specs,
+            use_copula=True,
+            copula_corr=_corr(2, -0.4),
+            seed=SEED,
+            beta_y=coefficients,
+            alpha_y=0.2,
+            sigma_y=0.3,
+        )
+        if kind == "binary":
+            generator = CausalDatasetGenerator(
+                theta=0.7, beta_d=np.array([0.1, 0.2, -0.15]), **options
+            )
+            oracle_names = ["g0", "g1"]
+        else:
+            generator = MultiCausalDatasetGenerator(
+                n_treatments=2,
+                theta=[0.0, 0.7],
+                beta_d=np.array([0.1, 0.2, -0.15]),
+                **options,
+            )
+            oracle_names = ["g_d_0", "g_d_1"]
+>       frame = generator.generate(257)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/data/test_copula_categorical_coordinates.py:328: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+causalis/dgp/causaldata/base.py:484: in generate
+    X, names = self._sample_X(n)
+               ^^^^^^^^^^^^^^^^^
+causalis/dgp/causaldata/base.py:252: in _sample_X
+    X, names = _gaussian_copula(self.rng, n, self.confounder_specs, getattr(self, "copula_corr", None))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rng = Generator(PCG64) at 0x113B490E0, n = 257
+specs = [{'name': 'segment', 'dist': 'categorical', 'categories': ['base', 'a', 'b'], 'probs': [2, 5, 3]}, {'name': 'age', 'dist': 'normal', 'mu': 1.0, 'sd': 0.8}]
+corr = array([[ 1. , -0.4],
+       [-0.4,  1. ]])
+
+    def _gaussian_copula(
+        rng: np.random.Generator,
+        n: int,
+        specs: List[Dict[str, Any]],
+        corr: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, List[str]]:
+        """
+        Generate mixed-type confounders X using a Gaussian copula.
+    
+        Parameters
+        ----------
+        rng : numpy.random.Generator
+            The random number generator to use.
+        n : int
+            Number of samples to generate.
+        specs : list of dict
+            Schema for confounder distributions. See `CausalDatasetGenerator` for details.
+        corr : numpy.ndarray, optional
+            Correlation matrix for the latent Gaussian variables. If None, uses identity.
+    
+        Returns
+        -------
+        X : numpy.ndarray
+            Generated confounder matrix.
+        names : list of str
+            Names of the generated columns.
+        """
+        d = len(specs)
+        if d == 0:
+            return np.empty((n, 0)), []
+    
+        if corr is None:
+            corr = np.eye(d)
+        corr = np.asarray(corr, dtype=float)
+        corr = _nearest_psd(corr)
+    
+        # Cholesky after nearest-PSD correction with small jitter for stability
+        L = np.linalg.cholesky(corr + 1e-10 * np.eye(d))
+        Z = rng.normal(size=(n, d)) @ L.T
+        U = norm.cdf(Z)  # (0,1)
+    
+        cols = []
+        names = []
+    
+        for j, spec in enumerate(specs):
+            name = spec.get("name") or f"x{j+1}"
+            dist = str(spec.get("dist", "normal")).lower()
+    
+            if dist == "categorical":
+                cats = list(spec.get("categories", [0, 1, 2]))
+                probs = np.asarray(spec.get("probs", None), dtype=float) if spec.get("probs", None) is not None else None
+                if probs is None:
+                    probs = np.ones(len(cats)) / len(cats)
+                probs = probs / probs.sum()
+                # Use U[:,j] as a categorical draw by CDF thresholds
+                thr = np.cumsum(probs)
+>               draw = np.searchsorted(thr, u, side="right")
+                                            ^
+E               UnboundLocalError: cannot access local variable 'u' where it is not associated with a value
+
+.venv/b10-copula-fv3licvj/base.py:307: UnboundLocalError
+_ test_full_binary_and_multi_generation_uses_correct_expanded_coordinates[True-multi] _
+
+kind = 'multi', first = True
+
+    @pytest.mark.parametrize("kind", ["binary", "multi"])
+    @pytest.mark.parametrize("first", [False, True])
+    def test_full_binary_and_multi_generation_uses_correct_expanded_coordinates(
+        kind, first
+    ):
+        specs = _public_specs(first)
+        expected, names, _ = _sample_reference(specs, rho=-0.4)
+        coefficients = np.array([0.6, -0.2, 0.3])
+        options = dict(
+            confounder_specs=specs,
+            use_copula=True,
+            copula_corr=_corr(2, -0.4),
+            seed=SEED,
+            beta_y=coefficients,
+            alpha_y=0.2,
+            sigma_y=0.3,
+        )
+        if kind == "binary":
+            generator = CausalDatasetGenerator(
+                theta=0.7, beta_d=np.array([0.1, 0.2, -0.15]), **options
+            )
+            oracle_names = ["g0", "g1"]
+        else:
+            generator = MultiCausalDatasetGenerator(
+                n_treatments=2,
+                theta=[0.0, 0.7],
+                beta_d=np.array([0.1, 0.2, -0.15]),
+                **options,
+            )
+            oracle_names = ["g_d_0", "g_d_1"]
+>       frame = generator.generate(257)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/data/test_copula_categorical_coordinates.py:328: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+causalis/dgp/multicausaldata/base.py:649: in generate
+    X, names = self._sample_X(n)
+               ^^^^^^^^^^^^^^^^^
+causalis/dgp/multicausaldata/base.py:258: in _sample_X
+    X, names = _gaussian_copula(self.rng, n, self.confounder_specs, self.copula_corr)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rng = Generator(PCG64) at 0x113DE8740, n = 257
+specs = [{'name': 'segment', 'dist': 'categorical', 'categories': ['base', 'a', 'b'], 'probs': [2, 5, 3]}, {'name': 'age', 'dist': 'normal', 'mu': 1.0, 'sd': 0.8}]
+corr = array([[ 1. , -0.4],
+       [-0.4,  1. ]])
+
+    def _gaussian_copula(
+        rng: np.random.Generator,
+        n: int,
+        specs: List[Dict[str, Any]],
+        corr: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, List[str]]:
+        """
+        Generate mixed-type confounders X using a Gaussian copula.
+    
+        Parameters
+        ----------
+        rng : numpy.random.Generator
+            The random number generator to use.
+        n : int
+            Number of samples to generate.
+        specs : list of dict
+            Schema for confounder distributions. See `CausalDatasetGenerator` for details.
+        corr : numpy.ndarray, optional
+            Correlation matrix for the latent Gaussian variables. If None, uses identity.
+    
+        Returns
+        -------
+        X : numpy.ndarray
+            Generated confounder matrix.
+        names : list of str
+            Names of the generated columns.
+        """
+        d = len(specs)
+        if d == 0:
+            return np.empty((n, 0)), []
+    
+        if corr is None:
+            corr = np.eye(d)
+        corr = np.asarray(corr, dtype=float)
+        corr = _nearest_psd(corr)
+    
+        # Cholesky after nearest-PSD correction with small jitter for stability
+        L = np.linalg.cholesky(corr + 1e-10 * np.eye(d))
+        Z = rng.normal(size=(n, d)) @ L.T
+        U = norm.cdf(Z)  # (0,1)
+    
+        cols = []
+        names = []
+    
+        for j, spec in enumerate(specs):
+            name = spec.get("name") or f"x{j+1}"
+            dist = str(spec.get("dist", "normal")).lower()
+    
+            if dist == "categorical":
+                cats = list(spec.get("categories", [0, 1, 2]))
+                probs = np.asarray(spec.get("probs", None), dtype=float) if spec.get("probs", None) is not None else None
+                if probs is None:
+                    probs = np.ones(len(cats)) / len(cats)
+                probs = probs / probs.sum()
+                # Use U[:,j] as a categorical draw by CDF thresholds
+                thr = np.cumsum(probs)
+>               draw = np.searchsorted(thr, u, side="right")
+                                            ^
+E               UnboundLocalError: cannot access local variable 'u' where it is not associated with a value
+
+.venv/b10-copula-fv3licvj/base.py:307: UnboundLocalError
+_ test_inherited_iv_public_wrapper_uses_same_gaussian_coordinates[False-False] _
+
+first = False, return_causal_data = False
+
+    @pytest.mark.parametrize("first", [False, True])
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    def test_inherited_iv_public_wrapper_uses_same_gaussian_coordinates(
+        first, return_causal_data
+    ):
+        specs = _public_specs(first)
+        expected, names, _ = _sample_reference(specs, rho=0.5)
+        result = generate_iv_data(
+            n=257,
+            random_state=SEED,
+            confounder_specs=specs,
+            use_copula=True,
+            copula_corr=_corr(2, 0.5),
+            return_causal_data=return_causal_data,
+        )
+        frame = result.df if return_causal_data else result
+>       np.testing.assert_allclose(frame[names], expected, rtol=1e-11, atol=1e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-11, atol=1e-11
+E       
+E       Mismatched elements: 162 / 771 (21%)
+E       First 5 mismatches are at indices:
+E        [0, 1]: 1.0 (ACTUAL), 0.0 (DESIRED)
+E        [0, 2]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E        [5, 1]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E        [5, 2]: 1.0 (ACTUAL), 0.0 (DESIRED)
+E        [6, 1]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E       Max absolute difference among violations: 1.
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([[ 9.449802e-01,  1.000000e+00,  0.000000e+00],
+E              [-9.949343e-02,  0.000000e+00,  0.000000e+00],
+E              [ 4.948927e-01,  1.000000e+00,  0.000000e+00],...
+E        DESIRED: array([[ 9.449802e-01,  0.000000e+00,  1.000000e+00],
+E              [-9.949343e-02,  0.000000e+00,  0.000000e+00],
+E              [ 4.948927e-01,  1.000000e+00,  0.000000e+00],...
+
+tests/data/test_copula_categorical_coordinates.py:359: AssertionError
+_ test_inherited_iv_public_wrapper_uses_same_gaussian_coordinates[False-True] __
+
+first = True, return_causal_data = False
+
+    @pytest.mark.parametrize("first", [False, True])
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    def test_inherited_iv_public_wrapper_uses_same_gaussian_coordinates(
+        first, return_causal_data
+    ):
+        specs = _public_specs(first)
+        expected, names, _ = _sample_reference(specs, rho=0.5)
+>       result = generate_iv_data(
+            n=257,
+            random_state=SEED,
+            confounder_specs=specs,
+            use_copula=True,
+            copula_corr=_corr(2, 0.5),
+            return_causal_data=return_causal_data,
+        )
+
+tests/data/test_copula_categorical_coordinates.py:350: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+causalis/dgp/causaldata_instrumental/functional.py:144: in generate_iv_data
+    df = gen.generate(n)
+         ^^^^^^^^^^^^^^^
+causalis/dgp/causaldata_instrumental/base.py:329: in generate
+    X, names = self._sample_X(n)
+               ^^^^^^^^^^^^^^^^^
+causalis/dgp/causaldata/base.py:252: in _sample_X
+    X, names = _gaussian_copula(self.rng, n, self.confounder_specs, getattr(self, "copula_corr", None))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rng = Generator(PCG64) at 0x113BE7760, n = 257
+specs = [{'name': 'segment', 'dist': 'categorical', 'categories': ['base', 'a', 'b'], 'probs': [2, 5, 3]}, {'name': 'age', 'dist': 'normal', 'mu': 1.0, 'sd': 0.8}]
+corr = array([[1. , 0.5],
+       [0.5, 1. ]])
+
+    def _gaussian_copula(
+        rng: np.random.Generator,
+        n: int,
+        specs: List[Dict[str, Any]],
+        corr: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, List[str]]:
+        """
+        Generate mixed-type confounders X using a Gaussian copula.
+    
+        Parameters
+        ----------
+        rng : numpy.random.Generator
+            The random number generator to use.
+        n : int
+            Number of samples to generate.
+        specs : list of dict
+            Schema for confounder distributions. See `CausalDatasetGenerator` for details.
+        corr : numpy.ndarray, optional
+            Correlation matrix for the latent Gaussian variables. If None, uses identity.
+    
+        Returns
+        -------
+        X : numpy.ndarray
+            Generated confounder matrix.
+        names : list of str
+            Names of the generated columns.
+        """
+        d = len(specs)
+        if d == 0:
+            return np.empty((n, 0)), []
+    
+        if corr is None:
+            corr = np.eye(d)
+        corr = np.asarray(corr, dtype=float)
+        corr = _nearest_psd(corr)
+    
+        # Cholesky after nearest-PSD correction with small jitter for stability
+        L = np.linalg.cholesky(corr + 1e-10 * np.eye(d))
+        Z = rng.normal(size=(n, d)) @ L.T
+        U = norm.cdf(Z)  # (0,1)
+    
+        cols = []
+        names = []
+    
+        for j, spec in enumerate(specs):
+            name = spec.get("name") or f"x{j+1}"
+            dist = str(spec.get("dist", "normal")).lower()
+    
+            if dist == "categorical":
+                cats = list(spec.get("categories", [0, 1, 2]))
+                probs = np.asarray(spec.get("probs", None), dtype=float) if spec.get("probs", None) is not None else None
+                if probs is None:
+                    probs = np.ones(len(cats)) / len(cats)
+                probs = probs / probs.sum()
+                # Use U[:,j] as a categorical draw by CDF thresholds
+                thr = np.cumsum(probs)
+>               draw = np.searchsorted(thr, u, side="right")
+                                            ^
+E               UnboundLocalError: cannot access local variable 'u' where it is not associated with a value
+
+.venv/b10-copula-fv3licvj/base.py:307: UnboundLocalError
+_ test_inherited_iv_public_wrapper_uses_same_gaussian_coordinates[True-False] __
+
+first = False, return_causal_data = True
+
+    @pytest.mark.parametrize("first", [False, True])
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    def test_inherited_iv_public_wrapper_uses_same_gaussian_coordinates(
+        first, return_causal_data
+    ):
+        specs = _public_specs(first)
+        expected, names, _ = _sample_reference(specs, rho=0.5)
+        result = generate_iv_data(
+            n=257,
+            random_state=SEED,
+            confounder_specs=specs,
+            use_copula=True,
+            copula_corr=_corr(2, 0.5),
+            return_causal_data=return_causal_data,
+        )
+        frame = result.df if return_causal_data else result
+>       np.testing.assert_allclose(frame[names], expected, rtol=1e-11, atol=1e-11)
+E       AssertionError: 
+E       Not equal to tolerance rtol=1e-11, atol=1e-11
+E       
+E       Mismatched elements: 162 / 771 (21%)
+E       First 5 mismatches are at indices:
+E        [0, 1]: 1.0 (ACTUAL), 0.0 (DESIRED)
+E        [0, 2]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E        [5, 1]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E        [5, 2]: 1.0 (ACTUAL), 0.0 (DESIRED)
+E        [6, 1]: 0.0 (ACTUAL), 1.0 (DESIRED)
+E       Max absolute difference among violations: 1.
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([[ 9.449802e-01,  1.000000e+00,  0.000000e+00],
+E              [-9.949343e-02,  0.000000e+00,  0.000000e+00],
+E              [ 4.948927e-01,  1.000000e+00,  0.000000e+00],...
+E        DESIRED: array([[ 9.449802e-01,  0.000000e+00,  1.000000e+00],
+E              [-9.949343e-02,  0.000000e+00,  0.000000e+00],
+E              [ 4.948927e-01,  1.000000e+00,  0.000000e+00],...
+
+tests/data/test_copula_categorical_coordinates.py:359: AssertionError
+__ test_inherited_iv_public_wrapper_uses_same_gaussian_coordinates[True-True] __
+
+first = True, return_causal_data = True
+
+    @pytest.mark.parametrize("first", [False, True])
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    def test_inherited_iv_public_wrapper_uses_same_gaussian_coordinates(
+        first, return_causal_data
+    ):
+        specs = _public_specs(first)
+        expected, names, _ = _sample_reference(specs, rho=0.5)
+>       result = generate_iv_data(
+            n=257,
+            random_state=SEED,
+            confounder_specs=specs,
+            use_copula=True,
+            copula_corr=_corr(2, 0.5),
+            return_causal_data=return_causal_data,
+        )
+
+tests/data/test_copula_categorical_coordinates.py:350: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+causalis/dgp/causaldata_instrumental/functional.py:144: in generate_iv_data
+    df = gen.generate(n)
+         ^^^^^^^^^^^^^^^
+causalis/dgp/causaldata_instrumental/base.py:329: in generate
+    X, names = self._sample_X(n)
+               ^^^^^^^^^^^^^^^^^
+causalis/dgp/causaldata/base.py:252: in _sample_X
+    X, names = _gaussian_copula(self.rng, n, self.confounder_specs, getattr(self, "copula_corr", None))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+rng = Generator(PCG64) at 0x113BE75A0, n = 257
+specs = [{'name': 'segment', 'dist': 'categorical', 'categories': ['base', 'a', 'b'], 'probs': [2, 5, 3]}, {'name': 'age', 'dist': 'normal', 'mu': 1.0, 'sd': 0.8}]
+corr = array([[1. , 0.5],
+       [0.5, 1. ]])
+
+    def _gaussian_copula(
+        rng: np.random.Generator,
+        n: int,
+        specs: List[Dict[str, Any]],
+        corr: Optional[np.ndarray] = None,
+    ) -> Tuple[np.ndarray, List[str]]:
+        """
+        Generate mixed-type confounders X using a Gaussian copula.
+    
+        Parameters
+        ----------
+        rng : numpy.random.Generator
+            The random number generator to use.
+        n : int
+            Number of samples to generate.
+        specs : list of dict
+            Schema for confounder distributions. See `CausalDatasetGenerator` for details.
+        corr : numpy.ndarray, optional
+            Correlation matrix for the latent Gaussian variables. If None, uses identity.
+    
+        Returns
+        -------
+        X : numpy.ndarray
+            Generated confounder matrix.
+        names : list of str
+            Names of the generated columns.
+        """
+        d = len(specs)
+        if d == 0:
+            return np.empty((n, 0)), []
+    
+        if corr is None:
+            corr = np.eye(d)
+        corr = np.asarray(corr, dtype=float)
+        corr = _nearest_psd(corr)
+    
+        # Cholesky after nearest-PSD correction with small jitter for stability
+        L = np.linalg.cholesky(corr + 1e-10 * np.eye(d))
+        Z = rng.normal(size=(n, d)) @ L.T
+        U = norm.cdf(Z)  # (0,1)
+    
+        cols = []
+        names = []
+    
+        for j, spec in enumerate(specs):
+            name = spec.get("name") or f"x{j+1}"
+            dist = str(spec.get("dist", "normal")).lower()
+    
+            if dist == "categorical":
+                cats = list(spec.get("categories", [0, 1, 2]))
+                probs = np.asarray(spec.get("probs", None), dtype=float) if spec.get("probs", None) is not None else None
+                if probs is None:
+                    probs = np.ones(len(cats)) / len(cats)
+                probs = probs / probs.sum()
+                # Use U[:,j] as a categorical draw by CDF thresholds
+                thr = np.cumsum(probs)
+>               draw = np.searchsorted(thr, u, side="right")
+                                            ^
+E               UnboundLocalError: cannot access local variable 'u' where it is not associated with a value
+
+.venv/b10-copula-fv3licvj/base.py:307: UnboundLocalError
+=========================== short test summary info ============================
+FAILED tests/data/test_copula_categorical_coordinates.py::test_each_categorical_coordinate_uses_its_own_gaussian_uniform[cnn--0.3]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_each_categorical_coordinate_uses_its_own_gaussian_uniform[cnn-0.0]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_each_categorical_coordinate_uses_its_own_gaussian_uniform[cnn-0.6]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_each_categorical_coordinate_uses_its_own_gaussian_uniform[ncc--0.3]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_each_categorical_coordinate_uses_its_own_gaussian_uniform[ncc-0.0]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_each_categorical_coordinate_uses_its_own_gaussian_uniform[ncc-0.6]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_each_categorical_coordinate_uses_its_own_gaussian_uniform[cnc--0.3]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_each_categorical_coordinate_uses_its_own_gaussian_uniform[cnc-0.0]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_each_categorical_coordinate_uses_its_own_gaussian_uniform[cnc-0.6]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_first_categorical_default_explicit_and_unnormalized_probabilities[None]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_first_categorical_default_explicit_and_unnormalized_probabilities[probabilities1]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_first_categorical_default_explicit_and_unnormalized_probabilities[probabilities2]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_single_category_emits_existing_onlylevel_schema[True]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_category_threshold_and_saturated_tails_have_explicit_interval_semantics
+FAILED tests/data/test_copula_categorical_coordinates.py::test_upper_saturation_never_selects_zero_probability_tail[categories0-probabilities0-expected0]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_upper_saturation_never_selects_zero_probability_tail[categories1-probabilities1-expected1]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_lower_saturation_skips_zero_probability_leading_category
+FAILED tests/data/test_copula_categorical_coordinates.py::test_tiny_valid_category_intervals_are_not_erased_by_numeric_inverse_cdf_clipping[lower]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_tiny_valid_category_intervals_are_not_erased_by_numeric_inverse_cdf_clipping[upper]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_observed_normal_category_correlation_matches_discretized_gaussian_law[-0.75]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_observed_normal_category_correlation_matches_discretized_gaussian_law[0.0]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_observed_normal_category_correlation_matches_discretized_gaussian_law[0.75]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_full_binary_and_multi_generation_uses_correct_expanded_coordinates[False-binary]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_full_binary_and_multi_generation_uses_correct_expanded_coordinates[False-multi]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_full_binary_and_multi_generation_uses_correct_expanded_coordinates[True-binary]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_full_binary_and_multi_generation_uses_correct_expanded_coordinates[True-multi]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_inherited_iv_public_wrapper_uses_same_gaussian_coordinates[False-False]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_inherited_iv_public_wrapper_uses_same_gaussian_coordinates[False-True]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_inherited_iv_public_wrapper_uses_same_gaussian_coordinates[True-False]
+FAILED tests/data/test_copula_categorical_coordinates.py::test_inherited_iv_public_wrapper_uses_same_gaussian_coordinates[True-True]
+30 failed, 3 passed in 4.29s

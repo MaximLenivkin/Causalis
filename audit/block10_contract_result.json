@@ -1,0 +1,157 @@
+{
+  "baseline": "83b63836dbd0c4793c24dd95ff7dc18c443792ad",
+  "observed_head": "95a8b7599fb129fb2c5973f50e9b4a8018732f6c",
+  "candidate_scope": "Frozen baseline helper patched in memory only; no library/test edits by this reviewer.",
+  "working_tree_runtime_ast_matches_candidate": true,
+  "working_tree_diff_sha256": "705266cf81dd4d1b382b66903f512505ee048d2cbc98e85bdb3c7cdd1cd5c58c",
+  "gaussian_reference": [
+    {
+      "rho": 0.0,
+      "n": 20000,
+      "seed": 731,
+      "candidate_matches_independent_gaussian_domain_reference": true,
+      "baseline_reference_mismatches": 12433,
+      "numeric_column_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "rho": 0.6,
+      "n": 20000,
+      "seed": 731,
+      "candidate_matches_independent_gaussian_domain_reference": true,
+      "baseline_reference_mismatches": 8704,
+      "numeric_column_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "rho": -0.6,
+      "n": 20000,
+      "seed": 731,
+      "candidate_matches_independent_gaussian_domain_reference": true,
+      "baseline_reference_mismatches": 15171,
+      "numeric_column_exact": true,
+      "next_rng_draws_exact": true
+    }
+  ],
+  "tail_policy": {
+    "gaussian_probe_scores": [
+      -40.0,
+      -9.0,
+      -8.0,
+      -7.5,
+      0.0,
+      7.5,
+      8.0,
+      9.0,
+      40.0
+    ],
+    "weights": [
+      5e-13,
+      0.999999999999,
+      5e-13
+    ],
+    "raw_classes": [
+      0,
+      0,
+      0,
+      0,
+      1,
+      2,
+      2,
+      2,
+      2
+    ],
+    "clipped_classes": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "raw_vs_clipped_disagreements": 8,
+    "candidate_matches_raw_reference": true
+  },
+  "endpoint_cases": [
+    {
+      "name": "leading_zero_at_U0",
+      "expected_classes_at_U0_half_1": [
+        1,
+        2,
+        2
+      ],
+      "candidate_exact": true,
+      "rng_normal_calls": [
+        [
+          3,
+          1
+        ]
+      ]
+    },
+    {
+      "name": "middle_zero_at_Uhalf",
+      "expected_classes_at_U0_half_1": [
+        0,
+        2,
+        2
+      ],
+      "candidate_exact": true,
+      "rng_normal_calls": [
+        [
+          3,
+          1
+        ]
+      ]
+    },
+    {
+      "name": "trailing_zero_at_U1",
+      "expected_classes_at_U0_half_1": [
+        0,
+        1,
+        1
+      ],
+      "candidate_exact": true,
+      "rng_normal_calls": [
+        [
+          3,
+          1
+        ]
+      ]
+    },
+    {
+      "name": "multiple_trailing_zeros_at_U1",
+      "expected_classes_at_U0_half_1": [
+        0,
+        0,
+        0
+      ],
+      "candidate_exact": true,
+      "rng_normal_calls": [
+        [
+          3,
+          1
+        ]
+      ]
+    }
+  ],
+  "numeric_only_compatibility": {
+    "n": 512,
+    "seed": 947,
+    "families": 8,
+    "values_schema_exact": true,
+    "next_rng_draws_exact": true
+  },
+  "first_single_level": {
+    "values_schema_exact": true,
+    "rng_normal_calls": [
+      [
+        3,
+        1
+      ]
+    ]
+  },
+  "issues": []
+}

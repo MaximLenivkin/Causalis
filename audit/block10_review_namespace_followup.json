@@ -1,0 +1,28 @@
+{
+  "source_checkpoint": "95a8b7599fb129fb2c5973f50e9b4a8018732f6c",
+  "scope": "separate existing binary/IV namespace follow-up",
+  "cases": [
+    {
+      "generator": "CausalDatasetGenerator",
+      "n": 30,
+      "seed": 731,
+      "confounder_name": "d",
+      "include_oracle": false,
+      "use_copula": true,
+      "generated_treatment_binary": false,
+      "nonbinary_treatment_count": 30,
+      "returned_raw_frame": true
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "n": 30,
+      "seed": 731,
+      "confounder_name": "d",
+      "include_oracle": false,
+      "use_copula": true,
+      "generated_treatment_binary": false,
+      "nonbinary_treatment_count": 30,
+      "returned_raw_frame": true
+    }
+  ]
+}

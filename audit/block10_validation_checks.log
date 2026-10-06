@@ -1,0 +1,28 @@
+{
+  "baseline_sha": "83b63836dbd0c4793c24dd95ff7dc18c443792ad",
+  "source": "95a8b7599fb129fb2c5973f50e9b4a8018732f6c",
+  "changed_source_paths": [
+    "causalis/dgp/base.py",
+    "tests/data/test_copula_categorical_coordinates.py"
+  ],
+  "new_cases": 33,
+  "baseline": {
+    "checkpoint": "83b63836dbd0c4793c24dd95ff7dc18c443792ad",
+    "tests": 33,
+    "failures": 30,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 3
+  },
+  "local": {
+    "tests": 2072,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 2071
+  },
+  "ci_jobs_verified": 6,
+  "relative_links_checked": 23,
+  "python_files_parsed": 9,
+  "issues": []
+}

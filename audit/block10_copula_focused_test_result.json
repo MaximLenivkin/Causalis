@@ -1,0 +1,27 @@
+{
+  "mode": "focused",
+  "baseline_sha": "83b63836dbd0c4793c24dd95ff7dc18c443792ad",
+  "head_at_start": "83b63836dbd0c4793c24dd95ff7dc18c443792ad",
+  "source_file": "causalis/dgp/base.py",
+  "source_sha256": "2afe9389b00bf0facf224f026b5bafd84bf600fbcbe4c79c5ce127b72f34d66f",
+  "test_file": "tests/data/test_copula_categorical_coordinates.py",
+  "test_file_sha256": "ad0efdb27a5ea0a03aead118feca06d544ec39438cffe8fad5e9cbbd65688c04",
+  "counts": {
+    "tests": 33,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 33
+  },
+  "exit_code": 0,
+  "started_utc": "2026-10-06T21:17:25.511893+00:00",
+  "finished_utc": "2026-10-06T21:17:29.748234+00:00",
+  "elapsed_seconds": 4.235998791875318,
+  "python": "3.12.14 (main, Sep 29 2026, 14:50:19) [Clang 22.1.3 ]",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "junit": "audit/block10_copula_test_temp/current.xml",
+  "log": "audit/block10_copula_focused_tests.log",
+  "non_target_tracked_package_paths_unchanged": true,
+  "full_suite_run": false,
+  "sensitivity_validated": false
+}

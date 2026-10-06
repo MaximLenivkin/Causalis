@@ -1,0 +1,16 @@
+{
+  "baseline": "83b63836dbd0c4793c24dd95ff7dc18c443792ad",
+  "seed": 731,
+  "n": 1000,
+  "first_category_error": {
+    "type": "UnboundLocalError",
+    "message": "cannot access local variable 'u' where it is not associated with a value"
+  },
+  "identity_correlation": {
+    "names": [
+      "normal",
+      "category_1"
+    ],
+    "category_equals_previous_normal_sign_rows": 1000
+  }
+}

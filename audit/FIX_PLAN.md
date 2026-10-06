@@ -1,6 +1,6 @@
 # План исправлений и поэтапной разработки
 
-Обновлён: 2026-10-06. Проект: `D:\codex\Causalis`. Рабочая ветка: **`codex/correctness-roadmap`**, создана от `main` на `ffe2c356c115f335b74b2f10117e19fe15585d46`. Исходный аудит — `audit/REPORT.md`; он остаётся историческим snapshot, а не переписывается после каждого исправления.
+Обновлён: 2026-10-07. Проект: `D:\codex\Causalis`. Рабочая ветка: **`codex/correctness-roadmap`**, создана от `main` на `ffe2c356c115f335b74b2f10117e19fe15585d46`. Исходный аудит — `audit/REPORT.md`; он остаётся историческим snapshot, а не переписывается после каждого исправления.
 
 ## Решение о scope
 
@@ -73,7 +73,8 @@ B02–B06 — большие тематические блоки, внутри �
 - B07 завершён: commits 43f0b3e/d3b6709/a2109a6; final source a2109a6. Earliest universal DiD pre-cell и raw non-finite learner guards исправлены; DGP runtime unchanged, factual docs уточнены. 147 новых cases; **1729 passed, 0 failures/errors/skips, 77 warnings, 404.84 s** локально; все 6 Linux CI jobs и artifacts — 1729 passed каждый. CI37385736343; report — BLOCK07_EDGE_CORRECTNESS.md. 7 sensitivity modules deferred.
 - B08 завершён: sourcecheckpoint9fb8041 — DGP numeric/callback contracts, targetsumoverflow и singleton-safe assignment repair;187newcases и optiniid. Local1916passed0failures/errors/skips78warnings400.69s;actualCI37420288433all6jobs/artifacts1916passed каждый. Report BLOCK08_DGP_CONTRACTS.md;7sensitivitymodulesdeferred.
 - B09 завершён: source1e2b544 — полный actualgeneratednamespaceguard с clearcollisionerrors безrename,123newcases. Все6LinuxCIjobs/artifacts2039passedкаждый,run37530152376; localMac2038passed1confirmedbaselineDiDfailure80warnings117.46s,неclean. Reference64configs×2generations exactvalues/schema/RNG. Report BLOCK09_NAMESPACE.md;7sensitivitymodulesdeferred.
-- Следующий самостоятельный B10 только по новому запросу: sharedcategoricalcopula currentcoordinateuniforms fix/reference и separate numerical-zeroDiDdiagnostic/fixturepolicy. Затем oracle numerical accuracy/API. Ни existing assertion, ни scope exclusions не ослаблять ради greenstatus.
+- B10 завершён, source95a8b75: categoricalcopula usesownrawcoordinate, saturatedupperguardlastpositivelevel;33newpassed,30baselinefail3pass,126neighborspassed. Local2071passed1confirmedbaselineDiDfailure78warnings90.27s. CI37532909989 completed/success, все6jobs/artifacts2072passed каждый; report BLOCK10_COPULA.md. Numeric-only36helper/96publicframe exactrefs; malformed-speccontractsне расширены.
+- Следующий самостоятельный B11 только по новому запросу: complete actual binary/IV output namespace guard; confounder `d` перезаписывает treatment в обеих семьях, independent evidence в block10_review_namespace_followup.json. Затем отдельная numerical-zero DiD diagnostic/fixture policy и oracle numerical accuracy/API. Ни existing assertion, ни scope exclusions не ослаблять ради green status.
 
 Дополнение B04: сохраняются traditional MLE/OLS и прежний complete-pair estimand. Correct IF не убирает fixed ridge/clipping bias и не гарантирует finite-sample/few-cluster coverage. Earliest universal pre placebo (analysis-index0) пока пропущен прежним enumeration: отдельный support follow-up. Численная устойчивость IF map проверена, optimizer scale invariance не заявляется.
 
@@ -94,3 +95,7 @@ B07 закрыл finite-output guard для real numeric learner outputs и earl
 5. **Numeric/object duplicate policy, snapshot arrays и dedicated Sphinx build:** отдельные compatibility/design gates; owned views нельзя кэшировать без ownership/refit invalidation contract.
 
 B08 реализовал ограниченные centralgenerator config/output/rare-arm contracts; additive oracle остаётся отдельно. Найденные B08 namespace overwrites закрыты вB09 полным guardactualexpandednames/enabledoracle. B09 independentreview дополнительно подтвердил sharedcategoricalcopula coordinate bug; localMacverification показала unchangedbaseline DiD near-zeroATT/SE diagnosticfailure. Этидваcorrectnessfollow-up требуютсобственныхindependentreferences/политик, затем численнуюaccuracypolicy/additiveoracle. Repeated cross-fitting и прочие features сохраняют прежний порядок после correctness follow-up. Не включать sensitivity до отдельного upstream sync/review.
+
+B10 закрыл shared categorical copula coordinate bug и связанный upper endpoint с trailing zero probabilities. Pre-existing DiD near-zero diagnostic failure остаётся отдельным follow-up. Numeric-only exact-reference evidence не означает новую categorical malformed-spec validation или identical downstream categorical datasets.
+
+B10 reviewer подтвердил отдельный binary/IV namespace defect: при normal confounder `d`, explicit copula, n30,seed731,include_oracle=False обе raw frames содержат 30 nonbinary treatment values. Assignment source unchanged; B09 guard покрывал только multi-treatment. Следующий schema fix должен проверять полный фактический namespace без переименования.

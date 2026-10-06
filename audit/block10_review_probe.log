@@ -1,0 +1,7 @@
+{
+  "numeric_helper_configs": 18,
+  "public_fullframe_configs": 48,
+  "coordinate_configs": 9,
+  "boundary_cases": 7,
+  "all_checks_passed": true
+}

@@ -1,0 +1,18 @@
+{
+  "scope": "correctness",
+  "selected_full_suite": false,
+  "collect_only": false,
+  "exit_code": 1,
+  "elapsed_seconds": 90.51879987493157,
+  "tested_source_checkpoint": "95a8b7599fb129fb2c5973f50e9b4a8018732f6c",
+  "sensitivity_validated": false,
+  "tests": 2072,
+  "failures": 1,
+  "errors": 0,
+  "skipped": 0,
+  "passed": 2071,
+  "warnings": 78,
+  "pytest_elapsed_seconds": 90.27,
+  "scoped_suite_clean": false,
+  "full_suite_clean": false
+}

@@ -10,7 +10,7 @@
 
 1. `AGENTS.md` — локальная `.venv` обязательна. На текущем Mac использовать **`.venv/bin/python`**, Python3.12.14, не старый backing path `/Users/ioann/...`. Окружение восстановлено из project extras dev/docs, dependencycheck и5setupsmoketests прошли. Local setup manifest `.venv/setup-environment.json`; B09 integration manifest записывает реальные проверенные версии.
 2. `audit/FIX_PLAN.md` — порядок блоков, scope gates и deferred findings.
-3. Этот файл и **`audit/BLOCK09_NAMESPACE.md`** — последнее состояние. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
+3. Этот файл и **`audit/BLOCK10_COPULA.md`** — последнее состояние. B09 — исторический checkpoint. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
 4. `audit/REPORT.md` — исторический аудит исходного SHA, не текущий residual bug count.
 
 ## Git
@@ -20,6 +20,20 @@ GitHub авторизация завершена пользователем и �
 GitHubCLI2.102.0: `& 'C:\Program Files\GitHub CLI\gh.exe' ...` — использовать полный путь, если текущий Codex PATH ещё не обновлён. Авторизацию повторно запрашивать не требуется. Git mutations/network в ограниченной среде могут требовать разрешённого запуска; пользователь уже авторизовал commits/push в личную ветку. PR не создавался. Полная текущая информация — GIT_ACCESS.md.
 
 ## Текущая работа
+
+**B10 завершён** 7 октября 2026 (Moscow). Source/tests checkpoint: **`95a8b7599fb129fb2c5973f50e9b4a8018732f6c`**, ordinary personal push выполнен. Один library path `causalis/dgp/base.py`, новый `tests/data/test_copula_categorical_coordinates.py`, 33 cases. Shared categorical inverse CDF использует raw uniforms текущей Gaussian координаты; upper saturation выбирает последний уровень с положительной вероятностью. Numeric clipping, Gaussian draws, PSD repair, schema и API сохранены. Malformed categorical-spec validation не расширена.
+
+**Проверки B10:** 33 новых cases passed, 0 warnings, 3.84 s. Тот же final module на frozen baseline83b6383: 30 failed, 3 passed, 4.29 s. Neighbors: 126 passed, 0 warnings, 3.71 s. Independent review: 18 numeric-helper configs × 2 = 36 exact comparisons; 48 valid public binary/multi/IV configs × 2 = 96 exact frame/schema/RNG comparisons; 9 coordinate references и 7 boundary cases. Source/test hashes совпали. Финальный artifact checker: issues пуст; documentation handoff: 91 immutable links verified. Categorical X/D/Y/oracles могут измениться; полное совпадение downstream RNG для categorical не обещается.
+
+Local Mac integration на committed95a: **2071 passed, 1 failed, 0 errors/skips, 78 warnings, 90.27 s**, exit1, total2072. Это не clean suite. Единственный failure — прежний DiD GREEN/YELLOW numerical-zero assertion. Current provenance на95a показывает те же cell values/flag, неизменные fixture и все пять вызванных package files относительно baseline83b6383. Shared sampler не вызывается. Assert, thresholds и exclusions не менялись. Report `BLOCK10_COPULA.md`; proof `block10_did_provenance.json`; прежнее exact-baseline reproduction — `B09_LOCAL_INTEGRATION_NOTE.md`.
+
+CI [37532909989](https://github.com/MaximLenivkin/Causalis/actions/runs/37532909989) **completed/success** на exact95a. Все шесть Linux jobs и downloaded artifacts: **2072 passed каждый**, без failures/errors/skips. Actual Python3.10.21 latest/legacy,3.11.16,3.12.14,3.13.15,3.14.7. `block10_ci_result.json`: matrix_verified=true, verified jobs6, issues пуст. Ровно семь sensitivity modules deferred; full sensitivity, standalone Sphinx и release не validated. После95a source/tests не менялись; остальные commits только audit artifacts.
+
+Следующий кандидат **B11**: actual namespace guards для binary/IV генераторов. Confounder `d` перезаписывает treatment в raw output: обе семьи при n30,seed731 возвращают 30 nonbinary treatment values. Source этих assignments неизменен; B09 multi-only guard их не покрывает. Evidence `block10_review_namespace_followup.json` и `B10_COPULA_REVIEW.md`. Проверить outcome/treatment/instrument, actual expanded confounders и enabled oracles, без silent rename. Отдельный numerical-zero DiD diagnostic/fixture follow-up сохраняется: нужен независимый математический и численный reference. Не ослаблять assertion и не использовать blanket tolerance/clip ради green status. Затем Gaussian oracle accuracy/additive marginal API, learner contracts/score arithmetic и features по FIX_PLAN. Sensitivity/SC08LOO deferred. **На границе B10 работа остановлена**; следующий блок только новым запросом пользователя.
+
+Git и окружение: `.venv/bin/python`3.12.14; `/Users/m.lenivkin/.local/bin/gh`; явный `--repo MaximLenivkin/Causalis` для CI. Не повторять login/fork setup/upstream sync, не force push. Автору документации внешние сообщения не отправлялись. Final audit checkpoint — `git log -1`; перед новым блоком проверить branch/status/remote equality.
+
+## Исторический B09 checkpoint
 
 **B09 завершён**, начат 6 октября и завершён 7 октября 2026 (Moscow). Source/tests checkpoint: **`1e2b544f7f91a57ad3e049572915a4b3891b084a`**, обычный push в personal fork выполнен. После него меняются только audit artifacts; финальный checkpoint — `git log -1`. Root и три CLI субагента выполнили разбор контракта, независимые regressions и review/CI verification.
 

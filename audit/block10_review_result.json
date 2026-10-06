@@ -1,0 +1,741 @@
+{
+  "baseline_sha": "83b63836dbd0c4793c24dd95ff7dc18c443792ad",
+  "reviewed_head": "95a8b7599fb129fb2c5973f50e9b4a8018732f6c",
+  "working_library_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "current_library_sha256": "2afe9389b00bf0facf224f026b5bafd84bf600fbcbe4c79c5ce127b72f34d66f",
+  "current_test_module_sha256": "ad0efdb27a5ea0a03aead118feca06d544ec39438cffe8fad5e9cbbd65688c04",
+  "numeric_helper_reference": [
+    {
+      "seed": 1,
+      "n": 1,
+      "correlation": "identity",
+      "generations": 2,
+      "exact_values_names_next10rng": true
+    },
+    {
+      "seed": 1,
+      "n": 1,
+      "correlation": "toeplitz",
+      "generations": 2,
+      "exact_values_names_next10rng": true
+    },
+    {
+      "seed": 1,
+      "n": 1,
+      "correlation": "singular_repaired",
+      "generations": 2,
+      "exact_values_names_next10rng": true
+    },
+    {
+      "seed": 1,
+      "n": 30,
+      "correlation": "identity",
+      "generations": 2,
+      "exact_values_names_next10rng": true
+    },
+    {
+      "seed": 1,
+      "n": 30,
+      "correlation": "toeplitz",
+      "generations": 2,
+      "exact_values_names_next10rng": true
+    },
+    {
+      "seed": 1,
+      "n": 30,
+      "correlation": "singular_repaired",
+      "generations": 2,
+      "exact_values_names_next10rng": true
+    },
+    {
+      "seed": 731,
+      "n": 1,
+      "correlation": "identity",
+      "generations": 2,
+      "exact_values_names_next10rng": true
+    },
+    {
+      "seed": 731,
+      "n": 1,
+      "correlation": "toeplitz",
+      "generations": 2,
+      "exact_values_names_next10rng": true
+    },
+    {
+      "seed": 731,
+      "n": 1,
+      "correlation": "singular_repaired",
+      "generations": 2,
+      "exact_values_names_next10rng": true
+    },
+    {
+      "seed": 731,
+      "n": 30,
+      "correlation": "identity",
+      "generations": 2,
+      "exact_values_names_next10rng": true
+    },
+    {
+      "seed": 731,
+      "n": 30,
+      "correlation": "toeplitz",
+      "generations": 2,
+      "exact_values_names_next10rng": true
+    },
+    {
+      "seed": 731,
+      "n": 30,
+      "correlation": "singular_repaired",
+      "generations": 2,
+      "exact_values_names_next10rng": true
+    },
+    {
+      "seed": 999,
+      "n": 1,
+      "correlation": "identity",
+      "generations": 2,
+      "exact_values_names_next10rng": true
+    },
+    {
+      "seed": 999,
+      "n": 1,
+      "correlation": "toeplitz",
+      "generations": 2,
+      "exact_values_names_next10rng": true
+    },
+    {
+      "seed": 999,
+      "n": 1,
+      "correlation": "singular_repaired",
+      "generations": 2,
+      "exact_values_names_next10rng": true
+    },
+    {
+      "seed": 999,
+      "n": 30,
+      "correlation": "identity",
+      "generations": 2,
+      "exact_values_names_next10rng": true
+    },
+    {
+      "seed": 999,
+      "n": 30,
+      "correlation": "toeplitz",
+      "generations": 2,
+      "exact_values_names_next10rng": true
+    },
+    {
+      "seed": 999,
+      "n": 30,
+      "correlation": "singular_repaired",
+      "generations": 2,
+      "exact_values_names_next10rng": true
+    }
+  ],
+  "public_numeric_fullframe_reference": [
+    {
+      "generator": "CausalDatasetGenerator",
+      "outcome": "continuous",
+      "include_oracle": false,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "outcome": "continuous",
+      "include_oracle": false,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "outcome": "continuous",
+      "include_oracle": true,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "outcome": "continuous",
+      "include_oracle": true,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "outcome": "binary",
+      "include_oracle": false,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "outcome": "binary",
+      "include_oracle": false,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "outcome": "binary",
+      "include_oracle": true,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "outcome": "binary",
+      "include_oracle": true,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "outcome": "poisson",
+      "include_oracle": false,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "outcome": "poisson",
+      "include_oracle": false,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "outcome": "poisson",
+      "include_oracle": true,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "outcome": "poisson",
+      "include_oracle": true,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "outcome": "gamma",
+      "include_oracle": false,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "outcome": "gamma",
+      "include_oracle": false,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "outcome": "gamma",
+      "include_oracle": true,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "outcome": "gamma",
+      "include_oracle": true,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "MultiCausalDatasetGenerator",
+      "outcome": "continuous",
+      "include_oracle": false,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "MultiCausalDatasetGenerator",
+      "outcome": "continuous",
+      "include_oracle": false,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "MultiCausalDatasetGenerator",
+      "outcome": "continuous",
+      "include_oracle": true,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "MultiCausalDatasetGenerator",
+      "outcome": "continuous",
+      "include_oracle": true,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "MultiCausalDatasetGenerator",
+      "outcome": "binary",
+      "include_oracle": false,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "MultiCausalDatasetGenerator",
+      "outcome": "binary",
+      "include_oracle": false,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "MultiCausalDatasetGenerator",
+      "outcome": "binary",
+      "include_oracle": true,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "MultiCausalDatasetGenerator",
+      "outcome": "binary",
+      "include_oracle": true,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "MultiCausalDatasetGenerator",
+      "outcome": "poisson",
+      "include_oracle": false,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "MultiCausalDatasetGenerator",
+      "outcome": "poisson",
+      "include_oracle": false,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "MultiCausalDatasetGenerator",
+      "outcome": "poisson",
+      "include_oracle": true,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "MultiCausalDatasetGenerator",
+      "outcome": "poisson",
+      "include_oracle": true,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "MultiCausalDatasetGenerator",
+      "outcome": "gamma",
+      "include_oracle": false,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "MultiCausalDatasetGenerator",
+      "outcome": "gamma",
+      "include_oracle": false,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "MultiCausalDatasetGenerator",
+      "outcome": "gamma",
+      "include_oracle": true,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "MultiCausalDatasetGenerator",
+      "outcome": "gamma",
+      "include_oracle": true,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "outcome": "continuous",
+      "include_oracle": false,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "outcome": "continuous",
+      "include_oracle": false,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "outcome": "continuous",
+      "include_oracle": true,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "outcome": "continuous",
+      "include_oracle": true,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "outcome": "binary",
+      "include_oracle": false,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "outcome": "binary",
+      "include_oracle": false,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "outcome": "binary",
+      "include_oracle": true,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "outcome": "binary",
+      "include_oracle": true,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "outcome": "poisson",
+      "include_oracle": false,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "outcome": "poisson",
+      "include_oracle": false,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "outcome": "poisson",
+      "include_oracle": true,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "outcome": "poisson",
+      "include_oracle": true,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "outcome": "gamma",
+      "include_oracle": false,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "outcome": "gamma",
+      "include_oracle": false,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "outcome": "gamma",
+      "include_oracle": true,
+      "seed": 4,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "outcome": "gamma",
+      "include_oracle": true,
+      "seed": 731,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    }
+  ],
+  "coordinate_reference": [
+    {
+      "pattern": [
+        "categorical"
+      ],
+      "rho": 0.0,
+      "n": 1000,
+      "exact_current_coordinate_gaussian_partitions": true,
+      "next10rng_equal": true,
+      "baseline_status": "UnboundLocalError"
+    },
+    {
+      "pattern": [
+        "categorical"
+      ],
+      "rho": 0.6,
+      "n": 1000,
+      "exact_current_coordinate_gaussian_partitions": true,
+      "next10rng_equal": true,
+      "baseline_status": "UnboundLocalError"
+    },
+    {
+      "pattern": [
+        "categorical"
+      ],
+      "rho": -0.2,
+      "n": 1000,
+      "exact_current_coordinate_gaussian_partitions": true,
+      "next10rng_equal": true,
+      "baseline_status": "UnboundLocalError"
+    },
+    {
+      "pattern": [
+        "categorical",
+        "categorical",
+        "categorical"
+      ],
+      "rho": 0.0,
+      "n": 1000,
+      "exact_current_coordinate_gaussian_partitions": true,
+      "next10rng_equal": true,
+      "baseline_status": "UnboundLocalError"
+    },
+    {
+      "pattern": [
+        "categorical",
+        "categorical",
+        "categorical"
+      ],
+      "rho": 0.6,
+      "n": 1000,
+      "exact_current_coordinate_gaussian_partitions": true,
+      "next10rng_equal": true,
+      "baseline_status": "UnboundLocalError"
+    },
+    {
+      "pattern": [
+        "categorical",
+        "categorical",
+        "categorical"
+      ],
+      "rho": -0.2,
+      "n": 1000,
+      "exact_current_coordinate_gaussian_partitions": true,
+      "next10rng_equal": true,
+      "baseline_status": "UnboundLocalError"
+    },
+    {
+      "pattern": [
+        "normal",
+        "categorical",
+        "uniform",
+        "categorical",
+        "categorical",
+        "normal"
+      ],
+      "rho": 0.0,
+      "n": 1000,
+      "exact_current_coordinate_gaussian_partitions": true,
+      "next10rng_equal": true,
+      "baseline_status": "returned",
+      "baseline_matches_corrected_categories": false,
+      "numeric_columns_baseline_exact": true
+    },
+    {
+      "pattern": [
+        "normal",
+        "categorical",
+        "uniform",
+        "categorical",
+        "categorical",
+        "normal"
+      ],
+      "rho": 0.6,
+      "n": 1000,
+      "exact_current_coordinate_gaussian_partitions": true,
+      "next10rng_equal": true,
+      "baseline_status": "returned",
+      "baseline_matches_corrected_categories": false,
+      "numeric_columns_baseline_exact": true
+    },
+    {
+      "pattern": [
+        "normal",
+        "categorical",
+        "uniform",
+        "categorical",
+        "categorical",
+        "normal"
+      ],
+      "rho": -0.2,
+      "n": 1000,
+      "exact_current_coordinate_gaussian_partitions": true,
+      "next10rng_equal": true,
+      "baseline_status": "returned",
+      "baseline_matches_corrected_categories": false,
+      "numeric_columns_baseline_exact": true
+    }
+  ],
+  "boundary_reference": [
+    {
+      "tail_z": 10.0,
+      "probabilities": [
+        0.5,
+        0.5,
+        0.0
+      ],
+      "expected_nonbase_dummies": [
+        1.0,
+        0.0
+      ],
+      "actual_matches": true,
+      "normal_calls": 1
+    },
+    {
+      "tail_z": 10.0,
+      "probabilities": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "expected_nonbase_dummies": [
+        0.0,
+        0.0
+      ],
+      "actual_matches": true,
+      "normal_calls": 1
+    },
+    {
+      "tail_z": -100.0,
+      "probabilities": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "expected_nonbase_dummies": [
+        1.0,
+        0.0
+      ],
+      "actual_matches": true,
+      "normal_calls": 1
+    },
+    {
+      "tail_z": -100.0,
+      "probabilities": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "expected_nonbase_dummies": [
+        0.0,
+        1.0
+      ],
+      "actual_matches": true,
+      "normal_calls": 1
+    },
+    {
+      "tail_z": 0.0,
+      "probabilities": [
+        0.5,
+        0.0,
+        0.5
+      ],
+      "expected_nonbase_dummies": [
+        0.0,
+        1.0
+      ],
+      "actual_matches": true,
+      "normal_calls": 1
+    },
+    {
+      "tail_z": 10.0,
+      "probabilities": [
+        0.2,
+        0.3,
+        0.5
+      ],
+      "expected_nonbase_dummies": [
+        0.0,
+        1.0
+      ],
+      "actual_matches": true,
+      "normal_calls": 1
+    },
+    {
+      "tail_z": -8.0,
+      "probabilities": [
+        1e-15,
+        0.999999999999999,
+        0.0
+      ],
+      "expected_nonbase_dummies": [
+        0.0,
+        0.0
+      ],
+      "actual_matches": true,
+      "normal_calls": 1
+    }
+  ],
+  "issues": []
+}
