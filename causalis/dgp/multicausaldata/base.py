@@ -68,6 +68,9 @@ class MultiCausalDatasetGenerator:
         Generated treatment columns are a full one-hot encoding that sums to 1.
     d_names : list of str, optional
         Names of treatment columns. If None, uses ["d_0", "d_1", ...].
+        Generated column names must be nonempty strings and unique across
+        outcome, treatments, expanded confounders, and enabled oracle columns.
+        Conflicts raise ValueError rather than renaming or overwriting columns.
     theta : float or array-like, optional
         Constant treatment effects on the link scale for each class.
         If scalar, applied to all non-control classes (control effect = 0).
@@ -196,8 +199,44 @@ class MultiCausalDatasetGenerator:
         _integer(self.k, "k", 0)
         if self.d_names is None:
             self.d_names = [f"d_{i}" for i in range(self.n_treatments)]
-        if len(self.d_names) != self.n_treatments:
+        self._validate_column_names()
+
+    def _validate_column_names(self, confounder_names: Optional[List[str]] = None) -> None:
+        """Reserve every emitted column before DataFrame assignment can replace it."""
+        if isinstance(self.d_names, (str, bytes)):
+            raise ValueError("d_names must be a sequence of column names")
+        try:
+            count = len(self.d_names)
+        except TypeError as exc:
+            raise ValueError("d_names must be a sequence of column names") from exc
+        if count != self.n_treatments:
             raise ValueError("d_names length must match n_treatments")
+
+        roles: Dict[str, str] = {}
+
+        def reserve(name: str, role: str) -> None:
+            if not isinstance(name, str) or not name:
+                raise ValueError(f"{role} column name must be a nonempty string")
+            if name in roles:
+                raise ValueError(
+                    f"Generated column name {name!r} collides between {roles[name]} and {role}"
+                )
+            roles[name] = role
+
+        reserve("y", "outcome")
+        for k, name in enumerate(self.d_names):
+            reserve(name, f"treatment[{k}]")
+        if confounder_names is not None:
+            for j, name in enumerate(confounder_names):
+                reserve(name, f"confounder[{j}]")
+        if self.include_oracle:
+            for k, name in enumerate(self.d_names):
+                for prefix in ("m", "m_obs", "tau_link"):
+                    reserve(f"{prefix}_{name}", f"{prefix} oracle[{k}]")
+            for k, name in enumerate(self.d_names):
+                reserve(f"g_{name}", f"g oracle[{k}]")
+            for k, name in enumerate(self.d_names[1:], start=1):
+                reserve(f"cate_{name}", f"cate oracle[{k}]")
 
     # ---------- confounder sampling ----------
 
@@ -588,11 +627,15 @@ class MultiCausalDatasetGenerator:
         non-finite calculated scores, links, outcomes, or oracles raise
         ValueError. Extremely large latent strengths unsupported by the
         clipped exponential Gaussian oracle also raise ValueError.
+        Actual expanded column names are validated before treatment or outcome
+        generation. Names must be nonempty strings and unique across the full
+        output schema; disabled oracle names are not reserved.
         """
         self._validate_assignment_policy()
         _integer(n, "n", 1 if self.assignment_policy == "iid" else self.n_treatments)
         _integer(self.n_treatments, "n_treatments", 2)
         _integer(self.k, "k", 0)
+        self._validate_column_names()
         for name in ("alpha_y", "sigma_y", "gamma_shape", "u_strength_y", "propensity_sharpness"):
             value = _finite_array(getattr(self, name), name)
             if value.ndim != 0:
@@ -607,6 +650,9 @@ class MultiCausalDatasetGenerator:
         X = _finite_array(X, "X / x_sampler output")
         if X.shape != (n, self.k):
             raise ValueError("X / x_sampler output must have shape (n, k)")
+        if len(names) != X.shape[1]:
+            raise ValueError("confounder names must match the number of X columns")
+        self._validate_column_names(names)
         self.confounder_names_ = names
         if U is None:
             U = self.rng.normal(size=n)

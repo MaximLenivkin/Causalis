@@ -111,6 +111,9 @@ def generate_multitreatment(
         Whether to return a MultiCausalData object.
     d_names : list of str, optional
         Names of treatment columns.
+        Names must be nonempty strings. The outcome, treatment, expanded
+        confounder, and enabled oracle column names must all be unique;
+        conflicts raise ValueError without renaming the requested columns.
     assignment_policy : {"ensure_all", "iid"}, default="ensure_all"
         ``ensure_all`` retries and, if necessary, repairs draws to include every
         arm; propensity columns describe the nominal softmax model under this
