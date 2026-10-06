@@ -58,6 +58,7 @@ def generate_multitreatment(
     include_oracle: bool = True,
     return_causal_data: bool = False,
     d_names: Optional[List[str]] = None,
+    assignment_policy: str = "ensure_all",
 ) -> Union[pd.DataFrame, MultiCausalData]:
     """
     Generate a multi-treatment dataset using MultiCausalDatasetGenerator.
@@ -80,7 +81,8 @@ def generate_multitreatment(
         Heterogeneous treatment effects per class. When provided with `theta`,
         the structural effect is additive on link scale (`theta + tau(X)`).
     target_d_rate : array-like, optional
-        Target marginal class probabilities (length K).
+        Target mean assignment probabilities at U=0 over sampled X (length K),
+        rather than latent-marginal or realized treatment frequencies.
     confounder_specs : list of dict, optional
         Schema for confounder distributions.
     beta_y : array-like, optional
@@ -109,6 +111,13 @@ def generate_multitreatment(
         Whether to return a MultiCausalData object.
     d_names : list of str, optional
         Names of treatment columns.
+    assignment_policy : {"ensure_all", "iid"}, default="ensure_all"
+        ``ensure_all`` retries and, if necessary, repairs draws to include every
+        arm; propensity columns describe the nominal softmax model under this
+        policy. ``iid`` draws once per row from that model and may omit arms,
+        including when n is smaller than the number of arms. Raw DataFrames
+        permit missing arms; MultiCausalData retains its separate validation,
+        including rejection of duplicate columns from multiple absent arms.
 
     Returns
     -------
@@ -157,6 +166,7 @@ def generate_multitreatment(
         use_copula=use_copula,
         copula_corr=copula_corr,
         include_oracle=include_oracle,
+        assignment_policy=assignment_policy,
     )
     df = gen.generate(n)
 

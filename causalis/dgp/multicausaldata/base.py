@@ -11,8 +11,27 @@ from causalis.dgp.base import _sigmoid, _gaussian_copula
 from causalis.data_contracts.multicausaldata import MultiCausalData
 
 
+def _finite_array(value: Any, name: str) -> np.ndarray:
+    """Reject invalid numeric values before a bounded link can conceal them."""
+    try:
+        raw = np.asarray(value)
+        if np.iscomplexobj(raw):
+            raise ValueError(f"{name} must be real numeric values")
+        arr = np.asarray(value, dtype=float)
+    except (TypeError, ValueError, OverflowError) as exc:
+        raise ValueError(f"{name} must be real numeric values") from exc
+    if not np.all(np.isfinite(arr)):
+        raise ValueError(f"{name} must contain only finite values")
+    return arr
+
+
+def _integer(value: Any, name: str, minimum: int) -> None:
+    if isinstance(value, (bool, np.bool_)) or not isinstance(value, (int, np.integer)) or value < minimum:
+        raise ValueError(f"{name} must be an integer >= {minimum}")
+
+
 def _softmax(scores: np.ndarray) -> np.ndarray:
-    scores = np.asarray(scores, dtype=float)
+    scores = _finite_array(scores, "treatment scores")
     if scores.ndim != 2:
         raise ValueError("scores must be a 2D array")
     shift = np.max(scores, axis=1, keepdims=True)
@@ -105,6 +124,11 @@ class MultiCausalDatasetGenerator:
         Whether to include oracle columns for propensities and potential outcomes.
     seed : int, optional
         Random seed.
+    assignment_policy : {"ensure_all", "iid"}, default="ensure_all"
+        ``ensure_all`` retries complete assignment draws and repairs missing
+        arms if needed. It requires n >= n_treatments and changes the nominal
+        softmax assignment law. ``iid`` draws once from that law per row,
+        permitting absent arms and positive n smaller than n_treatments.
 
     Notes
     -----
@@ -116,13 +140,18 @@ class MultiCausalDatasetGenerator:
     binary means use deterministic quadrature (Gauss-Hermite for moderate latent
     noise, logistic-normal convolution for stronger noise). The exponential
     outcome links are clipped to [-20, 20] for both draws and oracle means.
-    ``m_obs_<arm>`` is P(D=arm | X, U) at the supplied or drawn latent values.
+    ``m_obs_<arm>`` is the nominal softmax model probability P(D=arm | X, U)
+    at the supplied or drawn latent values. For iid assignment it is the actual
+    conditional probability; all-arm resampling changes the joint assignment law.
     ``m_<arm>`` is the softmax probability at U=0, which generally differs from
     the marginal P(D=arm | X) when latent noise affects treatment assignment.
     ``target_d_rate`` calibrates the sample mean of these U=0 probabilities,
     rather than Gaussian-marginal assignment probabilities. With latent
     treatment noise, the discrepancy from actual marginal arm rates need not
     disappear as the sample size increases.
+    Under ``ensure_all``, m and m_obs describe the nominal softmax model rather
+    than the row probabilities of the conditioned or repaired sample. Under
+    ``iid``, m_obs gives the actual conditional assignment probabilities.
     """
     n_treatments: int = 3
     d_names: Optional[List[str]] = None
@@ -153,16 +182,18 @@ class MultiCausalDatasetGenerator:
 
     include_oracle: bool = True
     seed: Optional[int] = None
+    assignment_policy: str = "ensure_all"
 
     rng: np.random.Generator = field(init=False, repr=False)
     confounder_names_: List[str] = field(init=False, default_factory=list)
 
     def __post_init__(self) -> None:
+        self._validate_assignment_policy()
         self.rng = np.random.default_rng(self.seed)
-        if self.n_treatments < 2:
-            raise ValueError("n_treatments must be at least 2")
+        _integer(self.n_treatments, "n_treatments", 2)
         if self.confounder_specs is not None:
             self.k = len(self.confounder_specs)
+        _integer(self.k, "k", 0)
         if self.d_names is None:
             self.d_names = [f"d_{i}" for i in range(self.n_treatments)]
         if len(self.d_names) != self.n_treatments:
@@ -273,9 +304,9 @@ class MultiCausalDatasetGenerator:
         if self.alpha_d is None:
             return np.zeros(K, dtype=float)
         if np.isscalar(self.alpha_d):
-            val = float(self.alpha_d)
+            val = float(_finite_array(self.alpha_d, "alpha_d"))
             return np.array([0.0] + [val] * (K - 1), dtype=float)
-        arr = np.asarray(self.alpha_d, dtype=float).reshape(-1)
+        arr = _finite_array(self.alpha_d, "alpha_d").reshape(-1)
         if arr.size == K - 1:
             arr = np.concatenate([[0.0], arr])
         if arr.size != K:
@@ -284,11 +315,11 @@ class MultiCausalDatasetGenerator:
 
     def _normalize_u_strength_d(self, K: int) -> np.ndarray:
         if np.isscalar(self.u_strength_d):
-            c = float(self.u_strength_d)
+            c = float(_finite_array(self.u_strength_d, "u_strength_d"))
             # Scalar strength is applied to non-control classes only; applying the same
             # value to all classes would cancel out under softmax shift invariance.
             return np.array([0.0] + [c] * (K - 1), dtype=float)
-        arr = np.asarray(self.u_strength_d, dtype=float).reshape(-1)
+        arr = _finite_array(self.u_strength_d, "u_strength_d").reshape(-1)
         if arr.size == K - 1:
             arr = np.concatenate([[0.0], arr])
         if arr.size != K:
@@ -309,12 +340,12 @@ class MultiCausalDatasetGenerator:
                 if v is None:
                     out.append(None)
                 else:
-                    arr = np.asarray(v, dtype=float).reshape(-1)
+                    arr = _finite_array(v, "beta_d element").reshape(-1)
                     if arr.size != kx:
                         raise ValueError("beta_d element has incompatible size")
                     out.append(arr)
             return out
-        arr = np.asarray(self.beta_d, dtype=float)
+        arr = _finite_array(self.beta_d, "beta_d")
         if arr.ndim == 1:
             if arr.size != kx:
                 raise ValueError("beta_d vector has incompatible size")
@@ -347,8 +378,8 @@ class MultiCausalDatasetGenerator:
         if self.theta is None:
             return np.zeros(K, dtype=float)
         if np.isscalar(self.theta):
-            return np.array([0.0] + [float(self.theta)] * (K - 1), dtype=float)
-        arr = np.asarray(self.theta, dtype=float).reshape(-1)
+            return np.array([0.0] + [float(_finite_array(self.theta, "theta"))] * (K - 1), dtype=float)
+        arr = _finite_array(self.theta, "theta").reshape(-1)
         if arr.size == K - 1:
             arr = np.concatenate([[0.0], arr])
         if arr.size != K:
@@ -427,6 +458,9 @@ class MultiCausalDatasetGenerator:
                     mean += weight * ndtr((link - node) / strength)
             return np.clip(mean, 0.0, 1.0)
 
+        if strength > np.sqrt(np.finfo(float).max):
+            raise ValueError("u_strength_y is too large for the clipped exponential Gaussian oracle")
+
         # For W = link + strength * U, split E[exp(clip(W, low, high))]
         # into the lower tail, the truncated lognormal mean, and the upper tail.
         low, high = -20.0, 20.0
@@ -474,7 +508,15 @@ class MultiCausalDatasetGenerator:
             raise ValueError("target_d_rate must have length K")
         if np.any(target <= 0):
             raise ValueError("target_d_rate must be strictly positive")
-        target = target / target.sum()
+        with np.errstate(over="ignore"):
+            total = target.sum()
+        if np.isfinite(total):
+            target = target / total
+        else:
+            # Preserve ordinary calibration arithmetic, and scale only when
+            # finite positive weights overflow in their sum.
+            scaled_target = target / target.max()
+            target = scaled_target / scaled_target.sum()
 
         for _ in range(50):
             probs = _softmax(scores_base + alpha)
@@ -487,7 +529,13 @@ class MultiCausalDatasetGenerator:
         return alpha
 
     def _draw_multinomial(self, probs: np.ndarray) -> np.ndarray:
+        self._validate_assignment_policy()
         n, K = probs.shape
+        if self.assignment_policy == "iid":
+            u = self.rng.random(n)
+            cdf = np.cumsum(probs, axis=1)
+            cdf[:, -1] = 1.0
+            return (u[:, None] < cdf).argmax(axis=1)
         if n < K:
             raise ValueError("n must be >= n_treatments to ensure all classes appear")
         classes = None
@@ -502,9 +550,22 @@ class MultiCausalDatasetGenerator:
         # Force at least one example per class
         missing = np.where(counts == 0)[0] if counts is not None else np.arange(K)
         idxs = self.rng.choice(n, size=len(missing), replace=False)
+        used = set()
         for k, idx in zip(missing, idxs):
-            classes[int(idx)] = int(k)
+            idx = int(idx)
+            if counts[classes[idx]] <= 1:
+                eligible = np.flatnonzero(counts[classes] > 1)
+                eligible = np.array([i for i in eligible if int(i) not in used])
+                idx = int(self.rng.choice(eligible))
+            counts[classes[idx]] -= 1
+            classes[idx] = int(k)
+            counts[k] += 1
+            used.add(idx)
         return classes
+
+    def _validate_assignment_policy(self) -> None:
+        if self.assignment_policy not in ("ensure_all", "iid"):
+            raise ValueError("assignment_policy must be 'ensure_all' or 'iid'")
 
     # ---------- public API ----------
 
@@ -517,33 +578,71 @@ class MultiCausalDatasetGenerator:
         the empirical distribution of a supplied vector. If supplied values
         follow another law or depend on X, the oracle means need not equal the
         potential-outcome means of that alternative generating process.
+
+        Numeric configuration, sampled covariates, latent values, and callback
+        outputs must be finite and real. Custom X must have shape (n, k).
+        Baseline callbacks g_y/g_d accept scalars, one-element vectors, or
+        vectors of length n; tau callbacks accept outputs with n elements.
+        A scalar U broadcasts to n observations; vectors with shape (n,),
+        (n, 1), or (1, n) are normalized to one dimension. Invalid inputs or
+        non-finite calculated scores, links, outcomes, or oracles raise
+        ValueError. Extremely large latent strengths unsupported by the
+        clipped exponential Gaussian oracle also raise ValueError.
         """
+        self._validate_assignment_policy()
+        _integer(n, "n", 1 if self.assignment_policy == "iid" else self.n_treatments)
+        _integer(self.n_treatments, "n_treatments", 2)
+        _integer(self.k, "k", 0)
+        for name in ("alpha_y", "sigma_y", "gamma_shape", "u_strength_y", "propensity_sharpness"):
+            value = _finite_array(getattr(self, name), name)
+            if value.ndim != 0:
+                raise ValueError(f"{name} must be a scalar")
+        if float(self.sigma_y) < 0:
+            raise ValueError("sigma_y must be nonnegative")
+        ttype = self._normalize_outcome_type(self.outcome_type)
+        self._require_supported_outcome_type(ttype)
+        if ttype == "gamma" and float(self.gamma_shape) <= 0:
+            raise ValueError("gamma_shape must be > 0 for gamma outcomes")
         X, names = self._sample_X(n)
+        X = _finite_array(X, "X / x_sampler output")
+        if X.shape != (n, self.k):
+            raise ValueError("X / x_sampler output must have shape (n, k)")
         self.confounder_names_ = names
         if U is None:
             U = self.rng.normal(size=n)
-        U = np.asarray(U, dtype=float)
+        U = _finite_array(U, "U")
+        if U.ndim == 0:
+            U = np.full(n, float(U))
+        elif U.shape in {(n,), (n, 1), (1, n)}:
+            U = U.reshape(n)
+        else:
+            raise ValueError("U must be scalar or a vector of length n")
 
         K = self.n_treatments
         alpha_d = self._normalize_alpha_d(K)
         beta_d_list = self._normalize_beta_d(K, X.shape[1])
         g_d_list = self._normalize_g_d(K)
         u_strength_d = self._normalize_u_strength_d(K)
+        alpha_d = _finite_array(alpha_d, "alpha_d")
+        u_strength_d = _finite_array(u_strength_d, "u_strength_d")
 
         scores_base = np.zeros((n, K), dtype=float)
         for k in range(K):
             score_x = np.zeros(n, dtype=float)
             if beta_d_list[k] is not None:
-                bt = np.asarray(beta_d_list[k], dtype=float).reshape(-1)
+                bt = _finite_array(beta_d_list[k], f"beta_d[{k}]").reshape(-1)
                 if bt.size != X.shape[1]:
                     raise ValueError("beta_d incompatible with X")
                 score_x += X @ bt
             if g_d_list[k] is not None:
-                score_x += np.asarray(g_d_list[k](X), dtype=float)
+                value = _finite_array(g_d_list[k](X), f"g_d[{k}] output")
+                if value.ndim != 0 and value.shape not in {(1,), (n,)}:
+                    raise ValueError(f"g_d[{k}] output must be scalar, shape (1,), or shape (n,)")
+                score_x += value
             scores_base[:, k] = float(self.propensity_sharpness) * score_x
 
         if self.target_d_rate is not None:
-            alpha_d = self._calibrate_alpha_d(scores_base, alpha_d, np.asarray(self.target_d_rate, dtype=float))
+            alpha_d = self._calibrate_alpha_d(scores_base, alpha_d, _finite_array(self.target_d_rate, "target_d_rate"))
 
         scores_base = scores_base + alpha_d
         scores_obs = scores_base + u_strength_d * U.reshape(-1, 1)
@@ -556,33 +655,40 @@ class MultiCausalDatasetGenerator:
         D[np.arange(n), classes] = 1.0
 
         theta_vec = self._normalize_theta(K)
+        theta_vec = _finite_array(theta_vec, "theta")
         tau_list = self._normalize_tau(K)
 
         Xf = np.asarray(X, dtype=float)
         loc_base = np.full(n, float(self.alpha_y), dtype=float)
         if self.beta_y is not None:
-            by = np.asarray(self.beta_y, dtype=float).reshape(-1)
+            by = _finite_array(self.beta_y, "beta_y").reshape(-1)
             if by.size != Xf.shape[1]:
                 raise ValueError("beta_y incompatible with X")
             loc_base += Xf @ by
         if self.g_y is not None:
-            loc_base += np.asarray(self.g_y(Xf), dtype=float)
+            value = _finite_array(self.g_y(Xf), "g_y output")
+            if value.ndim != 0 and value.shape not in {(1,), (n,)}:
+                raise ValueError("g_y output must be scalar, shape (1,), or shape (n,)")
+            loc_base += value
 
         tau_mat = np.tile(theta_vec.reshape(1, -1), (n, 1))
         for k in range(K):
             if tau_list[k] is not None:
-                tau_val = np.asarray(tau_list[k](Xf), dtype=float).reshape(-1)
+                tau_val = _finite_array(tau_list[k](Xf), f"tau[{k}] output").reshape(-1)
                 if tau_val.size != n:
                     raise ValueError("tau function returned wrong shape")
                 # Add heterogeneous residual on top of constant treatment effect.
                 tau_mat[:, k] += tau_val
 
+        _finite_array(loc_base, "baseline outcome link")
+        _finite_array(tau_mat, "treatment outcome links")
         loc = loc_base + (D * tau_mat).sum(axis=1)
         if self.u_strength_y != 0.0:
             loc = loc + float(self.u_strength_y) * U
 
-        ttype = self._normalize_outcome_type(self.outcome_type)
+        _finite_array(loc, "observed outcome link")
         Y = self._sample_outcome_from_link(loc, ttype)
+        _finite_array(Y, "sampled outcomes")
 
         df = pd.DataFrame({"y": Y})
         for k, name in enumerate(self.d_names):
@@ -597,16 +703,16 @@ class MultiCausalDatasetGenerator:
                 df[f"tau_link_{name}"] = tau_mat[:, k]
 
             # Marginal potential-outcome means under the reference Gaussian law.
-            g_vals = self._marginal_natural_scale_from_link(
-                loc_base[:, None] + tau_mat, ttype
-            )
+            potential_links = _finite_array(loc_base[:, None] + tau_mat, "potential outcome links")
+            g_vals = self._marginal_natural_scale_from_link(potential_links, ttype)
+            _finite_array(g_vals, "Gaussian oracle means")
 
             for k, name in enumerate(self.d_names):
                 df[f"g_{name}"] = g_vals[:, k]
 
             g0 = g_vals[:, 0]
             for k in range(1, K):
-                df[f"cate_{self.d_names[k]}"] = g_vals[:, k] - g0
+                df[f"cate_{self.d_names[k]}"] = _finite_array(g_vals[:, k] - g0, "oracle treatment contrasts")
 
         return df
 
