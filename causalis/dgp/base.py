@@ -274,6 +274,13 @@ def _gaussian_copula(
         Generated confounder matrix.
     names : list of str
         Names of the generated columns.
+
+    Notes
+    -----
+    Each marginal uses its own latent coordinate. Categorical CDF thresholds
+    use unclipped uniforms and expand into indicators excluding the first level.
+    If the Gaussian CDF rounds to one, the upper-boundary fallback selects the
+    last level with positive probability.
     """
     d = len(specs)
     if d == 0:
@@ -304,9 +311,10 @@ def _gaussian_copula(
             probs = probs / probs.sum()
             # Use U[:,j] as a categorical draw by CDF thresholds
             thr = np.cumsum(probs)
-            draw = np.searchsorted(thr, u, side="right")
-            # Guard boundary: if U[:,j]==1.0
-            draw[draw == len(cats)] = len(cats) - 1
+            draw = np.searchsorted(thr, U[:, j], side="right")
+            # The Gaussian CDF can round to 1; skip trailing zero-mass levels.
+            if np.any(draw == len(cats)):
+                draw[draw == len(cats)] = np.flatnonzero(probs > 0)[-1]
             cat_vals = np.asarray(cats)[draw]
             # one-hot encode (except first level)
             rest = cats[1:]
