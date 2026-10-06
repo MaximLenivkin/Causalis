@@ -1,0 +1,25 @@
+warning: in the working copy of 'audit/DOCUMENTATION_HANDOFF.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'audit/FIX_PLAN.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'audit/GIT_ACCESS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'audit/NEXT_SESSION.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'audit/PROGRESS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'audit/README.md', LF will be replaced by CRLF the next time Git touches it
+{
+  "source_checkpoint": "9fb8041300410b560da80a45cabac4b541d1629d",
+  "new_cases": 187,
+  "local_passed": 1916,
+  "ci_verified_jobs": 6,
+  "library_paths": [
+    "causalis/dgp/multicausaldata/base.py",
+    "causalis/dgp/multicausaldata/functional.py"
+  ],
+  "test_paths": [
+    "tests/data/test_multicausal_assignment_policy.py",
+    "tests/data/test_multicausal_generator_contracts.py"
+  ],
+  "python_files_checked": 10,
+  "local_links_checked": 36,
+  "finite_reference_configurations": 16,
+  "sensitivity_paths": [],
+  "issues": []
+}

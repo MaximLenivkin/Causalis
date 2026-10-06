@@ -1,0 +1,1889 @@
+FFFFFFF.F..FFFFFFFFF....FF..FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF [ 64%]
+FFFFFFFFFFFFFFFFFFFFFFFFFFFF.FFF.FFFFFF.                                 [100%]
+================================== FAILURES ===================================
+__________ test_invalid_values_raise_contextual_value_error[kwargs0] __________
+
+kwargs = {'alpha_y': inf, 'outcome_type': 'binary'}
+
+    @pytest.mark.parametrize('kwargs', [
+        {'alpha_y': np.inf, 'outcome_type': 'binary'},
+        {'g_y': lambda X: np.full(len(X), np.inf), 'outcome_type': 'gamma'},
+        {'gamma_shape': np.inf, 'outcome_type': 'gamma'},
+        {'x_sampler': lambda n, k, s: np.full((n, k), np.inf)},
+        {'theta': np.nan},
+        {'alpha_d': np.inf},
+        {'target_d_rate': [1., np.inf, 1.]},
+        {'sigma_y': -1.},
+        {'u_strength_y': 1e155, 'outcome_type': 'gamma'},
+    ])
+    def test_invalid_values_raise_contextual_value_error(kwargs):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:19: Failed
+__________ test_invalid_values_raise_contextual_value_error[kwargs1] __________
+
+kwargs = {'g_y': <function <lambda> at 0x000001B5476E77E0>, 'outcome_type': 'gamma'}
+
+    @pytest.mark.parametrize('kwargs', [
+        {'alpha_y': np.inf, 'outcome_type': 'binary'},
+        {'g_y': lambda X: np.full(len(X), np.inf), 'outcome_type': 'gamma'},
+        {'gamma_shape': np.inf, 'outcome_type': 'gamma'},
+        {'x_sampler': lambda n, k, s: np.full((n, k), np.inf)},
+        {'theta': np.nan},
+        {'alpha_d': np.inf},
+        {'target_d_rate': [1., np.inf, 1.]},
+        {'sigma_y': -1.},
+        {'u_strength_y': 1e155, 'outcome_type': 'gamma'},
+    ])
+    def test_invalid_values_raise_contextual_value_error(kwargs):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:19: Failed
+__________ test_invalid_values_raise_contextual_value_error[kwargs2] __________
+
+kwargs = {'gamma_shape': inf, 'outcome_type': 'gamma'}
+
+    @pytest.mark.parametrize('kwargs', [
+        {'alpha_y': np.inf, 'outcome_type': 'binary'},
+        {'g_y': lambda X: np.full(len(X), np.inf), 'outcome_type': 'gamma'},
+        {'gamma_shape': np.inf, 'outcome_type': 'gamma'},
+        {'x_sampler': lambda n, k, s: np.full((n, k), np.inf)},
+        {'theta': np.nan},
+        {'alpha_d': np.inf},
+        {'target_d_rate': [1., np.inf, 1.]},
+        {'sigma_y': -1.},
+        {'u_strength_y': 1e155, 'outcome_type': 'gamma'},
+    ])
+    def test_invalid_values_raise_contextual_value_error(kwargs):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:19: Failed
+__________ test_invalid_values_raise_contextual_value_error[kwargs3] __________
+
+kwargs = {'x_sampler': <function <lambda> at 0x000001B5476E7880>}
+
+    @pytest.mark.parametrize('kwargs', [
+        {'alpha_y': np.inf, 'outcome_type': 'binary'},
+        {'g_y': lambda X: np.full(len(X), np.inf), 'outcome_type': 'gamma'},
+        {'gamma_shape': np.inf, 'outcome_type': 'gamma'},
+        {'x_sampler': lambda n, k, s: np.full((n, k), np.inf)},
+        {'theta': np.nan},
+        {'alpha_d': np.inf},
+        {'target_d_rate': [1., np.inf, 1.]},
+        {'sigma_y': -1.},
+        {'u_strength_y': 1e155, 'outcome_type': 'gamma'},
+    ])
+    def test_invalid_values_raise_contextual_value_error(kwargs):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:19: Failed
+__________ test_invalid_values_raise_contextual_value_error[kwargs4] __________
+
+kwargs = {'theta': nan}
+
+    @pytest.mark.parametrize('kwargs', [
+        {'alpha_y': np.inf, 'outcome_type': 'binary'},
+        {'g_y': lambda X: np.full(len(X), np.inf), 'outcome_type': 'gamma'},
+        {'gamma_shape': np.inf, 'outcome_type': 'gamma'},
+        {'x_sampler': lambda n, k, s: np.full((n, k), np.inf)},
+        {'theta': np.nan},
+        {'alpha_d': np.inf},
+        {'target_d_rate': [1., np.inf, 1.]},
+        {'sigma_y': -1.},
+        {'u_strength_y': 1e155, 'outcome_type': 'gamma'},
+    ])
+    def test_invalid_values_raise_contextual_value_error(kwargs):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:19: Failed
+__________ test_invalid_values_raise_contextual_value_error[kwargs5] __________
+
+kwargs = {'alpha_d': inf}
+
+    @pytest.mark.parametrize('kwargs', [
+        {'alpha_y': np.inf, 'outcome_type': 'binary'},
+        {'g_y': lambda X: np.full(len(X), np.inf), 'outcome_type': 'gamma'},
+        {'gamma_shape': np.inf, 'outcome_type': 'gamma'},
+        {'x_sampler': lambda n, k, s: np.full((n, k), np.inf)},
+        {'theta': np.nan},
+        {'alpha_d': np.inf},
+        {'target_d_rate': [1., np.inf, 1.]},
+        {'sigma_y': -1.},
+        {'u_strength_y': 1e155, 'outcome_type': 'gamma'},
+    ])
+    def test_invalid_values_raise_contextual_value_error(kwargs):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:19: Failed
+__________ test_invalid_values_raise_contextual_value_error[kwargs6] __________
+
+kwargs = {'target_d_rate': [1.0, inf, 1.0]}
+
+    @pytest.mark.parametrize('kwargs', [
+        {'alpha_y': np.inf, 'outcome_type': 'binary'},
+        {'g_y': lambda X: np.full(len(X), np.inf), 'outcome_type': 'gamma'},
+        {'gamma_shape': np.inf, 'outcome_type': 'gamma'},
+        {'x_sampler': lambda n, k, s: np.full((n, k), np.inf)},
+        {'theta': np.nan},
+        {'alpha_d': np.inf},
+        {'target_d_rate': [1., np.inf, 1.]},
+        {'sigma_y': -1.},
+        {'u_strength_y': 1e155, 'outcome_type': 'gamma'},
+    ])
+    def test_invalid_values_raise_contextual_value_error(kwargs):
+>       with pytest.raises(ValueError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:19: Failed
+__________ test_invalid_values_raise_contextual_value_error[kwargs8] __________
+
+kwargs = {'u_strength_y': 1e+155, 'outcome_type': 'gamma'}
+
+    @pytest.mark.parametrize('kwargs', [
+        {'alpha_y': np.inf, 'outcome_type': 'binary'},
+        {'g_y': lambda X: np.full(len(X), np.inf), 'outcome_type': 'gamma'},
+        {'gamma_shape': np.inf, 'outcome_type': 'gamma'},
+        {'x_sampler': lambda n, k, s: np.full((n, k), np.inf)},
+        {'theta': np.nan},
+        {'alpha_d': np.inf},
+        {'target_d_rate': [1., np.inf, 1.]},
+        {'sigma_y': -1.},
+        {'u_strength_y': 1e155, 'outcome_type': 'gamma'},
+    ])
+    def test_invalid_values_raise_contextual_value_error(kwargs):
+        with pytest.raises(ValueError):
+>           Generator(k=1, seed=42, **kwargs).generate(12)
+
+tests\data\test_multicausal_generator_contracts.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\dgp\multicausaldata\base.py:600: in generate
+    U = self.rng.normal(size=n)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = MultiCausalDatasetGenerator(n_treatments=3, d_names=['d_0', 'd_1', 'd_2'], theta=1.0, tau=None, beta_y=None, g_y=None,...u_strength_d=0.0, propensity_sharpness=1.0, target_d_rate=None, include_oracle=True, seed=42, confounder_names_=['x1'])
+link = array([[0., 1., 1.],
+       [0., 1., 1.],
+       [0., 1., 1.],
+       [0., 1., 1.],
+       [0., 1., 1.],
+       [0., 1...[0., 1., 1.],
+       [0., 1., 1.],
+       [0., 1., 1.],
+       [0., 1., 1.],
+       [0., 1., 1.],
+       [0., 1., 1.]])
+ttype = 'gamma'
+
+>   ???
+E   OverflowError: (34, 'Result too large')
+
+causalis\dgp\multicausaldata\base.py:435: OverflowError
+____________________ test_observation_count_contract[2.5] _____________________
+
+value = 2.5
+
+    @pytest.mark.parametrize('value', [0, -1, 2.5, True])
+    def test_observation_count_contract(value):
+        with pytest.raises(ValueError, match='n'):
+>           Generator(seed=42).generate(value)
+
+tests\data\test_multicausal_generator_contracts.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\dgp\multicausaldata\base.py:521: in generate
+    p_bar = probs.mean(axis=0)
+           ^^^^^^^^^^^^^^^^^
+causalis\dgp\multicausaldata\base.py:183: in _sample_X
+    assignment_policy: str = "ensure_all"
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+numpy/random/_generator.pyx:1294: in numpy.random._generator.Generator.normal
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   TypeError: 'float' object cannot be interpreted as an integer
+
+numpy/random/_common.pyx:654: TypeError
+____________________ test_observation_count_contract[True] ____________________
+
+value = True
+
+    @pytest.mark.parametrize('value', [0, -1, 2.5, True])
+    def test_observation_count_contract(value):
+        with pytest.raises(ValueError, match='n'):
+>           Generator(seed=42).generate(value)
+
+tests\data\test_multicausal_generator_contracts.py:26: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\dgp\multicausaldata\base.py:521: in generate
+    p_bar = probs.mean(axis=0)
+           ^^^^^^^^^^^^^^^^^
+causalis\dgp\multicausaldata\base.py:183: in _sample_X
+    assignment_policy: str = "ensure_all"
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+numpy/random/_generator.pyx:1294: in numpy.random._generator.Generator.normal
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   TypeError: an integer is required
+
+numpy/random/_common.pyx:654: TypeError
+__________________ test_latent_shape_and_finiteness[value0] ___________________
+
+value = array([inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf, inf])
+
+    @pytest.mark.parametrize('value', [np.full(12, np.inf), np.zeros((3, 4)), np.zeros(11)])
+    def test_latent_shape_and_finiteness(value):
+>       with pytest.raises(ValueError, match='U'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:31: Failed
+__________________ test_latent_shape_and_finiteness[value1] ___________________
+
+value = array([[0., 0., 0., 0.],
+       [0., 0., 0., 0.],
+       [0., 0., 0., 0.]])
+
+    @pytest.mark.parametrize('value', [np.full(12, np.inf), np.zeros((3, 4)), np.zeros(11)])
+    def test_latent_shape_and_finiteness(value):
+>       with pytest.raises(ValueError, match='U'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:31: Failed
+__________________ test_latent_shape_and_finiteness[value2] ___________________
+
+value = array([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
+
+    @pytest.mark.parametrize('value', [np.full(12, np.inf), np.zeros((3, 4)), np.zeros(11)])
+    def test_latent_shape_and_finiteness(value):
+>       with pytest.raises(ValueError, match='U'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'U'
+E         Actual message: 'operands could not be broadcast together with shapes (12,3) (11,3) '
+
+tests\data\test_multicausal_generator_contracts.py:31: AssertionError
+________ test_scalar_and_column_latent_values_equal_vector[continuous] ________
+
+outcome = 'continuous'
+
+    @pytest.mark.parametrize('outcome', ['continuous', 'binary', 'poisson', 'gamma'])
+    def test_scalar_and_column_latent_values_equal_vector(outcome):
+        kwargs = dict(k=1, seed=42, outcome_type=outcome, u_strength_y=.4)
+        expected = Generator(**kwargs).generate(12, U=np.full(12, .2))
+        for supplied in [.2, np.full((12, 1), .2)]:
+>           actual = Generator(**kwargs).generate(12, U=supplied)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\data\test_multicausal_generator_contracts.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\dgp\multicausaldata\base.py:589: in generate
+    raise ValueError("sigma_y must be nonnegative")
+    ^^^^^^^^
+.venv\Lib\site-packages\pandas\core\frame.py:4672: in __setitem__
+    self._set_item(key, value)
+.venv\Lib\site-packages\pandas\core\frame.py:4874: in _set_item
+    value, refs = self._sanitize_column(value)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\pandas\core\frame.py:5756: in _sanitize_column
+    com.require_length_match(value, self.index)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+data = array([0., 0., 0., 1., 0., 1., 0., 0., 0., 0., 0., 0.])
+index = RangeIndex(start=0, stop=144, step=1)
+
+    def require_length_match(data, index: Index) -> None:
+        """
+        Check the length of data matches the length of the index.
+        """
+        if len(data) != len(index):
+>           raise ValueError(
+                "Length of values "
+                f"({len(data)}) "
+                "does not match length of index "
+                f"({len(index)})"
+            )
+E           ValueError: Length of values (12) does not match length of index (144)
+
+.venv\Lib\site-packages\pandas\core\common.py:601: ValueError
+__________ test_scalar_and_column_latent_values_equal_vector[binary] __________
+
+outcome = 'binary'
+
+    @pytest.mark.parametrize('outcome', ['continuous', 'binary', 'poisson', 'gamma'])
+    def test_scalar_and_column_latent_values_equal_vector(outcome):
+        kwargs = dict(k=1, seed=42, outcome_type=outcome, u_strength_y=.4)
+        expected = Generator(**kwargs).generate(12, U=np.full(12, .2))
+        for supplied in [.2, np.full((12, 1), .2)]:
+>           actual = Generator(**kwargs).generate(12, U=supplied)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\data\test_multicausal_generator_contracts.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\dgp\multicausaldata\base.py:589: in generate
+    raise ValueError("sigma_y must be nonnegative")
+    ^^^^^^^^
+.venv\Lib\site-packages\pandas\core\frame.py:4672: in __setitem__
+    self._set_item(key, value)
+.venv\Lib\site-packages\pandas\core\frame.py:4874: in _set_item
+    value, refs = self._sanitize_column(value)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\pandas\core\frame.py:5756: in _sanitize_column
+    com.require_length_match(value, self.index)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+data = array([0., 0., 0., 1., 0., 1., 0., 0., 0., 0., 0., 0.])
+index = RangeIndex(start=0, stop=144, step=1)
+
+    def require_length_match(data, index: Index) -> None:
+        """
+        Check the length of data matches the length of the index.
+        """
+        if len(data) != len(index):
+>           raise ValueError(
+                "Length of values "
+                f"({len(data)}) "
+                "does not match length of index "
+                f"({len(index)})"
+            )
+E           ValueError: Length of values (12) does not match length of index (144)
+
+.venv\Lib\site-packages\pandas\core\common.py:601: ValueError
+_________ test_scalar_and_column_latent_values_equal_vector[poisson] __________
+
+outcome = 'poisson'
+
+    @pytest.mark.parametrize('outcome', ['continuous', 'binary', 'poisson', 'gamma'])
+    def test_scalar_and_column_latent_values_equal_vector(outcome):
+        kwargs = dict(k=1, seed=42, outcome_type=outcome, u_strength_y=.4)
+        expected = Generator(**kwargs).generate(12, U=np.full(12, .2))
+        for supplied in [.2, np.full((12, 1), .2)]:
+>           actual = Generator(**kwargs).generate(12, U=supplied)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\data\test_multicausal_generator_contracts.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\dgp\multicausaldata\base.py:589: in generate
+    raise ValueError("sigma_y must be nonnegative")
+    ^^^^^^^^
+.venv\Lib\site-packages\pandas\core\frame.py:4672: in __setitem__
+    self._set_item(key, value)
+.venv\Lib\site-packages\pandas\core\frame.py:4874: in _set_item
+    value, refs = self._sanitize_column(value)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\pandas\core\frame.py:5756: in _sanitize_column
+    com.require_length_match(value, self.index)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+data = array([0., 0., 0., 1., 0., 1., 0., 0., 0., 0., 0., 0.])
+index = RangeIndex(start=0, stop=144, step=1)
+
+    def require_length_match(data, index: Index) -> None:
+        """
+        Check the length of data matches the length of the index.
+        """
+        if len(data) != len(index):
+>           raise ValueError(
+                "Length of values "
+                f"({len(data)}) "
+                "does not match length of index "
+                f"({len(index)})"
+            )
+E           ValueError: Length of values (12) does not match length of index (144)
+
+.venv\Lib\site-packages\pandas\core\common.py:601: ValueError
+__________ test_scalar_and_column_latent_values_equal_vector[gamma] ___________
+
+outcome = 'gamma'
+
+    @pytest.mark.parametrize('outcome', ['continuous', 'binary', 'poisson', 'gamma'])
+    def test_scalar_and_column_latent_values_equal_vector(outcome):
+        kwargs = dict(k=1, seed=42, outcome_type=outcome, u_strength_y=.4)
+        expected = Generator(**kwargs).generate(12, U=np.full(12, .2))
+        for supplied in [.2, np.full((12, 1), .2)]:
+>           actual = Generator(**kwargs).generate(12, U=supplied)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\data\test_multicausal_generator_contracts.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+causalis\dgp\multicausaldata\base.py:589: in generate
+    raise ValueError("sigma_y must be nonnegative")
+    ^^^^^^^^
+.venv\Lib\site-packages\pandas\core\frame.py:4672: in __setitem__
+    self._set_item(key, value)
+.venv\Lib\site-packages\pandas\core\frame.py:4874: in _set_item
+    value, refs = self._sanitize_column(value)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv\Lib\site-packages\pandas\core\frame.py:5756: in _sanitize_column
+    com.require_length_match(value, self.index)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+data = array([0., 0., 0., 1., 0., 1., 0., 0., 0., 0., 0., 0.])
+index = RangeIndex(start=0, stop=144, step=1)
+
+    def require_length_match(data, index: Index) -> None:
+        """
+        Check the length of data matches the length of the index.
+        """
+        if len(data) != len(index):
+>           raise ValueError(
+                "Length of values "
+                f"({len(data)}) "
+                "does not match length of index "
+                f"({len(index)})"
+            )
+E           ValueError: Length of values (12) does not match length of index (144)
+
+.venv\Lib\site-packages\pandas\core\common.py:601: ValueError
+_____ test_complex_coefficients_rejected_before_float_conversion[beta_d] ______
+
+name = 'beta_d'
+
+    @pytest.mark.parametrize('name', ['alpha_d', 'u_strength_d', 'theta', 'beta_d', 'beta_y'])
+    def test_complex_coefficients_rejected_before_float_conversion(name):
+        value = np.array([1. + .1j])
+>       with pytest.raises(ValueError, match=name):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:56: Failed
+_____ test_complex_coefficients_rejected_before_float_conversion[beta_y] ______
+
+name = 'beta_y'
+
+    @pytest.mark.parametrize('name', ['alpha_d', 'u_strength_d', 'theta', 'beta_d', 'beta_y'])
+    def test_complex_coefficients_rejected_before_float_conversion(name):
+        value = np.array([1. + .1j])
+>       with pytest.raises(ValueError, match=name):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:56: Failed
+___ test_nonfinite_callbacks_rejected_before_links[nan-g_y-True-continuous] ___
+
+family = 'continuous', include_oracle = True, callback = 'g_y', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+_____ test_nonfinite_callbacks_rejected_before_links[nan-g_y-True-binary] _____
+
+family = 'binary', include_oracle = True, callback = 'g_y', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'g_y'
+E         Actual message: 'p < 0, p > 1 or p contains NaNs'
+
+tests\data\test_multicausal_generator_contracts.py:80: AssertionError
+____ test_nonfinite_callbacks_rejected_before_links[nan-g_y-True-poisson] _____
+
+family = 'poisson', include_oracle = True, callback = 'g_y', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'g_y'
+E         Actual message: 'lam value too large'
+
+tests\data\test_multicausal_generator_contracts.py:80: AssertionError
+_____ test_nonfinite_callbacks_rejected_before_links[nan-g_y-True-gamma] ______
+
+family = 'gamma', include_oracle = True, callback = 'g_y', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+__ test_nonfinite_callbacks_rejected_before_links[nan-g_y-False-continuous] ___
+
+family = 'continuous', include_oracle = False, callback = 'g_y', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[nan-g_y-False-binary] _____
+
+family = 'binary', include_oracle = False, callback = 'g_y', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'g_y'
+E         Actual message: 'p < 0, p > 1 or p contains NaNs'
+
+tests\data\test_multicausal_generator_contracts.py:80: AssertionError
+____ test_nonfinite_callbacks_rejected_before_links[nan-g_y-False-poisson] ____
+
+family = 'poisson', include_oracle = False, callback = 'g_y', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'g_y'
+E         Actual message: 'lam value too large'
+
+tests\data\test_multicausal_generator_contracts.py:80: AssertionError
+_____ test_nonfinite_callbacks_rejected_before_links[nan-g_y-False-gamma] _____
+
+family = 'gamma', include_oracle = False, callback = 'g_y', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+___ test_nonfinite_callbacks_rejected_before_links[nan-g_d-True-continuous] ___
+
+family = 'continuous', include_oracle = True, callback = 'g_d', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+_____ test_nonfinite_callbacks_rejected_before_links[nan-g_d-True-binary] _____
+
+family = 'binary', include_oracle = True, callback = 'g_d', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[nan-g_d-True-poisson] _____
+
+family = 'poisson', include_oracle = True, callback = 'g_d', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+_____ test_nonfinite_callbacks_rejected_before_links[nan-g_d-True-gamma] ______
+
+family = 'gamma', include_oracle = True, callback = 'g_d', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+__ test_nonfinite_callbacks_rejected_before_links[nan-g_d-False-continuous] ___
+
+family = 'continuous', include_oracle = False, callback = 'g_d', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[nan-g_d-False-binary] _____
+
+family = 'binary', include_oracle = False, callback = 'g_d', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[nan-g_d-False-poisson] ____
+
+family = 'poisson', include_oracle = False, callback = 'g_d', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+_____ test_nonfinite_callbacks_rejected_before_links[nan-g_d-False-gamma] _____
+
+family = 'gamma', include_oracle = False, callback = 'g_d', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+___ test_nonfinite_callbacks_rejected_before_links[nan-tau-True-continuous] ___
+
+family = 'continuous', include_oracle = True, callback = 'tau', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+_____ test_nonfinite_callbacks_rejected_before_links[nan-tau-True-binary] _____
+
+family = 'binary', include_oracle = True, callback = 'tau', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'tau'
+E         Actual message: 'p < 0, p > 1 or p contains NaNs'
+
+tests\data\test_multicausal_generator_contracts.py:80: AssertionError
+____ test_nonfinite_callbacks_rejected_before_links[nan-tau-True-poisson] _____
+
+family = 'poisson', include_oracle = True, callback = 'tau', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'tau'
+E         Actual message: 'lam value too large'
+
+tests\data\test_multicausal_generator_contracts.py:80: AssertionError
+_____ test_nonfinite_callbacks_rejected_before_links[nan-tau-True-gamma] ______
+
+family = 'gamma', include_oracle = True, callback = 'tau', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+__ test_nonfinite_callbacks_rejected_before_links[nan-tau-False-continuous] ___
+
+family = 'continuous', include_oracle = False, callback = 'tau', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[nan-tau-False-binary] _____
+
+family = 'binary', include_oracle = False, callback = 'tau', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'tau'
+E         Actual message: 'p < 0, p > 1 or p contains NaNs'
+
+tests\data\test_multicausal_generator_contracts.py:80: AssertionError
+____ test_nonfinite_callbacks_rejected_before_links[nan-tau-False-poisson] ____
+
+family = 'poisson', include_oracle = False, callback = 'tau', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'tau'
+E         Actual message: 'lam value too large'
+
+tests\data\test_multicausal_generator_contracts.py:80: AssertionError
+_____ test_nonfinite_callbacks_rejected_before_links[nan-tau-False-gamma] _____
+
+family = 'gamma', include_oracle = False, callback = 'tau', bad = nan
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+___ test_nonfinite_callbacks_rejected_before_links[inf-g_y-True-continuous] ___
+
+family = 'continuous', include_oracle = True, callback = 'g_y', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+_____ test_nonfinite_callbacks_rejected_before_links[inf-g_y-True-binary] _____
+
+family = 'binary', include_oracle = True, callback = 'g_y', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[inf-g_y-True-poisson] _____
+
+family = 'poisson', include_oracle = True, callback = 'g_y', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+_____ test_nonfinite_callbacks_rejected_before_links[inf-g_y-True-gamma] ______
+
+family = 'gamma', include_oracle = True, callback = 'g_y', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+__ test_nonfinite_callbacks_rejected_before_links[inf-g_y-False-continuous] ___
+
+family = 'continuous', include_oracle = False, callback = 'g_y', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[inf-g_y-False-binary] _____
+
+family = 'binary', include_oracle = False, callback = 'g_y', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[inf-g_y-False-poisson] ____
+
+family = 'poisson', include_oracle = False, callback = 'g_y', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+_____ test_nonfinite_callbacks_rejected_before_links[inf-g_y-False-gamma] _____
+
+family = 'gamma', include_oracle = False, callback = 'g_y', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+___ test_nonfinite_callbacks_rejected_before_links[inf-g_d-True-continuous] ___
+
+family = 'continuous', include_oracle = True, callback = 'g_d', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+_____ test_nonfinite_callbacks_rejected_before_links[inf-g_d-True-binary] _____
+
+family = 'binary', include_oracle = True, callback = 'g_d', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[inf-g_d-True-poisson] _____
+
+family = 'poisson', include_oracle = True, callback = 'g_d', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+_____ test_nonfinite_callbacks_rejected_before_links[inf-g_d-True-gamma] ______
+
+family = 'gamma', include_oracle = True, callback = 'g_d', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+__ test_nonfinite_callbacks_rejected_before_links[inf-g_d-False-continuous] ___
+
+family = 'continuous', include_oracle = False, callback = 'g_d', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[inf-g_d-False-binary] _____
+
+family = 'binary', include_oracle = False, callback = 'g_d', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[inf-g_d-False-poisson] ____
+
+family = 'poisson', include_oracle = False, callback = 'g_d', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+_____ test_nonfinite_callbacks_rejected_before_links[inf-g_d-False-gamma] _____
+
+family = 'gamma', include_oracle = False, callback = 'g_d', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+___ test_nonfinite_callbacks_rejected_before_links[inf-tau-True-continuous] ___
+
+family = 'continuous', include_oracle = True, callback = 'tau', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+_____ test_nonfinite_callbacks_rejected_before_links[inf-tau-True-binary] _____
+
+family = 'binary', include_oracle = True, callback = 'tau', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'tau'
+E         Actual message: 'p < 0, p > 1 or p contains NaNs'
+
+tests\data\test_multicausal_generator_contracts.py:80: AssertionError
+____ test_nonfinite_callbacks_rejected_before_links[inf-tau-True-poisson] _____
+
+family = 'poisson', include_oracle = True, callback = 'tau', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'tau'
+E         Actual message: 'lam value too large'
+
+tests\data\test_multicausal_generator_contracts.py:80: AssertionError
+_____ test_nonfinite_callbacks_rejected_before_links[inf-tau-True-gamma] ______
+
+family = 'gamma', include_oracle = True, callback = 'tau', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+__ test_nonfinite_callbacks_rejected_before_links[inf-tau-False-continuous] ___
+
+family = 'continuous', include_oracle = False, callback = 'tau', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[inf-tau-False-binary] _____
+
+family = 'binary', include_oracle = False, callback = 'tau', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'tau'
+E         Actual message: 'p < 0, p > 1 or p contains NaNs'
+
+tests\data\test_multicausal_generator_contracts.py:80: AssertionError
+____ test_nonfinite_callbacks_rejected_before_links[inf-tau-False-poisson] ____
+
+family = 'poisson', include_oracle = False, callback = 'tau', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'tau'
+E         Actual message: 'lam value too large'
+
+tests\data\test_multicausal_generator_contracts.py:80: AssertionError
+_____ test_nonfinite_callbacks_rejected_before_links[inf-tau-False-gamma] _____
+
+family = 'gamma', include_oracle = False, callback = 'tau', bad = inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+__ test_nonfinite_callbacks_rejected_before_links[-inf-g_y-True-continuous] ___
+
+family = 'continuous', include_oracle = True, callback = 'g_y', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[-inf-g_y-True-binary] _____
+
+family = 'binary', include_oracle = True, callback = 'g_y', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[-inf-g_y-True-poisson] ____
+
+family = 'poisson', include_oracle = True, callback = 'g_y', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+_____ test_nonfinite_callbacks_rejected_before_links[-inf-g_y-True-gamma] _____
+
+family = 'gamma', include_oracle = True, callback = 'g_y', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+__ test_nonfinite_callbacks_rejected_before_links[-inf-g_y-False-continuous] __
+
+family = 'continuous', include_oracle = False, callback = 'g_y', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[-inf-g_y-False-binary] ____
+
+family = 'binary', include_oracle = False, callback = 'g_y', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+___ test_nonfinite_callbacks_rejected_before_links[-inf-g_y-False-poisson] ____
+
+family = 'poisson', include_oracle = False, callback = 'g_y', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[-inf-g_y-False-gamma] _____
+
+family = 'gamma', include_oracle = False, callback = 'g_y', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+__ test_nonfinite_callbacks_rejected_before_links[-inf-g_d-True-continuous] ___
+
+family = 'continuous', include_oracle = True, callback = 'g_d', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[-inf-g_d-True-binary] _____
+
+family = 'binary', include_oracle = True, callback = 'g_d', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[-inf-g_d-True-poisson] ____
+
+family = 'poisson', include_oracle = True, callback = 'g_d', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+_____ test_nonfinite_callbacks_rejected_before_links[-inf-g_d-True-gamma] _____
+
+family = 'gamma', include_oracle = True, callback = 'g_d', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+__ test_nonfinite_callbacks_rejected_before_links[-inf-g_d-False-continuous] __
+
+family = 'continuous', include_oracle = False, callback = 'g_d', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[-inf-g_d-False-binary] ____
+
+family = 'binary', include_oracle = False, callback = 'g_d', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+___ test_nonfinite_callbacks_rejected_before_links[-inf-g_d-False-poisson] ____
+
+family = 'poisson', include_oracle = False, callback = 'g_d', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[-inf-g_d-False-gamma] _____
+
+family = 'gamma', include_oracle = False, callback = 'g_d', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+__ test_nonfinite_callbacks_rejected_before_links[-inf-tau-True-continuous] ___
+
+family = 'continuous', include_oracle = True, callback = 'tau', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[-inf-tau-True-binary] _____
+
+family = 'binary', include_oracle = True, callback = 'tau', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'tau'
+E         Actual message: 'p < 0, p > 1 or p contains NaNs'
+
+tests\data\test_multicausal_generator_contracts.py:80: AssertionError
+____ test_nonfinite_callbacks_rejected_before_links[-inf-tau-True-poisson] ____
+
+family = 'poisson', include_oracle = True, callback = 'tau', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'tau'
+E         Actual message: 'lam value too large'
+
+tests\data\test_multicausal_generator_contracts.py:80: AssertionError
+_____ test_nonfinite_callbacks_rejected_before_links[-inf-tau-True-gamma] _____
+
+family = 'gamma', include_oracle = True, callback = 'tau', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+__ test_nonfinite_callbacks_rejected_before_links[-inf-tau-False-continuous] __
+
+family = 'continuous', include_oracle = False, callback = 'tau', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+____ test_nonfinite_callbacks_rejected_before_links[-inf-tau-False-binary] ____
+
+family = 'binary', include_oracle = False, callback = 'tau', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'tau'
+E         Actual message: 'p < 0, p > 1 or p contains NaNs'
+
+tests\data\test_multicausal_generator_contracts.py:80: AssertionError
+___ test_nonfinite_callbacks_rejected_before_links[-inf-tau-False-poisson] ____
+
+family = 'poisson', include_oracle = False, callback = 'tau', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'tau'
+E         Actual message: 'lam value too large'
+
+tests\data\test_multicausal_generator_contracts.py:80: AssertionError
+____ test_nonfinite_callbacks_rejected_before_links[-inf-tau-False-gamma] _____
+
+family = 'gamma', include_oracle = False, callback = 'tau', bad = -inf
+
+    @pytest.mark.parametrize('family', ['continuous', 'binary', 'poisson', 'gamma'])
+    @pytest.mark.parametrize('include_oracle', [True, False])
+    @pytest.mark.parametrize('callback', ['g_y', 'g_d', 'tau'])
+    @pytest.mark.parametrize('bad', [np.nan, np.inf, -np.inf])
+    def test_nonfinite_callbacks_rejected_before_links(family, include_oracle, callback, bad):
+        kwargs = {callback: lambda X: np.full(len(X), bad)}
+>       with pytest.raises(ValueError, match=callback):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:80: Failed
+_________________ test_integer_configuration_contract[True-k] _________________
+
+name = 'k', value = True
+
+    @pytest.mark.parametrize('name', ['n_treatments', 'k'])
+    @pytest.mark.parametrize('value', [True, 2.5, -1])
+    def test_integer_configuration_contract(name, value):
+>       with pytest.raises(ValueError, match=name):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:88: Failed
+____________ test_integer_configuration_contract[2.5-n_treatments] ____________
+
+name = 'n_treatments', value = 2.5
+
+    @pytest.mark.parametrize('name', ['n_treatments', 'k'])
+    @pytest.mark.parametrize('value', [True, 2.5, -1])
+    def test_integer_configuration_contract(name, value):
+        with pytest.raises(ValueError, match=name):
+>           Generator(**{name: value})
+
+tests\data\test_multicausal_generator_contracts.py:89: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+<string>:28: in __init__
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = MultiCausalDatasetGenerator(n_treatments=2.5, d_names=None, theta=1.0, tau=None, beta_y=None, g_y=None, alpha_y=0.0, s..., u_strength_d=0.0, propensity_sharpness=1.0, target_d_rate=None, include_oracle=True, seed=None, confounder_names_=[])
+
+>   ???
+E   TypeError: 'float' object cannot be interpreted as an integer
+
+causalis\dgp\multicausaldata\base.py:167: TypeError
+_________________ test_integer_configuration_contract[2.5-k] __________________
+
+name = 'k', value = 2.5
+
+    @pytest.mark.parametrize('name', ['n_treatments', 'k'])
+    @pytest.mark.parametrize('value', [True, 2.5, -1])
+    def test_integer_configuration_contract(name, value):
+>       with pytest.raises(ValueError, match=name):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:88: Failed
+__________________ test_integer_configuration_contract[-1-k] __________________
+
+name = 'k', value = -1
+
+    @pytest.mark.parametrize('name', ['n_treatments', 'k'])
+    @pytest.mark.parametrize('value', [True, 2.5, -1])
+    def test_integer_configuration_contract(name, value):
+>       with pytest.raises(ValueError, match=name):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:88: Failed
+______________ test_custom_sampler_exact_shape_contract[shape0] _______________
+
+shape = (12,)
+
+    @pytest.mark.parametrize('shape', [(12,), (11, 1), (12, 2), (12, 1, 1)])
+    def test_custom_sampler_exact_shape_contract(shape):
+        with pytest.raises(ValueError, match='X'):
+>           Generator(k=1, seed=42, x_sampler=lambda n, k, s: np.zeros(shape)).generate(12)
+
+tests\data\test_multicausal_generator_contracts.py:95: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = MultiCausalDatasetGenerator(n_treatments=3, d_names=['d_0', 'd_1', 'd_2'], theta=1.0, tau=None, beta_y=None, g_y=None,...u_strength_d=0.0, propensity_sharpness=1.0, target_d_rate=None, include_oracle=True, seed=42, confounder_names_=['x1'])
+n = 12
+U = array([ 0.30471708, -1.03998411,  0.7504512 ,  0.94056472, -1.95103519,
+       -1.30217951,  0.1278404 , -0.31624259, -0.01680116, -0.85304393,
+        0.87939797,  0.77779194])
+
+        if np.isfinite(total):
+            target = target / total
+        else:
+            # Preserve ordinary calibration arithmetic, and scale only when
+            # finite positive weights overflow in their sum.
+            scaled_target = target / target.max()
+            target = scaled_target / scaled_target.sum()
+    
+        for _ in range(50):
+            probs = _softmax(scores_base + alpha)
+            p_bar = probs.mean(axis=0)
+            delta = np.log(np.clip(target, 1e-12, 1.0)) - np.log(np.clip(p_bar, 1e-12, 1.0))
+            alpha += delta
+            alpha -= alpha.mean()
+            if np.max(np.abs(delta)) < 1e-6:
+                break
+        return alpha
+    
+>   def _draw_multinomial(self, probs: np.ndarray) -> np.ndarray:
+                                                ^^^^^^^^^^
+E   IndexError: tuple index out of range
+
+causalis\dgp\multicausaldata\base.py:529: IndexError
+______________ test_custom_sampler_exact_shape_contract[shape1] _______________
+
+shape = (11, 1)
+
+    @pytest.mark.parametrize('shape', [(12,), (11, 1), (12, 2), (12, 1, 1)])
+    def test_custom_sampler_exact_shape_contract(shape):
+>       with pytest.raises(ValueError, match='X'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'X'
+E         Actual message: 'Length of values (11) does not match length of index (12)'
+
+tests\data\test_multicausal_generator_contracts.py:94: AssertionError
+______________ test_custom_sampler_exact_shape_contract[shape2] _______________
+
+shape = (12, 2)
+
+    @pytest.mark.parametrize('shape', [(12,), (11, 1), (12, 2), (12, 1, 1)])
+    def test_custom_sampler_exact_shape_contract(shape):
+>       with pytest.raises(ValueError, match='X'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:94: Failed
+______________ test_custom_sampler_exact_shape_contract[shape3] _______________
+
+shape = (12, 1, 1)
+
+    @pytest.mark.parametrize('shape', [(12,), (11, 1), (12, 2), (12, 1, 1)])
+    def test_custom_sampler_exact_shape_contract(shape):
+>       with pytest.raises(ValueError, match='X'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:94: Failed
+____ test_finite_overflowing_linear_predictor_rejected_before_binary_link _____
+
+    def test_finite_overflowing_linear_predictor_rejected_before_binary_link():
+>       with pytest.raises(ValueError, match='baseline outcome link'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests\data\test_multicausal_generator_contracts.py:99: Failed
+============================== warnings summary ===============================
+tests/data/test_multicausal_generator_contracts.py::test_invalid_values_raise_contextual_value_error[kwargs5]
+tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_d-True-continuous]
+tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_d-True-binary]
+tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_d-True-poisson]
+tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_d-True-gamma]
+tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_d-False-continuous]
+tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_d-False-binary]
+tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_d-False-poisson]
+tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_d-False-gamma]
+  D:\codex\Causalis\causalis\dgp\multicausaldata\base.py:19: RuntimeWarning: invalid value encountered in subtract
+    raise ValueError(f"{name} must be real numeric values")
+
+tests/data/test_multicausal_generator_contracts.py::test_invalid_values_raise_contextual_value_error[kwargs6]
+  D:\codex\Causalis\causalis\dgp\multicausaldata\base.py:477: RuntimeWarning: invalid value encountered in divide
+    middle = np.exp(link + strength**2 / 2.0 + log_interval)
+
+tests/data/test_multicausal_generator_contracts.py::test_latent_shape_and_finiteness[value0]
+  D:\codex\Causalis\causalis\dgp\multicausaldata\base.py:549: RuntimeWarning: invalid value encountered in multiply
+    missing = np.where(counts == 0)[0] if counts is not None else np.arange(K)
+
+tests/data/test_multicausal_generator_contracts.py::test_complex_coefficients_rejected_before_float_conversion[alpha_d]
+  D:\codex\Causalis\causalis\dgp\multicausaldata\base.py:278: ComplexWarning: Casting complex values to real discards the imaginary part
+    names.append(f"{name}__onlylevel")
+
+tests/data/test_multicausal_generator_contracts.py::test_complex_coefficients_rejected_before_float_conversion[u_strength_d]
+  D:\codex\Causalis\causalis\dgp\multicausaldata\base.py:291: ComplexWarning: Casting complex values to real discards the imaginary part
+
+tests/data/test_multicausal_generator_contracts.py::test_complex_coefficients_rejected_before_float_conversion[theta]
+  D:\codex\Causalis\causalis\dgp\multicausaldata\base.py:351: ComplexWarning: Casting complex values to real discards the imaginary part
+    if arr.ndim == 2:
+
+tests/data/test_multicausal_generator_contracts.py::test_complex_coefficients_rejected_before_float_conversion[beta_d]
+  D:\codex\Causalis\causalis\dgp\multicausaldata\base.py:317: ComplexWarning: Casting complex values to real discards the imaginary part
+    # Scalar strength is applied to non-control classes only; applying the same
+
+tests/data/test_multicausal_generator_contracts.py::test_complex_coefficients_rejected_before_float_conversion[beta_y]
+  D:\codex\Causalis\causalis\dgp\multicausaldata\base.py:564: ComplexWarning: Casting complex values to real discards the imaginary part
+    def _validate_assignment_policy(self) -> None:
+
+tests/data/test_multicausal_generator_contracts.py::test_overflowing_target_weight_sum_preserves_probabilities_and_draws
+  D:\codex\Causalis\.venv\Lib\site-packages\numpy\_core\_methods.py:49: RuntimeWarning: overflow encountered in reduce
+    return umr_sum(a, axis, dtype, out, keepdims, initial, where)
+
+tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_y-True-continuous]
+tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-g_y-True-continuous]
+  D:\codex\Causalis\causalis\dgp\multicausaldata\base.py:609: RuntimeWarning: invalid value encountered in subtract
+    K = self.n_treatments
+
+tests/data/test_multicausal_generator_contracts.py: 16 warnings
+  D:\codex\Causalis\causalis\dgp\multicausaldata\base.py:580: RuntimeWarning: invalid value encountered in multiply
+    self._validate_assignment_policy()
+
+tests/data/test_multicausal_generator_contracts.py::test_finite_overflowing_linear_predictor_rejected_before_binary_link
+  D:\codex\Causalis\causalis\dgp\multicausaldata\base.py:567: RuntimeWarning: overflow encountered in matmul
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/data/test_multicausal_generator_contracts.py::test_invalid_values_raise_contextual_value_error[kwargs0]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_invalid_values_raise_contextual_value_error[kwargs1]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_invalid_values_raise_contextual_value_error[kwargs2]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_invalid_values_raise_contextual_value_error[kwargs3]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_invalid_values_raise_contextual_value_error[kwargs4]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_invalid_values_raise_contextual_value_error[kwargs5]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_invalid_values_raise_contextual_value_error[kwargs6]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_invalid_values_raise_contextual_value_error[kwargs8]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_observation_count_contract[2.5]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_observation_count_contract[True]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_latent_shape_and_finiteness[value0]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_latent_shape_and_finiteness[value1]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_latent_shape_and_finiteness[value2]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_scalar_and_column_latent_values_equal_vector[continuous]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_scalar_and_column_latent_values_equal_vector[binary]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_scalar_and_column_latent_values_equal_vector[poisson]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_scalar_and_column_latent_values_equal_vector[gamma]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_complex_coefficients_rejected_before_float_conversion[beta_d]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_complex_coefficients_rejected_before_float_conversion[beta_y]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-g_y-True-continuous]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-g_y-True-binary]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-g_y-True-poisson]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-g_y-True-gamma]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-g_y-False-continuous]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-g_y-False-binary]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-g_y-False-poisson]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-g_y-False-gamma]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-g_d-True-continuous]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-g_d-True-binary]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-g_d-True-poisson]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-g_d-True-gamma]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-g_d-False-continuous]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-g_d-False-binary]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-g_d-False-poisson]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-g_d-False-gamma]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-tau-True-continuous]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-tau-True-binary]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-tau-True-poisson]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-tau-True-gamma]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-tau-False-continuous]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-tau-False-binary]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-tau-False-poisson]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[nan-tau-False-gamma]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_y-True-continuous]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_y-True-binary]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_y-True-poisson]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_y-True-gamma]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_y-False-continuous]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_y-False-binary]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_y-False-poisson]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_y-False-gamma]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_d-True-continuous]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_d-True-binary]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_d-True-poisson]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_d-True-gamma]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_d-False-continuous]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_d-False-binary]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_d-False-poisson]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-g_d-False-gamma]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-tau-True-continuous]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-tau-True-binary]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-tau-True-poisson]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-tau-True-gamma]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-tau-False-continuous]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-tau-False-binary]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-tau-False-poisson]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[inf-tau-False-gamma]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-g_y-True-continuous]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-g_y-True-binary]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-g_y-True-poisson]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-g_y-True-gamma]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-g_y-False-continuous]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-g_y-False-binary]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-g_y-False-poisson]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-g_y-False-gamma]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-g_d-True-continuous]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-g_d-True-binary]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-g_d-True-poisson]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-g_d-True-gamma]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-g_d-False-continuous]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-g_d-False-binary]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-g_d-False-poisson]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-g_d-False-gamma]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-tau-True-continuous]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-tau-True-binary]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-tau-True-poisson]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-tau-True-gamma]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-tau-False-continuous]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-tau-False-binary]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-tau-False-poisson]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_nonfinite_callbacks_rejected_before_links[-inf-tau-False-gamma]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_integer_configuration_contract[True-k]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_integer_configuration_contract[2.5-n_treatments]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_integer_configuration_contract[2.5-k]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_integer_configuration_contract[-1-k]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_custom_sampler_exact_shape_contract[shape0]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_custom_sampler_exact_shape_contract[shape1]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_custom_sampler_exact_shape_contract[shape2]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_custom_sampler_exact_shape_contract[shape3]
+FAILED tests/data/test_multicausal_generator_contracts.py::test_finite_overflowing_linear_predictor_rejected_before_binary_link
+100 failed, 12 passed, 36 warnings in 7.00s

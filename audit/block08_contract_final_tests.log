@@ -1,0 +1,10 @@
+........................................................................ [ 48%]
+........................................................................ [ 96%]
+.....                                                                    [100%]
+============================== warnings summary ===============================
+tests/data/test_multicausal_generator_contracts.py::test_finite_overflowing_linear_predictor_rejected_before_binary_link
+  D:\codex\Causalis\causalis\dgp\multicausaldata\base.py:667: RuntimeWarning: overflow encountered in matmul
+    loc_base += Xf @ by
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+149 passed, 1 warning in 46.14s

@@ -77,3 +77,7 @@ Credentials/remotes/branch прежние. GitHub Actions enabled/workflow acces
 Code/doc checkpoints **43f0b3e170f28138fb0155ee99d3680d373b5d52**, **d3b67096dd847792b3b6f79b2a2d43749cab30b0**, **a2109a6ecd3c8422fbd4e8a7fd8d5d59334e8159** отправлены обычным push в origin/codex/correctness-roadmap. Последний — final source/tests checkpoint:1729localpassed и1729passed в каждом из6LinuxCIjobs; actual run37385736343/artifacts verified. После него только audit artifacts; final checkpoint определяется `git log -1`.
 
 Fork/account/author/remotes не менялись. Auth/workflow scopes действуют; повторный login/новый fork не требуются. Final audit-only push не запускает matrix, не переписывает историю и не публикует release. Remote/local equality и чистота workspace проверяются после final push. Upstream/sensitivity sync, PR/issues/external messages не выполнялись.
+
+## B08 checkpoint
+
+Source/tests commit **9fb8041300410b560da80a45cabac4b541d1629d** pushed normally to origin/codex/correctness-roadmap. Actual CI37420288433 completed/success: sixjobs/artifacts verified,1916passed each. Final local integration and documentation checkpoint recorded in BLOCK08_DGP_CONTRACTS.md and git log-1. Credentials/remotes unchanged; no new auth required. Final audit-only push preserves history without restarting source CI. No upstream push, sync, PR/issues/messages/tag/PyPI publication.
