@@ -1,0 +1,1289 @@
+{
+  "baseline": "74145665127f8fa5a0bf038d769697ab880854b8",
+  "tested_source_checkpoint": "1e2b544f7f91a57ad3e049572915a4b3891b084a",
+  "configurations": [
+    {
+      "family": "continuous",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "default",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "default",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "categorical",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "categorical",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "copula",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "copula",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "custom_sampler",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "custom_sampler",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "default",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "default",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "categorical",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "categorical",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "copula",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "copula",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "custom_sampler",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "custom_sampler",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "default",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "default",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "categorical",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "categorical",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "copula",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "copula",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "custom_sampler",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "custom_sampler",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "default",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "default",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "categorical",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "categorical",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "copula",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "copula",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "custom_sampler",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "continuous",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "custom_sampler",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "default",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "default",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "categorical",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "categorical",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "copula",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "copula",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "custom_sampler",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "custom_sampler",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "default",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "default",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "categorical",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "categorical",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "copula",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "copula",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "custom_sampler",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "custom_sampler",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "default",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "default",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "categorical",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "categorical",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "copula",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "copula",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "custom_sampler",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "custom_sampler",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "default",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "default",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "categorical",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "categorical",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "copula",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "copula",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "custom_sampler",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "binary",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "custom_sampler",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "default",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "default",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "categorical",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "categorical",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "copula",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "copula",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "custom_sampler",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "custom_sampler",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "default",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "default",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "categorical",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "categorical",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "copula",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "copula",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "custom_sampler",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "custom_sampler",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "default",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "default",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "categorical",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "categorical",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "copula",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "copula",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "custom_sampler",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "custom_sampler",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "default",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "default",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "categorical",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "categorical",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "copula",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "copula",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "custom_sampler",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "poisson",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "custom_sampler",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "default",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "default",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "categorical",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "categorical",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "copula",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "copula",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "custom_sampler",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": false,
+      "custom_callbacks": false,
+      "schema": "custom_sampler",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "default",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "default",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "categorical",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "categorical",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "copula",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "copula",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "custom_sampler",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": false,
+      "custom_callbacks": true,
+      "schema": "custom_sampler",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "default",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "default",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "categorical",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "categorical",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "copula",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "copula",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "custom_sampler",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": true,
+      "custom_callbacks": false,
+      "schema": "custom_sampler",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "default",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "default",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "categorical",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "categorical",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "copula",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "copula",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "custom_sampler",
+      "generation": 1,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    },
+    {
+      "family": "gamma",
+      "include_oracle": true,
+      "custom_callbacks": true,
+      "schema": "custom_sampler",
+      "generation": 2,
+      "schema_equal": true,
+      "values_exact": true,
+      "next_rng_draws_exact": true
+    }
+  ],
+  "verified": 128,
+  "issues": [],
+  "limitation": "Valid schemas only; categorical copula correctness is a separate finding."
+}

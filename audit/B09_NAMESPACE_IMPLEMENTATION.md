@@ -16,7 +16,7 @@ Treatment/oracle subset проверяется при construction и перед
 
 Независимые baseline/current corruption probes и focused tests сохраняются в отдельных артефактах. Соседние B08 numeric/assignment/semantics/latent-oracle modules: **217 passed, 6.91 s**, raw [block09_neighbor_tests.log](block09_neighbor_tests.log). Это проверка рабочего patch до финального source checkpoint, не полная integration.
 
-Общая integration и Linux matrix выполняются только на законченной committed правке. Точные результаты и source SHA будут сохранены в [BLOCK09_NAMESPACE.md](BLOCK09_NAMESPACE.md) и `block09_*_result.json`. Deferred sensitivity modules сохраняются ровно в прежнем scope.
+Общая integration и Linux matrix выполнены на committed source `1e2b544f7f91a57ad3e049572915a4b3891b084a`. Linux matrix: все6jobs/artifacts2039passed; local macOS:2038passed1подтверждённый baseline DiD failure,80warnings117.46s. Точные результаты и source SHA сохранены в [BLOCK09_NAMESPACE.md](BLOCK09_NAMESPACE.md), `block09_*_result.json` и [local failure note](B09_LOCAL_INTEGRATION_NOTE.md). Deferred sensitivity modules сохраняются ровно в прежнем scope; local suite не считается чистым.
 
 ## Следующий независимый дефект
 

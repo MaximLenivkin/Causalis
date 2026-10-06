@@ -81,3 +81,11 @@ Fork/account/author/remotes не менялись. Auth/workflow scopes дейс
 ## B08 checkpoint
 
 Source/tests commit **9fb8041300410b560da80a45cabac4b541d1629d** pushed normally to origin/codex/correctness-roadmap. Actual CI37420288433 completed/success: sixjobs/artifacts verified,1916passed each. Final local integration and documentation checkpoint recorded in BLOCK08_DGP_CONTRACTS.md and git log-1. Credentials/remotes unchanged; no new auth required. Final audit-only push preserves history without restarting source CI. No upstream push, sync, PR/issues/messages/tag/PyPI publication.
+
+## B09: текущий macOS checkout
+
+Рабочая копия: `/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis`; Python entrypoint `.venv/bin/python` (3.12.14, macOS arm64). Окружение восстановлено локально, старую Windows `.venv` не переносили. Исторические Windows пути и installer instructions выше не являются фактами об этом компьютере. Текущий GitHub CLI: `/Users/m.lenivkin/.local/bin/gh`; для CI явно передавать `--repo MaximLenivkin/Causalis`, поскольку автоматический выбор repository может указывать на upstream.
+
+Текущий account **MaximLenivkin** проверен живым API; personal fork push подтверждён фактическим обычным push. Branch/remotes не изменены. Source/tests checkpoint **1e2b544f7f91a57ad3e049572915a4b3891b084a** pushed в `origin/codex/correctness-roadmap`. [CI37530152376](https://github.com/MaximLenivkin/Causalis/actions/runs/37530152376) completed/success: все шесть jobs и скачанные artifacts проверены, каждый2039passed. Последующие изменения только в audit; final documentation checkpoint определяется `git log -1`.
+
+Разрешённый сетевой запуск требуется при sandbox DNS restrictions. Partial clone может подгружать недостающие исторические blobs во время `git show`; это отличается от отсутствующего файла в linked commit. Повторный login, fork setup и upstream sync не требуются. Final audit-only ordinary push не перезапускает source matrix. Remote/local equality и clean tree проверяются на завершении. PR, upstream push, release и внешние сообщения не выполнялись.

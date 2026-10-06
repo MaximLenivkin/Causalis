@@ -1,0 +1,482 @@
+{
+  "baseline_sha": "74145665127f8fa5a0bf038d769697ab880854b8",
+  "source_sha": "74145665127f8fa5a0bf038d769697ab880854b8",
+  "cases": {
+    "outcome_treatment": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "arm",
+        "m_y",
+        "m_obs_y",
+        "tau_link_y",
+        "m_arm",
+        "m_obs_arm",
+        "tau_link_arm",
+        "g_y",
+        "g_arm",
+        "cate_arm"
+      ],
+      "expanded_confounder_names": [],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": true,
+      "outcome_only_binary": true
+    },
+    "duplicate_treatment": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "arm",
+        "m_arm",
+        "m_obs_arm",
+        "tau_link_arm",
+        "g_arm",
+        "cate_arm"
+      ],
+      "expanded_confounder_names": [],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": false,
+      "outcome_only_binary": false
+    },
+    "default_confounder_treatment": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "x1",
+        "arm",
+        "m_x1",
+        "m_obs_x1",
+        "tau_link_x1",
+        "m_arm",
+        "m_obs_arm",
+        "tau_link_arm",
+        "g_x1",
+        "g_arm",
+        "cate_arm"
+      ],
+      "expanded_confounder_names": [
+        "x1"
+      ],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": false,
+      "outcome_only_binary": false
+    },
+    "explicit_confounder_treatment": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "d_0",
+        "d_1",
+        "m_d_0",
+        "m_obs_d_0",
+        "tau_link_d_0",
+        "m_d_1",
+        "m_obs_d_1",
+        "tau_link_d_1",
+        "g_d_0",
+        "g_d_1",
+        "cate_d_1"
+      ],
+      "expanded_confounder_names": [
+        "d_0"
+      ],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": false,
+      "outcome_only_binary": false
+    },
+    "explicit_confounder_outcome": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "d_0",
+        "d_1",
+        "m_d_0",
+        "m_obs_d_0",
+        "tau_link_d_0",
+        "m_d_1",
+        "m_obs_d_1",
+        "tau_link_d_1",
+        "g_d_0",
+        "g_d_1",
+        "cate_d_1"
+      ],
+      "expanded_confounder_names": [
+        "y"
+      ],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": true,
+      "outcome_only_binary": false
+    },
+    "confounder_oracle": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "d_0",
+        "d_1",
+        "g_d_0",
+        "m_d_0",
+        "m_obs_d_0",
+        "tau_link_d_0",
+        "m_d_1",
+        "m_obs_d_1",
+        "tau_link_d_1",
+        "g_d_1",
+        "cate_d_1"
+      ],
+      "expanded_confounder_names": [
+        "g_d_0"
+      ],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": true,
+      "outcome_only_binary": false
+    },
+    "duplicate_confounder": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "d_0",
+        "d_1",
+        "z",
+        "m_d_0",
+        "m_obs_d_0",
+        "tau_link_d_0",
+        "m_d_1",
+        "m_obs_d_1",
+        "tau_link_d_1",
+        "g_d_0",
+        "g_d_1",
+        "cate_d_1"
+      ],
+      "expanded_confounder_names": [
+        "z",
+        "z"
+      ],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": true,
+      "outcome_only_binary": false
+    },
+    "treatment_oracle": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "a",
+        "m_a",
+        "m_obs_a",
+        "tau_link_a",
+        "m_m_a",
+        "m_obs_m_a",
+        "tau_link_m_a",
+        "g_a",
+        "g_m_a",
+        "cate_m_a"
+      ],
+      "expanded_confounder_names": [],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": false,
+      "outcome_only_binary": false
+    },
+    "oracle_oracle": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "a",
+        "obs_a",
+        "m_a",
+        "m_obs_a",
+        "tau_link_a",
+        "m_obs_obs_a",
+        "tau_link_obs_a",
+        "g_a",
+        "g_obs_a",
+        "cate_obs_a"
+      ],
+      "expanded_confounder_names": [],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": true,
+      "outcome_only_binary": false
+    },
+    "categorical_treatment": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "d_0",
+        "d_1",
+        "m_d_0",
+        "m_obs_d_0",
+        "tau_link_d_0",
+        "m_d_1",
+        "m_obs_d_1",
+        "tau_link_d_1",
+        "g_d_0",
+        "g_d_1",
+        "cate_d_1"
+      ],
+      "expanded_confounder_names": [
+        "d_0"
+      ],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": false,
+      "outcome_only_binary": false
+    },
+    "categorical_confounder": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "d_0",
+        "d_1",
+        "c_1",
+        "m_d_0",
+        "m_obs_d_0",
+        "tau_link_d_0",
+        "m_d_1",
+        "m_obs_d_1",
+        "tau_link_d_1",
+        "g_d_0",
+        "g_d_1",
+        "cate_d_1"
+      ],
+      "expanded_confounder_names": [
+        "c_1",
+        "c_1"
+      ],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": true,
+      "outcome_only_binary": false
+    },
+    "categorical_oracle": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "d_0",
+        "d_1",
+        "g_d_0",
+        "m_d_0",
+        "m_obs_d_0",
+        "tau_link_d_0",
+        "m_d_1",
+        "m_obs_d_1",
+        "tau_link_d_1",
+        "g_d_1",
+        "cate_d_1"
+      ],
+      "expanded_confounder_names": [
+        "g_d_0"
+      ],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": true,
+      "outcome_only_binary": false
+    },
+    "categorical_duplicate_formatted": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "d_0",
+        "d_1",
+        "c_1",
+        "m_d_0",
+        "m_obs_d_0",
+        "tau_link_d_0",
+        "m_d_1",
+        "m_obs_d_1",
+        "tau_link_d_1",
+        "g_d_0",
+        "g_d_1",
+        "cate_d_1"
+      ],
+      "expanded_confounder_names": [
+        "c_1",
+        "c_1"
+      ],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": true,
+      "outcome_only_binary": false
+    },
+    "single_level_confounder": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "d_0",
+        "d_1",
+        "c__onlylevel",
+        "m_d_0",
+        "m_obs_d_0",
+        "tau_link_d_0",
+        "m_d_1",
+        "m_obs_d_1",
+        "tau_link_d_1",
+        "g_d_0",
+        "g_d_1",
+        "cate_d_1"
+      ],
+      "expanded_confounder_names": [
+        "c__onlylevel",
+        "c__onlylevel"
+      ],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": true,
+      "outcome_only_binary": false
+    },
+    "fallback_after_expansion": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "d_0",
+        "d_1",
+        "c_1",
+        "c_2",
+        "x3",
+        "m_d_0",
+        "m_obs_d_0",
+        "tau_link_d_0",
+        "m_d_1",
+        "m_obs_d_1",
+        "tau_link_d_1",
+        "g_d_0",
+        "g_d_1",
+        "cate_d_1"
+      ],
+      "expanded_confounder_names": [
+        "c_1",
+        "c_2",
+        "x3",
+        "x3"
+      ],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": true,
+      "outcome_only_binary": false
+    },
+    "copula_scalar_confounder": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "d_0",
+        "d_1",
+        "m_d_0",
+        "m_obs_d_0",
+        "tau_link_d_0",
+        "m_d_1",
+        "m_obs_d_1",
+        "tau_link_d_1",
+        "g_d_0",
+        "g_d_1",
+        "cate_d_1"
+      ],
+      "expanded_confounder_names": [
+        "y"
+      ],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": true,
+      "outcome_only_binary": false
+    },
+    "copula_categorical_after_numeric": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "d_0",
+        "d_1",
+        "z",
+        "g_d_0",
+        "m_d_0",
+        "m_obs_d_0",
+        "tau_link_d_0",
+        "m_d_1",
+        "m_obs_d_1",
+        "tau_link_d_1",
+        "g_d_1",
+        "cate_d_1"
+      ],
+      "expanded_confounder_names": [
+        "z",
+        "g_d_0"
+      ],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": true,
+      "outcome_only_binary": false
+    },
+    "custom_sampler_names": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "d_0",
+        "d_1",
+        "m_d_0",
+        "m_obs_d_0",
+        "tau_link_d_0",
+        "m_d_1",
+        "m_obs_d_1",
+        "tau_link_d_1",
+        "g_d_0",
+        "g_d_1",
+        "cate_d_1"
+      ],
+      "expanded_confounder_names": [
+        "y"
+      ],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": true,
+      "outcome_only_binary": false
+    },
+    "disabled_oracle_namespace_allowed": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "a",
+        "obs_a"
+      ],
+      "expanded_confounder_names": [],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": true,
+      "outcome_only_binary": false
+    },
+    "unused_control_cate_allowed": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "a",
+        "cate_a",
+        "m_a",
+        "m_obs_a",
+        "tau_link_a",
+        "m_cate_a",
+        "m_obs_cate_a",
+        "tau_link_cate_a",
+        "g_a",
+        "g_cate_a",
+        "cate_cate_a"
+      ],
+      "expanded_confounder_names": [],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": true,
+      "outcome_only_binary": false
+    },
+    "custom_sampler_no_categorical_expansion": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "d_0",
+        "d_1",
+        "safe",
+        "m_d_0",
+        "m_obs_d_0",
+        "tau_link_d_0",
+        "m_d_1",
+        "m_obs_d_1",
+        "tau_link_d_1",
+        "g_d_0",
+        "g_d_1",
+        "cate_d_1"
+      ],
+      "expanded_confounder_names": [
+        "safe"
+      ],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": true,
+      "outcome_only_binary": false
+    },
+    "preexisting_copula_categorical_first": {
+      "status": "exception",
+      "type": "UnboundLocalError",
+      "message": "cannot access local variable 'u' where it is not associated with a value"
+    }
+  }
+}

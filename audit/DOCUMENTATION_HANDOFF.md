@@ -456,3 +456,23 @@ Ready-to-use text:
 Marginal Gaussian propensity and selected-treatment ATT are still separate planned APIs. No statistical estimator formula or sensitivity implementation changes in this block. Custom column-name collisions remain a confirmed follow-up; do not claim complete schema validation or hardening of every DGP module. Final integration and CI evidence is recorded in the B08 project report.
 
 B08 CI: [completed run and per-job artifacts](https://github.com/MaximLenivkin/Causalis/actions/runs/37420288433), exact source9fb8041300410b560da80a45cabac4b541d1629d. Each of six representative Linux stacks passed1916cases without failures/errors/skips;187newcases are included. Seven named sensitivity modules remain deferred; this is selected correctness evidence, not full sensitivity, release or standalone Sphinx validation.
+
+## B09 · Multi-treatment output column names
+
+Implementation checkpoint: **1e2b544f7f91a57ad3e049572915a4b3891b084a**. Sources: [generator](https://github.com/MaximLenivkin/Causalis/blob/1e2b544f7f91a57ad3e049572915a4b3891b084a/causalis/dgp/multicausaldata/base.py), [functional wrapper](https://github.com/MaximLenivkin/Causalis/blob/1e2b544f7f91a57ad3e049572915a4b3891b084a/causalis/dgp/multicausaldata/functional.py), [schema regressions](https://github.com/MaximLenivkin/Causalis/blob/1e2b544f7f91a57ad3e049572915a4b3891b084a/tests/data/test_multicausal_namespace_contract.py).
+
+**P2: reject output-name collisions instead of silently replacing columns.** The B08 namespace follow-up is now implemented for the central multi-treatment generator and its wrapper. For example, `d_names=['y', 'arm']` previously replaced the observed outcome with a treatment indicator, and a confounder named `g_d_0` was replaced by an enabled oracle. Even unique arm names `['a', 'obs_a']` produce a duplicate oracle name `m_obs_a`.
+
+Ready-to-use text:
+
+> The generated output schema must have unique, nonempty string column names across the outcome y, treatment arms, actual expanded confounders, and enabled oracle columns. A collision raises ValueError identifying the column and both conflicting roles. Names retain their exact spelling; the generator does not add suffixes, strip whitespace or rename the requested schema. Categorical levels are checked after expansion, including distinct levels that render to the same column name.
+
+> Only columns actually emitted are reserved. With include_oracle=False, oracle-like names remain available. No cate column is emitted for the control arm, so its hypothetical name is also available when it does not collide with another actual column. A custom X sampler retains its existing one-column-per-spec naming behavior rather than expanding categorical specs.
+
+> Treatment and enabled-oracle names are checked at construction and before each generation. The complete schema is checked after successful covariate sampling and before latent draws, structural callbacks, treatment assignment or outcome generation. Mutating public generator fields between calls does not bypass these checks. Existing covariate sampling errors can still occur before the complete schema check.
+
+Migration: choose a unique name explicitly for each requested column when a formerly colliding configuration now raises ValueError. Valid configurations retain their column order, sampled values and RNG progression; 64 configurations with two consecutive generations each were compared exactly with the preceding source. This change adds no marginal propensity or selected-treatment ATT API and does not alter causal estimator formulas.
+
+The shared categorical Gaussian-copula sampler has a separately confirmed pre-existing coordinate-selection defect; B09 does not establish its sampling accuracy or fix that algorithm. Sensitivity remains deferred. Actual local integration and compatibility results are recorded separately in the B09 block report.
+
+B09 CI: [completed run and per-job artifacts](https://github.com/MaximLenivkin/Causalis/actions/runs/37530152376), exact source `1e2b544f7f91a57ad3e049572915a4b3891b084a`. Every one of the six Linux configurations passed **2039 tests**, with no failures, errors or skips. Python 3.10–3.14 latest-compatible and the representative 3.10 legacy stack were verified from downloaded environment, selection and JUnit artifacts. Seven sensitivity modules remain deferred; full sensitivity, release and standalone Sphinx validation are not claimed. Local macOS integration recorded **2038 passed and one DiD diagnostic assertion failure**; its provenance and follow-up are retained in the block report rather than reported as a clean local suite.

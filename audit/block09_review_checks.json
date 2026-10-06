@@ -1,0 +1,89 @@
+{
+  "valid_reference": {
+    "ordinary": "exact frame, schema and next10RNG after each of two generates",
+    "unicode_punctuation_names": "exact frame, schema and next10RNG after each of two generates",
+    "tuple_names": "exact frame, schema and next10RNG after each of two generates",
+    "numpy_string_names": "exact frame, schema and next10RNG after each of two generates",
+    "whitespace_nonempty_names": "exact frame, schema and next10RNG after each of two generates",
+    "disabled_oracle_namespace": "exact frame, schema and next10RNG after each of two generates",
+    "unused_control_cate": "exact frame, schema and next10RNG after each of two generates",
+    "categorical_expanded_with_fallback": "exact frame, schema and next10RNG after each of two generates",
+    "categorical_single_level": "exact frame, schema and next10RNG after each of two generates",
+    "copula_noncategorical": "exact frame, schema and next10RNG after each of two generates",
+    "sampler_categorical_no_expansion": "exact frame, schema and next10RNG after each of two generates"
+  },
+  "mutable_configuration": {
+    "enable_oracles": {
+      "type": "ValueError",
+      "message": "Generated column name 'm_obs_a' collides between m_obs oracle[0] and m oracle[1]"
+    },
+    "rename_treatment": {
+      "type": "ValueError",
+      "message": "Generated column name 'y' collides between outcome and treatment[0]"
+    },
+    "change_n_treatments": {
+      "type": "ValueError",
+      "message": "d_names length must match n_treatments"
+    },
+    "append_treatment_name": {
+      "type": "ValueError",
+      "message": "d_names length must match n_treatments"
+    },
+    "change_confounder_name": {
+      "type": "ValueError",
+      "message": "Generated column name 'y' collides between outcome and confounder[0]"
+    }
+  },
+  "invalid_name_types": {
+    "arm_empty": {
+      "type": "ValueError",
+      "message": "treatment[1] column name must be a nonempty string"
+    },
+    "arm_none": {
+      "type": "ValueError",
+      "message": "treatment[1] column name must be a nonempty string"
+    },
+    "arm_numeric": {
+      "type": "ValueError",
+      "message": "treatment[1] column name must be a nonempty string"
+    },
+    "arm_list": {
+      "type": "ValueError",
+      "message": "treatment[1] column name must be a nonempty string"
+    },
+    "arm_dict": {
+      "type": "ValueError",
+      "message": "treatment[1] column name must be a nonempty string"
+    },
+    "arm_scalar_string": {
+      "type": "ValueError",
+      "message": "d_names must be a sequence of column names"
+    },
+    "confounder_list": {
+      "type": "ValueError",
+      "message": "confounder[0] column name must be a nonempty string"
+    },
+    "sampler_confounder_empty": {
+      "type": "ValueError",
+      "message": "confounder[0] column name must be a nonempty string"
+    },
+    "sampler_confounder_none": {
+      "type": "ValueError",
+      "message": "confounder[0] column name must be a nonempty string"
+    }
+  },
+  "source_sha": "74145665127f8fa5a0bf038d769697ab880854b8",
+  "baseline_sha": "74145665127f8fa5a0bf038d769697ab880854b8",
+  "review_diff_sha256": "bc05cf1e61eb5b1ed10c394c30a5b1cf816e2ef7152a69933a1b176e373ee854",
+  "shared_helper_residual": {
+    "location": "causalis/dgp/base.py:307",
+    "n": 1000,
+    "seed": 731,
+    "latent_correlation": "identity",
+    "names": [
+      "z",
+      "c_1"
+    ],
+    "categorical_equals_previous_normal_positive_for_every_row": true
+  }
+}

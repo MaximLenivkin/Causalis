@@ -1,6 +1,6 @@
 # Продолжение после очистки контекста
 
-Проект `D:\codex\Causalis`; branch **`codex/correctness-roadmap`**. Base audit commit `ffe2c356c115f335b74b2f10117e19fe15585d46`.
+Проект Causalis, root через `git rev-parse --show-toplevel`; branch **`codex/correctness-roadmap`**. Текущий checkout macOS: `/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis`. Base audit commit `ffe2c356c115f335b74b2f10117e19fe15585d46`. Windows paths ниже относятся к историческим сессиям.
 
 ## Что попросил пользователь
 
@@ -8,9 +8,9 @@
 
 ## Читать сначала
 
-1. `AGENTS.md` — локальная `.venv` обязательна; macOS path из инструкции недоступен на Windows, здесь `.venv\Scripts\python.exe`3.12.14.
+1. `AGENTS.md` — локальная `.venv` обязательна. На текущем Mac использовать **`.venv/bin/python`**, Python3.12.14, не старый backing path `/Users/ioann/...`. Окружение восстановлено из project extras dev/docs, dependencycheck и5setupsmoketests прошли. Local setup manifest `.venv/setup-environment.json`; B09 integration manifest записывает реальные проверенные версии.
 2. `audit/FIX_PLAN.md` — порядок блоков, scope gates и deferred findings.
-3. Этот файл и `audit/BLOCK07_EDGE_CORRECTNESS.md` — последнее состояние реализации; B01–B06 reports сохраняют предыдущие checkpoints.
+3. Этот файл и **`audit/BLOCK09_NAMESPACE.md`** — последнее состояние. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
 4. `audit/REPORT.md` — исторический аудит исходного SHA, не текущий residual bug count.
 
 ## Git
@@ -20,6 +20,24 @@ GitHub авторизация завершена пользователем и �
 GitHubCLI2.102.0: `& 'C:\Program Files\GitHub CLI\gh.exe' ...` — использовать полный путь, если текущий Codex PATH ещё не обновлён. Авторизацию повторно запрашивать не требуется. Git mutations/network в ограниченной среде могут требовать разрешённого запуска; пользователь уже авторизовал commits/push в личную ветку. PR не создавался. Полная текущая информация — GIT_ACCESS.md.
 
 ## Текущая работа
+
+**B09 завершён**, начат 6 октября и завершён 7 октября 2026 (Moscow). Source/tests checkpoint: **`1e2b544f7f91a57ad3e049572915a4b3891b084a`**, обычный push в personal fork выполнен. После него меняются только audit artifacts; финальный checkpoint — `git log -1`. Root и три CLI субагента выполнили разбор контракта, независимые regressions и review/CI verification.
+
+Изменены два library paths `multicausaldata/base.py` и `functional.py` (второй — docstring), добавлен `tests/data/test_multicausal_namespace_contract.py`, 123 новых cases. Проверяется полный фактический namespace: outcome, treatment, expanded confounders и enabled oracles. Коллизии отклоняются через ValueError с именем и двумя ролями. Имена не переименовываются и не обрезаются; отключённые oracle и отсутствующий control CATE не резервируются. Tuple, NumPy string-array и непустые whitespace-имена сохранены. Полная проверка выполняется после успешного X sampling и до U/callback/treatment/outcome generation. Повторная generate проверяет изменённые публичные настройки.
+
+**Проверки B09:**
+
+- Новые tests: 123 passed, 0 warnings, 3.65 s; exact baseline: 87 failed, 36 passed. Neighbors: 217 passed, 6.91 s.
+- Reference: 64 конфигурации × 2 последовательные генерации = 128 сравнений; frame/dtypes/schema и следующие RNG draws совпали точно. Material patch findings нет.
+- Local Mac integration: **2038 passed, 1 failed, 0 errors/skips, 80 warnings, 117.46 s**, exit1, total2039. Это **не чистый local suite**. Failure прежнего DiD assertion GREEN vs YELLOW: preATT1.1102230246251558e-16, SE2.9351198205368013e-31, |t|3.7825e14. Exact pre-B09 source7414566 даёт тот же failure; fixture и весь вызванный code unchanged, изменённые DGP paths не вызываются. Raw baseline/current JUnit и probe retained. Assert не ослаблялся, из scope не исключался.
+- CI **37530152376 completed/success**: все шесть Linux jobs и downloaded artifacts — **2039 passed каждый** на exact source1e2b544. Versions/JUnit/selection в `block09_ci_result.json`.
+- Ровно семь sensitivity exclusions прежние; full sensitivity, standalone Sphinx и release не проверялись. Handoff: 88 immutable links verified. После verification source/tests не менялись.
+
+**B10 начинается только по новому запросу.** Кандидаты следующего bounded correctness блока: shared categorical copula и отдельная numerical-zero DiD diagnostic/fixture policy. Copula использует `u` предыдущей координаты: первый categorical вызывает UnboundLocalError, а normal→categorical при identity correlation даёт category1 == (normal>0) во всех1000rows, seed731. Sampling fix должен использовать uniforms текущей координаты и independent Gaussian reference через binary/multi callers. Для DiD нельзя просто ослабить assertion или скрыть failure: нужна обоснованная политика при практически нулевых ATT/SE. Затем extreme Gaussian accuracy/additive marginal oracle, learner contracts/score arithmetic и features по FIX_PLAN. Sensitivity и SC08LOO deferred. На границе B09 работа остановлена.
+
+**Git и окружение:** текущий gh `/Users/m.lenivkin/.local/bin/gh`, account MaximLenivkin и personal push проверены живыми запросами. Для CI явно указывать `--repo MaximLenivkin/Causalis`, поскольку default repository может быть upstream. При sandbox DNS нужен разрешённый network запуск; partial clone `git show` иногда подгружает исторические blobs. Не повторять login/fork setup, не push upstream и не force-push. Handoff переносимый, автору не отправлялся. Перед следующим блоком проверить branch/status/remote-local equality; неизменённый B09 suite повторно не запускать.
+
+## Исторический B08 checkpoint
 
 **B08 завершён. Source/tests checkpoint:** `9fb8041300410b560da80a45cabac4b541d1629d`, ordinary push в личную ветку выполнен. Два library paths: multicausaldata/base.py и functional.py;187newcases (112contracts+75assignment). Finite real config/X/U/callback/intermediate/output guards; scalar/singleton-U и callbacks compatibility; targetsumoverflow scaling; defaultensure_all singleton-safe fallback и optiniid single draw. Gaussian-marginal/selectedATT API не реализованы. Source frozen после committed checkpoint; после него толькоauditartifacts; finalauditcheckpointgitlog-1.
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="3.884" timestamp="2026-10-07T00:01:23.114419+03:00" hostname="macbook-C02GM2Y1Q6LR"><testcase classname="tests.scenarios.did.refutation.test_did_post_inference_diagnostics" name="test_post_inference_report_accepts_panel_and_estimate" time="0.138"><failure message="AssertionError: assert 'YELLOW' == 'GREEN'&#10;  &#10;  - GREEN&#10;  + YELLOW">def test_post_inference_report_accepts_panel_and_estimate():
+        panel, estimate = _estimate()
+    
+        report = _relaxed_report(panel, estimate)
+        cells = did_post_inference_cell_table(estimate)
+        influence = did_influence_table(estimate)
+        cluster_influence = did_cluster_influence_table(panel, estimate)
+    
+        assert list(report.columns) == ["test", "flag", "value", "threshold", "message"]
+        assert report.loc[0, "test"] == "overall_inference_reliability"
+&gt;       assert report.loc[0, "flag"] == "GREEN"
+E       AssertionError: assert 'YELLOW' == 'GREEN'
+E         
+E         - GREEN
+E         + YELLOW
+
+tests/scenarios/did/refutation/test_did_post_inference_diagnostics.py:101: AssertionError</failure></testcase></testsuite></testsuites>

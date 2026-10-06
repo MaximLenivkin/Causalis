@@ -1,0 +1,141 @@
+{
+  "created_utc": "2026-10-06T20:56:01.101623+00:00",
+  "baseline_sha": "74145665127f8fa5a0bf038d769697ab880854b8",
+  "head_at_evidence_record": "1e2b544f7f91a57ad3e049572915a4b3891b084a",
+  "baseline_method": "frozen git-show source modules loaded under their original module names before pytest collection",
+  "baseline_source_sha256": {
+    "causalis/dgp/multicausaldata/base.py": "f05a36733f3c1cc13e7d65de42e2567ba4d05fc59f329247cd2926984fa0b199",
+    "causalis/dgp/multicausaldata/functional.py": "5f3ae6665714107010554e58345e6fe6ee7bab0dfa0ad4e085b3ac0ffe2ce870"
+  },
+  "current_source_sha256": {
+    "causalis/dgp/multicausaldata/base.py": "2977f5ee3fe7ae2ce10a19d39d898e048f448c2b15d1b93a48f04094db00a859",
+    "causalis/dgp/multicausaldata/functional.py": "891da1e300d971200561cf018817e29f050f341d19d1c4be0671b9d471a8c16e"
+  },
+  "test_file": "tests/data/test_multicausal_namespace_contract.py",
+  "test_file_sha256": "82f5475a041ca85a076326658257a96b73ef50490188ecc479e9e3287be3a552",
+  "reproducible_runner": "audit/block09_namespace_baseline.py",
+  "reports": {
+    "initial_fixture_baseline": {
+      "counts": {
+        "tests": 101,
+        "failures": 69,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 32
+      },
+      "junit": ".venv/block09-namespace-baseline/initial-junit.xml",
+      "junit_seconds": 0.761,
+      "failed_parameterizations_by_test": {
+        "test_outcome_treatment_and_confounder_collisions_raise": 10,
+        "test_confounders_cannot_overwrite_enabled_oracle_columns": 8,
+        "test_confounder_cannot_overwrite_noncontrol_contrast": 1,
+        "test_treatment_names_cannot_overwrite_another_arms_oracle": 4,
+        "test_control_treatment_name_cannot_overwrite_noncontrol_contrast": 1,
+        "test_distinct_arms_cannot_generate_the_same_oracle_column": 1,
+        "test_expanded_categorical_namespace_has_no_collisions": 24,
+        "test_categorical_expansion_cannot_overwrite_enabled_oracle": 10,
+        "test_functional_wrapper_rejects_collisions_in_both_return_modes": 4,
+        "test_reusing_generator_revalidates_mutated_arm_names": 1,
+        "test_enabling_oracles_on_existing_generator_revalidates_namespace": 1,
+        "test_invalid_namespace_is_rejected_before_structural_callbacks": 3,
+        "test_valid_functional_wrapper_preserves_requested_names": 1
+      }
+    },
+    "initial101_baseline": {
+      "counts": {
+        "tests": 101,
+        "failures": 68,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 33
+      },
+      "junit": ".venv/block09-namespace-baseline/initial101-junit.xml",
+      "junit_seconds": 0.917,
+      "failed_parameterizations_by_test": {
+        "test_outcome_treatment_and_confounder_collisions_raise": 10,
+        "test_confounders_cannot_overwrite_enabled_oracle_columns": 8,
+        "test_confounder_cannot_overwrite_noncontrol_contrast": 1,
+        "test_treatment_names_cannot_overwrite_another_arms_oracle": 4,
+        "test_control_treatment_name_cannot_overwrite_noncontrol_contrast": 1,
+        "test_distinct_arms_cannot_generate_the_same_oracle_column": 1,
+        "test_expanded_categorical_namespace_has_no_collisions": 24,
+        "test_categorical_expansion_cannot_overwrite_enabled_oracle": 10,
+        "test_functional_wrapper_rejects_collisions_in_both_return_modes": 4,
+        "test_reusing_generator_revalidates_mutated_arm_names": 1,
+        "test_enabling_oracles_on_existing_generator_revalidates_namespace": 1,
+        "test_invalid_namespace_is_rejected_before_structural_callbacks": 3
+      }
+    },
+    "initial101_current": {
+      "counts": {
+        "tests": 101,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 101
+      },
+      "junit": ".venv/block09-namespace-current-initial101-junit.xml",
+      "junit_seconds": 6.914,
+      "failed_parameterizations_by_test": {}
+    },
+    "final_baseline": {
+      "counts": {
+        "tests": 123,
+        "failures": 87,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 36
+      },
+      "junit": ".venv/block09-namespace-baseline/junit.xml",
+      "junit_seconds": 0.983,
+      "failed_parameterizations_by_test": {
+        "test_outcome_treatment_and_confounder_collisions_raise": 10,
+        "test_confounders_cannot_overwrite_enabled_oracle_columns": 8,
+        "test_confounder_cannot_overwrite_noncontrol_contrast": 1,
+        "test_treatment_names_cannot_overwrite_another_arms_oracle": 4,
+        "test_control_treatment_name_cannot_overwrite_noncontrol_contrast": 1,
+        "test_distinct_arms_cannot_generate_the_same_oracle_column": 1,
+        "test_expanded_categorical_namespace_has_no_collisions": 24,
+        "test_categorical_expansion_cannot_overwrite_enabled_oracle": 10,
+        "test_functional_wrapper_rejects_collisions_in_both_return_modes": 4,
+        "test_reusing_generator_revalidates_mutated_arm_names": 1,
+        "test_enabling_oracles_on_existing_generator_revalidates_namespace": 1,
+        "test_treatment_columns_require_nonempty_string_names": 10,
+        "test_custom_sampler_actual_confounder_names_must_be_nonempty_strings": 8,
+        "test_mutating_treatment_count_names_raises_clear_contract_error": 1,
+        "test_invalid_namespace_is_rejected_before_structural_callbacks": 3
+      }
+    },
+    "final_current": {
+      "counts": {
+        "tests": 123,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "passed": 123
+      },
+      "junit": ".venv/block09-namespace-current-junit.xml",
+      "junit_seconds": 3.651,
+      "failed_parameterizations_by_test": {}
+    }
+  },
+  "initial_fixture_issue": "The first baseline had one incorrect assertion expecting raw DataFrame column order from MultiCausalData; its canonical outcome/confounder/treatment order was corrected.",
+  "python": "3.12.14 (main, Sep 29 2026, 14:50:19) [Clang 22.1.3 ]",
+  "interpreter": "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/bin/python",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "MPLBACKEND": "Agg",
+    "MPLCONFIGDIR": ".venv/matplotlib",
+    "SKIP_DOCS_BUILD": "true"
+  },
+  "scope": {
+    "tests": [
+      "tests/data/test_multicausal_namespace_contract.py"
+    ],
+    "full_suite_run": false,
+    "sensitivity_validated": false
+  }
+}

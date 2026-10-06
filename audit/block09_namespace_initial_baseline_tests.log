@@ -1,0 +1,3155 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF..........F.F [ 71%]
+.F.F.F.FFFF.................F                                            [100%]
+=================================== FAILURES ===================================
+___ test_outcome_treatment_and_confounder_collisions_raise[kwargs0-y-False] ____
+
+kwargs = {'d_names': ['y', 'arm']}, column = 'y', include_oracle = False
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize(
+        "kwargs,column",
+        [
+            ({"d_names": ["y", "arm"]}, "y"),
+            ({"d_names": ["arm", "arm"]}, "arm"),
+            ({"confounder_specs": [{"name": "y", "dist": "normal"}]}, "y"),
+            ({"confounder_specs": [{"name": "d_0", "dist": "normal"}]}, "d_0"),
+            (
+                {"confounder_specs": [{"name": "age"}, {"name": "age"}]},
+                "age",
+            ),
+        ],
+    )
+    def test_outcome_treatment_and_confounder_collisions_raise(kwargs, column, include_oracle):
+>       _assert_collision(column, include_oracle=include_oracle, **kwargs)
+
+tests/data/test_multicausal_namespace_contract.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'y', kwargs = {'include_oracle': False, 'd_names': ['y', 'arm']}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+____ test_outcome_treatment_and_confounder_collisions_raise[kwargs0-y-True] ____
+
+kwargs = {'d_names': ['y', 'arm']}, column = 'y', include_oracle = True
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize(
+        "kwargs,column",
+        [
+            ({"d_names": ["y", "arm"]}, "y"),
+            ({"d_names": ["arm", "arm"]}, "arm"),
+            ({"confounder_specs": [{"name": "y", "dist": "normal"}]}, "y"),
+            ({"confounder_specs": [{"name": "d_0", "dist": "normal"}]}, "d_0"),
+            (
+                {"confounder_specs": [{"name": "age"}, {"name": "age"}]},
+                "age",
+            ),
+        ],
+    )
+    def test_outcome_treatment_and_confounder_collisions_raise(kwargs, column, include_oracle):
+>       _assert_collision(column, include_oracle=include_oracle, **kwargs)
+
+tests/data/test_multicausal_namespace_contract.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'y', kwargs = {'include_oracle': True, 'd_names': ['y', 'arm']}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+__ test_outcome_treatment_and_confounder_collisions_raise[kwargs1-arm-False] ___
+
+kwargs = {'d_names': ['arm', 'arm']}, column = 'arm', include_oracle = False
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize(
+        "kwargs,column",
+        [
+            ({"d_names": ["y", "arm"]}, "y"),
+            ({"d_names": ["arm", "arm"]}, "arm"),
+            ({"confounder_specs": [{"name": "y", "dist": "normal"}]}, "y"),
+            ({"confounder_specs": [{"name": "d_0", "dist": "normal"}]}, "d_0"),
+            (
+                {"confounder_specs": [{"name": "age"}, {"name": "age"}]},
+                "age",
+            ),
+        ],
+    )
+    def test_outcome_treatment_and_confounder_collisions_raise(kwargs, column, include_oracle):
+>       _assert_collision(column, include_oracle=include_oracle, **kwargs)
+
+tests/data/test_multicausal_namespace_contract.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'arm', kwargs = {'include_oracle': False, 'd_names': ['arm', 'arm']}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+___ test_outcome_treatment_and_confounder_collisions_raise[kwargs1-arm-True] ___
+
+kwargs = {'d_names': ['arm', 'arm']}, column = 'arm', include_oracle = True
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize(
+        "kwargs,column",
+        [
+            ({"d_names": ["y", "arm"]}, "y"),
+            ({"d_names": ["arm", "arm"]}, "arm"),
+            ({"confounder_specs": [{"name": "y", "dist": "normal"}]}, "y"),
+            ({"confounder_specs": [{"name": "d_0", "dist": "normal"}]}, "d_0"),
+            (
+                {"confounder_specs": [{"name": "age"}, {"name": "age"}]},
+                "age",
+            ),
+        ],
+    )
+    def test_outcome_treatment_and_confounder_collisions_raise(kwargs, column, include_oracle):
+>       _assert_collision(column, include_oracle=include_oracle, **kwargs)
+
+tests/data/test_multicausal_namespace_contract.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'arm', kwargs = {'include_oracle': True, 'd_names': ['arm', 'arm']}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+___ test_outcome_treatment_and_confounder_collisions_raise[kwargs2-y-False] ____
+
+kwargs = {'confounder_specs': [{'name': 'y', 'dist': 'normal'}]}, column = 'y'
+include_oracle = False
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize(
+        "kwargs,column",
+        [
+            ({"d_names": ["y", "arm"]}, "y"),
+            ({"d_names": ["arm", "arm"]}, "arm"),
+            ({"confounder_specs": [{"name": "y", "dist": "normal"}]}, "y"),
+            ({"confounder_specs": [{"name": "d_0", "dist": "normal"}]}, "d_0"),
+            (
+                {"confounder_specs": [{"name": "age"}, {"name": "age"}]},
+                "age",
+            ),
+        ],
+    )
+    def test_outcome_treatment_and_confounder_collisions_raise(kwargs, column, include_oracle):
+>       _assert_collision(column, include_oracle=include_oracle, **kwargs)
+
+tests/data/test_multicausal_namespace_contract.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'y'
+kwargs = {'include_oracle': False, 'confounder_specs': [{'name': 'y', 'dist': 'normal'}]}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+____ test_outcome_treatment_and_confounder_collisions_raise[kwargs2-y-True] ____
+
+kwargs = {'confounder_specs': [{'name': 'y', 'dist': 'normal'}]}, column = 'y'
+include_oracle = True
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize(
+        "kwargs,column",
+        [
+            ({"d_names": ["y", "arm"]}, "y"),
+            ({"d_names": ["arm", "arm"]}, "arm"),
+            ({"confounder_specs": [{"name": "y", "dist": "normal"}]}, "y"),
+            ({"confounder_specs": [{"name": "d_0", "dist": "normal"}]}, "d_0"),
+            (
+                {"confounder_specs": [{"name": "age"}, {"name": "age"}]},
+                "age",
+            ),
+        ],
+    )
+    def test_outcome_treatment_and_confounder_collisions_raise(kwargs, column, include_oracle):
+>       _assert_collision(column, include_oracle=include_oracle, **kwargs)
+
+tests/data/test_multicausal_namespace_contract.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'y'
+kwargs = {'include_oracle': True, 'confounder_specs': [{'name': 'y', 'dist': 'normal'}]}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+__ test_outcome_treatment_and_confounder_collisions_raise[kwargs3-d_0-False] ___
+
+kwargs = {'confounder_specs': [{'name': 'd_0', 'dist': 'normal'}]}
+column = 'd_0', include_oracle = False
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize(
+        "kwargs,column",
+        [
+            ({"d_names": ["y", "arm"]}, "y"),
+            ({"d_names": ["arm", "arm"]}, "arm"),
+            ({"confounder_specs": [{"name": "y", "dist": "normal"}]}, "y"),
+            ({"confounder_specs": [{"name": "d_0", "dist": "normal"}]}, "d_0"),
+            (
+                {"confounder_specs": [{"name": "age"}, {"name": "age"}]},
+                "age",
+            ),
+        ],
+    )
+    def test_outcome_treatment_and_confounder_collisions_raise(kwargs, column, include_oracle):
+>       _assert_collision(column, include_oracle=include_oracle, **kwargs)
+
+tests/data/test_multicausal_namespace_contract.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'd_0'
+kwargs = {'include_oracle': False, 'confounder_specs': [{'name': 'd_0', 'dist': 'normal'}]}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+___ test_outcome_treatment_and_confounder_collisions_raise[kwargs3-d_0-True] ___
+
+kwargs = {'confounder_specs': [{'name': 'd_0', 'dist': 'normal'}]}
+column = 'd_0', include_oracle = True
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize(
+        "kwargs,column",
+        [
+            ({"d_names": ["y", "arm"]}, "y"),
+            ({"d_names": ["arm", "arm"]}, "arm"),
+            ({"confounder_specs": [{"name": "y", "dist": "normal"}]}, "y"),
+            ({"confounder_specs": [{"name": "d_0", "dist": "normal"}]}, "d_0"),
+            (
+                {"confounder_specs": [{"name": "age"}, {"name": "age"}]},
+                "age",
+            ),
+        ],
+    )
+    def test_outcome_treatment_and_confounder_collisions_raise(kwargs, column, include_oracle):
+>       _assert_collision(column, include_oracle=include_oracle, **kwargs)
+
+tests/data/test_multicausal_namespace_contract.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'd_0'
+kwargs = {'include_oracle': True, 'confounder_specs': [{'name': 'd_0', 'dist': 'normal'}]}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+__ test_outcome_treatment_and_confounder_collisions_raise[kwargs4-age-False] ___
+
+kwargs = {'confounder_specs': [{'name': 'age'}, {'name': 'age'}]}
+column = 'age', include_oracle = False
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize(
+        "kwargs,column",
+        [
+            ({"d_names": ["y", "arm"]}, "y"),
+            ({"d_names": ["arm", "arm"]}, "arm"),
+            ({"confounder_specs": [{"name": "y", "dist": "normal"}]}, "y"),
+            ({"confounder_specs": [{"name": "d_0", "dist": "normal"}]}, "d_0"),
+            (
+                {"confounder_specs": [{"name": "age"}, {"name": "age"}]},
+                "age",
+            ),
+        ],
+    )
+    def test_outcome_treatment_and_confounder_collisions_raise(kwargs, column, include_oracle):
+>       _assert_collision(column, include_oracle=include_oracle, **kwargs)
+
+tests/data/test_multicausal_namespace_contract.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'age'
+kwargs = {'include_oracle': False, 'confounder_specs': [{'name': 'age'}, {'name': 'age'}]}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+___ test_outcome_treatment_and_confounder_collisions_raise[kwargs4-age-True] ___
+
+kwargs = {'confounder_specs': [{'name': 'age'}, {'name': 'age'}]}
+column = 'age', include_oracle = True
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize(
+        "kwargs,column",
+        [
+            ({"d_names": ["y", "arm"]}, "y"),
+            ({"d_names": ["arm", "arm"]}, "arm"),
+            ({"confounder_specs": [{"name": "y", "dist": "normal"}]}, "y"),
+            ({"confounder_specs": [{"name": "d_0", "dist": "normal"}]}, "d_0"),
+            (
+                {"confounder_specs": [{"name": "age"}, {"name": "age"}]},
+                "age",
+            ),
+        ],
+    )
+    def test_outcome_treatment_and_confounder_collisions_raise(kwargs, column, include_oracle):
+>       _assert_collision(column, include_oracle=include_oracle, **kwargs)
+
+tests/data/test_multicausal_namespace_contract.py:43: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'age'
+kwargs = {'include_oracle': True, 'confounder_specs': [{'name': 'age'}, {'name': 'age'}]}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_____ test_confounders_cannot_overwrite_enabled_oracle_columns[control-m] ______
+
+prefix = 'm', arm = 'control'
+
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES)
+    @pytest.mark.parametrize("arm", ["control", "active"])
+    def test_confounders_cannot_overwrite_enabled_oracle_columns(prefix, arm):
+        column = f"{prefix}_{arm}"
+>       _assert_collision(
+            column,
+            d_names=["control", "active"],
+            confounder_specs=[{"name": column, "dist": "normal"}],
+        )
+
+tests/data/test_multicausal_namespace_contract.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'm_control'
+kwargs = {'d_names': ['control', 'active'], 'confounder_specs': [{'name': 'm_control', 'dist': 'normal'}]}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+___ test_confounders_cannot_overwrite_enabled_oracle_columns[control-m_obs] ____
+
+prefix = 'm_obs', arm = 'control'
+
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES)
+    @pytest.mark.parametrize("arm", ["control", "active"])
+    def test_confounders_cannot_overwrite_enabled_oracle_columns(prefix, arm):
+        column = f"{prefix}_{arm}"
+>       _assert_collision(
+            column,
+            d_names=["control", "active"],
+            confounder_specs=[{"name": column, "dist": "normal"}],
+        )
+
+tests/data/test_multicausal_namespace_contract.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'm_obs_control'
+kwargs = {'d_names': ['control', 'active'], 'confounder_specs': [{'name': 'm_obs_control', 'dist': 'normal'}]}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+__ test_confounders_cannot_overwrite_enabled_oracle_columns[control-tau_link] __
+
+prefix = 'tau_link', arm = 'control'
+
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES)
+    @pytest.mark.parametrize("arm", ["control", "active"])
+    def test_confounders_cannot_overwrite_enabled_oracle_columns(prefix, arm):
+        column = f"{prefix}_{arm}"
+>       _assert_collision(
+            column,
+            d_names=["control", "active"],
+            confounder_specs=[{"name": column, "dist": "normal"}],
+        )
+
+tests/data/test_multicausal_namespace_contract.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tau_link_control'
+kwargs = {'d_names': ['control', 'active'], 'confounder_specs': [{'name': 'tau_link_control', 'dist': 'normal'}]}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_____ test_confounders_cannot_overwrite_enabled_oracle_columns[control-g] ______
+
+prefix = 'g', arm = 'control'
+
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES)
+    @pytest.mark.parametrize("arm", ["control", "active"])
+    def test_confounders_cannot_overwrite_enabled_oracle_columns(prefix, arm):
+        column = f"{prefix}_{arm}"
+>       _assert_collision(
+            column,
+            d_names=["control", "active"],
+            confounder_specs=[{"name": column, "dist": "normal"}],
+        )
+
+tests/data/test_multicausal_namespace_contract.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'g_control'
+kwargs = {'d_names': ['control', 'active'], 'confounder_specs': [{'name': 'g_control', 'dist': 'normal'}]}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+______ test_confounders_cannot_overwrite_enabled_oracle_columns[active-m] ______
+
+prefix = 'm', arm = 'active'
+
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES)
+    @pytest.mark.parametrize("arm", ["control", "active"])
+    def test_confounders_cannot_overwrite_enabled_oracle_columns(prefix, arm):
+        column = f"{prefix}_{arm}"
+>       _assert_collision(
+            column,
+            d_names=["control", "active"],
+            confounder_specs=[{"name": column, "dist": "normal"}],
+        )
+
+tests/data/test_multicausal_namespace_contract.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'm_active'
+kwargs = {'d_names': ['control', 'active'], 'confounder_specs': [{'name': 'm_active', 'dist': 'normal'}]}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+____ test_confounders_cannot_overwrite_enabled_oracle_columns[active-m_obs] ____
+
+prefix = 'm_obs', arm = 'active'
+
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES)
+    @pytest.mark.parametrize("arm", ["control", "active"])
+    def test_confounders_cannot_overwrite_enabled_oracle_columns(prefix, arm):
+        column = f"{prefix}_{arm}"
+>       _assert_collision(
+            column,
+            d_names=["control", "active"],
+            confounder_specs=[{"name": column, "dist": "normal"}],
+        )
+
+tests/data/test_multicausal_namespace_contract.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'm_obs_active'
+kwargs = {'d_names': ['control', 'active'], 'confounder_specs': [{'name': 'm_obs_active', 'dist': 'normal'}]}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+__ test_confounders_cannot_overwrite_enabled_oracle_columns[active-tau_link] ___
+
+prefix = 'tau_link', arm = 'active'
+
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES)
+    @pytest.mark.parametrize("arm", ["control", "active"])
+    def test_confounders_cannot_overwrite_enabled_oracle_columns(prefix, arm):
+        column = f"{prefix}_{arm}"
+>       _assert_collision(
+            column,
+            d_names=["control", "active"],
+            confounder_specs=[{"name": column, "dist": "normal"}],
+        )
+
+tests/data/test_multicausal_namespace_contract.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tau_link_active'
+kwargs = {'d_names': ['control', 'active'], 'confounder_specs': [{'name': 'tau_link_active', 'dist': 'normal'}]}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+______ test_confounders_cannot_overwrite_enabled_oracle_columns[active-g] ______
+
+prefix = 'g', arm = 'active'
+
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES)
+    @pytest.mark.parametrize("arm", ["control", "active"])
+    def test_confounders_cannot_overwrite_enabled_oracle_columns(prefix, arm):
+        column = f"{prefix}_{arm}"
+>       _assert_collision(
+            column,
+            d_names=["control", "active"],
+            confounder_specs=[{"name": column, "dist": "normal"}],
+        )
+
+tests/data/test_multicausal_namespace_contract.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'g_active'
+kwargs = {'d_names': ['control', 'active'], 'confounder_specs': [{'name': 'g_active', 'dist': 'normal'}]}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_____________ test_confounder_cannot_overwrite_noncontrol_contrast _____________
+
+    def test_confounder_cannot_overwrite_noncontrol_contrast():
+>       _assert_collision(
+            "cate_active",
+            d_names=["control", "active"],
+            confounder_specs=[{"name": "cate_active", "dist": "normal"}],
+        )
+
+tests/data/test_multicausal_namespace_contract.py:58: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'cate_active'
+kwargs = {'d_names': ['control', 'active'], 'confounder_specs': [{'name': 'cate_active', 'dist': 'normal'}]}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_________ test_treatment_names_cannot_overwrite_another_arms_oracle[m] _________
+
+prefix = 'm'
+
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES)
+    def test_treatment_names_cannot_overwrite_another_arms_oracle(prefix):
+        column = f"{prefix}_control"
+>       _assert_collision(column, d_names=["control", column])
+
+tests/data/test_multicausal_namespace_contract.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'm_control', kwargs = {'d_names': ['control', 'm_control']}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_______ test_treatment_names_cannot_overwrite_another_arms_oracle[m_obs] _______
+
+prefix = 'm_obs'
+
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES)
+    def test_treatment_names_cannot_overwrite_another_arms_oracle(prefix):
+        column = f"{prefix}_control"
+>       _assert_collision(column, d_names=["control", column])
+
+tests/data/test_multicausal_namespace_contract.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'm_obs_control', kwargs = {'d_names': ['control', 'm_obs_control']}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_____ test_treatment_names_cannot_overwrite_another_arms_oracle[tau_link] ______
+
+prefix = 'tau_link'
+
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES)
+    def test_treatment_names_cannot_overwrite_another_arms_oracle(prefix):
+        column = f"{prefix}_control"
+>       _assert_collision(column, d_names=["control", column])
+
+tests/data/test_multicausal_namespace_contract.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tau_link_control'
+kwargs = {'d_names': ['control', 'tau_link_control']}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_________ test_treatment_names_cannot_overwrite_another_arms_oracle[g] _________
+
+prefix = 'g'
+
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES)
+    def test_treatment_names_cannot_overwrite_another_arms_oracle(prefix):
+        column = f"{prefix}_control"
+>       _assert_collision(column, d_names=["control", column])
+
+tests/data/test_multicausal_namespace_contract.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'g_control', kwargs = {'d_names': ['control', 'g_control']}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_______ test_control_treatment_name_cannot_overwrite_noncontrol_contrast _______
+
+    def test_control_treatment_name_cannot_overwrite_noncontrol_contrast():
+>       _assert_collision("cate_active", d_names=["cate_active", "active"])
+
+tests/data/test_multicausal_namespace_contract.py:72: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'cate_active', kwargs = {'d_names': ['cate_active', 'active']}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+__________ test_distinct_arms_cannot_generate_the_same_oracle_column ___________
+
+    def test_distinct_arms_cannot_generate_the_same_oracle_column():
+        # m_<obs_control> and m_obs_<control> both become m_obs_control.
+>       _assert_collision("m_obs_control", d_names=["control", "obs_control"])
+
+tests/data/test_multicausal_namespace_contract.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'm_obs_control', kwargs = {'d_names': ['control', 'obs_control']}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs0-d_names0-platform_B-False-False] _
+
+specs = [{'name': 'platform', 'dist': 'categorical', 'categories': ['A', 'B']}]
+d_names = ['control', 'platform_B'], column = 'platform_B'
+include_oracle = False, use_copula = False
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'platform_B'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'platform', 'dist': 'categorical', 'categories': ['A', 'B']}], 'd_names': ['control', 'platform_B'], 'use_copula': False, 'include_oracle': False}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs0-d_names0-platform_B-False-True] _
+
+specs = [{'name': 'platform', 'dist': 'categorical', 'categories': ['A', 'B']}]
+d_names = ['control', 'platform_B'], column = 'platform_B'
+include_oracle = True, use_copula = False
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'platform_B'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'platform', 'dist': 'categorical', 'categories': ['A', 'B']}], 'd_names': ['control', 'platform_B'], 'use_copula': False, 'include_oracle': True}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs0-d_names0-platform_B-True-False] _
+
+specs = [{'name': 'platform', 'dist': 'categorical', 'categories': ['A', 'B']}]
+d_names = ['control', 'platform_B'], column = 'platform_B'
+include_oracle = False, use_copula = True
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'platform_B'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'platform', 'dist': 'categorical', 'categories': ['A', 'B']}], 'd_names': ['control', 'platform_B'], 'use_copula': True, 'include_oracle': False}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs0-d_names0-platform_B-True-True] _
+
+specs = [{'name': 'platform', 'dist': 'categorical', 'categories': ['A', 'B']}]
+d_names = ['control', 'platform_B'], column = 'platform_B'
+include_oracle = True, use_copula = True
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'platform_B'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'platform', 'dist': 'categorical', 'categories': ['A', 'B']}], 'd_names': ['control', 'platform_B'], 'use_copula': True, 'include_oracle': True}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs1-d_names1-tier__onlylevel-False-False] _
+
+specs = [{'name': 'tier', 'dist': 'categorical', 'categories': ['A']}]
+d_names = ['control', 'tier__onlylevel'], column = 'tier__onlylevel'
+include_oracle = False, use_copula = False
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tier__onlylevel'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tier', 'dist': 'categorical', 'categories': ['A']}], 'd_names': ['control', 'tier__onlylevel'], 'use_copula': False, 'include_oracle': False}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs1-d_names1-tier__onlylevel-False-True] _
+
+specs = [{'name': 'tier', 'dist': 'categorical', 'categories': ['A']}]
+d_names = ['control', 'tier__onlylevel'], column = 'tier__onlylevel'
+include_oracle = True, use_copula = False
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tier__onlylevel'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tier', 'dist': 'categorical', 'categories': ['A']}], 'd_names': ['control', 'tier__onlylevel'], 'use_copula': False, 'include_oracle': True}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs1-d_names1-tier__onlylevel-True-False] _
+
+specs = [{'name': 'tier', 'dist': 'categorical', 'categories': ['A']}]
+d_names = ['control', 'tier__onlylevel'], column = 'tier__onlylevel'
+include_oracle = False, use_copula = True
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tier__onlylevel'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tier', 'dist': 'categorical', 'categories': ['A']}], 'd_names': ['control', 'tier__onlylevel'], 'use_copula': True, 'include_oracle': False}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs1-d_names1-tier__onlylevel-True-True] _
+
+specs = [{'name': 'tier', 'dist': 'categorical', 'categories': ['A']}]
+d_names = ['control', 'tier__onlylevel'], column = 'tier__onlylevel'
+include_oracle = True, use_copula = True
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tier__onlylevel'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tier', 'dist': 'categorical', 'categories': ['A']}], 'd_names': ['control', 'tier__onlylevel'], 'use_copula': True, 'include_oracle': True}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs2-d_names2-tier_B-False-False] _
+
+specs = [{'name': 'tier', 'dist': 'categorical', 'categories': ['A', 'B']}, {'name': 'tier_B', 'dist': 'normal'}]
+d_names = ['control', 'active'], column = 'tier_B', include_oracle = False
+use_copula = False
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tier_B'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tier', 'dist': 'categorical', 'categories': ... {'name': 'tier_B', 'dist': 'normal'}], 'd_names': ['control', 'active'], 'use_copula': False, 'include_oracle': False}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs2-d_names2-tier_B-False-True] _
+
+specs = [{'name': 'tier', 'dist': 'categorical', 'categories': ['A', 'B']}, {'name': 'tier_B', 'dist': 'normal'}]
+d_names = ['control', 'active'], column = 'tier_B', include_oracle = True
+use_copula = False
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tier_B'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tier', 'dist': 'categorical', 'categories': ..., {'name': 'tier_B', 'dist': 'normal'}], 'd_names': ['control', 'active'], 'use_copula': False, 'include_oracle': True}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs2-d_names2-tier_B-True-False] _
+
+specs = [{'name': 'tier', 'dist': 'categorical', 'categories': ['A', 'B']}, {'name': 'tier_B', 'dist': 'normal'}]
+d_names = ['control', 'active'], column = 'tier_B', include_oracle = False
+use_copula = True
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tier_B'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tier', 'dist': 'categorical', 'categories': ..., {'name': 'tier_B', 'dist': 'normal'}], 'd_names': ['control', 'active'], 'use_copula': True, 'include_oracle': False}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs2-d_names2-tier_B-True-True] _
+
+specs = [{'name': 'tier', 'dist': 'categorical', 'categories': ['A', 'B']}, {'name': 'tier_B', 'dist': 'normal'}]
+d_names = ['control', 'active'], column = 'tier_B', include_oracle = True
+use_copula = True
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tier_B'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tier', 'dist': 'categorical', 'categories': ...}, {'name': 'tier_B', 'dist': 'normal'}], 'd_names': ['control', 'active'], 'use_copula': True, 'include_oracle': True}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs3-d_names3-tier_1-False-False] _
+
+specs = [{'name': 'tier', 'dist': 'categorical', 'categories': [0, 1, 1]}]
+d_names = ['control', 'active'], column = 'tier_1', include_oracle = False
+use_copula = False
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tier_1'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tier', 'dist': 'categorical', 'categories': [0, 1, 1]}], 'd_names': ['control', 'active'], 'use_copula': False, 'include_oracle': False}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs3-d_names3-tier_1-False-True] _
+
+specs = [{'name': 'tier', 'dist': 'categorical', 'categories': [0, 1, 1]}]
+d_names = ['control', 'active'], column = 'tier_1', include_oracle = True
+use_copula = False
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tier_1'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tier', 'dist': 'categorical', 'categories': [0, 1, 1]}], 'd_names': ['control', 'active'], 'use_copula': False, 'include_oracle': True}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs3-d_names3-tier_1-True-False] _
+
+specs = [{'name': 'tier', 'dist': 'categorical', 'categories': [0, 1, 1]}]
+d_names = ['control', 'active'], column = 'tier_1', include_oracle = False
+use_copula = True
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tier_1'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tier', 'dist': 'categorical', 'categories': [0, 1, 1]}], 'd_names': ['control', 'active'], 'use_copula': True, 'include_oracle': False}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs3-d_names3-tier_1-True-True] _
+
+specs = [{'name': 'tier', 'dist': 'categorical', 'categories': [0, 1, 1]}]
+d_names = ['control', 'active'], column = 'tier_1', include_oracle = True
+use_copula = True
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tier_1'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tier', 'dist': 'categorical', 'categories': [0, 1, 1]}], 'd_names': ['control', 'active'], 'use_copula': True, 'include_oracle': True}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs4-d_names4-tier_1-False-False] _
+
+specs = [{'name': 'tier', 'dist': 'categorical', 'categories': [0, 1, '1']}]
+d_names = ['control', 'active'], column = 'tier_1', include_oracle = False
+use_copula = False
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tier_1'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tier', 'dist': 'categorical', 'categories': [0, 1, '1']}], 'd_names': ['control', 'active'], 'use_copula': False, 'include_oracle': False}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs4-d_names4-tier_1-False-True] _
+
+specs = [{'name': 'tier', 'dist': 'categorical', 'categories': [0, 1, '1']}]
+d_names = ['control', 'active'], column = 'tier_1', include_oracle = True
+use_copula = False
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tier_1'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tier', 'dist': 'categorical', 'categories': [0, 1, '1']}], 'd_names': ['control', 'active'], 'use_copula': False, 'include_oracle': True}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs4-d_names4-tier_1-True-False] _
+
+specs = [{'name': 'tier', 'dist': 'categorical', 'categories': [0, 1, '1']}]
+d_names = ['control', 'active'], column = 'tier_1', include_oracle = False
+use_copula = True
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tier_1'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tier', 'dist': 'categorical', 'categories': [0, 1, '1']}], 'd_names': ['control', 'active'], 'use_copula': True, 'include_oracle': False}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs4-d_names4-tier_1-True-True] _
+
+specs = [{'name': 'tier', 'dist': 'categorical', 'categories': [0, 1, '1']}]
+d_names = ['control', 'active'], column = 'tier_1', include_oracle = True
+use_copula = True
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tier_1'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tier', 'dist': 'categorical', 'categories': [0, 1, '1']}], 'd_names': ['control', 'active'], 'use_copula': True, 'include_oracle': True}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs5-d_names5-tier__onlylevel-False-False] _
+
+specs = [{'name': 'tier', 'dist': 'categorical', 'categories': ['A']}, {'name': 'tier_', 'dist': 'categorical', 'categories': ['A', 'onlylevel']}]
+d_names = ['control', 'active'], column = 'tier__onlylevel'
+include_oracle = False, use_copula = False
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tier__onlylevel'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tier', 'dist': 'categorical', 'categories': ...l', 'categories': ['A', 'onlylevel']}], 'd_names': ['control', 'active'], 'use_copula': False, 'include_oracle': False}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs5-d_names5-tier__onlylevel-False-True] _
+
+specs = [{'name': 'tier', 'dist': 'categorical', 'categories': ['A']}, {'name': 'tier_', 'dist': 'categorical', 'categories': ['A', 'onlylevel']}]
+d_names = ['control', 'active'], column = 'tier__onlylevel'
+include_oracle = True, use_copula = False
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tier__onlylevel'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tier', 'dist': 'categorical', 'categories': ...al', 'categories': ['A', 'onlylevel']}], 'd_names': ['control', 'active'], 'use_copula': False, 'include_oracle': True}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs5-d_names5-tier__onlylevel-True-False] _
+
+specs = [{'name': 'tier', 'dist': 'categorical', 'categories': ['A']}, {'name': 'tier_', 'dist': 'categorical', 'categories': ['A', 'onlylevel']}]
+d_names = ['control', 'active'], column = 'tier__onlylevel'
+include_oracle = False, use_copula = True
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tier__onlylevel'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tier', 'dist': 'categorical', 'categories': ...al', 'categories': ['A', 'onlylevel']}], 'd_names': ['control', 'active'], 'use_copula': True, 'include_oracle': False}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_expanded_categorical_namespace_has_no_collisions[specs5-d_names5-tier__onlylevel-True-True] _
+
+specs = [{'name': 'tier', 'dist': 'categorical', 'categories': ['A']}, {'name': 'tier_', 'dist': 'categorical', 'categories': ['A', 'onlylevel']}]
+d_names = ['control', 'active'], column = 'tier__onlylevel'
+include_oracle = True, use_copula = True
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize(
+        "specs,d_names,column",
+        [
+            (
+                [{"name": "platform", "dist": "categorical", "categories": ["A", "B"]}],
+                ["control", "platform_B"],
+                "platform_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": ["A"]}],
+                ["control", "tier__onlylevel"],
+                "tier__onlylevel",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A", "B"]},
+                    {"name": "tier_B", "dist": "normal"},
+                ],
+                ["control", "active"],
+                "tier_B",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, 1]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}],
+                ["control", "active"],
+                "tier_1",
+            ),
+            (
+                [
+                    {"name": "tier", "dist": "categorical", "categories": ["A"]},
+                    {"name": "tier_", "dist": "categorical", "categories": ["A", "onlylevel"]},
+                ],
+                ["control", "active"],
+                "tier__onlylevel",
+            ),
+        ],
+    )
+    def test_expanded_categorical_namespace_has_no_collisions(
+        specs, d_names, column, include_oracle, use_copula
+    ):
+        # A continuous first coordinate also keeps this check independent of the
+        # separate existing first-coordinate categorical copula sampling defect.
+>       _assert_collision(
+            column,
+            confounder_specs=[{"name": "continuous", "dist": "normal"}] + specs,
+            d_names=d_names,
+            use_copula=use_copula,
+            include_oracle=include_oracle,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tier__onlylevel'
+kwargs = {'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tier', 'dist': 'categorical', 'categories': ...cal', 'categories': ['A', 'onlylevel']}], 'd_names': ['control', 'active'], 'use_copula': True, 'include_oracle': True}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_____ test_categorical_expansion_cannot_overwrite_enabled_oracle[m-False] ______
+
+prefix = 'm', use_copula = False
+
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES + ("cate",))
+    def test_categorical_expansion_cannot_overwrite_enabled_oracle(prefix, use_copula):
+        column = f"{prefix}_active"
+>       _assert_collision(
+            column,
+            d_names=["control", "active"],
+            confounder_specs=[
+                {"name": "continuous", "dist": "normal"},
+                {"name": prefix, "dist": "categorical", "categories": ["base", "active"]},
+            ],
+            use_copula=use_copula,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'm_active'
+kwargs = {'d_names': ['control', 'active'], 'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'm', 'dist': 'categorical', 'categories': ['base', 'active']}], 'use_copula': False}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+______ test_categorical_expansion_cannot_overwrite_enabled_oracle[m-True] ______
+
+prefix = 'm', use_copula = True
+
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES + ("cate",))
+    def test_categorical_expansion_cannot_overwrite_enabled_oracle(prefix, use_copula):
+        column = f"{prefix}_active"
+>       _assert_collision(
+            column,
+            d_names=["control", "active"],
+            confounder_specs=[
+                {"name": "continuous", "dist": "normal"},
+                {"name": prefix, "dist": "categorical", "categories": ["base", "active"]},
+            ],
+            use_copula=use_copula,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'm_active'
+kwargs = {'d_names': ['control', 'active'], 'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'm', 'dist': 'categorical', 'categories': ['base', 'active']}], 'use_copula': True}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+___ test_categorical_expansion_cannot_overwrite_enabled_oracle[m_obs-False] ____
+
+prefix = 'm_obs', use_copula = False
+
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES + ("cate",))
+    def test_categorical_expansion_cannot_overwrite_enabled_oracle(prefix, use_copula):
+        column = f"{prefix}_active"
+>       _assert_collision(
+            column,
+            d_names=["control", "active"],
+            confounder_specs=[
+                {"name": "continuous", "dist": "normal"},
+                {"name": prefix, "dist": "categorical", "categories": ["base", "active"]},
+            ],
+            use_copula=use_copula,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'm_obs_active'
+kwargs = {'d_names': ['control', 'active'], 'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'm_obs', 'dist': 'categorical', 'categories': ['base', 'active']}], 'use_copula': False}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+____ test_categorical_expansion_cannot_overwrite_enabled_oracle[m_obs-True] ____
+
+prefix = 'm_obs', use_copula = True
+
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES + ("cate",))
+    def test_categorical_expansion_cannot_overwrite_enabled_oracle(prefix, use_copula):
+        column = f"{prefix}_active"
+>       _assert_collision(
+            column,
+            d_names=["control", "active"],
+            confounder_specs=[
+                {"name": "continuous", "dist": "normal"},
+                {"name": prefix, "dist": "categorical", "categories": ["base", "active"]},
+            ],
+            use_copula=use_copula,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'm_obs_active'
+kwargs = {'d_names': ['control', 'active'], 'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'm_obs', 'dist': 'categorical', 'categories': ['base', 'active']}], 'use_copula': True}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+__ test_categorical_expansion_cannot_overwrite_enabled_oracle[tau_link-False] __
+
+prefix = 'tau_link', use_copula = False
+
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES + ("cate",))
+    def test_categorical_expansion_cannot_overwrite_enabled_oracle(prefix, use_copula):
+        column = f"{prefix}_active"
+>       _assert_collision(
+            column,
+            d_names=["control", "active"],
+            confounder_specs=[
+                {"name": "continuous", "dist": "normal"},
+                {"name": prefix, "dist": "categorical", "categories": ["base", "active"]},
+            ],
+            use_copula=use_copula,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tau_link_active'
+kwargs = {'d_names': ['control', 'active'], 'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tau_link', 'dist': 'categorical', 'categories': ['base', 'active']}], 'use_copula': False}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+__ test_categorical_expansion_cannot_overwrite_enabled_oracle[tau_link-True] ___
+
+prefix = 'tau_link', use_copula = True
+
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES + ("cate",))
+    def test_categorical_expansion_cannot_overwrite_enabled_oracle(prefix, use_copula):
+        column = f"{prefix}_active"
+>       _assert_collision(
+            column,
+            d_names=["control", "active"],
+            confounder_specs=[
+                {"name": "continuous", "dist": "normal"},
+                {"name": prefix, "dist": "categorical", "categories": ["base", "active"]},
+            ],
+            use_copula=use_copula,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'tau_link_active'
+kwargs = {'d_names': ['control', 'active'], 'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'tau_link', 'dist': 'categorical', 'categories': ['base', 'active']}], 'use_copula': True}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_____ test_categorical_expansion_cannot_overwrite_enabled_oracle[g-False] ______
+
+prefix = 'g', use_copula = False
+
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES + ("cate",))
+    def test_categorical_expansion_cannot_overwrite_enabled_oracle(prefix, use_copula):
+        column = f"{prefix}_active"
+>       _assert_collision(
+            column,
+            d_names=["control", "active"],
+            confounder_specs=[
+                {"name": "continuous", "dist": "normal"},
+                {"name": prefix, "dist": "categorical", "categories": ["base", "active"]},
+            ],
+            use_copula=use_copula,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'g_active'
+kwargs = {'d_names': ['control', 'active'], 'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'g', 'dist': 'categorical', 'categories': ['base', 'active']}], 'use_copula': False}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+______ test_categorical_expansion_cannot_overwrite_enabled_oracle[g-True] ______
+
+prefix = 'g', use_copula = True
+
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES + ("cate",))
+    def test_categorical_expansion_cannot_overwrite_enabled_oracle(prefix, use_copula):
+        column = f"{prefix}_active"
+>       _assert_collision(
+            column,
+            d_names=["control", "active"],
+            confounder_specs=[
+                {"name": "continuous", "dist": "normal"},
+                {"name": prefix, "dist": "categorical", "categories": ["base", "active"]},
+            ],
+            use_copula=use_copula,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'g_active'
+kwargs = {'d_names': ['control', 'active'], 'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'g', 'dist': 'categorical', 'categories': ['base', 'active']}], 'use_copula': True}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+____ test_categorical_expansion_cannot_overwrite_enabled_oracle[cate-False] ____
+
+prefix = 'cate', use_copula = False
+
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES + ("cate",))
+    def test_categorical_expansion_cannot_overwrite_enabled_oracle(prefix, use_copula):
+        column = f"{prefix}_active"
+>       _assert_collision(
+            column,
+            d_names=["control", "active"],
+            confounder_specs=[
+                {"name": "continuous", "dist": "normal"},
+                {"name": prefix, "dist": "categorical", "categories": ["base", "active"]},
+            ],
+            use_copula=use_copula,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'cate_active'
+kwargs = {'d_names': ['control', 'active'], 'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'cate', 'dist': 'categorical', 'categories': ['base', 'active']}], 'use_copula': False}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+____ test_categorical_expansion_cannot_overwrite_enabled_oracle[cate-True] _____
+
+prefix = 'cate', use_copula = True
+
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize("prefix", ORACLE_PREFIXES + ("cate",))
+    def test_categorical_expansion_cannot_overwrite_enabled_oracle(prefix, use_copula):
+        column = f"{prefix}_active"
+>       _assert_collision(
+            column,
+            d_names=["control", "active"],
+            confounder_specs=[
+                {"name": "continuous", "dist": "normal"},
+                {"name": prefix, "dist": "categorical", "categories": ["base", "active"]},
+            ],
+            use_copula=use_copula,
+        )
+
+tests/data/test_multicausal_namespace_contract.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+column = 'cate_active'
+kwargs = {'d_names': ['control', 'active'], 'confounder_specs': [{'name': 'continuous', 'dist': 'normal'}, {'name': 'cate', 'dist': 'categorical', 'categories': ['base', 'active']}], 'use_copula': True}
+
+    def _assert_collision(column, **kwargs):
+        # Identifying the actual column makes a rejected custom schema actionable.
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:24: Failed
+_ test_functional_wrapper_rejects_collisions_in_both_return_modes[kwargs0-y-False] _
+
+kwargs = {'d_names': ['y', 'arm']}, column = 'y', return_causal_data = False
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize(
+        "kwargs,column",
+        [
+            ({"d_names": ["y", "arm"]}, "y"),
+            ({"confounder_specs": [{"name": "d_0"}]}, "d_0"),
+            ({"confounder_specs": [{"name": "g_d_0"}]}, "g_d_0"),
+            (
+                {"d_names": ["control", "tier_B"], "confounder_specs": [{"name": "tier", "dist": "categorical", "categories": ["A", "B"]}]},
+                "tier_B",
+            ),
+        ],
+    )
+    def test_functional_wrapper_rejects_collisions_in_both_return_modes(kwargs, column, return_causal_data):
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:212: Failed
+_ test_functional_wrapper_rejects_collisions_in_both_return_modes[kwargs1-d_0-False] _
+
+kwargs = {'confounder_specs': [{'name': 'd_0'}]}, column = 'd_0'
+return_causal_data = False
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize(
+        "kwargs,column",
+        [
+            ({"d_names": ["y", "arm"]}, "y"),
+            ({"confounder_specs": [{"name": "d_0"}]}, "d_0"),
+            ({"confounder_specs": [{"name": "g_d_0"}]}, "g_d_0"),
+            (
+                {"d_names": ["control", "tier_B"], "confounder_specs": [{"name": "tier", "dist": "categorical", "categories": ["A", "B"]}]},
+                "tier_B",
+            ),
+        ],
+    )
+    def test_functional_wrapper_rejects_collisions_in_both_return_modes(kwargs, column, return_causal_data):
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:212: Failed
+_ test_functional_wrapper_rejects_collisions_in_both_return_modes[kwargs2-g_d_0-False] _
+
+kwargs = {'confounder_specs': [{'name': 'g_d_0'}]}, column = 'g_d_0'
+return_causal_data = False
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize(
+        "kwargs,column",
+        [
+            ({"d_names": ["y", "arm"]}, "y"),
+            ({"confounder_specs": [{"name": "d_0"}]}, "d_0"),
+            ({"confounder_specs": [{"name": "g_d_0"}]}, "g_d_0"),
+            (
+                {"d_names": ["control", "tier_B"], "confounder_specs": [{"name": "tier", "dist": "categorical", "categories": ["A", "B"]}]},
+                "tier_B",
+            ),
+        ],
+    )
+    def test_functional_wrapper_rejects_collisions_in_both_return_modes(kwargs, column, return_causal_data):
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:212: Failed
+_ test_functional_wrapper_rejects_collisions_in_both_return_modes[kwargs3-tier_B-False] _
+
+kwargs = {'d_names': ['control', 'tier_B'], 'confounder_specs': [{'name': 'tier', 'dist': 'categorical', 'categories': ['A', 'B']}]}
+column = 'tier_B', return_causal_data = False
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize(
+        "kwargs,column",
+        [
+            ({"d_names": ["y", "arm"]}, "y"),
+            ({"confounder_specs": [{"name": "d_0"}]}, "d_0"),
+            ({"confounder_specs": [{"name": "g_d_0"}]}, "g_d_0"),
+            (
+                {"d_names": ["control", "tier_B"], "confounder_specs": [{"name": "tier", "dist": "categorical", "categories": ["A", "B"]}]},
+                "tier_B",
+            ),
+        ],
+    )
+    def test_functional_wrapper_rejects_collisions_in_both_return_modes(kwargs, column, return_causal_data):
+>       with pytest.raises(ValueError, match=re.escape(column)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:212: Failed
+________ test_reusing_generator_revalidates_mutated_arm_names[generate] ________
+
+method = 'generate'
+
+    @pytest.mark.parametrize("method", ["generate", "to_multicausal_data"])
+    def test_reusing_generator_revalidates_mutated_arm_names(method):
+        generator = Generator(n_treatments=2, k=0, seed=SEED)
+        generator.generate(N)
+        generator.d_names[:] = ["y", "arm"]
+>       with pytest.raises(ValueError, match="y"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:224: Failed
+______ test_enabling_oracles_on_existing_generator_revalidates_namespace _______
+
+    def test_enabling_oracles_on_existing_generator_revalidates_namespace():
+        generator = Generator(
+            n_treatments=2, seed=SEED, include_oracle=False,
+            confounder_specs=[{"name": "g_d_0", "dist": "normal"}],
+        )
+        generator.generate(N)
+        generator.include_oracle = True
+>       with pytest.raises(ValueError, match="g_d_0"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_multicausal_namespace_contract.py:235: Failed
+_____ test_invalid_namespace_is_rejected_before_structural_callbacks[g_y] ______
+
+callback = 'g_y'
+
+    @pytest.mark.parametrize("callback", ["g_y", "g_d", "tau"])
+    def test_invalid_namespace_is_rejected_before_structural_callbacks(callback):
+        def should_not_run(x):
+            raise AssertionError("a structural callback ran for an invalid schema")
+    
+>       _assert_collision(
+            "g_d_0", confounder_specs=[{"name": "g_d_0"}],
+            **{callback: should_not_run}
+        )
+
+tests/data/test_multicausal_namespace_contract.py:244: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/data/test_multicausal_namespace_contract.py:25: in _assert_collision
+    _generate(**kwargs)
+tests/data/test_multicausal_namespace_contract.py:19: in _generate
+    return Generator(n_treatments=2, k=0, seed=SEED, **kwargs).generate(N)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/block09-namespace-baseline/base.py:669: in generate
+    value = _finite_array(self.g_y(Xf), "g_y output")
+                          ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+x = array([[ 0.34558419],
+       [ 0.82161814],
+       [ 0.33043708],
+       [-1.30315723],
+       [ 0.90535587],
+       [...116248],
+       [-1.88901325],
+       [-0.17477209],
+       [-0.42219041],
+       [ 0.213643  ],
+       [ 0.21732193]])
+
+    def should_not_run(x):
+>       raise AssertionError("a structural callback ran for an invalid schema")
+E       AssertionError: a structural callback ran for an invalid schema
+
+tests/data/test_multicausal_namespace_contract.py:242: AssertionError
+_____ test_invalid_namespace_is_rejected_before_structural_callbacks[g_d] ______
+
+callback = 'g_d'
+
+    @pytest.mark.parametrize("callback", ["g_y", "g_d", "tau"])
+    def test_invalid_namespace_is_rejected_before_structural_callbacks(callback):
+        def should_not_run(x):
+            raise AssertionError("a structural callback ran for an invalid schema")
+    
+>       _assert_collision(
+            "g_d_0", confounder_specs=[{"name": "g_d_0"}],
+            **{callback: should_not_run}
+        )
+
+tests/data/test_multicausal_namespace_contract.py:244: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/data/test_multicausal_namespace_contract.py:25: in _assert_collision
+    _generate(**kwargs)
+tests/data/test_multicausal_namespace_contract.py:19: in _generate
+    return Generator(n_treatments=2, k=0, seed=SEED, **kwargs).generate(N)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/block09-namespace-baseline/base.py:638: in generate
+    value = _finite_array(g_d_list[k](X), f"g_d[{k}] output")
+                          ^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+x = array([[ 0.34558419],
+       [ 0.82161814],
+       [ 0.33043708],
+       [-1.30315723],
+       [ 0.90535587],
+       [...116248],
+       [-1.88901325],
+       [-0.17477209],
+       [-0.42219041],
+       [ 0.213643  ],
+       [ 0.21732193]])
+
+    def should_not_run(x):
+>       raise AssertionError("a structural callback ran for an invalid schema")
+E       AssertionError: a structural callback ran for an invalid schema
+
+tests/data/test_multicausal_namespace_contract.py:242: AssertionError
+_____ test_invalid_namespace_is_rejected_before_structural_callbacks[tau] ______
+
+callback = 'tau'
+
+    @pytest.mark.parametrize("callback", ["g_y", "g_d", "tau"])
+    def test_invalid_namespace_is_rejected_before_structural_callbacks(callback):
+        def should_not_run(x):
+            raise AssertionError("a structural callback ran for an invalid schema")
+    
+>       _assert_collision(
+            "g_d_0", confounder_specs=[{"name": "g_d_0"}],
+            **{callback: should_not_run}
+        )
+
+tests/data/test_multicausal_namespace_contract.py:244: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/data/test_multicausal_namespace_contract.py:25: in _assert_collision
+    _generate(**kwargs)
+tests/data/test_multicausal_namespace_contract.py:19: in _generate
+    return Generator(n_treatments=2, k=0, seed=SEED, **kwargs).generate(N)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/block09-namespace-baseline/base.py:677: in generate
+    tau_val = _finite_array(tau_list[k](Xf), f"tau[{k}] output").reshape(-1)
+                            ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+x = array([[ 0.34558419],
+       [ 0.82161814],
+       [ 0.33043708],
+       [-1.30315723],
+       [ 0.90535587],
+       [...116248],
+       [-1.88901325],
+       [-0.17477209],
+       [-0.42219041],
+       [ 0.213643  ],
+       [ 0.21732193]])
+
+    def should_not_run(x):
+>       raise AssertionError("a structural callback ran for an invalid schema")
+E       AssertionError: a structural callback ran for an invalid schema
+
+tests/data/test_multicausal_namespace_contract.py:242: AssertionError
+________ test_valid_functional_wrapper_preserves_requested_names[True] _________
+
+return_causal_data = True
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    def test_valid_functional_wrapper_preserves_requested_names(return_causal_data):
+        result = generate_multitreatment(
+            n=N, n_treatments=2, d_names=["control", "active"],
+            confounder_specs=[{"name": "baseline"}], random_state=SEED,
+            return_causal_data=return_causal_data,
+        )
+        frame = result.df if return_causal_data else result
+>       assert list(frame.columns[:4]) == ["y", "control", "active", "baseline"]
+E       AssertionError: assert ['y', 'baseli...ol', 'active'] == ['y', 'contro...', 'baseline']
+E         
+E         At index 1 diff: 'baseline' != 'control'
+E         Use -v to get more diff
+
+tests/data/test_multicausal_namespace_contract.py:305: AssertionError
+=========================== short test summary info ============================
+FAILED tests/data/test_multicausal_namespace_contract.py::test_outcome_treatment_and_confounder_collisions_raise[kwargs0-y-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_outcome_treatment_and_confounder_collisions_raise[kwargs0-y-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_outcome_treatment_and_confounder_collisions_raise[kwargs1-arm-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_outcome_treatment_and_confounder_collisions_raise[kwargs1-arm-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_outcome_treatment_and_confounder_collisions_raise[kwargs2-y-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_outcome_treatment_and_confounder_collisions_raise[kwargs2-y-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_outcome_treatment_and_confounder_collisions_raise[kwargs3-d_0-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_outcome_treatment_and_confounder_collisions_raise[kwargs3-d_0-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_outcome_treatment_and_confounder_collisions_raise[kwargs4-age-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_outcome_treatment_and_confounder_collisions_raise[kwargs4-age-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_confounders_cannot_overwrite_enabled_oracle_columns[control-m]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_confounders_cannot_overwrite_enabled_oracle_columns[control-m_obs]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_confounders_cannot_overwrite_enabled_oracle_columns[control-tau_link]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_confounders_cannot_overwrite_enabled_oracle_columns[control-g]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_confounders_cannot_overwrite_enabled_oracle_columns[active-m]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_confounders_cannot_overwrite_enabled_oracle_columns[active-m_obs]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_confounders_cannot_overwrite_enabled_oracle_columns[active-tau_link]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_confounders_cannot_overwrite_enabled_oracle_columns[active-g]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_confounder_cannot_overwrite_noncontrol_contrast
+FAILED tests/data/test_multicausal_namespace_contract.py::test_treatment_names_cannot_overwrite_another_arms_oracle[m]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_treatment_names_cannot_overwrite_another_arms_oracle[m_obs]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_treatment_names_cannot_overwrite_another_arms_oracle[tau_link]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_treatment_names_cannot_overwrite_another_arms_oracle[g]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_control_treatment_name_cannot_overwrite_noncontrol_contrast
+FAILED tests/data/test_multicausal_namespace_contract.py::test_distinct_arms_cannot_generate_the_same_oracle_column
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs0-d_names0-platform_B-False-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs0-d_names0-platform_B-False-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs0-d_names0-platform_B-True-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs0-d_names0-platform_B-True-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs1-d_names1-tier__onlylevel-False-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs1-d_names1-tier__onlylevel-False-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs1-d_names1-tier__onlylevel-True-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs1-d_names1-tier__onlylevel-True-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs2-d_names2-tier_B-False-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs2-d_names2-tier_B-False-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs2-d_names2-tier_B-True-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs2-d_names2-tier_B-True-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs3-d_names3-tier_1-False-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs3-d_names3-tier_1-False-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs3-d_names3-tier_1-True-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs3-d_names3-tier_1-True-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs4-d_names4-tier_1-False-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs4-d_names4-tier_1-False-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs4-d_names4-tier_1-True-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs4-d_names4-tier_1-True-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs5-d_names5-tier__onlylevel-False-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs5-d_names5-tier__onlylevel-False-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs5-d_names5-tier__onlylevel-True-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_expanded_categorical_namespace_has_no_collisions[specs5-d_names5-tier__onlylevel-True-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_categorical_expansion_cannot_overwrite_enabled_oracle[m-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_categorical_expansion_cannot_overwrite_enabled_oracle[m-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_categorical_expansion_cannot_overwrite_enabled_oracle[m_obs-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_categorical_expansion_cannot_overwrite_enabled_oracle[m_obs-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_categorical_expansion_cannot_overwrite_enabled_oracle[tau_link-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_categorical_expansion_cannot_overwrite_enabled_oracle[tau_link-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_categorical_expansion_cannot_overwrite_enabled_oracle[g-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_categorical_expansion_cannot_overwrite_enabled_oracle[g-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_categorical_expansion_cannot_overwrite_enabled_oracle[cate-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_categorical_expansion_cannot_overwrite_enabled_oracle[cate-True]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_functional_wrapper_rejects_collisions_in_both_return_modes[kwargs0-y-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_functional_wrapper_rejects_collisions_in_both_return_modes[kwargs1-d_0-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_functional_wrapper_rejects_collisions_in_both_return_modes[kwargs2-g_d_0-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_functional_wrapper_rejects_collisions_in_both_return_modes[kwargs3-tier_B-False]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_reusing_generator_revalidates_mutated_arm_names[generate]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_enabling_oracles_on_existing_generator_revalidates_namespace
+FAILED tests/data/test_multicausal_namespace_contract.py::test_invalid_namespace_is_rejected_before_structural_callbacks[g_y]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_invalid_namespace_is_rejected_before_structural_callbacks[g_d]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_invalid_namespace_is_rejected_before_structural_callbacks[tau]
+FAILED tests/data/test_multicausal_namespace_contract.py::test_valid_functional_wrapper_preserves_requested_names[True]
+69 failed, 32 passed in 0.77s

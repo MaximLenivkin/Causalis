@@ -1,0 +1,43 @@
+{
+  "source_checkpoint": "1e2b544f7f91a57ad3e049572915a4b3891b084a",
+  "source_baseline": "74145665127f8fa5a0bf038d769697ab880854b8",
+  "previous_cases": 1916,
+  "new_cases": 123,
+  "local_tests": 2039,
+  "local_passed": 2038,
+  "local_warnings": 80,
+  "local_pytest_elapsed_seconds": 117.46,
+  "local_scoped_suite_clean": false,
+  "local_baseline_failures": 1,
+  "local_baseline_failure_node": "tests/scenarios/did/refutation/test_did_post_inference_diagnostics.py::test_post_inference_report_accepts_panel_and_estimate",
+  "baseline_failure_proof": "block09_did_probe_result.json",
+  "ci_verified_jobs": 6,
+  "library_paths": [
+    "causalis/dgp/multicausaldata/base.py",
+    "causalis/dgp/multicausaldata/functional.py"
+  ],
+  "test_paths": [
+    "tests/data/test_multicausal_namespace_contract.py"
+  ],
+  "python_files_checked": 11,
+  "markdown_files_checked": [
+    "audit/B09_LOCAL_INTEGRATION_NOTE.md",
+    "audit/B09_METHOD_REVIEW.md",
+    "audit/B09_NAMESPACE_CONTRACT.md",
+    "audit/B09_NAMESPACE_IMPLEMENTATION.md",
+    "audit/B09_NAMESPACE_TESTS.md",
+    "audit/BLOCK09_NAMESPACE.md",
+    "audit/DOCUMENTATION_HANDOFF.md",
+    "audit/FIX_PLAN.md",
+    "audit/GIT_ACCESS.md",
+    "audit/NEXT_SESSION.md",
+    "audit/PROGRESS.md",
+    "audit/README.md"
+  ],
+  "local_links_checked": 23,
+  "ignored_historical_machine_links": 24,
+  "finite_reference_configurations": 64,
+  "finite_reference_generation_records": 128,
+  "sensitivity_paths": [],
+  "issues": []
+}

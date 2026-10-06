@@ -1,0 +1,87 @@
+{
+  "created_utc": "2026-10-06T21:02:32.371585+00:00",
+  "nodeid": "tests/scenarios/did/refutation/test_did_post_inference_diagnostics.py::test_post_inference_report_accepts_panel_and_estimate",
+  "baseline_sha": "74145665127f8fa5a0bf038d769697ab880854b8",
+  "current_sha": "1e2b544f7f91a57ad3e049572915a4b3891b084a",
+  "baseline": {
+    "tests": 1,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 0,
+    "exit_code": 1,
+    "source_sha": "74145665127f8fa5a0bf038d769697ab880854b8",
+    "junit_relative_path": "audit/block09_did_baseline_case.xml",
+    "log_relative_path": "audit/block09_did_baseline_case.log",
+    "failure_message": "AssertionError: assert 'YELLOW' == 'GREEN'\n  \n  - GREEN\n  + YELLOW",
+    "failed_test_classname": "tests.scenarios.did.refutation.test_did_post_inference_diagnostics",
+    "failed_test_name": "test_post_inference_report_accepts_panel_and_estimate"
+  },
+  "current": {
+    "tests": 1,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 0,
+    "exit_code": 1,
+    "source_sha": "1e2b544f7f91a57ad3e049572915a4b3891b084a",
+    "junit_relative_path": "audit/block09_did_current_case.xml",
+    "log_relative_path": "audit/block09_did_current_case.log",
+    "failure_message": "AssertionError: assert 'YELLOW' == 'GREEN'\n  \n  - GREEN\n  + YELLOW",
+    "failed_test_classname": "tests.scenarios.did.refutation.test_did_post_inference_diagnostics",
+    "failed_test_name": "test_post_inference_report_accepts_panel_and_estimate"
+  },
+  "fixture_unchanged_from_baseline": true,
+  "fixture_sha256": "61d91d7e296e47dbbd0eb800822ea5b58a7b440d5c3e57dac7daf6fb524042fb",
+  "called_package_paths_unchanged_from_baseline": true,
+  "called_package_paths_count": 5,
+  "changed_dgp_paths_called": [],
+  "reports_equal": true,
+  "cell_aggregate_rows_equal": true,
+  "overall_flag": "YELLOW",
+  "non_green_checks": [
+    {
+      "test": "fitted_pre_period_placebo",
+      "flag": "YELLOW",
+      "value": 378254753641406.06,
+      "threshold": "max |t| <= 10",
+      "message": "Fitted pre-period placebo cells show a large standardized deviation."
+    }
+  ],
+  "responsible_pre_cell": {
+    "cell_id": 0,
+    "event_time": -2,
+    "is_post_treatment": false,
+    "att": 1.1102230246251558e-16,
+    "se": 2.9351198205368013e-31,
+    "t_stat": 378254753641406.06,
+    "abs_t_stat": 378254753641406.06,
+    "control_design_rank": 2,
+    "n_parameters": 2,
+    "condition_number": 13.626614198845914,
+    "control_weight_ess": 1.1939990074156166,
+    "propensity_clip_share": 0.5,
+    "diagnostic_status": "green",
+    "diagnostic_flags": ""
+  },
+  "conditioning": {
+    "minimum": 13.626614198845914,
+    "maximum": 13.997558972175948,
+    "all_control_design_rank_equals_parameters": true,
+    "all_cell_diagnostic_status_green": true
+  },
+  "conclusion": "Pre-existing numerical-zero fragility of the deterministic zero-pre-effect / zero-variance fixture, reproduced on this macOS stack; not a B09 source regression. Uniqueness to macOS is not established.",
+  "scope": {
+    "source_or_test_edits": false,
+    "full_suite_run_by_probe": false,
+    "individual_rows_saved": false
+  },
+  "probe_files": {
+    "baseline": "audit/block09_did_baseline_probe.json",
+    "current": "audit/block09_did_current_probe.json"
+  },
+  "runners": [
+    "audit/block09_did_probe.py",
+    "audit/block09_did_case.py"
+  ]
+}

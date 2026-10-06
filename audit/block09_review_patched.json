@@ -1,0 +1,158 @@
+{
+  "baseline_sha": "74145665127f8fa5a0bf038d769697ab880854b8",
+  "source_sha": "74145665127f8fa5a0bf038d769697ab880854b8",
+  "cases": {
+    "outcome_treatment": {
+      "status": "exception",
+      "type": "ValueError",
+      "message": "Generated column name 'y' collides between outcome and treatment[0]"
+    },
+    "duplicate_treatment": {
+      "status": "exception",
+      "type": "ValueError",
+      "message": "Generated column name 'arm' collides between treatment[0] and treatment[1]"
+    },
+    "default_confounder_treatment": {
+      "status": "exception",
+      "type": "ValueError",
+      "message": "Generated column name 'x1' collides between treatment[0] and confounder[0]"
+    },
+    "explicit_confounder_treatment": {
+      "status": "exception",
+      "type": "ValueError",
+      "message": "Generated column name 'd_0' collides between treatment[0] and confounder[0]"
+    },
+    "explicit_confounder_outcome": {
+      "status": "exception",
+      "type": "ValueError",
+      "message": "Generated column name 'y' collides between outcome and confounder[0]"
+    },
+    "confounder_oracle": {
+      "status": "exception",
+      "type": "ValueError",
+      "message": "Generated column name 'g_d_0' collides between confounder[0] and g oracle[0]"
+    },
+    "duplicate_confounder": {
+      "status": "exception",
+      "type": "ValueError",
+      "message": "Generated column name 'z' collides between confounder[0] and confounder[1]"
+    },
+    "treatment_oracle": {
+      "status": "exception",
+      "type": "ValueError",
+      "message": "Generated column name 'm_a' collides between treatment[1] and m oracle[0]"
+    },
+    "oracle_oracle": {
+      "status": "exception",
+      "type": "ValueError",
+      "message": "Generated column name 'm_obs_a' collides between m_obs oracle[0] and m oracle[1]"
+    },
+    "categorical_treatment": {
+      "status": "exception",
+      "type": "ValueError",
+      "message": "Generated column name 'd_0' collides between treatment[0] and confounder[0]"
+    },
+    "categorical_confounder": {
+      "status": "exception",
+      "type": "ValueError",
+      "message": "Generated column name 'c_1' collides between confounder[0] and confounder[1]"
+    },
+    "categorical_oracle": {
+      "status": "exception",
+      "type": "ValueError",
+      "message": "Generated column name 'g_d_0' collides between confounder[0] and g oracle[0]"
+    },
+    "categorical_duplicate_formatted": {
+      "status": "exception",
+      "type": "ValueError",
+      "message": "Generated column name 'c_1' collides between confounder[0] and confounder[1]"
+    },
+    "single_level_confounder": {
+      "status": "exception",
+      "type": "ValueError",
+      "message": "Generated column name 'c__onlylevel' collides between confounder[0] and confounder[1]"
+    },
+    "fallback_after_expansion": {
+      "status": "exception",
+      "type": "ValueError",
+      "message": "Generated column name 'x3' collides between confounder[2] and confounder[3]"
+    },
+    "copula_scalar_confounder": {
+      "status": "exception",
+      "type": "ValueError",
+      "message": "Generated column name 'y' collides between outcome and confounder[0]"
+    },
+    "copula_categorical_after_numeric": {
+      "status": "exception",
+      "type": "ValueError",
+      "message": "Generated column name 'g_d_0' collides between confounder[1] and g oracle[0]"
+    },
+    "custom_sampler_names": {
+      "status": "exception",
+      "type": "ValueError",
+      "message": "Generated column name 'y' collides between outcome and confounder[0]"
+    },
+    "disabled_oracle_namespace_allowed": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "a",
+        "obs_a"
+      ],
+      "expanded_confounder_names": [],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": true,
+      "outcome_only_binary": false
+    },
+    "unused_control_cate_allowed": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "a",
+        "cate_a",
+        "m_a",
+        "m_obs_a",
+        "tau_link_a",
+        "m_cate_a",
+        "m_obs_cate_a",
+        "tau_link_cate_a",
+        "g_a",
+        "g_cate_a",
+        "cate_cate_a"
+      ],
+      "expanded_confounder_names": [],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": true,
+      "outcome_only_binary": false
+    },
+    "custom_sampler_no_categorical_expansion": {
+      "status": "returned_frame",
+      "columns": [
+        "y",
+        "d_0",
+        "d_1",
+        "safe",
+        "m_d_0",
+        "m_obs_d_0",
+        "tau_link_d_0",
+        "m_d_1",
+        "m_obs_d_1",
+        "tau_link_d_1",
+        "g_d_0",
+        "g_d_1",
+        "cate_d_1"
+      ],
+      "expanded_confounder_names": [
+        "safe"
+      ],
+      "all_treatment_columns_present": true,
+      "treatment_rows_one_hot": true,
+      "outcome_only_binary": false
+    },
+    "preexisting_copula_categorical_first": {
+      "status": "exception",
+      "type": "UnboundLocalError",
+      "message": "cannot access local variable 'u' where it is not associated with a value"
+    }
+  }
+}
