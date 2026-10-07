@@ -10,7 +10,7 @@
 
 1. `AGENTS.md` — локальная `.venv` обязательна. На текущем Mac использовать **`.venv/bin/python`**, Python3.12.14, не старый backing path `/Users/ioann/...`. Окружение восстановлено из project extras dev/docs, dependencycheck и5setupsmoketests прошли. Local setup manifest `.venv/setup-environment.json`; B09 integration manifest записывает реальные проверенные версии.
 2. `audit/FIX_PLAN.md` — порядок блоков, scope gates и deferred findings.
-3. Этот файл и **`audit/BLOCK12_WRAPPERS.md`** — последнее состояние. B09–B11 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
+3. Этот файл и **`audit/BLOCK13_SCENARIO_NAMESPACE.md`** — последнее состояние. B09–B12 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
 4. `audit/REPORT.md` — исторический аудит исходного SHA, не текущий residual bug count.
 
 ## Git
@@ -20,6 +20,24 @@ GitHub авторизация завершена пользователем и �
 GitHubCLI2.102.0: `& 'C:\Program Files\GitHub CLI\gh.exe' ...` — использовать полный путь, если текущий Codex PATH ещё не обновлён. Авторизацию повторно запрашивать не требуется. Git mutations/network в ограниченной среде могут требовать разрешённого запуска; пользователь уже авторизовал commits/push в личную ветку. PR не создавался. Полная текущая информация — GIT_ACCESS.md.
 
 ## Текущая работа
+
+**B13 завершён** 7 октября 2026 (Moscow). Source/tests checkpoint: **`4428be0e39bda8a2a47f1a6f184c92873da10976`**, обычный push в личную ветку выполнен. Изменён один library path `causalis/scenarios/classic_rct/dgp.py`, оба *_26 helpers; новый `tests/data/test_scenario_namespace_contract.py`, 91 cases. Root и три существующих CLI агента независимо проверили baseline contract, regressions, valid reference/RNG и CI artifacts.
+
+Enabled pre-name не может занять scenario outcome или `user_id`, поскольку classic scenario всегда имеет ID даже при ancillary=False. Actual-schema guard перед `y → conversion` защищает позднее переименование. Numeric pre-поля с именами отключённых binary oracles сохраняются features. Gamma pre-name `conversion` валиден; unused pre-name при add_pre=False игнорируется. Public signatures, sampling, calibration, assignment, ID algorithms и numerical formulas сохранены; shared DGP, CUPED/IV, contracts и inference source не менялись. Early check отвечает только за string role collisions; invalid/empty enabled names по-прежнему проверяет underlying B12 wrapper.
+
+Verification: **91 passed**, 0 failures/errors/skips/warnings, 4.37 s; тот же final module на exact baseline9f0 — **28 failed / 63 passed**, 0 errors/skips, 4.79 s. Six public aliases, shared/class bindings, unchanged eight dependency/control modules, exact collection/test SHA и committed-byte linkage verified. Focused был precommit; original process HEAD/time сохранены. Baseline-only contract — 100 records. Review — **116 exact frame/dtype/schema/contract-metadata/all-created-RNG-state/next10 comparisons** (92 classic, 16 CUPED, 8 IV), 13 rejection и 40 allowed/projection probes; runtime warnings0, issues []. Existing frozen IV-docstring SyntaxWarning отдельно. Thirteen referenced source/alias/test files связаны с exact4428 bytes; no repeat broad run ради metadata.
+
+Local Mac integration exact4428: **2487 passed, 1 failed, 0 errors/skips, 78 warnings, 109.60 s**, total2488, exit1. Это не clean local/full suite. Только прежний DiD GREEN/YELLOW numerical-zero failure. Fixture и пятифайловая B10 runtime closure byte-identical; изменённый scenario path вне closure. B13 использует static linkage к прежнему runtime proof, новый cell-value probe не запускался. Assert, thresholds и семь scope exclusions не ослаблены.
+
+CI [37607784481](https://github.com/MaximLenivkin/Causalis/actions/runs/37607784481) **completed/success** на exact4428: все шесть downloaded artifact sets — **2488 passed каждый**, 0 failures/errors/skips; matrix_verified=true, issues []. Snapshot UTC2026-10-07T10:33:36.694587. Actual Python: 3.10.21 latest/legacy, 3.11.16, 3.12.14, **3.13.16**, 3.14.7. Не копировать прежнюю3.13.15 из B12. Семь sensitivity modules deferred; full sensitivity, standalone Sphinx, release и новый benchmark не validated.
+
+Reports: BLOCK13_SCENARIO_NAMESPACE.md, B13_SCENARIO_CONTRACT/IMPLEMENTATION/TESTS/REVIEW.md, reproducible probes/runners/manifests. English handoff содержит готовые migration paragraphs и **103 verified immutable links**; внешние сообщения не отправлялись. `verify_block13.py` проверяет source/test scope/hashes, AST, baseline/focused/JUnit, review, previous DiD closure и все CI payloads. Source/tests frozen после4428, final audit checkpoint определяется git log-1; final ordinary push и remote/local equality + clean tree проверяются на завершении.
+
+Следующий самостоятельный **B14**: mathematical/numerical-zero DiD diagnostic и fixture/reference policy. Existing exact trigger — test_post_inference_report_accepts_panel_and_estimate, truly zero pre-effect/variance, tiny floating residue leads to огромному |t|. Требуется независимый математический/численный reference, без blanket tolerance, clipping, увеличения thresholds или weakening assertion ради green suite. Затем Gaussian oracle numerical accuracy/API и прежний correctness backlog по FIX_PLAN. Sensitivity/SC08LOO deferred. **Остановиться на границе B13; B14 начинается новым запросом пользователя.**
+
+Окружение прежнее: repo-local `.venv/bin/python`3.12.14 macOS arm64; `/Users/m.lenivkin/.local/bin/gh` с `--repo MaximLenivkin/Causalis`. Login, fork setup, env reinstall, upstream sync, PR и release не нужны для продолжения. Branch/remotes прежние; personal branch commits/push ранее разрешены.
+
+## Исторический B12 checkpoint
 
 **B12 завершён** 7 октября 2026 (Moscow). Source/tests checkpoint: **`0b30db33fd2593dc25ea1b823a91795c789e0191`**, обычный push в личную ветку выполнен. Изменены шесть library paths: shared DGP base, binary base/functional/preperiod, IV base/functional. Новый модуль `tests/data/test_wrapper_namespace_contract.py` содержит 162 cases. Root и три существующих CLI субагента независимо проверили контракт, regressions, совместимость и CI.
 

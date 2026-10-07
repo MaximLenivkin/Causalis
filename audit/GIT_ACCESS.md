@@ -103,3 +103,8 @@ Source/tests **cdc2c9590246c5b049d2184ba3479324217b2b00** ordinary pushed в `or
 ## 2026-10-07 — B12 personal checkpoint
 
 Source/tests **0b30db33fd2593dc25ea1b823a91795c789e0191** ordinary pushed в origin/codex/correctness-roadmap. CI37598926037 completed/success на exactsource0b30: все шесть downloaded job artifacts2397passed каждый,0failures/errors/skips. Credentials/remotes/branch прежние; newlogin/fork/upstreamsync не нужны. Послеsourcefreeze толькоauditfiles; finalcheckpointgitlog-1, remote/local equality иcleanstatus послеfinalordinarypush. PR/release/externalmessagesнесоздавались.
+
+
+## 2026-10-07 — B13 personal checkpoint
+
+Source/tests **4428be0e39bda8a2a47f1a6f184c92873da10976** отправлены обычным push в `origin/codex/correctness-roadmap`. [CI37607784481](https://github.com/MaximLenivkin/Causalis/actions/runs/37607784481) completed/success на exact source: все шесть jobs и downloaded artifact sets проверены, **2488 passed каждый**, 0 failures/errors/skips. GitHub CLI и credentials прежние; login/fork/remotes/branch не менялись. После source checkpoint — только audit changes; final checkpoint определяется git log-1. Обычный audit-only push, live remote/local equality и clean tree проверяются на завершении. Upstream sync/push, PR, release и внешние сообщения не выполнялись.

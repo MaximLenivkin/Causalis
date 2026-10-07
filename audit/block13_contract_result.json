@@ -1,0 +1,3880 @@
+{
+  "evidence_kind": "frozen_baseline_only",
+  "baseline_sha": "9f0a63c42308ca886d92dc73d8d8d9611d5b2c31",
+  "observed_head": "9f0a63c42308ca886d92dc73d8d8d9611d5b2c31",
+  "python_version": "3.12.14 (main, Sep 29 2026, 14:50:19) [Clang 22.1.3 ]",
+  "synthetic_only": true,
+  "n": 256,
+  "seed": 731,
+  "baseline_source_sha256": {
+    "causalis/dgp/base.py": "f5cd516bd4a2b071470fe6ee6a3a1da073432b551117375f6d74aabcc452c849",
+    "causalis/dgp/causaldata/preperiod.py": "54f4281179e9eecf73fd952e3448fd0942ea27d3bdc4ba60722b52870b89366e",
+    "causalis/dgp/causaldata/base.py": "794fd4f5d7a9f23cec06987ffbbb5615e75ae57b0ba87e6520ea05db14b356e6",
+    "causalis/dgp/causaldata/functional.py": "3e0a803c0ac7b2bb2e490df7b5b454ab71803ac5a36480faafc378f37275c1c6",
+    "causalis/dgp/causaldata_instrumental/base.py": "4ec2a4b77b5974f4db103b2c8aa157b7b1f8347fbb90f4137e2139b904aa1daa",
+    "causalis/scenarios/classic_rct/dgp.py": "e645821d07760fb8a86beba3a35a636f1940e8041028aed285a491dbc6a90f27",
+    "causalis/scenarios/iv/dgp.py": "76c2c5e41b1591f80fa3cfd70778aa4b47f9f2c2637424db7f9fccc6f87c7fcc",
+    "causalis/scenarios/cuped/dgp.py": "4df4d746ab882fa014b9fac9b50fabee73323b0984bb26ec56e3ee40bdd9001d"
+  },
+  "unchanged_imported_contracts": {
+    "causalis/data_contracts/causaldata.py": {
+      "baseline_sha256": "f98bf871a08a0bde88f56e4ea0fe864c8ab88818357932033f7526493b6f83ce",
+      "current_sha256": "f98bf871a08a0bde88f56e4ea0fe864c8ab88818357932033f7526493b6f83ce",
+      "unchanged": true
+    },
+    "causalis/data_contracts/iv_causal_data.py": {
+      "baseline_sha256": "8e5c383d400e882c4883449ccfb30c2598fbcdd0a1f722b316792448110f64f0",
+      "current_sha256": "8e5c383d400e882c4883449ccfb30c2598fbcdd0a1f722b316792448110f64f0",
+      "unchanged": true
+    }
+  },
+  "pinned_export_inventory": {
+    "causalis/dgp/__init__.py": {
+      "baseline_sha256": "9595fe31b56ac81fb262e3a9a782fff124cad729c34dfee9daf3aeaf147e7ac1",
+      "relevant_lines": [
+        "    generate_classic_rct_26,",
+        "    classic_rct_gamma_26,",
+        "    \"generate_classic_rct_26\",",
+        "    \"classic_rct_gamma_26\","
+      ]
+    },
+    "causalis/dgp/causaldata/__init__.py": {
+      "baseline_sha256": "4979460192fe6254c6fcd13e0e15b889b153372ccbe1b4d173383dc4c4d7bea9",
+      "relevant_lines": [
+        "from causalis.scenarios.classic_rct.dgp import generate_classic_rct_26, classic_rct_gamma_26",
+        "    \"generate_classic_rct_26\",",
+        "    \"classic_rct_gamma_26\","
+      ]
+    },
+    "causalis/data_contracts/__init__.py": {
+      "baseline_sha256": "d5031fa0af776b3495ae9d0ee64197bfa1e2314960aeea6220bce71fb2037593",
+      "relevant_lines": [
+        "    \"generate_classic_rct_26\",",
+        "    \"classic_rct_gamma_26\",",
+        "    \"generate_classic_rct_26\",",
+        "    \"classic_rct_gamma_26\","
+      ]
+    },
+    "causalis/scenarios/classic_rct/__init__.py": {
+      "baseline_sha256": "c5de262edc98224ffd9ef8d5df99fffa0e33af0afad9ec516e70935ce85d024a",
+      "relevant_lines": [
+        "from . import dgp"
+      ]
+    },
+    "causalis/scenarios/iv/__init__.py": {
+      "baseline_sha256": "7cfb3ed7520c7f6647d041ed13ac1f2d9867aace43a2c531e88896d8ea9606e2",
+      "relevant_lines": [
+        ">>> from causalis.scenarios.iv import generate_offer_iv_26, IIVM",
+        ">>> data = generate_offer_iv_26(n=1000)",
+        "from .dgp import generate_offer_iv_26",
+        "__all__ = [\"IIVM\", \"IVCausalEstimate\", \"generate_offer_iv_26\"]"
+      ]
+    }
+  },
+  "load_warnings": [
+    {
+      "category": "SyntaxWarning",
+      "message": "invalid escape sequence '\\e'",
+      "filename": "9f0a63c42308ca886d92dc73d8d8d9611d5b2c31:causalis/scenarios/iv/dgp.py",
+      "lineno": 177
+    }
+  ],
+  "bindings_verified": true,
+  "records_count": 100,
+  "records": [
+    {
+      "group": "binary_outcome_rename",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': False, 'pre_name': 'conversion', 'add_ancillary': False, 'include_oracle': False, 'return_causal_data': False}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": false,
+        "pre_name": "conversion",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "binary_outcome_rename",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': False, 'pre_name': 'conversion', 'add_ancillary': False, 'include_oracle': False, 'return_causal_data': True}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": false,
+        "pre_name": "conversion",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "conversion",
+      "warning_count": 0
+    },
+    {
+      "group": "binary_outcome_rename",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': False, 'pre_name': 'conversion', 'add_ancillary': False, 'include_oracle': True, 'return_causal_data': False}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": false,
+        "pre_name": "conversion",
+        "add_ancillary": false,
+        "include_oracle": true,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "binary_outcome_rename",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': False, 'pre_name': 'conversion', 'add_ancillary': False, 'include_oracle': True, 'return_causal_data': True}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": false,
+        "pre_name": "conversion",
+        "add_ancillary": false,
+        "include_oracle": true,
+        "return_causal_data": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "conversion",
+      "warning_count": 0
+    },
+    {
+      "group": "binary_outcome_rename",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': False, 'pre_name': 'conversion', 'add_ancillary': True, 'include_oracle': False, 'return_causal_data': False}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": false,
+        "pre_name": "conversion",
+        "add_ancillary": true,
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "binary_outcome_rename",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': False, 'pre_name': 'conversion', 'add_ancillary': True, 'include_oracle': False, 'return_causal_data': True}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": false,
+        "pre_name": "conversion",
+        "add_ancillary": true,
+        "include_oracle": false,
+        "return_causal_data": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "conversion",
+      "warning_count": 0
+    },
+    {
+      "group": "binary_outcome_rename",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': False, 'pre_name': 'conversion', 'add_ancillary': True, 'include_oracle': True, 'return_causal_data': False}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": false,
+        "pre_name": "conversion",
+        "add_ancillary": true,
+        "include_oracle": true,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "binary_outcome_rename",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': False, 'pre_name': 'conversion', 'add_ancillary': True, 'include_oracle': True, 'return_causal_data': True}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": false,
+        "pre_name": "conversion",
+        "add_ancillary": true,
+        "include_oracle": true,
+        "return_causal_data": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "conversion",
+      "warning_count": 0
+    },
+    {
+      "group": "binary_outcome_rename",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': True, 'pre_name': 'conversion', 'add_ancillary': False, 'include_oracle': False, 'return_causal_data': False}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "conversion",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "conversion"
+      ],
+      "duplicate_columns": [
+        "conversion"
+      ],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "binary_outcome_rename",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': True, 'pre_name': 'conversion', 'add_ancillary': False, 'include_oracle': False, 'return_causal_data': True}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "conversion",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": true
+      },
+      "status": "raised",
+      "exception": "ValidationError",
+      "message": "1 validation error for CausalData\n  Value error, DataFrame has duplicate column names: ['conversion']. This is not supported.",
+      "warning_count": 0
+    },
+    {
+      "group": "binary_outcome_rename",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': True, 'pre_name': 'conversion', 'add_ancillary': False, 'include_oracle': True, 'return_causal_data': False}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "conversion",
+        "add_ancillary": false,
+        "include_oracle": true,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "conversion",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate"
+      ],
+      "duplicate_columns": [
+        "conversion"
+      ],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "binary_outcome_rename",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': True, 'pre_name': 'conversion', 'add_ancillary': False, 'include_oracle': True, 'return_causal_data': True}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "conversion",
+        "add_ancillary": false,
+        "include_oracle": true,
+        "return_causal_data": true
+      },
+      "status": "raised",
+      "exception": "ValidationError",
+      "message": "1 validation error for CausalData\n  Value error, DataFrame has duplicate column names: ['conversion']. This is not supported.",
+      "warning_count": 0
+    },
+    {
+      "group": "binary_outcome_rename",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': True, 'pre_name': 'conversion', 'add_ancillary': True, 'include_oracle': False, 'return_causal_data': False}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "conversion",
+        "add_ancillary": true,
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend",
+        "conversion"
+      ],
+      "duplicate_columns": [
+        "conversion"
+      ],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "binary_outcome_rename",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': True, 'pre_name': 'conversion', 'add_ancillary': True, 'include_oracle': False, 'return_causal_data': True}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "conversion",
+        "add_ancillary": true,
+        "include_oracle": false,
+        "return_causal_data": true
+      },
+      "status": "raised",
+      "exception": "ValidationError",
+      "message": "1 validation error for CausalData\n  Value error, DataFrame has duplicate column names: ['conversion']. This is not supported.",
+      "warning_count": 0
+    },
+    {
+      "group": "binary_outcome_rename",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': True, 'pre_name': 'conversion', 'add_ancillary': True, 'include_oracle': True, 'return_causal_data': False}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "conversion",
+        "add_ancillary": true,
+        "include_oracle": true,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend",
+        "conversion",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate"
+      ],
+      "duplicate_columns": [
+        "conversion"
+      ],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "binary_outcome_rename",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': True, 'pre_name': 'conversion', 'add_ancillary': True, 'include_oracle': True, 'return_causal_data': True}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "conversion",
+        "add_ancillary": true,
+        "include_oracle": true,
+        "return_causal_data": true
+      },
+      "status": "raised",
+      "exception": "ValidationError",
+      "message": "1 validation error for CausalData\n  Value error, DataFrame has duplicate column names: ['conversion']. This is not supported.",
+      "warning_count": 0
+    },
+    {
+      "group": "scenario_identifier_collision",
+      "case": "binary26_{'n': 256, 'seed': 731, 'add_pre': False, 'pre_name': 'user_id', 'add_ancillary': False, 'return_causal_data': False, 'include_oracle': False}",
+      "settings": {
+        "family": "binary26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": false,
+        "pre_name": "user_id",
+        "add_ancillary": false,
+        "return_causal_data": false,
+        "include_oracle": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "scenario_identifier_collision",
+      "case": "binary26_{'n': 256, 'seed': 731, 'add_pre': False, 'pre_name': 'user_id', 'add_ancillary': False, 'return_causal_data': True, 'include_oracle': False}",
+      "settings": {
+        "family": "binary26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": false,
+        "pre_name": "user_id",
+        "add_ancillary": false,
+        "return_causal_data": true,
+        "include_oracle": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "conversion",
+      "warning_count": 0
+    },
+    {
+      "group": "scenario_identifier_collision",
+      "case": "binary26_{'n': 256, 'seed': 731, 'add_pre': False, 'pre_name': 'user_id', 'add_ancillary': True, 'return_causal_data': False, 'include_oracle': False}",
+      "settings": {
+        "family": "binary26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": false,
+        "pre_name": "user_id",
+        "add_ancillary": true,
+        "return_causal_data": false,
+        "include_oracle": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "scenario_identifier_collision",
+      "case": "binary26_{'n': 256, 'seed': 731, 'add_pre': False, 'pre_name': 'user_id', 'add_ancillary': True, 'return_causal_data': True, 'include_oracle': False}",
+      "settings": {
+        "family": "binary26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": false,
+        "pre_name": "user_id",
+        "add_ancillary": true,
+        "return_causal_data": true,
+        "include_oracle": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "conversion",
+      "warning_count": 0
+    },
+    {
+      "group": "scenario_identifier_collision",
+      "case": "binary26_{'n': 256, 'seed': 731, 'add_pre': True, 'pre_name': 'user_id', 'add_ancillary': False, 'return_causal_data': False, 'include_oracle': False}",
+      "settings": {
+        "family": "binary26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "user_id",
+        "add_ancillary": false,
+        "return_causal_data": false,
+        "include_oracle": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "user_id"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": true,
+      "user_id_unique_count": 8,
+      "warning_count": 0
+    },
+    {
+      "group": "scenario_identifier_collision",
+      "case": "binary26_{'n': 256, 'seed': 731, 'add_pre': True, 'pre_name': 'user_id', 'add_ancillary': False, 'return_causal_data': True, 'include_oracle': False}",
+      "settings": {
+        "family": "binary26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "user_id",
+        "add_ancillary": false,
+        "return_causal_data": true,
+        "include_oracle": false
+      },
+      "status": "raised",
+      "exception": "ValidationError",
+      "message": "1 validation error for CausalData\n  Value error, Column 'user_id' specified as user_id contains duplicate values.",
+      "warning_count": 0
+    },
+    {
+      "group": "scenario_identifier_collision",
+      "case": "binary26_{'n': 256, 'seed': 731, 'add_pre': True, 'pre_name': 'user_id', 'add_ancillary': True, 'return_causal_data': False, 'include_oracle': False}",
+      "settings": {
+        "family": "binary26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "user_id",
+        "add_ancillary": true,
+        "return_causal_data": false,
+        "include_oracle": false
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "Generated column name 'user_id' collides between pre-period covariate and ancillary identifier",
+      "warning_count": 0
+    },
+    {
+      "group": "scenario_identifier_collision",
+      "case": "binary26_{'n': 256, 'seed': 731, 'add_pre': True, 'pre_name': 'user_id', 'add_ancillary': True, 'return_causal_data': True, 'include_oracle': False}",
+      "settings": {
+        "family": "binary26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "user_id",
+        "add_ancillary": true,
+        "return_causal_data": true,
+        "include_oracle": false
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "Generated column name 'user_id' collides between pre-period covariate and ancillary identifier",
+      "warning_count": 0
+    },
+    {
+      "group": "scenario_identifier_collision",
+      "case": "gamma26_{'n': 256, 'seed': 731, 'add_pre': False, 'pre_name': 'user_id', 'add_ancillary': False, 'return_causal_data': False, 'include_oracle': False}",
+      "settings": {
+        "family": "gamma26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": false,
+        "pre_name": "user_id",
+        "add_ancillary": false,
+        "return_causal_data": false,
+        "include_oracle": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "scenario_identifier_collision",
+      "case": "gamma26_{'n': 256, 'seed': 731, 'add_pre': False, 'pre_name': 'user_id', 'add_ancillary': False, 'return_causal_data': True, 'include_oracle': False}",
+      "settings": {
+        "family": "gamma26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": false,
+        "pre_name": "user_id",
+        "add_ancillary": false,
+        "return_causal_data": true,
+        "include_oracle": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "y",
+      "warning_count": 0
+    },
+    {
+      "group": "scenario_identifier_collision",
+      "case": "gamma26_{'n': 256, 'seed': 731, 'add_pre': False, 'pre_name': 'user_id', 'add_ancillary': True, 'return_causal_data': False, 'include_oracle': False}",
+      "settings": {
+        "family": "gamma26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": false,
+        "pre_name": "user_id",
+        "add_ancillary": true,
+        "return_causal_data": false,
+        "include_oracle": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "scenario_identifier_collision",
+      "case": "gamma26_{'n': 256, 'seed': 731, 'add_pre': False, 'pre_name': 'user_id', 'add_ancillary': True, 'return_causal_data': True, 'include_oracle': False}",
+      "settings": {
+        "family": "gamma26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": false,
+        "pre_name": "user_id",
+        "add_ancillary": true,
+        "return_causal_data": true,
+        "include_oracle": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "y",
+      "warning_count": 0
+    },
+    {
+      "group": "scenario_identifier_collision",
+      "case": "gamma26_{'n': 256, 'seed': 731, 'add_pre': True, 'pre_name': 'user_id', 'add_ancillary': False, 'return_causal_data': False, 'include_oracle': False}",
+      "settings": {
+        "family": "gamma26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "user_id",
+        "add_ancillary": false,
+        "return_causal_data": false,
+        "include_oracle": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "user_id"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": true,
+      "user_id_unique_count": 8,
+      "warning_count": 0
+    },
+    {
+      "group": "scenario_identifier_collision",
+      "case": "gamma26_{'n': 256, 'seed': 731, 'add_pre': True, 'pre_name': 'user_id', 'add_ancillary': False, 'return_causal_data': True, 'include_oracle': False}",
+      "settings": {
+        "family": "gamma26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "user_id",
+        "add_ancillary": false,
+        "return_causal_data": true,
+        "include_oracle": false
+      },
+      "status": "raised",
+      "exception": "ValidationError",
+      "message": "1 validation error for CausalData\n  Value error, Column 'user_id' specified as user_id contains duplicate values.",
+      "warning_count": 0
+    },
+    {
+      "group": "scenario_identifier_collision",
+      "case": "gamma26_{'n': 256, 'seed': 731, 'add_pre': True, 'pre_name': 'user_id', 'add_ancillary': True, 'return_causal_data': False, 'include_oracle': False}",
+      "settings": {
+        "family": "gamma26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "user_id",
+        "add_ancillary": true,
+        "return_causal_data": false,
+        "include_oracle": false
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "Generated column name 'user_id' collides between pre-period covariate and ancillary identifier",
+      "warning_count": 0
+    },
+    {
+      "group": "scenario_identifier_collision",
+      "case": "gamma26_{'n': 256, 'seed': 731, 'add_pre': True, 'pre_name': 'user_id', 'add_ancillary': True, 'return_causal_data': True, 'include_oracle': False}",
+      "settings": {
+        "family": "gamma26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "user_id",
+        "add_ancillary": true,
+        "return_causal_data": true,
+        "include_oracle": false
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "Generated column name 'user_id' collides between pre-period covariate and ancillary identifier",
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "binary26_m_False",
+      "settings": {
+        "family": "binary26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "m",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "m"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "binary26_m_True",
+      "settings": {
+        "family": "binary26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "m",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "conversion",
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "binary26_m_obs_False",
+      "settings": {
+        "family": "binary26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "m_obs",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "m_obs"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "binary26_m_obs_True",
+      "settings": {
+        "family": "binary26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "m_obs",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "conversion",
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "binary26_tau_link_False",
+      "settings": {
+        "family": "binary26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "tau_link",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "tau_link"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "binary26_tau_link_True",
+      "settings": {
+        "family": "binary26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "tau_link",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "conversion",
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "binary26_g0_False",
+      "settings": {
+        "family": "binary26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "g0",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "g0"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "binary26_g0_True",
+      "settings": {
+        "family": "binary26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "g0",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "conversion",
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "binary26_g1_False",
+      "settings": {
+        "family": "binary26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "g1",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "g1"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "binary26_g1_True",
+      "settings": {
+        "family": "binary26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "g1",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "conversion",
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "binary26_cate_False",
+      "settings": {
+        "family": "binary26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "cate",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "cate"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "binary26_cate_True",
+      "settings": {
+        "family": "binary26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "cate",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "conversion",
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "gamma26_m_False",
+      "settings": {
+        "family": "gamma26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "m",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "m"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "gamma26_m_True",
+      "settings": {
+        "family": "gamma26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "m",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "y",
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "gamma26_m_obs_False",
+      "settings": {
+        "family": "gamma26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "m_obs",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "m_obs"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "gamma26_m_obs_True",
+      "settings": {
+        "family": "gamma26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "m_obs",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "y",
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "gamma26_tau_link_False",
+      "settings": {
+        "family": "gamma26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "tau_link",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "tau_link"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "gamma26_tau_link_True",
+      "settings": {
+        "family": "gamma26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "tau_link",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "y",
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "gamma26_g0_False",
+      "settings": {
+        "family": "gamma26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "g0",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "g0"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "gamma26_g0_True",
+      "settings": {
+        "family": "gamma26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "g0",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "y",
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "gamma26_g1_False",
+      "settings": {
+        "family": "gamma26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "g1",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "g1"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "gamma26_g1_True",
+      "settings": {
+        "family": "gamma26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "g1",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "y",
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "gamma26_cate_False",
+      "settings": {
+        "family": "gamma26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "cate",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "cate"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "disabled_oracle_pre_feature",
+      "case": "gamma26_cate_True",
+      "settings": {
+        "family": "gamma26",
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "cate",
+        "add_ancillary": false,
+        "include_oracle": false,
+        "return_causal_data": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "y",
+      "warning_count": 0
+    },
+    {
+      "group": "upstream_collision_control",
+      "case": "binary26_y",
+      "settings": {
+        "family": "binary26",
+        "pre_name": "y"
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "Generated column name 'y' collides between existing column and pre-period covariate",
+      "warning_count": 0
+    },
+    {
+      "group": "upstream_collision_control",
+      "case": "binary26_d",
+      "settings": {
+        "family": "binary26",
+        "pre_name": "d"
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "Generated column name 'd' collides between existing column and pre-period covariate",
+      "warning_count": 0
+    },
+    {
+      "group": "upstream_collision_control",
+      "case": "binary26_platform_ios",
+      "settings": {
+        "family": "binary26",
+        "pre_name": "platform_ios"
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "Generated column name 'platform_ios' collides between existing column and pre-period covariate",
+      "warning_count": 0
+    },
+    {
+      "group": "upstream_collision_control",
+      "case": "binary26_country_usa",
+      "settings": {
+        "family": "binary26",
+        "pre_name": "country_usa"
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "Generated column name 'country_usa' collides between existing column and pre-period covariate",
+      "warning_count": 0
+    },
+    {
+      "group": "upstream_collision_control",
+      "case": "binary26_source_paid",
+      "settings": {
+        "family": "binary26",
+        "pre_name": "source_paid"
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "Generated column name 'source_paid' collides between existing column and pre-period covariate",
+      "warning_count": 0
+    },
+    {
+      "group": "upstream_collision_control",
+      "case": "gamma26_y",
+      "settings": {
+        "family": "gamma26",
+        "pre_name": "y"
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "Generated column name 'y' collides between existing column and pre-period covariate",
+      "warning_count": 0
+    },
+    {
+      "group": "upstream_collision_control",
+      "case": "gamma26_d",
+      "settings": {
+        "family": "gamma26",
+        "pre_name": "d"
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "Generated column name 'd' collides between existing column and pre-period covariate",
+      "warning_count": 0
+    },
+    {
+      "group": "upstream_collision_control",
+      "case": "gamma26_platform_ios",
+      "settings": {
+        "family": "gamma26",
+        "pre_name": "platform_ios"
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "Generated column name 'platform_ios' collides between existing column and pre-period covariate",
+      "warning_count": 0
+    },
+    {
+      "group": "upstream_collision_control",
+      "case": "gamma26_country_usa",
+      "settings": {
+        "family": "gamma26",
+        "pre_name": "country_usa"
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "Generated column name 'country_usa' collides between existing column and pre-period covariate",
+      "warning_count": 0
+    },
+    {
+      "group": "upstream_collision_control",
+      "case": "gamma26_source_paid",
+      "settings": {
+        "family": "gamma26",
+        "pre_name": "source_paid"
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "Generated column name 'source_paid' collides between existing column and pre-period covariate",
+      "warning_count": 0
+    },
+    {
+      "group": "literal_allowed_control",
+      "case": "binary26_'y_pre'_False",
+      "settings": {
+        "family": "binary26",
+        "pre_name": "y_pre",
+        "add_pre": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "conversion",
+      "warning_count": 0
+    },
+    {
+      "group": "literal_allowed_control",
+      "case": "binary26_'y_pre'_True",
+      "settings": {
+        "family": "binary26",
+        "pre_name": "y_pre",
+        "add_pre": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "y_pre"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "y_pre"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "conversion",
+      "warning_count": 0
+    },
+    {
+      "group": "literal_allowed_control",
+      "case": "binary26_'  '_False",
+      "settings": {
+        "family": "binary26",
+        "pre_name": "  ",
+        "add_pre": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "conversion",
+      "warning_count": 0
+    },
+    {
+      "group": "literal_allowed_control",
+      "case": "binary26_'  '_True",
+      "settings": {
+        "family": "binary26",
+        "pre_name": "  ",
+        "add_pre": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "  "
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "  "
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "conversion",
+      "warning_count": 0
+    },
+    {
+      "group": "literal_allowed_control",
+      "case": "binary26_np.str_('literal_pre')_False",
+      "settings": {
+        "family": "binary26",
+        "pre_name": "literal_pre",
+        "add_pre": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "conversion",
+      "warning_count": 0
+    },
+    {
+      "group": "literal_allowed_control",
+      "case": "binary26_np.str_('literal_pre')_True",
+      "settings": {
+        "family": "binary26",
+        "pre_name": "literal_pre",
+        "add_pre": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "literal_pre"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "literal_pre"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "conversion",
+      "warning_count": 0
+    },
+    {
+      "group": "literal_allowed_control",
+      "case": "binary26_'conversion'_False",
+      "settings": {
+        "family": "binary26",
+        "pre_name": "conversion",
+        "add_pre": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "conversion",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "conversion",
+      "warning_count": 0
+    },
+    {
+      "group": "literal_allowed_control",
+      "case": "gamma26_'y_pre'_False",
+      "settings": {
+        "family": "gamma26",
+        "pre_name": "y_pre",
+        "add_pre": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "y",
+      "warning_count": 0
+    },
+    {
+      "group": "literal_allowed_control",
+      "case": "gamma26_'y_pre'_True",
+      "settings": {
+        "family": "gamma26",
+        "pre_name": "y_pre",
+        "add_pre": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "y_pre"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "y_pre"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "y",
+      "warning_count": 0
+    },
+    {
+      "group": "literal_allowed_control",
+      "case": "gamma26_'  '_False",
+      "settings": {
+        "family": "gamma26",
+        "pre_name": "  ",
+        "add_pre": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "y",
+      "warning_count": 0
+    },
+    {
+      "group": "literal_allowed_control",
+      "case": "gamma26_'  '_True",
+      "settings": {
+        "family": "gamma26",
+        "pre_name": "  ",
+        "add_pre": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "  "
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "  "
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "y",
+      "warning_count": 0
+    },
+    {
+      "group": "literal_allowed_control",
+      "case": "gamma26_np.str_('literal_pre')_False",
+      "settings": {
+        "family": "gamma26",
+        "pre_name": "literal_pre",
+        "add_pre": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "y",
+      "warning_count": 0
+    },
+    {
+      "group": "literal_allowed_control",
+      "case": "gamma26_np.str_('literal_pre')_True",
+      "settings": {
+        "family": "gamma26",
+        "pre_name": "literal_pre",
+        "add_pre": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "literal_pre"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "literal_pre"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "y",
+      "warning_count": 0
+    },
+    {
+      "group": "literal_allowed_control",
+      "case": "gamma26_'conversion'_False",
+      "settings": {
+        "family": "gamma26",
+        "pre_name": "conversion",
+        "add_pre": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "y",
+      "warning_count": 0
+    },
+    {
+      "group": "literal_allowed_control",
+      "case": "gamma26_'conversion'_True",
+      "settings": {
+        "family": "gamma26",
+        "pre_name": "conversion",
+        "add_pre": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "conversion"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "conversion"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "y",
+      "warning_count": 0
+    },
+    {
+      "group": "iv_fixed_schema_control",
+      "case": "{'n': 256, 'seed': 731, 'include_oracle': False, 'return_causal_data': False, 'deterministic_ids': False}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "include_oracle": false,
+        "return_causal_data": false,
+        "deterministic_ids": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "net_revenue_90d",
+        "accepted_offer",
+        "offer_eligible",
+        "age",
+        "tenure_months",
+        "annual_income",
+        "credit_score",
+        "app_sessions_30d",
+        "prior_spend_30d",
+        "savings_balance",
+        "premium_user",
+        "autopay_enabled",
+        "region_north",
+        "region_west",
+        "acquisition_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "iv_fixed_schema_control",
+      "case": "{'n': 256, 'seed': 731, 'include_oracle': False, 'return_causal_data': False, 'deterministic_ids': True}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "include_oracle": false,
+        "return_causal_data": false,
+        "deterministic_ids": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "net_revenue_90d",
+        "accepted_offer",
+        "offer_eligible",
+        "age",
+        "tenure_months",
+        "annual_income",
+        "credit_score",
+        "app_sessions_30d",
+        "prior_spend_30d",
+        "savings_balance",
+        "premium_user",
+        "autopay_enabled",
+        "region_north",
+        "region_west",
+        "acquisition_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "iv_fixed_schema_control",
+      "case": "{'n': 256, 'seed': 731, 'include_oracle': False, 'return_causal_data': True, 'deterministic_ids': False}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "include_oracle": false,
+        "return_causal_data": true,
+        "deterministic_ids": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "net_revenue_90d",
+        "accepted_offer",
+        "offer_eligible",
+        "age",
+        "tenure_months",
+        "annual_income",
+        "credit_score",
+        "app_sessions_30d",
+        "prior_spend_30d",
+        "savings_balance",
+        "premium_user",
+        "autopay_enabled",
+        "region_north",
+        "region_west",
+        "acquisition_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "IVCausalData",
+      "selected_confounders": [
+        "age",
+        "tenure_months",
+        "annual_income",
+        "credit_score",
+        "app_sessions_30d",
+        "prior_spend_30d",
+        "savings_balance",
+        "premium_user",
+        "autopay_enabled",
+        "region_north",
+        "region_west",
+        "acquisition_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "net_revenue_90d",
+      "instrument_roles": [
+        "offer_eligible"
+      ],
+      "warning_count": 0
+    },
+    {
+      "group": "iv_fixed_schema_control",
+      "case": "{'n': 256, 'seed': 731, 'include_oracle': False, 'return_causal_data': True, 'deterministic_ids': True}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "include_oracle": false,
+        "return_causal_data": true,
+        "deterministic_ids": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "net_revenue_90d",
+        "accepted_offer",
+        "offer_eligible",
+        "age",
+        "tenure_months",
+        "annual_income",
+        "credit_score",
+        "app_sessions_30d",
+        "prior_spend_30d",
+        "savings_balance",
+        "premium_user",
+        "autopay_enabled",
+        "region_north",
+        "region_west",
+        "acquisition_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "IVCausalData",
+      "selected_confounders": [
+        "age",
+        "tenure_months",
+        "annual_income",
+        "credit_score",
+        "app_sessions_30d",
+        "prior_spend_30d",
+        "savings_balance",
+        "premium_user",
+        "autopay_enabled",
+        "region_north",
+        "region_west",
+        "acquisition_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "net_revenue_90d",
+      "instrument_roles": [
+        "offer_eligible"
+      ],
+      "warning_count": 0
+    },
+    {
+      "group": "iv_fixed_schema_control",
+      "case": "{'n': 256, 'seed': 731, 'include_oracle': True, 'return_causal_data': False, 'deterministic_ids': False}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "include_oracle": true,
+        "return_causal_data": false,
+        "deterministic_ids": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "net_revenue_90d",
+        "accepted_offer",
+        "offer_eligible",
+        "age",
+        "tenure_months",
+        "annual_income",
+        "credit_score",
+        "app_sessions_30d",
+        "prior_spend_30d",
+        "savings_balance",
+        "premium_user",
+        "autopay_enabled",
+        "region_north",
+        "region_west",
+        "acquisition_paid",
+        "m",
+        "r_obs",
+        "r_z0",
+        "r_z1",
+        "g_z0",
+        "g_z1",
+        "iv_first_stage",
+        "iv_reduced_form",
+        "late_x",
+        "late",
+        "tau_link",
+        "g_d0",
+        "g_d1",
+        "cate"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "iv_fixed_schema_control",
+      "case": "{'n': 256, 'seed': 731, 'include_oracle': True, 'return_causal_data': False, 'deterministic_ids': True}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "include_oracle": true,
+        "return_causal_data": false,
+        "deterministic_ids": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "net_revenue_90d",
+        "accepted_offer",
+        "offer_eligible",
+        "age",
+        "tenure_months",
+        "annual_income",
+        "credit_score",
+        "app_sessions_30d",
+        "prior_spend_30d",
+        "savings_balance",
+        "premium_user",
+        "autopay_enabled",
+        "region_north",
+        "region_west",
+        "acquisition_paid",
+        "m",
+        "r_obs",
+        "r_z0",
+        "r_z1",
+        "g_z0",
+        "g_z1",
+        "iv_first_stage",
+        "iv_reduced_form",
+        "late_x",
+        "late",
+        "tau_link",
+        "g_d0",
+        "g_d1",
+        "cate"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "warning_count": 0
+    },
+    {
+      "group": "iv_fixed_schema_control",
+      "case": "{'n': 256, 'seed': 731, 'include_oracle': True, 'return_causal_data': True, 'deterministic_ids': False}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "include_oracle": true,
+        "return_causal_data": true,
+        "deterministic_ids": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "net_revenue_90d",
+        "accepted_offer",
+        "offer_eligible",
+        "age",
+        "tenure_months",
+        "annual_income",
+        "credit_score",
+        "app_sessions_30d",
+        "prior_spend_30d",
+        "savings_balance",
+        "premium_user",
+        "autopay_enabled",
+        "region_north",
+        "region_west",
+        "acquisition_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "IVCausalData",
+      "selected_confounders": [
+        "age",
+        "tenure_months",
+        "annual_income",
+        "credit_score",
+        "app_sessions_30d",
+        "prior_spend_30d",
+        "savings_balance",
+        "premium_user",
+        "autopay_enabled",
+        "region_north",
+        "region_west",
+        "acquisition_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "net_revenue_90d",
+      "instrument_roles": [
+        "offer_eligible"
+      ],
+      "warning_count": 0
+    },
+    {
+      "group": "iv_fixed_schema_control",
+      "case": "{'n': 256, 'seed': 731, 'include_oracle': True, 'return_causal_data': True, 'deterministic_ids': True}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "include_oracle": true,
+        "return_causal_data": true,
+        "deterministic_ids": true
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "user_id",
+        "net_revenue_90d",
+        "accepted_offer",
+        "offer_eligible",
+        "age",
+        "tenure_months",
+        "annual_income",
+        "credit_score",
+        "app_sessions_30d",
+        "prior_spend_30d",
+        "savings_balance",
+        "premium_user",
+        "autopay_enabled",
+        "region_north",
+        "region_west",
+        "acquisition_paid"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": false,
+      "user_id_unique_count": 256,
+      "contract_class": "IVCausalData",
+      "selected_confounders": [
+        "age",
+        "tenure_months",
+        "annual_income",
+        "credit_score",
+        "app_sessions_30d",
+        "prior_spend_30d",
+        "savings_balance",
+        "premium_user",
+        "autopay_enabled",
+        "region_north",
+        "region_west",
+        "acquisition_paid"
+      ],
+      "user_id_role": "user_id",
+      "outcome_role": "net_revenue_90d",
+      "instrument_roles": [
+        "offer_eligible"
+      ],
+      "warning_count": 0
+    },
+    {
+      "group": "cuped_existing_guard_control",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': False, 'pre_name': 'y', 'include_oracle': False, 'return_causal_data': False}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": false,
+        "pre_name": "y",
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "y",
+        "d",
+        "tenure_months",
+        "avg_sessions_week",
+        "spend_last_month",
+        "discount_rate",
+        "platform_ios",
+        "platform_web"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "warning_count": 0
+    },
+    {
+      "group": "cuped_existing_guard_control",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': False, 'pre_name': 'user_id', 'include_oracle': False, 'return_causal_data': False}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": false,
+        "pre_name": "user_id",
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "y",
+        "d",
+        "tenure_months",
+        "avg_sessions_week",
+        "spend_last_month",
+        "discount_rate",
+        "platform_ios",
+        "platform_web"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "warning_count": 0
+    },
+    {
+      "group": "cuped_existing_guard_control",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': False, 'pre_name': '_latent_A', 'include_oracle': False, 'return_causal_data': False}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": false,
+        "pre_name": "_latent_A",
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "y",
+        "d",
+        "tenure_months",
+        "avg_sessions_week",
+        "spend_last_month",
+        "discount_rate",
+        "platform_ios",
+        "platform_web"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "warning_count": 0
+    },
+    {
+      "group": "cuped_existing_guard_control",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': False, 'pre_name': 'safe_pre', 'include_oracle': False, 'return_causal_data': False}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": false,
+        "pre_name": "safe_pre",
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "y",
+        "d",
+        "tenure_months",
+        "avg_sessions_week",
+        "spend_last_month",
+        "discount_rate",
+        "platform_ios",
+        "platform_web"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "warning_count": 0
+    },
+    {
+      "group": "cuped_existing_guard_control",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': True, 'pre_name': 'y', 'include_oracle': False, 'return_causal_data': False}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "y",
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "pre_name='y' collides with an existing generated column; choose a different pre-period column name.",
+      "warning_count": 0
+    },
+    {
+      "group": "cuped_existing_guard_control",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': True, 'pre_name': 'user_id', 'include_oracle': False, 'return_causal_data': False}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "user_id",
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "pre_name='user_id' collides with an existing generated column; choose a different pre-period column name.",
+      "warning_count": 0
+    },
+    {
+      "group": "cuped_existing_guard_control",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': True, 'pre_name': '_latent_A', 'include_oracle': False, 'return_causal_data': False}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "_latent_A",
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "pre_name='_latent_A' collides with an existing generated column; choose a different pre-period column name.",
+      "warning_count": 0
+    },
+    {
+      "group": "cuped_existing_guard_control",
+      "case": "{'n': 256, 'seed': 731, 'add_pre': True, 'pre_name': 'safe_pre', 'include_oracle': False, 'return_causal_data': False}",
+      "settings": {
+        "n": 256,
+        "seed": 731,
+        "add_pre": true,
+        "pre_name": "safe_pre",
+        "include_oracle": false,
+        "return_causal_data": false
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "y",
+        "d",
+        "tenure_months",
+        "avg_sessions_week",
+        "spend_last_month",
+        "discount_rate",
+        "platform_ios",
+        "platform_web",
+        "safe_pre",
+        "safe_pre_2"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "warning_count": 0
+    },
+    {
+      "group": "underlying_wrapper_control",
+      "case": "conversion",
+      "settings": {
+        "pre_name": "conversion"
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "conversion"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "warning_count": 0
+    },
+    {
+      "group": "underlying_wrapper_control",
+      "case": "user_id",
+      "settings": {
+        "pre_name": "user_id"
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "user_id"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "user_id_numeric": true,
+      "user_id_unique_count": 8,
+      "warning_count": 0
+    },
+    {
+      "group": "underlying_wrapper_control",
+      "case": "m",
+      "settings": {
+        "pre_name": "m"
+      },
+      "status": "returned",
+      "rows": 256,
+      "columns": [
+        "y",
+        "d",
+        "platform_ios",
+        "country_usa",
+        "source_paid",
+        "m"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "warning_count": 0
+    }
+  ],
+  "limits": [
+    "Baseline observations only; no candidate tests or CI counts",
+    "No individual observations retained",
+    "Fixed-schema IV/CUPED are unchanged controls"
+  ]
+}

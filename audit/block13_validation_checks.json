@@ -1,0 +1,42 @@
+{
+  "baseline": "9f0a63c42308ca886d92dc73d8d8d9611d5b2c31",
+  "source_checkpoint": "4428be0e39bda8a2a47f1a6f184c92873da10976",
+  "bounded_paths": [
+    "causalis/scenarios/classic_rct/dgp.py",
+    "tests/data/test_scenario_namespace_contract.py"
+  ],
+  "public_signatures_unchanged": true,
+  "numeric_runtime_ast_unchanged_apart_from_namespace_and_projection": true,
+  "focused_junit": {
+    "tests": 91,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 91
+  },
+  "baseline_junit": {
+    "tests": 91,
+    "failures": 28,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 63
+  },
+  "baseline_only_contract_records": 100,
+  "exact_reference_configs": 116,
+  "independent_review_source_hashes_verified": true,
+  "local_junit": {
+    "tests": 2488,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 2487
+  },
+  "known_did_failure_static_linkage_verified": true,
+  "ci_artifacts_verified": 6,
+  "all_new_cases_present_in_each_ci_artifact": true,
+  "independent_ci_review_verified": true,
+  "sensitivity_validated": false,
+  "python_ast_files": 8,
+  "report_links_checked": 19,
+  "issues": []
+}

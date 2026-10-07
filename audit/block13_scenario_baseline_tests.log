@@ -1,0 +1,781 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFFF............................................ [ 79%]
+...................                                                      [100%]
+=================================== FAILURES ===================================
+_ test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome[False-False-False] _
+
+return_causal_data = False, include_oracle = False, add_ancillary = False
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("add_ancillary", [False, True])
+    def test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome(
+        return_causal_data, include_oracle, add_ancillary
+    ):
+>       _collision(
+            lambda: _classic(
+                "binary", add_pre=True, pre_name="conversion", add_ancillary=add_ancillary,
+                include_oracle=include_oracle, return_causal_data=return_causal_data,
+            ),
+            "conversion",
+        )
+
+tests/data/test_scenario_namespace_contract.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome.<locals>.<lambda> at 0x116200fe0>
+column = 'conversion'
+
+    def _collision(operation, column):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_scenario_namespace_contract.py:47: Failed
+_ test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome[False-False-True] _
+
+return_causal_data = True, include_oracle = False, add_ancillary = False
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("add_ancillary", [False, True])
+    def test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome(
+        return_causal_data, include_oracle, add_ancillary
+    ):
+>       _collision(
+            lambda: _classic(
+                "binary", add_pre=True, pre_name="conversion", add_ancillary=add_ancillary,
+                include_oracle=include_oracle, return_causal_data=return_causal_data,
+            ),
+            "conversion",
+        )
+
+tests/data/test_scenario_namespace_contract.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome.<locals>.<lambda> at 0x116201bc0>
+column = 'conversion'
+
+    def _collision(operation, column):
+        with pytest.raises(ValueError) as caught:
+            operation()
+        message = str(caught.value)
+        assert column in message
+>       assert re.search("collid|collision|overlap|already.*exist", message, re.IGNORECASE)
+E       assert None
+E        +  where None = <function search at 0x10a70afc0>('collid|collision|overlap|already.*exist', "1 validation error for CausalData\n  Value error, DataFrame has duplicate column names: ['conversion']. This is not s...er_id': 'user_id'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error", re.IGNORECASE)
+E        +    where <function search at 0x10a70afc0> = re.search
+E        +    and   re.IGNORECASE = re.IGNORECASE
+
+tests/data/test_scenario_namespace_contract.py:51: AssertionError
+_ test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome[False-True-False] _
+
+return_causal_data = False, include_oracle = True, add_ancillary = False
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("add_ancillary", [False, True])
+    def test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome(
+        return_causal_data, include_oracle, add_ancillary
+    ):
+>       _collision(
+            lambda: _classic(
+                "binary", add_pre=True, pre_name="conversion", add_ancillary=add_ancillary,
+                include_oracle=include_oracle, return_causal_data=return_causal_data,
+            ),
+            "conversion",
+        )
+
+tests/data/test_scenario_namespace_contract.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome.<locals>.<lambda> at 0x116201260>
+column = 'conversion'
+
+    def _collision(operation, column):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_scenario_namespace_contract.py:47: Failed
+_ test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome[False-True-True] _
+
+return_causal_data = True, include_oracle = True, add_ancillary = False
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("add_ancillary", [False, True])
+    def test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome(
+        return_causal_data, include_oracle, add_ancillary
+    ):
+>       _collision(
+            lambda: _classic(
+                "binary", add_pre=True, pre_name="conversion", add_ancillary=add_ancillary,
+                include_oracle=include_oracle, return_causal_data=return_causal_data,
+            ),
+            "conversion",
+        )
+
+tests/data/test_scenario_namespace_contract.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome.<locals>.<lambda> at 0x1162ba160>
+column = 'conversion'
+
+    def _collision(operation, column):
+        with pytest.raises(ValueError) as caught:
+            operation()
+        message = str(caught.value)
+        assert column in message
+>       assert re.search("collid|collision|overlap|already.*exist", message, re.IGNORECASE)
+E       assert None
+E        +  where None = <function search at 0x10a70afc0>('collid|collision|overlap|already.*exist', "1 validation error for CausalData\n  Value error, DataFrame has duplicate column names: ['conversion']. This is not s...er_id': 'user_id'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error", re.IGNORECASE)
+E        +    where <function search at 0x10a70afc0> = re.search
+E        +    and   re.IGNORECASE = re.IGNORECASE
+
+tests/data/test_scenario_namespace_contract.py:51: AssertionError
+_ test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome[True-False-False] _
+
+return_causal_data = False, include_oracle = False, add_ancillary = True
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("add_ancillary", [False, True])
+    def test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome(
+        return_causal_data, include_oracle, add_ancillary
+    ):
+>       _collision(
+            lambda: _classic(
+                "binary", add_pre=True, pre_name="conversion", add_ancillary=add_ancillary,
+                include_oracle=include_oracle, return_causal_data=return_causal_data,
+            ),
+            "conversion",
+        )
+
+tests/data/test_scenario_namespace_contract.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome.<locals>.<lambda> at 0x1162ba840>
+column = 'conversion'
+
+    def _collision(operation, column):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_scenario_namespace_contract.py:47: Failed
+_ test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome[True-False-True] _
+
+return_causal_data = True, include_oracle = False, add_ancillary = True
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("add_ancillary", [False, True])
+    def test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome(
+        return_causal_data, include_oracle, add_ancillary
+    ):
+>       _collision(
+            lambda: _classic(
+                "binary", add_pre=True, pre_name="conversion", add_ancillary=add_ancillary,
+                include_oracle=include_oracle, return_causal_data=return_causal_data,
+            ),
+            "conversion",
+        )
+
+tests/data/test_scenario_namespace_contract.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome.<locals>.<lambda> at 0x1162ba520>
+column = 'conversion'
+
+    def _collision(operation, column):
+        with pytest.raises(ValueError) as caught:
+            operation()
+        message = str(caught.value)
+        assert column in message
+>       assert re.search("collid|collision|overlap|already.*exist", message, re.IGNORECASE)
+E       assert None
+E        +  where None = <function search at 0x10a70afc0>('collid|collision|overlap|already.*exist', "1 validation error for CausalData\n  Value error, DataFrame has duplicate column names: ['conversion']. This is not s...er_id': 'user_id'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error", re.IGNORECASE)
+E        +    where <function search at 0x10a70afc0> = re.search
+E        +    and   re.IGNORECASE = re.IGNORECASE
+
+tests/data/test_scenario_namespace_contract.py:51: AssertionError
+_ test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome[True-True-False] _
+
+return_causal_data = False, include_oracle = True, add_ancillary = True
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("add_ancillary", [False, True])
+    def test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome(
+        return_causal_data, include_oracle, add_ancillary
+    ):
+>       _collision(
+            lambda: _classic(
+                "binary", add_pre=True, pre_name="conversion", add_ancillary=add_ancillary,
+                include_oracle=include_oracle, return_causal_data=return_causal_data,
+            ),
+            "conversion",
+        )
+
+tests/data/test_scenario_namespace_contract.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome.<locals>.<lambda> at 0x1162ba700>
+column = 'conversion'
+
+    def _collision(operation, column):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_scenario_namespace_contract.py:47: Failed
+_ test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome[True-True-True] _
+
+return_causal_data = True, include_oracle = True, add_ancillary = True
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("add_ancillary", [False, True])
+    def test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome(
+        return_causal_data, include_oracle, add_ancillary
+    ):
+>       _collision(
+            lambda: _classic(
+                "binary", add_pre=True, pre_name="conversion", add_ancillary=add_ancillary,
+                include_oracle=include_oracle, return_causal_data=return_causal_data,
+            ),
+            "conversion",
+        )
+
+tests/data/test_scenario_namespace_contract.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome.<locals>.<lambda> at 0x1162bb2e0>
+column = 'conversion'
+
+    def _collision(operation, column):
+        with pytest.raises(ValueError) as caught:
+            operation()
+        message = str(caught.value)
+        assert column in message
+>       assert re.search("collid|collision|overlap|already.*exist", message, re.IGNORECASE)
+E       assert None
+E        +  where None = <function search at 0x10a70afc0>('collid|collision|overlap|already.*exist', "1 validation error for CausalData\n  Value error, DataFrame has duplicate column names: ['conversion']. This is not s...er_id': 'user_id'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error", re.IGNORECASE)
+E        +    where <function search at 0x10a70afc0> = re.search
+E        +    and   re.IGNORECASE = re.IGNORECASE
+
+tests/data/test_scenario_namespace_contract.py:51: AssertionError
+_ test_classic_pre_cannot_take_the_identifier_added_by_the_scenario[False-False-binary] _
+
+kind = 'binary', return_causal_data = False, include_oracle = False
+
+    @pytest.mark.parametrize("kind", ["binary", "gamma"])
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    def test_classic_pre_cannot_take_the_identifier_added_by_the_scenario(
+        kind, return_causal_data, include_oracle
+    ):
+        # The underlying wrapper has ancillary addition disabled, but each classic
+        # scenario still emits its own identifier after underlying generation.
+>       _collision(
+            lambda: _classic(
+                kind, add_pre=True, pre_name="user_id", include_oracle=include_oracle,
+                return_causal_data=return_causal_data,
+            ),
+            "user_id",
+        )
+
+tests/data/test_scenario_namespace_contract.py:85: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_classic_pre_cannot_take_the_identifier_added_by_the_scenario.<locals>.<lambda> at 0x1162bba60>
+column = 'user_id'
+
+    def _collision(operation, column):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_scenario_namespace_contract.py:47: Failed
+_ test_classic_pre_cannot_take_the_identifier_added_by_the_scenario[False-False-gamma] _
+
+kind = 'gamma', return_causal_data = False, include_oracle = False
+
+    @pytest.mark.parametrize("kind", ["binary", "gamma"])
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    def test_classic_pre_cannot_take_the_identifier_added_by_the_scenario(
+        kind, return_causal_data, include_oracle
+    ):
+        # The underlying wrapper has ancillary addition disabled, but each classic
+        # scenario still emits its own identifier after underlying generation.
+>       _collision(
+            lambda: _classic(
+                kind, add_pre=True, pre_name="user_id", include_oracle=include_oracle,
+                return_causal_data=return_causal_data,
+            ),
+            "user_id",
+        )
+
+tests/data/test_scenario_namespace_contract.py:85: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_classic_pre_cannot_take_the_identifier_added_by_the_scenario.<locals>.<lambda> at 0x1162bbce0>
+column = 'user_id'
+
+    def _collision(operation, column):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_scenario_namespace_contract.py:47: Failed
+_ test_classic_pre_cannot_take_the_identifier_added_by_the_scenario[False-True-binary] _
+
+kind = 'binary', return_causal_data = True, include_oracle = False
+
+    @pytest.mark.parametrize("kind", ["binary", "gamma"])
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    def test_classic_pre_cannot_take_the_identifier_added_by_the_scenario(
+        kind, return_causal_data, include_oracle
+    ):
+        # The underlying wrapper has ancillary addition disabled, but each classic
+        # scenario still emits its own identifier after underlying generation.
+>       _collision(
+            lambda: _classic(
+                kind, add_pre=True, pre_name="user_id", include_oracle=include_oracle,
+                return_causal_data=return_causal_data,
+            ),
+            "user_id",
+        )
+
+tests/data/test_scenario_namespace_contract.py:85: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_classic_pre_cannot_take_the_identifier_added_by_the_scenario.<locals>.<lambda> at 0x1162bb380>
+column = 'user_id'
+
+    def _collision(operation, column):
+        with pytest.raises(ValueError) as caught:
+            operation()
+        message = str(caught.value)
+        assert column in message
+>       assert re.search("collid|collision|overlap|already.*exist", message, re.IGNORECASE)
+E       assert None
+E        +  where None = <function search at 0x10a70afc0>('collid|collision|overlap|already.*exist', "1 validation error for CausalData\n  Value error, Column 'user_id' specified as user_id contains duplicate values. [t...er_id': 'user_id'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error", re.IGNORECASE)
+E        +    where <function search at 0x10a70afc0> = re.search
+E        +    and   re.IGNORECASE = re.IGNORECASE
+
+tests/data/test_scenario_namespace_contract.py:51: AssertionError
+_ test_classic_pre_cannot_take_the_identifier_added_by_the_scenario[False-True-gamma] _
+
+kind = 'gamma', return_causal_data = True, include_oracle = False
+
+    @pytest.mark.parametrize("kind", ["binary", "gamma"])
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    def test_classic_pre_cannot_take_the_identifier_added_by_the_scenario(
+        kind, return_causal_data, include_oracle
+    ):
+        # The underlying wrapper has ancillary addition disabled, but each classic
+        # scenario still emits its own identifier after underlying generation.
+>       _collision(
+            lambda: _classic(
+                kind, add_pre=True, pre_name="user_id", include_oracle=include_oracle,
+                return_causal_data=return_causal_data,
+            ),
+            "user_id",
+        )
+
+tests/data/test_scenario_namespace_contract.py:85: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_classic_pre_cannot_take_the_identifier_added_by_the_scenario.<locals>.<lambda> at 0x116300400>
+column = 'user_id'
+
+    def _collision(operation, column):
+        with pytest.raises(ValueError) as caught:
+            operation()
+        message = str(caught.value)
+        assert column in message
+>       assert re.search("collid|collision|overlap|already.*exist", message, re.IGNORECASE)
+E       assert None
+E        +  where None = <function search at 0x10a70afc0>('collid|collision|overlap|already.*exist', "1 validation error for CausalData\n  Value error, Column 'user_id' specified as user_id contains duplicate values. [t...er_id': 'user_id'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error", re.IGNORECASE)
+E        +    where <function search at 0x10a70afc0> = re.search
+E        +    and   re.IGNORECASE = re.IGNORECASE
+
+tests/data/test_scenario_namespace_contract.py:51: AssertionError
+_ test_classic_pre_cannot_take_the_identifier_added_by_the_scenario[True-False-binary] _
+
+kind = 'binary', return_causal_data = False, include_oracle = True
+
+    @pytest.mark.parametrize("kind", ["binary", "gamma"])
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    def test_classic_pre_cannot_take_the_identifier_added_by_the_scenario(
+        kind, return_causal_data, include_oracle
+    ):
+        # The underlying wrapper has ancillary addition disabled, but each classic
+        # scenario still emits its own identifier after underlying generation.
+>       _collision(
+            lambda: _classic(
+                kind, add_pre=True, pre_name="user_id", include_oracle=include_oracle,
+                return_causal_data=return_causal_data,
+            ),
+            "user_id",
+        )
+
+tests/data/test_scenario_namespace_contract.py:85: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_classic_pre_cannot_take_the_identifier_added_by_the_scenario.<locals>.<lambda> at 0x1162bb560>
+column = 'user_id'
+
+    def _collision(operation, column):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_scenario_namespace_contract.py:47: Failed
+_ test_classic_pre_cannot_take_the_identifier_added_by_the_scenario[True-False-gamma] _
+
+kind = 'gamma', return_causal_data = False, include_oracle = True
+
+    @pytest.mark.parametrize("kind", ["binary", "gamma"])
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    def test_classic_pre_cannot_take_the_identifier_added_by_the_scenario(
+        kind, return_causal_data, include_oracle
+    ):
+        # The underlying wrapper has ancillary addition disabled, but each classic
+        # scenario still emits its own identifier after underlying generation.
+>       _collision(
+            lambda: _classic(
+                kind, add_pre=True, pre_name="user_id", include_oracle=include_oracle,
+                return_causal_data=return_causal_data,
+            ),
+            "user_id",
+        )
+
+tests/data/test_scenario_namespace_contract.py:85: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_classic_pre_cannot_take_the_identifier_added_by_the_scenario.<locals>.<lambda> at 0x116300540>
+column = 'user_id'
+
+    def _collision(operation, column):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_scenario_namespace_contract.py:47: Failed
+_ test_classic_pre_cannot_take_the_identifier_added_by_the_scenario[True-True-binary] _
+
+kind = 'binary', return_causal_data = True, include_oracle = True
+
+    @pytest.mark.parametrize("kind", ["binary", "gamma"])
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    def test_classic_pre_cannot_take_the_identifier_added_by_the_scenario(
+        kind, return_causal_data, include_oracle
+    ):
+        # The underlying wrapper has ancillary addition disabled, but each classic
+        # scenario still emits its own identifier after underlying generation.
+>       _collision(
+            lambda: _classic(
+                kind, add_pre=True, pre_name="user_id", include_oracle=include_oracle,
+                return_causal_data=return_causal_data,
+            ),
+            "user_id",
+        )
+
+tests/data/test_scenario_namespace_contract.py:85: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_classic_pre_cannot_take_the_identifier_added_by_the_scenario.<locals>.<lambda> at 0x1162ba700>
+column = 'user_id'
+
+    def _collision(operation, column):
+        with pytest.raises(ValueError) as caught:
+            operation()
+        message = str(caught.value)
+        assert column in message
+>       assert re.search("collid|collision|overlap|already.*exist", message, re.IGNORECASE)
+E       assert None
+E        +  where None = <function search at 0x10a70afc0>('collid|collision|overlap|already.*exist', "1 validation error for CausalData\n  Value error, Column 'user_id' specified as user_id contains duplicate values. [t...er_id': 'user_id'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error", re.IGNORECASE)
+E        +    where <function search at 0x10a70afc0> = re.search
+E        +    and   re.IGNORECASE = re.IGNORECASE
+
+tests/data/test_scenario_namespace_contract.py:51: AssertionError
+_ test_classic_pre_cannot_take_the_identifier_added_by_the_scenario[True-True-gamma] _
+
+kind = 'gamma', return_causal_data = True, include_oracle = True
+
+    @pytest.mark.parametrize("kind", ["binary", "gamma"])
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    def test_classic_pre_cannot_take_the_identifier_added_by_the_scenario(
+        kind, return_causal_data, include_oracle
+    ):
+        # The underlying wrapper has ancillary addition disabled, but each classic
+        # scenario still emits its own identifier after underlying generation.
+>       _collision(
+            lambda: _classic(
+                kind, add_pre=True, pre_name="user_id", include_oracle=include_oracle,
+                return_causal_data=return_causal_data,
+            ),
+            "user_id",
+        )
+
+tests/data/test_scenario_namespace_contract.py:85: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_classic_pre_cannot_take_the_identifier_added_by_the_scenario.<locals>.<lambda> at 0x1163007c0>
+column = 'user_id'
+
+    def _collision(operation, column):
+        with pytest.raises(ValueError) as caught:
+            operation()
+        message = str(caught.value)
+        assert column in message
+>       assert re.search("collid|collision|overlap|already.*exist", message, re.IGNORECASE)
+E       assert None
+E        +  where None = <function search at 0x10a70afc0>('collid|collision|overlap|already.*exist', "1 validation error for CausalData\n  Value error, Column 'user_id' specified as user_id contains duplicate values. [t...er_id': 'user_id'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error", re.IGNORECASE)
+E        +    where <function search at 0x10a70afc0> = re.search
+E        +    and   re.IGNORECASE = re.IGNORECASE
+
+tests/data/test_scenario_namespace_contract.py:51: AssertionError
+_ test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[m-binary] _
+
+kind = 'binary', pre_name = 'm'
+
+    @pytest.mark.parametrize("kind", ["binary", "gamma"])
+    @pytest.mark.parametrize("pre_name", BINARY_ORACLES)
+    def test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle(kind, pre_name):
+        options = dict(add_pre=True, include_oracle=False, return_causal_data=True)
+        actual = _classic(kind, pre_name=pre_name, **options)
+        expected = _classic(kind, pre_name="history", **options)
+>       assert actual.confounders_names == CLASSIC_FEATURES + [pre_name]
+E       AssertionError: assert ['platform_io...'source_paid'] == ['platform_io...ce_paid', 'm']
+E         
+E         Right contains one more item: 'm'
+E         Use -v to get more diff
+
+tests/data/test_scenario_namespace_contract.py:100: AssertionError
+_ test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[m-gamma] _
+
+kind = 'gamma', pre_name = 'm'
+
+    @pytest.mark.parametrize("kind", ["binary", "gamma"])
+    @pytest.mark.parametrize("pre_name", BINARY_ORACLES)
+    def test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle(kind, pre_name):
+        options = dict(add_pre=True, include_oracle=False, return_causal_data=True)
+        actual = _classic(kind, pre_name=pre_name, **options)
+        expected = _classic(kind, pre_name="history", **options)
+>       assert actual.confounders_names == CLASSIC_FEATURES + [pre_name]
+E       AssertionError: assert ['platform_io...'source_paid'] == ['platform_io...ce_paid', 'm']
+E         
+E         Right contains one more item: 'm'
+E         Use -v to get more diff
+
+tests/data/test_scenario_namespace_contract.py:100: AssertionError
+_ test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[m_obs-binary] _
+
+kind = 'binary', pre_name = 'm_obs'
+
+    @pytest.mark.parametrize("kind", ["binary", "gamma"])
+    @pytest.mark.parametrize("pre_name", BINARY_ORACLES)
+    def test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle(kind, pre_name):
+        options = dict(add_pre=True, include_oracle=False, return_causal_data=True)
+        actual = _classic(kind, pre_name=pre_name, **options)
+        expected = _classic(kind, pre_name="history", **options)
+>       assert actual.confounders_names == CLASSIC_FEATURES + [pre_name]
+E       AssertionError: assert ['platform_io...'source_paid'] == ['platform_io...aid', 'm_obs']
+E         
+E         Right contains one more item: 'm_obs'
+E         Use -v to get more diff
+
+tests/data/test_scenario_namespace_contract.py:100: AssertionError
+_ test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[m_obs-gamma] _
+
+kind = 'gamma', pre_name = 'm_obs'
+
+    @pytest.mark.parametrize("kind", ["binary", "gamma"])
+    @pytest.mark.parametrize("pre_name", BINARY_ORACLES)
+    def test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle(kind, pre_name):
+        options = dict(add_pre=True, include_oracle=False, return_causal_data=True)
+        actual = _classic(kind, pre_name=pre_name, **options)
+        expected = _classic(kind, pre_name="history", **options)
+>       assert actual.confounders_names == CLASSIC_FEATURES + [pre_name]
+E       AssertionError: assert ['platform_io...'source_paid'] == ['platform_io...aid', 'm_obs']
+E         
+E         Right contains one more item: 'm_obs'
+E         Use -v to get more diff
+
+tests/data/test_scenario_namespace_contract.py:100: AssertionError
+_ test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[tau_link-binary] _
+
+kind = 'binary', pre_name = 'tau_link'
+
+    @pytest.mark.parametrize("kind", ["binary", "gamma"])
+    @pytest.mark.parametrize("pre_name", BINARY_ORACLES)
+    def test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle(kind, pre_name):
+        options = dict(add_pre=True, include_oracle=False, return_causal_data=True)
+        actual = _classic(kind, pre_name=pre_name, **options)
+        expected = _classic(kind, pre_name="history", **options)
+>       assert actual.confounders_names == CLASSIC_FEATURES + [pre_name]
+E       AssertionError: assert ['platform_io...'source_paid'] == ['platform_io...', 'tau_link']
+E         
+E         Right contains one more item: 'tau_link'
+E         Use -v to get more diff
+
+tests/data/test_scenario_namespace_contract.py:100: AssertionError
+_ test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[tau_link-gamma] _
+
+kind = 'gamma', pre_name = 'tau_link'
+
+    @pytest.mark.parametrize("kind", ["binary", "gamma"])
+    @pytest.mark.parametrize("pre_name", BINARY_ORACLES)
+    def test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle(kind, pre_name):
+        options = dict(add_pre=True, include_oracle=False, return_causal_data=True)
+        actual = _classic(kind, pre_name=pre_name, **options)
+        expected = _classic(kind, pre_name="history", **options)
+>       assert actual.confounders_names == CLASSIC_FEATURES + [pre_name]
+E       AssertionError: assert ['platform_io...'source_paid'] == ['platform_io...', 'tau_link']
+E         
+E         Right contains one more item: 'tau_link'
+E         Use -v to get more diff
+
+tests/data/test_scenario_namespace_contract.py:100: AssertionError
+_ test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[g0-binary] _
+
+kind = 'binary', pre_name = 'g0'
+
+    @pytest.mark.parametrize("kind", ["binary", "gamma"])
+    @pytest.mark.parametrize("pre_name", BINARY_ORACLES)
+    def test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle(kind, pre_name):
+        options = dict(add_pre=True, include_oracle=False, return_causal_data=True)
+        actual = _classic(kind, pre_name=pre_name, **options)
+        expected = _classic(kind, pre_name="history", **options)
+>       assert actual.confounders_names == CLASSIC_FEATURES + [pre_name]
+E       AssertionError: assert ['platform_io...'source_paid'] == ['platform_io...e_paid', 'g0']
+E         
+E         Right contains one more item: 'g0'
+E         Use -v to get more diff
+
+tests/data/test_scenario_namespace_contract.py:100: AssertionError
+_ test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[g0-gamma] _
+
+kind = 'gamma', pre_name = 'g0'
+
+    @pytest.mark.parametrize("kind", ["binary", "gamma"])
+    @pytest.mark.parametrize("pre_name", BINARY_ORACLES)
+    def test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle(kind, pre_name):
+        options = dict(add_pre=True, include_oracle=False, return_causal_data=True)
+        actual = _classic(kind, pre_name=pre_name, **options)
+        expected = _classic(kind, pre_name="history", **options)
+>       assert actual.confounders_names == CLASSIC_FEATURES + [pre_name]
+E       AssertionError: assert ['platform_io...'source_paid'] == ['platform_io...e_paid', 'g0']
+E         
+E         Right contains one more item: 'g0'
+E         Use -v to get more diff
+
+tests/data/test_scenario_namespace_contract.py:100: AssertionError
+_ test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[g1-binary] _
+
+kind = 'binary', pre_name = 'g1'
+
+    @pytest.mark.parametrize("kind", ["binary", "gamma"])
+    @pytest.mark.parametrize("pre_name", BINARY_ORACLES)
+    def test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle(kind, pre_name):
+        options = dict(add_pre=True, include_oracle=False, return_causal_data=True)
+        actual = _classic(kind, pre_name=pre_name, **options)
+        expected = _classic(kind, pre_name="history", **options)
+>       assert actual.confounders_names == CLASSIC_FEATURES + [pre_name]
+E       AssertionError: assert ['platform_io...'source_paid'] == ['platform_io...e_paid', 'g1']
+E         
+E         Right contains one more item: 'g1'
+E         Use -v to get more diff
+
+tests/data/test_scenario_namespace_contract.py:100: AssertionError
+_ test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[g1-gamma] _
+
+kind = 'gamma', pre_name = 'g1'
+
+    @pytest.mark.parametrize("kind", ["binary", "gamma"])
+    @pytest.mark.parametrize("pre_name", BINARY_ORACLES)
+    def test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle(kind, pre_name):
+        options = dict(add_pre=True, include_oracle=False, return_causal_data=True)
+        actual = _classic(kind, pre_name=pre_name, **options)
+        expected = _classic(kind, pre_name="history", **options)
+>       assert actual.confounders_names == CLASSIC_FEATURES + [pre_name]
+E       AssertionError: assert ['platform_io...'source_paid'] == ['platform_io...e_paid', 'g1']
+E         
+E         Right contains one more item: 'g1'
+E         Use -v to get more diff
+
+tests/data/test_scenario_namespace_contract.py:100: AssertionError
+_ test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[cate-binary] _
+
+kind = 'binary', pre_name = 'cate'
+
+    @pytest.mark.parametrize("kind", ["binary", "gamma"])
+    @pytest.mark.parametrize("pre_name", BINARY_ORACLES)
+    def test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle(kind, pre_name):
+        options = dict(add_pre=True, include_oracle=False, return_causal_data=True)
+        actual = _classic(kind, pre_name=pre_name, **options)
+        expected = _classic(kind, pre_name="history", **options)
+>       assert actual.confounders_names == CLASSIC_FEATURES + [pre_name]
+E       AssertionError: assert ['platform_io...'source_paid'] == ['platform_io...paid', 'cate']
+E         
+E         Right contains one more item: 'cate'
+E         Use -v to get more diff
+
+tests/data/test_scenario_namespace_contract.py:100: AssertionError
+_ test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[cate-gamma] _
+
+kind = 'gamma', pre_name = 'cate'
+
+    @pytest.mark.parametrize("kind", ["binary", "gamma"])
+    @pytest.mark.parametrize("pre_name", BINARY_ORACLES)
+    def test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle(kind, pre_name):
+        options = dict(add_pre=True, include_oracle=False, return_causal_data=True)
+        actual = _classic(kind, pre_name=pre_name, **options)
+        expected = _classic(kind, pre_name="history", **options)
+>       assert actual.confounders_names == CLASSIC_FEATURES + [pre_name]
+E       AssertionError: assert ['platform_io...'source_paid'] == ['platform_io...paid', 'cate']
+E         
+E         Right contains one more item: 'cate'
+E         Use -v to get more diff
+
+tests/data/test_scenario_namespace_contract.py:100: AssertionError
+=========================== short test summary info ============================
+FAILED tests/data/test_scenario_namespace_contract.py::test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome[False-False-False]
+FAILED tests/data/test_scenario_namespace_contract.py::test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome[False-False-True]
+FAILED tests/data/test_scenario_namespace_contract.py::test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome[False-True-False]
+FAILED tests/data/test_scenario_namespace_contract.py::test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome[False-True-True]
+FAILED tests/data/test_scenario_namespace_contract.py::test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome[True-False-False]
+FAILED tests/data/test_scenario_namespace_contract.py::test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome[True-False-True]
+FAILED tests/data/test_scenario_namespace_contract.py::test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome[True-True-False]
+FAILED tests/data/test_scenario_namespace_contract.py::test_binary_scenario_pre_cannot_replace_renamed_conversion_outcome[True-True-True]
+FAILED tests/data/test_scenario_namespace_contract.py::test_classic_pre_cannot_take_the_identifier_added_by_the_scenario[False-False-binary]
+FAILED tests/data/test_scenario_namespace_contract.py::test_classic_pre_cannot_take_the_identifier_added_by_the_scenario[False-False-gamma]
+FAILED tests/data/test_scenario_namespace_contract.py::test_classic_pre_cannot_take_the_identifier_added_by_the_scenario[False-True-binary]
+FAILED tests/data/test_scenario_namespace_contract.py::test_classic_pre_cannot_take_the_identifier_added_by_the_scenario[False-True-gamma]
+FAILED tests/data/test_scenario_namespace_contract.py::test_classic_pre_cannot_take_the_identifier_added_by_the_scenario[True-False-binary]
+FAILED tests/data/test_scenario_namespace_contract.py::test_classic_pre_cannot_take_the_identifier_added_by_the_scenario[True-False-gamma]
+FAILED tests/data/test_scenario_namespace_contract.py::test_classic_pre_cannot_take_the_identifier_added_by_the_scenario[True-True-binary]
+FAILED tests/data/test_scenario_namespace_contract.py::test_classic_pre_cannot_take_the_identifier_added_by_the_scenario[True-True-gamma]
+FAILED tests/data/test_scenario_namespace_contract.py::test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[m-binary]
+FAILED tests/data/test_scenario_namespace_contract.py::test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[m-gamma]
+FAILED tests/data/test_scenario_namespace_contract.py::test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[m_obs-binary]
+FAILED tests/data/test_scenario_namespace_contract.py::test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[m_obs-gamma]
+FAILED tests/data/test_scenario_namespace_contract.py::test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[tau_link-binary]
+FAILED tests/data/test_scenario_namespace_contract.py::test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[tau_link-gamma]
+FAILED tests/data/test_scenario_namespace_contract.py::test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[g0-binary]
+FAILED tests/data/test_scenario_namespace_contract.py::test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[g0-gamma]
+FAILED tests/data/test_scenario_namespace_contract.py::test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[g1-binary]
+FAILED tests/data/test_scenario_namespace_contract.py::test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[g1-gamma]
+FAILED tests/data/test_scenario_namespace_contract.py::test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[cate-binary]
+FAILED tests/data/test_scenario_namespace_contract.py::test_classic_projection_retains_a_pre_feature_named_like_a_disabled_oracle[cate-gamma]
+28 failed, 63 passed in 4.79s

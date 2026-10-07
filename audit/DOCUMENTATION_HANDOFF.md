@@ -541,3 +541,22 @@ Migration: choose distinct names for previously colliding enabled augmentations.
 162 independent new cases pass; the exact same module on preceding source eb6dfe23 yields136failures/26passes. Local macOS integration at this checkpoint:2396passed, one confirmed pre-existing numerical-zero DiD assertion failure,78warnings,85.67s. This is not a clean local suite. [B12 CI and per-job artifacts](https://github.com/MaximLenivkin/Causalis/actions/runs/37598926037) completed successfully at the exact implementation checkpoint: all six representative Linux configurations passed2397cases each, with zero failures/errors/skips. The same seven sensitivity modules remain deferred.
 
 A separate scenario boundary remains: generate_classic_rct_26 can rename the outcome to conversion after the underlying wrapper returns; an enabled pre field also named conversion then produces duplicate raw labels. This six-module block does not change that late rename. Numerical-zero DiD policy, sensitivity, marginal propensity API, standalone Sphinx and release remain separate work.
+
+
+## B13 · Classic RCT scenario outcome and identifier names
+
+Implementation checkpoint: **4428be0e39bda8a2a47f1a6f184c92873da10976**. Sources: [classic scenario generators](https://github.com/MaximLenivkin/Causalis/blob/4428be0e39bda8a2a47f1a6f184c92873da10976/causalis/scenarios/classic_rct/dgp.py), [scenario regressions](https://github.com/MaximLenivkin/Causalis/blob/4428be0e39bda8a2a47f1a6f184c92873da10976/tests/data/test_scenario_namespace_contract.py).
+
+**P2: protect the names and roles added by the classic RCT scenario.** The binary scenario previously renamed `y` to `conversion` after a valid underlying wrapper had generated a pre column with the same target name, creating duplicate raw labels. Both classic helpers could also consume a numeric pre column called `user_id` as their identifier. Automatic scenario conversion discarded pre fields whose names matched disabled oracle columns.
+
+Ready-to-use text:
+
+> With add_pre=True, generate_classic_rct_26 rejects pre_name='conversion' or 'user_id'. classic_rct_gamma_26 rejects 'y' or 'user_id', while 'conversion' remains a valid Gamma pre feature. Both classic scenarios always expose an identifier, including when add_ancillary=False. ValueError identifies the conflicting name and roles. The binary scenario also checks the actual incoming frame before its final outcome rename.
+
+> add_pre=False ignores the unused pre name. With include_oracle=False, numeric pre fields named m, m_obs, tau_link, g0, g1 or cate remain selected confounders. Enabled oracle fields retain their existing exclusion. Names stay literal; the generator does not add suffixes or silently rename conflicting inputs. Invalid enabled names continue to be checked by the underlying wrapper.
+
+Migration: choose a distinct enabled pre name for formerly conflicting scenario configurations. Previously dropped disabled-oracle pre fields now appear in the analysis feature list; their raw values remain unchanged. Public signatures, numerical formulas, sampling, calibration, assignment and ID algorithms are unchanged. The two scenario functions and their six public package aliases share this behavior. CUPED26 and fixed-name offer-IV retain their existing namespace and parameter policies.
+
+91 independently authored regression cases pass; the exact same module on preceding source 9f0a63c42308ca886d92dc73d8d8d9611d5b2c31 yields 28 failures / 63 passes. Independent review verifies 116 exact frame/dtype/schema/contract-metadata/RNG references for valid configurations, plus 13 rejection and 40 allowed/projection probes, with no material open findings. Local macOS integration at the implementation checkpoint: 2487 passed, one confirmed pre-existing numerical-zero DiD assertion failure, 78 warnings, 109.60 s. The local suite is not clean.
+
+[B13 CI and per-job artifacts](https://github.com/MaximLenivkin/Causalis/actions/runs/37607784481) completed successfully at the exact implementation checkpoint: all six representative Linux configurations passed **2488 cases each**, with zero failures/errors/skips. Downloaded selection, environment and JUnit payloads were verified against the source checkpoint and unchanged scope. Seven sensitivity modules, numerical-zero DiD policy, marginal propensity API, standalone Sphinx and release remain separate work.
