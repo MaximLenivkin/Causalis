@@ -59,6 +59,7 @@ def generate_multitreatment(
     return_causal_data: bool = False,
     d_names: Optional[List[str]] = None,
     assignment_policy: str = "ensure_all",
+    include_marginal_propensity: bool = False,
 ) -> Union[pd.DataFrame, MultiCausalData]:
     """
     Generate a multi-treatment dataset using MultiCausalDatasetGenerator.
@@ -121,6 +122,13 @@ def generate_multitreatment(
         including when n is smaller than the number of arms. Raw DataFrames
         permit missing arms; MultiCausalData retains its separate validation,
         including rejection of duplicate columns from multiple absent arms.
+    include_marginal_propensity : bool, default=False
+        Append Gaussian-reference ``m_marginal_<arm>`` columns for the nominal
+        assignment model. Requires ``include_oracle=True``. This wrapper has
+        zero latent treatment strength, so these equal the existing ``m``
+        columns. The low-level generator also supports nonzero latent strength.
+        Observations, calibration, existing columns and RNG draws are unchanged;
+        ``ensure_all`` still conditions or repairs the nominal assignment law.
 
     Returns
     -------
@@ -170,6 +178,7 @@ def generate_multitreatment(
         copula_corr=copula_corr,
         include_oracle=include_oracle,
         assignment_policy=assignment_policy,
+        include_marginal_propensity=include_marginal_propensity,
     )
     df = gen.generate(n)
 

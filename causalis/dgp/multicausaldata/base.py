@@ -3,6 +3,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 import sys
+from scipy.integrate import quad_vec
 from scipy.special import expit, log_ndtr, ndtr, roots_legendre
 from dataclasses import dataclass, field
 from typing import Dict, Optional, Union, List, Tuple, Callable, Any
@@ -132,6 +133,11 @@ class MultiCausalDatasetGenerator:
         arms if needed. It requires n >= n_treatments and changes the nominal
         softmax assignment law. ``iid`` draws once from that law per row,
         permitting absent arms and positive n smaller than n_treatments.
+    include_marginal_propensity : bool, default=False
+        Append ``m_marginal_<arm>`` for the nominal softmax model integrated
+        over independent U ~ N(0, 1). Requires ``include_oracle=True``.
+        Existing columns, observations, calibration and RNG draws are unchanged.
+        This deterministic reference integration can be slow for varying X.
 
     Notes
     -----
@@ -155,6 +161,14 @@ class MultiCausalDatasetGenerator:
     Under ``ensure_all``, m and m_obs describe the nominal softmax model rather
     than the row probabilities of the conditioned or repaired sample. Under
     ``iid``, m_obs gives the actual conditional assignment probabilities.
+    Opt-in ``m_marginal_<arm>`` gives Gaussian-reference P(D=arm | X) for the
+    nominal model. It remains a reference quantity if supplied U follows another
+    law, and is not the assignment probability of an ``ensure_all`` sample.
+    Adaptive integration targets absolute probability error 1e-10 on [-12, 12];
+    omitted Gaussian mass is below 4e-33. The numerical error estimate is not a
+    rigorous certificate for arbitrary coefficients. Nonconvergence or
+    unsupported floating-point geometry raises ValueError rather than returning
+    a guessed oracle. These columns do not supply a latent-selected ATT target.
     """
     n_treatments: int = 3
     d_names: Optional[List[str]] = None
@@ -186,11 +200,13 @@ class MultiCausalDatasetGenerator:
     include_oracle: bool = True
     seed: Optional[int] = None
     assignment_policy: str = "ensure_all"
+    include_marginal_propensity: bool = False
 
     rng: np.random.Generator = field(init=False, repr=False)
     confounder_names_: List[str] = field(init=False, default_factory=list)
 
     def __post_init__(self) -> None:
+        self._validate_marginal_propensity_option()
         self._validate_assignment_policy()
         self.rng = np.random.default_rng(self.seed)
         _integer(self.n_treatments, "n_treatments", 2)
@@ -203,6 +219,7 @@ class MultiCausalDatasetGenerator:
 
     def _validate_column_names(self, confounder_names: Optional[List[str]] = None) -> None:
         """Reserve every emitted column before DataFrame assignment can replace it."""
+        self._validate_marginal_propensity_option()
         if isinstance(self.d_names, (str, bytes)):
             raise ValueError("d_names must be a sequence of column names")
         try:
@@ -237,6 +254,82 @@ class MultiCausalDatasetGenerator:
                 reserve(f"g_{name}", f"g oracle[{k}]")
             for k, name in enumerate(self.d_names[1:], start=1):
                 reserve(f"cate_{name}", f"cate oracle[{k}]")
+            if self.include_marginal_propensity:
+                for k, name in enumerate(self.d_names):
+                    reserve(f"m_marginal_{name}", f"m_marginal oracle[{k}]")
+
+    def _validate_marginal_propensity_option(self) -> None:
+        if not isinstance(self.include_marginal_propensity, (bool, np.bool_)):
+            raise ValueError("include_marginal_propensity must be a boolean")
+        if self.include_marginal_propensity and not self.include_oracle:
+            raise ValueError("include_marginal_propensity requires include_oracle=True")
+
+    @staticmethod
+    def _gaussian_marginal_propensity(
+        scores: np.ndarray, slopes: np.ndarray, at_zero: np.ndarray
+    ) -> np.ndarray:
+        """Integrate one distinct affine score row at a time, without RNG draws.
+
+        Pairwise crossings and local transition widths expose narrow softmax
+        regions to adaptive quadrature. Working storage is O(n*K + K**2 + L*K),
+        where L is bounded by the 4096-subinterval budget, without a node tensor.
+        """
+        if np.all(slopes == slopes[0]):
+            return at_zero.copy()
+
+        # Remove common shifts before evaluating affine scores. Reject geometry
+        # that cannot stay finite on the integration domain only in this opt-in
+        # path; ordinary generation retains its existing arithmetic contract.
+        slope_mid = 0.5 * np.min(slopes) + 0.5 * np.max(slopes)
+        centered_slopes = slopes - slope_mid
+        rows, inverse = np.unique(scores, axis=0, return_inverse=True)
+        values = np.empty_like(rows)
+        bound, tolerance, budget = 12.0, 1e-10, 4096
+        for index, row in enumerate(rows):
+            midpoint = 0.5 * np.min(row) + 0.5 * np.max(row)
+            centered = row - midpoint
+            with np.errstate(over="ignore"):
+                envelope = np.abs(centered) + bound * np.abs(centered_slopes)
+            if not np.all(np.isfinite(envelope)):
+                raise ValueError("Gaussian marginal propensity has unsupported floating-point geometry")
+
+            points = {0.0}
+            for arm in range(len(row)):
+                for other in range(arm):
+                    difference = centered_slopes[arm] - centered_slopes[other]
+                    if difference == 0.0:
+                        continue
+                    with np.errstate(over="ignore", divide="ignore", under="ignore", invalid="ignore"):
+                        crossing = (centered[other] - centered[arm]) / difference
+                        width = 1.0 / abs(difference)
+                        candidates = [crossing]
+                        for offset in (1.0, 4.0, 16.0, 40.0):
+                            candidates.extend((crossing - offset * width, crossing + offset * width))
+                    points.update(float(point) for point in candidates if -bound < point < bound)
+            if len(points) + 1 >= budget:
+                raise ValueError("Gaussian marginal propensity exceeds the integration subdivision budget")
+
+            def integrand(z: float) -> np.ndarray:
+                logits = centered + centered_slopes * z
+                with np.errstate(over="ignore", under="ignore"):
+                    weights = np.exp(logits - np.max(logits))
+                return (weights / weights.sum()) * (np.exp(-0.5 * z * z) / np.sqrt(2.0 * np.pi))
+
+            probability, error, info = quad_vec(
+                integrand, -bound, bound, epsabs=tolerance, epsrel=0.0,
+                norm="max", points=sorted(points), limit=budget,
+                cache_size=262144, workers=1, full_output=True,
+            )
+            mass = probability.sum()
+            if (not info.success or not np.isfinite(error) or error > tolerance
+                    or not np.all(np.isfinite(probability))
+                    or np.any(probability < 0.0) or np.any(probability > 1.0 + tolerance)
+                    or not np.isfinite(mass) or abs(mass - 1.0) > len(row) * tolerance):
+                raise ValueError("Gaussian marginal propensity integration did not converge")
+            # Correct only rounding of the probability-vector mass, after the
+            # unnormalized numerical result has passed all convergence checks.
+            values[index] = probability / mass
+        return values[inverse]
 
     # ---------- confounder sampling ----------
 
@@ -630,6 +723,9 @@ class MultiCausalDatasetGenerator:
         Actual expanded column names are validated before treatment or outcome
         generation. Names must be nonempty strings and unique across the full
         output schema; disabled oracle names are not reserved.
+        Opt-in marginal propensities also use the Gaussian reference law,
+        independently of supplied U. Unsupported integration or nonconvergence
+        raises ValueError. The option is validated on every generate call.
         """
         self._validate_assignment_policy()
         _integer(n, "n", 1 if self.assignment_policy == "iid" else self.n_treatments)
@@ -736,6 +832,11 @@ class MultiCausalDatasetGenerator:
         Y = self._sample_outcome_from_link(loc, ttype)
         _finite_array(Y, "sampled outcomes")
 
+        # Callbacks can mutate the new option or names after the early guard.
+        self._validate_marginal_propensity_option()
+        if self.include_marginal_propensity:
+            self._validate_column_names(names)
+
         df = pd.DataFrame({"y": Y})
         for k, name in enumerate(self.d_names):
             df[name] = D[:, k]
@@ -759,6 +860,11 @@ class MultiCausalDatasetGenerator:
             g0 = g_vals[:, 0]
             for k in range(1, K):
                 df[f"cate_{self.d_names[k]}"] = _finite_array(g_vals[:, k] - g0, "oracle treatment contrasts")
+
+            if self.include_marginal_propensity:
+                marginal = self._gaussian_marginal_propensity(scores_base, u_strength_d, m)
+                for k, name in enumerate(self.d_names):
+                    df[f"m_marginal_{name}"] = marginal[:, k]
 
         return df
 
