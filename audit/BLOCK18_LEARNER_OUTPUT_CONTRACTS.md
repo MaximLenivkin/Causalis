@@ -1,8 +1,8 @@
 # B18 — learner output contracts and IV storage
 
 2026-10-07. Baseline `b7cbec9ead7c589fa6d4570c0e8f188d349c95be`.
-Source checkpoint and committed integration/CI evidence are recorded below
-after committing the frozen source and tests. Root implemented, reviewed and
+Source checkpoint `df944e0ee814dbe1a631b41ba1b59def9f61ed8b`, committed and pushed.
+Root implemented, reviewed and
 verified the block; no subagents were used.
 
 ## Result and scope
@@ -83,14 +83,40 @@ arithmetic, which belongs to the next block. No performance claim is made.
   substituted. Continuous/binary outcomes, three estimator families, jobs1/2,
   diagnostics on/off (where supported), ATE/ATTE/LATE, duplicate indexes.
   Nuisances/folds/point estimates/SE/p/CI/score arrays and source data agree
-  exactly. Constructor signatures and unaffected functions are AST-checked.
+  exactly. Constructor signatures and 125 unaffected functions are AST-checked.
   Synthetic rows remain in memory; only configs, counts and source hashes
   are stored. Original process HEAD/time remain in the manifest.
   [Probe](probe_block18.py), [log](block18_probe_checks.log).
 
 ## Integration and handoff
 
-Pending committed integration and six-job personal-branch CI verification.
+Committed correctness integration: **3185 passed**, zero failures/errors/skips,
+82 warnings, 132.54s, exit0 on exact `df944e0`. All460 focused cases are included.
+[Result](block18_integration_result.json), [selection](block18_integration_selection.json),
+[log](block18_integration_tests.log). Source/tests frozen since the source commit.
+Warnings include four local joblib/loky resource-tracker reentrancy warnings;
+the other warning messages match the prior integration. The focused run has
+no warnings; no performance/cleanup fix is claimed for joblib itself.
+
+[CI37653023359](https://github.com/MaximLenivkin/Causalis/actions/runs/37653023359)
+completed/success on exact `df944e0`. All six downloaded artifact sets have
+**3185 passed**, zero failures/errors/skips each. Actual Python versions:
+3.10.22/latest, 3.10.21/legacy, 3.11.16, 3.12.15, 3.13.15, 3.14.7.
+Snapshot UTC2026-10-07T16:38:17.205058+00:00. Full dependency environments,
+artifact hashes, actual normalized pytest argv, source checkpoint, complete
+case-set equality and all460 focused cases are checked in
+[CI manifest](block18_ci_result.json). An earlier same-source duplicate run
+was cancelled; the successful final run above is the evidence.
+
+[Root validation](block18_validation_result.json),
+[validator](verify_block18.py), [log](block18_validation_checks.log) verify
+the exact7 source/test paths,10 committed/current source hashes,125 unchanged
+functions, identical final baseline/focused test identities, local and six CI
+full case sets, six scripts and report links; issues[]. The original probe
+HEAD/time are preserved. English documentation handoff has118 verified immutable
+source links. Only audit files change after the source checkpoint; no broad
+suite rerun is required for prose updates.
+
 Seven existing sensitivity modules remain deferred. Standalone Sphinx,
 release gates and extreme finite score/IF arithmetic are outside this block.
 

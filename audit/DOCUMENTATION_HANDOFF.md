@@ -699,3 +699,52 @@ tests and seven deferred sensitivity modules were checked against local
 integration. Artifact hashes and real dependency versions are retained in the
 B17 CI manifest. The previously unpushed B16 commits were included in this push;
 there was no separate CI run on the exact historical B16 checkpoint.
+
+
+## B18: real and row-aligned learner outputs
+
+IRM, MultiTreatmentIRM and IIVM now validate complete learner outputs before
+float conversion, class selection, clipping or assignment. Regression and
+hard-label predictions accept `(n,)` or `(n,1)`. Binary probabilities also accept
+`(n,2)`; direct positive-class vectors remain supported. Multiclass propensity
+requires `(n,K)` and matching distinct treatment class columns. Scalars, wrong
+row counts, row vectors for n>1, regression multi-output matrices, tensors and
+complex outputs (even with zero imaginary parts or inside object arrays) raise
+ValueError. Non-finite float values raise RuntimeError before probability repair.
+
+Migration for custom learners: return one real prediction per requested row,
+provide consistent one-dimensional class metadata, and avoid scalar broadcasting
+or flattening multi-output matrices. Float-convertible real objects and numeric
+strings, reversed binary class order, class-zero/class-one single-column handling
+and existing finite clipping/normalization policies retain compatibility. The
+binary single-column fallback still uses probabilities for nonnumeric real hard
+labels, while validating shape and rejecting complex hard labels. No score,
+normalization or estimand is changed; extreme finite score arithmetic is next.
+
+IIVM validates each fold before assignment, raw assembled predictions before
+propensity clipping, and all six exact `(n,)` nuisance arrays before fit storage,
+including private cross-fit overrides. Invalid refits leave the model unfitted;
+previously returned estimates remain usable. Snapshot/ownership rules are unchanged.
+
+Source checkpoint `df944e0ee814dbe1a631b41ba1b59def9f61ed8b` is pushed:
+[shared validator](https://github.com/MaximLenivkin/Causalis/blob/df944e0ee814dbe1a631b41ba1b59def9f61ed8b/causalis/scenarios/_prediction.py),
+[binary adapter](https://github.com/MaximLenivkin/Causalis/blob/df944e0ee814dbe1a631b41ba1b59def9f61ed8b/causalis/scenarios/unconfoundedness/_utils.py),
+[multiclass adapter](https://github.com/MaximLenivkin/Causalis/blob/df944e0ee814dbe1a631b41ba1b59def9f61ed8b/causalis/scenarios/multi_unconfoundedness/_utils.py),
+[multi outcome adapter](https://github.com/MaximLenivkin/Causalis/blob/df944e0ee814dbe1a631b41ba1b59def9f61ed8b/causalis/scenarios/multi_unconfoundedness/model.py),
+[IV model](https://github.com/MaximLenivkin/Causalis/blob/df944e0ee814dbe1a631b41ba1b59def9f61ed8b/causalis/scenarios/iv/model.py).
+Final focused checks:460passed (356new/104unchanged); exact baseline267failed,
+89passed. Compatibility:20exact fit pairs and36inference pairs against B17,
+125unaffected functions AST-verified. Integration/CI status is recorded in the
+B18 report; sensitivity, standalone Sphinx and release remain outside this block.
+
+
+B18 final verification: local committed correctness3185passed, zero failures/
+errors/skips,82warnings,132.54s. [CI37653023359](https://github.com/MaximLenivkin/Causalis/actions/runs/37653023359)
+completed successfully on exactdf944e0; all six downloaded JUnit sets contain
+3185passing tests each. Full case IDs,460focused cases, source, actual normalized
+pytest argv and seven sensitivity exclusions match local integration. Artifact
+hashes and actual dependency versions are recorded in the B18 CI manifest.
+Root validation links10source hashes,125unchanged functions and final test hashes
+with no issues. Four extra local warnings concern joblib/loky resource-tracker
+cleanup; the focused suite has no warnings. Source/tests remain frozen after
+the source commit. No full sensitivity/standalone Sphinx/release claim is made.

@@ -97,7 +97,7 @@ def main() -> int:
     (ROOT / "audit/block18_ci_result.json").write_text(json.dumps(evidence, indent=2), encoding="utf-8")
     print(json.dumps({key: evidence[key] for key in (
         "run_id", "run_status", "verified_successful_jobs", "matrix_verified", "issues")}, indent=2))
-    return int(bool(issues))
+    return int(bool(issues) or not evidence["matrix_verified"])
 
 
 if __name__ == "__main__":

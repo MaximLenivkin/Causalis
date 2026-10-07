@@ -260,3 +260,21 @@ artifact sets have2829passed each on exacte2fced5. Full caseIDs/90newtests,
 actualargv/source/exclusions verified. Root verifier:5changedsource/testpaths,
 21unchangedmethods/8hashes and all baseline/final/local/CI manifests,issues[].
 B17 completed; B18 is learner shape/real/complex/IVstorage, after context cleanup.
+
+
+## B18 — learner output contracts and IV storage (2026-10-07)
+
+Source `df944e0ee814dbe1a631b41ba1b59def9f61ed8b`, baseline `b7cbec9`.
+[Report](BLOCK18_LEARNER_OUTPUT_CONTRACTS.md): explicit real/finite row-aligned
+learner outputs; IV fold/raw assembly/fit boundary guards. Supported vectors and
+single columns, binary class mapping and finite probability repair retained.
+Malformed geometry, complex/object-complex and mismatched class columns rejected.
+Final356baseline267failed/89passed;460focusedpassed;20exactfit/36exactinference
+pairs and125unchangedfunctionASTs. Committed correctness3185passed,0failures/errors/
+skips,82warnings,132.54s; seven sensitivity exclusions unchanged.
+CI37653023359 completed/success on exactsource: six artifacts3185passed each,
+completecaseIDs/460focus/source/actualargv/exclusions verified.
+[CI](block18_ci_result.json), [validation](block18_validation_result.json),issues[].
+Handoff118immutablelinksverified; source/tests frozen, only final audit updates.
+Next B19 extreme finite score/IF and normalized custom-ATE policy. Stop at B18
+before context cleanup; sensitivity remains deferred.

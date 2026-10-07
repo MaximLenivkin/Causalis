@@ -10,7 +10,7 @@
 
 1. `AGENTS.md` — локальная `.venv` обязательна. На текущем Mac использовать **`.venv/bin/python`**, Python3.12.14, не старый backing path `/Users/ioann/...`. Окружение восстановлено из project extras dev/docs, dependencycheck и5setupsmoketests прошли. Local setup manifest `.venv/setup-environment.json`; B09 integration manifest записывает реальные проверенные версии.
 2. `audit/FIX_PLAN.md` — порядок блоков, scope gates и deferred findings.
-3. Этот файл и **`audit/BLOCK17_GAUSSIAN_PROPENSITY_JOINT_MEANS.md`** — последнее состояние. B09–B16 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
+3. Этот файл и **`audit/BLOCK18_LEARNER_OUTPUT_CONTRACTS.md`** — последнее состояние. B09–B17 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
 4. `audit/REPORT.md` — исторический аудит исходного SHA, не текущий residual bug count.
 
 ## Git
@@ -20,6 +20,46 @@ GitHub авторизация завершена пользователем и �
 Исторический Windows GitHubCLI2.102.0: `& 'C:\Program Files\GitHub CLI\gh.exe' ...` — использовать полный путь, если текущий Codex PATH ещё не обновлён. Авторизацию повторно запрашивать не требуется. Git mutations/network в ограниченной среде могут требовать разрешённого запуска; пользователь уже авторизовал commits/push в личную ветку. PR не создавался. Полная текущая информация — GIT_ACCESS.md.
 
 ## Текущая работа
+
+**B18 завершён** 7 октября2026: learner shape/real and IV storage contracts.
+Source checkpoint `df944e0ee814dbe1a631b41ba1b59def9f61ed8b`, baseline `b7cbec9`.
+Report [BLOCK18_LEARNER_OUTPUT_CONTRACTS.md](BLOCK18_LEARNER_OUTPUT_CONTRACTS.md).
+Shared real/finite validation before casting, class selection, clipping or
+assignment. Predict accepts (n,) / (n,1); binary probabilities also (n,2).
+Complex outputs, including zero imaginary and object-complex, scalar/row/wrong
+row-count/tensor outputs fail explicitly. Real float-convertible objects/strings
+preserved. Probability classes metadata must match columns; multiclass labels
+must be distinct. Existing single-class/reversed-class/direct-vector adapters
+and probability warning/clipping/normalization policies are retained.
+
+IV fold validation precedes float assignment; raw assembly validation precedes
+propensity clipping; fit validates all6 exact(n,) arrays before storing even if
+cross-fit is bypassed. Failed refits leave model unfitted and old estimates usable.
+Prediction dictionary order preserved. No ownership/snapshot policy changes.
+Final356-case baseline267failed/89passed, finalfocus460passed (356new+104existing),
+0failures/errors/skips/warnings. Probe20exactfitpairs/36exactinferencepairs,
+125unchangedfunctions ASTchecked; original precommitHEAD/time retained.
+Source/tests frozen after df944e0; push completed. Committed correctness
+integration3185passed/0failures/errors/skips,82warnings,132.54s,exit0. Seven
+sensitivity exclusions unchanged; four warnings are local joblib/loky cleanup
+reentrancy. CI37653023359 completed/success on exactdf944e0: six artifacts each
+3185passed, completecaseIDs/all460focus/source/actualargv/7exclusions verified.
+SnapshotUTC2026-10-07T16:38:17.205058+00:00. ActualPython3.10.22latest/3.10.21legacy,
+3.11.16,3.12.15,3.13.15,3.14.7; full environments in block18_ci_result.json.
+verify_block18.py checks7changedsource/testpaths,10hashes,125unchangedfunctions,
+allJUnits/CIartifacthashes and provenance,issues[]. Handoff118immutablelinksverified.
+Only audit updates after source; final gitcheckpoint via gitlog-1. Ordinary
+personal push/live equality/clean tree are checked at completion. No PR/release.
+
+Next standalone **B19: extreme finite score/IF arithmetic and normalized custom
+ATE near-boundary policy**. Reproduce via public fits/estimates, establish target,
+normalization and independent stable calculation or failure policy; no blanket
+nan_to_num or score clipping. Later duplicate/snapshot/refit and standaloneSphinx
+compatibility gates, then repeatedCF→groupCF→externalOOF→DR/R-CATE features.
+Sensitivity/SC08LOO/selected-UATT remain deferred. **Stop at B18; B19 requires the
+next user request after context cleanup.** Do not repeat login/fork/env setup.
+
+## Historical B17 checkpoint
 
 **B17 завершён** 7 октября2026.
 Source checkpoint `e2fced5f476a8567bee2cc0bbda062ad62124eae`, baseline `aaeadd8`.
