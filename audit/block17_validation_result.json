@@ -1,0 +1,42 @@
+{
+  "source_checkpoint": "e2fced5f476a8567bee2cc0bbda062ad62124eae",
+  "baseline": "aaeadd810c5c4ab7e1710cb4e634338267a0f216",
+  "original_probe_process_head": "aaeadd810c5c4ab7e1710cb4e634338267a0f216",
+  "original_probe_time": "2026-10-07T15:47:50.112638+00:00",
+  "committed_hash_paths": 8,
+  "unchanged_methods": 21,
+  "baseline_tests": {
+    "tests": 57,
+    "failures": 45,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 12
+  },
+  "focus_tests": {
+    "tests": 90,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 90
+  },
+  "neighbors_tests": {
+    "tests": 1449,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 1449
+  },
+  "integration": {
+    "tests": 2829,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 2829
+  },
+  "ci_run": 37647196147,
+  "ci_verified": true,
+  "sensitivity_validated": false,
+  "ast_checks": 6,
+  "local_report_links": 12,
+  "issues": []
+}

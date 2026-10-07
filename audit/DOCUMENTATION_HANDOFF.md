@@ -660,3 +660,42 @@ and the unchanged exclusion list are verified. Push failed with DNS resolution
 errors; all six Linux CI jobs and their artifacts still require verification
 after a future ordinary push. Standalone Sphinx, sensitivity and release are
 not validated here.
+
+## B17: Gaussian propensity and joint shared-latent means
+
+Binary treatment `m` and IV treatment `r_z0/r_z1` now use the same adaptive
+Gaussian logistic mean as the B16 outcome oracle. IV nonlinear `g_z0/g_z1`
+and two-part Tweedie means integrate both links over the same Gaussian latent U;
+replacing this expectation with a product of marginal means changes the target.
+Continuous IV `g_z` uses the exact identity base_y(X)+tau(X)*r_z.
+
+Migration: public signatures and columns are unchanged; `num_quad` is retained
+for call compatibility and positive-int conversion validation, but no longer
+sets any nonlinear oracle integration order. Corrected r/g propagate to
+iv_first_stage, iv_reduced_form, late_x and late. IV treatment/outcome callbacks
+are now evaluated outside adaptive integration and must be deterministic
+functions of X. Stateful/random callbacks can change values and future RNG.
+Zero-strength branches and observed sampling remain unchanged for deterministic
+callbacks. Failed generation does not restore RNG/callback side effects.
+
+The joint helper uses32-row batches, a4096 interval-budget parameter and1MiB
+backend cache, with estimated normalized max-norm error <=1e-11. It rejects
+nonconvergence or unresolvable float transitions. This is not a rigorous or
+rare-event relative accuracy certificate. Gaussian truncation at±12 has tiny
+absolute tail bounds; rare tail-dominated targets need separate relative policy.
+
+Source checkpoint e2fced5f476a8567bee2cc0bbda062ad62124eae is pushed:
+[binary generator](https://github.com/MaximLenivkin/Causalis/blob/e2fced5f476a8567bee2cc0bbda062ad62124eae/causalis/dgp/causaldata/base.py),
+[IV generator](https://github.com/MaximLenivkin/Causalis/blob/e2fced5f476a8567bee2cc0bbda062ad62124eae/causalis/dgp/causaldata_instrumental/base.py),
+[joint Gaussian helper](https://github.com/MaximLenivkin/Causalis/blob/e2fced5f476a8567bee2cc0bbda062ad62124eae/causalis/dgp/_gaussian_joint.py).
+Local committed correctness:2829passed;7sensitivity modules deferred. No new
+Tweedie nuisance API, identification claim, performance benchmark, standalone
+Sphinx build or release verification. CI status is recorded in the B17 report.
+
+B17 final verification: [CI37647196147](https://github.com/MaximLenivkin/Causalis/actions/runs/37647196147)
+completed successfully on the source checkpoint above; all six downloaded
+JUnit sets have2829passing tests each. Actual source, full case sets, all90new
+tests and seven deferred sensitivity modules were checked against local
+integration. Artifact hashes and real dependency versions are retained in the
+B17 CI manifest. The previously unpushed B16 commits were included in this push;
+there was no separate CI run on the exact historical B16 checkpoint.

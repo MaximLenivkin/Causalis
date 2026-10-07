@@ -243,3 +243,20 @@
   Residualg_by_z errors≈0.073–0.075, m/Tweedie0.0935195. Jointtargets нельзя заменить
   productofmarginals. Затем learner/IF/normalizationbacklog. Sensitivity/selectedATT/
   Sphinx/release/performance остаются отдельно. На границеB16 остановиться.
+
+## B17 — Gaussian propensity and joint shared-U means (2026-10-07)
+
+Source `e2fced5f476a8567bee2cc0bbda062ad62124eae`, baseline `aaeadd8`.
+[Report](BLOCK17_GAUSSIAN_PROPENSITY_JOINT_MEANS.md): binary m/IV r accuracy;
+bounded joint IV/Tweedie means, continuous IV exact identity, derived IV oracle
+migration and deterministic callback policy. Public baseline45failed/12passed;
+90focusedpassed;180exact observed-frame/RNGpairs;52jointscalarrefs.
+Local committed correctness **2829passed**,0failures/errors/skips,78warnings,
+seven sensitivity exclusions unchanged. Personal push completed; CI run37647196147.
+Next B18 learner shape/real/complex/IVstorage. Stop at B17 before context cleanup.
+
+B17 final verification: CI37647196147 completed/success; six downloaded
+artifact sets have2829passed each on exacte2fced5. Full caseIDs/90newtests,
+actualargv/source/exclusions verified. Root verifier:5changedsource/testpaths,
+21unchangedmethods/8hashes and all baseline/final/local/CI manifests,issues[].
+B17 completed; B18 is learner shape/real/complex/IVstorage, after context cleanup.

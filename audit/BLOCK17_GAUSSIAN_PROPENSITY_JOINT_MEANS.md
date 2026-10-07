@@ -1,8 +1,8 @@
 # B17 — Gaussian propensity and compound shared-U means
 
 B16 baseline `aaeadd8`. B17 fixes binary treatment `m`, IV `r_z0/r_z1`,
-IV joint `g_z0/g_z1`, and two-part Tweedie `g0/g1/cate`. Source checkpoint and
-committed integration/CI results are recorded after the source commit below.
+IV joint `g_z0/g_z1`, and two-part Tweedie `g0/g1/cate`. Source checkpoint `e2fced5f476a8567bee2cc0bbda062ad62124eae`.
+Committed integration and CI evidence are recorded below.
 
 ## Target and identification
 
@@ -39,8 +39,10 @@ nor a universal relative bound for rare probabilities or very narrow overlaps.
 Omitted Gaussian mass is <3.6e-33: natural absolute tail bounds are <3.6e-33
 for binary products and <1.75e-24 for clipped exponential products. This does
 not establish relative precision when those tails dominate a rare target.
-At most 32 distinct rows are integrated together; `limit=4096`, 1MiB backend
-cache. Working storage is O(n) plus bounded per-batch integration state.
+At most 32 distinct rows are integrated together; the backend interval
+limit parameter is4096, with a1MiB cache. SciPy may exceed the interval parameter
+within its final subdivision batch; this remains bounded backend state. The
+private helper docstring uses4096 to denote this configured budget. Working storage is O(n) plus bounded per-batch integration state.
 Real finite inputs, convergence and natural response ranges are checked.
 Unresolvable logistic/clipping transitions, unsupported float geometry or
 backend failure raise `ValueError`; no fixed-GH or product-of-marginals fallback.
@@ -119,3 +121,38 @@ then extreme finite score/IF, normalized custom ATE, duplicate/snapshot/refit
 and standalone Sphinx backlog. Repeated/group cross-fitting, external OOF and
 DR/R-CATE remain subsequent feature blocks. Sensitivity and SC08 LOO deferred.
 Stop at B17; B18 starts with a new user request after context cleanup.
+
+## Committed local integration and remote
+
+Local exact `e2fced5` correctness integration: **2829passed**,0failures/errors/skips,
+78warnings,90.21s,exit0. [Result](block17_integration_result.json),
+[selection](block17_integration_selection.json), [runner](run_block17_integration.py).
+The same seven sensitivity modules remain excluded; full sensitivity, standalone
+Sphinx build and release are not validated. Source/tests are frozen after e2fced5.
+
+Ordinary authorized personal push sent previously unpushed B16 commits and B17;
+live remote matched e2fced5 after push. CI run37647196147 targets exact e2fced5.
+All six jobs completed/success; downloaded manifests/JUnits verified. No separate
+CI run on exact historical B16 checkpoint1c91 was created; B17 validates inherited
+B16 code together with these changes.
+
+## Final evidence
+
+[CI37647196147](https://github.com/MaximLenivkin/Causalis/actions/runs/37647196147)
+completed/success on exact e2fced5: **all6jobs and downloaded artifacts have
+2829passed**,0failures/errors/skips. Each actual case set (including all90new
+cases), normalized pytest argv, source SHA and seven sensitivity exclusions
+match local integration. [CI manifest](block17_ci_result.json) includes actual
+per-job dependency environments and artifact hashes; snapshot UTC
+2026-10-07T15:53:57.979587+00:00. Actual Python versions:3.10.21 latest,
+3.10.22 legacy,3.11.17,3.12.15,3.13.15,3.14.8. Do not substitute B15 versions.
+
+[Verifier](verify_block17.py) checks exact5source/test changed paths,
+21unchangedmethods,8source/test/dependency hashes against committed bytes,
+actual final baseline test hash and same57public caseIDs, original probe
+HEAD/time, local/CI JUnits and every CI artifact hash. [Validation result](block17_validation_result.json)
+contains issues[]. Final report-link and audit-script checks are also recorded.
+Portable handoff links are verified against exact local Git blobs; the source
+commit has been pushed. Final audit-only commit does not trigger a new CI matrix.
+
+B17 is complete. Next B18 begins only after a new user request/context cleanup.

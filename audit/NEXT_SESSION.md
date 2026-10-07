@@ -10,7 +10,7 @@
 
 1. `AGENTS.md` — локальная `.venv` обязательна. На текущем Mac использовать **`.venv/bin/python`**, Python3.12.14, не старый backing path `/Users/ioann/...`. Окружение восстановлено из project extras dev/docs, dependencycheck и5setupsmoketests прошли. Local setup manifest `.venv/setup-environment.json`; B09 integration manifest записывает реальные проверенные версии.
 2. `audit/FIX_PLAN.md` — порядок блоков, scope gates и deferred findings.
-3. Этот файл и **`audit/BLOCK16_BINARY_IV_OUTCOME_ACCURACY.md`** — последнее состояние. B09–B15 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
+3. Этот файл и **`audit/BLOCK17_GAUSSIAN_PROPENSITY_JOINT_MEANS.md`** — последнее состояние. B09–B16 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
 4. `audit/REPORT.md` — исторический аудит исходного SHA, не текущий residual bug count.
 
 ## Git
@@ -20,6 +20,49 @@ GitHub авторизация завершена пользователем и �
 Исторический Windows GitHubCLI2.102.0: `& 'C:\Program Files\GitHub CLI\gh.exe' ...` — использовать полный путь, если текущий Codex PATH ещё не обновлён. Авторизацию повторно запрашивать не требуется. Git mutations/network в ограниченной среде могут требовать разрешённого запуска; пользователь уже авторизовал commits/push в личную ветку. PR не создавался. Полная текущая информация — GIT_ACCESS.md.
 
 ## Текущая работа
+
+**B17 завершён** 7 октября2026.
+Source checkpoint `e2fced5f476a8567bee2cc0bbda062ad62124eae`, baseline `aaeadd8`.
+Report [BLOCK17_GAUSSIAN_PROPENSITY_JOINT_MEANS.md](BLOCK17_GAUSSIAN_PROPENSITY_JOINT_MEANS.md).
+Binary m/oracle propensity and IV r use unchanged B16 adaptive logistic helper;
+IV nonlinear shared-U g and Tweedie joint means use new bounded32-row adaptive
+product helper. Continuous IV g uses exact base+tau*r identity. Fixed-GH stress
+errors removed. `num_quad` now compatibility-only, converts to positiveint;
+callbacks deterministic functions of X required. IV callback counts reduced;
+observed data/RNG exact only for deterministic callbacks. Derived IV firststage,
+reducedform and LATE can change; zero-strength arithmetic unchanged.
+
+Public final57baseline45failed/12passed, focused90passed. Neighbors1449passed
+precede final reference tolerance refinement; library bytes final. Probe180exact
+frame/schema/calibration/RNGpairs across90configs,52independent jointrefs:
+maxbinaryabs1.67e-16/maxgammarel9.82e-11. Estimates not rigorous/rare-relative
+certificates. Unresolvable transitions/convergence failures ValueError; failed
+binary generation does not roll back RNG/callbacks, including oracleoff path.
+Scoped committed correctness integration **2829passed**,0failures/errors/skips,
+78warnings,90.21s,exit0; seven sensitivity exclusions unchanged. B16helper/shared
+DGP/multi bytes and21other binary/IV methods preserved. No performance guarantee.
+
+Push including pending B16 commits succeeded through permitted escalation.
+CI run37647196147 completed/success on exacte2fced5: all6jobs/artifacts
+2829passed each; full case sets/all90new cases/actualargv/source/7exclusions
+verified. Snapshot UTC2026-10-07T15:53:57.979587+00:00. ActualPython
+3.10.21latest/3.10.22legacy,3.11.17,3.12.15,3.13.15,3.14.8. Full dependency
+environments in block17_ci_result.json. verify_block17.py confirms5changed
+source/testpaths,21unchangedmethods,8committedhashes,allJUnits/CIartifacthashes,
+originalprobeprovenance,issues[]. Source/tests frozen aftere2fced5; only audit
+changes after. Ordinary final auditpush/live localremote equality+cleanstatus
+checked at completion. Historical B16 exact1c91 CI was not separately run.
+Do not repeat login/fork/environment setup or old full suites without changes.
+
+Next standalone **B18: learner shape/real/complex and IV assembled-storage
+contracts**. Read FIX_PLAN residual priority3, reproduce malformed row/column
+and complex predictions with real public fits before fixing; preserve valid
+finite behavior and single-class probability mapping. Then extreme finite
+score/IF, normalizedcustomATE, duplicate/snapshot/refit/Sphinx backlog; features
+repeatedCF→groupCF→externalOOF→DR/R-CATE later. Sensitivity/SC08LOO/selected-U ATT
+remain deferred. **Stop at B17; B18 requires next user request/context cleanup.**
+
+## Historical B16 checkpoint
 
 **B16 завершён локально** 7 октября2026; remote/CI verification ожидает network-enabled session. Local checkpoint
 `1c91b0d39c8c12ac01d6a61c81d1bcd29c12b658`, baseline `e8459e1`.
@@ -42,7 +85,7 @@ Source/tests frozen после1c91; root validator проверил22unchangedme
 7committedsource/test/dependency hashes и actualbaseline/focus/integrationcaseIDs,
 issues[]. Итоги в block16_integration_result.json и block16_validation_result.json.
 
-**Push/CI не подтверждены:** git ls-remote и git push получают
+**Исторически в B16 push/CI не подтверждены; B17 subsequently pushed these commits.** git ls-remote и git push получают
 `Could not resolve host: github.com` в этой session. Escalation отключена,
 обход ограничений не разрешён. Local origin tracking ref — historical cache,
 не live remote equality. Не повторять login/fork/env setup. Следующая сессия
