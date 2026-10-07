@@ -2,7 +2,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 import uuid
-from typing import Dict, Optional, List, Tuple, Any, Callable, Union
+from typing import Dict, Optional, List, Tuple, Any, Callable, Union, Sequence
 from scipy.special import erf, erfinv
 from scipy.stats import norm, gamma as st_gamma, beta as st_beta, poisson as st_poisson, nbinom as st_nbinom, lognorm as st_lognorm
 
@@ -45,6 +45,31 @@ def _random_ids(n: int) -> List[str]:
     return identifiers
 
 
+_ANCILLARY_COLUMN_ROLES = (
+    ("user_id", "ancillary identifier"),
+    ("age", "ancillary age"),
+    ("cnt_trans", "ancillary transaction count"),
+    ("platform_Android", "ancillary Android indicator"),
+    ("platform_iOS", "ancillary iOS indicator"),
+    ("invited_friend", "ancillary invitation indicator"),
+)
+
+
+def _validate_new_columns(df: pd.DataFrame, column_roles: Sequence[Tuple[str, str]]) -> None:
+    """Reject an augmentation that would overwrite or duplicate a column."""
+    if df.columns.has_duplicates:
+        raise ValueError("Cannot augment a DataFrame with duplicate column names")
+    reserved = {name: "existing column" for name in df.columns}
+    for name, role in column_roles:
+        if not isinstance(name, str) or not name:
+            raise ValueError(f"{role} column name must be a nonempty string")
+        if name in reserved:
+            raise ValueError(
+                f"Generated column name {name!r} collides between {reserved[name]} and {role}"
+            )
+        reserved[name] = role
+
+
 def _add_ancillary_info(
     df: pd.DataFrame,
     n: int,
@@ -79,7 +104,14 @@ def _add_ancillary_info(
     pandas.DataFrame
         The DataFrame with added ancillary columns: 'user_id', 'age', 'cnt_trans',
         'platform_Android', 'platform_iOS', 'invited_friend'.
+
+    Raises
+    ------
+    ValueError
+        If an added name already exists. Existing data is never overwritten;
+        namespace validation runs before ancillary RNG draws or assignments.
     """
+    _validate_new_columns(df, _ANCILLARY_COLUMN_ROLES)
     if x_cols is None:
         raise ValueError("x_cols must be provided to avoid leakage from y_pre.")
     missing = [c for c in x_cols if c not in df.columns]

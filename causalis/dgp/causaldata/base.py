@@ -211,6 +211,8 @@ class CausalDatasetGenerator:
 
     # Internals (filled post-init)
     rng: np.random.Generator = field(init=False, repr=False)
+    _generated_confounder_names: Tuple[str, ...] = field(init=False, repr=False, compare=False, default=())
+    _generated_column_roles: Tuple[Tuple[str, str], ...] = field(init=False, repr=False, compare=False, default=())
 
     def __post_init__(self):
         """Initialize RNG and validate configuration."""
@@ -712,6 +714,8 @@ class CausalDatasetGenerator:
             raise ValueError("outcome_type must be 'continuous', 'binary', 'poisson', 'gamma' or 'tweedie'")
 
         self._validate_column_names(names)
+        output_roles = tuple(self._output_column_roles())
+        generated_names = tuple(names)
         df = pd.DataFrame({"y": Y, "d": D})
         for j, name in enumerate(names):
             df[name] = X[:, j]
@@ -725,6 +729,9 @@ class CausalDatasetGenerator:
             df["g1"] = g1
             df["cate"] = df["g1"] - df["g0"]
 
+        # Record successful output roles independently of later configuration changes.
+        self._generated_confounder_names = generated_names
+        self._generated_column_roles = output_roles
         return df
 
     def to_causal_data(self, n: int, confounders: Optional[Union[str, List[str]]] = None) -> CausalData:
@@ -736,7 +743,9 @@ class CausalDatasetGenerator:
         n : int
             Number of samples to generate.
         confounders : str or list of str, optional
-            List of confounder column names to include. If None, automatically detects numeric confounders.
+            List of confounder column names to include. If None, selects the
+            numeric columns actually sampled as confounders, including names
+            of disabled oracle columns. This generator does not add identifiers.
 
         Returns
         -------
@@ -746,42 +755,17 @@ class CausalDatasetGenerator:
         df = self.generate(n)
 
         # Determine confounders to use
-        exclude = {'y', 'd', 'm', 'm_obs', 'tau_link', 'g0', 'g1', 'cate', 'user_id'}
         if confounders is None:
-            # Keep original column order; exclude outcome/treatment/ground-truth columns and non-numeric
             confounder_cols = [
-                c for c in df.columns
-                if c not in exclude and pd.api.types.is_numeric_dtype(df[c])
+                c for c in self._generated_confounder_names
+                if pd.api.types.is_numeric_dtype(df[c])
             ]
         elif isinstance(confounders, str):
             confounder_cols = [confounders]
         else:
             confounder_cols = [c for c in confounders if c in df.columns]
 
-        # Create and return CausalData object
-        user_id = 'user_id' if 'user_id' in df.columns else None
-        
-        # If include_oracle is True, we want to keep ground-truth columns in cd.df 
-        # even if they are not listed as confounders.
-        # CausalData subsets df to [treatment, outcome, user_id] + confounders by default.
-        # To keep oracle columns, we can either:
-        # a) pass them as extra columns if CausalData supports it (it doesn't seem to)
-        # b) use from_df with extra kwargs if it helps? No, it subsets in _validate_and_normalize.
-        
-        # Actually, CausalData.df is subsetted to [treatment, outcome, user_id] + confounders.
-        # If we want to keep oracle, they must be "known" to CausalData or we don't use CausalData for oracle.
-        # However, the user might want them for evaluation.
-        
-        # Let's see if we can trick CausalData by adding them to confounders? 
-        # No, they are not confounders.
-        
-        # Best way: return CausalData and if oracle is needed, the user should use the raw df or we modify CausalData.
-        # Given I cannot easily modify CausalData's core logic without side effects, 
-        # I will just documented that CausalData subsets the df.
-        
-        # WAIT! If I want my tests to pass, I should probably use the raw df for verification if I need oracle.
-        
-        return CausalData(df=df, treatment='d', outcome='y', confounders=confounder_cols, user_id=user_id)
+        return CausalData(df=df, treatment='d', outcome='y', confounders=confounder_cols)
 
     def oracle_nuisance(self, num_quad: int = 21):
         """

@@ -378,6 +378,8 @@ class InstrumentalGenerator(CausalDatasetGenerator):
         Y = self._sample_outcome(loc, n)
 
         self._validate_column_names(names)
+        output_roles = tuple(self._output_column_roles())
+        generated_names = tuple(names)
         df = pd.DataFrame({"y": Y, "d": D, self.instrument_name: Z})
         for j, name in enumerate(names):
             df[name] = X[:, j]
@@ -419,6 +421,8 @@ class InstrumentalGenerator(CausalDatasetGenerator):
             df["g_d1"] = g_d1
             df["cate"] = g_d1 - g_d0
 
+        self._generated_confounder_names = generated_names
+        self._generated_column_roles = output_roles
         return df
 
     def to_iv_causal_data(
@@ -427,35 +431,16 @@ class InstrumentalGenerator(CausalDatasetGenerator):
         """
         Generate a dataset and convert it to :class:`IVCausalData`.
 
-        Oracle columns are intentionally not included as confounders when
-        ``confounders`` is omitted.
+        When ``confounders`` is omitted, select numeric columns actually sampled
+        as confounders. Enabled oracles are excluded; disabled oracle names and
+        ``user_id`` remain available as features. No identifier is added here.
         """
         df = self.generate(n)
         if confounders is None:
-            exclude = {
-                "y",
-                "d",
-                self.instrument_name,
-                "user_id",
-                "m",
-                "r_obs",
-                "r_z0",
-                "r_z1",
-                "g_z0",
-                "g_z1",
-                "iv_first_stage",
-                "iv_reduced_form",
-                "late_x",
-                "late",
-                "tau_link",
-                "g_d0",
-                "g_d1",
-                "cate",
-            }
             confounder_cols = [
                 c
-                for c in df.columns
-                if c not in exclude and pd.api.types.is_numeric_dtype(df[c])
+                for c in self._generated_confounder_names
+                if pd.api.types.is_numeric_dtype(df[c])
             ]
         elif isinstance(confounders, str):
             confounder_cols = [confounders]
@@ -466,9 +451,8 @@ class InstrumentalGenerator(CausalDatasetGenerator):
             df,
             treatment="d",
             outcome="y",
-            instruments=self.instrument_name,
+            instruments=next(name for name, role in self._generated_column_roles if role == "instrument"),
             confounders=confounder_cols,
-            user_id="user_id" if "user_id" in df.columns else None,
         )
 
 

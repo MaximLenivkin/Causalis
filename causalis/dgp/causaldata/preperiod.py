@@ -1,4 +1,5 @@
 from __future__ import annotations
+from causalis.dgp.base import _validate_new_columns
 from dataclasses import dataclass
 from typing import Callable, Literal, Optional, Dict, Any, Tuple
 import numpy as np
@@ -164,7 +165,8 @@ def add_preperiod_covariate(
     d_col : str
         Name of the treatment column.
     pre_name : str
-        Name of the new pre-period covariate column.
+        Nonempty literal name of a new column. Existing names raise ValueError
+        before the builder or RNG is used; the builder cannot create this name.
     base_builder : callable
         Function df -> y_pre_base (np.ndarray) providing the shared signal.
     spec : PreCorrSpec
@@ -175,11 +177,14 @@ def add_preperiod_covariate(
         Boolean mask of rows to use for calibration (e.g. control group).
         If None, use control group (d == 0).
     """
+    column_roles = [(pre_name, "pre-period covariate")]
+    _validate_new_columns(df, column_roles)
     y_post = df[y_col].to_numpy()
     if mask is None:
         mask = (df[d_col].to_numpy() == 0)
     
     y_pre_base = base_builder(df)
+    _validate_new_columns(df, column_roles)
     
     # To maintain RNG state invariance (reproducibility) regardless of mask size,
     # we generate noise for the full dataframe first.
@@ -193,5 +198,6 @@ def add_preperiod_covariate(
         noise=eps[mask]
     )
     
+    _validate_new_columns(df, column_roles)
     df[pre_name] = y_pre_base + sigma * eps
     return df

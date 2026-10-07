@@ -20,24 +20,6 @@ from causalis.dgp.base import _add_ancillary_info
 
 from .base import InstrumentalGenerator
 
-_IV_ORACLE_COLS = {
-    "m",
-    "r_obs",
-    "r_z0",
-    "r_z1",
-    "g_z0",
-    "g_z1",
-    "iv_first_stage",
-    "iv_reduced_form",
-    "late_x",
-    "late",
-    "tau_link",
-    "g_d0",
-    "g_d1",
-    "cate",
-}
-
-
 def generate_iv_data(
     n: int = 1_000,
     *,
@@ -94,9 +76,13 @@ def generate_iv_data(
     u_strength_d, u_strength_y : float, default=0.8
         Latent confounding strengths in treatment and outcome.
     return_causal_data : bool, default=False
-        If True, return a validated :class:`IVCausalData` object.
+        If True, return a validated :class:`IVCausalData` object, retaining
+        actual numeric features (including disabled oracle names). Only an
+        identifier added by ancillary generation receives the user_id role.
     instrument_name : str, default="z"
-        Instrument column name.
+        Instrument column name. Disabled oracle names and user_id are valid
+        instrument names when those extra roles are not emitted. Ancillary
+        name collisions raise ValueError instead of overwriting the instrument.
 
     Returns
     -------
@@ -142,35 +128,42 @@ def generate_iv_data(
         instrument_sharpness=instrument_sharpness,
     )
     df = gen.generate(n)
+    x_cols = list(gen._generated_confounder_names)
+    emitted_instrument = next(name for name, role in gen._generated_column_roles if role == "instrument")
+    oracle_cols = [name for name, role in gen._generated_column_roles if role.endswith(" oracle")]
 
     if add_ancillary:
         rng = np.random.default_rng(random_state)
-        exclude = {"y", "d", instrument_name, *_IV_ORACLE_COLS}
-        x_cols = [c for c in df.columns if c not in exclude]
         df = _add_ancillary_info(df, int(n), rng, deterministic_ids, x_cols)
 
     if not return_causal_data:
-        return _order_columns(df, instrument_name=instrument_name)
+        return _order_columns(
+            df, instrument_name=emitted_instrument, oracle_columns=oracle_cols,
+            has_identifier=add_ancillary,
+        )
 
-    exclude = {"y", "d", instrument_name, "user_id", *_IV_ORACLE_COLS}
+    feature_names = x_cols + ([
+        "age", "cnt_trans", "platform_Android", "platform_iOS", "invited_friend",
+    ] if add_ancillary else [])
     confounder_cols = [
-        c for c in df.columns if c not in exclude and pd.api.types.is_numeric_dtype(df[c])
+        c for c in feature_names if pd.api.types.is_numeric_dtype(df[c])
     ]
     return IVCausalData.from_df(
         df,
         treatment="d",
         outcome="y",
-        instruments=instrument_name,
+        instruments=emitted_instrument,
         confounders=confounder_cols,
-        user_id="user_id" if "user_id" in df.columns else None,
+        user_id="user_id" if add_ancillary else None,
     )
 
 
-def _order_columns(df: pd.DataFrame, *, instrument_name: str) -> pd.DataFrame:
-    """Return columns in a stable core/confounder/oracle order."""
-    all_cols = list(df.columns)
-    core = [c for c in ["user_id", "y", "d", instrument_name] if c in all_cols]
-    oracle = [c for c in all_cols if c in _IV_ORACLE_COLS]
-    confounders = [c for c in all_cols if c not in set(core + oracle)]
-    return df[core + confounders + oracle]
-
+def _order_columns(
+    df: pd.DataFrame, *, instrument_name: str,
+    oracle_columns: List[str], has_identifier: bool,
+) -> pd.DataFrame:
+    """Return each column once in the order of its actual emitted role."""
+    core = (["user_id"] if has_identifier else []) + ["y", "d", instrument_name]
+    reserved = set(core + oracle_columns)
+    confounders = [c for c in df.columns if c not in reserved]
+    return df[core + confounders + oracle_columns]

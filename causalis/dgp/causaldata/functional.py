@@ -29,7 +29,9 @@ import pandas as pd
 from typing import Dict, Optional, Union, List, Callable, Any
 
 from .base import CausalDatasetGenerator
-from causalis.dgp.base import _sigmoid, _logit, _add_ancillary_info
+from causalis.dgp.base import (
+    _sigmoid, _logit, _add_ancillary_info, _ANCILLARY_COLUMN_ROLES, _validate_new_columns,
+)
 from .preperiod import PreCorrSpec, calibrate_sigma_for_target_corr, add_preperiod_covariate
 from causalis.dgp.causaldata import CausalData
 
@@ -136,7 +138,10 @@ def generate_rct(
       - outcome_type="poisson" or "gamma": treatment shifts the log-mean by log(lam_B / lam_A).
 
     Ancillary columns (if add_ancillary=True) are generated from baseline confounders X only,
-    avoiding outcome leakage and post-treatment adjustment issues.
+    avoiding outcome leakage and post-treatment adjustment issues. Collisions
+    with added pre-period or ancillary columns raise ValueError. Automatic
+    conversion retains actual numeric features, including disabled oracle names;
+    user_id is an identifier only when ancillary generation adds it.
 
     Parameters
     ----------
@@ -165,7 +170,9 @@ def generate_rct(
     add_pre : bool, default=True
         Whether to generate a pre-period covariate (`y_pre`).
     pre_name : str, default="y_pre"
-        Name of the pre-period covariate column.
+        Name of the pre-period covariate column. When add_pre=True it must be a
+        nonempty string distinct from existing and enabled ancillary columns.
+        When add_pre=False this option does not affect ordering or selection.
     pre_corr : float, default=0.7
         Target correlation between `y_pre` and the outcome Y in the control group.
     prognostic_scale : float, default=1.0
@@ -336,12 +343,16 @@ def generate_rct(
     gen = CausalDatasetGenerator(**gen_kwargs)
 
     df = gen.generate(n)
+    x_cols = list(gen._generated_confounder_names)
+    oracle_cols = [name for name, role in gen._generated_column_roles if role.endswith(" oracle")]
+    added_roles = [(pre_name, "pre-period covariate")] if add_pre else []
+    if add_ancillary:
+        added_roles.extend(_ANCILLARY_COLUMN_ROLES)
+    _validate_new_columns(df, added_roles)
 
     if add_pre:
         # Build a baseline signal from exactly the same outcome-baseline components
         # used by the generator (beta_y + g_y), excluding treatment effects.
-        exclude = {"y","d","m","m_obs","tau_link","g0","g1","cate"}
-        x_cols = [c for c in df.columns if c not in exclude]
         
         def base_builder(df_in: pd.DataFrame) -> np.ndarray:
             X = df_in[x_cols].to_numpy(dtype=float)
@@ -370,42 +381,26 @@ def generate_rct(
         )
 
     if add_ancillary:
-        exclude = {"y", "d", "m", "m_obs", "tau_link", "g0", "g1", "cate"}
-        if pre_name in df.columns:
-            exclude.add(pre_name)
-        x_cols = [c for c in df.columns if c not in exclude]
         df = _add_ancillary_info(df, n, rng, deterministic_ids, x_cols)
 
-    # Reorder columns: user_id, y, d, confounders, y_pre, oracle
+    # Order actual roles once; unused pre_name and disabled oracles have no role.
     all_cols = list(df.columns)
-    oracle_cols = [
-        "m", "m_obs", "tau_link", "g0", "g1", "cate"
-    ]
-    core_cols = ["user_id", "y", "d"]
-
-    actual_core = [c for c in core_cols if c in all_cols]
-    actual_oracle = [c for c in oracle_cols if c in all_cols]
-    actual_pre = [pre_name] if pre_name in all_cols else []
-
-    # Confounders = everything else
-    excluded_from_conf = set(actual_core + actual_oracle + actual_pre)
+    actual_core = (["user_id"] if add_ancillary else []) + ["y", "d"]
+    actual_pre = [pre_name] if add_pre else []
+    excluded_from_conf = set(actual_core + oracle_cols + actual_pre)
     actual_conf = [c for c in all_cols if c not in excluded_from_conf]
-
-    df = df[actual_core + actual_conf + actual_pre + actual_oracle]
+    df = df[actual_core + actual_conf + actual_pre + oracle_cols]
 
     if return_causal_data:
-        # Determine confounders: numeric columns except known non-confounders
-        exclude = {"y", "d", "m", "m_obs", "tau_link", "g0", "g1", "cate", "user_id"}
         confounder_cols = [
-            c for c in df.columns
-            if c not in exclude and pd.api.types.is_numeric_dtype(df[c])
+            c for c in actual_conf + actual_pre if pd.api.types.is_numeric_dtype(df[c])
         ]
         return CausalData(
             df=df,
             treatment="d",
             outcome="y",
             confounders=confounder_cols,
-            user_id="user_id" if "user_id" in df.columns else None
+            user_id="user_id" if add_ancillary else None,
         )
 
     return df
@@ -689,8 +684,7 @@ def obs_linear_effect(
 
     if add_ancillary:
         rng = np.random.default_rng(random_state)
-        exclude = {"y", "d", "m", "m_obs", "tau_link", "g0", "g1", "cate"}
-        x_cols = [c for c in df.columns if c not in exclude]
+        x_cols = list(gen._generated_confounder_names)
         df = _add_ancillary_info(df, n, rng, deterministic_ids, x_cols)
 
     return df
@@ -711,6 +705,8 @@ def _add_tweedie_pre(
     Calibrates correlation with the post-period outcome using a shared latent driver
     and additive noise.
     """
+    column_roles = [(pre_name, "pre-period covariate")]
+    _validate_new_columns(df, column_roles)
     rng = gen.rng
     if A is None:
         A = rng.normal(size=n)
@@ -803,6 +799,7 @@ def _add_tweedie_pre(
     if best_pre_base is None or best_noise is None:
         best_pre_base = sample_pre_base(best_w)
         best_noise = rng.normal(size=n)
+    _validate_new_columns(df, column_roles)
     df[pre_name] = best_pre_base + best_sigma * best_noise
     return df
 
@@ -912,6 +909,10 @@ def make_cuped_tweedie(
         rng = np.random.default_rng(seed)
         A = rng.normal(size=n)
         df = gen.generate(n, U=A)
+        added_roles = [(pre_name, "pre-period covariate")]
+        if include_oracle:
+            added_roles.append(("_latent_A", "shared latent oracle"))
+        _validate_new_columns(df, added_roles)
         df = _add_tweedie_pre(
             df, n, gen, names, 
             target_corr=pre_target_corr, 
@@ -928,12 +929,8 @@ def make_cuped_tweedie(
     if not return_causal_data:
         return df
 
-    # Re-infer confounders including y_pre
-    exclude = {"y", "d", "m", "m_obs", "tau_link", "g0", "g1", "cate", "user_id", "_latent_A"}
-    confounder_cols = [
-        c for c in df.columns
-        if c not in exclude and pd.api.types.is_numeric_dtype(df[c])
-    ]
+    feature_names = list(gen._generated_confounder_names) + ([pre_name] if add_pre else [])
+    confounder_cols = [c for c in feature_names if pd.api.types.is_numeric_dtype(df[c])]
     return CausalData(
         df=df,
         treatment="d",
@@ -1114,11 +1111,8 @@ def generate_cuped_binary(
     if not return_causal_data:
         return df
 
-    exclude = {"y", "d", "m", "m_obs", "tau_link", "g0", "g1", "cate", "user_id"}
-    confounder_cols = [
-        c for c in df.columns
-        if c not in exclude and pd.api.types.is_numeric_dtype(df[c])
-    ]
+    feature_names = list(gen._generated_confounder_names) + ([pre_name] if add_pre else [])
+    confounder_cols = [c for c in feature_names if pd.api.types.is_numeric_dtype(df[c])]
     return CausalData(
         df=df,
         treatment="d",
