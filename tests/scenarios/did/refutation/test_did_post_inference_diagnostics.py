@@ -6,6 +6,7 @@ matplotlib.use("Agg")
 
 import matplotlib.figure as mpl_figure
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 
 from causalis.data_contracts import PanelDataDID
@@ -24,28 +25,32 @@ from causalis.scenarios.did import (
 def _panel() -> PanelDataDID:
     periods = pd.period_range("2020-01", periods=6, freq="M")
     units = {
-        "A1": ("2020-04", 2.0, 10.0, 0.0, "north"),
-        "A2": ("2020-04", 2.0, 11.0, 0.2, "north"),
-        "B1": ("2020-05", 3.0, 20.0, 1.0, "south"),
-        "B2": ("2020-05", 3.0, 21.0, 1.2, "south"),
-        "C1": (None, 0.0, 30.0, 0.5, "control"),
-        "C2": (None, 0.0, 31.0, 0.7, "control"),
+        "A1": ("2020-04", 2.0, 10.0, 0.0),
+        "A2": ("2020-04", 2.0, 11.0, 0.2),
+        "B1": ("2020-05", 3.0, 20.0, 1.0),
+        "B2": ("2020-05", 3.0, 21.0, 1.2),
+        "C1": (None, 0.0, 30.0, 0.5),
+        "C2": (None, 0.0, 31.0, 0.7),
     }
+    rng = np.random.default_rng(731)
     rows = []
-    for unit, (cohort, tau, base, x, cluster) in units.items():
-        cohort_period = None if cohort is None else pd.Period(cohort, freq="M")
-        for idx, period in enumerate(periods):
-            treated = cohort_period is not None and period >= cohort_period
-            rows.append(
-                {
-                    "unit": unit,
-                    "time": period,
-                    "y": base + idx + (tau if treated else 0.0),
-                    "d": int(treated),
-                    "x": x + 0.01 * idx,
-                    "cluster": cluster,
-                }
-            )
+    # Twelve controls avoid a saturated two-parameter outcome regression.
+    # Clusters span all cohorts, and unit-period noise gives nonzero cell variance.
+    for replica in range(6):
+        for unit, (cohort, tau, base, x) in units.items():
+            cohort_period = None if cohort is None else pd.Period(cohort, freq="M")
+            for idx, period in enumerate(periods):
+                treated = cohort_period is not None and period >= cohort_period
+                rows.append(
+                    {
+                        "unit": f"{unit}_{replica}",
+                        "time": period,
+                        "y": base + idx + (tau if treated else 0.0) + 0.3 * rng.normal(),
+                        "d": int(treated),
+                        "x": x + 0.03 * replica + 0.01 * idx,
+                        "cluster": f"cluster_{replica}",
+                    }
+                )
     return PanelDataDID(
         df=pd.DataFrame(rows),
         y="y",
@@ -101,6 +106,10 @@ def test_post_inference_report_accepts_panel_and_estimate():
     assert report.loc[0, "flag"] == "GREEN"
     assert "I can rely on the results" in report.loc[0, "message"]
     assert {"t_stat", "abs_t_stat"}.issubset(cells.columns)
+    pre_cells = cells.loc[~cells["is_post_treatment"]]
+    assert not pre_cells.empty
+    assert np.isfinite(pre_cells["se"]).all()
+    assert (pre_cells["se"] > 0.0).all()
     assert {"rank", "abs_influence_share"}.issubset(influence.columns)
     assert {"cluster", "abs_influence_share"}.issubset(cluster_influence.columns)
 

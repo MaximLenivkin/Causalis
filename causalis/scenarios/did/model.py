@@ -128,9 +128,13 @@ def _validate_bootstrap_replications(value: int) -> int:
 
 
 def _normal_p_value(estimate: float, se: float) -> float:
+    if not np.isfinite(estimate) or not np.isfinite(se) or se < 0.0:
+        return float("nan")
     if se > 0.0:
         return float(2.0 * norm.sf(abs(estimate / se)))
-    return 1.0 if abs(estimate) <= 1e-16 else float("nan")
+    # Retain the exact-zero convention, without treating small real effects
+    # as zero in outcome units. A zero SE is not valid studentization.
+    return 1.0 if estimate == 0.0 else float("nan")
 
 
 def _effective_sample_size(weights: np.ndarray) -> float:
@@ -308,7 +312,21 @@ def _fit_logistic_propensity(
 def _fit_outcome_regression(design: np.ndarray, delta_y: np.ndarray, control: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     if not bool(control.any()):
         raise ValueError("Outcome regression requires at least one comparison unit.")
-    beta, *_ = np.linalg.lstsq(design[control], delta_y[control], rcond=None)
+    control_design = design[control]
+    control_delta = delta_y[control]
+    beta, _, rank, _ = np.linalg.lstsq(control_design, control_delta, rcond=None)
+    # A constant response with a unit intercept has the unique exact solution
+    # (constant, 0, ...) at full rank. Preserve it instead of SVD roundoff that
+    # can fabricate residuals and a studentized signal in zero-variance cells.
+    # At deficient rank, retain the solver's minimum-norm extrapolation.
+    if (
+        control_design.shape[1] > 0
+        and rank == control_design.shape[1]
+        and np.all(design[:, 0] == 1.0)
+        and np.all(control_delta == control_delta[0])
+    ):
+        beta = np.zeros(design.shape[1], dtype=float)
+        beta[0] = control_delta[0]
     beta = np.asarray(beta, dtype=float)
     if not np.isfinite(beta).all():
         raise RuntimeError("Outcome regression produced non-finite coefficients.")
@@ -471,9 +489,14 @@ def _add_inference(
     out["is_significant"] = out["p_value"] < alpha
     out["inference"] = inference
     if bootstrap_replications > 0 and simultaneous:
-        denom = np.where(se > 0.0, se, np.nan)
-        max_abs_t = np.nanmax(np.abs(shifts / denom[None, :]), axis=1)
-        critical_value = float(np.nanquantile(max_abs_t, 1.0 - alpha))
+        if np.all(se == 0.0):
+            # No cell can be studentized; the band is undefined. Avoid taking
+            # maxima and quantiles of an entirely NaN bootstrap distribution.
+            critical_value = float("nan")
+        else:
+            denom = np.where(se > 0.0, se, np.nan)
+            max_abs_t = np.nanmax(np.abs(shifts / denom[None, :]), axis=1)
+            critical_value = float(np.nanquantile(max_abs_t, 1.0 - alpha))
         out["simultaneous_critical_value"] = critical_value
         out["sim_ci_lower"] = estimates - critical_value * se
         out["sim_ci_upper"] = estimates + critical_value * se

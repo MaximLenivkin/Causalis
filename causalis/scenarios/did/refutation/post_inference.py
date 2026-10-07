@@ -101,11 +101,12 @@ def _safe_t_stat(estimate: pd.Series, se: pd.Series) -> pd.Series:
     estimate_values = pd.to_numeric(estimate, errors="coerce").to_numpy(dtype=float)
     se_values = pd.to_numeric(se, errors="coerce").to_numpy(dtype=float)
     out = np.full(estimate_values.shape[0], np.nan, dtype=float)
-    positive = np.isfinite(se_values) & (se_values > 0.0)
-    out[positive] = estimate_values[positive] / se_values[positive]
-    zero = np.isfinite(se_values) & (se_values == 0.0) & np.isfinite(estimate_values)
-    out[zero & (np.abs(estimate_values) <= 1e-16)] = 0.0
-    out[zero & (np.abs(estimate_values) > 1e-16)] = np.inf
+    positive = np.isfinite(estimate_values) & np.isfinite(se_values) & (se_values > 0.0)
+    # Studentization requires positive SE; even exact 0/0 is undefined.
+    # Keep tiny real effects and overflowing ratios visible without a tolerance
+    # tied to outcome units. The report treats non-finite ratios as cautions.
+    with np.errstate(over="ignore", under="ignore"):
+        out[positive] = estimate_values[positive] / se_values[positive]
     return pd.Series(out, index=estimate.index)
 
 
@@ -194,7 +195,9 @@ def did_post_inference_cell_table(
             - ``time``: The calendar time period.
             - ``att``: The point estimate for this cell.
             - ``se``: The standard error.
-            - ``t_stat``: The t-statistic (att / se).
+            - ``t_stat``: The t-statistic (att / se) for finite ATT and positive
+              finite SE; NaN for zero, negative or unavailable SE. An overflowing
+              finite-input ratio is infinite and remains a diagnostic caution.
             - ``is_post_treatment``: Whether the cell is in the post-treatment period.
             - Additional columns from the model's cell diagnostics (e.g., ``control_ess``,
               ``max_propensity_clip``).
@@ -217,6 +220,10 @@ def did_post_inference_cell_table(
     if {"att", "se"}.issubset(out.columns):
         out["t_stat"] = _safe_t_stat(out["att"], out["se"])
         out["abs_t_stat"] = out["t_stat"].abs()
+    else:
+        # Cached statistics cannot establish validity without their inputs.
+        out["t_stat"] = np.nan
+        out["abs_t_stat"] = np.nan
 
     cell_diagnostics = _get_diagnostic_frame(estimate, "cell_diagnostics")
     if not cell_diagnostics.empty and "cell_id" in cell_diagnostics.columns:
@@ -551,6 +558,13 @@ def run_did_post_inference_diagnostics(
         ESS_{\\psi} = \\frac{(\\sum |\\psi_i|)^2}{\\sum \\psi_i^2}
 
     Low values suggest the result may be driven by outliers.
+
+    Every fitted pre-period cell must have a finite standardized statistic for
+    the placebo check to be GREEN. Zero standard errors, invalid inputs and
+    overflowing ratios receive YELLOW even when other cells pass. No absolute
+    tolerance is used to turn small effects into zero. Exact zero-effect,
+    zero-SE cells retain the estimator's p-value convention of 1, but their
+    studentized diagnostic is undefined.
 
     Examples
     --------
@@ -891,20 +905,27 @@ def run_did_post_inference_diagnostics(
             message="No fitted pre-period placebo cells are present; refit with include_pre_periods=True to check this.",
         )
     else:
-        pre_abs_t = _finite_numeric(pre["abs_t_stat"]) if "abs_t_stat" in pre.columns else pd.Series(dtype=float)
-        max_pre_t = _as_finite_float(pre_abs_t.max()) if not pre_abs_t.empty else None
+        pre_abs_t = (
+            pd.to_numeric(pre["abs_t_stat"], errors="coerce")
+            if "abs_t_stat" in pre.columns
+            else pd.Series(np.nan, index=pre.index, dtype=float)
+        )
+        all_pre_t_finite = bool(np.isfinite(pre_abs_t).all())
+        max_pre_t = float(pre_abs_t.max()) if pre_abs_t.notna().any() else None
         _append_check(
             checks,
             test="fitted_pre_period_placebo",
             flag=(
                 "YELLOW"
-                if max_pre_t is None or max_pre_t > max_abs_pretrend_t_stat
+                if not all_pre_t_finite or max_pre_t is None or max_pre_t > max_abs_pretrend_t_stat
                 else "GREEN"
             ),
             value=max_pre_t,
             threshold=f"max |t| <= {max_abs_pretrend_t_stat:.3g}",
             message=(
-                "Fitted pre-period placebo cells show a large standardized deviation."
+                "At least one fitted pre-period placebo cell has an undefined or non-finite standardized statistic; check standard errors and numerical stability."
+                if not all_pre_t_finite
+                else "Fitted pre-period placebo cells show a large standardized deviation."
                 if max_pre_t is None or max_pre_t > max_abs_pretrend_t_stat
                 else "Fitted pre-period placebo cells are within the standardized threshold."
             ),
