@@ -108,6 +108,10 @@ class CausalDatasetGenerator:
         Outcome family and link as defined above.
     confounder_specs : list of dict, optional
         Schema for generating confounders. See `_gaussian_copula` for details.
+        Actual generated column names must be nonempty strings and unique
+        across the outcome, treatment, confounders and enabled oracle columns.
+        Categorical names are checked after expansion; collisions raise
+        ``ValueError`` rather than renaming or overwriting columns.
     k : int, default=5
         Number of confounders when `confounder_specs` is None. Defaults to independent N(0,1).
     x_sampler : callable, optional
@@ -213,6 +217,36 @@ class CausalDatasetGenerator:
         self.rng = np.random.default_rng(self.seed)
         if self.confounder_specs is not None:
             self.k = len(self.confounder_specs)
+        self._validate_column_names()
+
+    def _output_column_roles(self) -> List[Tuple[str, str]]:
+        """Return fixed columns emitted by this generator family."""
+        roles = [("y", "outcome"), ("d", "treatment")]
+        if self.include_oracle:
+            roles.extend(
+                (name, f"{name} oracle")
+                for name in ("m", "m_obs", "tau_link", "g0", "g1", "cate")
+            )
+        return roles
+
+    def _validate_column_names(self, confounder_names: Optional[List[str]] = None) -> None:
+        """Reserve actual emitted names before DataFrame assignment replaces them."""
+        roles: Dict[str, str] = {}
+
+        def reserve(name: str, role: str) -> None:
+            if not isinstance(name, str) or not name:
+                raise ValueError(f"{role} column name must be a nonempty string")
+            if name in roles:
+                raise ValueError(
+                    f"Generated column name {name!r} collides between {roles[name]} and {role}"
+                )
+            roles[name] = role
+
+        for name, role in self._output_column_roles():
+            reserve(name, role)
+        if confounder_names is not None:
+            for j, name in enumerate(confounder_names):
+                reserve(name, f"confounder[{j}]")
 
     # ---------- confounder sampling ----------
 
@@ -480,8 +514,22 @@ class CausalDatasetGenerator:
         pandas.DataFrame
             The generated dataset with outcome 'y', treatment 'd', confounders,
             and oracle ground-truth columns.
+
+        Notes
+        -----
+        Actual expanded confounder names are validated after sampling X and
+        before latent, treatment or outcome generation. Disabled oracle names
+        are available as confounder names. The check is repeated before frame
+        assembly in case a callback changed output settings. Names are never
+        silently renamed.
         """
+        self._validate_column_names()
         X, names = self._sample_X(n)
+        # Preserve zero-confounder samplers returning a one-dimensional array.
+        x_shape = np.shape(X)
+        if len(names) != (x_shape[1] if len(x_shape) > 1 else 0):
+            raise ValueError("confounder names must match the number of X columns")
+        self._validate_column_names(names)
         if U is None:
             U = self.rng.normal(size=n)  # unobserved confounder
         U = np.asarray(U, dtype=float)
@@ -663,6 +711,7 @@ class CausalDatasetGenerator:
         else:
             raise ValueError("outcome_type must be 'continuous', 'binary', 'poisson', 'gamma' or 'tweedie'")
 
+        self._validate_column_names(names)
         df = pd.DataFrame({"y": Y, "d": D})
         for j, name in enumerate(names):
             df[name] = X[:, j]

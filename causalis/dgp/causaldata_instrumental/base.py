@@ -54,7 +54,9 @@ class InstrumentalGenerator(CausalDatasetGenerator):
     Parameters
     ----------
     instrument_name : str, default="z"
-        Column name for the binary instrument.
+        Nonempty column name for the binary instrument. Must be unique across
+        the outcome, treatment, actual expanded confounders and enabled IV
+        oracle columns. Conflicts raise ``ValueError`` without renaming.
     first_stage : float, default=1.25
         Additive log-odds effect of ``Z`` on treatment assignment. Positive
         values make the instrument encourage treatment.
@@ -100,10 +102,6 @@ class InstrumentalGenerator(CausalDatasetGenerator):
     def __post_init__(self) -> None:
         """Initialize RNG and validate IV-specific configuration."""
         CausalDatasetGenerator.__post_init__(self)
-        if not isinstance(self.instrument_name, str) or not self.instrument_name:
-            raise ValueError("instrument_name must be a non-empty string.")
-        if self.instrument_name in {"y", "d"}:
-            raise ValueError("instrument_name must be different from 'y' and 'd'.")
         if self.outcome_type not in {"continuous", "binary", "poisson", "gamma"}:
             raise ValueError(
                 "InstrumentalGenerator supports outcome_type in "
@@ -115,6 +113,20 @@ class InstrumentalGenerator(CausalDatasetGenerator):
             raise ValueError("target_d_rate must be in (0, 1).")
         if not np.isfinite(float(self.first_stage)):
             raise ValueError("first_stage must be finite.")
+
+    def _output_column_roles(self) -> List[Tuple[str, str]]:
+        """Use IV's emitted columns, rather than the binary oracle namespace."""
+        roles = [("y", "outcome"), ("d", "treatment"), (self.instrument_name, "instrument")]
+        if self.include_oracle:
+            roles.extend(
+                (name, f"{name} oracle")
+                for name in (
+                    "m", "r_obs", "r_z0", "r_z1", "g_z0", "g_z1",
+                    "iv_first_stage", "iv_reduced_form", "late_x", "late",
+                    "tau_link", "g_d0", "g_d1", "cate",
+                )
+            )
+        return roles
 
     def _linear_component(
         self,
@@ -321,12 +333,26 @@ class InstrumentalGenerator(CausalDatasetGenerator):
             Generated dataset with outcome ``y``, treatment ``d``, instrument
             ``z`` (or ``instrument_name``), confounders, and optional oracle
             columns.
+
+        Notes
+        -----
+        Names are checked on every call, including changed public settings.
+        The full check follows X sampling and precedes latent draws,
+        callbacks, calibration and assignment. Only enabled IV oracles are
+        reserved; the binary generator's other oracle names remain available.
+        Names are checked again before assembly if callbacks changed settings.
         """
         n = int(n)
         if n < 0:
             raise ValueError("n must be non-negative.")
 
+        self._validate_column_names()
         X, names = self._sample_X(n)
+        # Preserve zero-confounder samplers returning a one-dimensional array.
+        x_shape = np.shape(X)
+        if len(names) != (x_shape[1] if len(x_shape) > 1 else 0):
+            raise ValueError("confounder names must match the number of X columns")
+        self._validate_column_names(names)
         if U is None:
             U = self.rng.normal(size=n)
         U = np.asarray(U, dtype=float).reshape(-1)
@@ -351,6 +377,7 @@ class InstrumentalGenerator(CausalDatasetGenerator):
         loc = self._outcome_location(X, D, U, tau_x)
         Y = self._sample_outcome(loc, n)
 
+        self._validate_column_names(names)
         df = pd.DataFrame({"y": Y, "d": D, self.instrument_name: Z})
         for j, name in enumerate(names):
             df[name] = X[:, j]
