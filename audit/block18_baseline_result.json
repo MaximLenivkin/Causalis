@@ -1,0 +1,14 @@
+{
+  "baseline": "b7cbec9ead7c589fa6d4570c0e8f188d349c95be",
+  "observed_at": "2026-10-07T16:31:42.345341+00:00",
+  "interpreter": "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/bin/python",
+  "test_path": "tests/inference/test_learner_output_shapes.py",
+  "test_sha256": "442c62917d9049544af75ee5c2b48e527fb6947f06f86f0f05bc586e88953304",
+  "isolated_baseline_import_verified": true,
+  "exit_code": 1,
+  "tests": 356,
+  "failures": 267,
+  "errors": 0,
+  "skipped": 0,
+  "passed": 89
+}

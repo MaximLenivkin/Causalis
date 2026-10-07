@@ -5,6 +5,7 @@ import warnings
 
 import numpy as np
 from sklearn.base import is_classifier
+from causalis.scenarios._prediction import _probability_classes, _probability_output
 
 
 def _is_binary(values: np.ndarray) -> bool:
@@ -35,13 +36,8 @@ def _predict_propensity_matrix(model, X: np.ndarray, n_treatments: int) -> np.nd
     if not _safe_is_classifier(model) or not hasattr(model, "predict_proba"):
         raise ValueError("ml_m must be a probabilistic classifier exposing predict_proba().")
 
-    proba = np.asarray(model.predict_proba(X), dtype=float)
-    if not np.all(np.isfinite(proba)):
-        raise RuntimeError("Propensity model predict_proba() produced non-finite values.")
-    if proba.ndim != 2:
-        raise ValueError(
-            f"ml_m.predict_proba() must return 2D array (n, K). Got shape {proba.shape}."
-        )
+    proba = _probability_output(model.predict_proba(X), X.shape[0],
+                                name="ml_m.predict_proba()", binary=False)
 
     n = X.shape[0]
     classes = getattr(model, "classes_", None)
@@ -52,9 +48,7 @@ def _predict_propensity_matrix(model, X: np.ndarray, n_treatments: int) -> np.nd
             )
         out = proba
     else:
-        classes = np.asarray(classes)
-        if classes.ndim != 1:
-            raise ValueError("ml_m.classes_ must be a 1D array.")
+        classes = _probability_classes(model, proba.shape[1], name="ml_m")
         out = np.zeros((n, n_treatments), dtype=float)
         seen = set()
         for j, cls in enumerate(classes):
@@ -67,6 +61,8 @@ def _predict_propensity_matrix(model, X: np.ndarray, n_treatments: int) -> np.nd
                 raise ValueError(
                     f"ml_m.classes_ contains out-of-range label {cls_int}; expected 0..{n_treatments - 1}."
                 )
+            if cls_int in seen:
+                raise ValueError("ml_m.classes_ contains duplicate treatment labels.")
             out[:, cls_int] = proba[:, j]
             seen.add(cls_int)
         missing = [k for k in range(n_treatments) if k not in seen]

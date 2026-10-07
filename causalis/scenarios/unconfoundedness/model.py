@@ -152,6 +152,12 @@ class IRM(BaseEstimator):
 
     Notes
     -----
+    Learner outputs must be real, finite and aligned with prediction rows.
+    ``predict()`` accepts shapes ``(n,)`` and ``(n, 1)``; binary
+    ``predict_proba()`` also accepts ``(n, 2)``. Scalars, row vectors,
+    higher-dimensional arrays and complex outputs (including zero imaginary
+    parts) are rejected before clipping or class selection.
+
     The IRM model targets binary-treatment causal effects under unconfoundedness.
     Let :math:`W = (Y, D, X)` with :math:`D \in \{0, 1\}` and define
 

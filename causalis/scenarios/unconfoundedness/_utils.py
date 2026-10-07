@@ -6,6 +6,9 @@ import warnings
 
 import numpy as np
 from sklearn.base import is_classifier
+from causalis.scenarios._prediction import (
+    _prediction_vector, _probability_classes, _probability_output,
+)
 
 
 def _is_binary(values: np.ndarray) -> bool:
@@ -47,18 +50,19 @@ def _binary_label_is_one(label: Any) -> Optional[bool]:
 
 
 def _predict_prob_or_value(model, X: np.ndarray, is_propensity: bool = False) -> np.ndarray:
-    """Predict finite probabilities or values before applying probability bounds."""
+    """Predict real, finite, row-aligned values before applying probability bounds."""
+    n = X.shape[0]
     if _safe_is_classifier(model) and hasattr(model, "predict_proba"):
-        proba = np.asarray(model.predict_proba(X), dtype=float)
-        if not np.all(np.isfinite(proba)):
-            raise RuntimeError("Model predict_proba() produced non-finite values.")
+        proba = _probability_output(model.predict_proba(X), n,
+                                    name="Model predict_proba()", binary=True)
+        classes = (_probability_classes(model, proba.shape[1], name="Model")
+                   if proba.ndim == 2 else np.asarray([]))
         if proba.ndim == 1:
             # Assume this is already P(class=1).
             res = proba.ravel()
         elif proba.shape[1] == 1:
             # Can happen if the training fold has a single class.
             # Resolve P(class=1) from classes_ when available.
-            classes = np.asarray(getattr(model, "classes_", [])).ravel()
             if classes.size == 1:
                 class_is_one = _binary_label_is_one(classes[0])
                 if class_is_one is True:
@@ -71,19 +75,24 @@ def _predict_prob_or_value(model, X: np.ndarray, is_propensity: bool = False) ->
             else:
                 # No reliable class metadata; infer from hard labels when possible.
                 if hasattr(model, "predict"):
-                    pred = np.asarray(model.predict(X)).ravel()
+                    pred = np.asarray(model.predict(X))
+                    # Validate geometry and reality even when legacy label conversion
+                    # falls back to the available probability column.
+                    if pred.shape not in {(n,), (n, 1)}:
+                        raise ValueError(f"Model predict() fallback has invalid shape {pred.shape}.")
+                    if np.iscomplexobj(pred) or (pred.dtype.kind == "O" and
+                            any(np.iscomplexobj(value) for value in pred.flat)):
+                        raise ValueError("Model predict() fallback must contain real values.")
                     try:
                         pred_f = pred.astype(float)
                     except (TypeError, ValueError):
                         res = proba[:, 0]
                     else:
-                        if not np.all(np.isfinite(pred_f)):
-                            raise RuntimeError("Model predict() fallback produced non-finite values.")
+                        pred_f = _prediction_vector(pred_f, n, name="Model predict() fallback")
                         res = np.where(np.isclose(pred_f, 1.0), 1.0, 0.0)
                 else:
                     res = proba[:, 0]
         else:
-            classes = np.asarray(getattr(model, "classes_", [])).ravel()
             pos_idx = None
             if classes.size == proba.shape[1]:
                 for i, cls in enumerate(classes):
@@ -97,9 +106,7 @@ def _predict_prob_or_value(model, X: np.ndarray, is_propensity: bool = False) ->
     else:
         res = model.predict(X)
 
-    res = np.asarray(res, dtype=float).ravel()
-    if not np.all(np.isfinite(res)):
-        raise RuntimeError("Model predictions contain non-finite values.")
+    res = _prediction_vector(res, n, name="Model predictions")
     if is_propensity:
         if np.any((res < -1e-12) | (res > 1.0 + 1e-12)):
             warnings.warn(

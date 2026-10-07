@@ -1,0 +1,19 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis
+configfile: pyproject.toml
+plugins: platformdirs-4.12.3
+collected 460 items
+
+tests/inference/test_learner_output_shapes.py .......................... [  5%]
+........................................................................ [ 21%]
+........................................................................ [ 36%]
+........................................................................ [ 52%]
+........................................................................ [ 68%]
+..........................................                               [ 77%]
+tests/inference/test_nuisance_prediction_contract.py ................... [ 81%]
+........................................................................ [ 97%]
+.............                                                            [100%]
+
+- generated xml file: /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block18_focus.xml -
+============================= 460 passed in 31.80s =============================

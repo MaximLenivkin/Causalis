@@ -23,6 +23,7 @@ except ImportError:  # pragma: no cover - exercised only without optional runtim
 from causalis.data_contracts.causal_diagnostic_data import IVDiagnosticData
 from causalis.data_contracts.iv_causal_estimate import IVCausalEstimate
 from causalis.data_contracts.iv_causal_data import IVCausalData
+from causalis.scenarios._prediction import _prediction_vector
 from causalis.scenarios.unconfoundedness._utils import (
     _is_binary,
     _predict_prob_or_value,
@@ -73,6 +74,13 @@ class IIVM(BaseEstimator):
 
     Notes
     -----
+    Learner outputs must be real, finite and aligned with prediction rows.
+    ``predict()`` accepts shapes ``(n,)`` and ``(n, 1)``; binary
+    ``predict_proba()`` also accepts ``(n, 2)``. Scalars, row vectors,
+    higher-dimensional arrays and complex outputs (including zero imaginary
+    parts) are rejected before clipping or class selection. Assembled nuisance
+    arrays must each have shape ``(n,)`` and pass validation before storage.
+
     The Local Average Treatment Effect (LATE) is the effect of the treatment among "compliers"
     — those whose treatment status is changed by the instrument.
 
@@ -571,6 +579,11 @@ class IIVM(BaseEstimator):
             model_m,
             model_r,
         ) in fold_results:
+            g0_te, g1_te, m_te, r0_te, r1_te = [
+                _prediction_vector(values, len(test_idx), name=f"IV fold {name}")
+                for name, values in (("g0", g0_te), ("g1", g1_te), ("m", m_te),
+                                     ("r0", r0_te), ("r1", r1_te))
+            ]
             folds[test_idx] = fold_id
             g_hat0[test_idx] = g0_te
             g_hat1[test_idx] = g1_te
@@ -581,17 +594,26 @@ class IIVM(BaseEstimator):
             fitted_models["m"].append(model_m)
             fitted_models["r"].append(model_r)
 
-        predictions = {
+        predictions = self._validate_predictions({
             "g_hat0": g_hat0,
             "g_hat1": g_hat1,
             "m_hat_raw": m_hat_raw,
-            "m_hat": _clip_iv_propensity(m_hat_raw, self.trimming_threshold),
             "r_hat0": r_hat0,
             "r_hat1": r_hat1,
-        }
-        if any(np.any(np.isnan(arr)) for arr in predictions.values()):
-            raise RuntimeError("Cross-fitted predictions contain NaN values.")
+        }, n=n, include_clipped=False)
+        predictions["m_hat"] = _clip_iv_propensity(predictions["m_hat_raw"], self.trimming_threshold)
         return predictions, fitted_models, folds
+
+    @staticmethod
+    def _validate_predictions(predictions: Dict[str, np.ndarray], *, n: int,
+                              include_clipped: bool = True) -> Dict[str, np.ndarray]:
+        """Validate assembled nuisances, including raw propensity before clipping."""
+        names = ["g_hat0", "g_hat1", "m_hat_raw", "r_hat0", "r_hat1"]
+        if include_clipped:
+            names.insert(3, "m_hat")
+        return {name: _prediction_vector(predictions[name], n,
+                                         name=f"IV cross-fitted {name}", allow_column=False)
+                for name in names}
 
     def fit(self, data: Optional[IVCausalData] = None) -> "IIVM":
         """Fit nuisances after clearing the previous fit and inference state.
@@ -622,6 +644,7 @@ class IIVM(BaseEstimator):
         predictions, fitted_models, folds = self._cross_fit_nuisances(
             X=X, y=y, d=d, z=z, y_is_binary=y_is_binary
         )
+        predictions = self._validate_predictions(predictions, n=len(y))
 
         self.y_ = np.asarray(y, dtype=float).copy()
         self.d_ = np.asarray(d, dtype=int).copy()

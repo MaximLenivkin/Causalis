@@ -20,6 +20,9 @@ except ImportError:
 from causalis.data_contracts.multicausaldata import MultiCausalData
 from causalis.data_contracts.multicausal_estimate import MultiCausalEstimate
 from causalis.data_contracts.causal_diagnostic_data import MultiUnconfoundednessDiagnosticData
+from causalis.scenarios._prediction import (
+    _prediction_vector, _probability_classes, _probability_output,
+)
 from causalis.scenarios.multi_unconfoundedness._utils import (
     _is_binary,
     _normalize_multiclass_ipw_terms,
@@ -101,6 +104,12 @@ class MultiTreatmentIRM(BaseEstimator):
 
     Notes
     -----
+    Learner outputs must be real and finite. ``predict()`` accepts shapes
+    ``(n,)`` and ``(n, 1)``; binary ``predict_proba()`` also accepts ``(n, 2)``.
+    Multiclass propensity probabilities require shape ``(n, K)`` with columns
+    matching ``classes_`` when provided. Scalars, row vectors, higher-dimensional
+    arrays and complex outputs (even with zero imaginary parts) are rejected.
+
     Let :math:`W = (Y, D, X)` where :math:`D \in \{0, 1, \dots, K-1\}` and arm
     :math:`0` is the designated baseline. Define the arm-specific outcome
     regressions and generalized propensity scores as
@@ -521,11 +530,12 @@ class MultiTreatmentIRM(BaseEstimator):
 
     def _predict_binary_outcome_probability(self, model_g, X: np.ndarray) -> np.ndarray:
         """Predict P(Y=1|X,D=k) robustly across binary classifier APIs."""
-        pred_g = np.asarray(model_g.predict_proba(X), dtype=float)
-        if not np.all(np.isfinite(pred_g)):
-            raise RuntimeError("Outcome model predict_proba() produced non-finite values.")
+        pred_g = _probability_output(model_g.predict_proba(X), X.shape[0],
+                                     name="Outcome model predict_proba()", binary=True)
         if pred_g.ndim == 2:
-            g_classes = np.asarray(getattr(model_g, "classes_", np.array([0, 1])))
+            g_classes = _probability_classes(model_g, pred_g.shape[1], name="Outcome model")
+            if not g_classes.size and pred_g.shape[1] == 2:
+                g_classes = np.array([0, 1])
             if 1 in g_classes:
                 one_col = int(np.where(g_classes == 1)[0][0])
                 pred_g = pred_g[:, one_col]
@@ -539,7 +549,7 @@ class MultiTreatmentIRM(BaseEstimator):
                 raise ValueError("Binary outcome model must return probability for class 1.")
         else:
             pred_g = pred_g.ravel()
-        return np.asarray(pred_g, dtype=float).ravel()
+        return _prediction_vector(pred_g, X.shape[0], name="Outcome predictions")
 
     def _fit_one_outcome_nuisance(
         self,
@@ -575,9 +585,8 @@ class MultiTreatmentIRM(BaseEstimator):
         if y_is_binary and _safe_is_classifier(model_g) and hasattr(model_g, "predict_proba"):
             pred_g = self._predict_binary_outcome_probability(model_g, X_te)
         else:
-            pred_g = np.asarray(model_g.predict(X_te), dtype=float).ravel()
-        if not np.all(np.isfinite(pred_g)):
-            raise RuntimeError("Outcome nuisance predictions contain non-finite values.")
+            pred_g = _prediction_vector(model_g.predict(X_te), X_te.shape[0],
+                                        name="Outcome nuisance predictions")
         if y_is_binary:
             pred_g = np.clip(pred_g, 1e-12, 1 - 1e-12)
         return pred_g
