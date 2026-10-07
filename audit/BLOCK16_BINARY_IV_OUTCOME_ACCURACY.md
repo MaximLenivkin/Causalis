@@ -1,7 +1,8 @@
 # B16 — Gaussian marginal potential-outcome accuracy
 
 Baseline: `e8459e1` (`codex/correctness-roadmap`). Дата: 2026-10-07.
-Source checkpoint и итог integration дополняются после коммита и проверки.
+Source checkpoint: **`1c91b0d39c8c12ac01d6a61c81d1bcd29c12b658`**.
+Локальная проверка завершена; remote/CI verification остаётся недоступной.
 
 ## Контракт и исправление
 
@@ -78,6 +79,17 @@ of separately integrated marginals. Sensitivity и selected-U ATT вне scope.
 - Root выполнил review и все проверки в этом блоке. Независимые субагенты не
   запускались; independent references означают другой численный reference,
   а не отдельного reviewer.
+- Общая correctness integration на exact committed source: **2739 passed**,
+  0failures/errors/skips,78warnings,140.70s,exit0. Семь прежних sensitivity
+  modules исключены явно; это не полный suite и не sensitivity validation.
+  [Result](block16_integration_result.json),
+  [selection/environment](block16_integration_selection.json),
+  [log](block16_integration_tests.log),
+  [runner](run_block16_integration.py).
+- [Validator](verify_block16.py), [evidence](block16_validation_result.json)
+  проверяет точный source/test scope, unchanged methods, committed bytes,
+  original probe provenance, baseline/focused/neighbor/integration counts и
+  case sets, unchanged exclusions. Source/tests не изменялись после1c91.
 
 Первый focused run:60passed/2failed. Нормализованный exponential middle при
 link=-100,strength10 потребовал realistic epsabs1e-11 вместо1e-12 из-за
@@ -101,6 +113,12 @@ assignment/calibration/observed RNG и не подменять joint integrals m
 Затем прежний learner shape/real/IVstorage backlog.
 
 GitHub live-read сейчас ограничен DNS/network sandbox: `git ls-remote origin`
-получил `Could not resolve host: github.com`. Push/CI не подтверждены.
+и обычный `git push origin codex/correctness-roadmap` получили
+`Could not resolve host: github.com`. Session sandbox escalation отключена;
+login/fork не повторялись, ограничения не обходились. **Push/CI не подтверждены**,
+remote equality не заявляется. Local tracking ref остаётся cached checkpoint.
+В будущей network-enabled session нужен обычный personal push и проверка всех
+шести CI jobs/artifacts для exact1c91. Source и audit сохранены локальными
+коммитами; final audit checkpoint определяется `git log -1`.
 На границе B16 остановиться; следующий блок после очистки контекста и нового
 запроса пользователя.

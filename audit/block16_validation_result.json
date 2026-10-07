@@ -1,0 +1,49 @@
+{
+  "baseline": "e8459e11bbe8d1f7c6f7816729d3d27e64c9c31b",
+  "source_checkpoint": "1c91b0d39c8c12ac01d6a61c81d1bcd29c12b658",
+  "original_probe_process_head": "e8459e11bbe8d1f7c6f7816729d3d27e64c9c31b",
+  "original_probe_time": "2026-10-07T15:24:39.026135+00:00",
+  "committed_paths_verified": 7,
+  "unchanged_methods": 22,
+  "baseline_public_tests": {
+    "tests": 62,
+    "failures": 37,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 25
+  },
+  "focused_tests": {
+    "tests": 121,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 121
+  },
+  "neighbors": {
+    "tests": 1359,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 1359
+  },
+  "integration": {
+    "tests": 2739,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 2739
+  },
+  "sensitivity_exclusions": [
+    "tests/refutation/test_multi_sensitivity_benchmark.py",
+    "tests/refutation/test_sensitivity_benchmark.py",
+    "tests/refutation/test_sensitivity_combination.py",
+    "tests/refutation/test_sensitivity_integration_irm.py",
+    "tests/refutation/test_sensitivity_protocol.py",
+    "tests/refutation/test_sensitivity_rv_signed_rr.py",
+    "tests/refutation/test_trim_sensitivity_ate.py"
+  ],
+  "ci_verified": false,
+  "push_verified": false,
+  "network_failure": "git ls-remote and git push: Could not resolve host github.com",
+  "issues": []
+}

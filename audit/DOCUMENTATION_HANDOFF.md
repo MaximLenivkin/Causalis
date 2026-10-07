@@ -600,3 +600,63 @@ Verification: 79 public cases pass without warnings. The identical module on pre
 B15 also measures existing binary/IV fixed-order Gaussian outcome-oracle errors under strong latent noise and clipped exponential links. These sources are unchanged here. They require a separate numerical correction with a shared-latent target for compound IV/Tweedie means; multiplying separate marginals is not a valid replacement. Sensitivity, selected-U ATT, other latent laws, uniform arbitrary-coefficient certificates, performance, standalone Sphinx and release validation remain separate work.
 
 B15 CI: [verified run and per-job artifacts](https://github.com/MaximLenivkin/Causalis/actions/runs/37628255646), exact source9a57e91. All six representative Linux configurations pass **2618 cases each**, with zero failures/errors/skips. Actual downloaded selection, environment and JUnit payloads include all79newcases and the same seven sensitivity exclusions. Full local/CI case sets match; Python3.10 latest/legacy and3.11–3.14 latest-compatible are verified. Full sensitivity, standalone Sphinx and release validation remain separate.
+
+## B16 · Accurate Gaussian potential-outcome means for binary treatment and IV
+
+Local implementation checkpoint: **1c91b0d39c8c12ac01d6a61c81d1bcd29c12b658**.
+This checkpoint has not been pushed: the session cannot resolve github.com.
+Do not describe it as a published release or CI-validated change. Portable
+repository paths: `causalis/dgp/_gaussian_outcome.py`,
+`causalis/dgp/causaldata/base.py`,
+`causalis/dgp/causaldata_instrumental/base.py`, and the two new regression
+modules `tests/data/test_binary_iv_marginal_outcomes.py` and
+`tests/data/test_gaussian_outcome_accuracy_policy.py`.
+
+Ready-to-use text after publishing the checkpoint:
+
+> Binary-treatment g0/g1 and instrumental-generator g_d0/g_d1 integrate mean
+> potential outcomes over independent standard Gaussian latent noise. Supplying
+> realized U does not change this reference law. These columns represent
+> E[Y(d)|X], not an outcome regression conditional on an endogenous treatment.
+> Poisson/Gamma means include the clipped exponential link used to generate
+> observations. This corrects fixed-order quadrature errors under strong
+> latent outcome noise while retaining observation sampling and column schemas.
+
+> Binary means use adaptive smooth Gaussian or logistic-CDF integrals with an
+> estimated absolute error target of 1e-11. Clipped exponential means combine
+> Gaussian tails and a truncated exponential moment, with stable log-CDF
+> arithmetic or a normalized link-space integral. Calculations use bounded
+> batches and no random draws. Nonconvergence, nonfinite inputs or unsupported
+> floating-point geometry raise ValueError. Estimated errors are not rigorous
+> universal certificates or relative-accuracy guarantees for rare probabilities.
+
+> oracle_nuisance(num_quad=...) retains its argument for the treatment
+> propensity's Gauss-Hermite integration. Nonlinear outcome callables use the
+> same Gaussian mean implementation as generate and no longer depend on that
+> argument. The existing latent-confounding identification guard remains.
+> Zero-strength and continuous branches retain their previous arithmetic.
+
+Migration: nonlinear IV potential-outcome means evaluate each base location
+once, rather than evaluating the outcome callback at all31quadrature nodes
+for each treatment. Outcome callbacks should be deterministic functions of X;
+stateful or random callbacks may change their call counts and later RNG
+progression. Failed generation does not roll back RNG or callback side effects.
+The binary generator retains its existing internal oracle computation even
+with include_oracle=False, so numerical failure can also surface there.
+
+Verification:121focusedcases and1359data-neighborcases pass. A frozen-baseline
+comparison verifies96exact frame/schema/metadata/RNGpairs outside corrected
+oracle columns for deterministic callbacks.140independent scalar references
+give maximum binary absolute error4.44e-16 and Gamma relative error1.59e-15
+on the chosen grid. The block report records final local integration and
+explicit network/CI limitations. Separate joint shared-U IV/Tweedie integrals
+and treatment propensity accuracy remain follow-up work; multiplying separate
+marginals does not compute these joint targets.
+
+B16 local integration: exact1c91b0d passes **2739 correctness cases**, zero
+failures/errors/skips,78warnings,140.70s. The same seven sensitivity modules
+remain explicitly deferred. Source and test hashes, actual JUnit case sets
+and the unchanged exclusion list are verified. Push failed with DNS resolution
+errors; all six Linux CI jobs and their artifacts still require verification
+after a future ordinary push. Standalone Sphinx, sensitivity and release are
+not validated here.

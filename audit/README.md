@@ -39,3 +39,14 @@ Scripts/JSON/logs сохраняют воспроизведения исходн
 
 
 Текущий **B15 завершён**: [BLOCK15_GAUSSIAN_ORACLE.md](BLOCK15_GAUSSIAN_ORACLE.md). Добавлен opt-in Gaussian marginal propensity oracle с явным target, adaptive numerical policy и сохранением старых outputs/RNG. Source9a57e91; **79 новых tests passed**, baseline74planned API-absence failures/5compatibility passes; independent112default+40additive exact pairs и31contract/34review Gaussian references. **Local2618passed**,0failures/errors/skips,78warnings179.77s: [result](block15_integration_result.json). Все шесть Linux CI jobs и actual artifacts — **2618passed каждый**: [CI](block15_ci_result.json). Handoff110immutablelinksverified. Следующий B16 — выявленные binary/IV marginal outcome numerical defects; shared-latent compound targets требуют отдельного решения. Семь sensitivity modules deferred; standalone Sphinx/release/performance не validated. Работа остановлена на границе B15; final audit checkpoint — gitlog-1, обычный personal push/remote equality+clean tree проверяются на завершении.
+
+
+Текущий **B16 завершён локально**: [BLOCK16_BINARY_IV_OUTCOME_ACCURACY.md](BLOCK16_BINARY_IV_OUTCOME_ACCURACY.md).
+Source1c91b0d исправляет Gaussian outcome means binary/IV и nonlinear nuisance
+callables;121focusedcasespassed,96exactcompatibilitypairs,140independentreferences.
+[Local correctness](block16_integration_result.json):2739passed,0failures/errors/skips,
+78warnings,7sensitivitymodulesdeferred. [Validation](block16_validation_result.json)
+проверяет committedbytes/caseIDs/exclusions. **Push/CI не подтверждены:** session
+DNSfailure github.com; после network restoration обычный personalpush и шестьCIjobs.
+Следующий B17 — propensity и compoundshared-Uaccuracy; [NEXT_SESSION](NEXT_SESSION.md)
+содержит точный scope, migration для statefulcallbacks и продолжение.

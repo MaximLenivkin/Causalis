@@ -10,7 +10,7 @@
 
 1. `AGENTS.md` — локальная `.venv` обязательна. На текущем Mac использовать **`.venv/bin/python`**, Python3.12.14, не старый backing path `/Users/ioann/...`. Окружение восстановлено из project extras dev/docs, dependencycheck и5setupsmoketests прошли. Local setup manifest `.venv/setup-environment.json`; B09 integration manifest записывает реальные проверенные версии.
 2. `audit/FIX_PLAN.md` — порядок блоков, scope gates и deferred findings.
-3. Этот файл и **`audit/BLOCK15_GAUSSIAN_ORACLE.md`** — последнее состояние. B09–B14 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
+3. Этот файл и **`audit/BLOCK16_BINARY_IV_OUTCOME_ACCURACY.md`** — последнее состояние. B09–B15 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
 4. `audit/REPORT.md` — исторический аудит исходного SHA, не текущий residual bug count.
 
 ## Git
@@ -20,6 +20,45 @@ GitHub авторизация завершена пользователем и �
 Исторический Windows GitHubCLI2.102.0: `& 'C:\Program Files\GitHub CLI\gh.exe' ...` — использовать полный путь, если текущий Codex PATH ещё не обновлён. Авторизацию повторно запрашивать не требуется. Git mutations/network в ограниченной среде могут требовать разрешённого запуска; пользователь уже авторизовал commits/push в личную ветку. PR не создавался. Полная текущая информация — GIT_ACCESS.md.
 
 ## Текущая работа
+
+**B16 завершён локально** 7 октября2026; remote/CI verification ожидает network-enabled session. Local checkpoint
+`1c91b0d39c8c12ac01d6a61c81d1bcd29c12b658`, baseline `e8459e1`.
+Primary report [BLOCK16_BINARY_IV_OUTCOME_ACCURACY.md](BLOCK16_BINARY_IV_OUTCOME_ACCURACY.md).
+Новый deterministic Gaussian outcome helper, binary g0/g1 и IV g_d0/g_d1/cate,
+nonlinear oracle_nuisance outcome-callables. Independent Gaussian potential
+means; clipped exponential target сохранён. num_quad теперь только treatment
+GH propensity. Нелинейные IV outcome callbacks вызываются дважды вместо62;
+compatibility/RNG evidence только для deterministic functions of X.
+Continuous и zero-strength paths сохранены. Multi, binary m, IV shared-U
+r/g_by_z, Tweedie и sensitivity sources не менялись.
+
+Focused121passed; identical62publicbaseline37failed/25passed; neighbors
+1359passed/2existingwarnings. Probe96exact valid frame/schema/metadata/RNGpairs,
+140adaptive references, maxbinaryabs4.44e-16/maxgammarel1.59e-15. Manifests
+содержат реальные source/test hashes и original precommit HEAD/time;
+committed linkage проверяет verify_block16.py. Local committed correctness integration **2739passed**,0failures/errors/skips,
+78warnings,140.70s,exit0. Семь прежних sensitivity exclusions сохранены.
+Source/tests frozen после1c91; root validator проверил22unchangedmethods,
+7committedsource/test/dependency hashes и actualbaseline/focus/integrationcaseIDs,
+issues[]. Итоги в block16_integration_result.json и block16_validation_result.json.
+
+**Push/CI не подтверждены:** git ls-remote и git push получают
+`Could not resolve host: github.com` в этой session. Escalation отключена,
+обход ограничений не разрешён. Local origin tracking ref — historical cache,
+не live remote equality. Не повторять login/fork/env setup. Следующая сессия
+с network access должна обычным push отправить local commits в
+origin/codex/correctness-roadmap и проверить6CIjobs/artifacts для exact1c91.
+
+Следующий самостоятельный **B17: Gaussian propensity и compound shared-U
+means**. Concrete evidence в block16_probe_result.json: IV joint g_by_z
+errors≈0.073–0.075; binary m и Tweedie GH21 errors0.0935195 на stressconfiguration.
+Сначала target/law, independent joint Gaussian references, bounded-memory
+accuracy/failure и callback policy. Joint integrals не заменять product of
+marginals. Затем learner shape/real/IVstorage/extremeIF/normalizedATE backlog.
+Sensitivity, selected-U ATT, SC08LOO, Sphinx/release остаются отдельно.
+**Остановиться на границе B16. B17 начинается новым запросом пользователя.**
+
+## Исторический B15 checkpoint
 
 **B15 завершён** 7 октября2026 (Europe/Moscow). Source/test checkpoint **`9a57e91942a4b90b0401c0f8e3ebe6f5b4d82cdf`**, обычный personal push выполнен; final audit checkpoint — `git log -1`. Baseline **`71f6a619b04e0ab8fab388fb95b7d0f3d6631b96`**. Изменены ровно два library paths: `causalis/dgp/multicausaldata/base.py`, `functional.py`; добавлен `tests/data/test_multicausal_marginal_propensity.py`, 79cases. Root и три существующих CLI агента проверили contract, regressions, compatibility/review и CI.
 

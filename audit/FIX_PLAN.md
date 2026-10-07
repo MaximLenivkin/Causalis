@@ -107,3 +107,20 @@ B10 reviewer подтвердил отдельный binary/IV namespace defect:
 
 
 B11 уточнил отдельный wrapper-layer backlog: `generate_rct(pre_name='y')` может перезаписать outcome и создаёт duplicate projection даже с add_pre=False; IV instrument `user_id` или disabled-oracle `m` повторяется при ordering; ancillary names (например age) перезаписывают confounder либо IV instrument. Automatic conversion исключает oracle-like confounder names независимо от enabled flag. Evidence: `block11_contract_result.json`, `block11_review_probe.json`. B12 реализовал actual enabled namespace и actual feature-selection policy в шести DGP paths; low-level не резервирует несуществующие wrapper роли. Отдельный classic_rct_26 late y→conversion rename residual, доказанный в block12_review_probe.json, **исправлен B13** вместе со scenario ID conflict и disabled-oracle pre-feature projection.
+
+
+## B16 — текущий локальный checkpoint
+
+[B16 report](BLOCK16_BINARY_IV_OUTCOME_ACCURACY.md): source1c91b0d, accurate
+Gaussian marginal outcome means для binary/IV и outcome nuisance-callables.
+121focusedcases;96exact compatibility/RNGpairs,140scalarreferences;
+local2739correctnesscasespassed,7sensitivitymodulesdeferred. Stateful IV callbacks
+изменяют call counts, explicit contract/migration сохранён. Push/CI пока
+неподтверждены из-за DNS/network sandbox; после ordinary personal push проверить
+шесть CIjobs/artifacts для exactsource.
+
+Следующий отдельный B17: Gaussian propensity m/r и compound shared-U IV/Tweedie
+means по reproductions block16_probe_result.json. Сначала joint target и adaptive
+reference; product of marginals не заменяет shared-U expectation. Затем прежний
+learner shape/real/IV storage и extremeIF/normalizedATE backlog. Остановиться
+послеB16; B17 новым запросом после очистки контекста.

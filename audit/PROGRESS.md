@@ -214,3 +214,32 @@
 - Local committed correctness integration2618passed,0failures/errors/skips,78warnings,179.77s,exit0. CI37628255646 completed/success наexact9a57: allsixdownloaded artifacts2618passed each. Actual Python3.10.21latest/3.10.22legacy,3.11.17,3.12.14,3.13.16,3.14.7. Actual selection/environment/JUnit/fullcaseIDs verified,7sensitivity exclusions прежние.
 - Reports/runners/provenance/English handoff110links/NEXT_SESSION сохранены; finalsourceAST/additive scope/evidence validator и независимый CI review. Final audit-only commit/push и live remote/local equality+clean tree закрывают блок; audit-onlypush не запускает matrix.
 - B15 обнаружил existing binary/IV Gaussian outcome errors до9.35percentagepoints logistic и40.66%relative clipped-exp на конкретныхstressconfigs. B16 исправляет binaryg0/g1 и IVpotentialmeans после Gaussian target/reference policy; compound shared-latent IV/Tweedie не заменять продуктом marginals. Остальной correctness backlog сохраняется послеB16. Sensitivity/SC08LOO/selected-U ATT/Sphinx/release/performance/upstreamsync/PR/externalmessages вне этого блока. На границе B15 остановиться.
+
+
+## 2026-10-07 — B16 завершён локально
+
+- Source/tests **1c91b0d39c8c12ac01d6a61c81d1bcd29c12b658**. Три library paths
+  (новый Gaussian outcome helper +binary/IV integration), два новых test modules
+  с121cases. Fixed GH21/GH31 outcome bias исправлен; independent Gaussian
+  potential means и clipped exponential target, accuracy/failure/batching policy.
+  Outcome oracle_nuisance использует тот же helper; num_quad остаётся для m.
+- Baseline exact62publiccases37failed/25passed; finalfocus121passed0warnings5.17s.
+  Neighbors1359passed2warnings14.11s. Probe96exact valid frame/schema/dtype/
+  metadata/calibration/RNGpairs,140independentreferences; binaryabs4.44e-16,
+  Gammarel1.59e-15. Rootreview, без subagents. StatefulIVcallbacks неэквивалентны:
+  nonlinear potential means дают2calls вместо62; explicitmigration записан.
+- **Local committed correctness2739passed**,0failures/errors/skips,78warnings,
+  140.70s,exit0. Seven sensitivityexclusions unchanged. Finalvalidator проверяет
+  scope/22unchangedmethods/7committedhashes/actualcaseIDs/provenance,issues[].
+- **Push и CI не подтверждены**: git ls-remote/git push DNSfailure github.com.
+  Escalation disabled; ограничения не обходились. Local tracking ref неliveproof.
+  Нужны ordinarypersonalpush и sixLinuxCI/artifactverification в будущей
+  network-enabledsession. Login/fork/envreinstall не повторялись.
+- Primaryreport BLOCK16_BINARY_IV_OUTCOME_ACCURACY.md, probes/manifests/runners,
+  EnglishDOCHANDOFF и NEXT_SESSION обновлены. Runtime source/tests frozen после1c91;
+  finalaudit-onlycommit сохраняет локальные результаты. Temppytestdata удалены,
+  rawJUnit/selection/result/evidence retained.
+- Следующий B17 — Gaussian treatment propensity и jointshared-U IV/Tweedieaccuracy.
+  Residualg_by_z errors≈0.073–0.075, m/Tweedie0.0935195. Jointtargets нельзя заменить
+  productofmarginals. Затем learner/IF/normalizationbacklog. Sensitivity/selectedATT/
+  Sphinx/release/performance остаются отдельно. На границеB16 остановиться.
