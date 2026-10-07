@@ -1,0 +1,29 @@
+{
+  "baseline": "eb6dfe23f0a97991b6e3d6109febc1b0170e128d",
+  "source": "0b30db33fd2593dc25ea1b823a91795c789e0191",
+  "changed_source_paths": [
+    "causalis/dgp/base.py",
+    "causalis/dgp/causaldata/base.py",
+    "causalis/dgp/causaldata/functional.py",
+    "causalis/dgp/causaldata/preperiod.py",
+    "causalis/dgp/causaldata_instrumental/base.py",
+    "causalis/dgp/causaldata_instrumental/functional.py",
+    "tests/data/test_wrapper_namespace_contract.py"
+  ],
+  "new_cases": 162,
+  "local": {
+    "tests": 2397,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 2396
+  },
+  "ci_jobs_verified": 6,
+  "prior_did_runtime_source": "95a8b7599fb129fb2c5973f50e9b4a8018732f6c",
+  "did_called_closure_unchanged": true,
+  "numeric_runtime_bodies_preserved": 5,
+  "exact_reference_comparisons": 460,
+  "python_files_parsed": 13,
+  "relative_links_checked": 20,
+  "issues": []
+}

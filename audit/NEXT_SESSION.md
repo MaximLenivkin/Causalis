@@ -10,7 +10,7 @@
 
 1. `AGENTS.md` — локальная `.venv` обязательна. На текущем Mac использовать **`.venv/bin/python`**, Python3.12.14, не старый backing path `/Users/ioann/...`. Окружение восстановлено из project extras dev/docs, dependencycheck и5setupsmoketests прошли. Local setup manifest `.venv/setup-environment.json`; B09 integration manifest записывает реальные проверенные версии.
 2. `audit/FIX_PLAN.md` — порядок блоков, scope gates и deferred findings.
-3. Этот файл и **`audit/BLOCK11_NAMESPACE.md`** — последнее состояние. B09/B10 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
+3. Этот файл и **`audit/BLOCK12_WRAPPERS.md`** — последнее состояние. B09–B11 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
 4. `audit/REPORT.md` — исторический аудит исходного SHA, не текущий residual bug count.
 
 ## Git
@@ -20,6 +20,24 @@ GitHub авторизация завершена пользователем и �
 GitHubCLI2.102.0: `& 'C:\Program Files\GitHub CLI\gh.exe' ...` — использовать полный путь, если текущий Codex PATH ещё не обновлён. Авторизацию повторно запрашивать не требуется. Git mutations/network в ограниченной среде могут требовать разрешённого запуска; пользователь уже авторизовал commits/push в личную ветку. PR не создавался. Полная текущая информация — GIT_ACCESS.md.
 
 ## Текущая работа
+
+**B12 завершён** 7 октября 2026 (Moscow). Source/tests checkpoint: **`0b30db33fd2593dc25ea1b823a91795c789e0191`**, обычный push в личную ветку выполнен. Изменены шесть library paths: shared DGP base, binary base/functional/preperiod, IV base/functional. Новый модуль `tests/data/test_wrapper_namespace_contract.py` содержит 162 cases. Root и три существующих CLI субагента независимо проверили контракт, regressions, совместимость и CI.
+
+Guards проверяют только реально включённые pre-period и ancillary поля и отклоняют коллизии без перезаписи. Неиспользуемый pre_name не влияет на ordering. Фактические confounder names и output roles фиксируются immutable tuples до assembly и публикуются после успешной generate. Поздние IV callbacks, включая мутацию внешнего списка имён, не меняют conversion roles. Два private dataclass fields имеют init=False/repr=False/compare=False; constructor signatures сохранены, fields/asdict включают private state. Ordering не повторяет столбцы. Automatic feature selection сохраняет disabled oracle-like names. Роль ID назначается только ancillary-added user_id; low-level user_id feature и IV user_id instrument сохраняют свои роли. Explicit selection и проверки data contracts не ослаблены.
+
+**B12 verification:** 162 новых cases passed, 0 warnings, 4.74 s. Exact baseline eb6dfe: 136 failed / 26 passed, 6.53 s. Проверены шесть module pins, shared bindings, IV inheritance, exact collection и test hash. Focus был precommit; source/test bytes связаны с committed0b30 без rerun и без переписывания original head_at_start. Independent review: 300 wrapper configs + 80 core configs × 2 = **460 exact frame/dtype/schema/contract-metadata/RNG comparisons**; 45 rejects, 34 allowed-name checks, 6 core callback checks, 5 wrapper/helper callback checks, 2 constructor checks; warnings0, issues[]. Full references были precommit, 12 referenced committed file bytes verified. Пять AST runtime bodies сохранены apart from guards/metadata. Исправление ранее misclassified schemas намеренно меняет features и иногда pre/ancillary values/RNG; exact compatibility claim относится к корректно classified schemas.
+
+Local Mac integration на0b30: **2396 passed, 1 failed, 0 errors/skips, 78 warnings, 85.67 s**, exit1, total2397. Это не clean local/full suite. Единственный прежний DiD GREEN/YELLOW failure сохраняется. Fixture и вся пятифайловая package closure из B10 runtime evidence имеют прежние bytes; шесть изменённых DGP paths находятся вне closure. B12 использует static linkage, новый cell-value probe не запускался. Threshold/assert/exclusions unchanged.
+
+CI [37598926037](https://github.com/MaximLenivkin/Causalis/actions/runs/37598926037) **completed/success** на exact0b30: все шесть downloaded job artifacts — **2397 passed каждый**, 0 failures/errors/skips; matrix_verified=true, issues[]. Snapshot UTC2026-10-07T09:15:10.818155. Actual Python: 3.10.21 latest/legacy, 3.11.16, 3.12.14, 3.13.15, 3.14.7. Семь прежних sensitivity modules deferred; full sensitivity, standalone Sphinx, release и новый performance benchmark не validated.
+
+Документация: BLOCK12_WRAPPERS.md, B12_WRAPPER_CONTRACT/IMPLEMENTATION/TESTS/REVIEW.md, воспроизводимые probes/runners/manifests. Portable English handoff дополнен семью source/test links; **101 immutable links verified**. Внешние сообщения автору не отправлялись. Artifact checker verify_block12.py проверяет точные source/test hashes, AST, baseline/focused/JUnit, prior DiD closure, все CI artifacts и локальные report links.
+
+Следующий bounded **B13** candidate: late scenario outcome rename namespace в causalis/scenarios/classic_rct/dgp.py. Confirmed frozen/current trigger: generate_classic_rct_26(add_pre=True, pre_name='conversion', add_ancillary=False, return_causal_data=False). Underlying wrapper создаёт valid y и pre conversion; scenario y→conversion rename возвращает duplicate conversion. Contract rejects duplicates; CUPED26 уже имеет свой reserved-name guard. B12 исправляет шесть DGP paths, не этот поздний scenario rename. Затем отдельная mathematical numerical-zero DiD diagnostic/fixture policy, Gaussian oracle accuracy/API и прежний correctness backlog. Sensitivity/SC08LOO deferred.
+
+Окружение: `.venv/bin/python`3.12.14 macOS arm64; `/Users/m.lenivkin/.local/bin/gh` с явным `--repo MaximLenivkin/Causalis`. Login/fork/remotes повторять не нужно. Source/tests frozen после0b30; final audit checkpoint — git log -1. Обычный final push, remote/local equality и clean tree проверяются на завершении. **На границе B12 работа остановлена; B13 начинается только новым запросом пользователя.**
+
+## Исторический B11 checkpoint
 
 **B11 завершён** 7 октября 2026 (Moscow). Source/tests checkpoint: **`cdc2c9590246c5b049d2184ba3479324217b2b00`**, ordinary personal push выполнен. Два library paths: `causalis/dgp/causaldata/base.py`, `causalis/dgp/causaldata_instrumental/base.py`; новый `tests/data/test_binary_iv_namespace_contract.py`, **163 cases**. Root и три CLI субагента проверили контракт, написали regressions и выполнили независимое review.
 

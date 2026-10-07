@@ -98,3 +98,8 @@ Source/tests95a8b7599fb129fb2c5973f50e9b4a8018732f6c pushed обычным сп�
 ## 2026-10-07 — B11 personal checkpoint
 
 Source/tests **cdc2c9590246c5b049d2184ba3479324217b2b00** ordinary pushed в `origin/codex/correctness-roadmap`. CI37589241406 completed/success: exactsourcecdc, все6downloadedjobartifacts2235passed каждый. Послеcdc толькоauditchanges; итоговый checkpoint — git log -1, finalremote/localequality+cleantree проверяются послеaudit-onlypush. Existing credentials/remotes использованы безnewlogin/fork/upstreamsync; PR/release/externalmessages несоздавались.
+
+
+## 2026-10-07 — B12 personal checkpoint
+
+Source/tests **0b30db33fd2593dc25ea1b823a91795c789e0191** ordinary pushed в origin/codex/correctness-roadmap. CI37598926037 completed/success на exactsource0b30: все шесть downloaded job artifacts2397passed каждый,0failures/errors/skips. Credentials/remotes/branch прежние; newlogin/fork/upstreamsync не нужны. Послеsourcefreeze толькоauditfiles; finalcheckpointgitlog-1, remote/local equality иcleanstatus послеfinalordinarypush. PR/release/externalmessagesнесоздавались.

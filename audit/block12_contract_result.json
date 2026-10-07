@@ -1,0 +1,5252 @@
+{
+  "evidence_kind": "frozen_baseline_only",
+  "baseline_sha": "eb6dfe23f0a97991b6e3d6109febc1b0170e128d",
+  "observed_head": "eb6dfe23f0a97991b6e3d6109febc1b0170e128d",
+  "python_version": "3.12.14 (main, Sep 29 2026, 14:50:19) [Clang 22.1.3 ]",
+  "synthetic_only": true,
+  "n": 80,
+  "seed": 731,
+  "baseline_source_sha256": {
+    "causalis/dgp/base.py": "2afe9389b00bf0facf224f026b5bafd84bf600fbcbe4c79c5ce127b72f34d66f",
+    "causalis/dgp/causaldata/preperiod.py": "66e6f743044ae9c38ff822f99756fdf00cd54aa2e8766ccb021601d4f65ecb46",
+    "causalis/dgp/causaldata/base.py": "f1e9e35eee2c5fb3d0e2e0f574ad1ae9acf02961921daf790c3acc57810929d3",
+    "causalis/dgp/causaldata/functional.py": "28e8d3b1645c71c111c7fa3daed2cc85dcf32ea739863bbaf181b86aad509cc6",
+    "causalis/dgp/causaldata_instrumental/base.py": "6df54418fe67a7e0af84b2347c0a02ced94b3ce97af489a04f87446c32317633",
+    "causalis/dgp/causaldata_instrumental/functional.py": "28d324139621ac84d85e660619bf6ac470e8fed2afa7b4bd0085bbfc404dd85b",
+    "causalis/dgp/multicausaldata/base.py": "2977f5ee3fe7ae2ce10a19d39d898e048f448c2b15d1b93a48f04094db00a859",
+    "causalis/dgp/multicausaldata/functional.py": "891da1e300d971200561cf018817e29f050f341d19d1c4be0671b9d471a8c16e"
+  },
+  "unchanged_imported_contracts": {
+    "causalis/data_contracts/causaldata.py": {
+      "baseline_sha256": "f98bf871a08a0bde88f56e4ea0fe864c8ab88818357932033f7526493b6f83ce",
+      "current_sha256": "f98bf871a08a0bde88f56e4ea0fe864c8ab88818357932033f7526493b6f83ce",
+      "unchanged": true
+    },
+    "causalis/data_contracts/iv_causal_data.py": {
+      "baseline_sha256": "8e5c383d400e882c4883449ccfb30c2598fbcdd0a1f722b316792448110f64f0",
+      "current_sha256": "8e5c383d400e882c4883449ccfb30c2598fbcdd0a1f722b316792448110f64f0",
+      "unchanged": true
+    },
+    "causalis/data_contracts/multicausaldata.py": {
+      "baseline_sha256": "2bfe0bf3d471d983e9adf4318b37ab898910ae1e8221eb4680bfc9d775c3b42b",
+      "current_sha256": "2bfe0bf3d471d983e9adf4318b37ab898910ae1e8221eb4680bfc9d775c3b42b",
+      "unchanged": true
+    }
+  },
+  "records_count": 133,
+  "records": [
+    {
+      "group": "rct_pre_name",
+      "case": "y_pre_False",
+      "settings": {
+        "pre_name": "y",
+        "add_pre": false
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "x1",
+        "y",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "y"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_pre_name",
+      "case": "y_pre_True",
+      "settings": {
+        "pre_name": "y",
+        "add_pre": true
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "x1",
+        "y",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "y"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_pre_name",
+      "case": "d_pre_False",
+      "settings": {
+        "pre_name": "d",
+        "add_pre": false
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "x1",
+        "d",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "d"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "warning_count": 0
+    },
+    {
+      "group": "rct_pre_name",
+      "case": "d_pre_True",
+      "settings": {
+        "pre_name": "d",
+        "add_pre": true
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "x1",
+        "d",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "d"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "warning_count": 0
+    },
+    {
+      "group": "rct_pre_name",
+      "case": "m_pre_False",
+      "settings": {
+        "pre_name": "m",
+        "add_pre": false
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "x1",
+        "m",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "m"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_pre_name",
+      "case": "m_pre_True",
+      "settings": {
+        "pre_name": "m",
+        "add_pre": true
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "x1",
+        "m",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "m"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_pre_name",
+      "case": "x1_pre_False",
+      "settings": {
+        "pre_name": "x1",
+        "add_pre": false
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "x1",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_pre_name",
+      "case": "x1_pre_True",
+      "settings": {
+        "pre_name": "x1",
+        "add_pre": true
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "x1",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_unused_pre_name",
+      "case": "None",
+      "settings": {
+        "pre_name": "None"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "x1",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_unused_pre_name",
+      "case": "''",
+      "settings": {
+        "pre_name": "''"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "x1",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_unused_pre_name",
+      "case": "['unused']",
+      "settings": {
+        "pre_name": "['unused']"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "x1",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_pre_ancillary",
+      "case": "user_id",
+      "settings": {
+        "pre_name": "user_id"
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "cannot insert user_id, already exists",
+      "warning_count": 0
+    },
+    {
+      "group": "rct_pre_ancillary",
+      "case": "age",
+      "settings": {
+        "pre_name": "age"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "x1",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend",
+        "age",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 39,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_pre_ancillary",
+      "case": "cnt_trans",
+      "settings": {
+        "pre_name": "cnt_trans"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "x1",
+        "age",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend",
+        "cnt_trans",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 39,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_pre_ancillary",
+      "case": "platform_Android",
+      "settings": {
+        "pre_name": "platform_Android"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "x1",
+        "age",
+        "cnt_trans",
+        "platform_iOS",
+        "invited_friend",
+        "platform_Android",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 39,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_pre_ancillary",
+      "case": "platform_iOS",
+      "settings": {
+        "pre_name": "platform_iOS"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "x1",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "invited_friend",
+        "platform_iOS",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 39,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_pre_ancillary",
+      "case": "invited_friend",
+      "settings": {
+        "pre_name": "invited_friend"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "x1",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 39,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_confounder",
+      "case": "binary_user_id",
+      "settings": {
+        "family": "binary",
+        "name": "user_id"
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "cannot insert user_id, already exists",
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_confounder",
+      "case": "iv_user_id",
+      "settings": {
+        "family": "iv",
+        "name": "user_id"
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "cannot insert user_id, already exists",
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_instrument",
+      "case": "user_id",
+      "settings": {
+        "name": "user_id"
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "cannot insert user_id, already exists",
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_helper",
+      "case": "user_id",
+      "settings": {
+        "name": "user_id"
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "cannot insert user_id, already exists",
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_confounder",
+      "case": "binary_age",
+      "settings": {
+        "family": "binary",
+        "name": "age"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_confounder",
+      "case": "iv_age",
+      "settings": {
+        "family": "iv",
+        "name": "age"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "z",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_instrument",
+      "case": "age",
+      "settings": {
+        "name": "age"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "age",
+        "x1",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "int64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_helper",
+      "case": "age",
+      "settings": {
+        "name": "age"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_confounder",
+      "case": "binary_cnt_trans",
+      "settings": {
+        "family": "binary",
+        "name": "cnt_trans"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "cnt_trans",
+        "age",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_confounder",
+      "case": "iv_cnt_trans",
+      "settings": {
+        "family": "iv",
+        "name": "cnt_trans"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "z",
+        "cnt_trans",
+        "age",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_instrument",
+      "case": "cnt_trans",
+      "settings": {
+        "name": "cnt_trans"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "cnt_trans",
+        "x1",
+        "age",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "int64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_helper",
+      "case": "cnt_trans",
+      "settings": {
+        "name": "cnt_trans"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "cnt_trans",
+        "age",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_confounder",
+      "case": "binary_platform_Android",
+      "settings": {
+        "family": "binary",
+        "name": "platform_Android"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_Android",
+        "age",
+        "cnt_trans",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_confounder",
+      "case": "iv_platform_Android",
+      "settings": {
+        "family": "iv",
+        "name": "platform_Android"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "z",
+        "platform_Android",
+        "age",
+        "cnt_trans",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_instrument",
+      "case": "platform_Android",
+      "settings": {
+        "name": "platform_Android"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_Android",
+        "x1",
+        "age",
+        "cnt_trans",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "int64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_helper",
+      "case": "platform_Android",
+      "settings": {
+        "name": "platform_Android"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_Android",
+        "age",
+        "cnt_trans",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_confounder",
+      "case": "binary_platform_iOS",
+      "settings": {
+        "family": "binary",
+        "name": "platform_iOS"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_iOS",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "invited_friend"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_confounder",
+      "case": "iv_platform_iOS",
+      "settings": {
+        "family": "iv",
+        "name": "platform_iOS"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "z",
+        "platform_iOS",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "invited_friend"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_instrument",
+      "case": "platform_iOS",
+      "settings": {
+        "name": "platform_iOS"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_iOS",
+        "x1",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "invited_friend"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "int64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_helper",
+      "case": "platform_iOS",
+      "settings": {
+        "name": "platform_iOS"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "platform_iOS",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "invited_friend"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_confounder",
+      "case": "binary_invited_friend",
+      "settings": {
+        "family": "binary",
+        "name": "invited_friend"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "invited_friend",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_confounder",
+      "case": "iv_invited_friend",
+      "settings": {
+        "family": "iv",
+        "name": "invited_friend"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "z",
+        "invited_friend",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_instrument",
+      "case": "invited_friend",
+      "settings": {
+        "name": "invited_friend"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "invited_friend",
+        "x1",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "float64",
+        "int64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_helper",
+      "case": "invited_friend",
+      "settings": {
+        "name": "invited_friend"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "invited_friend",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "binary_conversion",
+      "case": "m",
+      "settings": {
+        "name": "m"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d"
+      ],
+      "column_label_types": [
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8"
+      ],
+      "contract_class": "CausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_conversion",
+      "case": "m",
+      "settings": {
+        "name": "m"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d"
+      ],
+      "column_label_types": [
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8"
+      ],
+      "contract_class": "CausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "binary_conversion",
+      "case": "m_obs",
+      "settings": {
+        "name": "m_obs"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d"
+      ],
+      "column_label_types": [
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8"
+      ],
+      "contract_class": "CausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_conversion",
+      "case": "m_obs",
+      "settings": {
+        "name": "m_obs"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d"
+      ],
+      "column_label_types": [
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8"
+      ],
+      "contract_class": "CausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "binary_conversion",
+      "case": "tau_link",
+      "settings": {
+        "name": "tau_link"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d"
+      ],
+      "column_label_types": [
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8"
+      ],
+      "contract_class": "CausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_conversion",
+      "case": "tau_link",
+      "settings": {
+        "name": "tau_link"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d"
+      ],
+      "column_label_types": [
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8"
+      ],
+      "contract_class": "CausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "binary_conversion",
+      "case": "g0",
+      "settings": {
+        "name": "g0"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d"
+      ],
+      "column_label_types": [
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8"
+      ],
+      "contract_class": "CausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_conversion",
+      "case": "g0",
+      "settings": {
+        "name": "g0"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d"
+      ],
+      "column_label_types": [
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8"
+      ],
+      "contract_class": "CausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "binary_conversion",
+      "case": "g1",
+      "settings": {
+        "name": "g1"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d"
+      ],
+      "column_label_types": [
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8"
+      ],
+      "contract_class": "CausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_conversion",
+      "case": "g1",
+      "settings": {
+        "name": "g1"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d"
+      ],
+      "column_label_types": [
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8"
+      ],
+      "contract_class": "CausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "binary_conversion",
+      "case": "cate",
+      "settings": {
+        "name": "cate"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d"
+      ],
+      "column_label_types": [
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8"
+      ],
+      "contract_class": "CausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_conversion",
+      "case": "cate",
+      "settings": {
+        "name": "cate"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d"
+      ],
+      "column_label_types": [
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8"
+      ],
+      "contract_class": "CausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "binary_conversion",
+      "case": "user_id",
+      "settings": {
+        "name": "user_id"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "int8"
+      ],
+      "contract_class": "CausalData",
+      "selected_confounders": [],
+      "user_id_role": "user_id",
+      "nonbinary_value_counts": {
+        "d": 0,
+        "user_id": 80
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_conversion",
+      "case": "user_id",
+      "settings": {
+        "name": "user_id"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "int8"
+      ],
+      "contract_class": "CausalData",
+      "selected_confounders": [],
+      "user_id_role": "user_id",
+      "nonbinary_value_counts": {
+        "d": 0,
+        "user_id": 80
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "rct_disabled_oracle_pre",
+      "case": "m",
+      "settings": {
+        "name": "m"
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "matmul: Input operand 1 has a mismatch in its core dimension 0, with gufunc signature (n?,k),(k,m?)->(n?,m?) (size 1 is different from 0)",
+      "warning_count": 0
+    },
+    {
+      "group": "rct_disabled_oracle_pre",
+      "case": "g0",
+      "settings": {
+        "name": "g0"
+      },
+      "status": "raised",
+      "exception": "ValueError",
+      "message": "matmul: Input operand 1 has a mismatch in its core dimension 0, with gufunc signature (n?,k),(k,m?)->(n?,m?) (size 1 is different from 0)",
+      "warning_count": 0
+    },
+    {
+      "group": "iv_conversion",
+      "case": "m",
+      "settings": {
+        "name": "m"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_wrapper_conversion",
+      "case": "m",
+      "settings": {
+        "name": "m"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_disabled_oracle_instrument",
+      "case": "m",
+      "settings": {
+        "name": "m"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "m",
+        "x1",
+        "m"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "m"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_conversion",
+      "case": "r_obs",
+      "settings": {
+        "name": "r_obs"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_wrapper_conversion",
+      "case": "r_obs",
+      "settings": {
+        "name": "r_obs"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_disabled_oracle_instrument",
+      "case": "r_obs",
+      "settings": {
+        "name": "r_obs"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "r_obs",
+        "x1",
+        "r_obs"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "r_obs"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_conversion",
+      "case": "r_z0",
+      "settings": {
+        "name": "r_z0"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_wrapper_conversion",
+      "case": "r_z0",
+      "settings": {
+        "name": "r_z0"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_disabled_oracle_instrument",
+      "case": "r_z0",
+      "settings": {
+        "name": "r_z0"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "r_z0",
+        "x1",
+        "r_z0"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "r_z0"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_conversion",
+      "case": "r_z1",
+      "settings": {
+        "name": "r_z1"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_wrapper_conversion",
+      "case": "r_z1",
+      "settings": {
+        "name": "r_z1"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_disabled_oracle_instrument",
+      "case": "r_z1",
+      "settings": {
+        "name": "r_z1"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "r_z1",
+        "x1",
+        "r_z1"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "r_z1"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_conversion",
+      "case": "g_z0",
+      "settings": {
+        "name": "g_z0"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_wrapper_conversion",
+      "case": "g_z0",
+      "settings": {
+        "name": "g_z0"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_disabled_oracle_instrument",
+      "case": "g_z0",
+      "settings": {
+        "name": "g_z0"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "g_z0",
+        "x1",
+        "g_z0"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "g_z0"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_conversion",
+      "case": "g_z1",
+      "settings": {
+        "name": "g_z1"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_wrapper_conversion",
+      "case": "g_z1",
+      "settings": {
+        "name": "g_z1"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_disabled_oracle_instrument",
+      "case": "g_z1",
+      "settings": {
+        "name": "g_z1"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "g_z1",
+        "x1",
+        "g_z1"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "g_z1"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_conversion",
+      "case": "iv_first_stage",
+      "settings": {
+        "name": "iv_first_stage"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_wrapper_conversion",
+      "case": "iv_first_stage",
+      "settings": {
+        "name": "iv_first_stage"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_disabled_oracle_instrument",
+      "case": "iv_first_stage",
+      "settings": {
+        "name": "iv_first_stage"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "iv_first_stage",
+        "x1",
+        "iv_first_stage"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "iv_first_stage"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_conversion",
+      "case": "iv_reduced_form",
+      "settings": {
+        "name": "iv_reduced_form"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_wrapper_conversion",
+      "case": "iv_reduced_form",
+      "settings": {
+        "name": "iv_reduced_form"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_disabled_oracle_instrument",
+      "case": "iv_reduced_form",
+      "settings": {
+        "name": "iv_reduced_form"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "iv_reduced_form",
+        "x1",
+        "iv_reduced_form"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "iv_reduced_form"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_conversion",
+      "case": "late_x",
+      "settings": {
+        "name": "late_x"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_wrapper_conversion",
+      "case": "late_x",
+      "settings": {
+        "name": "late_x"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_disabled_oracle_instrument",
+      "case": "late_x",
+      "settings": {
+        "name": "late_x"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "late_x",
+        "x1",
+        "late_x"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "late_x"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_conversion",
+      "case": "late",
+      "settings": {
+        "name": "late"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_wrapper_conversion",
+      "case": "late",
+      "settings": {
+        "name": "late"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_disabled_oracle_instrument",
+      "case": "late",
+      "settings": {
+        "name": "late"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "late",
+        "x1",
+        "late"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "late"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_conversion",
+      "case": "tau_link",
+      "settings": {
+        "name": "tau_link"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_wrapper_conversion",
+      "case": "tau_link",
+      "settings": {
+        "name": "tau_link"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_disabled_oracle_instrument",
+      "case": "tau_link",
+      "settings": {
+        "name": "tau_link"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "tau_link",
+        "x1",
+        "tau_link"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "tau_link"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_conversion",
+      "case": "g_d0",
+      "settings": {
+        "name": "g_d0"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_wrapper_conversion",
+      "case": "g_d0",
+      "settings": {
+        "name": "g_d0"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_disabled_oracle_instrument",
+      "case": "g_d0",
+      "settings": {
+        "name": "g_d0"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "g_d0",
+        "x1",
+        "g_d0"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "g_d0"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_conversion",
+      "case": "g_d1",
+      "settings": {
+        "name": "g_d1"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_wrapper_conversion",
+      "case": "g_d1",
+      "settings": {
+        "name": "g_d1"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_disabled_oracle_instrument",
+      "case": "g_d1",
+      "settings": {
+        "name": "g_d1"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "g_d1",
+        "x1",
+        "g_d1"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "g_d1"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_conversion",
+      "case": "cate",
+      "settings": {
+        "name": "cate"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_wrapper_conversion",
+      "case": "cate",
+      "settings": {
+        "name": "cate"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_disabled_oracle_instrument",
+      "case": "cate",
+      "settings": {
+        "name": "cate"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "cate",
+        "x1",
+        "cate"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "cate"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_conversion",
+      "case": "user_id",
+      "settings": {
+        "name": "user_id"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": "user_id",
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0,
+        "user_id": 80
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_wrapper_conversion",
+      "case": "user_id",
+      "settings": {
+        "name": "user_id"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "z"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "int8",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [],
+      "user_id_role": "user_id",
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0,
+        "user_id": 80
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_disabled_oracle_instrument",
+      "case": "user_id",
+      "settings": {
+        "name": "user_id"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "user_id",
+        "x1"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [
+        "user_id"
+      ],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_user_id_instrument_contract",
+      "case": "instrument_user_id",
+      "settings": {},
+      "status": "raised",
+      "exception": "ValidationError",
+      "message": "1 validation error for IVCausalData\n  Value error, Column 'user_id' cannot be both user_id and instrument[0].",
+      "warning_count": 0
+    },
+    {
+      "group": "iv_inherited_binary_conversion",
+      "case": "False",
+      "settings": {
+        "include_oracle": false
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z",
+        "x1"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64",
+        "float64"
+      ],
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "z",
+        "x1"
+      ],
+      "user_id_role": null,
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_inherited_binary_conversion",
+      "case": "True",
+      "settings": {
+        "include_oracle": true
+      },
+      "status": "raised",
+      "exception": "ValidationError",
+      "message": "1 validation error for CausalData\n  Value error, Column 'r_z0' specified as confounder is constant (has zero variance / single unique value), which is not allowed for causal inference.",
+      "warning_count": 0
+    },
+    {
+      "group": "multi_conversion_control",
+      "case": "m_0",
+      "settings": {
+        "name": "m_0"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "m_0",
+        "d_0",
+        "d_1",
+        "d_2"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "int8",
+        "int8",
+        "int8"
+      ],
+      "contract_class": "MultiCausalData",
+      "selected_confounders": [
+        "m_0"
+      ],
+      "user_id_role": null,
+      "warning_count": 0
+    },
+    {
+      "group": "multi_wrapper_control",
+      "case": "m_0",
+      "settings": {
+        "name": "m_0"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "m_0",
+        "d_0",
+        "d_1",
+        "d_2"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "int8",
+        "int8",
+        "int8"
+      ],
+      "contract_class": "MultiCausalData",
+      "selected_confounders": [
+        "m_0"
+      ],
+      "user_id_role": null,
+      "warning_count": 0
+    },
+    {
+      "group": "multi_conversion_control",
+      "case": "g_0",
+      "settings": {
+        "name": "g_0"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "g_0",
+        "d_0",
+        "d_1",
+        "d_2"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "int8",
+        "int8",
+        "int8"
+      ],
+      "contract_class": "MultiCausalData",
+      "selected_confounders": [
+        "g_0"
+      ],
+      "user_id_role": null,
+      "warning_count": 0
+    },
+    {
+      "group": "multi_wrapper_control",
+      "case": "g_0",
+      "settings": {
+        "name": "g_0"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "g_0",
+        "d_0",
+        "d_1",
+        "d_2"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "int8",
+        "int8",
+        "int8"
+      ],
+      "contract_class": "MultiCausalData",
+      "selected_confounders": [
+        "g_0"
+      ],
+      "user_id_role": null,
+      "warning_count": 0
+    },
+    {
+      "group": "multi_conversion_control",
+      "case": "g_1",
+      "settings": {
+        "name": "g_1"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "g_1",
+        "d_0",
+        "d_1",
+        "d_2"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "int8",
+        "int8",
+        "int8"
+      ],
+      "contract_class": "MultiCausalData",
+      "selected_confounders": [
+        "g_1"
+      ],
+      "user_id_role": null,
+      "warning_count": 0
+    },
+    {
+      "group": "multi_wrapper_control",
+      "case": "g_1",
+      "settings": {
+        "name": "g_1"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "g_1",
+        "d_0",
+        "d_1",
+        "d_2"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "int8",
+        "int8",
+        "int8"
+      ],
+      "contract_class": "MultiCausalData",
+      "selected_confounders": [
+        "g_1"
+      ],
+      "user_id_role": null,
+      "warning_count": 0
+    },
+    {
+      "group": "multi_conversion_control",
+      "case": "cate_1",
+      "settings": {
+        "name": "cate_1"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "cate_1",
+        "d_0",
+        "d_1",
+        "d_2"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "int8",
+        "int8",
+        "int8"
+      ],
+      "contract_class": "MultiCausalData",
+      "selected_confounders": [
+        "cate_1"
+      ],
+      "user_id_role": null,
+      "warning_count": 0
+    },
+    {
+      "group": "multi_wrapper_control",
+      "case": "cate_1",
+      "settings": {
+        "name": "cate_1"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "cate_1",
+        "d_0",
+        "d_1",
+        "d_2"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "int8",
+        "int8",
+        "int8"
+      ],
+      "contract_class": "MultiCausalData",
+      "selected_confounders": [
+        "cate_1"
+      ],
+      "user_id_role": null,
+      "warning_count": 0
+    },
+    {
+      "group": "multi_conversion_control",
+      "case": "user_id",
+      "settings": {
+        "name": "user_id"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "user_id",
+        "d_0",
+        "d_1",
+        "d_2"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "int8",
+        "int8",
+        "int8"
+      ],
+      "contract_class": "MultiCausalData",
+      "selected_confounders": [
+        "user_id"
+      ],
+      "user_id_role": null,
+      "nonbinary_value_counts": {
+        "user_id": 80
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "multi_wrapper_control",
+      "case": "user_id",
+      "settings": {
+        "name": "user_id"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "user_id",
+        "d_0",
+        "d_1",
+        "d_2"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "int8",
+        "int8",
+        "int8"
+      ],
+      "contract_class": "MultiCausalData",
+      "selected_confounders": [
+        "user_id"
+      ],
+      "user_id_role": null,
+      "nonbinary_value_counts": {
+        "user_id": 80
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "preperiod_helper",
+      "case": "'y'",
+      "settings": {
+        "pre_name": "'y'"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "x1"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "preperiod_helper",
+      "case": "'d'",
+      "settings": {
+        "pre_name": "'d'"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "x1"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 79
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "preperiod_helper",
+      "case": "'x1'",
+      "settings": {
+        "pre_name": "'x1'"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "x1"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "preperiod_helper",
+      "case": "None",
+      "settings": {
+        "pre_name": "None"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "x1",
+        "nan"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "float"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "preperiod_helper",
+      "case": "''",
+      "settings": {
+        "pre_name": "''"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "x1",
+        ""
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "preperiod_helper",
+      "case": "42",
+      "settings": {
+        "pre_name": "42"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "x1",
+        "42"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "int"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "preperiod_helper",
+      "case": "np.str_('valid_pre')",
+      "settings": {
+        "pre_name": "np.str_('valid_pre')"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "x1",
+        "valid_pre"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str_"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "preperiod_helper",
+      "case": "'   '",
+      "settings": {
+        "pre_name": "'   '"
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "x1",
+        "   "
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "preperiod_callback",
+      "case": "new_name_added_in_builder",
+      "settings": {},
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "x1",
+        "y_pre"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "iv_late_mutation",
+      "case": "instrument_name",
+      "settings": {},
+      "status": "raised",
+      "exception": "ValidationError",
+      "message": "1 validation error for IVCausalData\n  Value error, Column 'y' cannot be both outcome and instrument[0].",
+      "warning_count": 0
+    },
+    {
+      "group": "iv_late_mutation",
+      "case": "include_oracle",
+      "settings": {},
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "z",
+        "x1"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "int8",
+        "float64",
+        "float64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [
+        "x1"
+      ],
+      "user_id_role": null,
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "cuped_direct_pre",
+      "case": "make_cuped_tweedie_y_False",
+      "settings": {
+        "helper": "make_cuped_tweedie",
+        "add_pre": false
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "tenure_months",
+        "avg_sessions_week",
+        "spend_last_month",
+        "discount_rate",
+        "platform_ios",
+        "platform_web"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "cuped_direct_pre",
+      "case": "make_cuped_tweedie_y_True",
+      "settings": {
+        "helper": "make_cuped_tweedie",
+        "add_pre": true
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "tenure_months",
+        "avg_sessions_week",
+        "spend_last_month",
+        "discount_rate",
+        "platform_ios",
+        "platform_web"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "cuped_direct_pre",
+      "case": "generate_cuped_binary_y_False",
+      "settings": {
+        "helper": "generate_cuped_binary",
+        "add_pre": false
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "tenure_months",
+        "spend_last_month",
+        "discount_rate",
+        "support_tickets",
+        "email_open_rate",
+        "referral_count",
+        "plan_tier_plus",
+        "plan_tier_pro",
+        "region_eu"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "cuped_direct_pre",
+      "case": "generate_cuped_binary_y_True",
+      "settings": {
+        "helper": "generate_cuped_binary",
+        "add_pre": true
+      },
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "tenure_months",
+        "spend_last_month",
+        "discount_rate",
+        "support_tickets",
+        "email_open_rate",
+        "referral_count",
+        "plan_tier_plus",
+        "plan_tier_pro",
+        "region_eu"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "tweedie_latent_name_collision",
+      "case": "pre_name_latent_A",
+      "settings": {},
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "y",
+        "d",
+        "tenure_months",
+        "avg_sessions_week",
+        "spend_last_month",
+        "discount_rate",
+        "platform_ios",
+        "platform_web",
+        "m",
+        "m_obs",
+        "tau_link",
+        "g0",
+        "g1",
+        "cate",
+        "_latent_A"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_id_control",
+      "case": "rct_explicitly_added_id",
+      "settings": {},
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "x1",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "contract_class": "CausalData",
+      "selected_confounders": [
+        "x1",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "user_id_role": "user_id",
+      "nonbinary_value_counts": {
+        "d": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    },
+    {
+      "group": "ancillary_id_control",
+      "case": "iv_explicitly_added_id",
+      "settings": {},
+      "status": "returned",
+      "rows": 80,
+      "columns": [
+        "user_id",
+        "y",
+        "d",
+        "z",
+        "x1",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "column_label_types": [
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str",
+        "str"
+      ],
+      "duplicate_columns": [],
+      "dtypes": [
+        "str",
+        "float64",
+        "int8",
+        "float64",
+        "float64",
+        "int64",
+        "int64",
+        "int64",
+        "int64",
+        "int64"
+      ],
+      "contract_class": "IVCausalData",
+      "selected_confounders": [
+        "x1",
+        "age",
+        "cnt_trans",
+        "platform_Android",
+        "platform_iOS",
+        "invited_friend"
+      ],
+      "user_id_role": "user_id",
+      "instrument_roles": [
+        "z"
+      ],
+      "nonbinary_value_counts": {
+        "d": 0,
+        "z": 0,
+        "age": 80,
+        "cnt_trans": 41,
+        "platform_Android": 0,
+        "platform_iOS": 0,
+        "invited_friend": 0
+      },
+      "warning_count": 0
+    }
+  ],
+  "limits": [
+    "No candidate or integration counts",
+    "No generated individual rows retained",
+    "Data-contract modules imported from workspace and verified byte-identical to baseline"
+  ]
+}
