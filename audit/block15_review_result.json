@@ -1,0 +1,2164 @@
+{
+  "default_references": [
+    {
+      "surface": "generator",
+      "family": "continuous",
+      "variant": "zero_iid",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "continuous",
+      "variant": "latent",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "continuous",
+      "variant": "supplied",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "continuous",
+      "variant": "calibrated",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "continuous",
+      "variant": "callbacks",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "continuous",
+      "variant": "copula_categorical",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "continuous",
+      "variant": "custom",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "continuous",
+      "variant": "disabled_oracle_names",
+      "calls": 2
+    },
+    {
+      "surface": "functional_raw",
+      "family": "continuous",
+      "oracle": false,
+      "calls": 2
+    },
+    {
+      "surface": "functional_contract",
+      "family": "continuous",
+      "oracle": false,
+      "calls": 2
+    },
+    {
+      "surface": "to_multicausal_data",
+      "family": "continuous",
+      "oracle": false,
+      "calls": 2
+    },
+    {
+      "surface": "functional_raw",
+      "family": "continuous",
+      "oracle": true,
+      "calls": 2
+    },
+    {
+      "surface": "functional_contract",
+      "family": "continuous",
+      "oracle": true,
+      "calls": 2
+    },
+    {
+      "surface": "to_multicausal_data",
+      "family": "continuous",
+      "oracle": true,
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "binary",
+      "variant": "zero_iid",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "binary",
+      "variant": "latent",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "binary",
+      "variant": "supplied",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "binary",
+      "variant": "calibrated",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "binary",
+      "variant": "callbacks",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "binary",
+      "variant": "copula_categorical",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "binary",
+      "variant": "custom",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "binary",
+      "variant": "disabled_oracle_names",
+      "calls": 2
+    },
+    {
+      "surface": "functional_raw",
+      "family": "binary",
+      "oracle": false,
+      "calls": 2
+    },
+    {
+      "surface": "functional_contract",
+      "family": "binary",
+      "oracle": false,
+      "calls": 2
+    },
+    {
+      "surface": "to_multicausal_data",
+      "family": "binary",
+      "oracle": false,
+      "calls": 2
+    },
+    {
+      "surface": "functional_raw",
+      "family": "binary",
+      "oracle": true,
+      "calls": 2
+    },
+    {
+      "surface": "functional_contract",
+      "family": "binary",
+      "oracle": true,
+      "calls": 2
+    },
+    {
+      "surface": "to_multicausal_data",
+      "family": "binary",
+      "oracle": true,
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "poisson",
+      "variant": "zero_iid",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "poisson",
+      "variant": "latent",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "poisson",
+      "variant": "supplied",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "poisson",
+      "variant": "calibrated",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "poisson",
+      "variant": "callbacks",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "poisson",
+      "variant": "copula_categorical",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "poisson",
+      "variant": "custom",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "poisson",
+      "variant": "disabled_oracle_names",
+      "calls": 2
+    },
+    {
+      "surface": "functional_raw",
+      "family": "poisson",
+      "oracle": false,
+      "calls": 2
+    },
+    {
+      "surface": "functional_contract",
+      "family": "poisson",
+      "oracle": false,
+      "calls": 2
+    },
+    {
+      "surface": "to_multicausal_data",
+      "family": "poisson",
+      "oracle": false,
+      "calls": 2
+    },
+    {
+      "surface": "functional_raw",
+      "family": "poisson",
+      "oracle": true,
+      "calls": 2
+    },
+    {
+      "surface": "functional_contract",
+      "family": "poisson",
+      "oracle": true,
+      "calls": 2
+    },
+    {
+      "surface": "to_multicausal_data",
+      "family": "poisson",
+      "oracle": true,
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "gamma",
+      "variant": "zero_iid",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "gamma",
+      "variant": "latent",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "gamma",
+      "variant": "supplied",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "gamma",
+      "variant": "calibrated",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "gamma",
+      "variant": "callbacks",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "gamma",
+      "variant": "copula_categorical",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "gamma",
+      "variant": "custom",
+      "calls": 2
+    },
+    {
+      "surface": "generator",
+      "family": "gamma",
+      "variant": "disabled_oracle_names",
+      "calls": 2
+    },
+    {
+      "surface": "functional_raw",
+      "family": "gamma",
+      "oracle": false,
+      "calls": 2
+    },
+    {
+      "surface": "functional_contract",
+      "family": "gamma",
+      "oracle": false,
+      "calls": 2
+    },
+    {
+      "surface": "to_multicausal_data",
+      "family": "gamma",
+      "oracle": false,
+      "calls": 2
+    },
+    {
+      "surface": "functional_raw",
+      "family": "gamma",
+      "oracle": true,
+      "calls": 2
+    },
+    {
+      "surface": "functional_contract",
+      "family": "gamma",
+      "oracle": true,
+      "calls": 2
+    },
+    {
+      "surface": "to_multicausal_data",
+      "family": "gamma",
+      "oracle": true,
+      "calls": 2
+    }
+  ],
+  "numerical_references": {
+    "adaptive_cases": [
+      {
+        "case": "symmetric_2_0.0",
+        "intercepts": [
+          -0.8,
+          1.1
+        ],
+        "slopes": [
+          0.0,
+          0.0
+        ],
+        "q": [
+          0.13010847436299783,
+          0.8698915256370021
+        ],
+        "reference": [
+          0.13010847436299783,
+          0.8698915256370023
+        ],
+        "max_abs_error": 2.220446049250313e-16,
+        "reference_error_estimates": [
+          1.1843534009195165e-13,
+          7.918460421543105e-13
+        ]
+      },
+      {
+        "case": "symmetric_3_0.0",
+        "intercepts": [
+          -0.8,
+          0.15000000000000002,
+          1.1
+        ],
+        "slopes": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "q": [
+          0.09735577716091164,
+          0.2517337733951703,
+          0.6509104494439182
+        ],
+        "reference": [
+          0.09735577716091165,
+          0.25173377339517033,
+          0.6509104494439182
+        ],
+        "max_abs_error": 5.551115123125783e-17,
+        "reference_error_estimates": [
+          8.862110274570196e-14,
+          2.291484721538226e-13,
+          5.925114933357422e-13
+        ]
+      },
+      {
+        "case": "symmetric_5_0.0",
+        "intercepts": [
+          -0.8,
+          -0.325,
+          0.15000000000000002,
+          0.625,
+          1.1
+        ],
+        "slopes": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "q": [
+          0.06235395090573531,
+          0.10026603832575388,
+          0.16122921315346586,
+          0.2592588638002346,
+          0.4168919338148102
+        ],
+        "reference": [
+          0.06235395090573531,
+          0.1002660383257539,
+          0.16122921315346594,
+          0.2592588638002347,
+          0.4168919338148103
+        ],
+        "max_abs_error": 1.1102230246251565e-16,
+        "reference_error_estimates": [
+          5.675967634711741e-14,
+          9.127031506959866e-14,
+          1.4676391275401706e-13,
+          2.359984822021147e-13,
+          3.794888570733347e-13
+        ]
+      },
+      {
+        "case": "symmetric_2_0.1",
+        "intercepts": [
+          -0.8,
+          1.1
+        ],
+        "slopes": [
+          -0.1,
+          0.1
+        ],
+        "q": [
+          0.13177692606540117,
+          0.8682230739345989
+        ],
+        "reference": [
+          0.13177692606540117,
+          0.868223073934599
+        ],
+        "max_abs_error": 1.1102230246251565e-16,
+        "reference_error_estimates": [
+          4.342221742692996e-14,
+          4.601093472600848e-13
+        ]
+      },
+      {
+        "case": "symmetric_3_0.1",
+        "intercepts": [
+          -0.8,
+          0.15000000000000002,
+          1.1
+        ],
+        "slopes": [
+          -0.1,
+          0.0,
+          0.1
+        ],
+        "q": [
+          0.09831286865292066,
+          0.2515604208763359,
+          0.6501267104707434
+        ],
+        "reference": [
+          0.09831286865292067,
+          0.2515604208763359,
+          0.6501267104707436
+        ],
+        "max_abs_error": 1.1102230246251565e-16,
+        "reference_error_estimates": [
+          3.4263551289347915e-14,
+          1.1377041396396435e-13,
+          3.5577374569246095e-13
+        ]
+      },
+      {
+        "case": "symmetric_5_0.1",
+        "intercepts": [
+          -0.8,
+          -0.325,
+          0.15000000000000002,
+          0.625,
+          1.1
+        ],
+        "slopes": [
+          -0.1,
+          -0.05,
+          0.0,
+          0.05000000000000002,
+          0.1
+        ],
+        "q": [
+          0.06287548505958099,
+          0.10051065090923708,
+          0.1610736213890406,
+          0.2587726490180391,
+          0.4167675936241023
+        ],
+        "reference": [
+          0.06287548505958099,
+          0.1005106509092371,
+          0.1610736213890406,
+          0.25877264901803915,
+          0.4167675936241023
+        ],
+        "max_abs_error": 5.551115123125783e-17,
+        "reference_error_estimates": [
+          2.2650314507053477e-14,
+          4.142667613289923e-14,
+          7.467635784015937e-14,
+          1.3257657659449632e-13,
+          2.317942459306161e-13
+        ]
+      },
+      {
+        "case": "symmetric_2_1.0",
+        "intercepts": [
+          -0.8,
+          1.1
+        ],
+        "slopes": [
+          -1.0,
+          1.0
+        ],
+        "q": [
+          0.23620494541570033,
+          0.7637950545842995
+        ],
+        "reference": [
+          0.23620494541570033,
+          0.7637950545842996
+        ],
+        "max_abs_error": 1.1102230246251565e-16,
+        "reference_error_estimates": [
+          9.495337990995554e-14,
+          5.731572742430219e-13
+        ]
+      },
+      {
+        "case": "symmetric_3_1.0",
+        "intercepts": [
+          -0.8,
+          0.15000000000000002,
+          1.1
+        ],
+        "slopes": [
+          -1.0,
+          0.0,
+          1.0
+        ],
+        "q": [
+          0.1685522959991929,
+          0.22675076966824198,
+          0.6046969343325652
+        ],
+        "reference": [
+          0.1685522959991929,
+          0.22675076966824198,
+          0.6046969343325652
+        ],
+        "max_abs_error": 0.0,
+        "reference_error_estimates": [
+          4.3834894211100305e-15,
+          1.359304181830475e-14,
+          2.9143101202060025e-14
+        ]
+      },
+      {
+        "case": "symmetric_5_1.0",
+        "intercepts": [
+          -0.8,
+          -0.325,
+          0.15000000000000002,
+          0.625,
+          1.1
+        ],
+        "slopes": [
+          -1.0,
+          -0.5,
+          0.0,
+          0.5,
+          1.0
+        ],
+        "q": [
+          0.10564323403931274,
+          0.11335934774717285,
+          0.14524305161203688,
+          0.2230099488233931,
+          0.4127444177780844
+        ],
+        "reference": [
+          0.10564323403931276,
+          0.11335934774717289,
+          0.1452430516120369,
+          0.22300994882339314,
+          0.41274441777808446
+        ],
+        "max_abs_error": 5.551115123125783e-17,
+        "reference_error_estimates": [
+          6.261047541018439e-15,
+          1.498833969877165e-15,
+          2.2515180615443856e-15,
+          2.508609544844112e-15,
+          1.253008140145595e-12
+        ]
+      },
+      {
+        "case": "symmetric_2_2.0",
+        "intercepts": [
+          -0.8,
+          1.1
+        ],
+        "slopes": [
+          -2.0,
+          2.0
+        ],
+        "q": [
+          0.33207859505748505,
+          0.667921404942515
+        ],
+        "reference": [
+          0.332078595057485,
+          0.6679214049425151
+        ],
+        "max_abs_error": 1.1102230246251565e-16,
+        "reference_error_estimates": [
+          2.4513045231892254e-14,
+          2.0040554537909102e-14
+        ]
+      },
+      {
+        "case": "symmetric_3_2.0",
+        "intercepts": [
+          -0.8,
+          0.15000000000000002,
+          1.1
+        ],
+        "slopes": [
+          -2.0,
+          0.0,
+          2.0
+        ],
+        "q": [
+          0.26021305522581994,
+          0.1752390336241922,
+          0.5645479111499879
+        ],
+        "reference": [
+          0.26021305522581994,
+          0.1752390336241922,
+          0.5645479111499879
+        ],
+        "max_abs_error": 0.0,
+        "reference_error_estimates": [
+          6.915064936774839e-15,
+          9.015677937206378e-14,
+          5.206532835213482e-14
+        ]
+      },
+      {
+        "case": "symmetric_5_2.0",
+        "intercepts": [
+          -0.8,
+          -0.325,
+          0.15000000000000002,
+          0.625,
+          1.1
+        ],
+        "slopes": [
+          -2.0,
+          -1.0,
+          0.0,
+          1.0,
+          2.0
+        ],
+        "q": [
+          0.17825327268768212,
+          0.11557770192924242,
+          0.11439057870327902,
+          0.1725763935452867,
+          0.4192020531345098
+        ],
+        "reference": [
+          0.17825327268768212,
+          0.11557770192924242,
+          0.11439057870327902,
+          0.1725763935452867,
+          0.4192020531345098
+        ],
+        "max_abs_error": 0.0,
+        "reference_error_estimates": [
+          7.285611877698116e-13,
+          8.114482707722025e-13,
+          1.766022611059177e-12,
+          9.74163770048005e-15,
+          2.46966718945913e-14
+        ]
+      },
+      {
+        "case": "symmetric_2_5.0",
+        "intercepts": [
+          -0.8,
+          1.1
+        ],
+        "slopes": [
+          -5.0,
+          5.0
+        ],
+        "q": [
+          0.4258393248806043,
+          0.5741606751193957
+        ],
+        "reference": [
+          0.4258393248806043,
+          0.5741606751193958
+        ],
+        "max_abs_error": 1.1102230246251565e-16,
+        "reference_error_estimates": [
+          4.054997491721151e-14,
+          9.817169054927525e-14
+        ]
+      },
+      {
+        "case": "symmetric_3_5.0",
+        "intercepts": [
+          -0.8,
+          0.15000000000000002,
+          1.1
+        ],
+        "slopes": [
+          -5.0,
+          0.0,
+          5.0
+        ],
+        "q": [
+          0.3826165733769555,
+          0.08998332986983747,
+          0.5274000967532071
+        ],
+        "reference": [
+          0.3826165733769555,
+          0.08998332986983743,
+          0.5274000967532071
+        ],
+        "max_abs_error": 4.163336342344337e-17,
+        "reference_error_estimates": [
+          2.0854297343974545e-13,
+          4.966899968406745e-15,
+          1.1622474682889528e-13
+        ]
+      },
+      {
+        "case": "symmetric_5_5.0",
+        "intercepts": [
+          -0.8,
+          -0.325,
+          0.15000000000000002,
+          0.625,
+          1.1
+        ],
+        "slopes": [
+          -5.0,
+          -2.5,
+          0.0,
+          2.5,
+          5.0
+        ],
+        "q": [
+          0.31493934976415994,
+          0.08290402861238977,
+          0.060190224857515975,
+          0.09365927183154492,
+          0.4483071249343894
+        ],
+        "reference": [
+          0.31493934976415994,
+          0.0829040286123898,
+          0.06019022485751599,
+          0.0936592718315449,
+          0.4483071249343894
+        ],
+        "max_abs_error": 2.7755575615628914e-17,
+        "reference_error_estimates": [
+          3.3457546660384475e-13,
+          1.9620321763465272e-14,
+          4.122051214269359e-13,
+          1.4735143984995287e-13,
+          7.881613962250673e-13
+        ]
+      },
+      {
+        "case": "symmetric_2_10.0",
+        "intercepts": [
+          -0.8,
+          1.1
+        ],
+        "slopes": [
+          -10.0,
+          10.0
+        ],
+        "q": [
+          0.4623112484261177,
+          0.5376887515738823
+        ],
+        "reference": [
+          0.4623112484261177,
+          0.5376887515738824
+        ],
+        "max_abs_error": 1.1102230246251565e-16,
+        "reference_error_estimates": [
+          3.6014138731275235e-14,
+          9.585854933823969e-14
+        ]
+      },
+      {
+        "case": "symmetric_3_10.0",
+        "intercepts": [
+          -0.8,
+          0.15000000000000002,
+          1.1
+        ],
+        "slopes": [
+          -10.0,
+          0.0,
+          10.0
+        ],
+        "q": [
+          0.4388855982614013,
+          0.04734866228163745,
+          0.5137657394569614
+        ],
+        "reference": [
+          0.43888559826140133,
+          0.04734866228163744,
+          0.5137657394569612
+        ],
+        "max_abs_error": 1.1102230246251565e-16,
+        "reference_error_estimates": [
+          1.8124832884856494e-12,
+          1.3975819736026792e-12,
+          2.6067080713843015e-13
+        ]
+      },
+      {
+        "case": "symmetric_5_10.0",
+        "intercepts": [
+          -0.8,
+          -0.325,
+          0.15000000000000002,
+          0.625,
+          1.1
+        ],
+        "slopes": [
+          -10.0,
+          -5.0,
+          0.0,
+          5.0,
+          10.0
+        ],
+        "q": [
+          0.39763612891447137,
+          0.049024085779557657,
+          0.03188966503783122,
+          0.05087592789753889,
+          0.4705741923706008
+        ],
+        "reference": [
+          0.3976361289144715,
+          0.04902408577955764,
+          0.03188966503783123,
+          0.050875927897538885,
+          0.47057419237060083
+        ],
+        "max_abs_error": 1.1102230246251565e-16,
+        "reference_error_estimates": [
+          7.753275075762024e-14,
+          6.739078298842227e-15,
+          2.0566783584083628e-13,
+          5.924827890951163e-14,
+          8.739742395429743e-14
+        ]
+      },
+      {
+        "case": "symmetric_2_50.0",
+        "intercepts": [
+          -0.8,
+          1.1
+        ],
+        "slopes": [
+          -50.0,
+          50.0
+        ],
+        "q": [
+          0.4924217988939292,
+          0.5075782011060708
+        ],
+        "reference": [
+          0.49242179889392934,
+          0.5075782011060709
+        ],
+        "max_abs_error": 1.6653345369377348e-16,
+        "reference_error_estimates": [
+          1.0878058230421802e-12,
+          1.0842756917935612e-12
+        ]
+      },
+      {
+        "case": "symmetric_3_50.0",
+        "intercepts": [
+          -0.8,
+          0.15000000000000002,
+          1.1
+        ],
+        "slopes": [
+          -50.0,
+          0.0,
+          50.0
+        ],
+        "q": [
+          0.4876035516967864,
+          0.009640643084865315,
+          0.5027558052183483
+        ],
+        "reference": [
+          0.4876035516967865,
+          0.009640643084865315,
+          0.5027558052183484
+        ],
+        "max_abs_error": 1.1102230246251565e-16,
+        "reference_error_estimates": [
+          1.3527196834587495e-12,
+          2.8797368449660266e-13,
+          1.1071974935886024e-12
+        ]
+      },
+      {
+        "case": "symmetric_5_50.0",
+        "intercepts": [
+          -0.8,
+          -0.325,
+          0.15000000000000002,
+          0.625,
+          1.1
+        ],
+        "slopes": [
+          -50.0,
+          -25.0,
+          0.0,
+          25.0,
+          50.0
+        ],
+        "q": [
+          0.47866003004099866,
+          0.010509262097883264,
+          0.006509906196426543,
+          0.010526281389133479,
+          0.49379452027555804
+        ],
+        "reference": [
+          0.4786600300409987,
+          0.010509262097883268,
+          0.006509906196426544,
+          0.010526281389133479,
+          0.49379452027555815
+        ],
+        "max_abs_error": 1.1102230246251565e-16,
+        "reference_error_estimates": [
+          8.304317012611153e-13,
+          1.0548689230520649e-15,
+          3.327360343051346e-14,
+          1.2019901364018938e-14,
+          3.7831616960077773e-13
+        ]
+      },
+      {
+        "case": "symmetric_2_1000.0",
+        "intercepts": [
+          -0.8,
+          1.1
+        ],
+        "slopes": [
+          -1000.0,
+          1000.0
+        ],
+        "q": [
+          0.4996210050464812,
+          0.5003789949535188
+        ],
+        "reference": [
+          0.4996210050464812,
+          0.5003789949535189
+        ],
+        "max_abs_error": 1.1102230246251565e-16,
+        "reference_error_estimates": [
+          4.4047541007754335e-13,
+          4.423171735800375e-13
+        ]
+      },
+      {
+        "case": "symmetric_3_1000.0",
+        "intercepts": [
+          -0.8,
+          0.15000000000000002,
+          1.1
+        ],
+        "slopes": [
+          -1000.0,
+          0.0,
+          1000.0
+        ],
+        "q": [
+          0.4993798053495676,
+          0.0004823999133431746,
+          0.5001377947370891
+        ],
+        "reference": [
+          0.4993798053495677,
+          0.00048239991334317475,
+          0.5001377947370893
+        ],
+        "max_abs_error": 2.220446049250313e-16,
+        "reference_error_estimates": [
+          3.4580119087672966e-13,
+          1.441588911881215e-14,
+          3.8722062381918715e-13
+        ]
+      },
+      {
+        "case": "symmetric_5_1000.0",
+        "intercepts": [
+          -0.8,
+          -0.325,
+          0.15000000000000002,
+          0.625,
+          1.1
+        ],
+        "slopes": [
+          -1000.0,
+          -500.0,
+          0.0,
+          500.0,
+          1000.0
+        ],
+        "q": [
+          0.4989309943208533,
+          0.0005271208103180486,
+          0.0003257804432536708,
+          0.0005271229514889368,
+          0.499688981474086
+        ],
+        "reference": [
+          0.4989309943208535,
+          0.0005271208103180487,
+          0.0003257804432536708,
+          0.0005271229514889369,
+          0.499688981474086
+        ],
+        "max_abs_error": 2.220446049250313e-16,
+        "reference_error_estimates": [
+          5.109881145138582e-13,
+          9.915690370020062e-13,
+          1.650339577790347e-15,
+          9.920765501097535e-13,
+          5.18900316183146e-13
+        ]
+      },
+      {
+        "case": "symmetric_2_1000000.0",
+        "intercepts": [
+          -0.8,
+          1.1
+        ],
+        "slopes": [
+          -1000000.0,
+          1000000.0
+        ],
+        "q": [
+          0.49999962100483364,
+          0.5000003789951664
+        ],
+        "reference": [
+          0.49999962100483364,
+          0.5000003789951665
+        ],
+        "max_abs_error": 1.1102230246251565e-16,
+        "reference_error_estimates": [
+          4.803037788751728e-13,
+          4.803088051930319e-13
+        ]
+      },
+      {
+        "case": "symmetric_3_1000000.0",
+        "intercepts": [
+          -0.8,
+          0.15000000000000002,
+          1.1
+        ],
+        "slopes": [
+          -1000000.0,
+          0.0,
+          1000000.0
+        ],
+        "q": [
+          0.4999993798044155,
+          4.824008363712555e-07,
+          0.5000001377947482
+        ],
+        "reference": [
+          0.49999937980441556,
+          4.824008363712554e-07,
+          0.5000001377947482
+        ],
+        "max_abs_error": 5.551115123125783e-17,
+        "reference_error_estimates": [
+          4.780549010891573e-13,
+          1.5920177681549805e-14,
+          4.780957922995177e-13
+        ]
+      },
+      {
+        "case": "symmetric_5_1000000.0",
+        "intercepts": [
+          -0.8,
+          -0.325,
+          0.15000000000000002,
+          0.625,
+          1.1
+        ],
+        "slopes": [
+          -1000000.0,
+          -500000.0,
+          0.0,
+          500000.0,
+          1000000.0
+        ],
+        "q": [
+          0.4999989309892658,
+          5.271249881922305e-07,
+          3.257811590240517e-07,
+          5.271249881943717e-07,
+          0.49999968897959884
+        ],
+        "reference": [
+          0.4999989309892659,
+          5.271249881922304e-07,
+          3.257811590240518e-07,
+          5.271249881943715e-07,
+          0.49999968897959873
+        ],
+        "max_abs_error": 1.1102230246251565e-16,
+        "reference_error_estimates": [
+          4.561010236209266e-13,
+          9.914374115075886e-16,
+          1.089235303452138e-14,
+          9.91986560896094e-16,
+          4.561051654995421e-13
+        ]
+      },
+      {
+        "case": "equal_common_slope",
+        "intercepts": [
+          -0.5,
+          0.2,
+          0.9
+        ],
+        "slopes": [
+          100000.0,
+          100000.0,
+          100000.0
+        ],
+        "q": [
+          0.14146367164593887,
+          0.2848728517857239,
+          0.5736634765683373
+        ],
+        "reference": [
+          0.14146367164593887,
+          0.28487285178572386,
+          0.5736634765683373
+        ],
+        "max_abs_error": 5.551115123125783e-17,
+        "reference_error_estimates": [
+          1.2877185625634575e-13,
+          2.593146490459872e-13,
+          5.221952595513584e-13
+        ]
+      },
+      {
+        "case": "B07_reference",
+        "intercepts": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "slopes": [
+          0.0,
+          1.0,
+          1.0
+        ],
+        "q": [
+          0.36016051533665233,
+          0.31991974233167386,
+          0.31991974233167386
+        ],
+        "reference": [
+          0.36016051533665233,
+          0.3199197423316739,
+          0.3199197423316739
+        ],
+        "max_abs_error": 5.551115123125783e-17,
+        "reference_error_estimates": [
+          1.4051403957424174e-12,
+          5.166834728163035e-13,
+          5.166834728163035e-13
+        ]
+      },
+      {
+        "case": "narrow_middle",
+        "intercepts": [
+          -10.0,
+          0.0,
+          -10.0
+        ],
+        "slopes": [
+          -1000000.0,
+          0.0,
+          1000000.0
+        ],
+        "q": [
+          0.49999601057718046,
+          7.97884563912924e-06,
+          0.4999960105771804
+        ],
+        "reference": [
+          0.49999601057718046,
+          7.978845639129243e-06,
+          0.49999601057718046
+        ],
+        "max_abs_error": 5.551115123125783e-17,
+        "reference_error_estimates": [
+          4.553696081695783e-13,
+          7.63096904965869e-16,
+          4.553678734461023e-13
+        ]
+      },
+      {
+        "case": "rare_narrow_middle",
+        "intercepts": [
+          0.0,
+          -10.0,
+          0.0
+        ],
+        "slopes": [
+          -1000000.0,
+          0.0,
+          1000000.0
+        ],
+        "q": [
+          0.4999999999857751,
+          2.844977576885809e-11,
+          0.49999999998577516
+        ],
+        "reference": [
+          0.499999999985775,
+          2.8449775768858097e-11,
+          0.4999999999857751
+        ],
+        "max_abs_error": 1.1102230246251565e-16,
+        "reference_error_estimates": [
+          4.549894634025929e-13,
+          4.111394213128115e-20,
+          4.54986861317379e-13
+        ]
+      },
+      {
+        "case": "offset_narrow_middle",
+        "intercepts": [
+          299990.0,
+          0.0,
+          -300010.0
+        ],
+        "slopes": [
+          -1000000.0,
+          0.0,
+          1000000.0
+        ],
+        "q": [
+          0.6179076083048742,
+          7.627756338946842e-06,
+          0.3820847639387867
+        ],
+        "reference": [
+          0.6179076083048742,
+          7.627756338941129e-06,
+          0.382084763938787
+        ],
+        "max_abs_error": 2.7755575615628914e-16,
+        "reference_error_estimates": [
+          4.568092987541957e-13,
+          7.301115371547011e-16,
+          2.1142796269292864e-13
+        ]
+      },
+      {
+        "case": "tails_at_six",
+        "intercepts": [
+          0.0,
+          -60000.0
+        ],
+        "slopes": [
+          0.0,
+          10000.0
+        ],
+        "q": [
+          0.9999999990134119,
+          9.865882447035481e-10
+        ],
+        "reference": [
+          0.999999999013412,
+          9.865882447035376e-10
+        ],
+        "max_abs_error": 1.1102230246251565e-16,
+        "reference_error_estimates": [
+          4.614291044671552e-13,
+          4.228856292683312e-13
+        ]
+      },
+      {
+        "case": "nearly_equal_slopes",
+        "intercepts": [
+          -1.0,
+          0.2,
+          0.7
+        ],
+        "slopes": [
+          1.0,
+          1.000000000001,
+          0.999999999999
+        ],
+        "q": [
+          0.10210265808886032,
+          0.3389927629772087,
+          0.5589045789339311
+        ],
+        "reference": [
+          0.10210265808886035,
+          0.3389927629772088,
+          0.5589045789339311
+        ],
+        "max_abs_error": 1.1102230246251565e-16,
+        "reference_error_estimates": [
+          9.294192542005357e-14,
+          3.085789071350278e-13,
+          5.08760249825801e-13
+        ]
+      }
+    ],
+    "invariants": [
+      "common_intercept",
+      "common_slope",
+      "sign_reversal",
+      "permutation"
+    ],
+    "huge_finite_step_reference": [
+      0.841344746068543,
+      0.15865525393145707
+    ],
+    "overflow_crossing_outside_domain": [
+      1.0,
+      0.0
+    ]
+  },
+  "additive_references": [
+    {
+      "family": "continuous",
+      "variant": "latent",
+      "calls": 2
+    },
+    {
+      "family": "continuous",
+      "variant": "supplied",
+      "calls": 2
+    },
+    {
+      "family": "continuous",
+      "variant": "calibrated",
+      "calls": 2
+    },
+    {
+      "family": "continuous",
+      "variant": "callbacks",
+      "calls": 2
+    },
+    {
+      "family": "continuous",
+      "variant": "copula_categorical",
+      "calls": 2
+    },
+    {
+      "family": "binary",
+      "variant": "latent",
+      "calls": 2
+    },
+    {
+      "family": "binary",
+      "variant": "supplied",
+      "calls": 2
+    },
+    {
+      "family": "binary",
+      "variant": "calibrated",
+      "calls": 2
+    },
+    {
+      "family": "binary",
+      "variant": "callbacks",
+      "calls": 2
+    },
+    {
+      "family": "binary",
+      "variant": "copula_categorical",
+      "calls": 2
+    },
+    {
+      "family": "poisson",
+      "variant": "latent",
+      "calls": 2
+    },
+    {
+      "family": "poisson",
+      "variant": "supplied",
+      "calls": 2
+    },
+    {
+      "family": "poisson",
+      "variant": "calibrated",
+      "calls": 2
+    },
+    {
+      "family": "poisson",
+      "variant": "callbacks",
+      "calls": 2
+    },
+    {
+      "family": "poisson",
+      "variant": "copula_categorical",
+      "calls": 2
+    },
+    {
+      "family": "gamma",
+      "variant": "latent",
+      "calls": 2
+    },
+    {
+      "family": "gamma",
+      "variant": "supplied",
+      "calls": 2
+    },
+    {
+      "family": "gamma",
+      "variant": "calibrated",
+      "calls": 2
+    },
+    {
+      "family": "gamma",
+      "variant": "callbacks",
+      "calls": 2
+    },
+    {
+      "family": "gamma",
+      "variant": "copula_categorical",
+      "calls": 2
+    }
+  ],
+  "rejections": [
+    {
+      "case": "flag_conflict",
+      "rejected": true,
+      "message": "include_marginal_propensity requires include_oracle=True"
+    },
+    {
+      "case": "flag_integer",
+      "rejected": true,
+      "message": "include_marginal_propensity must be a boolean"
+    },
+    {
+      "case": "flag_text",
+      "rejected": true,
+      "message": "include_marginal_propensity must be a boolean"
+    },
+    {
+      "case": "flag_none",
+      "rejected": true,
+      "message": "include_marginal_propensity must be a boolean"
+    },
+    {
+      "case": "treatment_collision",
+      "rejected": true,
+      "message": "Generated column name 'm_marginal_a' collides between treatment[1] and m_marginal oracle[0]"
+    },
+    {
+      "case": "confounder_collision",
+      "rejected": true,
+      "message": "Generated column name 'm_marginal_a' collides between confounder[0] and m_marginal oracle[0]"
+    },
+    {
+      "case": "categorical_collision",
+      "rejected": true,
+      "message": "Generated column name 'm_marginal_a' collides between confounder[0] and m_marginal oracle[0]"
+    },
+    {
+      "case": "bad_flag",
+      "rejected": true,
+      "message": "include_marginal_propensity must be a boolean"
+    },
+    {
+      "case": "conflicting_flag",
+      "rejected": true,
+      "message": "include_marginal_propensity requires include_oracle=True"
+    },
+    {
+      "case": "late_callback_collision",
+      "rejected": true,
+      "message": "Generated column name 'm_marginal_d_0' collides between confounder[0] and m_marginal oracle[0]"
+    },
+    {
+      "case": "unsupported_geometry",
+      "rejected": true,
+      "message": "Gaussian marginal propensity has unsupported floating-point geometry"
+    }
+  ],
+  "baseline": "71f6a619b04e0ab8fab388fb95b7d0f3d6631b96",
+  "reviewed_head": "71f6a619b04e0ab8fab388fb95b7d0f3d6631b96",
+  "observed_at": "2026-10-07T13:19:22.175057+00:00",
+  "source_sha256": {
+    "causalis/dgp/multicausaldata/base.py": "c46c1e090b0e033b59a6aa4eb65ba7cb9a1fdbb5aba4cde05132b19f903ea982",
+    "causalis/dgp/multicausaldata/functional.py": "e3b074a2ff2cd57de9756cd81b4f01bdbbaa8fd728b87de5517d692b37723d43"
+  },
+  "unchanged_dependency_sha256": {
+    "causalis/dgp/base.py": "f5cd516bd4a2b071470fe6ee6a3a1da073432b551117375f6d74aabcc452c849",
+    "causalis/scenarios/multi_unconfoundedness/dgp.py": "1ce2728cc3acdf163041b5f63ef6cb99f65bfe2f048a1cfaa53fa9c3ea260488",
+    "causalis/dgp/multicausaldata/__init__.py": "dbdb72d1c43226b0fe90af2ec6c3dcd70229319c296dc85088d858ed0ecf8638",
+    "causalis/data_contracts/multicausaldata.py": "2bfe0bf3d471d983e9adf4318b37ab898910ae1e8221eb4680bfc9d775c3b42b",
+    "causalis/data_contracts/__init__.py": "d5031fa0af776b3495ae9d0ee64197bfa1e2314960aeea6220bce71fb2037593"
+  },
+  "original_positional_parameters_preserved": true,
+  "frozen_full_graph_bindings_verified": true,
+  "warnings": [
+    "overflow encountered in subtract",
+    "overflow encountered in subtract"
+  ],
+  "issues": [],
+  "bounded_policy_review": {
+    "observed_at": "2026-10-07T13:24:35.352502+00:00",
+    "projections": [
+      {
+        "surface": "functional",
+        "oracle": false,
+        "feature": "m_marginal_a"
+      },
+      {
+        "surface": "functional",
+        "oracle": false,
+        "feature": "m_marginal_unemitted"
+      },
+      {
+        "surface": "to_multicausal_data",
+        "oracle": false,
+        "feature": "m_marginal_a"
+      },
+      {
+        "surface": "to_multicausal_data",
+        "oracle": false,
+        "feature": "m_marginal_unemitted"
+      },
+      {
+        "surface": "functional",
+        "oracle": true,
+        "feature": "m_marginal_a"
+      },
+      {
+        "surface": "functional",
+        "oracle": true,
+        "feature": "m_marginal_unemitted"
+      },
+      {
+        "surface": "to_multicausal_data",
+        "oracle": true,
+        "feature": "m_marginal_a"
+      },
+      {
+        "surface": "to_multicausal_data",
+        "oracle": true,
+        "feature": "m_marginal_unemitted"
+      },
+      {
+        "surface": "functional",
+        "oracle": true,
+        "enabled": true,
+        "feature": "feature"
+      },
+      {
+        "surface": "to_multicausal_data",
+        "oracle": true,
+        "enabled": true,
+        "feature": "feature"
+      }
+    ],
+    "failure_modes": [
+      {
+        "case": "unsuccessful_status",
+        "error": "Gaussian marginal propensity integration did not converge"
+      },
+      {
+        "case": "large_error",
+        "error": "Gaussian marginal propensity integration did not converge"
+      },
+      {
+        "case": "nonfinite_error",
+        "error": "Gaussian marginal propensity integration did not converge"
+      },
+      {
+        "case": "nonfinite_probability",
+        "error": "Gaussian marginal propensity integration did not converge"
+      },
+      {
+        "case": "negative_probability",
+        "error": "Gaussian marginal propensity integration did not converge"
+      },
+      {
+        "case": "probability_over_one",
+        "error": "Gaussian marginal propensity integration did not converge"
+      },
+      {
+        "case": "invalid_total_mass",
+        "error": "Gaussian marginal propensity integration did not converge"
+      },
+      {
+        "case": "subdivision_budget",
+        "error": "Gaussian marginal propensity exceeds the integration subdivision budget"
+      }
+    ],
+    "accepted_numpy_booleans": [
+      false,
+      true
+    ],
+    "inherited_extreme_warnings": [
+      {
+        "enabled": false,
+        "records": [
+          {
+            "message": "overflow encountered in subtract",
+            "category": "RuntimeWarning",
+            "filename": "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/dgp/multicausaldata/base.py",
+            "line": 39
+          },
+          {
+            "message": "overflow encountered in subtract",
+            "category": "RuntimeWarning",
+            "filename": "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/dgp/multicausaldata/base.py",
+            "line": 39
+          }
+        ]
+      },
+      {
+        "enabled": true,
+        "records": [
+          {
+            "message": "overflow encountered in subtract",
+            "category": "RuntimeWarning",
+            "filename": "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/dgp/multicausaldata/base.py",
+            "line": 39
+          },
+          {
+            "message": "overflow encountered in subtract",
+            "category": "RuntimeWarning",
+            "filename": "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/dgp/multicausaldata/base.py",
+            "line": 39
+          }
+        ]
+      }
+    ],
+    "supplied_U_q_exact_invariance": true,
+    "source_sha256": {
+      "causalis/dgp/multicausaldata/base.py": "c46c1e090b0e033b59a6aa4eb65ba7cb9a1fdbb5aba4cde05132b19f903ea982",
+      "causalis/dgp/multicausaldata/functional.py": "e3b074a2ff2cd57de9756cd81b4f01bdbbaa8fd728b87de5517d692b37723d43"
+    },
+    "issues": [],
+    "reviewer_fixture_correction": "Contract df intentionally projects away oracle columns; initial reviewer-only assertion corrected and its failed log retained; no source/test edits."
+  },
+  "final_test_review": {
+    "observed_at": "2026-10-07T13:27:50.759381+00:00",
+    "test_path": "tests/data/test_multicausal_marginal_propensity.py",
+    "test_sha256": "3e6ade34ff0d7faadd172eab87ab15a9ccc24b968564c81302ede8a686f8df37",
+    "tests_read": 79,
+    "baseline_counts": {
+      "tests": 79,
+      "failures": 74,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 5
+    },
+    "focused_counts": {
+      "tests": 79,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 79
+    },
+    "feature_absence_not_numerical_bug": true,
+    "final_case_ids_identical": true,
+    "public_and_shared_bindings_verified": true,
+    "issues": [],
+    "actual_junit_counts_and_ids_verified": true
+  },
+  "committed_source_linkage": {
+    "source_checkpoint": "9a57e91942a4b90b0401c0f8e3ebe6f5b4d82cdf",
+    "observed_at": "2026-10-07T13:27:50.759456+00:00",
+    "committed_file_sha256": {
+      "causalis/dgp/multicausaldata/base.py": "c46c1e090b0e033b59a6aa4eb65ba7cb9a1fdbb5aba4cde05132b19f903ea982",
+      "causalis/dgp/multicausaldata/functional.py": "e3b074a2ff2cd57de9756cd81b4f01bdbbaa8fd728b87de5517d692b37723d43",
+      "causalis/dgp/base.py": "f5cd516bd4a2b071470fe6ee6a3a1da073432b551117375f6d74aabcc452c849",
+      "causalis/scenarios/multi_unconfoundedness/dgp.py": "1ce2728cc3acdf163041b5f63ef6cb99f65bfe2f048a1cfaa53fa9c3ea260488",
+      "causalis/dgp/multicausaldata/__init__.py": "dbdb72d1c43226b0fe90af2ec6c3dcd70229319c296dc85088d858ed0ecf8638",
+      "causalis/data_contracts/multicausaldata.py": "2bfe0bf3d471d983e9adf4318b37ab898910ae1e8221eb4680bfc9d775c3b42b",
+      "causalis/data_contracts/__init__.py": "d5031fa0af776b3495ae9d0ee64197bfa1e2314960aeea6220bce71fb2037593",
+      "tests/data/test_multicausal_marginal_propensity.py": "3e6ade34ff0d7faadd172eab87ab15a9ccc24b968564c81302ede8a686f8df37",
+      "causalis/data_contracts/_duplicate_columns.py": "2aafa319349d290d6e4525d58ad6f3b6c31cc761e93e9108af6d9b3baa351259"
+    },
+    "three_source_test_and_six_unchanged_dependency_paths_verified": true,
+    "initial_reference_provenance_preserved": true,
+    "full_runtime_references_repeated": false,
+    "issues": []
+  },
+  "ci_review": {
+    "observed_at": "2026-10-07T13:45:57.869279+00:00",
+    "run_id": 37628255646,
+    "run_url": "https://github.com/MaximLenivkin/Causalis/actions/runs/37628255646",
+    "source_checkpoint": "9a57e91942a4b90b0401c0f8e3ebe6f5b4d82cdf",
+    "snapshot_observed_at": "2026-10-07T13:29:16.809213+00:00",
+    "matrix_verified": true,
+    "verified_jobs": 6,
+    "expected_tests_per_job": 2618,
+    "all_full_case_sets_equal_local": true,
+    "all_79_new_case_ids_each_job": true,
+    "seven_exclusions_unchanged_from_B14": true,
+    "actual_ignore_arguments_verified": true,
+    "source_hashes_verified_against_checkpoint": true,
+    "source_hash_basis": "Reviewed committed Git blobs and working bytes; exact commit metadata in every CI selection.",
+    "local_junit_sha256": "c4229f3d50532e060a6e6ab88d6017578f9d7b5b136cf18b73754aba9c35be51",
+    "run_status_sha256": "a1bbeecdae18dbda8361dfebb00136cce123b8fa72f3cd82c66355afdbea76ea",
+    "ci_summary_sha256": "77570d342d67f7f7d8bfe16b37e32b3959f34c259c2c684bafffe9ecc40e2af3",
+    "jobs": [
+      {
+        "artifact": "correctness-py3.10-latest",
+        "job_id": 112815530347,
+        "python_minor": "3.10",
+        "stack": "latest",
+        "environment": {
+          "python": "3.10.21",
+          "implementation": "CPython",
+          "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "executable": "/home/runner/work/Causalis/Causalis/.venv/bin/python",
+          "commit": "9a57e91942a4b90b0401c0f8e3ebe6f5b4d82cdf",
+          "packages": {
+            "causalis": "0.2.9.dev1",
+            "numpy": "2.2.6",
+            "pandas": "2.3.3",
+            "scipy": "1.15.3",
+            "statsmodels": "0.15.0",
+            "scikit-learn": "1.7.2",
+            "pydantic": "2.13.5",
+            "catboost": "1.2.10",
+            "matplotlib": "3.10.9",
+            "pytest": "9.1.1",
+            "sphinx": "8.1.3",
+            "myst-parser": "4.0.1",
+            "sphinx-autodoc2": "0.5.0"
+          },
+          "docs_build_environment": "false"
+        },
+        "junit": {
+          "tests": 2618,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "passed": 2618
+        },
+        "complete_case_count": 2618,
+        "full_case_set_equals_local": true,
+        "new_case_count": 79,
+        "actual_pytest_args": [
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "--basetemp=/home/runner/work/Causalis/Causalis/build/ci-tests/pytest-temp",
+          "--junitxml=/home/runner/work/Causalis/Causalis/build/ci-tests/junit.xml",
+          "tests",
+          "--ignore",
+          "tests/refutation/test_multi_sensitivity_benchmark.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_benchmark.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_combination.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_integration_irm.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_protocol.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_rv_signed_rr.py",
+          "--ignore",
+          "tests/refutation/test_trim_sensitivity_ate.py"
+        ],
+        "artifact_sha256": {
+          "selection.json": "6a9e1a1505969583092b14bac85125a8517e5ccf5bc3d3153e952cabfc974cdd",
+          "result.json": "ff6a8980706cfd2f51ff482ec6141f217526a624d94a0a278195be6e84c76862",
+          "junit.xml": "833b14b34893b38f0f9bad632a4527f0c76816df73ba10b19235ef0aff5387c0"
+        }
+      },
+      {
+        "artifact": "correctness-py3.10-legacy",
+        "job_id": 112815530546,
+        "python_minor": "3.10",
+        "stack": "legacy",
+        "environment": {
+          "python": "3.10.22",
+          "implementation": "CPython",
+          "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "executable": "/home/runner/work/Causalis/Causalis/.venv/bin/python",
+          "commit": "9a57e91942a4b90b0401c0f8e3ebe6f5b4d82cdf",
+          "packages": {
+            "causalis": "0.2.9.dev1",
+            "numpy": "1.26.4",
+            "pandas": "1.5.3",
+            "scipy": "1.11.4",
+            "statsmodels": "0.14.0",
+            "scikit-learn": "1.3.2",
+            "pydantic": "2.0.3",
+            "catboost": "1.2.8",
+            "matplotlib": "3.10.9",
+            "pytest": "9.1.1",
+            "sphinx": "8.1.3",
+            "myst-parser": "4.0.1",
+            "sphinx-autodoc2": "0.5.0"
+          },
+          "docs_build_environment": "false"
+        },
+        "junit": {
+          "tests": 2618,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "passed": 2618
+        },
+        "complete_case_count": 2618,
+        "full_case_set_equals_local": true,
+        "new_case_count": 79,
+        "actual_pytest_args": [
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "--basetemp=/home/runner/work/Causalis/Causalis/build/ci-tests/pytest-temp",
+          "--junitxml=/home/runner/work/Causalis/Causalis/build/ci-tests/junit.xml",
+          "tests",
+          "--ignore",
+          "tests/refutation/test_multi_sensitivity_benchmark.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_benchmark.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_combination.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_integration_irm.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_protocol.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_rv_signed_rr.py",
+          "--ignore",
+          "tests/refutation/test_trim_sensitivity_ate.py"
+        ],
+        "artifact_sha256": {
+          "selection.json": "f58684e7ae0a2dbb2c3104be34ed1fc5480c48c3296bf9fd92a9cecf2ce98667",
+          "result.json": "d815f7c2b170e01ac5c2bbd67e9df4ef5e4a2985abdd9f9cc39482a4baefd9ce",
+          "junit.xml": "fc43846103168137ad0119561bc407e9dc9824493204f7688efba1e81feb6f68"
+        }
+      },
+      {
+        "artifact": "correctness-py3.11-latest",
+        "job_id": 112815529872,
+        "python_minor": "3.11",
+        "stack": "latest",
+        "environment": {
+          "python": "3.11.17",
+          "implementation": "CPython",
+          "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "executable": "/home/runner/work/Causalis/Causalis/.venv/bin/python",
+          "commit": "9a57e91942a4b90b0401c0f8e3ebe6f5b4d82cdf",
+          "packages": {
+            "causalis": "0.2.9.dev1",
+            "numpy": "2.4.6",
+            "pandas": "3.0.6",
+            "scipy": "1.17.1",
+            "statsmodels": "0.15.0",
+            "scikit-learn": "1.9.1",
+            "pydantic": "2.13.5",
+            "catboost": "1.2.10",
+            "matplotlib": "3.11.2",
+            "pytest": "9.1.1",
+            "sphinx": "9.0.4",
+            "myst-parser": "5.1.0",
+            "sphinx-autodoc2": "0.5.0"
+          },
+          "docs_build_environment": "false"
+        },
+        "junit": {
+          "tests": 2618,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "passed": 2618
+        },
+        "complete_case_count": 2618,
+        "full_case_set_equals_local": true,
+        "new_case_count": 79,
+        "actual_pytest_args": [
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "--basetemp=/home/runner/work/Causalis/Causalis/build/ci-tests/pytest-temp",
+          "--junitxml=/home/runner/work/Causalis/Causalis/build/ci-tests/junit.xml",
+          "tests",
+          "--ignore",
+          "tests/refutation/test_multi_sensitivity_benchmark.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_benchmark.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_combination.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_integration_irm.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_protocol.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_rv_signed_rr.py",
+          "--ignore",
+          "tests/refutation/test_trim_sensitivity_ate.py"
+        ],
+        "artifact_sha256": {
+          "selection.json": "cbbdef1f97b41c765a06898d9aa8eca25a8130933aa998556f80a631f025fe6f",
+          "result.json": "c6cfd7b24164788bbdb04aa5f1f14e9b15bfd53bd6c1714c1d2383429ba6b56c",
+          "junit.xml": "a8aa6569e68e2b10900a033b8285eb56d52825b7a40da2da43ec3748b135c456"
+        }
+      },
+      {
+        "artifact": "correctness-py3.12-latest",
+        "job_id": 112815530183,
+        "python_minor": "3.12",
+        "stack": "latest",
+        "environment": {
+          "python": "3.12.14",
+          "implementation": "CPython",
+          "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "executable": "/home/runner/work/Causalis/Causalis/.venv/bin/python",
+          "commit": "9a57e91942a4b90b0401c0f8e3ebe6f5b4d82cdf",
+          "packages": {
+            "causalis": "0.2.9.dev1",
+            "numpy": "2.5.3",
+            "pandas": "3.0.6",
+            "scipy": "1.18.1",
+            "statsmodels": "0.15.0",
+            "scikit-learn": "1.9.1",
+            "pydantic": "2.13.5",
+            "catboost": "1.2.10",
+            "matplotlib": "3.11.2",
+            "pytest": "9.1.1",
+            "sphinx": "9.1.0",
+            "myst-parser": "5.1.0",
+            "sphinx-autodoc2": "0.5.0"
+          },
+          "docs_build_environment": "false"
+        },
+        "junit": {
+          "tests": 2618,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "passed": 2618
+        },
+        "complete_case_count": 2618,
+        "full_case_set_equals_local": true,
+        "new_case_count": 79,
+        "actual_pytest_args": [
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "--basetemp=/home/runner/work/Causalis/Causalis/build/ci-tests/pytest-temp",
+          "--junitxml=/home/runner/work/Causalis/Causalis/build/ci-tests/junit.xml",
+          "tests",
+          "--ignore",
+          "tests/refutation/test_multi_sensitivity_benchmark.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_benchmark.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_combination.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_integration_irm.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_protocol.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_rv_signed_rr.py",
+          "--ignore",
+          "tests/refutation/test_trim_sensitivity_ate.py"
+        ],
+        "artifact_sha256": {
+          "selection.json": "abb9e59db9c4dddab0d511fce485e69551afd9c8bf70bca4ed3c43a90b58d2d4",
+          "result.json": "d5a1c02cd9a252461025ba0fb39a102a95af9329b7c45c54d3705f362efe7cd0",
+          "junit.xml": "1ab32413b3ccbad1ca049ff42c4646fa9f1e2bfc45d8e269563d88752cf4787f"
+        }
+      },
+      {
+        "artifact": "correctness-py3.13-latest",
+        "job_id": 112815530197,
+        "python_minor": "3.13",
+        "stack": "latest",
+        "environment": {
+          "python": "3.13.16",
+          "implementation": "CPython",
+          "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "executable": "/home/runner/work/Causalis/Causalis/.venv/bin/python",
+          "commit": "9a57e91942a4b90b0401c0f8e3ebe6f5b4d82cdf",
+          "packages": {
+            "causalis": "0.2.9.dev1",
+            "numpy": "2.5.3",
+            "pandas": "3.0.6",
+            "scipy": "1.18.1",
+            "statsmodels": "0.15.0",
+            "scikit-learn": "1.9.1",
+            "pydantic": "2.13.5",
+            "catboost": "1.2.10",
+            "matplotlib": "3.11.2",
+            "pytest": "9.1.1",
+            "sphinx": "9.1.0",
+            "myst-parser": "5.1.0",
+            "sphinx-autodoc2": "0.5.0"
+          },
+          "docs_build_environment": "false"
+        },
+        "junit": {
+          "tests": 2618,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "passed": 2618
+        },
+        "complete_case_count": 2618,
+        "full_case_set_equals_local": true,
+        "new_case_count": 79,
+        "actual_pytest_args": [
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "--basetemp=/home/runner/work/Causalis/Causalis/build/ci-tests/pytest-temp",
+          "--junitxml=/home/runner/work/Causalis/Causalis/build/ci-tests/junit.xml",
+          "tests",
+          "--ignore",
+          "tests/refutation/test_multi_sensitivity_benchmark.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_benchmark.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_combination.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_integration_irm.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_protocol.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_rv_signed_rr.py",
+          "--ignore",
+          "tests/refutation/test_trim_sensitivity_ate.py"
+        ],
+        "artifact_sha256": {
+          "selection.json": "e2abbc1e6de1236dd3084f2dea1fedd904cb41380005d5d8386275b7b2778e70",
+          "result.json": "846284fc0e93aa451514a729cfcb47ff6bacb287d04a6a0e1a31d2279b5e8792",
+          "junit.xml": "bda9bb9681968aa2590098be87b0ace1c14c21a1c9b969c6be27c097d561dbab"
+        }
+      },
+      {
+        "artifact": "correctness-py3.14-latest",
+        "job_id": 112815530281,
+        "python_minor": "3.14",
+        "stack": "latest",
+        "environment": {
+          "python": "3.14.7",
+          "implementation": "CPython",
+          "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "executable": "/home/runner/work/Causalis/Causalis/.venv/bin/python",
+          "commit": "9a57e91942a4b90b0401c0f8e3ebe6f5b4d82cdf",
+          "packages": {
+            "causalis": "0.2.9.dev1",
+            "numpy": "2.5.3",
+            "pandas": "3.0.6",
+            "scipy": "1.18.1",
+            "statsmodels": "0.15.0",
+            "scikit-learn": "1.9.1",
+            "pydantic": "2.13.5",
+            "catboost": "1.2.10",
+            "matplotlib": "3.11.2",
+            "pytest": "9.1.1",
+            "sphinx": "9.1.0",
+            "myst-parser": "5.1.0",
+            "sphinx-autodoc2": "0.5.0"
+          },
+          "docs_build_environment": "false"
+        },
+        "junit": {
+          "tests": 2618,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "passed": 2618
+        },
+        "complete_case_count": 2618,
+        "full_case_set_equals_local": true,
+        "new_case_count": 79,
+        "actual_pytest_args": [
+          "-q",
+          "-p",
+          "no:cacheprovider",
+          "--basetemp=/home/runner/work/Causalis/Causalis/build/ci-tests/pytest-temp",
+          "--junitxml=/home/runner/work/Causalis/Causalis/build/ci-tests/junit.xml",
+          "tests",
+          "--ignore",
+          "tests/refutation/test_multi_sensitivity_benchmark.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_benchmark.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_combination.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_integration_irm.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_protocol.py",
+          "--ignore",
+          "tests/refutation/test_sensitivity_rv_signed_rr.py",
+          "--ignore",
+          "tests/refutation/test_trim_sensitivity_ate.py"
+        ],
+        "artifact_sha256": {
+          "selection.json": "f436c5abcbbd3fa6209e79f659aa4c233640b5e87398678b82de02fa37232d19",
+          "result.json": "a9c2a436922004f48b2a0f91bf81ea870aff0bdc2fbc2b4a65a207024beebc61",
+          "junit.xml": "21e4039a9a504bdb6c9dc0c4bcea0dcf709d4326accd90b2b295e4859f5bd632"
+        }
+      }
+    ],
+    "issues": []
+  }
+}

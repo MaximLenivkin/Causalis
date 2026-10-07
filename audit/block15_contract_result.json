@@ -1,0 +1,3552 @@
+{
+  "baseline_sha": "71f6a619b04e0ab8fab388fb95b7d0f3d6631b96",
+  "process_head": "71f6a619b04e0ab8fab388fb95b7d0f3d6631b96",
+  "started_utc": "2026-10-07T13:19:40.628099+00:00",
+  "finished_utc": "2026-10-07T13:19:46.562352+00:00",
+  "evidence_label": "immutable baseline plus precommit candidate snapshots / aggregate-only independent references",
+  "environment": {
+    "python": "3.12.14",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "packages": {
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "pandas": "3.0.6"
+    },
+    "native_threads": 1
+  },
+  "source_sha256": {
+    "baseline": {
+      "causalis/dgp/multicausaldata/base.py": "2977f5ee3fe7ae2ce10a19d39d898e048f448c2b15d1b93a48f04094db00a859",
+      "causalis/dgp/causaldata/base.py": "794fd4f5d7a9f23cec06987ffbbb5615e75ae57b0ba87e6520ea05db14b356e6",
+      "causalis/dgp/causaldata_instrumental/base.py": "4ec2a4b77b5974f4db103b2c8aa157b7b1f8347fbb90f4137e2139b904aa1daa",
+      "causalis/dgp/multicausaldata/functional.py": "891da1e300d971200561cf018817e29f050f341d19d1c4be0671b9d471a8c16e"
+    },
+    "candidate_snapshot": {
+      "causalis/dgp/multicausaldata/base.py": "c46c1e090b0e033b59a6aa4eb65ba7cb9a1fdbb5aba4cde05132b19f903ea982",
+      "causalis/dgp/multicausaldata/functional.py": "e3b074a2ff2cd57de9756cd81b4f01bdbbaa8fd728b87de5517d692b37723d43"
+    }
+  },
+  "frozen_IV_class_bound_to_frozen_binary": true,
+  "candidate_shared_helpers_bound_to_unchanged_actual_modules": true,
+  "actual_called_snapshot_sources": {
+    "baseline": [
+      {
+        "path": "causalis/dgp/causaldata/base.py",
+        "original_source_sha256": "794fd4f5d7a9f23cec06987ffbbb5615e75ae57b0ba87e6520ea05db14b356e6",
+        "executed_source_sha256": "794fd4f5d7a9f23cec06987ffbbb5615e75ae57b0ba87e6520ea05db14b356e6",
+        "import_rebinding_only": false
+      },
+      {
+        "path": "causalis/dgp/causaldata_instrumental/base.py",
+        "original_source_sha256": "4ec2a4b77b5974f4db103b2c8aa157b7b1f8347fbb90f4137e2139b904aa1daa",
+        "executed_source_sha256": "215b41ef9b789e0ccfb8867b476ee6b324341407b3e6c72df7fb4bc68ec44cf1",
+        "import_rebinding_only": true
+      },
+      {
+        "path": "causalis/dgp/multicausaldata/base.py",
+        "original_source_sha256": "2977f5ee3fe7ae2ce10a19d39d898e048f448c2b15d1b93a48f04094db00a859",
+        "executed_source_sha256": "2977f5ee3fe7ae2ce10a19d39d898e048f448c2b15d1b93a48f04094db00a859",
+        "import_rebinding_only": false
+      }
+    ],
+    "candidate_snapshot": [
+      {
+        "path": "causalis/dgp/multicausaldata/base.py",
+        "original_source_sha256": "c46c1e090b0e033b59a6aa4eb65ba7cb9a1fdbb5aba4cde05132b19f903ea982",
+        "executed_source_sha256": "c46c1e090b0e033b59a6aa4eb65ba7cb9a1fdbb5aba4cde05132b19f903ea982",
+        "import_rebinding_only": false
+      }
+    ]
+  },
+  "snapshots_modules": {
+    "baseline_binary_class": "_block15_baseline_binary",
+    "baseline_multi_class": "_block15_baseline_multi",
+    "candidate_multi_class": "_block15_candidate_multi",
+    "baseline_IV_class": "_block15_baseline_iv"
+  },
+  "actual_called_package_dependencies": [
+    {
+      "path": "causalis/dgp/base.py",
+      "sha256": "f5cd516bd4a2b071470fe6ee6a3a1da073432b551117375f6d74aabcc452c849",
+      "unchanged_from_baseline": true
+    }
+  ],
+  "tail_bounds": {
+    "Gaussian_probability_mass_outside_12": 3.552964224155308e-33,
+    "clipped_exp_natural_mean_omitted_tail_bound": 1.723774582096304e-24
+  },
+  "propensity_reference_cases": [
+    {
+      "case": "K2_s0",
+      "arms": 2,
+      "structural_intercepts": [
+        -0.8,
+        0.9
+      ],
+      "structural_slopes": [
+        -0.0,
+        0.0
+      ],
+      "reference_probabilities": [
+        0.15446526508353464,
+        0.8455347349164654
+      ],
+      "candidate_probabilities": [
+        0.15446526508353467,
+        0.8455347349164652
+      ],
+      "max_abs_error": 1.1102230246251565e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 1,
+        "estimated_abs_errors": [
+          1.4060690484564702e-13,
+          9.439865057562815e-15
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K2_s0.1",
+      "arms": 2,
+      "structural_intercepts": [
+        -0.8,
+        0.9
+      ],
+      "structural_slopes": [
+        -0.1,
+        0.1
+      ],
+      "reference_probabilities": [
+        0.15626009958137335,
+        0.8437399004186267
+      ],
+      "candidate_probabilities": [
+        0.15626009958137332,
+        0.8437399004186267
+      ],
+      "max_abs_error": 2.7755575615628914e-17,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 5,
+        "estimated_abs_errors": [
+          2.1200367400795277e-15,
+          1.3889033564996716e-14
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 5.653673805526312e-13,
+          "success": true,
+          "status": 0,
+          "evaluations": 189,
+          "intervals_count": 7,
+          "points_count": 4
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K2_s1",
+      "arms": 2,
+      "structural_intercepts": [
+        -0.8,
+        0.9
+      ],
+      "structural_slopes": [
+        -1.0,
+        1.0
+      ],
+      "reference_probabilities": [
+        0.25998395947157354,
+        0.7400160405284265
+      ],
+      "candidate_probabilities": [
+        0.2599839594715735,
+        0.7400160405284266
+      ],
+      "max_abs_error": 1.1102230246251565e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 8,
+        "estimated_abs_errors": [
+          7.18337524553821e-14,
+          1.6250165882569605e-13
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 1.9985734719195876e-14,
+          "success": true,
+          "status": 0,
+          "evaluations": 273,
+          "intervals_count": 11,
+          "points_count": 8
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K2_s2",
+      "arms": 2,
+      "structural_intercepts": [
+        -0.8,
+        0.9
+      ],
+      "structural_slopes": [
+        -2.0,
+        2.0
+      ],
+      "reference_probabilities": [
+        0.3488250657334423,
+        0.6511749342665578
+      ],
+      "candidate_probabilities": [
+        0.3488250657334423,
+        0.6511749342665577
+      ],
+      "max_abs_error": 1.1102230246251565e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 10,
+        "estimated_abs_errors": [
+          1.9026717534627014e-14,
+          2.934479049823638e-14
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 1.066019890162185e-11,
+          "success": true,
+          "status": 0,
+          "evaluations": 273,
+          "intervals_count": 12,
+          "points_count": 10
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K2_s5",
+      "arms": 2,
+      "structural_intercepts": [
+        -0.8,
+        0.9
+      ],
+      "structural_slopes": [
+        -5.0,
+        5.0
+      ],
+      "reference_probabilities": [
+        0.43356885682705754,
+        0.5664311431729425
+      ],
+      "candidate_probabilities": [
+        0.43356885682705754,
+        0.5664311431729424
+      ],
+      "max_abs_error": 1.1102230246251565e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 12,
+        "estimated_abs_errors": [
+          2.5919977738463753e-14,
+          1.4466227142422838e-13
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 7.733205078081682e-14,
+          "success": true,
+          "status": 0,
+          "evaluations": 315,
+          "intervals_count": 13,
+          "points_count": 10
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K2_s10",
+      "arms": 2,
+      "structural_intercepts": [
+        -0.8,
+        0.9
+      ],
+      "structural_slopes": [
+        -10.0,
+        10.0
+      ],
+      "reference_probabilities": [
+        0.4662684603980668,
+        0.5337315396019333
+      ],
+      "candidate_probabilities": [
+        0.46626846039806674,
+        0.5337315396019332
+      ],
+      "max_abs_error": 1.1102230246251565e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 12,
+        "estimated_abs_errors": [
+          8.349954703730122e-15,
+          9.100042409424123e-15
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 6.483568765277781e-14,
+          "success": true,
+          "status": 0,
+          "evaluations": 399,
+          "intervals_count": 15,
+          "points_count": 10
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K2_s50",
+      "arms": 2,
+      "structural_intercepts": [
+        -0.8,
+        0.9
+      ],
+      "structural_slopes": [
+        -50.0,
+        50.0
+      ],
+      "reference_probabilities": [
+        0.4932194229373569,
+        0.5067805770626432
+      ],
+      "candidate_probabilities": [
+        0.4932194229373567,
+        0.5067805770626432
+      ],
+      "max_abs_error": 1.6653345369377348e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 12,
+        "estimated_abs_errors": [
+          8.097790034044977e-14,
+          8.906162724127834e-14
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 3.9403446362303383e-13,
+          "success": true,
+          "status": 0,
+          "evaluations": 399,
+          "intervals_count": 15,
+          "points_count": 10
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K2_s1000",
+      "arms": 2,
+      "structural_intercepts": [
+        -0.8,
+        0.9
+      ],
+      "structural_slopes": [
+        -1000.0,
+        1000.0
+      ],
+      "reference_probabilities": [
+        0.4996608992419419,
+        0.5003391007580584
+      ],
+      "candidate_probabilities": [
+        0.4996608992419417,
+        0.5003391007580583
+      ],
+      "max_abs_error": 2.220446049250313e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 12,
+        "estimated_abs_errors": [
+          5.601651782337274e-15,
+          5.6087058694392354e-15
+        ],
+        "warnings": {},
+        "mass_error": 4.440892098500626e-16
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 9.023155893965489e-13,
+          "success": true,
+          "status": 0,
+          "evaluations": 399,
+          "intervals_count": 15,
+          "points_count": 10
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K3_s0",
+      "arms": 3,
+      "structural_intercepts": [
+        -0.8,
+        0.050000000000000044,
+        0.9
+      ],
+      "structural_slopes": [
+        -0.0,
+        0.0,
+        0.0
+      ],
+      "reference_probabilities": [
+        0.11346108889913054,
+        0.2654588794589458,
+        0.6210800316419236
+      ],
+      "candidate_probabilities": [
+        0.11346108889913054,
+        0.2654588794589458,
+        0.6210800316419236
+      ],
+      "max_abs_error": 0.0,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 1,
+        "estimated_abs_errors": [
+          1.0328148941578704e-13,
+          1.2230320044909846e-13,
+          6.934014675105596e-15
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K3_s0.1",
+      "arms": 3,
+      "structural_intercepts": [
+        -0.8,
+        0.050000000000000044,
+        0.9
+      ],
+      "structural_slopes": [
+        -0.1,
+        0.0,
+        0.1
+      ],
+      "reference_probabilities": [
+        0.11447613719370361,
+        0.26516582759663937,
+        0.6203580352096569
+      ],
+      "candidate_probabilities": [
+        0.1144761371937036,
+        0.26516582759663937,
+        0.6203580352096572
+      ],
+      "max_abs_error": 2.220446049250313e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 7,
+        "estimated_abs_errors": [
+          1.3149387707211015e-14,
+          1.3323279136105072e-14,
+          1.0052616941220997e-14
+        ],
+        "warnings": {},
+        "mass_error": 1.1102230246251565e-16
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 3.4828060008485447e-13,
+          "success": true,
+          "status": 0,
+          "evaluations": 210,
+          "intervals_count": 8,
+          "points_count": 5
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K3_s1",
+      "arms": 3,
+      "structural_intercepts": [
+        -0.8,
+        0.050000000000000044,
+        0.9
+      ],
+      "structural_slopes": [
+        -1.0,
+        0.0,
+        1.0
+      ],
+      "reference_probabilities": [
+        0.18563744503850865,
+        0.23374366770740315,
+        0.5806188872540883
+      ],
+      "candidate_probabilities": [
+        0.18563744503850868,
+        0.23374366770740315,
+        0.5806188872540883
+      ],
+      "max_abs_error": 2.7755575615628914e-17,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 16,
+        "estimated_abs_errors": [
+          3.174364126747781e-15,
+          7.446426739131455e-15,
+          3.4594906625772857e-14
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 1.4613002320690426e-14,
+          "success": true,
+          "status": 0,
+          "evaluations": 315,
+          "intervals_count": 14,
+          "points_count": 12
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K3_s2",
+      "arms": 3,
+      "structural_intercepts": [
+        -0.8,
+        0.050000000000000044,
+        0.9
+      ],
+      "structural_slopes": [
+        -2.0,
+        0.0,
+        2.0
+      ],
+      "reference_probabilities": [
+        0.2742625334817178,
+        0.17775834752910313,
+        0.5479791189891792
+      ],
+      "candidate_probabilities": [
+        0.2742625334817178,
+        0.17775834752910316,
+        0.5479791189891792
+      ],
+      "max_abs_error": 2.7755575615628914e-17,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 18,
+        "estimated_abs_errors": [
+          6.992988638766652e-15,
+          3.534964674690864e-15,
+          1.9825380524189733e-14
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 1.971397616978253e-14,
+          "success": true,
+          "status": 0,
+          "evaluations": 399,
+          "intervals_count": 18,
+          "points_count": 16
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K3_s5",
+      "arms": 3,
+      "structural_intercepts": [
+        -0.8,
+        0.050000000000000044,
+        0.9
+      ],
+      "structural_slopes": [
+        -5.0,
+        0.0,
+        5.0
+      ],
+      "reference_probabilities": [
+        0.39001883215362637,
+        0.09027589338955727,
+        0.5197052744568164
+      ],
+      "candidate_probabilities": [
+        0.39001883215362637,
+        0.09027589338955727,
+        0.5197052744568165
+      ],
+      "max_abs_error": 1.1102230246251565e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 21,
+        "estimated_abs_errors": [
+          2.087667777480566e-14,
+          1.3679143940379875e-15,
+          1.387270226576283e-13
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 1.9351531276350568e-14,
+          "success": true,
+          "status": 0,
+          "evaluations": 441,
+          "intervals_count": 20,
+          "points_count": 18
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K3_s10",
+      "arms": 3,
+      "structural_intercepts": [
+        -0.8,
+        0.050000000000000044,
+        0.9
+      ],
+      "structural_slopes": [
+        -10.0,
+        0.0,
+        10.0
+      ],
+      "reference_probabilities": [
+        0.44279610599310154,
+        0.04739010740212446,
+        0.509813786604774
+      ],
+      "candidate_probabilities": [
+        0.4427961059931016,
+        0.04739010740212446,
+        0.509813786604774
+      ],
+      "max_abs_error": 5.551115123125783e-17,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 23,
+        "estimated_abs_errors": [
+          3.352726128474796e-14,
+          5.558336723227888e-16,
+          8.694184711819909e-14
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 2.7124122842740665e-14,
+          "success": true,
+          "status": 0,
+          "evaluations": 483,
+          "intervals_count": 21,
+          "points_count": 18
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K3_s50",
+      "arms": 3,
+      "structural_intercepts": [
+        -0.8,
+        0.050000000000000044,
+        0.9
+      ],
+      "structural_slopes": [
+        -50.0,
+        0.0,
+        50.0
+      ],
+      "reference_probabilities": [
+        0.48840078412270255,
+        0.009640989749107043,
+        0.5019582261281905
+      ],
+      "candidate_probabilities": [
+        0.4884007841227024,
+        0.009640989749107041,
+        0.5019582261281905
+      ],
+      "max_abs_error": 1.6653345369377348e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 20,
+        "estimated_abs_errors": [
+          1.5200880071560533e-14,
+          1.099547780763517e-16,
+          1.6539778379143187e-14
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 1.2876334332737855e-13,
+          "success": true,
+          "status": 0,
+          "evaluations": 567,
+          "intervals_count": 23,
+          "points_count": 18
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K3_s1000",
+      "arms": 3,
+      "structural_intercepts": [
+        -0.8,
+        0.050000000000000044,
+        0.9
+      ],
+      "structural_slopes": [
+        -1000.0,
+        0.0,
+        1000.0
+      ],
+      "reference_probabilities": [
+        0.4994196994959772,
+        0.00048239995675904195,
+        0.5000979005472639
+      ],
+      "candidate_probabilities": [
+        0.49941969949597725,
+        0.0004823999567590418,
+        0.5000979005472637
+      ],
+      "max_abs_error": 2.220446049250313e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 23,
+        "estimated_abs_errors": [
+          5.5657826401114856e-15,
+          5.497499691421015e-18,
+          5.573065420988552e-15
+        ],
+        "warnings": {},
+        "mass_error": 2.220446049250313e-16
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 8.580921054688854e-13,
+          "success": true,
+          "status": 0,
+          "evaluations": 567,
+          "intervals_count": 23,
+          "points_count": 18
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K5_s0",
+      "arms": 5,
+      "structural_intercepts": [
+        -0.8,
+        -0.375,
+        0.050000000000000044,
+        0.4750000000000001,
+        0.9
+      ],
+      "structural_slopes": [
+        -0.0,
+        -0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "reference_probabilities": [
+        0.07182934802988779,
+        0.10986948259718297,
+        0.1680553079940233,
+        0.2570557890812366,
+        0.39319007229766945
+      ],
+      "candidate_probabilities": [
+        0.07182934802988776,
+        0.10986948259718295,
+        0.16805530799402335,
+        0.2570557890812365,
+        0.3931900722976695
+      ],
+      "max_abs_error": 1.1102230246251565e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 1,
+        "estimated_abs_errors": [
+          6.538489008217016e-14,
+          1.0001220866516176e-13,
+          1.5297758525907991e-13,
+          1.1843142794961047e-13,
+          1.811514549505607e-13
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K5_s0.1",
+      "arms": 5,
+      "structural_intercepts": [
+        -0.8,
+        -0.375,
+        0.050000000000000044,
+        0.4750000000000001,
+        0.9
+      ],
+      "structural_slopes": [
+        -0.1,
+        -0.05,
+        0.0,
+        0.05,
+        0.1
+      ],
+      "reference_probabilities": [
+        0.0723829969291669,
+        0.11008737844452875,
+        0.1678494363681963,
+        0.2565568668857933,
+        0.3931233213723149
+      ],
+      "candidate_probabilities": [
+        0.07238299692916687,
+        0.11008737844452873,
+        0.1678494363681963,
+        0.2565568668857933,
+        0.39312332137231487
+      ],
+      "max_abs_error": 5.551115123125783e-17,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 14,
+        "estimated_abs_errors": [
+          7.485455021976471e-15,
+          7.707846409392073e-15,
+          6.72553966480897e-15,
+          4.587733974283185e-15,
+          5.565195089498033e-15
+        ],
+        "warnings": {},
+        "mass_error": 2.220446049250313e-16
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 2.3979067709806614e-13,
+          "success": true,
+          "status": 0,
+          "evaluations": 273,
+          "intervals_count": 11,
+          "points_count": 8
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K5_s1",
+      "arms": 5,
+      "structural_intercepts": [
+        -0.8,
+        -0.375,
+        0.050000000000000044,
+        0.4750000000000001,
+        0.9
+      ],
+      "structural_slopes": [
+        -1.0,
+        -0.5,
+        0.0,
+        0.5,
+        1.0
+      ],
+      "reference_probabilities": [
+        0.11640910945038514,
+        0.1205841292607376,
+        0.149084439389082,
+        0.22068266932625474,
+        0.39323965257354077
+      ],
+      "candidate_probabilities": [
+        0.11640910945038514,
+        0.12058412926073758,
+        0.14908443938908197,
+        0.22068266932625474,
+        0.3932396525735407
+      ],
+      "max_abs_error": 5.551115123125783e-17,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 31,
+        "estimated_abs_errors": [
+          1.2924071894492182e-15,
+          1.3387943681258775e-15,
+          1.6559164626099117e-15,
+          2.4647028106682984e-15,
+          4.597448611662197e-15
+        ],
+        "warnings": {},
+        "mass_error": 2.220446049250313e-16
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 9.950545174763905e-15,
+          "success": true,
+          "status": 0,
+          "evaluations": 504,
+          "intervals_count": 23,
+          "points_count": 21
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K5_s2",
+      "arms": 5,
+      "structural_intercepts": [
+        -0.8,
+        -0.375,
+        0.050000000000000044,
+        0.4750000000000001,
+        0.9
+      ],
+      "structural_slopes": [
+        -2.0,
+        -1.0,
+        0.0,
+        1.0,
+        2.0
+      ],
+      "reference_probabilities": [
+        0.18853058750884,
+        0.1195593724763384,
+        0.11591262271954904,
+        0.17108378268196994,
+        0.40491363461330265
+      ],
+      "candidate_probabilities": [
+        0.18853058750884003,
+        0.1195593724763384,
+        0.11591262271954905,
+        0.17108378268196994,
+        0.4049136346133026
+      ],
+      "max_abs_error": 5.551115123125783e-17,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 35,
+        "estimated_abs_errors": [
+          6.763647590688024e-15,
+          3.4876959983834932e-15,
+          2.9080344196143725e-15,
+          4.536714514228219e-15,
+          1.974682762692357e-14
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 1.3125972995569387e-14,
+          "success": true,
+          "status": 0,
+          "evaluations": 588,
+          "intervals_count": 27,
+          "points_count": 25
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K5_s5",
+      "arms": 5,
+      "structural_intercepts": [
+        -0.8,
+        -0.375,
+        0.050000000000000044,
+        0.4750000000000001,
+        0.9
+      ],
+      "structural_slopes": [
+        -5.0,
+        -2.5,
+        0.0,
+        2.5,
+        5.0
+      ],
+      "reference_probabilities": [
+        0.32156980374021943,
+        0.08369238263193798,
+        0.06038215531501251,
+        0.09334218432921317,
+        0.4410134739836169
+      ],
+      "candidate_probabilities": [
+        0.32156980374021954,
+        0.083692382631938,
+        0.06038215531501251,
+        0.09334218432921315,
+        0.4410134739836168
+      ],
+      "max_abs_error": 1.1102230246251565e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 38,
+        "estimated_abs_errors": [
+          3.578782992653939e-15,
+          9.292450835862557e-16,
+          6.707180804451026e-16,
+          1.0364204172593597e-15,
+          4.90652038688999e-15
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 1.83498928942744e-14,
+          "success": true,
+          "status": 0,
+          "evaluations": 735,
+          "intervals_count": 34,
+          "points_count": 32
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K5_s10",
+      "arms": 5,
+      "structural_intercepts": [
+        -0.8,
+        -0.375,
+        0.050000000000000044,
+        0.4750000000000001,
+        0.9
+      ],
+      "structural_slopes": [
+        -10.0,
+        -5.0,
+        0.0,
+        5.0,
+        10.0
+      ],
+      "reference_probabilities": [
+        0.4014111213226688,
+        0.04916172889358235,
+        0.03191742749734314,
+        0.050820005479288145,
+        0.46668971680711746
+      ],
+      "candidate_probabilities": [
+        0.40141112132266893,
+        0.04916172889358237,
+        0.03191742749734314,
+        0.050820005479288145,
+        0.46668971680711746
+      ],
+      "max_abs_error": 1.1102230246251565e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 40,
+        "estimated_abs_errors": [
+          3.306625170653192e-14,
+          5.4581425248487745e-16,
+          3.5435464502552323e-16,
+          5.642161418592498e-16,
+          8.638589156432224e-14
+        ],
+        "warnings": {},
+        "mass_error": 1.1102230246251565e-16
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 2.065736113293295e-14,
+          "success": true,
+          "status": 0,
+          "evaluations": 777,
+          "intervals_count": 36,
+          "points_count": 34
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K5_s50",
+      "arms": 5,
+      "structural_intercepts": [
+        -0.8,
+        -0.375,
+        0.050000000000000044,
+        0.4750000000000001,
+        0.9
+      ],
+      "structural_slopes": [
+        -50.0,
+        -25.0,
+        0.0,
+        25.0,
+        50.0
+      ],
+      "reference_probabilities": [
+        0.4794560071460471,
+        0.010510534588056512,
+        0.006510140230662125,
+        0.010525762920890342,
+        0.49299755511434407
+      ],
+      "candidate_probabilities": [
+        0.4794560071460471,
+        0.010510534588056513,
+        0.006510140230662125,
+        0.01052576292089034,
+        0.49299755511434407
+      ],
+      "max_abs_error": 1.734723475976807e-18,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 39,
+        "estimated_abs_errors": [
+          5.403123794181242e-15,
+          1.167837795426807e-16,
+          7.227707692394302e-17,
+          1.1695516836749075e-16,
+          5.565429585986988e-15
+        ],
+        "warnings": {},
+        "mass_error": 2.220446049250313e-16
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 1.0879885850572428e-11,
+          "success": true,
+          "status": 0,
+          "evaluations": 882,
+          "intervals_count": 39,
+          "points_count": 35
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "K5_s1000",
+      "arms": 5,
+      "structural_intercepts": [
+        -0.8,
+        -0.375,
+        0.050000000000000044,
+        0.4750000000000001,
+        0.9
+      ],
+      "structural_slopes": [
+        -1000.0,
+        -500.0,
+        0.0,
+        500.0,
+        1000.0
+      ],
+      "reference_probabilities": [
+        0.4989708883092765,
+        0.0005271209704516219,
+        0.0003257804725738096,
+        0.0005271228862362734,
+        0.49964908736146196
+      ],
+      "candidate_probabilities": [
+        0.4989708883092764,
+        0.0005271209704516218,
+        0.00032578047257380974,
+        0.0005271228862362733,
+        0.49964908736146196
+      ],
+      "max_abs_error": 1.1102230246251565e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 40,
+        "estimated_abs_errors": [
+          5.552862364863657e-15,
+          5.857930324514908e-18,
+          3.616889870566022e-18,
+          5.8579519373661384e-18,
+          5.55958115663536e-15
+        ],
+        "warnings": {},
+        "mass_error": 2.220446049250313e-16
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 7.795349053055033e-13,
+          "success": true,
+          "status": 0,
+          "evaluations": 882,
+          "intervals_count": 38,
+          "points_count": 33
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "B07_equal_intercepts",
+      "arms": 3,
+      "structural_intercepts": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "structural_slopes": [
+        0.0,
+        1.0,
+        1.0
+      ],
+      "reference_probabilities": [
+        0.3601605153366524,
+        0.3199197423316738,
+        0.3199197423316738
+      ],
+      "candidate_probabilities": [
+        0.36016051533665233,
+        0.31991974233167386,
+        0.31991974233167386
+      ],
+      "max_abs_error": 5.551115123125783e-17,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 7,
+        "estimated_abs_errors": [
+          4.754190097198438e-15,
+          4.0978015903648854e-15,
+          4.0978015903648854e-15
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 1.6806109441501682e-14,
+          "success": true,
+          "status": 0,
+          "evaluations": 210,
+          "intervals_count": 8,
+          "points_count": 5
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "narrow_middle_1000",
+      "arms": 3,
+      "structural_intercepts": [
+        0.0,
+        5.0,
+        0.0
+      ],
+      "structural_slopes": [
+        -1000.0,
+        0.0,
+        1000.0
+      ],
+      "reference_probabilities": [
+        0.4980051371618147,
+        0.0039897256763704895,
+        0.4980051371618148
+      ],
+      "candidate_probabilities": [
+        0.4980051371618147,
+        0.00398972567637049,
+        0.49800513716181477
+      ],
+      "max_abs_error": 5.551115123125783e-17,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 31,
+        "estimated_abs_errors": [
+          5.5641842494553196e-15,
+          1.2243565023966885e-16,
+          5.565051611193308e-15
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 8.478945317481347e-13,
+          "success": true,
+          "status": 0,
+          "evaluations": 756,
+          "intervals_count": 32,
+          "points_count": 27
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "narrow_middle_1e6",
+      "arms": 3,
+      "structural_intercepts": [
+        0.0,
+        5.0,
+        0.0
+      ],
+      "structural_slopes": [
+        -1000000.0,
+        0.0,
+        1000000.0
+      ],
+      "reference_probabilities": [
+        0.4999980051255687,
+        3.989748862705768e-06,
+        0.4999980051255688
+      ],
+      "candidate_probabilities": [
+        0.49999800512556863,
+        3.989748862705769e-06,
+        0.49999800512556863
+      ],
+      "max_abs_error": 1.6653345369377348e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 33,
+        "estimated_abs_errors": [
+          5.581519773347606e-15,
+          1.2243476673657552e-19,
+          5.581519773347606e-15
+        ],
+        "warnings": {},
+        "mass_error": 2.220446049250313e-16
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 9.434882397921004e-13,
+          "success": true,
+          "status": 0,
+          "evaluations": 756,
+          "intervals_count": 32,
+          "points_count": 27
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "narrow_middle_shifted",
+      "arms": 3,
+      "structural_intercepts": [
+        0.0,
+        7.0,
+        -200.0
+      ],
+      "structural_slopes": [
+        -10000.0,
+        0.0,
+        10000.0
+      ],
+      "reference_probabilities": [
+        0.49972074043111886,
+        0.008536774922699912,
+        0.49174248464618137
+      ],
+      "candidate_probabilities": [
+        0.49972074043111886,
+        0.008536774922699908,
+        0.49174248464618125
+      ],
+      "max_abs_error": 1.1102230246251565e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 34,
+        "estimated_abs_errors": [
+          1.03644800559082e-13,
+          1.895770669886401e-13,
+          1.0493001267588008e-13
+        ],
+        "warnings": {},
+        "mass_error": 2.220446049250313e-16
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 9.122702915138918e-13,
+          "success": true,
+          "status": 0,
+          "evaluations": 777,
+          "intervals_count": 33,
+          "points_count": 28
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "near_tail_crossing",
+      "arms": 2,
+      "structural_intercepts": [
+        0.0,
+        -11800.0
+      ],
+      "structural_slopes": [
+        0.0,
+        1000.0
+      ],
+      "reference_probabilities": [
+        1.0000000000000002,
+        1.7743593041263396e-32
+      ],
+      "candidate_probabilities": [
+        1.0,
+        1.7743593041263396e-32
+      ],
+      "max_abs_error": 2.220446049250313e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 12,
+        "estimated_abs_errors": [
+          1.114328592769598e-14,
+          2.5378001658112542e-43
+        ],
+        "warnings": {},
+        "mass_error": 2.220446049250313e-16
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 8.421414035205484e-13,
+          "success": true,
+          "status": 0,
+          "evaluations": 399,
+          "intervals_count": 15,
+          "points_count": 10
+        }
+      ],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "equal_nonzero_slopes",
+      "arms": 3,
+      "structural_intercepts": [
+        -2.0,
+        0.3,
+        1.0
+      ],
+      "structural_slopes": [
+        50.0,
+        50.0,
+        50.0
+      ],
+      "reference_probabilities": [
+        0.032196041046920615,
+        0.3211291877246896,
+        0.6466747712283896
+      ],
+      "candidate_probabilities": [
+        0.0321960410469206,
+        0.32112918772469,
+        0.6466747712283893
+      ],
+      "max_abs_error": 3.885780586188048e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 1,
+        "estimated_abs_errors": [
+          2.930745524303074e-14,
+          1.4795149750664428e-13,
+          7.219376979385485e-15
+        ],
+        "warnings": {},
+        "mass_error": 2.220446049250313e-16
+      },
+      "candidate_quadrature": [],
+      "candidate_warnings": {}
+    },
+    {
+      "case": "shared_slope_part",
+      "arms": 5,
+      "structural_intercepts": [
+        -1.2,
+        0.4,
+        1.1,
+        -0.2,
+        0.6
+      ],
+      "structural_slopes": [
+        5.0,
+        5.0,
+        -3.0,
+        1.0,
+        1.0
+      ],
+      "reference_probabilities": [
+        0.06964459068853805,
+        0.3449519158640553,
+        0.46279578402289673,
+        0.03801151873208861,
+        0.08459619069242133
+      ],
+      "candidate_probabilities": [
+        0.06964459068853808,
+        0.34495191586405527,
+        0.4627957840228967,
+        0.038011518732088606,
+        0.08459619069242133
+      ],
+      "max_abs_error": 5.551115123125783e-17,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 75,
+        "estimated_abs_errors": [
+          8.182893059411947e-16,
+          4.053013396052546e-15,
+          5.234405430000647e-15,
+          4.563275074582367e-16,
+          1.0155755446476374e-15
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 2.5197389528585444e-14,
+          "success": true,
+          "status": 0,
+          "evaluations": 1596,
+          "intervals_count": 75,
+          "points_count": 73
+        }
+      ],
+      "candidate_warnings": {}
+    }
+  ],
+  "invariance_cases": [
+    {
+      "case": "latent_sign",
+      "max_abs_error": 5.551115123125783e-17
+    },
+    {
+      "case": "intercept_common_shift",
+      "max_abs_error": 9.992007221626409e-16
+    },
+    {
+      "case": "slope_common_shift",
+      "max_abs_error": 0.0
+    },
+    {
+      "case": "arm_permutation",
+      "max_abs_error": 0.0
+    }
+  ],
+  "fixed_GH_false_convergence_cases": [
+    {
+      "case": "steep_shifted_binary",
+      "reference": [
+        0.49960105844232044,
+        0.5003989415576799
+      ],
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 12,
+        "estimated_abs_errors": [
+          5.621268733144232e-15,
+          5.630890050582999e-15
+        ],
+        "warnings": {},
+        "mass_error": 4.440892098500626e-16
+      },
+      "GH_probabilities": {
+        "21": [
+          0.43755406612336695,
+          0.5624459338766332
+        ],
+        "32": [
+          0.5,
+          0.4999999999999999
+        ],
+        "64": [
+          0.5,
+          0.5000000000000001
+        ],
+        "81": [
+          0.46792260105441913,
+          0.5320773989455806
+        ],
+        "128": [
+          0.49999999999999994,
+          0.5000000000000001
+        ]
+      },
+      "GH_max_abs_errors": {
+        "21": 0.0620469923189535,
+        "32": 0.0003989415576800548,
+        "64": 0.00039894155767983275,
+        "81": 0.031678457387901315,
+        "128": 0.00039894155767983275
+      },
+      "GH32_vs_GH64_max_abs_difference": 2.220446049250313e-16
+    },
+    {
+      "case": "narrow_middle",
+      "reference": [
+        0.4980051371618147,
+        0.0039897256763704895,
+        0.4980051371618148
+      ],
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 31,
+        "estimated_abs_errors": [
+          5.5641842494553196e-15,
+          1.2243565023966885e-16,
+          5.565051611193308e-15
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "GH_probabilities": {
+        "21": [
+          0.36666669371547744,
+          0.26666661256904534,
+          0.3666666937154775
+        ],
+        "32": [
+          0.5,
+          1.3487930191434868e-118,
+          0.4999999999999999
+        ],
+        "64": [
+          0.5,
+          5.179843102882336e-84,
+          0.5000000000000001
+        ],
+        "81": [
+          0.43150898076291927,
+          0.13698203847416154,
+          0.43150898076291927
+        ],
+        "128": [
+          0.49999999999999994,
+          2.1465431880400287e-59,
+          0.5000000000000001
+        ]
+      },
+      "GH_max_abs_errors": {
+        "21": 0.2626768868926748,
+        "32": 0.0039897256763704895,
+        "64": 0.0039897256763704895,
+        "81": 0.13299231279779106,
+        "128": 0.0039897256763704895
+      },
+      "GH32_vs_GH64_max_abs_difference": 2.220446049250313e-16
+    }
+  ],
+  "public_generation_cases": [
+    {
+      "assignment_policy": "iid",
+      "supplied_U": "drawn independent standard normal",
+      "target_d_rate": null,
+      "sample_size": 64,
+      "existing_frame_exact_equal": true,
+      "all_rng_state_exact_equal": true,
+      "next10_exact_equal": true,
+      "baseline_columns": [
+        "y",
+        "control",
+        "A",
+        "B",
+        "m_control",
+        "m_obs_control",
+        "tau_link_control",
+        "m_A",
+        "m_obs_A",
+        "tau_link_A",
+        "m_B",
+        "m_obs_B",
+        "tau_link_B",
+        "g_control",
+        "g_A",
+        "g_B",
+        "cate_A",
+        "cate_B"
+      ],
+      "new_columns": [
+        "m_marginal_control",
+        "m_marginal_A",
+        "m_marginal_B"
+      ],
+      "m_means": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "m_obs_means": [
+        0.41219715017580016,
+        0.2939014249120999,
+        0.2939014249120999
+      ],
+      "m_marginal_means": [
+        0.3962864055501867,
+        0.30185679722490666,
+        0.30185679722490666
+      ],
+      "reference_q": [
+        0.3962864055501868,
+        0.30185679722490666,
+        0.30185679722490666
+      ],
+      "max_m_marginal_abs_error": 1.1102230246251565e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 7,
+        "estimated_abs_errors": [
+          1.4456025127710839e-13,
+          1.6122011198984651e-13,
+          1.6122011198984651e-13
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 1.3035560875884593e-14,
+          "success": true,
+          "status": 0,
+          "evaluations": 252,
+          "intervals_count": 10,
+          "points_count": 7
+        }
+      ],
+      "warnings": {}
+    },
+    {
+      "assignment_policy": "iid",
+      "supplied_U": "drawn independent standard normal",
+      "target_d_rate": [
+        0.2,
+        0.3,
+        0.5
+      ],
+      "sample_size": 64,
+      "existing_frame_exact_equal": true,
+      "all_rng_state_exact_equal": true,
+      "next10_exact_equal": true,
+      "baseline_columns": [
+        "y",
+        "control",
+        "A",
+        "B",
+        "m_control",
+        "m_obs_control",
+        "tau_link_control",
+        "m_A",
+        "m_obs_A",
+        "tau_link_A",
+        "m_B",
+        "m_obs_B",
+        "tau_link_B",
+        "g_control",
+        "g_A",
+        "g_B",
+        "cate_A",
+        "cate_B"
+      ],
+      "new_columns": [
+        "m_marginal_control",
+        "m_marginal_A",
+        "m_marginal_B"
+      ],
+      "m_means": [
+        0.20000000000000023,
+        0.29999999999999966,
+        0.5000000000000001
+      ],
+      "m_obs_means": [
+        0.3163007733031985,
+        0.2563872100113004,
+        0.4273120166855011
+      ],
+      "m_marginal_means": [
+        0.29972870050639017,
+        0.2626017373101035,
+        0.43766956218350644
+      ],
+      "reference_q": [
+        0.29972870050639017,
+        0.26260173731010356,
+        0.43766956218350644
+      ],
+      "max_m_marginal_abs_error": 5.551115123125783e-17,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 15,
+        "estimated_abs_errors": [
+          3.520841517617334e-14,
+          3.397311615715884e-14,
+          5.662171406733964e-14
+        ],
+        "warnings": {},
+        "mass_error": 2.220446049250313e-16
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 1.332449157216479e-14,
+          "success": true,
+          "status": 0,
+          "evaluations": 420,
+          "intervals_count": 18,
+          "points_count": 15
+        }
+      ],
+      "warnings": {}
+    },
+    {
+      "assignment_policy": "iid",
+      "supplied_U": "constant 7 / non-Gaussian reference illustration",
+      "target_d_rate": null,
+      "sample_size": 64,
+      "existing_frame_exact_equal": true,
+      "all_rng_state_exact_equal": true,
+      "next10_exact_equal": true,
+      "baseline_columns": [
+        "y",
+        "control",
+        "A",
+        "B",
+        "m_control",
+        "m_obs_control",
+        "tau_link_control",
+        "m_A",
+        "m_obs_A",
+        "tau_link_A",
+        "m_B",
+        "m_obs_B",
+        "tau_link_B",
+        "g_control",
+        "g_A",
+        "g_B",
+        "cate_A",
+        "cate_B"
+      ],
+      "new_columns": [
+        "m_marginal_control",
+        "m_marginal_A",
+        "m_marginal_B"
+      ],
+      "m_means": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "m_obs_means": [
+        4.15764186691853e-07,
+        0.4999997921179066,
+        0.4999997921179066
+      ],
+      "m_marginal_means": [
+        0.3962864055501867,
+        0.30185679722490666,
+        0.30185679722490666
+      ],
+      "reference_q": [
+        0.3962864055501868,
+        0.30185679722490666,
+        0.30185679722490666
+      ],
+      "max_m_marginal_abs_error": 1.1102230246251565e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 7,
+        "estimated_abs_errors": [
+          1.4456025127710839e-13,
+          1.6122011198984651e-13,
+          1.6122011198984651e-13
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 1.3035560875884593e-14,
+          "success": true,
+          "status": 0,
+          "evaluations": 252,
+          "intervals_count": 10,
+          "points_count": 7
+        }
+      ],
+      "warnings": {}
+    },
+    {
+      "assignment_policy": "iid",
+      "supplied_U": "constant 7 / non-Gaussian reference illustration",
+      "target_d_rate": [
+        0.2,
+        0.3,
+        0.5
+      ],
+      "sample_size": 64,
+      "existing_frame_exact_equal": true,
+      "all_rng_state_exact_equal": true,
+      "next10_exact_equal": true,
+      "baseline_columns": [
+        "y",
+        "control",
+        "A",
+        "B",
+        "m_control",
+        "m_obs_control",
+        "tau_link_control",
+        "m_A",
+        "m_obs_A",
+        "tau_link_A",
+        "m_B",
+        "m_obs_B",
+        "tau_link_B",
+        "g_control",
+        "g_A",
+        "g_B",
+        "cate_A",
+        "cate_B"
+      ],
+      "new_columns": [
+        "m_marginal_control",
+        "m_marginal_A",
+        "m_marginal_B"
+      ],
+      "m_means": [
+        0.20000000000000023,
+        0.29999999999999966,
+        0.5000000000000001
+      ],
+      "m_obs_means": [
+        2.0788213656090056e-07,
+        0.3749999220441984,
+        0.624999870073665
+      ],
+      "m_marginal_means": [
+        0.29972870050639017,
+        0.2626017373101035,
+        0.43766956218350644
+      ],
+      "reference_q": [
+        0.29972870050639017,
+        0.26260173731010356,
+        0.43766956218350644
+      ],
+      "max_m_marginal_abs_error": 5.551115123125783e-17,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 15,
+        "estimated_abs_errors": [
+          3.520841517617334e-14,
+          3.397311615715884e-14,
+          5.662171406733964e-14
+        ],
+        "warnings": {},
+        "mass_error": 2.220446049250313e-16
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 1.332449157216479e-14,
+          "success": true,
+          "status": 0,
+          "evaluations": 420,
+          "intervals_count": 18,
+          "points_count": 15
+        }
+      ],
+      "warnings": {}
+    },
+    {
+      "assignment_policy": "ensure_all",
+      "supplied_U": "drawn independent standard normal",
+      "target_d_rate": null,
+      "sample_size": 64,
+      "existing_frame_exact_equal": true,
+      "all_rng_state_exact_equal": true,
+      "next10_exact_equal": true,
+      "baseline_columns": [
+        "y",
+        "control",
+        "A",
+        "B",
+        "m_control",
+        "m_obs_control",
+        "tau_link_control",
+        "m_A",
+        "m_obs_A",
+        "tau_link_A",
+        "m_B",
+        "m_obs_B",
+        "tau_link_B",
+        "g_control",
+        "g_A",
+        "g_B",
+        "cate_A",
+        "cate_B"
+      ],
+      "new_columns": [
+        "m_marginal_control",
+        "m_marginal_A",
+        "m_marginal_B"
+      ],
+      "m_means": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "m_obs_means": [
+        0.41219715017580016,
+        0.2939014249120999,
+        0.2939014249120999
+      ],
+      "m_marginal_means": [
+        0.3962864055501867,
+        0.30185679722490666,
+        0.30185679722490666
+      ],
+      "reference_q": [
+        0.3962864055501868,
+        0.30185679722490666,
+        0.30185679722490666
+      ],
+      "max_m_marginal_abs_error": 1.1102230246251565e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 7,
+        "estimated_abs_errors": [
+          1.4456025127710839e-13,
+          1.6122011198984651e-13,
+          1.6122011198984651e-13
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 1.3035560875884593e-14,
+          "success": true,
+          "status": 0,
+          "evaluations": 252,
+          "intervals_count": 10,
+          "points_count": 7
+        }
+      ],
+      "warnings": {}
+    },
+    {
+      "assignment_policy": "ensure_all",
+      "supplied_U": "drawn independent standard normal",
+      "target_d_rate": [
+        0.2,
+        0.3,
+        0.5
+      ],
+      "sample_size": 64,
+      "existing_frame_exact_equal": true,
+      "all_rng_state_exact_equal": true,
+      "next10_exact_equal": true,
+      "baseline_columns": [
+        "y",
+        "control",
+        "A",
+        "B",
+        "m_control",
+        "m_obs_control",
+        "tau_link_control",
+        "m_A",
+        "m_obs_A",
+        "tau_link_A",
+        "m_B",
+        "m_obs_B",
+        "tau_link_B",
+        "g_control",
+        "g_A",
+        "g_B",
+        "cate_A",
+        "cate_B"
+      ],
+      "new_columns": [
+        "m_marginal_control",
+        "m_marginal_A",
+        "m_marginal_B"
+      ],
+      "m_means": [
+        0.20000000000000023,
+        0.29999999999999966,
+        0.5000000000000001
+      ],
+      "m_obs_means": [
+        0.3163007733031985,
+        0.2563872100113004,
+        0.4273120166855011
+      ],
+      "m_marginal_means": [
+        0.29972870050639017,
+        0.2626017373101035,
+        0.43766956218350644
+      ],
+      "reference_q": [
+        0.29972870050639017,
+        0.26260173731010356,
+        0.43766956218350644
+      ],
+      "max_m_marginal_abs_error": 5.551115123125783e-17,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 15,
+        "estimated_abs_errors": [
+          3.520841517617334e-14,
+          3.397311615715884e-14,
+          5.662171406733964e-14
+        ],
+        "warnings": {},
+        "mass_error": 2.220446049250313e-16
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 1.332449157216479e-14,
+          "success": true,
+          "status": 0,
+          "evaluations": 420,
+          "intervals_count": 18,
+          "points_count": 15
+        }
+      ],
+      "warnings": {}
+    },
+    {
+      "assignment_policy": "ensure_all",
+      "supplied_U": "constant 7 / non-Gaussian reference illustration",
+      "target_d_rate": null,
+      "sample_size": 64,
+      "existing_frame_exact_equal": true,
+      "all_rng_state_exact_equal": true,
+      "next10_exact_equal": true,
+      "baseline_columns": [
+        "y",
+        "control",
+        "A",
+        "B",
+        "m_control",
+        "m_obs_control",
+        "tau_link_control",
+        "m_A",
+        "m_obs_A",
+        "tau_link_A",
+        "m_B",
+        "m_obs_B",
+        "tau_link_B",
+        "g_control",
+        "g_A",
+        "g_B",
+        "cate_A",
+        "cate_B"
+      ],
+      "new_columns": [
+        "m_marginal_control",
+        "m_marginal_A",
+        "m_marginal_B"
+      ],
+      "m_means": [
+        0.3333333333333333,
+        0.3333333333333333,
+        0.3333333333333333
+      ],
+      "m_obs_means": [
+        4.15764186691853e-07,
+        0.4999997921179066,
+        0.4999997921179066
+      ],
+      "m_marginal_means": [
+        0.3962864055501867,
+        0.30185679722490666,
+        0.30185679722490666
+      ],
+      "reference_q": [
+        0.3962864055501868,
+        0.30185679722490666,
+        0.30185679722490666
+      ],
+      "max_m_marginal_abs_error": 1.1102230246251565e-16,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 7,
+        "estimated_abs_errors": [
+          1.4456025127710839e-13,
+          1.6122011198984651e-13,
+          1.6122011198984651e-13
+        ],
+        "warnings": {},
+        "mass_error": 0.0
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 1.3035560875884593e-14,
+          "success": true,
+          "status": 0,
+          "evaluations": 252,
+          "intervals_count": 10,
+          "points_count": 7
+        }
+      ],
+      "warnings": {}
+    },
+    {
+      "assignment_policy": "ensure_all",
+      "supplied_U": "constant 7 / non-Gaussian reference illustration",
+      "target_d_rate": [
+        0.2,
+        0.3,
+        0.5
+      ],
+      "sample_size": 64,
+      "existing_frame_exact_equal": true,
+      "all_rng_state_exact_equal": true,
+      "next10_exact_equal": true,
+      "baseline_columns": [
+        "y",
+        "control",
+        "A",
+        "B",
+        "m_control",
+        "m_obs_control",
+        "tau_link_control",
+        "m_A",
+        "m_obs_A",
+        "tau_link_A",
+        "m_B",
+        "m_obs_B",
+        "tau_link_B",
+        "g_control",
+        "g_A",
+        "g_B",
+        "cate_A",
+        "cate_B"
+      ],
+      "new_columns": [
+        "m_marginal_control",
+        "m_marginal_A",
+        "m_marginal_B"
+      ],
+      "m_means": [
+        0.20000000000000023,
+        0.29999999999999966,
+        0.5000000000000001
+      ],
+      "m_obs_means": [
+        2.0788213656090056e-07,
+        0.3749999220441984,
+        0.624999870073665
+      ],
+      "m_marginal_means": [
+        0.29972870050639017,
+        0.2626017373101035,
+        0.43766956218350644
+      ],
+      "reference_q": [
+        0.29972870050639017,
+        0.26260173731010356,
+        0.43766956218350644
+      ],
+      "max_m_marginal_abs_error": 5.551115123125783e-17,
+      "reference_diagnostics": {
+        "backend": "scipy.integrate.quad scalar per arm / scipy.special.softmax",
+        "epsabs": 2e-13,
+        "epsrel": 2e-13,
+        "interval": [
+          -12.0,
+          12.0
+        ],
+        "points_count": 15,
+        "estimated_abs_errors": [
+          3.520841517617334e-14,
+          3.397311615715884e-14,
+          5.662171406733964e-14
+        ],
+        "warnings": {},
+        "mass_error": 2.220446049250313e-16
+      },
+      "candidate_quadrature": [
+        {
+          "estimated_abs_error": 1.332449157216479e-14,
+          "success": true,
+          "status": 0,
+          "evaluations": 420,
+          "intervals_count": 18,
+          "points_count": 15
+        }
+      ],
+      "warnings": {}
+    }
+  ],
+  "existing_outcome_numerical_cases": [
+    {
+      "family": "binary",
+      "structural_link": 0.7,
+      "latent_strength": 0.0,
+      "reference": 0.6681877721681663,
+      "reference_diagnostics": {
+        "estimated_abs_error": 7.459456916095458e-15,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 0.6681877721681662,
+          "abs_error": 1.1102230246251565e-16,
+          "relative_error": 1.661543462584857e-16
+        },
+        "multi_candidate": {
+          "value": 0.6681877721681662,
+          "abs_error": 1.1102230246251565e-16,
+          "relative_error": 1.661543462584857e-16
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 0.6681877721681662,
+          "abs_error": 1.1102230246251565e-16,
+          "relative_error": 1.661543462584857e-16
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 0.6681877721681662,
+          "abs_error": 1.1102230246251565e-16,
+          "relative_error": 1.661543462584857e-16
+        }
+      }
+    },
+    {
+      "family": "binary",
+      "structural_link": 0.7,
+      "latent_strength": 1.0,
+      "reference": 0.6411558811272295,
+      "reference_diagnostics": {
+        "estimated_abs_error": 7.33167284419313e-15,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 0.6411558811272295,
+          "abs_error": 0.0,
+          "relative_error": 0.0
+        },
+        "multi_candidate": {
+          "value": 0.6411558811272295,
+          "abs_error": 0.0,
+          "relative_error": 0.0
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 0.6411558810517212,
+          "abs_error": 7.550837732850368e-11,
+          "relative_error": 1.1776914093925308e-10
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 0.6411558811271721,
+          "abs_error": 5.739853037312059e-14,
+          "relative_error": 8.95235184807274e-14
+        }
+      }
+    },
+    {
+      "family": "binary",
+      "structural_link": 0.7,
+      "latent_strength": 2.0,
+      "reference": 0.6047142212627887,
+      "reference_diagnostics": {
+        "estimated_abs_error": 2.720072523196074e-14,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 0.6047142212610085,
+          "abs_error": 1.7802426199864385e-12,
+          "relative_error": 2.943940389344348e-12
+        },
+        "multi_candidate": {
+          "value": 0.6047142212610085,
+          "abs_error": 1.7802426199864385e-12,
+          "relative_error": 2.943940389344348e-12
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 0.6047156193955227,
+          "abs_error": 1.3981327339207539e-06,
+          "relative_error": 2.3120553225970386e-06
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 0.6047141752077474,
+          "abs_error": 4.605504133614602e-08,
+          "relative_error": 7.616001032681523e-08
+        }
+      }
+    },
+    {
+      "family": "binary",
+      "structural_link": 0.7,
+      "latent_strength": 2.01,
+      "reference": 0.6044087108824998,
+      "reference_diagnostics": {
+        "estimated_abs_error": 3.056799520123461e-14,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 0.604408710882519,
+          "abs_error": 1.9206858326015208e-14,
+          "relative_error": 3.1777931026128315e-14
+        },
+        "multi_candidate": {
+          "value": 0.604408710882519,
+          "abs_error": 1.9206858326015208e-14,
+          "relative_error": 3.1777931026128315e-14
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 0.6044102303422567,
+          "abs_error": 1.5194597569045953e-06,
+          "relative_error": 2.513960718213385e-06
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 0.6044086639694003,
+          "abs_error": 4.6913099516210366e-08,
+          "relative_error": 7.761817239151359e-08
+        }
+      }
+    },
+    {
+      "family": "binary",
+      "structural_link": 0.7,
+      "latent_strength": 5.0,
+      "reference": 0.5524488667336555,
+      "reference_diagnostics": {
+        "estimated_abs_error": 1.3103579749241552e-13,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 0.552448866733673,
+          "abs_error": 1.7541523789077473e-14,
+          "relative_error": 3.175230296478194e-14
+        },
+        "multi_candidate": {
+          "value": 0.552448866733673,
+          "abs_error": 1.7541523789077473e-14,
+          "relative_error": 3.175230296478194e-14
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 0.5557797574804051,
+          "abs_error": 0.0033308907467496374,
+          "relative_error": 0.006029319539459774
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 0.5534876381687059,
+          "abs_error": 0.0010387714350504895,
+          "relative_error": 0.0018803033142093457
+        }
+      }
+    },
+    {
+      "family": "binary",
+      "structural_link": 0.7,
+      "latent_strength": 10.0,
+      "reference": 0.5274599663319748,
+      "reference_diagnostics": {
+        "estimated_abs_error": 8.538811175827246e-14,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 0.5274599663319917,
+          "abs_error": 1.687538997430238e-14,
+          "relative_error": 3.199368871851268e-14
+        },
+        "multi_candidate": {
+          "value": 0.5274599663319917,
+          "abs_error": 1.687538997430238e-14,
+          "relative_error": 3.199368871851268e-14
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 0.545824655701404,
+          "abs_error": 0.018364689369429255,
+          "relative_error": 0.03481721939418397
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 0.5386207772299448,
+          "abs_error": 0.011160810897970053,
+          "relative_error": 0.02115954121709707
+        }
+      }
+    },
+    {
+      "family": "binary",
+      "structural_link": 0.7,
+      "latent_strength": 50.0,
+      "reference": 0.5055813399989372,
+      "reference_diagnostics": {
+        "estimated_abs_error": 1.7584410187406303e-14,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 0.5055813399989532,
+          "abs_error": 1.5987211554602254e-14,
+          "relative_error": 3.162144305926295e-14
+        },
+        "multi_candidate": {
+          "value": 0.5055813399989532,
+          "abs_error": 1.5987211554602254e-14,
+          "relative_error": 3.162144305926295e-14
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 0.5454544581808813,
+          "abs_error": 0.03987311818194417,
+          "relative_error": 0.07886588176301758
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 0.5375553437334961,
+          "abs_error": 0.03197400373455894,
+          "relative_error": 0.06324205662856576
+        }
+      }
+    },
+    {
+      "family": "binary",
+      "structural_link": 0.7,
+      "latent_strength": 1000.0,
+      "reference": 0.500279259114113,
+      "reference_diagnostics": {
+        "estimated_abs_error": 5.6300962373649194e-15,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 0.5002792591141285,
+          "abs_error": 1.554312234475219e-14,
+          "relative_error": 3.1068892146909545e-14
+        },
+        "multi_candidate": {
+          "value": 0.5002792591141285,
+          "abs_error": 1.554312234475219e-14,
+          "relative_error": 3.1068892146909545e-14
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 0.5454544581808789,
+          "abs_error": 0.045175199066765925,
+          "relative_error": 0.09029996395765336
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 0.5375553437332948,
+          "abs_error": 0.03727608461918186,
+          "relative_error": 0.07451055373590701
+        }
+      }
+    },
+    {
+      "family": "binary",
+      "structural_link": -5.0,
+      "latent_strength": 50.0,
+      "reference": 0.46019824525940106,
+      "reference_diagnostics": {
+        "estimated_abs_error": 1.287969100930937e-14,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 0.46019824525941583,
+          "abs_error": 1.4765966227514582e-14,
+          "relative_error": 3.2086098501291357e-14
+        },
+        "multi_candidate": {
+          "value": 0.46019824525941583,
+          "abs_error": 1.4765966227514582e-14,
+          "relative_error": 3.2086098501291357e-14
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 0.3666787193329233,
+          "abs_error": 0.09351952592647778,
+          "relative_error": 0.2032157377605023
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 0.3898474049920017,
+          "abs_error": 0.07035084026739935,
+          "relative_error": 0.15287072689237335
+        }
+      }
+    },
+    {
+      "family": "binary",
+      "structural_link": 0.0,
+      "latent_strength": 50.0,
+      "reference": 0.5,
+      "reference_diagnostics": {
+        "estimated_abs_error": 1.7030691657481624e-14,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 0.5000000000000163,
+          "abs_error": 1.63202784619898e-14,
+          "relative_error": 3.26405569239796e-14
+        },
+        "multi_candidate": {
+          "value": 0.5000000000000163,
+          "abs_error": 1.63202784619898e-14,
+          "relative_error": 3.26405569239796e-14
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 0.499999999999999,
+          "abs_error": 9.992007221626409e-16,
+          "relative_error": 1.9984014443252818e-15
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 0.4999999999999999,
+          "abs_error": 1.1102230246251565e-16,
+          "relative_error": 2.220446049250313e-16
+        }
+      }
+    },
+    {
+      "family": "binary",
+      "structural_link": 5.0,
+      "latent_strength": 50.0,
+      "reference": 0.5398017547405991,
+      "reference_diagnostics": {
+        "estimated_abs_error": 2.1261066913471494e-14,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 0.5398017547406169,
+          "abs_error": 1.7763568394002505e-14,
+          "relative_error": 3.290757808399263e-14
+        },
+        "multi_candidate": {
+          "value": 0.5398017547406169,
+          "abs_error": 1.7763568394002505e-14,
+          "relative_error": 3.290757808399263e-14
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 0.6333212806670729,
+          "abs_error": 0.09351952592647383,
+          "relative_error": 0.17324791019142666
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 0.6101525950079985,
+          "abs_error": 0.07035084026739935,
+          "relative_error": 0.1303271796535866
+        }
+      }
+    },
+    {
+      "family": "gamma",
+      "structural_link": 0.0,
+      "latent_strength": 1.0,
+      "reference": 1.6487212707001289,
+      "reference_diagnostics": {
+        "estimated_abs_error": 4.159295092112712e-14,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 1.6487212707001282,
+          "abs_error": 6.661338147750939e-16,
+          "relative_error": 4.040305821324307e-16
+        },
+        "multi_candidate": {
+          "value": 1.6487212707001282,
+          "abs_error": 6.661338147750939e-16,
+          "relative_error": 4.040305821324307e-16
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 1.648721270700129,
+          "abs_error": 2.220446049250313e-16,
+          "relative_error": 1.3467686071081024e-16
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 1.6487212707001286,
+          "abs_error": 2.220446049250313e-16,
+          "relative_error": 1.3467686071081024e-16
+        }
+      }
+    },
+    {
+      "family": "gamma",
+      "structural_link": 0.0,
+      "latent_strength": 3.0,
+      "reference": 90.01241908544094,
+      "reference_diagnostics": {
+        "estimated_abs_error": 5.484823953524039e-12,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 90.01241908544092,
+          "abs_error": 1.4210854715202004e-14,
+          "relative_error": 1.578766003579226e-16
+        },
+        "multi_candidate": {
+          "value": 90.01241908544092,
+          "abs_error": 1.4210854715202004e-14,
+          "relative_error": 1.578766003579226e-16
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 90.00979696756052,
+          "abs_error": 0.00262211788042066,
+          "relative_error": 2.9130623385776492e-05
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 90.01452661698843,
+          "abs_error": 0.0021075315474945455,
+          "relative_error": 2.3413786329795776e-05
+        }
+      }
+    },
+    {
+      "family": "gamma",
+      "structural_link": 0.0,
+      "latent_strength": 10.0,
+      "reference": 14262957.080491794,
+      "reference_diagnostics": {
+        "estimated_abs_error": 5.400013636421008e-07,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 14262957.080491778,
+          "abs_error": 1.6763806343078613e-08,
+          "relative_error": 1.1753387637972608e-15
+        },
+        "multi_candidate": {
+          "value": 14262957.080491778,
+          "abs_error": 1.6763806343078613e-08,
+          "relative_error": 1.1753387637972608e-15
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 20048955.35973214,
+          "abs_error": 5785998.279240346,
+          "relative_error": 0.40566610742692083
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 12293569.226898238,
+          "abs_error": 1969387.8535935562,
+          "relative_error": 0.13807710718608224
+        }
+      }
+    },
+    {
+      "family": "gamma",
+      "structural_link": 0.0,
+      "latent_strength": 50.0,
+      "reference": 170778170.74413046,
+      "reference_diagnostics": {
+        "estimated_abs_error": 1.9353247924498533e-06,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 170778170.74412975,
+          "abs_error": 7.152557373046875e-07,
+          "relative_error": 4.188215239618207e-15
+        },
+        "multi_candidate": {
+          "value": 170778170.74412975,
+          "abs_error": 7.152557373046875e-07,
+          "relative_error": 4.188215239618207e-15
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 177022180.58784503,
+          "abs_error": 6244009.843714565,
+          "relative_error": 0.03656210753697377
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 188415325.699779,
+          "abs_error": 17637154.95564854,
+          "relative_error": 0.10327523054497127
+        }
+      }
+    },
+    {
+      "family": "gamma",
+      "structural_link": 19.0,
+      "latent_strength": 1.0,
+      "reference": 224107790.2971997,
+      "reference_diagnostics": {
+        "estimated_abs_error": 1.9256792852528903e-05,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 224107790.29719993,
+          "abs_error": 2.384185791015625e-07,
+          "relative_error": 1.0638567217381628e-15
+        },
+        "multi_candidate": {
+          "value": 224107790.29719993,
+          "abs_error": 2.384185791015625e-07,
+          "relative_error": 1.0638567217381628e-15
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 221834739.5963025,
+          "abs_error": 2273050.700897187,
+          "relative_error": 0.010142667052683843
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 223896038.05453274,
+          "abs_error": 211752.24266695976,
+          "relative_error": 0.0009448678351883499
+        }
+      }
+    },
+    {
+      "family": "gamma",
+      "structural_link": 19.0,
+      "latent_strength": 3.0,
+      "reference": 240780754.25747854,
+      "reference_diagnostics": {
+        "estimated_abs_error": 3.1725215540957314e-06,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 240780754.25747862,
+          "abs_error": 8.940696716308594e-08,
+          "relative_error": 3.7132106940523466e-16
+        },
+        "multi_candidate": {
+          "value": 240780754.25747862,
+          "abs_error": 8.940696716308594e-08,
+          "relative_error": 3.7132106940523466e-16
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 230626242.92697105,
+          "abs_error": 10154511.330507487,
+          "relative_error": 0.042173268215817517
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 235433275.04947904,
+          "abs_error": 5347479.207999498,
+          "relative_error": 0.022208914597390033
+        }
+      }
+    },
+    {
+      "family": "gamma",
+      "structural_link": 19.0,
+      "latent_strength": 10.0,
+      "reference": 242520109.21987364,
+      "reference_diagnostics": {
+        "estimated_abs_error": 2.705040741275976e-06,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 242520109.21987355,
+          "abs_error": 8.940696716308594e-08,
+          "relative_error": 3.6865795356387446e-16
+        },
+        "multi_candidate": {
+          "value": 242520109.21987355,
+          "abs_error": 8.940696716308594e-08,
+          "relative_error": 3.6865795356387446e-16
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 225302514.5986415,
+          "abs_error": 17217594.621232122,
+          "relative_error": 0.07099450299860414
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 228395879.82475677,
+          "abs_error": 14124229.395116866,
+          "relative_error": 0.05823941544703641
+        }
+      }
+    },
+    {
+      "family": "gamma",
+      "structural_link": 19.0,
+      "latent_strength": 50.0,
+      "reference": 242582082.24374637,
+      "reference_diagnostics": {
+        "estimated_abs_error": 2.71170916153201e-06,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 242582082.24374533,
+          "abs_error": 1.043081283569336e-06,
+          "relative_error": 4.299910669087457e-15
+        },
+        "multi_candidate": {
+          "value": 242582082.24374533,
+          "abs_error": 1.043081283569336e-06,
+          "relative_error": 4.299910669087457e-15
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 225258839.74040538,
+          "abs_error": 17323242.50334099,
+          "relative_error": 0.07141187981861992
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 228269377.15084645,
+          "abs_error": 14312705.092899919,
+          "relative_error": 0.05900149326988841
+        }
+      }
+    },
+    {
+      "family": "gamma",
+      "structural_link": -19.0,
+      "latent_strength": 1.0,
+      "reference": 9.354309314655837e-09,
+      "reference_diagnostics": {
+        "estimated_abs_error": 3.6181536828249606e-16,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 9.354309314655845e-09,
+          "abs_error": 8.271806125530277e-24,
+          "relative_error": 8.842775930629585e-16
+        },
+        "multi_candidate": {
+          "value": 9.354309314655845e-09,
+          "abs_error": 8.271806125530277e-24,
+          "relative_error": 8.842775930629585e-16
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 9.362816721080075e-09,
+          "abs_error": 8.507406424237433e-12,
+          "relative_error": 0.0009094638778844396
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 9.356676389445627e-09,
+          "abs_error": 2.3670747897899985e-12,
+          "relative_error": 0.0002530464527275564
+        }
+      }
+    },
+    {
+      "family": "gamma",
+      "structural_link": -19.0,
+      "latent_strength": 3.0,
+      "reference": 5.048927423483338e-07,
+      "reference_diagnostics": {
+        "estimated_abs_error": 8.330894471171981e-17,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 5.048927423483336e-07,
+          "abs_error": 2.117582368135751e-22,
+          "relative_error": 4.1941232078055817e-16
+        },
+        "multi_candidate": {
+          "value": 5.048927423483336e-07,
+          "abs_error": 2.117582368135751e-22,
+          "relative_error": 4.1941232078055817e-16
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 5.049312255872091e-07,
+          "abs_error": 3.848323887530363e-11,
+          "relative_error": 7.622062202025754e-05
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 5.049232333495135e-07,
+          "abs_error": 3.049100117966737e-11,
+          "relative_error": 6.0391046696074563e-05
+        }
+      }
+    },
+    {
+      "family": "gamma",
+      "structural_link": -19.0,
+      "latent_strength": 10.0,
+      "reference": 38740.50665145526,
+      "reference_diagnostics": {
+        "estimated_abs_error": 5.384447299581151e-10,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 38740.50665145516,
+          "abs_error": 1.0186340659856796e-10,
+          "relative_error": 2.6293772436954314e-15
+        },
+        "multi_candidate": {
+          "value": 38740.50665145516,
+          "abs_error": 1.0186340659856796e-10,
+          "relative_error": 2.6293772436954314e-15
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 25757.742398858813,
+          "abs_error": 12982.764252596447,
+          "relative_error": 0.3351211787032413
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 43805.95423365404,
+          "abs_error": 5065.44758219878,
+          "relative_error": 0.1307532611220638
+        }
+      }
+    },
+    {
+      "family": "gamma",
+      "structural_link": -19.0,
+      "latent_strength": 50.0,
+      "reference": 108518040.06753668,
+      "reference_diagnostics": {
+        "estimated_abs_error": 1.2057254839344082e-06,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 108518040.06753637,
+          "abs_error": 3.129243850708008e-07,
+          "relative_error": 2.8836162621076726e-15
+        },
+        "multi_candidate": {
+          "value": 108518040.06753637,
+          "abs_error": 3.129243850708008e-07,
+          "relative_error": 2.8836162621076726e-15
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 73188154.79284236,
+          "abs_error": 35329885.27469432,
+          "relative_error": 0.3255669311084739
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 95686273.73623027,
+          "abs_error": 12831766.331306413,
+          "relative_error": 0.11824546705156586
+        }
+      }
+    },
+    {
+      "family": "gamma",
+      "structural_link": 25.0,
+      "latent_strength": 1.0,
+      "reference": 485165173.46017236,
+      "reference_diagnostics": {
+        "estimated_abs_error": 5.53754822369101e-06,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 485165173.46017224,
+          "abs_error": 1.1920928955078125e-07,
+          "relative_error": 2.45708670102157e-16
+        },
+        "multi_candidate": {
+          "value": 485165173.46017224,
+          "abs_error": 1.1920928955078125e-07,
+          "relative_error": 2.45708670102157e-16
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 485165191.42258424,
+          "abs_error": 17.962411880493164,
+          "relative_error": 3.702329199020242e-08
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 485165164.2562669,
+          "abs_error": 9.203905463218689,
+          "relative_error": 1.8970663944357182e-08
+        }
+      }
+    },
+    {
+      "family": "gamma",
+      "structural_link": 25.0,
+      "latent_strength": 3.0,
+      "reference": 471900004.06406486,
+      "reference_diagnostics": {
+        "estimated_abs_error": 5.437738297589198e-06,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 471900004.06406474,
+          "abs_error": 1.1920928955078125e-07,
+          "relative_error": 2.526155722062623e-16
+        },
+        "multi_candidate": {
+          "value": 471900004.06406474,
+          "abs_error": 1.1920928955078125e-07,
+          "relative_error": 2.526155722062623e-16
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 470555998.20067626,
+          "abs_error": 1344005.863388598,
+          "relative_error": 0.002848073430417128
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 474127412.9893331,
+          "abs_error": 2227408.925268233,
+          "relative_error": 0.004720086683800581
+        }
+      }
+    },
+    {
+      "family": "gamma",
+      "structural_link": 25.0,
+      "latent_strength": 10.0,
+      "reference": 351597415.9126268,
+      "reference_diagnostics": {
+        "estimated_abs_error": 4.0032730838659406e-06,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 351597415.9126266,
+          "abs_error": 1.7881393432617188e-07,
+          "relative_error": 5.085757921799054e-16
+        },
+        "multi_candidate": {
+          "value": 351597415.9126266,
+          "abs_error": 1.7881393432617188e-07,
+          "relative_error": 5.085757921799054e-16
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 325762710.4563911,
+          "abs_error": 25834705.456235707,
+          "relative_error": 0.07347808683171814
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 347784691.0520975,
+          "abs_error": 3812724.8605293036,
+          "relative_error": 0.010844007060270259
+        }
+      }
+    },
+    {
+      "family": "gamma",
+      "structural_link": 25.0,
+      "latent_strength": 50.0,
+      "reference": 265748211.57299125,
+      "reference_diagnostics": {
+        "estimated_abs_error": 3.0313234415404425e-06,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 265748211.5729902,
+          "abs_error": 1.043081283569336e-06,
+          "relative_error": 3.925073577711886e-15
+        },
+        "multi_candidate": {
+          "value": 265748211.5729902,
+          "abs_error": 1.043081283569336e-06,
+          "relative_error": 3.925073577711886e-15
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 308143015.0922348,
+          "abs_error": 42394803.51924354,
+          "relative_error": 0.1595299673638603
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 296749869.9428464,
+          "abs_error": 31001658.369855165,
+          "relative_error": 0.11665801318606485
+        }
+      }
+    },
+    {
+      "family": "gamma",
+      "structural_link": -25.0,
+      "latent_strength": 1.0,
+      "reference": 2.0611537567930926e-09,
+      "reference_diagnostics": {
+        "estimated_abs_error": 1.2167160704725968e-16,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 2.0611537567930926e-09,
+          "abs_error": 0.0,
+          "relative_error": 0.0
+        },
+        "multi_candidate": {
+          "value": 2.0611537567930926e-09,
+          "abs_error": 0.0,
+          "relative_error": 0.0
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 2.06115366155603e-09,
+          "abs_error": 9.523706263193352e-17,
+          "relative_error": 4.620570509019712e-08
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 2.061153801727056e-09,
+          "abs_error": 4.4933963373630517e-17,
+          "relative_error": 2.1800393699663805e-08
+        }
+      }
+    },
+    {
+      "family": "gamma",
+      "structural_link": -25.0,
+      "latent_strength": 3.0,
+      "reference": 3.098775263333648e-09,
+      "reference_diagnostics": {
+        "estimated_abs_error": 1.2573955131773261e-16,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 3.09877526333365e-09,
+          "abs_error": 1.6543612251060553e-24,
+          "relative_error": 5.338758330367918e-16
+        },
+        "multi_candidate": {
+          "value": 3.09877526333365e-09,
+          "abs_error": 1.6543612251060553e-24,
+          "relative_error": 5.338758330367918e-16
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 3.110495058637363e-09,
+          "abs_error": 1.171979530371472e-11,
+          "relative_error": 0.0037820733379375884
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 3.0855517239821055e-09,
+          "abs_error": 1.322353935154265e-11,
+          "relative_error": 0.004267343781916223
+        }
+      }
+    },
+    {
+      "family": "gamma",
+      "structural_link": -25.0,
+      "latent_strength": 10.0,
+      "reference": 3015.774279316849,
+      "reference_diagnostics": {
+        "estimated_abs_error": 4.8877811748525714e-11,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 3015.7742793168395,
+          "abs_error": 9.549694368615746e-12,
+          "relative_error": 3.1665812770241544e-15
+        },
+        "multi_candidate": {
+          "value": 3015.7742793168395,
+          "abs_error": 9.549694368615746e-12,
+          "relative_error": 3.1665812770241544e-15
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 1789.522799117206,
+          "abs_error": 1226.251480199643,
+          "relative_error": 0.4066124870848825
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 3291.7399375249593,
+          "abs_error": 275.9656582081102,
+          "relative_error": 0.09150739831583933
+        }
+      }
+    },
+    {
+      "family": "gamma",
+      "structural_link": -25.0,
+      "latent_strength": 50.0,
+      "reference": 91927709.65947695,
+      "reference_diagnostics": {
+        "estimated_abs_error": 1.8349268767814397e-05,
+        "warnings": {}
+      },
+      "implementations": {
+        "multi_baseline": {
+          "value": 91927709.65947583,
+          "abs_error": 1.1175870895385742e-06,
+          "relative_error": 1.2157238483134129e-14
+        },
+        "multi_candidate": {
+          "value": 91927709.65947583,
+          "abs_error": 1.1175870895385742e-06,
+          "relative_error": 1.2157238483134129e-14
+        },
+        "binary_baseline_public_generate_GH21": {
+          "value": 72551338.49631347,
+          "abs_error": 19376371.163163483,
+          "relative_error": 0.21077835219585445
+        },
+        "IV_baseline_potential_outcome_helper_GH31": {
+          "value": 95684732.85987179,
+          "abs_error": 3757023.200394839,
+          "relative_error": 0.04086932236549551
+        }
+      }
+    }
+  ],
+  "counts": {
+    "propensity_reference_cases": 31,
+    "invariance_cases": 4,
+    "GH_false_convergence_cases": 2,
+    "public_generation_cases": 8,
+    "outcome_cases": 31,
+    "actual_quad_vec_calls": 40,
+    "actual_called_unchanged_package_paths": 1
+  },
+  "max_propensity_abs_error": 3.885780586188048e-16,
+  "issues": []
+}

@@ -1,0 +1,83 @@
+{
+  "default_configs": 56,
+  "default_reference_pairs": 112,
+  "adaptive_q_cases": 34,
+  "additive_configs": 20,
+  "rejections": 11,
+  "max_q_error": 2.7755575615628914e-16,
+  "warnings": [
+    "overflow encountered in subtract",
+    "overflow encountered in subtract"
+  ],
+  "issues": []
+}
+Traceback (most recent call last):
+  File "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block15_review_probe.py", line 486, in <module>
+    boundary_main() if "--boundaries" in sys.argv else main()
+    ^^^^^^^^^^^^^^^
+  File "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block15_review_probe.py", line 389, in boundary_main
+    assert list(data.df.columns)[-2:] == ["m_marginal_a", "m_marginal_b"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/dgp/multicausaldata/base.py:848: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[f"m_{name}"] = m[:, k]
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/dgp/multicausaldata/base.py:849: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[f"m_obs_{name}"] = m_obs[:, k]
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/dgp/multicausaldata/base.py:850: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[f"tau_link_{name}"] = tau_mat[:, k]
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/dgp/multicausaldata/base.py:858: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[f"g_{name}"] = g_vals[:, k]
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/dgp/multicausaldata/base.py:862: PerformanceWarning: DataFrame is highly fragmented.  This is usually the result of calling `frame.insert` many times, which has poor performance.  Consider joining all columns at once using pd.concat(axis=1) instead. To get a de-fragmented frame, use `newframe = frame.copy()`
+  df[f"cate_{self.d_names[k]}"] = _finite_array(g_vals[:, k] - g0, "oracle treatment contrasts")
+{"projection_cases": 10, "failure_cases": 8, "supplied_U_invariance": true, "numpy_booleans": [false, true], "inherited_warnings_per_disabled_enabled": 2, "issues": []}
+{"committed_source": "9a57e91942a4b90b0401c0f8e3ebe6f5b4d82cdf", "verified_paths": 9, "final_tests": 79, "issues": []}
+{
+  "run_id": 37628255646,
+  "matrix_verified": true,
+  "full_case_sets_equal_local": true,
+  "jobs": [
+    {
+      "artifact": "correctness-py3.10-latest",
+      "python": "3.10.21",
+      "numpy": "2.2.6",
+      "scipy": "1.15.3",
+      "tests": 2618
+    },
+    {
+      "artifact": "correctness-py3.10-legacy",
+      "python": "3.10.22",
+      "numpy": "1.26.4",
+      "scipy": "1.11.4",
+      "tests": 2618
+    },
+    {
+      "artifact": "correctness-py3.11-latest",
+      "python": "3.11.17",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "tests": 2618
+    },
+    {
+      "artifact": "correctness-py3.12-latest",
+      "python": "3.12.14",
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "tests": 2618
+    },
+    {
+      "artifact": "correctness-py3.13-latest",
+      "python": "3.13.16",
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "tests": 2618
+    },
+    {
+      "artifact": "correctness-py3.14-latest",
+      "python": "3.14.7",
+      "numpy": "2.5.3",
+      "scipy": "1.18.1",
+      "tests": 2618
+    }
+  ],
+  "issues": []
+}

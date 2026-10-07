@@ -1,0 +1,1270 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF.FFFFFFFFFFFFFFFFFFFFFFFFFF....FFF [ 91%]
+FFFFFFF                                                                  [100%]
+=================================== FAILURES ===================================
+_ test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[3-0.0] _
+
+arms = 3, strength = 0.0
+
+    @pytest.mark.parametrize("arms,strength", NUMERIC_CASES)
+    def test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x(arms, strength):
+        settings, scores, slopes = _varying_settings(arms, strength)
+>       generator = Generator(**settings)
+                    ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:106: TypeError
+_ test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[3-0.1] _
+
+arms = 3, strength = 0.1
+
+    @pytest.mark.parametrize("arms,strength", NUMERIC_CASES)
+    def test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x(arms, strength):
+        settings, scores, slopes = _varying_settings(arms, strength)
+>       generator = Generator(**settings)
+                    ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:106: TypeError
+_ test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[3-1.0] _
+
+arms = 3, strength = 1.0
+
+    @pytest.mark.parametrize("arms,strength", NUMERIC_CASES)
+    def test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x(arms, strength):
+        settings, scores, slopes = _varying_settings(arms, strength)
+>       generator = Generator(**settings)
+                    ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:106: TypeError
+_ test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[3-2.0] _
+
+arms = 3, strength = 2.0
+
+    @pytest.mark.parametrize("arms,strength", NUMERIC_CASES)
+    def test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x(arms, strength):
+        settings, scores, slopes = _varying_settings(arms, strength)
+>       generator = Generator(**settings)
+                    ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:106: TypeError
+_ test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[3-5.0] _
+
+arms = 3, strength = 5.0
+
+    @pytest.mark.parametrize("arms,strength", NUMERIC_CASES)
+    def test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x(arms, strength):
+        settings, scores, slopes = _varying_settings(arms, strength)
+>       generator = Generator(**settings)
+                    ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:106: TypeError
+_ test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[3-10.0] _
+
+arms = 3, strength = 10.0
+
+    @pytest.mark.parametrize("arms,strength", NUMERIC_CASES)
+    def test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x(arms, strength):
+        settings, scores, slopes = _varying_settings(arms, strength)
+>       generator = Generator(**settings)
+                    ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:106: TypeError
+_ test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[3-50.0] _
+
+arms = 3, strength = 50.0
+
+    @pytest.mark.parametrize("arms,strength", NUMERIC_CASES)
+    def test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x(arms, strength):
+        settings, scores, slopes = _varying_settings(arms, strength)
+>       generator = Generator(**settings)
+                    ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:106: TypeError
+_ test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[2-0.1] _
+
+arms = 2, strength = 0.1
+
+    @pytest.mark.parametrize("arms,strength", NUMERIC_CASES)
+    def test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x(arms, strength):
+        settings, scores, slopes = _varying_settings(arms, strength)
+>       generator = Generator(**settings)
+                    ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:106: TypeError
+_ test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[2-2.0] _
+
+arms = 2, strength = 2.0
+
+    @pytest.mark.parametrize("arms,strength", NUMERIC_CASES)
+    def test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x(arms, strength):
+        settings, scores, slopes = _varying_settings(arms, strength)
+>       generator = Generator(**settings)
+                    ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:106: TypeError
+_ test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[2-50.0] _
+
+arms = 2, strength = 50.0
+
+    @pytest.mark.parametrize("arms,strength", NUMERIC_CASES)
+    def test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x(arms, strength):
+        settings, scores, slopes = _varying_settings(arms, strength)
+>       generator = Generator(**settings)
+                    ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:106: TypeError
+_ test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[5-1.0] _
+
+arms = 5, strength = 1.0
+
+    @pytest.mark.parametrize("arms,strength", NUMERIC_CASES)
+    def test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x(arms, strength):
+        settings, scores, slopes = _varying_settings(arms, strength)
+>       generator = Generator(**settings)
+                    ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:106: TypeError
+_ test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[5-10.0] _
+
+arms = 5, strength = 10.0
+
+    @pytest.mark.parametrize("arms,strength", NUMERIC_CASES)
+    def test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x(arms, strength):
+        settings, scores, slopes = _varying_settings(arms, strength)
+>       generator = Generator(**settings)
+                    ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:106: TypeError
+_ test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[5-50.0] _
+
+arms = 5, strength = 50.0
+
+    @pytest.mark.parametrize("arms,strength", NUMERIC_CASES)
+    def test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x(arms, strength):
+        settings, scores, slopes = _varying_settings(arms, strength)
+>       generator = Generator(**settings)
+                    ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:106: TypeError
+_ test_asymmetric_very_steep_scores_resolve_separate_dominant_arm_transitions __
+
+    def test_asymmetric_very_steep_scores_resolve_separate_dominant_arm_transitions():
+        settings, _, _ = _varying_settings(3, 1000.0)
+        intercepts = np.array([-400.0, 300.0, -800.0])
+        slopes = np.array([-1000.0, 0.0, 1000.0])
+        settings.update(alpha_d=intercepts, u_strength_d=slopes)
+        scores = X @ settings["beta_d"].T * settings["propensity_sharpness"] + intercepts
+>       frame = Generator(**settings).generate(len(X), U=0.0)
+                ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:120: TypeError
+_ test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry[-1000.0] _
+
+strength = -1000.0
+
+    @pytest.mark.parametrize("strength", [-1000.0, -50.0, -0.1, 0.0, 0.1, 50.0, 1000.0])
+    def test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry(strength):
+>       frame = Generator(n_treatments=2, k=0, alpha_d=[0.0, 0.0],
+                          u_strength_d=[0.0, strength], assignment_policy="iid",
+                          include_marginal_propensity=True, seed=731).generate(3, U=0.0)
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:129: TypeError
+_ test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry[-50.0] _
+
+strength = -50.0
+
+    @pytest.mark.parametrize("strength", [-1000.0, -50.0, -0.1, 0.0, 0.1, 50.0, 1000.0])
+    def test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry(strength):
+>       frame = Generator(n_treatments=2, k=0, alpha_d=[0.0, 0.0],
+                          u_strength_d=[0.0, strength], assignment_policy="iid",
+                          include_marginal_propensity=True, seed=731).generate(3, U=0.0)
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:129: TypeError
+_ test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry[-0.1] __
+
+strength = -0.1
+
+    @pytest.mark.parametrize("strength", [-1000.0, -50.0, -0.1, 0.0, 0.1, 50.0, 1000.0])
+    def test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry(strength):
+>       frame = Generator(n_treatments=2, k=0, alpha_d=[0.0, 0.0],
+                          u_strength_d=[0.0, strength], assignment_policy="iid",
+                          include_marginal_propensity=True, seed=731).generate(3, U=0.0)
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:129: TypeError
+__ test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry[0.0] __
+
+strength = 0.0
+
+    @pytest.mark.parametrize("strength", [-1000.0, -50.0, -0.1, 0.0, 0.1, 50.0, 1000.0])
+    def test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry(strength):
+>       frame = Generator(n_treatments=2, k=0, alpha_d=[0.0, 0.0],
+                          u_strength_d=[0.0, strength], assignment_policy="iid",
+                          include_marginal_propensity=True, seed=731).generate(3, U=0.0)
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:129: TypeError
+__ test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry[0.1] __
+
+strength = 0.1
+
+    @pytest.mark.parametrize("strength", [-1000.0, -50.0, -0.1, 0.0, 0.1, 50.0, 1000.0])
+    def test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry(strength):
+>       frame = Generator(n_treatments=2, k=0, alpha_d=[0.0, 0.0],
+                          u_strength_d=[0.0, strength], assignment_policy="iid",
+                          include_marginal_propensity=True, seed=731).generate(3, U=0.0)
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:129: TypeError
+_ test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry[50.0] __
+
+strength = 50.0
+
+    @pytest.mark.parametrize("strength", [-1000.0, -50.0, -0.1, 0.0, 0.1, 50.0, 1000.0])
+    def test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry(strength):
+>       frame = Generator(n_treatments=2, k=0, alpha_d=[0.0, 0.0],
+                          u_strength_d=[0.0, strength], assignment_policy="iid",
+                          include_marginal_propensity=True, seed=731).generate(3, U=0.0)
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:129: TypeError
+_ test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry[1000.0] _
+
+strength = 1000.0
+
+    @pytest.mark.parametrize("strength", [-1000.0, -50.0, -0.1, 0.0, 0.1, 50.0, 1000.0])
+    def test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry(strength):
+>       frame = Generator(n_treatments=2, k=0, alpha_d=[0.0, 0.0],
+                          u_strength_d=[0.0, strength], assignment_policy="iid",
+                          include_marginal_propensity=True, seed=731).generate(3, U=0.0)
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:129: TypeError
+_ test_equal_latent_slopes_cancel_and_return_existing_probabilities_exactly[-1000.0] _
+
+common_slope = -1000.0
+
+    @pytest.mark.parametrize("common_slope", [-1000.0, 0.0, 1000.0])
+    def test_equal_latent_slopes_cancel_and_return_existing_probabilities_exactly(common_slope):
+        settings, _, _ = _varying_settings(3, 1.0)
+        settings["u_strength_d"] = [common_slope] * 3
+>       frame = Generator(**settings).generate(len(X), U=np.array([-2.0, -0.1, 0.3, 3.0]))
+                ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:139: TypeError
+_ test_equal_latent_slopes_cancel_and_return_existing_probabilities_exactly[0.0] _
+
+common_slope = 0.0
+
+    @pytest.mark.parametrize("common_slope", [-1000.0, 0.0, 1000.0])
+    def test_equal_latent_slopes_cancel_and_return_existing_probabilities_exactly(common_slope):
+        settings, _, _ = _varying_settings(3, 1.0)
+        settings["u_strength_d"] = [common_slope] * 3
+>       frame = Generator(**settings).generate(len(X), U=np.array([-2.0, -0.1, 0.3, 3.0]))
+                ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:139: TypeError
+_ test_equal_latent_slopes_cancel_and_return_existing_probabilities_exactly[1000.0] _
+
+common_slope = 1000.0
+
+    @pytest.mark.parametrize("common_slope", [-1000.0, 0.0, 1000.0])
+    def test_equal_latent_slopes_cancel_and_return_existing_probabilities_exactly(common_slope):
+        settings, _, _ = _varying_settings(3, 1.0)
+        settings["u_strength_d"] = [common_slope] * 3
+>       frame = Generator(**settings).generate(len(X), U=np.array([-2.0, -0.1, 0.3, 3.0]))
+                ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:139: TypeError
+_______ test_gaussian_probability_symmetries_are_preserved[latent_sign] ________
+
+transformation = 'latent_sign'
+
+    @pytest.mark.parametrize("transformation", ["latent_sign", "common_shifts", "arm_permutation"])
+    def test_gaussian_probability_symmetries_are_preserved(transformation):
+        settings, _, slopes = _varying_settings(5, 5.0)
+>       reference = Generator(**settings).generate(len(X), U=0.0)
+                    ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:147: TypeError
+______ test_gaussian_probability_symmetries_are_preserved[common_shifts] _______
+
+transformation = 'common_shifts'
+
+    @pytest.mark.parametrize("transformation", ["latent_sign", "common_shifts", "arm_permutation"])
+    def test_gaussian_probability_symmetries_are_preserved(transformation):
+        settings, _, slopes = _varying_settings(5, 5.0)
+>       reference = Generator(**settings).generate(len(X), U=0.0)
+                    ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:147: TypeError
+_____ test_gaussian_probability_symmetries_are_preserved[arm_permutation] ______
+
+transformation = 'arm_permutation'
+
+    @pytest.mark.parametrize("transformation", ["latent_sign", "common_shifts", "arm_permutation"])
+    def test_gaussian_probability_symmetries_are_preserved(transformation):
+        settings, _, slopes = _varying_settings(5, 5.0)
+>       reference = Generator(**settings).generate(len(X), U=0.0)
+                    ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:147: TypeError
+_ test_nonlinear_treatment_callbacks_enter_the_same_gaussian_reference_scores __
+
+    def test_nonlinear_treatment_callbacks_enter_the_same_gaussian_reference_scores():
+        slopes = np.array([0.0, 2.0, -1.0])
+>       frame = Generator(k=2, x_sampler=lambda n, k, seed: X.copy(),
+                          alpha_d=[0.2, -0.4, 0.7], propensity_sharpness=0.8,
+                          g_d=[lambda x: x[:, 0] ** 2, lambda x: np.sin(x[:, 1]),
+                               lambda x: x[:, 0] * x[:, 1]],
+                          u_strength_d=slopes, assignment_policy="iid",
+                          include_marginal_propensity=True, seed=731).generate(len(X), U=0.0)
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:167: TypeError
+_ test_calibration_stays_at_u_zero_and_marginal_columns_use_calibrated_scores __
+
+    def test_calibration_stays_at_u_zero_and_marginal_columns_use_calibrated_scores():
+        target = np.array([0.2, 0.3, 0.5])
+        slopes = np.array([0.0, 2.0, 2.0])
+>       frame = Generator(k=0, target_d_rate=target, u_strength_d=slopes,
+                          include_marginal_propensity=True, seed=731,
+                          assignment_policy="iid").generate(5, U=0.0)
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:182: TypeError
+___ test_supplied_nongaussian_or_x_dependent_u_does_not_change_reference_law ___
+
+    def test_supplied_nongaussian_or_x_dependent_u_does_not_change_reference_law():
+        settings, scores, slopes = _varying_settings(3, 2.0)
+        settings.update(sigma_y=0.0, u_strength_y=0.7)
+>       first = Generator(**settings).generate(len(X), U=np.full(len(X), -7.0))
+                ^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:196: TypeError
+_ test_probability_columns_describe_nominal_model_even_when_all_arm_policy_repairs[ensure_all] _
+
+policy = 'ensure_all'
+
+    @pytest.mark.parametrize("policy", ["ensure_all", "iid"])
+    def test_probability_columns_describe_nominal_model_even_when_all_arm_policy_repairs(policy):
+        n = 3 if policy == "ensure_all" else 1
+>       frame = Generator(k=0, alpha_d=[0.0, -1000.0, -1000.0], u_strength_d=0.0,
+                          assignment_policy=policy, include_marginal_propensity=True,
+                          seed=731).generate(n, U=0.0)
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:209: TypeError
+_ test_probability_columns_describe_nominal_model_even_when_all_arm_policy_repairs[iid] _
+
+policy = 'iid'
+
+    @pytest.mark.parametrize("policy", ["ensure_all", "iid"])
+    def test_probability_columns_describe_nominal_model_even_when_all_arm_policy_repairs(policy):
+        n = 3 if policy == "ensure_all" else 1
+>       frame = Generator(k=0, alpha_d=[0.0, -1000.0, -1000.0], u_strength_d=0.0,
+                          assignment_policy=policy, include_marginal_propensity=True,
+                          seed=731).generate(n, U=0.0)
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:209: TypeError
+_ test_opt_in_preserves_existing_columns_callback_calls_and_consecutive_rng[continuous] _
+
+outcome_type = 'continuous'
+
+    @pytest.mark.parametrize("outcome_type", ["continuous", "binary", "poisson", "gamma"])
+    def test_opt_in_preserves_existing_columns_callback_calls_and_consecutive_rng(outcome_type):
+        def make_generator(enabled):
+            calls = []
+    
+            def record(name, value):
+                def callback(x):
+                    calls.append((name, x.copy()))
+                    return value * x[:, 0]
+                return callback
+    
+            generator = Generator(k=2, seed=731, outcome_type=outcome_type,
+                                  u_strength_d=[0.0, 1.2, -0.8], u_strength_y=0.5,
+                                  g_d=[None, record("g_d_1", 0.3), record("g_d_2", -0.2)],
+                                  g_y=record("g_y", 0.4), tau=[None, record("tau_1", 0.1), None],
+                                  include_marginal_propensity=enabled)
+            return generator, calls
+    
+>       ordinary, old_calls = make_generator(False)
+                              ^^^^^^^^^^^^^^^^^^^^^
+
+tests/data/test_multicausal_marginal_propensity.py:238: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+enabled = False
+
+    def make_generator(enabled):
+        calls = []
+    
+        def record(name, value):
+            def callback(x):
+                calls.append((name, x.copy()))
+                return value * x[:, 0]
+            return callback
+    
+>       generator = Generator(k=2, seed=731, outcome_type=outcome_type,
+                              u_strength_d=[0.0, 1.2, -0.8], u_strength_y=0.5,
+                              g_d=[None, record("g_d_1", 0.3), record("g_d_2", -0.2)],
+                              g_y=record("g_y", 0.4), tau=[None, record("tau_1", 0.1), None],
+                              include_marginal_propensity=enabled)
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:231: TypeError
+_ test_opt_in_preserves_existing_columns_callback_calls_and_consecutive_rng[binary] _
+
+outcome_type = 'binary'
+
+    @pytest.mark.parametrize("outcome_type", ["continuous", "binary", "poisson", "gamma"])
+    def test_opt_in_preserves_existing_columns_callback_calls_and_consecutive_rng(outcome_type):
+        def make_generator(enabled):
+            calls = []
+    
+            def record(name, value):
+                def callback(x):
+                    calls.append((name, x.copy()))
+                    return value * x[:, 0]
+                return callback
+    
+            generator = Generator(k=2, seed=731, outcome_type=outcome_type,
+                                  u_strength_d=[0.0, 1.2, -0.8], u_strength_y=0.5,
+                                  g_d=[None, record("g_d_1", 0.3), record("g_d_2", -0.2)],
+                                  g_y=record("g_y", 0.4), tau=[None, record("tau_1", 0.1), None],
+                                  include_marginal_propensity=enabled)
+            return generator, calls
+    
+>       ordinary, old_calls = make_generator(False)
+                              ^^^^^^^^^^^^^^^^^^^^^
+
+tests/data/test_multicausal_marginal_propensity.py:238: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+enabled = False
+
+    def make_generator(enabled):
+        calls = []
+    
+        def record(name, value):
+            def callback(x):
+                calls.append((name, x.copy()))
+                return value * x[:, 0]
+            return callback
+    
+>       generator = Generator(k=2, seed=731, outcome_type=outcome_type,
+                              u_strength_d=[0.0, 1.2, -0.8], u_strength_y=0.5,
+                              g_d=[None, record("g_d_1", 0.3), record("g_d_2", -0.2)],
+                              g_y=record("g_y", 0.4), tau=[None, record("tau_1", 0.1), None],
+                              include_marginal_propensity=enabled)
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:231: TypeError
+_ test_opt_in_preserves_existing_columns_callback_calls_and_consecutive_rng[poisson] _
+
+outcome_type = 'poisson'
+
+    @pytest.mark.parametrize("outcome_type", ["continuous", "binary", "poisson", "gamma"])
+    def test_opt_in_preserves_existing_columns_callback_calls_and_consecutive_rng(outcome_type):
+        def make_generator(enabled):
+            calls = []
+    
+            def record(name, value):
+                def callback(x):
+                    calls.append((name, x.copy()))
+                    return value * x[:, 0]
+                return callback
+    
+            generator = Generator(k=2, seed=731, outcome_type=outcome_type,
+                                  u_strength_d=[0.0, 1.2, -0.8], u_strength_y=0.5,
+                                  g_d=[None, record("g_d_1", 0.3), record("g_d_2", -0.2)],
+                                  g_y=record("g_y", 0.4), tau=[None, record("tau_1", 0.1), None],
+                                  include_marginal_propensity=enabled)
+            return generator, calls
+    
+>       ordinary, old_calls = make_generator(False)
+                              ^^^^^^^^^^^^^^^^^^^^^
+
+tests/data/test_multicausal_marginal_propensity.py:238: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+enabled = False
+
+    def make_generator(enabled):
+        calls = []
+    
+        def record(name, value):
+            def callback(x):
+                calls.append((name, x.copy()))
+                return value * x[:, 0]
+            return callback
+    
+>       generator = Generator(k=2, seed=731, outcome_type=outcome_type,
+                              u_strength_d=[0.0, 1.2, -0.8], u_strength_y=0.5,
+                              g_d=[None, record("g_d_1", 0.3), record("g_d_2", -0.2)],
+                              g_y=record("g_y", 0.4), tau=[None, record("tau_1", 0.1), None],
+                              include_marginal_propensity=enabled)
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:231: TypeError
+_ test_opt_in_preserves_existing_columns_callback_calls_and_consecutive_rng[gamma] _
+
+outcome_type = 'gamma'
+
+    @pytest.mark.parametrize("outcome_type", ["continuous", "binary", "poisson", "gamma"])
+    def test_opt_in_preserves_existing_columns_callback_calls_and_consecutive_rng(outcome_type):
+        def make_generator(enabled):
+            calls = []
+    
+            def record(name, value):
+                def callback(x):
+                    calls.append((name, x.copy()))
+                    return value * x[:, 0]
+                return callback
+    
+            generator = Generator(k=2, seed=731, outcome_type=outcome_type,
+                                  u_strength_d=[0.0, 1.2, -0.8], u_strength_y=0.5,
+                                  g_d=[None, record("g_d_1", 0.3), record("g_d_2", -0.2)],
+                                  g_y=record("g_y", 0.4), tau=[None, record("tau_1", 0.1), None],
+                                  include_marginal_propensity=enabled)
+            return generator, calls
+    
+>       ordinary, old_calls = make_generator(False)
+                              ^^^^^^^^^^^^^^^^^^^^^
+
+tests/data/test_multicausal_marginal_propensity.py:238: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+enabled = False
+
+    def make_generator(enabled):
+        calls = []
+    
+        def record(name, value):
+            def callback(x):
+                calls.append((name, x.copy()))
+                return value * x[:, 0]
+            return callback
+    
+>       generator = Generator(k=2, seed=731, outcome_type=outcome_type,
+                              u_strength_d=[0.0, 1.2, -0.8], u_strength_y=0.5,
+                              g_d=[None, record("g_d_1", 0.3), record("g_d_2", -0.2)],
+                              g_y=record("g_y", 0.4), tau=[None, record("tau_1", 0.1), None],
+                              include_marginal_propensity=enabled)
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:231: TypeError
+_ test_default_and_explicit_disabled_option_preserve_schema_draws_and_next_rng[False] _
+
+include_oracle = False
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    def test_default_and_explicit_disabled_option_preserve_schema_draws_and_next_rng(include_oracle):
+        settings = dict(k=2, seed=731, include_oracle=include_oracle,
+                        u_strength_d=[0.0, 1.0, -2.0], u_strength_y=0.4)
+        default = Generator(**settings)
+>       disabled = Generator(**settings, include_marginal_propensity=False)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:258: TypeError
+_ test_default_and_explicit_disabled_option_preserve_schema_draws_and_next_rng[True] _
+
+include_oracle = True
+
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    def test_default_and_explicit_disabled_option_preserve_schema_draws_and_next_rng(include_oracle):
+        settings = dict(k=2, seed=731, include_oracle=include_oracle,
+                        u_strength_d=[0.0, 1.0, -2.0], u_strength_y=0.4)
+        default = Generator(**settings)
+>       disabled = Generator(**settings, include_marginal_propensity=False)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:258: TypeError
+___________ test_python_and_numpy_boolean_flags_are_accepted[False] ____________
+
+flag = False
+
+    @pytest.mark.parametrize("flag", [False, True, np.bool_(False), np.bool_(True)])
+    def test_python_and_numpy_boolean_flags_are_accepted(flag):
+>       frame = Generator(k=0, include_marginal_propensity=flag, seed=731).generate(9)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:284: TypeError
+____________ test_python_and_numpy_boolean_flags_are_accepted[True] ____________
+
+flag = True
+
+    @pytest.mark.parametrize("flag", [False, True, np.bool_(False), np.bool_(True)])
+    def test_python_and_numpy_boolean_flags_are_accepted(flag):
+>       frame = Generator(k=0, include_marginal_propensity=flag, seed=731).generate(9)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:284: TypeError
+___________ test_python_and_numpy_boolean_flags_are_accepted[flag2] ____________
+
+flag = np.False_
+
+    @pytest.mark.parametrize("flag", [False, True, np.bool_(False), np.bool_(True)])
+    def test_python_and_numpy_boolean_flags_are_accepted(flag):
+>       frame = Generator(k=0, include_marginal_propensity=flag, seed=731).generate(9)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:284: TypeError
+___________ test_python_and_numpy_boolean_flags_are_accepted[flag3] ____________
+
+flag = np.True_
+
+    @pytest.mark.parametrize("flag", [False, True, np.bool_(False), np.bool_(True)])
+    def test_python_and_numpy_boolean_flags_are_accepted(flag):
+>       frame = Generator(k=0, include_marginal_propensity=flag, seed=731).generate(9)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:284: TypeError
+_ test_nonboolean_option_is_rejected_before_sampler_or_rng_use[constructor-None] _
+
+flag = None, phase = 'constructor'
+
+    @pytest.mark.parametrize("flag", INVALID_FLAGS)
+    @pytest.mark.parametrize("phase", ["constructor", "generate"])
+    def test_nonboolean_option_is_rejected_before_sampler_or_rng_use(flag, phase):
+        def forbidden_sampler(n, k, seed):
+            raise AssertionError("invalid flags must be rejected before sampling")
+    
+        if phase == "constructor":
+            with pytest.raises(ValueError, match="include_marginal_propensity"):
+>               Generator(x_sampler=forbidden_sampler, include_marginal_propensity=flag, seed=731)
+E               TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:299: TypeError
+_ test_nonboolean_option_is_rejected_before_sampler_or_rng_use[constructor-0] __
+
+flag = 0, phase = 'constructor'
+
+    @pytest.mark.parametrize("flag", INVALID_FLAGS)
+    @pytest.mark.parametrize("phase", ["constructor", "generate"])
+    def test_nonboolean_option_is_rejected_before_sampler_or_rng_use(flag, phase):
+        def forbidden_sampler(n, k, seed):
+            raise AssertionError("invalid flags must be rejected before sampling")
+    
+        if phase == "constructor":
+            with pytest.raises(ValueError, match="include_marginal_propensity"):
+>               Generator(x_sampler=forbidden_sampler, include_marginal_propensity=flag, seed=731)
+E               TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:299: TypeError
+_ test_nonboolean_option_is_rejected_before_sampler_or_rng_use[constructor-1] __
+
+flag = 1, phase = 'constructor'
+
+    @pytest.mark.parametrize("flag", INVALID_FLAGS)
+    @pytest.mark.parametrize("phase", ["constructor", "generate"])
+    def test_nonboolean_option_is_rejected_before_sampler_or_rng_use(flag, phase):
+        def forbidden_sampler(n, k, seed):
+            raise AssertionError("invalid flags must be rejected before sampling")
+    
+        if phase == "constructor":
+            with pytest.raises(ValueError, match="include_marginal_propensity"):
+>               Generator(x_sampler=forbidden_sampler, include_marginal_propensity=flag, seed=731)
+E               TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:299: TypeError
+_ test_nonboolean_option_is_rejected_before_sampler_or_rng_use[constructor-0.0] _
+
+flag = 0.0, phase = 'constructor'
+
+    @pytest.mark.parametrize("flag", INVALID_FLAGS)
+    @pytest.mark.parametrize("phase", ["constructor", "generate"])
+    def test_nonboolean_option_is_rejected_before_sampler_or_rng_use(flag, phase):
+        def forbidden_sampler(n, k, seed):
+            raise AssertionError("invalid flags must be rejected before sampling")
+    
+        if phase == "constructor":
+            with pytest.raises(ValueError, match="include_marginal_propensity"):
+>               Generator(x_sampler=forbidden_sampler, include_marginal_propensity=flag, seed=731)
+E               TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:299: TypeError
+_ test_nonboolean_option_is_rejected_before_sampler_or_rng_use[constructor-true] _
+
+flag = 'true', phase = 'constructor'
+
+    @pytest.mark.parametrize("flag", INVALID_FLAGS)
+    @pytest.mark.parametrize("phase", ["constructor", "generate"])
+    def test_nonboolean_option_is_rejected_before_sampler_or_rng_use(flag, phase):
+        def forbidden_sampler(n, k, seed):
+            raise AssertionError("invalid flags must be rejected before sampling")
+    
+        if phase == "constructor":
+            with pytest.raises(ValueError, match="include_marginal_propensity"):
+>               Generator(x_sampler=forbidden_sampler, include_marginal_propensity=flag, seed=731)
+E               TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:299: TypeError
+_ test_nonboolean_option_is_rejected_before_sampler_or_rng_use[constructor-flag5] _
+
+flag = [], phase = 'constructor'
+
+    @pytest.mark.parametrize("flag", INVALID_FLAGS)
+    @pytest.mark.parametrize("phase", ["constructor", "generate"])
+    def test_nonboolean_option_is_rejected_before_sampler_or_rng_use(flag, phase):
+        def forbidden_sampler(n, k, seed):
+            raise AssertionError("invalid flags must be rejected before sampling")
+    
+        if phase == "constructor":
+            with pytest.raises(ValueError, match="include_marginal_propensity"):
+>               Generator(x_sampler=forbidden_sampler, include_marginal_propensity=flag, seed=731)
+E               TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:299: TypeError
+_ test_nonboolean_option_is_rejected_before_sampler_or_rng_use[constructor-flag6] _
+
+flag = array(True), phase = 'constructor'
+
+    @pytest.mark.parametrize("flag", INVALID_FLAGS)
+    @pytest.mark.parametrize("phase", ["constructor", "generate"])
+    def test_nonboolean_option_is_rejected_before_sampler_or_rng_use(flag, phase):
+        def forbidden_sampler(n, k, seed):
+            raise AssertionError("invalid flags must be rejected before sampling")
+    
+        if phase == "constructor":
+            with pytest.raises(ValueError, match="include_marginal_propensity"):
+>               Generator(x_sampler=forbidden_sampler, include_marginal_propensity=flag, seed=731)
+E               TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:299: TypeError
+_ test_nonboolean_option_is_rejected_before_sampler_or_rng_use[generate-None] __
+
+flag = None, phase = 'generate'
+
+    @pytest.mark.parametrize("flag", INVALID_FLAGS)
+    @pytest.mark.parametrize("phase", ["constructor", "generate"])
+    def test_nonboolean_option_is_rejected_before_sampler_or_rng_use(flag, phase):
+        def forbidden_sampler(n, k, seed):
+            raise AssertionError("invalid flags must be rejected before sampling")
+    
+        if phase == "constructor":
+            with pytest.raises(ValueError, match="include_marginal_propensity"):
+                Generator(x_sampler=forbidden_sampler, include_marginal_propensity=flag, seed=731)
+        else:
+            generator = Generator(x_sampler=forbidden_sampler, seed=731)
+            state = generator.rng.bit_generator.state
+>           generator.include_marginal_propensity = flag
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'MultiCausalDatasetGenerator' object has no attribute 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:303: AttributeError
+___ test_nonboolean_option_is_rejected_before_sampler_or_rng_use[generate-0] ___
+
+flag = 0, phase = 'generate'
+
+    @pytest.mark.parametrize("flag", INVALID_FLAGS)
+    @pytest.mark.parametrize("phase", ["constructor", "generate"])
+    def test_nonboolean_option_is_rejected_before_sampler_or_rng_use(flag, phase):
+        def forbidden_sampler(n, k, seed):
+            raise AssertionError("invalid flags must be rejected before sampling")
+    
+        if phase == "constructor":
+            with pytest.raises(ValueError, match="include_marginal_propensity"):
+                Generator(x_sampler=forbidden_sampler, include_marginal_propensity=flag, seed=731)
+        else:
+            generator = Generator(x_sampler=forbidden_sampler, seed=731)
+            state = generator.rng.bit_generator.state
+>           generator.include_marginal_propensity = flag
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'MultiCausalDatasetGenerator' object has no attribute 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:303: AttributeError
+___ test_nonboolean_option_is_rejected_before_sampler_or_rng_use[generate-1] ___
+
+flag = 1, phase = 'generate'
+
+    @pytest.mark.parametrize("flag", INVALID_FLAGS)
+    @pytest.mark.parametrize("phase", ["constructor", "generate"])
+    def test_nonboolean_option_is_rejected_before_sampler_or_rng_use(flag, phase):
+        def forbidden_sampler(n, k, seed):
+            raise AssertionError("invalid flags must be rejected before sampling")
+    
+        if phase == "constructor":
+            with pytest.raises(ValueError, match="include_marginal_propensity"):
+                Generator(x_sampler=forbidden_sampler, include_marginal_propensity=flag, seed=731)
+        else:
+            generator = Generator(x_sampler=forbidden_sampler, seed=731)
+            state = generator.rng.bit_generator.state
+>           generator.include_marginal_propensity = flag
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'MultiCausalDatasetGenerator' object has no attribute 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:303: AttributeError
+__ test_nonboolean_option_is_rejected_before_sampler_or_rng_use[generate-0.0] __
+
+flag = 0.0, phase = 'generate'
+
+    @pytest.mark.parametrize("flag", INVALID_FLAGS)
+    @pytest.mark.parametrize("phase", ["constructor", "generate"])
+    def test_nonboolean_option_is_rejected_before_sampler_or_rng_use(flag, phase):
+        def forbidden_sampler(n, k, seed):
+            raise AssertionError("invalid flags must be rejected before sampling")
+    
+        if phase == "constructor":
+            with pytest.raises(ValueError, match="include_marginal_propensity"):
+                Generator(x_sampler=forbidden_sampler, include_marginal_propensity=flag, seed=731)
+        else:
+            generator = Generator(x_sampler=forbidden_sampler, seed=731)
+            state = generator.rng.bit_generator.state
+>           generator.include_marginal_propensity = flag
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'MultiCausalDatasetGenerator' object has no attribute 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:303: AttributeError
+_ test_nonboolean_option_is_rejected_before_sampler_or_rng_use[generate-true] __
+
+flag = 'true', phase = 'generate'
+
+    @pytest.mark.parametrize("flag", INVALID_FLAGS)
+    @pytest.mark.parametrize("phase", ["constructor", "generate"])
+    def test_nonboolean_option_is_rejected_before_sampler_or_rng_use(flag, phase):
+        def forbidden_sampler(n, k, seed):
+            raise AssertionError("invalid flags must be rejected before sampling")
+    
+        if phase == "constructor":
+            with pytest.raises(ValueError, match="include_marginal_propensity"):
+                Generator(x_sampler=forbidden_sampler, include_marginal_propensity=flag, seed=731)
+        else:
+            generator = Generator(x_sampler=forbidden_sampler, seed=731)
+            state = generator.rng.bit_generator.state
+>           generator.include_marginal_propensity = flag
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'MultiCausalDatasetGenerator' object has no attribute 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:303: AttributeError
+_ test_nonboolean_option_is_rejected_before_sampler_or_rng_use[generate-flag5] _
+
+flag = [], phase = 'generate'
+
+    @pytest.mark.parametrize("flag", INVALID_FLAGS)
+    @pytest.mark.parametrize("phase", ["constructor", "generate"])
+    def test_nonboolean_option_is_rejected_before_sampler_or_rng_use(flag, phase):
+        def forbidden_sampler(n, k, seed):
+            raise AssertionError("invalid flags must be rejected before sampling")
+    
+        if phase == "constructor":
+            with pytest.raises(ValueError, match="include_marginal_propensity"):
+                Generator(x_sampler=forbidden_sampler, include_marginal_propensity=flag, seed=731)
+        else:
+            generator = Generator(x_sampler=forbidden_sampler, seed=731)
+            state = generator.rng.bit_generator.state
+>           generator.include_marginal_propensity = flag
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'MultiCausalDatasetGenerator' object has no attribute 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:303: AttributeError
+_ test_nonboolean_option_is_rejected_before_sampler_or_rng_use[generate-flag6] _
+
+flag = array(True), phase = 'generate'
+
+    @pytest.mark.parametrize("flag", INVALID_FLAGS)
+    @pytest.mark.parametrize("phase", ["constructor", "generate"])
+    def test_nonboolean_option_is_rejected_before_sampler_or_rng_use(flag, phase):
+        def forbidden_sampler(n, k, seed):
+            raise AssertionError("invalid flags must be rejected before sampling")
+    
+        if phase == "constructor":
+            with pytest.raises(ValueError, match="include_marginal_propensity"):
+                Generator(x_sampler=forbidden_sampler, include_marginal_propensity=flag, seed=731)
+        else:
+            generator = Generator(x_sampler=forbidden_sampler, seed=731)
+            state = generator.rng.bit_generator.state
+>           generator.include_marginal_propensity = flag
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: 'MultiCausalDatasetGenerator' object has no attribute 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:303: AttributeError
+_ test_enabled_marginal_probabilities_require_enabled_oracles_at_construction __
+
+    def test_enabled_marginal_probabilities_require_enabled_oracles_at_construction():
+        with pytest.raises(ValueError, match="include_oracle"):
+>           Generator(include_oracle=False, include_marginal_propensity=True)
+E           TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:311: TypeError
+_ test_mutable_conflicting_flags_are_rejected_before_sampling[enable_marginal] _
+
+mutation = 'enable_marginal'
+
+    @pytest.mark.parametrize("mutation", ["enable_marginal", "disable_oracle"])
+    def test_mutable_conflicting_flags_are_rejected_before_sampling(mutation):
+        def forbidden_sampler(n, k, seed):
+            raise AssertionError("conflicting flags must be rejected before sampling")
+    
+>       generator = Generator(x_sampler=forbidden_sampler, seed=731,
+                              include_oracle=mutation == "disable_oracle",
+                              include_marginal_propensity=mutation == "disable_oracle")
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:319: TypeError
+_ test_mutable_conflicting_flags_are_rejected_before_sampling[disable_oracle] __
+
+mutation = 'disable_oracle'
+
+    @pytest.mark.parametrize("mutation", ["enable_marginal", "disable_oracle"])
+    def test_mutable_conflicting_flags_are_rejected_before_sampling(mutation):
+        def forbidden_sampler(n, k, seed):
+            raise AssertionError("conflicting flags must be rejected before sampling")
+    
+>       generator = Generator(x_sampler=forbidden_sampler, seed=731,
+                              include_oracle=mutation == "disable_oracle",
+                              include_marginal_propensity=mutation == "disable_oracle")
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:319: TypeError
+_ test_enabled_new_namespace_rejects_treatment_and_existing_oracle_collisions[names0-m_marginal_arm] _
+
+names = ['arm', 'm_marginal_arm'], collision = 'm_marginal_arm'
+
+    @pytest.mark.parametrize("names,collision", [(["arm", "m_marginal_arm"], "m_marginal_arm"),
+                                                (["arm", "marginal_arm"], "m_marginal_arm")])
+    def test_enabled_new_namespace_rejects_treatment_and_existing_oracle_collisions(names, collision):
+        with pytest.raises(ValueError) as error:
+>           Generator(n_treatments=2, d_names=names, include_marginal_propensity=True)
+E           TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:336: TypeError
+_ test_enabled_new_namespace_rejects_treatment_and_existing_oracle_collisions[names1-m_marginal_arm] _
+
+names = ['arm', 'marginal_arm'], collision = 'm_marginal_arm'
+
+    @pytest.mark.parametrize("names,collision", [(["arm", "m_marginal_arm"], "m_marginal_arm"),
+                                                (["arm", "marginal_arm"], "m_marginal_arm")])
+    def test_enabled_new_namespace_rejects_treatment_and_existing_oracle_collisions(names, collision):
+        with pytest.raises(ValueError) as error:
+>           Generator(n_treatments=2, d_names=names, include_marginal_propensity=True)
+E           TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:336: TypeError
+_ test_actual_new_oracle_confounder_collision_rejects_before_latent_and_callbacks _
+
+    def test_actual_new_oracle_confounder_collision_rejects_before_latent_and_callbacks():
+        calls = []
+    
+        def sampler(n, k, seed):
+            calls.append("sample")
+            return np.linspace(-1.0, 1.0, n).reshape(-1, 1)
+    
+        def forbidden_callback(x):
+            raise AssertionError("actual names must be checked before callbacks")
+    
+>       generator = Generator(confounder_specs=[dict(name="m_marginal_d_0")],
+                              x_sampler=sampler, g_y=forbidden_callback,
+                              include_marginal_propensity=True, seed=731)
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:351: TypeError
+_ test_expanded_categorical_names_are_checked_against_enabled_new_oracles[False] _
+
+use_copula = False
+
+    @pytest.mark.parametrize("use_copula", [False, True])
+    def test_expanded_categorical_names_are_checked_against_enabled_new_oracles(use_copula):
+>       generator = Generator(confounder_specs=[dict(name="m_marginal_d", dist="categorical",
+                                                    categories=["base", "0"])],
+                              use_copula=use_copula, include_marginal_propensity=True, seed=731)
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:365: TypeError
+_ test_expanded_categorical_names_are_checked_against_enabled_new_oracles[True] _
+
+use_copula = True
+
+    @pytest.mark.parametrize("use_copula", [False, True])
+    def test_expanded_categorical_names_are_checked_against_enabled_new_oracles(use_copula):
+>       generator = Generator(confounder_specs=[dict(name="m_marginal_d", dist="categorical",
+                                                    categories=["base", "0"])],
+                              use_copula=use_copula, include_marginal_propensity=True, seed=731)
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:365: TypeError
+_ test_late_callback_namespace_and_flag_changes_cannot_silently_corrupt_new_oracles[enable_into_confounder] _
+
+mutation = 'enable_into_confounder'
+
+    @pytest.mark.parametrize("mutation", ["enable_into_confounder", "disable_oracle", "rename_treatment"])
+    def test_late_callback_namespace_and_flag_changes_cannot_silently_corrupt_new_oracles(mutation):
+        def callback(x):
+            if mutation == "enable_into_confounder":
+                generator.include_marginal_propensity = True
+            elif mutation == "disable_oracle":
+                generator.include_oracle = False
+            else:
+                generator.d_names[1] = "m_marginal_control"
+            return np.zeros(len(x))
+    
+        specs = [dict(name="m_marginal_control" if mutation == "enable_into_confounder" else "feature")]
+>       generator = Generator(n_treatments=2, d_names=["control", "arm"],
+                              confounder_specs=specs, g_y=callback, seed=731,
+                              include_marginal_propensity=mutation != "enable_into_confounder")
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:402: TypeError
+_ test_late_callback_namespace_and_flag_changes_cannot_silently_corrupt_new_oracles[disable_oracle] _
+
+mutation = 'disable_oracle'
+
+    @pytest.mark.parametrize("mutation", ["enable_into_confounder", "disable_oracle", "rename_treatment"])
+    def test_late_callback_namespace_and_flag_changes_cannot_silently_corrupt_new_oracles(mutation):
+        def callback(x):
+            if mutation == "enable_into_confounder":
+                generator.include_marginal_propensity = True
+            elif mutation == "disable_oracle":
+                generator.include_oracle = False
+            else:
+                generator.d_names[1] = "m_marginal_control"
+            return np.zeros(len(x))
+    
+        specs = [dict(name="m_marginal_control" if mutation == "enable_into_confounder" else "feature")]
+>       generator = Generator(n_treatments=2, d_names=["control", "arm"],
+                              confounder_specs=specs, g_y=callback, seed=731,
+                              include_marginal_propensity=mutation != "enable_into_confounder")
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:402: TypeError
+_ test_late_callback_namespace_and_flag_changes_cannot_silently_corrupt_new_oracles[rename_treatment] _
+
+mutation = 'rename_treatment'
+
+    @pytest.mark.parametrize("mutation", ["enable_into_confounder", "disable_oracle", "rename_treatment"])
+    def test_late_callback_namespace_and_flag_changes_cannot_silently_corrupt_new_oracles(mutation):
+        def callback(x):
+            if mutation == "enable_into_confounder":
+                generator.include_marginal_propensity = True
+            elif mutation == "disable_oracle":
+                generator.include_oracle = False
+            else:
+                generator.d_names[1] = "m_marginal_control"
+            return np.zeros(len(x))
+    
+        specs = [dict(name="m_marginal_control" if mutation == "enable_into_confounder" else "feature")]
+>       generator = Generator(n_treatments=2, d_names=["control", "arm"],
+                              confounder_specs=specs, g_y=callback, seed=731,
+                              include_marginal_propensity=mutation != "enable_into_confounder")
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:402: TypeError
+_ test_public_wrapper_option_preserves_automatic_contract_features[False-causalis.dgp.multicausaldata] _
+
+module_name = 'causalis.dgp.multicausaldata', return_causal_data = False
+
+    @pytest.mark.parametrize("module_name", ["causalis.dgp.multicausaldata", "causalis.dgp.multicausaldata.functional"])
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    def test_public_wrapper_option_preserves_automatic_contract_features(module_name, return_causal_data):
+        wrapper = getattr(importlib.import_module(module_name), "generate_multitreatment")
+        settings = dict(n=64, k=2, random_state=731, beta_d=np.array([0.3, -0.2]),
+                        return_causal_data=return_causal_data)
+        ordinary = wrapper(**settings)
+>       enabled = wrapper(**settings, include_marginal_propensity=True)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: generate_multitreatment() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:417: TypeError
+_ test_public_wrapper_option_preserves_automatic_contract_features[False-causalis.dgp.multicausaldata.functional] _
+
+module_name = 'causalis.dgp.multicausaldata.functional'
+return_causal_data = False
+
+    @pytest.mark.parametrize("module_name", ["causalis.dgp.multicausaldata", "causalis.dgp.multicausaldata.functional"])
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    def test_public_wrapper_option_preserves_automatic_contract_features(module_name, return_causal_data):
+        wrapper = getattr(importlib.import_module(module_name), "generate_multitreatment")
+        settings = dict(n=64, k=2, random_state=731, beta_d=np.array([0.3, -0.2]),
+                        return_causal_data=return_causal_data)
+        ordinary = wrapper(**settings)
+>       enabled = wrapper(**settings, include_marginal_propensity=True)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: generate_multitreatment() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:417: TypeError
+_ test_public_wrapper_option_preserves_automatic_contract_features[True-causalis.dgp.multicausaldata] _
+
+module_name = 'causalis.dgp.multicausaldata', return_causal_data = True
+
+    @pytest.mark.parametrize("module_name", ["causalis.dgp.multicausaldata", "causalis.dgp.multicausaldata.functional"])
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    def test_public_wrapper_option_preserves_automatic_contract_features(module_name, return_causal_data):
+        wrapper = getattr(importlib.import_module(module_name), "generate_multitreatment")
+        settings = dict(n=64, k=2, random_state=731, beta_d=np.array([0.3, -0.2]),
+                        return_causal_data=return_causal_data)
+        ordinary = wrapper(**settings)
+>       enabled = wrapper(**settings, include_marginal_propensity=True)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: generate_multitreatment() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:417: TypeError
+_ test_public_wrapper_option_preserves_automatic_contract_features[True-causalis.dgp.multicausaldata.functional] _
+
+module_name = 'causalis.dgp.multicausaldata.functional'
+return_causal_data = True
+
+    @pytest.mark.parametrize("module_name", ["causalis.dgp.multicausaldata", "causalis.dgp.multicausaldata.functional"])
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    def test_public_wrapper_option_preserves_automatic_contract_features(module_name, return_causal_data):
+        wrapper = getattr(importlib.import_module(module_name), "generate_multitreatment")
+        settings = dict(n=64, k=2, random_state=731, beta_d=np.array([0.3, -0.2]),
+                        return_causal_data=return_causal_data)
+        ordinary = wrapper(**settings)
+>       enabled = wrapper(**settings, include_marginal_propensity=True)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: generate_multitreatment() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:417: TypeError
+_ test_direct_contract_conversion_preserves_features_and_observations_with_latent_assignment _
+
+    def test_direct_contract_conversion_preserves_features_and_observations_with_latent_assignment():
+        settings = dict(k=2, seed=731, u_strength_d=[0.0, 2.0, -1.0])
+        ordinary = Generator(**settings).to_multicausal_data(64)
+>       enabled = Generator(**settings, include_marginal_propensity=True).to_multicausal_data(64)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:435: TypeError
+_ test_unsupported_finite_gaussian_geometry_raises_instead_of_returning_a_guessed_probability _
+
+    def test_unsupported_finite_gaussian_geometry_raises_instead_of_returning_a_guessed_probability():
+        strength = np.finfo(float).max / 4.0
+        settings = dict(n_treatments=2, k=0, alpha_d=[0.0, 0.0],
+                        u_strength_d=[-strength, strength], assignment_policy="iid", seed=731)
+        # Realized U=0 remains an ordinary finite nominal model. Only the opt-in
+        # Gaussian integration must handle, or explicitly reject, its geometry.
+        ordinary = Generator(**settings).generate(3, U=0.0)
+        assert np.isfinite(ordinary.to_numpy()).all()
+        with pytest.raises(ValueError, match="marginal|Gaussian|finite|integration"):
+>           Generator(**settings, include_marginal_propensity=True).generate(3, U=0.0)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:450: TypeError
+_ test_failed_quadrature_backend_cannot_publish_an_apparently_valid_probability _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x111e995e0>
+
+    def test_failed_quadrature_backend_cannot_publish_an_apparently_valid_probability(monkeypatch):
+        calls = []
+    
+        def failed_backend(*args, **kwargs):
+            calls.append("integration")
+            # Even a bounded, unit-mass result is unusable when the numerical
+            # backend explicitly reports failure. Numeric references never patch it.
+            return np.array([0.5, 0.5]), 0.0, SimpleNamespace(success=False, status=1)
+    
+        module = importlib.import_module("causalis.dgp.multicausaldata.base")
+        monkeypatch.setattr(module, "quad_vec", failed_backend, raising=False)
+        with pytest.raises(ValueError, match="converg|integration"):
+>           Generator(n_treatments=2, k=0, alpha_d=[0.0, 0.5],
+                      u_strength_d=[0.0, 1.0], assignment_policy="iid",
+                      include_marginal_propensity=True, seed=731).generate(3, U=0.0)
+E           TypeError: MultiCausalDatasetGenerator.__init__() got an unexpected keyword argument 'include_marginal_propensity'
+
+tests/data/test_multicausal_marginal_propensity.py:465: TypeError
+=========================== short test summary info ============================
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[3-0.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[3-0.1]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[3-1.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[3-2.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[3-5.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[3-10.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[3-50.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[2-0.1]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[2-2.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[2-50.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[5-1.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[5-10.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_gaussian_marginal_matches_independent_scalar_integration_with_varying_x[5-50.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_asymmetric_very_steep_scores_resolve_separate_dominant_arm_transitions
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry[-1000.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry[-50.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry[-0.1]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry[0.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry[0.1]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry[50.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_two_arm_zero_intercept_has_closed_form_half_by_gaussian_symmetry[1000.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_equal_latent_slopes_cancel_and_return_existing_probabilities_exactly[-1000.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_equal_latent_slopes_cancel_and_return_existing_probabilities_exactly[0.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_equal_latent_slopes_cancel_and_return_existing_probabilities_exactly[1000.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_gaussian_probability_symmetries_are_preserved[latent_sign]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_gaussian_probability_symmetries_are_preserved[common_shifts]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_gaussian_probability_symmetries_are_preserved[arm_permutation]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_nonlinear_treatment_callbacks_enter_the_same_gaussian_reference_scores
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_calibration_stays_at_u_zero_and_marginal_columns_use_calibrated_scores
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_supplied_nongaussian_or_x_dependent_u_does_not_change_reference_law
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_probability_columns_describe_nominal_model_even_when_all_arm_policy_repairs[ensure_all]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_probability_columns_describe_nominal_model_even_when_all_arm_policy_repairs[iid]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_opt_in_preserves_existing_columns_callback_calls_and_consecutive_rng[continuous]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_opt_in_preserves_existing_columns_callback_calls_and_consecutive_rng[binary]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_opt_in_preserves_existing_columns_callback_calls_and_consecutive_rng[poisson]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_opt_in_preserves_existing_columns_callback_calls_and_consecutive_rng[gamma]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_default_and_explicit_disabled_option_preserve_schema_draws_and_next_rng[False]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_default_and_explicit_disabled_option_preserve_schema_draws_and_next_rng[True]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_python_and_numpy_boolean_flags_are_accepted[False]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_python_and_numpy_boolean_flags_are_accepted[True]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_python_and_numpy_boolean_flags_are_accepted[flag2]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_python_and_numpy_boolean_flags_are_accepted[flag3]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_nonboolean_option_is_rejected_before_sampler_or_rng_use[constructor-None]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_nonboolean_option_is_rejected_before_sampler_or_rng_use[constructor-0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_nonboolean_option_is_rejected_before_sampler_or_rng_use[constructor-1]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_nonboolean_option_is_rejected_before_sampler_or_rng_use[constructor-0.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_nonboolean_option_is_rejected_before_sampler_or_rng_use[constructor-true]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_nonboolean_option_is_rejected_before_sampler_or_rng_use[constructor-flag5]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_nonboolean_option_is_rejected_before_sampler_or_rng_use[constructor-flag6]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_nonboolean_option_is_rejected_before_sampler_or_rng_use[generate-None]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_nonboolean_option_is_rejected_before_sampler_or_rng_use[generate-0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_nonboolean_option_is_rejected_before_sampler_or_rng_use[generate-1]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_nonboolean_option_is_rejected_before_sampler_or_rng_use[generate-0.0]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_nonboolean_option_is_rejected_before_sampler_or_rng_use[generate-true]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_nonboolean_option_is_rejected_before_sampler_or_rng_use[generate-flag5]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_nonboolean_option_is_rejected_before_sampler_or_rng_use[generate-flag6]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_enabled_marginal_probabilities_require_enabled_oracles_at_construction
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_mutable_conflicting_flags_are_rejected_before_sampling[enable_marginal]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_mutable_conflicting_flags_are_rejected_before_sampling[disable_oracle]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_enabled_new_namespace_rejects_treatment_and_existing_oracle_collisions[names0-m_marginal_arm]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_enabled_new_namespace_rejects_treatment_and_existing_oracle_collisions[names1-m_marginal_arm]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_actual_new_oracle_confounder_collision_rejects_before_latent_and_callbacks
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_expanded_categorical_names_are_checked_against_enabled_new_oracles[False]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_expanded_categorical_names_are_checked_against_enabled_new_oracles[True]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_late_callback_namespace_and_flag_changes_cannot_silently_corrupt_new_oracles[enable_into_confounder]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_late_callback_namespace_and_flag_changes_cannot_silently_corrupt_new_oracles[disable_oracle]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_late_callback_namespace_and_flag_changes_cannot_silently_corrupt_new_oracles[rename_treatment]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_public_wrapper_option_preserves_automatic_contract_features[False-causalis.dgp.multicausaldata]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_public_wrapper_option_preserves_automatic_contract_features[False-causalis.dgp.multicausaldata.functional]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_public_wrapper_option_preserves_automatic_contract_features[True-causalis.dgp.multicausaldata]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_public_wrapper_option_preserves_automatic_contract_features[True-causalis.dgp.multicausaldata.functional]
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_direct_contract_conversion_preserves_features_and_observations_with_latent_assignment
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_unsupported_finite_gaussian_geometry_raises_instead_of_returning_a_guessed_probability
+FAILED tests/data/test_multicausal_marginal_propensity.py::test_failed_quadrature_backend_cannot_publish_an_apparently_valid_probability
+74 failed, 5 passed in 6.11s

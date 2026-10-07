@@ -1,0 +1,71 @@
+{
+  "baseline": "71f6a619b04e0ab8fab388fb95b7d0f3d6631b96",
+  "source_checkpoint": "9a57e91942a4b90b0401c0f8e3ebe6f5b4d82cdf",
+  "files": [
+    {
+      "path": "causalis/data_contracts/__init__.py",
+      "sha256": "d5031fa0af776b3495ae9d0ee64197bfa1e2314960aeea6220bce71fb2037593",
+      "unchanged_from_baseline": true
+    },
+    {
+      "path": "causalis/data_contracts/_duplicate_columns.py",
+      "sha256": "2aafa319349d290d6e4525d58ad6f3b6c31cc761e93e9108af6d9b3baa351259",
+      "unchanged_from_baseline": true
+    },
+    {
+      "path": "causalis/data_contracts/multicausaldata.py",
+      "sha256": "2bfe0bf3d471d983e9adf4318b37ab898910ae1e8221eb4680bfc9d775c3b42b",
+      "unchanged_from_baseline": true
+    },
+    {
+      "path": "causalis/dgp/base.py",
+      "sha256": "f5cd516bd4a2b071470fe6ee6a3a1da073432b551117375f6d74aabcc452c849",
+      "unchanged_from_baseline": true
+    },
+    {
+      "path": "causalis/dgp/causaldata/base.py",
+      "sha256": "794fd4f5d7a9f23cec06987ffbbb5615e75ae57b0ba87e6520ea05db14b356e6",
+      "unchanged_from_baseline": true
+    },
+    {
+      "path": "causalis/dgp/causaldata_instrumental/base.py",
+      "sha256": "4ec2a4b77b5974f4db103b2c8aa157b7b1f8347fbb90f4137e2139b904aa1daa",
+      "unchanged_from_baseline": true
+    },
+    {
+      "path": "causalis/dgp/multicausaldata/__init__.py",
+      "sha256": "dbdb72d1c43226b0fe90af2ec6c3dcd70229319c296dc85088d858ed0ecf8638",
+      "unchanged_from_baseline": true
+    },
+    {
+      "path": "causalis/dgp/multicausaldata/base.py",
+      "sha256": "c46c1e090b0e033b59a6aa4eb65ba7cb9a1fdbb5aba4cde05132b19f903ea982",
+      "unchanged_from_baseline": false
+    },
+    {
+      "path": "causalis/dgp/multicausaldata/functional.py",
+      "sha256": "e3b074a2ff2cd57de9756cd81b4f01bdbbaa8fd728b87de5517d692b37723d43",
+      "unchanged_from_baseline": false
+    },
+    {
+      "path": "causalis/scenarios/multi_unconfoundedness/dgp.py",
+      "sha256": "1ce2728cc3acdf163041b5f63ef6cb99f65bfe2f048a1cfaa53fa9c3ea260488",
+      "unchanged_from_baseline": true
+    },
+    {
+      "path": "tests/data/test_multicausal_marginal_propensity.py",
+      "sha256": "3e6ade34ff0d7faadd172eab87ab15a9ccc24b968564c81302ede8a686f8df37",
+      "unchanged_from_baseline": false
+    }
+  ],
+  "unique_paths": 11,
+  "original_runtime_provenance_preserved": true,
+  "numerical_runs_repeated_for_linkage": false,
+  "contract_process_head": "71f6a619b04e0ab8fab388fb95b7d0f3d6631b96",
+  "contract_started_utc": "2026-10-07T13:19:40.628099+00:00",
+  "review_original_head": "71f6a619b04e0ab8fab388fb95b7d0f3d6631b96",
+  "review_original_observed_at": "2026-10-07T13:19:22.175057+00:00",
+  "focused_original_head": "71f6a619b04e0ab8fab388fb95b7d0f3d6631b96",
+  "focused_original_started_utc": "2026-10-07T13:22:00.900097+00:00",
+  "issues": []
+}

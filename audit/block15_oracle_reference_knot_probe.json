@@ -1,0 +1,48 @@
+{
+  "synthetic_reference_only": true,
+  "source_not_changed": true,
+  "records": [
+    {
+      "points": [
+        -11.840000000000002,
+        -11.839999999999998,
+        -11.839999999999996
+      ],
+      "smallest_point_gap": 1.7763568394002505e-15,
+      "arm": 0,
+      "value": 0.06770564851915467,
+      "error_estimate": 0.000424910766249037,
+      "warnings": [
+        "Extremely bad integrand behavior occurs at some points of the\n  integration interval."
+      ]
+    },
+    {
+      "points": [
+        -11.840000000000002,
+        -11.839999999999998,
+        -11.839999999999996
+      ],
+      "smallest_point_gap": 1.7763568394002505e-15,
+      "arm": 1,
+      "value": 0.2187112628691968,
+      "error_estimate": 0.0018544942299978384,
+      "warnings": [
+        "Extremely bad integrand behavior occurs at some points of the\n  integration interval."
+      ]
+    },
+    {
+      "points": [
+        -11.840000000000002,
+        -11.839999999999998,
+        -11.839999999999996
+      ],
+      "smallest_point_gap": 1.7763568394002505e-15,
+      "arm": 2,
+      "value": 0.713583088856242,
+      "error_estimate": 0.006867913680933757,
+      "warnings": [
+        "Extremely bad integrand behavior occurs at some points of the\n  integration interval."
+      ]
+    }
+  ]
+}

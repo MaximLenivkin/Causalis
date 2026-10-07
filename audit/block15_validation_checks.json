@@ -1,0 +1,22 @@
+{
+  "baseline": "71f6a619b04e0ab8fab388fb95b7d0f3d6631b96",
+  "source_checkpoint": "9a57e91942a4b90b0401c0f8e3ebe6f5b4d82cdf",
+  "source_hashes": {
+    "causalis/dgp/multicausaldata/base.py": "c46c1e090b0e033b59a6aa4eb65ba7cb9a1fdbb5aba4cde05132b19f903ea982",
+    "causalis/dgp/multicausaldata/functional.py": "e3b074a2ff2cd57de9756cd81b4f01bdbbaa8fd728b87de5517d692b37723d43",
+    "tests/data/test_multicausal_marginal_propensity.py": "3e6ade34ff0d7faadd172eab87ab15a9ccc24b968564c81302ede8a686f8df37"
+  },
+  "source_scope_verified": true,
+  "default_executable_ast_preserved": true,
+  "local_tests": 2618,
+  "new_cases": 79,
+  "six_ci_full_case_sets_match_local": true,
+  "independent_ci_review_and_artifact_hashes_verified": true,
+  "review_failure_and_projection_boundaries_verified": true,
+  "actual_focused_and_integration_junit_counts_verified": true,
+  "handoff_snapshot_links_checked": 110,
+  "python_files_parsed": 8,
+  "relative_links_checked": 24,
+  "sensitivity_validated": false,
+  "issues": []
+}
