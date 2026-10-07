@@ -1,0 +1,41 @@
+{
+  "tested_source_checkpoint": "1993cf1040e21630844688e415ef2cf15598ffc3",
+  "baseline": "52cd6e2fbb1934edaa1191856f70424858a59f6f",
+  "changed_source_test_paths": [
+    "causalis/scenarios/_numerics.py",
+    "causalis/scenarios/iv/model.py",
+    "causalis/scenarios/multi_unconfoundedness/model.py",
+    "causalis/scenarios/unconfoundedness/_score_utils.py",
+    "causalis/scenarios/unconfoundedness/model.py",
+    "tests/inference/test_extreme_score_arithmetic.py"
+  ],
+  "source_hashes_verified": 10,
+  "unchanged_functions_verified": 129,
+  "baseline_counts": {
+    "tests": 67,
+    "failures": 54,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 13
+  },
+  "focused_counts": {
+    "tests": 527,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 527
+  },
+  "integration_counts": {
+    "tests": 3252,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 3252
+  },
+  "complete_case_sets_verified": true,
+  "iv_formula_extraction_exact": true,
+  "successful_ci_jobs": 6,
+  "audit_scripts_parsed": 6,
+  "local_report_links_verified": 19,
+  "issues": []
+}

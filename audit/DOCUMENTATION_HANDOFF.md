@@ -748,3 +748,43 @@ Root validation links10source hashes,125unchanged functions and final test hashe
 with no issues. Four extra local warnings concern joblib/loky resource-tracker
 cleanup; the focused suite has no warnings. Source/tests remain frozen after
 the source commit. No full sensitivity/standalone Sphinx/release claim is made.
+
+## B19 — float64 score/inference failure policy
+
+The binary IRM, MultiTreatmentIRM and IIVM now raise RuntimeError when their
+score, IF, SE or Wald/relative interval arithmetic overflows or produces
+non-finite numerical outputs. Finite learner predictions alone do not guarantee
+representable intermediates. This is an explicit failure policy: a mathematically
+finite answer can be rejected when an intermediate square/reduction overflows.
+Rescale outcomes/weights or increase the appropriate overlap/trimming threshold
+and refit. There is no score truncation, extended-precision fallback or change
+to the estimating equations. Intentional undefined relative-effect/zero-SE and
+weak-IV semantics remain unchanged. Sensitivity and diagnostic arithmetic have
+not been rewritten.
+
+For custom binary ATE, the retained weight mean still must exceed 1e-12. Both
+weights and weights_bar are divided by that same mean; either normalized vector
+being non-finite raises ValueError. Signed weights with a positive mean remain
+supported. Hájek still normalizes treated/control IPW separately. The existing
+SE/IF approximation treats normalization denominators as fixed and emits its
+existing warnings; this change does not make that approximation exact.
+
+Source checkpoint `1993cf1040e21630844688e415ef2cf15598ffc3`:
+[numerical boundary](https://github.com/MaximLenivkin/Causalis/blob/1993cf1040e21630844688e415ef2cf15598ffc3/causalis/scenarios/_numerics.py),
+[weight/IPW helpers](https://github.com/MaximLenivkin/Causalis/blob/1993cf1040e21630844688e415ef2cf15598ffc3/causalis/scenarios/unconfoundedness/_score_utils.py),
+[binary model](https://github.com/MaximLenivkin/Causalis/blob/1993cf1040e21630844688e415ef2cf15598ffc3/causalis/scenarios/unconfoundedness/model.py),
+[multi model](https://github.com/MaximLenivkin/Causalis/blob/1993cf1040e21630844688e415ef2cf15598ffc3/causalis/scenarios/multi_unconfoundedness/model.py),
+[IV model](https://github.com/MaximLenivkin/Causalis/blob/1993cf1040e21630844688e415ef2cf15598ffc3/causalis/scenarios/iv/model.py).
+
+Final same-file baseline:54failed/13passed; focused527passed (67new/460neighbors).
+Forty exact public fit pairs and72exact inference pairs agree with the prior
+implementation on ordinary finite examples;129untouched functions AST-verified.
+Four near-boundary custom-ATE examples match independent fixed-normalization
+signal/IF/SE calculations. Committed correctness3252passed, zero failures/errors/
+skips,91warnings,108.72s. [CI37663336817](https://github.com/MaximLenivkin/Causalis/actions/runs/37663336817)
+completed/success on exactsource; all six downloaded JUnit artifacts contain
+3252passing cases each. CompletecaseIDs,527focused cases, source, actual
+normalized pytest argv and the seven unchanged sensitivity exclusions match
+local integration. Root validation verifies6changedsource/testpaths,10hashes,
+129unchangedfunctions and exact extraction of IV score/Wald statements.
+Sensitivity, standalone Sphinx and release remain outside this block.

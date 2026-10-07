@@ -85,3 +85,22 @@ completecaseIDs/460focus/source/actualargv/exclusions verified.
 Handoff118immutablelinksverified; source/tests frozen, only final audit updates.
 Next B19 extreme finite score/IF and normalized custom-ATE policy. Stop at B18
 before context cleanup; sensitivity remains deferred.
+
+
+## B19 — extreme finite score/IF and normalized custom ATE (2026-10-07)
+
+Source `1993cf1040e21630844688e415ef2cf15598ffc3`, baseline `52cd6e2`.
+[Report](BLOCK19_EXTREME_SCORE_ARITHMETIC.md): explicit RuntimeError at numerical
+score/IPW, moment/IF/SE/absolute and relative interval boundaries; normalized
+custom ATE weights must be finite (ValueError). Existing equations, overlap
+policy, weight-mean floor and approximate normalization inference preserved.
+Final67baseline54failed/13passed;527focusedpassed;40exactfit/72exactinference
+pairs and129unchangedfunctionASTs. Committed correctness3252passed, zero
+failures/errors/skips,91warnings,108.72s; seven sensitivity exclusions unchanged.
+Personal source push completed; CI37663336817 completed/success on exactsource.
+Six artifacts3252passed each, completecaseIDs/527focus/source/actualargv and
+seven exclusions verified. [CI](block19_ci_result.json),
+[validation](block19_validation_result.json),issues[]. Source/tests frozen;
+only audit updates after1993cf1. Handoff123immutablelinksverified.
+Next B20 duplicate numeric/object and snapshot/refit contracts; standalone Sphinx
+separate. Stop at B19; sensitivity remains deferred.

@@ -49,7 +49,9 @@ Exactly five library paths plus one new regression module change:
 shared `_numerics.py`, binary `_score_utils.py`, and the three model modules.
 The wrapper enables float64 overflow/invalid/division failure only around score
 and inference calculations; diagnostic and sensitivity computation is outside
-it. Explicit finite checks handle local intentional NumPy ignore contexts.
+it. The shared binary IPW guard can also be reached by other helper consumers;
+extreme sensitivity behavior is not validated here. Explicit finite checks
+handle local intentional NumPy ignore contexts.
 IIVM's existing arithmetic is extracted into `_compute_late_inference`; its
 formula and operation order are retained.
 
@@ -77,15 +79,27 @@ fold, coefficient, SE, p-value, CI and score/IF arrays match baseline exactly;
 source frames are unchanged. 129 unmodified functions are AST-checked, and
 10 source/test/dependency hashes are recorded. These are bounded synthetic
 checks, not universal numerical or causal certificates.
-Committed integration and CI linkage will follow in the final audit commit.
+Source checkpoint `1993cf1040e21630844688e415ef2cf15598ffc3` is committed and
+pushed. Committed correctness:3252passed, zero failures/errors/skips,91warnings,
+108.72seconds, exit0. Seven sensitivity exclusions are unchanged. Source/tests
+are frozen after this commit; only audit updates follow. [CI37663336817](https://github.com/MaximLenivkin/Causalis/actions/runs/37663336817)
+completed successfully on that exact source. All six artifacts have3252passing
+tests, zero failures/errors/skips. Full case IDs,527focused cases, source,
+actual normalized pytest arguments and all seven exclusions match local
+integration. SnapshotUTC2026-10-07T18:03:31.493318+00:00. Exact environments and
+artifact hashes are recorded in the CI manifest. Local91warnings include13
+expected policy warnings exercised by the new tests; no numerical warning is
+used as a substitute for rejecting reproduced overflow. Owned baseline worktree
+and integration pytest-temp are removed; aggregate evidence is retained.
 
 ## Evidence
 
 - [Exact-baseline runner](run_block19_baseline.py), [result](block19_baseline_result.json), [JUnit](block19_baseline.xml), [log](block19_baseline_tests.log).
 - [Focused JUnit](block19_focus.xml), [log](block19_focus_tests.log).
 - [Compatibility probe](probe_block19.py), [result](block19_probe_result.json), [log](block19_probe_checks.log).
-- [Committed integration runner](run_block19_integration.py).
-- [CI observer](observe_block19_ci.py), [artifact verifier](summarize_block19_ci.py).
+- [Committed integration runner](run_block19_integration.py), [selection](block19_integration_selection.json), [result](block19_integration_result.json), [log](block19_integration_tests.log).
+- [CI observer](observe_block19_ci.py), [artifact verifier](summarize_block19_ci.py), [verified result](block19_ci_result.json).
+- [Root verifier](verify_block19.py), [validation result](block19_validation_result.json), [log](block19_validation_checks.log).
 
 ## Limits and next block
 

@@ -10,7 +10,7 @@
 
 1. `AGENTS.md` — локальная `.venv` обязательна. На текущем Mac использовать **`.venv/bin/python`**, Python3.12.14, не старый backing path `/Users/ioann/...`. Окружение восстановлено из project extras dev/docs, dependencycheck и5setupsmoketests прошли. Local setup manifest `.venv/setup-environment.json`; B09 integration manifest записывает реальные проверенные версии.
 2. `audit/FIX_PLAN.md` — порядок блоков, scope gates и deferred findings.
-3. Этот файл и **`audit/BLOCK18_LEARNER_OUTPUT_CONTRACTS.md`** — последнее состояние. B09–B17 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
+3. Этот файл и **`audit/BLOCK19_EXTREME_SCORE_ARITHMETIC.md`** — последнее состояние. B09–B18 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
 4. `audit/REPORT.md` — исторический аудит исходного SHA, не текущий residual bug count.
 
 ## Git
@@ -20,6 +20,41 @@ GitHub авторизация завершена пользователем и �
 Исторический Windows GitHubCLI2.102.0: `& 'C:\Program Files\GitHub CLI\gh.exe' ...` — использовать полный путь, если текущий Codex PATH ещё не обновлён. Авторизацию повторно запрашивать не требуется. Git mutations/network в ограниченной среде могут требовать разрешённого запуска; пользователь уже авторизовал commits/push в личную ветку. PR не создавался. Полная текущая информация — GIT_ACCESS.md.
 
 ## Текущая работа
+
+**B19 завершён** 7 октября2026: extreme finite score/IF and normalized custom ATE.
+Source `1993cf1040e21630844688e415ef2cf15598ffc3`, baseline `52cd6e2`.
+[Report](BLOCK19_EXTREME_SCORE_ARITHMETIC.md). Explicit numerical failure in
+score/IPW, moment/IF/SE/Wald and relative-effect arithmetic; finite float64
+intermediates required. No stable algorithm for every extreme finite scale:
+mathematically representable answers may still fail on intermediate overflow.
+Custom normalized ATE w/w_bar finite required (ValueError); >1e-12 retained
+mean floor, signed weights, normalization formulas and approximate IF/SE
+warning policy preserved. RuntimeError for numerical score/inference failure.
+IRM core cache moved after relative calculation; no general state ownership
+or refit lifecycle redesign. Sensitivity/diagnostic algorithms unchanged.
+Final67baseline54failed/13passed, focus527passed/13policywarnings/30.07s;
+40exactfit/72exactinference pairs,129unchangedfunctionASTs,10hashes. Committed
+correctness3252passed/zero failures/errors/skips/91warnings/108.72s. Seven
+sensitivity exclusions unchanged. Source/tests frozen; personal push completed.
+CI37663336817 completed/success on exact1993cf1, all6artifacts3252passed each.
+FullcaseIDs/527focus/source/actualargv/7exclusions verified; snapshotUTC
+2026-10-07T18:03:31.493318+00:00. ActualPython3.10.22latest/3.10.21legacy,
+3.11.16,3.12.15,3.13.16,3.14.8; exact dependencies in block19_ci_result.json.
+Root verifier checks6changedsource/testpaths,10hashes,129unchangedfunctions,
+exact IV formula extraction and all baseline/local/CI manifests,issues[].
+Handoff123immutablelinksverified,issues[]. Only audit updates aftersource;
+final checkpoint via gitlog-1. Ordinary final push/live localremote equality
+and clean state checked at completion. Owned worktree/pytest-temp removed.
+No PR/release/upstream merge.
+
+Next standalone B20: duplicate numeric/object columns and snapshot/refit
+contracts. Establish public reproductions and ownership/compatibility policy
+before changes. Standalone Sphinx is a later separate gate. Features follow
+correctness: repeatedCF→groupCF→externalOOF→DR/R-CATE. Sensitivity, SC08LOO and
+selected-UATT deferred. Stop at B19; next block requires a new user request.
+Do not repeat login/fork/environment setup.
+
+## Historical B18 checkpoint
 
 **B18 завершён** 7 октября2026: learner shape/real and IV storage contracts.
 Source checkpoint `df944e0ee814dbe1a631b41ba1b59def9f61ed8b`, baseline `b7cbec9`.

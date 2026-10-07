@@ -15,6 +15,7 @@ TEST = "tests/inference/test_extreme_score_arithmetic.py"
 
 
 def main():
+    test_digest = hashlib.sha256((ROOT / TEST).read_bytes()).hexdigest()
     env = os.environ.copy()
     env.update(MPLBACKEND="Agg", MPLCONFIGDIR=str(ROOT / ".venv/matplotlib"),
                SKIP_DOCS_BUILD="true", OMP_NUM_THREADS="1", OPENBLAS_NUM_THREADS="1",
@@ -25,6 +26,7 @@ def main():
                        cwd=ROOT, check=True, capture_output=True)
         try:
             shutil.copyfile(ROOT / TEST, checkout / TEST)
+            assert hashlib.sha256((checkout / TEST).read_bytes()).hexdigest() == test_digest
             env["PYTHONPATH"] = str(checkout)
             code = ("import pathlib, causalis, pytest; "
                     "assert pathlib.Path(causalis.__file__).resolve().is_relative_to(pathlib.Path.cwd()); "
@@ -38,9 +40,10 @@ def main():
             counts = {k: sum(int(s.attrib.get(k, 0)) for s in suites)
                       for k in ("tests", "failures", "errors", "skipped")}
             counts["passed"] = counts["tests"] - sum(counts[k] for k in ("failures", "errors", "skipped"))
+            assert hashlib.sha256((ROOT / TEST).read_bytes()).hexdigest() == test_digest
             result = dict(baseline=BASELINE, observed_at=datetime.now(timezone.utc).isoformat(),
                           interpreter=str(ROOT / ".venv/bin/python"), test_path=TEST,
-                          test_sha256=hashlib.sha256((ROOT / TEST).read_bytes()).hexdigest(),
+                          test_sha256=test_digest,
                           isolated_baseline_import_verified=True, exit_code=status, **counts)
             (ROOT / "audit/block19_baseline_result.json").write_text(json.dumps(result, indent=2))
             print(json.dumps(result, indent=2))
