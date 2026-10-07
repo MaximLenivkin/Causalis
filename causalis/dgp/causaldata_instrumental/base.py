@@ -27,6 +27,7 @@ import pandas as pd
 from causalis.data_contracts.iv_causal_data import IVCausalData
 from causalis.dgp.base import _sigmoid
 from causalis.dgp._gaussian_outcome import _gaussian_outcome_mean
+from causalis.dgp._gaussian_joint import _gaussian_product_mean
 from causalis.dgp.causaldata.base import CausalDatasetGenerator
 
 _DATACLASS_KWARGS = {"slots": True} if sys.version_info >= (3, 10) else {}
@@ -254,21 +255,18 @@ class InstrumentalGenerator(CausalDatasetGenerator):
         return np.sqrt(2.0) * gh_x, gh_w / np.sqrt(np.pi)
 
     def _r_by_z(self, X: np.ndarray, z_value: float) -> np.ndarray:
-        """Compute ``P(D=1|Z=z_value,X)`` marginalized over latent ``U``."""
+        """Gaussian-reference P(D=1|Z=z,X), with adaptive logistic means.
+
+        Treatment callbacks must be deterministic functions of X; evaluate
+        their base score once, outside integration, rather than at 31 GH nodes.
+        """
         n = X.shape[0]
         if float(self.u_strength_d) == 0.0:
             return self._treatment_propensity(X, z_value, np.zeros(n), calibrate=False)
 
-        uq, wq = self._u_quadrature()
-        out = np.zeros(n, dtype=float)
-        for u, w in zip(uq, wq):
-            out += float(w) * self._treatment_propensity(
-                X,
-                z_value,
-                np.full(n, float(u), dtype=float),
-                calibrate=False,
-            )
-        return out
+        base = (self.alpha_d + self._treatment_score(X, np.zeros(n))
+                + float(self.first_stage) * z_value)
+        return _gaussian_outcome_mean(base, self.u_strength_d, "binary")
 
     def _potential_outcome_means(
         self, X: np.ndarray, tau_x: np.ndarray
@@ -306,7 +304,12 @@ class InstrumentalGenerator(CausalDatasetGenerator):
         return g0, g1
 
     def _g_by_z(self, X: np.ndarray, z_value: float, tau_x: np.ndarray) -> np.ndarray:
-        """Compute ``E[Y|Z=z_value,X]`` marginalized over ``D`` and ``U``."""
+        """Gaussian-reference E[Y|Z=z,X], integrating D and the same latent U.
+
+        Nonlinear responses use bounded adaptive shared-U products. Continuous
+        responses use E[U]=0 and E[D|z,X]. Callbacks must be deterministic
+        functions of X and are evaluated outside integration.
+        """
         n = X.shape[0]
         needs_u_integral = (
             float(self.u_strength_d) != 0.0 or float(self.u_strength_y) != 0.0
@@ -319,17 +322,22 @@ class InstrumentalGenerator(CausalDatasetGenerator):
             mu1 = self._natural_mean_from_location(loc1)
             return (1.0 - p_d) * mu0 + p_d * mu1
 
-        uq, wq = self._u_quadrature()
-        out = np.zeros(n, dtype=float)
-        for u, w in zip(uq, wq):
-            U = np.full(n, float(u), dtype=float)
-            p_d = self._treatment_propensity(X, z_value, U, calibrate=False)
-            loc0 = self._outcome_location(X, np.zeros(n), U, np.zeros(n))
-            loc1 = self._outcome_location(X, np.ones(n), U, tau_x)
-            mu0 = self._natural_mean_from_location(loc0)
-            mu1 = self._natural_mean_from_location(loc1)
-            out += float(w) * ((1.0 - p_d) * mu0 + p_d * mu1)
-        return out
+        # Callbacks define deterministic functions of X and are evaluated once
+        # per base location, outside numerical integration.
+        base = (self.alpha_d + self._treatment_score(X, np.zeros(n))
+                + float(self.first_stage) * z_value)
+        loc0 = self._outcome_location(X, np.zeros(n), np.zeros(n), np.zeros(n))
+        loc1 = self._outcome_location(X, np.ones(n), np.zeros(n), tau_x)
+        if self.outcome_type == "continuous":
+            # E[U]=0, and tau(X) does not depend on U: exact linear identity.
+            r = _gaussian_outcome_mean(base, self.u_strength_d, "binary")
+            return loc0 + tau_x * r
+        return (
+            _gaussian_product_mean(-base, -self.u_strength_d, loc0,
+                                   self.u_strength_y, self.outcome_type)
+            + _gaussian_product_mean(base, self.u_strength_d, loc1,
+                                     self.u_strength_y, self.outcome_type)
+        )
 
     def generate(self, n: int, U: Optional[np.ndarray] = None) -> pd.DataFrame:
         """

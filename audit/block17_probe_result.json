@@ -1,0 +1,2618 @@
+{
+  "baseline": "aaeadd810c5c4ab7e1710cb4e634338267a0f216",
+  "process_head": "aaeadd810c5c4ab7e1710cb4e634338267a0f216",
+  "observed_at_utc": "2026-10-07T15:47:50.112638+00:00",
+  "python": "3.12.14 (main, Sep 29 2026, 14:50:19) [Clang 22.1.3 ]",
+  "source_hashes": {
+    "causalis/dgp/causaldata/base.py": "fb0ca4f75fae1a0a89184bfcac59b754de16f8fe1e2907921331ad226d72f40e",
+    "causalis/dgp/causaldata_instrumental/base.py": "00f4e2cc74a63a2e5679252a7080dbc5dcde9daa2db7ab3e58addc378ebcf242",
+    "causalis/dgp/_gaussian_joint.py": "a67e6d1be2cbfce7700fdce67788cc8c67df8b275ca51a8d71c40c4bd1b8ec4e",
+    "causalis/dgp/_gaussian_outcome.py": "37f82f9bac1f15285f5c42a0b2bec1bdfa900ae9e5283aa04b37811401f1fafc",
+    "causalis/dgp/base.py": "f5cd516bd4a2b071470fe6ee6a3a1da073432b551117375f6d74aabcc452c849",
+    "causalis/dgp/multicausaldata/base.py": "c46c1e090b0e033b59a6aa4eb65ba7cb9a1fdbb5aba4cde05132b19f903ea982",
+    "tests/data/test_gaussian_propensity_joint_means.py": "26cc05a88011bcfc4893ce9e09c54c894e8c7d0f8d5a6582782fcfca1d90575b",
+    "tests/data/test_gaussian_joint_accuracy_policy.py": "5490105af65c45b69c43506757c204cb40c157a5efcc9836cdbab86b6f1df322"
+  },
+  "compatibility": [
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "continuous",
+      "sd": 0.0,
+      "sy": 0.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 55,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 55,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "continuous",
+      "sd": 0.0,
+      "sy": 0.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 55,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 55,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "continuous",
+      "sd": 0.0,
+      "sy": 0.5,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 55,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 55,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "continuous",
+      "sd": 0.0,
+      "sy": 0.5,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 55,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 55,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "continuous",
+      "sd": 0.5,
+      "sy": 0.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 50,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 50,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "continuous",
+      "sd": 0.5,
+      "sy": 0.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 50,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 50,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "m"
+      ]
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "continuous",
+      "sd": 0.5,
+      "sy": -0.7,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 50,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 50,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "continuous",
+      "sd": 0.5,
+      "sy": -0.7,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 50,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 50,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "m"
+      ]
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "continuous",
+      "sd": 50.0,
+      "sy": 10.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 50,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 50,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "continuous",
+      "sd": 50.0,
+      "sy": 10.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 50,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 50,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "m"
+      ]
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "binary",
+      "sd": 0.0,
+      "sy": 0.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 55,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 55,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "binary",
+      "sd": 0.0,
+      "sy": 0.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 55,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 55,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "binary",
+      "sd": 0.0,
+      "sy": 0.5,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 55,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 55,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "binary",
+      "sd": 0.0,
+      "sy": 0.5,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 55,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 55,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "binary",
+      "sd": 0.5,
+      "sy": 0.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 52,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 52,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "binary",
+      "sd": 0.5,
+      "sy": 0.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 52,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 52,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "m"
+      ]
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "binary",
+      "sd": 0.5,
+      "sy": -0.7,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 52,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 52,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "binary",
+      "sd": 0.5,
+      "sy": -0.7,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 52,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 52,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "m"
+      ]
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "binary",
+      "sd": 50.0,
+      "sy": 10.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 49,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 49,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "binary",
+      "sd": 50.0,
+      "sy": 10.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 49,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 49,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "m"
+      ]
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "poisson",
+      "sd": 0.0,
+      "sy": 0.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 54,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 54,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "poisson",
+      "sd": 0.0,
+      "sy": 0.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 54,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 54,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "poisson",
+      "sd": 0.0,
+      "sy": 0.5,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 53,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 53,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "poisson",
+      "sd": 0.0,
+      "sy": 0.5,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 53,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 53,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "poisson",
+      "sd": 0.5,
+      "sy": 0.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 55,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 55,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "poisson",
+      "sd": 0.5,
+      "sy": 0.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 55,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 55,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "m"
+      ]
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "poisson",
+      "sd": 0.5,
+      "sy": -0.7,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 53,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 53,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "poisson",
+      "sd": 0.5,
+      "sy": -0.7,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 53,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 53,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "m"
+      ]
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "poisson",
+      "sd": 50.0,
+      "sy": 10.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 52,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 52,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "poisson",
+      "sd": 50.0,
+      "sy": 10.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 52,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 52,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "m"
+      ]
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "gamma",
+      "sd": 0.0,
+      "sy": 0.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 56,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 56,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "gamma",
+      "sd": 0.0,
+      "sy": 0.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 56,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 56,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "gamma",
+      "sd": 0.0,
+      "sy": 0.5,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 56,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 56,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "gamma",
+      "sd": 0.0,
+      "sy": 0.5,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 56,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 56,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "gamma",
+      "sd": 0.5,
+      "sy": 0.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 54,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 54,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "gamma",
+      "sd": 0.5,
+      "sy": 0.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 54,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 54,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "m"
+      ]
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "gamma",
+      "sd": 0.5,
+      "sy": -0.7,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 54,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 54,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "gamma",
+      "sd": 0.5,
+      "sy": -0.7,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 54,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 54,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "m"
+      ]
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "gamma",
+      "sd": 50.0,
+      "sy": 10.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 53,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 53,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "gamma",
+      "sd": 50.0,
+      "sy": 10.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 53,
+          "zi": 0
+        },
+        {
+          "y": 6,
+          "d": 53,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "m"
+      ]
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "tweedie",
+      "sd": 0.0,
+      "sy": 0.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 56,
+          "zi": 4
+        },
+        {
+          "y": 6,
+          "d": 56,
+          "zi": 4
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "tweedie",
+      "sd": 0.0,
+      "sy": 0.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 56,
+          "zi": 4
+        },
+        {
+          "y": 6,
+          "d": 56,
+          "zi": 4
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "tweedie",
+      "sd": 0.0,
+      "sy": 0.5,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 56,
+          "zi": 4
+        },
+        {
+          "y": 6,
+          "d": 56,
+          "zi": 4
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "tweedie",
+      "sd": 0.0,
+      "sy": 0.5,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 56,
+          "zi": 4
+        },
+        {
+          "y": 6,
+          "d": 56,
+          "zi": 4
+        }
+      ],
+      "corrected_columns": [
+        "g0",
+        "g1",
+        "cate"
+      ]
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "tweedie",
+      "sd": 0.5,
+      "sy": 0.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 54,
+          "zi": 4
+        },
+        {
+          "y": 6,
+          "d": 54,
+          "zi": 4
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "tweedie",
+      "sd": 0.5,
+      "sy": 0.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 54,
+          "zi": 4
+        },
+        {
+          "y": 6,
+          "d": 54,
+          "zi": 4
+        }
+      ],
+      "corrected_columns": [
+        "m",
+        "g0",
+        "g1",
+        "cate"
+      ]
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "tweedie",
+      "sd": 0.5,
+      "sy": -0.7,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 54,
+          "zi": 4
+        },
+        {
+          "y": 6,
+          "d": 54,
+          "zi": 4
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "tweedie",
+      "sd": 0.5,
+      "sy": -0.7,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 54,
+          "zi": 4
+        },
+        {
+          "y": 6,
+          "d": 54,
+          "zi": 4
+        }
+      ],
+      "corrected_columns": [
+        "m",
+        "g0",
+        "g1",
+        "cate"
+      ]
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "tweedie",
+      "sd": 50.0,
+      "sy": 10.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 52,
+          "zi": 4
+        },
+        {
+          "y": 6,
+          "d": 52,
+          "zi": 4
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "CausalDatasetGenerator",
+      "family": "tweedie",
+      "sd": 50.0,
+      "sy": 10.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 6,
+          "d": 52,
+          "zi": 4
+        },
+        {
+          "y": 6,
+          "d": 52,
+          "zi": 4
+        }
+      ],
+      "corrected_columns": [
+        "m",
+        "g0",
+        "g1",
+        "cate"
+      ]
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "continuous",
+      "sd": 0.0,
+      "sy": 0.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        },
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "continuous",
+      "sd": 0.0,
+      "sy": 0.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        },
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "continuous",
+      "sd": 0.0,
+      "sy": 0.5,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        },
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "continuous",
+      "sd": 0.0,
+      "sy": 0.5,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 374,
+          "d": 130,
+          "zi": 0
+        },
+        {
+          "y": 134,
+          "d": 10,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "g_z0",
+        "g_z1",
+        "iv_reduced_form",
+        "late_x",
+        "late"
+      ]
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "continuous",
+      "sd": 0.5,
+      "sy": 0.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        },
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "continuous",
+      "sd": 0.5,
+      "sy": 0.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 254,
+          "d": 250,
+          "zi": 0
+        },
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "r_z0",
+        "r_z1",
+        "g_z0",
+        "g_z1",
+        "iv_first_stage",
+        "iv_reduced_form",
+        "late_x",
+        "late"
+      ]
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "continuous",
+      "sd": 0.5,
+      "sy": -0.7,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        },
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "continuous",
+      "sd": 0.5,
+      "sy": -0.7,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 374,
+          "d": 250,
+          "zi": 0
+        },
+        {
+          "y": 134,
+          "d": 10,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "r_z0",
+        "r_z1",
+        "g_z0",
+        "g_z1",
+        "iv_first_stage",
+        "iv_reduced_form",
+        "late_x",
+        "late"
+      ]
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "continuous",
+      "sd": 50.0,
+      "sy": 10.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        },
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "continuous",
+      "sd": 50.0,
+      "sy": 10.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 374,
+          "d": 250,
+          "zi": 0
+        },
+        {
+          "y": 134,
+          "d": 10,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "r_z0",
+        "r_z1",
+        "g_z0",
+        "g_z1",
+        "iv_first_stage",
+        "iv_reduced_form",
+        "late_x",
+        "late"
+      ]
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "binary",
+      "sd": 0.0,
+      "sy": 0.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        },
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "binary",
+      "sd": 0.0,
+      "sy": 0.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        },
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "binary",
+      "sd": 0.0,
+      "sy": 0.5,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        },
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "binary",
+      "sd": 0.0,
+      "sy": 0.5,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 254,
+          "d": 130,
+          "zi": 0
+        },
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "g_z0",
+        "g_z1",
+        "iv_reduced_form",
+        "late_x",
+        "late"
+      ]
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "binary",
+      "sd": 0.5,
+      "sy": 0.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        },
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "binary",
+      "sd": 0.5,
+      "sy": 0.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 254,
+          "d": 250,
+          "zi": 0
+        },
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "r_z0",
+        "r_z1",
+        "g_z0",
+        "g_z1",
+        "iv_first_stage",
+        "iv_reduced_form",
+        "late_x",
+        "late"
+      ]
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "binary",
+      "sd": 0.5,
+      "sy": -0.7,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        },
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "binary",
+      "sd": 0.5,
+      "sy": -0.7,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 254,
+          "d": 250,
+          "zi": 0
+        },
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "r_z0",
+        "r_z1",
+        "g_z0",
+        "g_z1",
+        "iv_first_stage",
+        "iv_reduced_form",
+        "late_x",
+        "late"
+      ]
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "binary",
+      "sd": 50.0,
+      "sy": 10.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        },
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "binary",
+      "sd": 50.0,
+      "sy": 10.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 254,
+          "d": 250,
+          "zi": 0
+        },
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "r_z0",
+        "r_z1",
+        "g_z0",
+        "g_z1",
+        "iv_first_stage",
+        "iv_reduced_form",
+        "late_x",
+        "late"
+      ]
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "poisson",
+      "sd": 0.0,
+      "sy": 0.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        },
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "poisson",
+      "sd": 0.0,
+      "sy": 0.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        },
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "poisson",
+      "sd": 0.0,
+      "sy": 0.5,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        },
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "poisson",
+      "sd": 0.0,
+      "sy": 0.5,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 254,
+          "d": 130,
+          "zi": 0
+        },
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "g_z0",
+        "g_z1",
+        "iv_reduced_form",
+        "late_x",
+        "late"
+      ]
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "poisson",
+      "sd": 0.5,
+      "sy": 0.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        },
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "poisson",
+      "sd": 0.5,
+      "sy": 0.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 254,
+          "d": 250,
+          "zi": 0
+        },
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "r_z0",
+        "r_z1",
+        "g_z0",
+        "g_z1",
+        "iv_first_stage",
+        "iv_reduced_form",
+        "late_x",
+        "late"
+      ]
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "poisson",
+      "sd": 0.5,
+      "sy": -0.7,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        },
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "poisson",
+      "sd": 0.5,
+      "sy": -0.7,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 254,
+          "d": 250,
+          "zi": 0
+        },
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "r_z0",
+        "r_z1",
+        "g_z0",
+        "g_z1",
+        "iv_first_stage",
+        "iv_reduced_form",
+        "late_x",
+        "late"
+      ]
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "poisson",
+      "sd": 50.0,
+      "sy": 10.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        },
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "poisson",
+      "sd": 50.0,
+      "sy": 10.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 254,
+          "d": 250,
+          "zi": 0
+        },
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "r_z0",
+        "r_z1",
+        "g_z0",
+        "g_z1",
+        "iv_first_stage",
+        "iv_reduced_form",
+        "late_x",
+        "late"
+      ]
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "gamma",
+      "sd": 0.0,
+      "sy": 0.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        },
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "gamma",
+      "sd": 0.0,
+      "sy": 0.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        },
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "gamma",
+      "sd": 0.0,
+      "sy": 0.5,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        },
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "gamma",
+      "sd": 0.0,
+      "sy": 0.5,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 254,
+          "d": 130,
+          "zi": 0
+        },
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "g_z0",
+        "g_z1",
+        "iv_reduced_form",
+        "late_x",
+        "late"
+      ]
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "gamma",
+      "sd": 0.5,
+      "sy": 0.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        },
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "gamma",
+      "sd": 0.5,
+      "sy": 0.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 254,
+          "d": 250,
+          "zi": 0
+        },
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "r_z0",
+        "r_z1",
+        "g_z0",
+        "g_z1",
+        "iv_first_stage",
+        "iv_reduced_form",
+        "late_x",
+        "late"
+      ]
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "gamma",
+      "sd": 0.5,
+      "sy": -0.7,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        },
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "gamma",
+      "sd": 0.5,
+      "sy": -0.7,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 254,
+          "d": 250,
+          "zi": 0
+        },
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "r_z0",
+        "r_z1",
+        "g_z0",
+        "g_z1",
+        "iv_first_stage",
+        "iv_reduced_form",
+        "late_x",
+        "late"
+      ]
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "gamma",
+      "sd": 50.0,
+      "sy": 10.0,
+      "include_oracle": false,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        },
+        {
+          "y": 2,
+          "d": 2,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": []
+    },
+    {
+      "generator": "InstrumentalGenerator",
+      "family": "gamma",
+      "sd": 50.0,
+      "sy": 10.0,
+      "include_oracle": true,
+      "frame_rng_pairs": 2,
+      "callbacks": [
+        {
+          "y": 254,
+          "d": 250,
+          "zi": 0
+        },
+        {
+          "y": 14,
+          "d": 10,
+          "zi": 0
+        }
+      ],
+      "corrected_columns": [
+        "r_z0",
+        "r_z1",
+        "g_z0",
+        "g_z1",
+        "iv_first_stage",
+        "iv_reduced_form",
+        "late_x",
+        "late"
+      ]
+    }
+  ],
+  "compatibility_frame_rng_pairs": 180,
+  "references": [
+    {
+      "family": "binary",
+      "a": -5,
+      "s": 2,
+      "b": -5,
+      "t": 50,
+      "abs_error": 0.0,
+      "rel_error": 0.0
+    },
+    {
+      "family": "binary",
+      "a": 0,
+      "s": -5,
+      "b": 0,
+      "t": 5,
+      "abs_error": 0.0,
+      "rel_error": 0.0
+    },
+    {
+      "family": "binary",
+      "a": -5,
+      "s": 50,
+      "b": -1,
+      "t": -10,
+      "abs_error": 0.0,
+      "rel_error": 0.0
+    },
+    {
+      "family": "binary",
+      "a": 0,
+      "s": 1000000.0,
+      "b": 0,
+      "t": -1000000.0,
+      "abs_error": 5.293955920339377e-23,
+      "rel_error": 1.326997959459469e-16
+    },
+    {
+      "family": "binary",
+      "a": -1,
+      "s": 0.3,
+      "b": 19,
+      "t": 2,
+      "abs_error": 0.0,
+      "rel_error": 0.0
+    },
+    {
+      "family": "binary",
+      "a": 0.5,
+      "s": -3,
+      "b": -25,
+      "t": 10,
+      "abs_error": 0.0,
+      "rel_error": 0.0
+    },
+    {
+      "family": "binary",
+      "a": 5.127634561382864,
+      "s": 10.10289377244119,
+      "b": 4.886064986979289,
+      "t": 0.3282910593715105,
+      "abs_error": 1.1102230246251565e-16,
+      "rel_error": 1.6164761223398014e-16
+    },
+    {
+      "family": "binary",
+      "a": -0.24909563454173567,
+      "s": -2.5535214151371943,
+      "b": 19.415267516670514,
+      "t": 9.200613411713165,
+      "abs_error": 5.551115123125783e-17,
+      "rel_error": 1.2370810429007182e-16
+    },
+    {
+      "family": "binary",
+      "a": -2.9444650258717826,
+      "s": -30.15281896118953,
+      "b": -5.044708183613383,
+      "t": -4.887156345079755,
+      "abs_error": 0.0,
+      "rel_error": 0.0
+    },
+    {
+      "family": "binary",
+      "a": -2.5078550613060315,
+      "s": -39.715173914348036,
+      "b": -23.703042280790942,
+      "t": -14.929349991195853,
+      "abs_error": 2.0816681711721685e-17,
+      "rel_error": 3.620208042793331e-16
+    },
+    {
+      "family": "binary",
+      "a": -0.8864119173126843,
+      "s": 12.88477355286629,
+      "b": 18.974729367769555,
+      "t": -7.448629660184749,
+      "abs_error": 1.1102230246251565e-16,
+      "rel_error": 2.381635060598755e-16
+    },
+    {
+      "family": "binary",
+      "a": 2.3167251179212336,
+      "s": 9.897004496640205,
+      "b": -8.117674876049003,
+      "t": 10.847561942349312,
+      "abs_error": 0.0,
+      "rel_error": 0.0
+    },
+    {
+      "family": "binary",
+      "a": -3.5018085587987944,
+      "s": -41.48578789675214,
+      "b": -14.673846867714085,
+      "t": -3.841917344269632,
+      "abs_error": 0.0,
+      "rel_error": 0.0
+    },
+    {
+      "family": "binary",
+      "a": -3.8070438056027203,
+      "s": -35.850367856051335,
+      "b": 23.480351011858662,
+      "t": 5.938753947615063,
+      "abs_error": 0.0,
+      "rel_error": 0.0
+    },
+    {
+      "family": "binary",
+      "a": 3.5274120467547956,
+      "s": 12.841281877054023,
+      "b": 8.010876849553854,
+      "t": 17.75282361843388,
+      "abs_error": 1.1102230246251565e-16,
+      "rel_error": 1.8440633348152314e-16
+    },
+    {
+      "family": "binary",
+      "a": 2.688880795631923,
+      "s": 2.337423022522389,
+      "b": -13.096543333829786,
+      "t": 12.38999810061066,
+      "abs_error": 0.0,
+      "rel_error": 0.0
+    },
+    {
+      "family": "binary",
+      "a": 2.510294980045192,
+      "s": -0.38900588661135993,
+      "b": -24.947706774449685,
+      "t": 15.192036588158988,
+      "abs_error": 6.938893903907228e-18,
+      "rel_error": 1.5913163888427676e-16
+    },
+    {
+      "family": "binary",
+      "a": -4.195214440588957,
+      "s": -36.31560690631645,
+      "b": -13.713476395134794,
+      "t": -15.77535778375172,
+      "abs_error": 2.7755575615628914e-17,
+      "rel_error": 1.431460191173085e-16
+    },
+    {
+      "family": "binary",
+      "a": -2.1146182654005776,
+      "s": -45.6567004559721,
+      "b": -12.232609275689882,
+      "t": 5.171252884373589,
+      "abs_error": 1.0587911840678754e-22,
+      "rel_error": 3.65961867704064e-16
+    },
+    {
+      "family": "binary",
+      "a": -5.20628308036254,
+      "s": 41.29777524750212,
+      "b": 21.116833778339757,
+      "t": 3.0972414546297866,
+      "abs_error": 5.551115123125783e-17,
+      "rel_error": 1.2338895965707756e-16
+    },
+    {
+      "family": "binary",
+      "a": 0.28482487000967627,
+      "s": -35.36673536248688,
+      "b": 20.61553483338075,
+      "t": 7.431975525147094,
+      "abs_error": 1.6653345369377348e-16,
+      "rel_error": 3.3328805938107526e-16
+    },
+    {
+      "family": "binary",
+      "a": -3.6812623936843267,
+      "s": 29.243691911332615,
+      "b": -8.819760808649646,
+      "t": 5.168175674875184,
+      "abs_error": 6.938893903907228e-18,
+      "rel_error": 1.2946102776928701e-16
+    },
+    {
+      "family": "binary",
+      "a": 0.019025287005940417,
+      "s": -16.962857065007054,
+      "b": -17.998503020108842,
+      "t": -19.96706196606219,
+      "abs_error": 2.7755575615628914e-17,
+      "rel_error": 1.5030034759874508e-16
+    },
+    {
+      "family": "binary",
+      "a": 0.9971823702321192,
+      "s": 5.109086882096481,
+      "b": -13.867552208645668,
+      "t": 12.84887943771361,
+      "abs_error": 0.0,
+      "rel_error": 0.0
+    },
+    {
+      "family": "binary",
+      "a": -5.240879766798653,
+      "s": 18.44441107327186,
+      "b": 7.70737413043171,
+      "t": -18.15877193487788,
+      "abs_error": 0.0,
+      "rel_error": 0.0
+    },
+    {
+      "family": "binary",
+      "a": 3.728080067666995,
+      "s": 34.786674676868465,
+      "b": 15.801903105305993,
+      "t": 19.636161469059278,
+      "abs_error": 0.0,
+      "rel_error": 0.0
+    },
+    {
+      "family": "gamma",
+      "a": -5,
+      "s": 2,
+      "b": -5,
+      "t": 50,
+      "abs_error": 1.862645149230957e-09,
+      "rel_error": 1.3203843057483716e-16
+    },
+    {
+      "family": "gamma",
+      "a": 0,
+      "s": -5,
+      "b": 0,
+      "t": 5,
+      "abs_error": 0.0,
+      "rel_error": 0.0
+    },
+    {
+      "family": "gamma",
+      "a": -5,
+      "s": 50,
+      "b": -1,
+      "t": -10,
+      "abs_error": 0.0,
+      "rel_error": 0.0
+    },
+    {
+      "family": "gamma",
+      "a": 0,
+      "s": 1000000.0,
+      "b": 0,
+      "t": -1000000.0,
+      "abs_error": 8.222843386014242e-16,
+      "rel_error": 9.813845994250152e-11
+    },
+    {
+      "family": "gamma",
+      "a": -1,
+      "s": 0.3,
+      "b": 19,
+      "t": 2,
+      "abs_error": 0.0,
+      "rel_error": 0.0
+    },
+    {
+      "family": "gamma",
+      "a": 0.5,
+      "s": -3,
+      "b": -25,
+      "t": 10,
+      "abs_error": 3.469446951953614e-18,
+      "rel_error": 4.0782558098714116e-16
+    },
+    {
+      "family": "gamma",
+      "a": 5.127634561382864,
+      "s": 10.10289377244119,
+      "b": 4.886064986979289,
+      "t": 0.3282910593715105,
+      "abs_error": 4.263256414560601e-14,
+      "rel_error": 3.8384393663210053e-16
+    },
+    {
+      "family": "gamma",
+      "a": -0.24909563454173567,
+      "s": -2.5535214151371943,
+      "b": 19.415267516670514,
+      "t": 9.200613411713165,
+      "abs_error": 7.450580596923828e-09,
+      "rel_error": 1.7582815432803167e-16
+    },
+    {
+      "family": "gamma",
+      "a": -2.9444650258717826,
+      "s": -30.15281896118953,
+      "b": -5.044708183613383,
+      "t": -4.887156345079755,
+      "abs_error": 5.684341886080801e-13,
+      "rel_error": 8.611598757008192e-16
+    },
+    {
+      "family": "gamma",
+      "a": -2.5078550613060315,
+      "s": -39.715173914348036,
+      "b": -23.703042280790942,
+      "t": -14.929349991195853,
+      "abs_error": 9.313225746154785e-10,
+      "rel_error": 8.869151242747182e-16
+    },
+    {
+      "family": "gamma",
+      "a": -0.8864119173126843,
+      "s": 12.88477355286629,
+      "b": 18.974729367769555,
+      "t": -7.448629660184749,
+      "abs_error": 1.862645149230957e-09,
+      "rel_error": 2.104782898395476e-16
+    },
+    {
+      "family": "gamma",
+      "a": 2.3167251179212336,
+      "s": 9.897004496640205,
+      "b": -8.117674876049003,
+      "t": 10.847561942349312,
+      "abs_error": 1.862645149230957e-09,
+      "rel_error": 5.974590035996263e-16
+    },
+    {
+      "family": "gamma",
+      "a": -3.5018085587987944,
+      "s": -41.48578789675214,
+      "b": -14.673846867714085,
+      "t": -3.841917344269632,
+      "abs_error": 0.0,
+      "rel_error": 0.0
+    },
+    {
+      "family": "gamma",
+      "a": -3.8070438056027203,
+      "s": -35.850367856051335,
+      "b": 23.480351011858662,
+      "t": 5.938753947615063,
+      "abs_error": 0.0,
+      "rel_error": 0.0
+    },
+    {
+      "family": "gamma",
+      "a": 3.5274120467547956,
+      "s": 12.841281877054023,
+      "b": 8.010876849553854,
+      "t": 17.75282361843388,
+      "abs_error": 8.940696716308594e-08,
+      "rel_error": 6.86938729189794e-16
+    },
+    {
+      "family": "gamma",
+      "a": 2.688880795631923,
+      "s": 2.337423022522389,
+      "b": -13.096543333829786,
+      "t": 12.38999810061066,
+      "abs_error": 4.656612873077393e-10,
+      "rel_error": 1.948955865487087e-16
+    },
+    {
+      "family": "gamma",
+      "a": 2.510294980045192,
+      "s": -0.38900588661135993,
+      "b": -24.947706774449685,
+      "t": 15.192036588158988,
+      "abs_error": 1.1641532182693481e-10,
+      "rel_error": 1.5728341535446658e-16
+    },
+    {
+      "family": "gamma",
+      "a": -4.195214440588957,
+      "s": -36.31560690631645,
+      "b": -13.713476395134794,
+      "t": -15.77535778375172,
+      "abs_error": 1.862645149230957e-09,
+      "rel_error": 1.993299661266593e-16
+    },
+    {
+      "family": "gamma",
+      "a": -2.1146182654005776,
+      "s": -45.6567004559721,
+      "b": -12.232609275689882,
+      "t": 5.171252884373589,
+      "abs_error": 5.293955920339377e-23,
+      "rel_error": 1.8291851479702219e-16
+    },
+    {
+      "family": "gamma",
+      "a": -5.20628308036254,
+      "s": 41.29777524750212,
+      "b": 21.116833778339757,
+      "t": 3.0972414546297866,
+      "abs_error": 5.960464477539063e-08,
+      "rel_error": 2.7307788737129333e-16
+    },
+    {
+      "family": "gamma",
+      "a": 0.28482487000967627,
+      "s": -35.36673536248688,
+      "b": 20.61553483338075,
+      "t": 7.431975525147094,
+      "abs_error": 7.450580596923828e-09,
+      "rel_error": 1.7390783446584983e-16
+    },
+    {
+      "family": "gamma",
+      "a": -3.6812623936843267,
+      "s": 29.243691911332615,
+      "b": -8.819760808649646,
+      "t": 5.168175674875184,
+      "abs_error": 1.1368683772161603e-13,
+      "rel_error": 1.687874505446085e-15
+    },
+    {
+      "family": "gamma",
+      "a": 0.019025287005940417,
+      "s": -16.962857065007054,
+      "b": -17.998503020108842,
+      "t": -19.96706196606219,
+      "abs_error": 3.725290298461914e-09,
+      "rel_error": 2.390774212170999e-16
+    },
+    {
+      "family": "gamma",
+      "a": 0.9971823702321192,
+      "s": 5.109086882096481,
+      "b": -13.867552208645668,
+      "t": 12.84887943771361,
+      "abs_error": 1.862645149230957e-09,
+      "rel_error": 7.114800993018454e-16
+    },
+    {
+      "family": "gamma",
+      "a": -5.240879766798653,
+      "s": 18.44441107327186,
+      "b": 7.70737413043171,
+      "t": -18.15877193487788,
+      "abs_error": 8.881784197001252e-16,
+      "rel_error": 2.1001719747515265e-16
+    },
+    {
+      "family": "gamma",
+      "a": 3.728080067666995,
+      "s": 34.786674676868465,
+      "b": 15.801903105305993,
+      "t": 19.636161469059278,
+      "abs_error": 2.9802322387695312e-08,
+      "rel_error": 1.4111111528173754e-16
+    }
+  ],
+  "repairs": [
+    {
+      "target": "binary m",
+      "baseline": 0.36667871933292406,
+      "current": 0.46019824525940084,
+      "reference": 0.4601982452594012,
+      "old_abs_error": 0.09351952592647711,
+      "new_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "target": "Tweedie g0",
+      "baseline": 0.36667871933292406,
+      "current": 0.46019824525940084,
+      "reference": 0.4601982452594012,
+      "old_abs_error": 0.09351952592647711,
+      "new_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "target": "IV joint g_by_z",
+      "z": 0,
+      "baseline": 0.3911082754413025,
+      "current": 0.46452433385720326,
+      "reference": 0.46452433385720326,
+      "old_abs_error": 0.07341605841590076,
+      "new_abs_error": 0.0
+    },
+    {
+      "target": "IV joint g_by_z",
+      "z": 1,
+      "baseline": 0.3918075538392011,
+      "current": 0.4666037377603513,
+      "reference": 0.4666037377603513,
+      "old_abs_error": 0.07479618392115023,
+      "new_abs_error": 0.0
+    }
+  ],
+  "unchanged_methods": [
+    "causalis/dgp/causaldata/base.py:__post_init__",
+    "causalis/dgp/causaldata/base.py:_output_column_roles",
+    "causalis/dgp/causaldata/base.py:_validate_column_names",
+    "causalis/dgp/causaldata/base.py:_sample_X",
+    "causalis/dgp/causaldata/base.py:_treatment_score",
+    "causalis/dgp/causaldata/base.py:_outcome_location",
+    "causalis/dgp/causaldata/base.py:_calibrate_alpha_d",
+    "causalis/dgp/causaldata/base.py:to_causal_data",
+    "causalis/dgp/causaldata_instrumental/base.py:__post_init__",
+    "causalis/dgp/causaldata_instrumental/base.py:_output_column_roles",
+    "causalis/dgp/causaldata_instrumental/base.py:_linear_component",
+    "causalis/dgp/causaldata_instrumental/base.py:_calibrate_intercept",
+    "causalis/dgp/causaldata_instrumental/base.py:_instrument_score",
+    "causalis/dgp/causaldata_instrumental/base.py:_instrument_propensity",
+    "causalis/dgp/causaldata_instrumental/base.py:_treatment_propensity",
+    "causalis/dgp/causaldata_instrumental/base.py:_natural_mean_from_location",
+    "causalis/dgp/causaldata_instrumental/base.py:_sample_outcome",
+    "causalis/dgp/causaldata_instrumental/base.py:_u_quadrature",
+    "causalis/dgp/causaldata_instrumental/base.py:_potential_outcome_means",
+    "causalis/dgp/causaldata_instrumental/base.py:generate",
+    "causalis/dgp/causaldata_instrumental/base.py:to_iv_causal_data"
+  ],
+  "limitations": [
+    "deterministic X callbacks only",
+    "estimated errors, no rare-tail relative certificate",
+    "failed generation does not roll back RNG or callbacks"
+  ]
+}

@@ -1,0 +1,1376 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="45" skipped="0" tests="57" time="0.642" timestamp="2026-10-07T18:47:46.089475+03:00" hostname="macbook-C02GM2Y1Q6LR"><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_public_propensity_matches_gaussian_reference[CausalDatasetGenerator-0.0]" time="0.011" /><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_public_propensity_matches_gaussian_reference[CausalDatasetGenerator-0.5]" time="0.004"><failure message="assert 0.007561170551487417 == np.float64(0.007561169712415171)&#10; +  where 0.007561170551487417 = &lt;function CausalDatasetGenerator.oracle_nuisance.&lt;locals&gt;.&lt;lambda&gt; at 0x114232480&gt;(array([], dtype=float64))&#10; +    where array([], dtype=float64) = &lt;built-in function empty&gt;(0)&#10; +      where &lt;built-in function empty&gt; = np.empty">generator_cls = &lt;class '_b17_test_old_binary.CausalDatasetGenerator'&gt;
+strength = 0.5
+
+    @pytest.mark.parametrize("strength", [0.0, 0.5, -3.0, 50.0, -100.0, 1e6])
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    def test_public_propensity_matches_gaussian_reference(generator_cls, strength):
+        gen = generator_cls(k=0, alpha_d=-5, u_strength_d=strength, seed=42)
+        frame = gen.generate(5, U=np.zeros(5))
+        if generator_cls is InstrumentalGenerator:
+            for z in (0, 1):
+                expected = 2 * joint_reference(-5 + z*gen.first_stage, strength, 0, 0, "binary")
+                np.testing.assert_allclose(frame[f"r_z{z}"], expected, atol=2e-11, rtol=0)
+        else:
+            expected = 2 * joint_reference(-5, strength, 0, 0, "binary")
+            np.testing.assert_allclose(frame["m"], expected, atol=2e-11, rtol=0)
+            for order in (5, 21, 61):
+                m, _, _ = gen.oracle_nuisance(num_quad=order)
+&gt;               assert m(np.empty(0)) == frame["m"].iloc[0]
+E               assert 0.007561170551487417 == np.float64(0.007561169712415171)
+E                +  where 0.007561170551487417 = &lt;function CausalDatasetGenerator.oracle_nuisance.&lt;locals&gt;.&lt;lambda&gt; at 0x114232480&gt;(array([], dtype=float64))
+E                +    where array([], dtype=float64) = &lt;built-in function empty&gt;(0)
+E                +      where &lt;built-in function empty&gt; = np.empty
+
+tests/data/test_gaussian_propensity_joint_means.py:47: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_public_propensity_matches_gaussian_reference[CausalDatasetGenerator--3.0]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=2e-11&#10;&#10;Mismatched elements: 5 / 5 (100%)&#10;Mismatch at indices:&#10; [0]: 0.07615144773822977 (ACTUAL), 0.07619734203494585 (DESIRED)&#10; [1]: 0.07615144773822977 (ACTUAL), 0.07619734203494585 (DESIRED)&#10; [2]: 0.07615144773822977 (ACTUAL), 0.07619734203494585 (DESIRED)&#10; [3]: 0.07615144773822977 (ACTUAL), 0.07619734203494585 (DESIRED)&#10; [4]: 0.07615144773822977 (ACTUAL), 0.07619734203494585 (DESIRED)&#10;Max absolute difference among violations: 4.58942967e-05&#10;Max relative difference among violations: 0.00060231&#10; ACTUAL: array([0.076151, 0.076151, 0.076151, 0.076151, 0.076151])&#10; DESIRED: array(0.076197)">generator_cls = &lt;class '_b17_test_old_binary.CausalDatasetGenerator'&gt;
+strength = -3.0
+
+    @pytest.mark.parametrize("strength", [0.0, 0.5, -3.0, 50.0, -100.0, 1e6])
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    def test_public_propensity_matches_gaussian_reference(generator_cls, strength):
+        gen = generator_cls(k=0, alpha_d=-5, u_strength_d=strength, seed=42)
+        frame = gen.generate(5, U=np.zeros(5))
+        if generator_cls is InstrumentalGenerator:
+            for z in (0, 1):
+                expected = 2 * joint_reference(-5 + z*gen.first_stage, strength, 0, 0, "binary")
+                np.testing.assert_allclose(frame[f"r_z{z}"], expected, atol=2e-11, rtol=0)
+        else:
+            expected = 2 * joint_reference(-5, strength, 0, 0, "binary")
+&gt;           np.testing.assert_allclose(frame["m"], expected, atol=2e-11, rtol=0)
+E           AssertionError: 
+E           Not equal to tolerance rtol=0, atol=2e-11
+E           
+E           Mismatched elements: 5 / 5 (100%)
+E           Mismatch at indices:
+E            [0]: 0.07615144773822977 (ACTUAL), 0.07619734203494585 (DESIRED)
+E            [1]: 0.07615144773822977 (ACTUAL), 0.07619734203494585 (DESIRED)
+E            [2]: 0.07615144773822977 (ACTUAL), 0.07619734203494585 (DESIRED)
+E            [3]: 0.07615144773822977 (ACTUAL), 0.07619734203494585 (DESIRED)
+E            [4]: 0.07615144773822977 (ACTUAL), 0.07619734203494585 (DESIRED)
+E           Max absolute difference among violations: 4.58942967e-05
+E           Max relative difference among violations: 0.00060231
+E            ACTUAL: array([0.076151, 0.076151, 0.076151, 0.076151, 0.076151])
+E            DESIRED: array(0.076197)
+
+tests/data/test_gaussian_propensity_joint_means.py:44: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_public_propensity_matches_gaussian_reference[CausalDatasetGenerator-50.0]" time="0.004"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=2e-11&#10;&#10;Mismatched elements: 5 / 5 (100%)&#10;Mismatch at indices:&#10; [0]: 0.3666787193329236 (ACTUAL), 0.4601982452594012 (DESIRED)&#10; [1]: 0.3666787193329237 (ACTUAL), 0.4601982452594012 (DESIRED)&#10; [2]: 0.3666787193329236 (ACTUAL), 0.4601982452594012 (DESIRED)&#10; [3]: 0.3666787193329237 (ACTUAL), 0.4601982452594012 (DESIRED)&#10; [4]: 0.36667871933292373 (ACTUAL), 0.4601982452594012 (DESIRED)&#10;Max absolute difference among violations: 0.09351953&#10;Max relative difference among violations: 0.20321574&#10; ACTUAL: array([0.366679, 0.366679, 0.366679, 0.366679, 0.366679])&#10; DESIRED: array(0.460198)">generator_cls = &lt;class '_b17_test_old_binary.CausalDatasetGenerator'&gt;
+strength = 50.0
+
+    @pytest.mark.parametrize("strength", [0.0, 0.5, -3.0, 50.0, -100.0, 1e6])
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    def test_public_propensity_matches_gaussian_reference(generator_cls, strength):
+        gen = generator_cls(k=0, alpha_d=-5, u_strength_d=strength, seed=42)
+        frame = gen.generate(5, U=np.zeros(5))
+        if generator_cls is InstrumentalGenerator:
+            for z in (0, 1):
+                expected = 2 * joint_reference(-5 + z*gen.first_stage, strength, 0, 0, "binary")
+                np.testing.assert_allclose(frame[f"r_z{z}"], expected, atol=2e-11, rtol=0)
+        else:
+            expected = 2 * joint_reference(-5, strength, 0, 0, "binary")
+&gt;           np.testing.assert_allclose(frame["m"], expected, atol=2e-11, rtol=0)
+E           AssertionError: 
+E           Not equal to tolerance rtol=0, atol=2e-11
+E           
+E           Mismatched elements: 5 / 5 (100%)
+E           Mismatch at indices:
+E            [0]: 0.3666787193329236 (ACTUAL), 0.4601982452594012 (DESIRED)
+E            [1]: 0.3666787193329237 (ACTUAL), 0.4601982452594012 (DESIRED)
+E            [2]: 0.3666787193329236 (ACTUAL), 0.4601982452594012 (DESIRED)
+E            [3]: 0.3666787193329237 (ACTUAL), 0.4601982452594012 (DESIRED)
+E            [4]: 0.36667871933292373 (ACTUAL), 0.4601982452594012 (DESIRED)
+E           Max absolute difference among violations: 0.09351953
+E           Max relative difference among violations: 0.20321574
+E            ACTUAL: array([0.366679, 0.366679, 0.366679, 0.366679, 0.366679])
+E            DESIRED: array(0.460198)
+
+tests/data/test_gaussian_propensity_joint_means.py:44: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_public_propensity_matches_gaussian_reference[CausalDatasetGenerator--100.0]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=2e-11&#10;&#10;Mismatched elements: 5 / 5 (100%)&#10;Mismatch at indices:&#10; [0]: 0.3666787193329829 (ACTUAL), 0.48006447010098036 (DESIRED)&#10; [1]: 0.3666787193329829 (ACTUAL), 0.48006447010098036 (DESIRED)&#10; [2]: 0.3666787193329828 (ACTUAL), 0.48006447010098036 (DESIRED)&#10; [3]: 0.3666787193329829 (ACTUAL), 0.48006447010098036 (DESIRED)&#10; [4]: 0.36667871933298274 (ACTUAL), 0.48006447010098036 (DESIRED)&#10;Max absolute difference among violations: 0.11338575&#10;Max relative difference among violations: 0.23618859&#10; ACTUAL: array([0.366679, 0.366679, 0.366679, 0.366679, 0.366679])&#10; DESIRED: array(0.480064)">generator_cls = &lt;class '_b17_test_old_binary.CausalDatasetGenerator'&gt;
+strength = -100.0
+
+    @pytest.mark.parametrize("strength", [0.0, 0.5, -3.0, 50.0, -100.0, 1e6])
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    def test_public_propensity_matches_gaussian_reference(generator_cls, strength):
+        gen = generator_cls(k=0, alpha_d=-5, u_strength_d=strength, seed=42)
+        frame = gen.generate(5, U=np.zeros(5))
+        if generator_cls is InstrumentalGenerator:
+            for z in (0, 1):
+                expected = 2 * joint_reference(-5 + z*gen.first_stage, strength, 0, 0, "binary")
+                np.testing.assert_allclose(frame[f"r_z{z}"], expected, atol=2e-11, rtol=0)
+        else:
+            expected = 2 * joint_reference(-5, strength, 0, 0, "binary")
+&gt;           np.testing.assert_allclose(frame["m"], expected, atol=2e-11, rtol=0)
+E           AssertionError: 
+E           Not equal to tolerance rtol=0, atol=2e-11
+E           
+E           Mismatched elements: 5 / 5 (100%)
+E           Mismatch at indices:
+E            [0]: 0.3666787193329829 (ACTUAL), 0.48006447010098036 (DESIRED)
+E            [1]: 0.3666787193329829 (ACTUAL), 0.48006447010098036 (DESIRED)
+E            [2]: 0.3666787193329828 (ACTUAL), 0.48006447010098036 (DESIRED)
+E            [3]: 0.3666787193329829 (ACTUAL), 0.48006447010098036 (DESIRED)
+E            [4]: 0.36667871933298274 (ACTUAL), 0.48006447010098036 (DESIRED)
+E           Max absolute difference among violations: 0.11338575
+E           Max relative difference among violations: 0.23618859
+E            ACTUAL: array([0.366679, 0.366679, 0.366679, 0.366679, 0.366679])
+E            DESIRED: array(0.480064)
+
+tests/data/test_gaussian_propensity_joint_means.py:44: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_public_propensity_matches_gaussian_reference[CausalDatasetGenerator-1000000.0]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=2e-11&#10;&#10;Mismatched elements: 5 / 5 (100%)&#10;Mismatch at indices:&#10; [0]: 0.3666787193329829 (ACTUAL), 0.4999980052885981 (DESIRED)&#10; [1]: 0.36667871933298296 (ACTUAL), 0.4999980052885981 (DESIRED)&#10; [2]: 0.3666787193329829 (ACTUAL), 0.4999980052885981 (DESIRED)&#10; [3]: 0.3666787193329829 (ACTUAL), 0.4999980052885981 (DESIRED)&#10; [4]: 0.3666787193329829 (ACTUAL), 0.4999980052885981 (DESIRED)&#10;Max absolute difference among violations: 0.13331929&#10;Max relative difference among violations: 0.26663964&#10; ACTUAL: array([0.366679, 0.366679, 0.366679, 0.366679, 0.366679])&#10; DESIRED: array(0.499998)">generator_cls = &lt;class '_b17_test_old_binary.CausalDatasetGenerator'&gt;
+strength = 1000000.0
+
+    @pytest.mark.parametrize("strength", [0.0, 0.5, -3.0, 50.0, -100.0, 1e6])
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    def test_public_propensity_matches_gaussian_reference(generator_cls, strength):
+        gen = generator_cls(k=0, alpha_d=-5, u_strength_d=strength, seed=42)
+        frame = gen.generate(5, U=np.zeros(5))
+        if generator_cls is InstrumentalGenerator:
+            for z in (0, 1):
+                expected = 2 * joint_reference(-5 + z*gen.first_stage, strength, 0, 0, "binary")
+                np.testing.assert_allclose(frame[f"r_z{z}"], expected, atol=2e-11, rtol=0)
+        else:
+            expected = 2 * joint_reference(-5, strength, 0, 0, "binary")
+&gt;           np.testing.assert_allclose(frame["m"], expected, atol=2e-11, rtol=0)
+E           AssertionError: 
+E           Not equal to tolerance rtol=0, atol=2e-11
+E           
+E           Mismatched elements: 5 / 5 (100%)
+E           Mismatch at indices:
+E            [0]: 0.3666787193329829 (ACTUAL), 0.4999980052885981 (DESIRED)
+E            [1]: 0.36667871933298296 (ACTUAL), 0.4999980052885981 (DESIRED)
+E            [2]: 0.3666787193329829 (ACTUAL), 0.4999980052885981 (DESIRED)
+E            [3]: 0.3666787193329829 (ACTUAL), 0.4999980052885981 (DESIRED)
+E            [4]: 0.3666787193329829 (ACTUAL), 0.4999980052885981 (DESIRED)
+E           Max absolute difference among violations: 0.13331929
+E           Max relative difference among violations: 0.26663964
+E            ACTUAL: array([0.366679, 0.366679, 0.366679, 0.366679, 0.366679])
+E            DESIRED: array(0.499998)
+
+tests/data/test_gaussian_propensity_joint_means.py:44: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_public_propensity_matches_gaussian_reference[InstrumentalGenerator-0.0]" time="0.003" /><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_public_propensity_matches_gaussian_reference[InstrumentalGenerator-0.5]" time="0.006" /><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_public_propensity_matches_gaussian_reference[InstrumentalGenerator--3.0]" time="0.006"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=2e-11&#10;&#10;Mismatched elements: 5 / 5 (100%)&#10;Mismatch at indices:&#10; [0]: 0.0762033880423318 (ACTUAL), 0.07619734203494585 (DESIRED)&#10; [1]: 0.0762033880423318 (ACTUAL), 0.07619734203494585 (DESIRED)&#10; [2]: 0.0762033880423318 (ACTUAL), 0.07619734203494585 (DESIRED)&#10; [3]: 0.0762033880423318 (ACTUAL), 0.07619734203494585 (DESIRED)&#10; [4]: 0.0762033880423318 (ACTUAL), 0.07619734203494585 (DESIRED)&#10;Max absolute difference among violations: 6.04600739e-06&#10;Max relative difference among violations: 7.93466967e-05&#10; ACTUAL: array([0.076203, 0.076203, 0.076203, 0.076203, 0.076203])&#10; DESIRED: array(0.076197)">generator_cls = &lt;class '_b17_test_old_iv.InstrumentalGenerator'&gt;
+strength = -3.0
+
+    @pytest.mark.parametrize("strength", [0.0, 0.5, -3.0, 50.0, -100.0, 1e6])
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    def test_public_propensity_matches_gaussian_reference(generator_cls, strength):
+        gen = generator_cls(k=0, alpha_d=-5, u_strength_d=strength, seed=42)
+        frame = gen.generate(5, U=np.zeros(5))
+        if generator_cls is InstrumentalGenerator:
+            for z in (0, 1):
+                expected = 2 * joint_reference(-5 + z*gen.first_stage, strength, 0, 0, "binary")
+&gt;               np.testing.assert_allclose(frame[f"r_z{z}"], expected, atol=2e-11, rtol=0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=0, atol=2e-11
+E               
+E               Mismatched elements: 5 / 5 (100%)
+E               Mismatch at indices:
+E                [0]: 0.0762033880423318 (ACTUAL), 0.07619734203494585 (DESIRED)
+E                [1]: 0.0762033880423318 (ACTUAL), 0.07619734203494585 (DESIRED)
+E                [2]: 0.0762033880423318 (ACTUAL), 0.07619734203494585 (DESIRED)
+E                [3]: 0.0762033880423318 (ACTUAL), 0.07619734203494585 (DESIRED)
+E                [4]: 0.0762033880423318 (ACTUAL), 0.07619734203494585 (DESIRED)
+E               Max absolute difference among violations: 6.04600739e-06
+E               Max relative difference among violations: 7.93466967e-05
+E                ACTUAL: array([0.076203, 0.076203, 0.076203, 0.076203, 0.076203])
+E                DESIRED: array(0.076197)
+
+tests/data/test_gaussian_propensity_joint_means.py:41: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_public_propensity_matches_gaussian_reference[InstrumentalGenerator-50.0]" time="0.006"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=2e-11&#10;&#10;Mismatched elements: 5 / 5 (100%)&#10;Mismatch at indices:&#10; [0]: 0.3898474049920017 (ACTUAL), 0.4601982452594012 (DESIRED)&#10; [1]: 0.38984740499200177 (ACTUAL), 0.4601982452594012 (DESIRED)&#10; [2]: 0.38984740499200177 (ACTUAL), 0.4601982452594012 (DESIRED)&#10; [3]: 0.38984740499200177 (ACTUAL), 0.4601982452594012 (DESIRED)&#10; [4]: 0.38984740499200177 (ACTUAL), 0.4601982452594012 (DESIRED)&#10;Max absolute difference among violations: 0.07035084&#10;Max relative difference among violations: 0.15287073&#10; ACTUAL: array([0.389847, 0.389847, 0.389847, 0.389847, 0.389847])&#10; DESIRED: array(0.460198)">generator_cls = &lt;class '_b17_test_old_iv.InstrumentalGenerator'&gt;
+strength = 50.0
+
+    @pytest.mark.parametrize("strength", [0.0, 0.5, -3.0, 50.0, -100.0, 1e6])
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    def test_public_propensity_matches_gaussian_reference(generator_cls, strength):
+        gen = generator_cls(k=0, alpha_d=-5, u_strength_d=strength, seed=42)
+        frame = gen.generate(5, U=np.zeros(5))
+        if generator_cls is InstrumentalGenerator:
+            for z in (0, 1):
+                expected = 2 * joint_reference(-5 + z*gen.first_stage, strength, 0, 0, "binary")
+&gt;               np.testing.assert_allclose(frame[f"r_z{z}"], expected, atol=2e-11, rtol=0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=0, atol=2e-11
+E               
+E               Mismatched elements: 5 / 5 (100%)
+E               Mismatch at indices:
+E                [0]: 0.3898474049920017 (ACTUAL), 0.4601982452594012 (DESIRED)
+E                [1]: 0.38984740499200177 (ACTUAL), 0.4601982452594012 (DESIRED)
+E                [2]: 0.38984740499200177 (ACTUAL), 0.4601982452594012 (DESIRED)
+E                [3]: 0.38984740499200177 (ACTUAL), 0.4601982452594012 (DESIRED)
+E                [4]: 0.38984740499200177 (ACTUAL), 0.4601982452594012 (DESIRED)
+E               Max absolute difference among violations: 0.07035084
+E               Max relative difference among violations: 0.15287073
+E                ACTUAL: array([0.389847, 0.389847, 0.389847, 0.389847, 0.389847])
+E                DESIRED: array(0.460198)
+
+tests/data/test_gaussian_propensity_joint_means.py:41: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_public_propensity_matches_gaussian_reference[InstrumentalGenerator--100.0]" time="0.007"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=2e-11&#10;&#10;Mismatched elements: 5 / 5 (100%)&#10;Mismatch at indices:&#10; [0]: 0.389847405011666 (ACTUAL), 0.48006447010098036 (DESIRED)&#10; [1]: 0.389847405011666 (ACTUAL), 0.48006447010098036 (DESIRED)&#10; [2]: 0.3898474050116661 (ACTUAL), 0.48006447010098036 (DESIRED)&#10; [3]: 0.3898474050116661 (ACTUAL), 0.48006447010098036 (DESIRED)&#10; [4]: 0.38984740501166615 (ACTUAL), 0.48006447010098036 (DESIRED)&#10;Max absolute difference among violations: 0.09021707&#10;Max relative difference among violations: 0.18792698&#10; ACTUAL: array([0.389847, 0.389847, 0.389847, 0.389847, 0.389847])&#10; DESIRED: array(0.480064)">generator_cls = &lt;class '_b17_test_old_iv.InstrumentalGenerator'&gt;
+strength = -100.0
+
+    @pytest.mark.parametrize("strength", [0.0, 0.5, -3.0, 50.0, -100.0, 1e6])
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    def test_public_propensity_matches_gaussian_reference(generator_cls, strength):
+        gen = generator_cls(k=0, alpha_d=-5, u_strength_d=strength, seed=42)
+        frame = gen.generate(5, U=np.zeros(5))
+        if generator_cls is InstrumentalGenerator:
+            for z in (0, 1):
+                expected = 2 * joint_reference(-5 + z*gen.first_stage, strength, 0, 0, "binary")
+&gt;               np.testing.assert_allclose(frame[f"r_z{z}"], expected, atol=2e-11, rtol=0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=0, atol=2e-11
+E               
+E               Mismatched elements: 5 / 5 (100%)
+E               Mismatch at indices:
+E                [0]: 0.389847405011666 (ACTUAL), 0.48006447010098036 (DESIRED)
+E                [1]: 0.389847405011666 (ACTUAL), 0.48006447010098036 (DESIRED)
+E                [2]: 0.3898474050116661 (ACTUAL), 0.48006447010098036 (DESIRED)
+E                [3]: 0.3898474050116661 (ACTUAL), 0.48006447010098036 (DESIRED)
+E                [4]: 0.38984740501166615 (ACTUAL), 0.48006447010098036 (DESIRED)
+E               Max absolute difference among violations: 0.09021707
+E               Max relative difference among violations: 0.18792698
+E                ACTUAL: array([0.389847, 0.389847, 0.389847, 0.389847, 0.389847])
+E                DESIRED: array(0.480064)
+
+tests/data/test_gaussian_propensity_joint_means.py:41: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_public_propensity_matches_gaussian_reference[InstrumentalGenerator-1000000.0]" time="0.008"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=2e-11&#10;&#10;Mismatched elements: 5 / 5 (100%)&#10;Mismatch at indices:&#10; [0]: 0.3898474050116659 (ACTUAL), 0.4999980052885981 (DESIRED)&#10; [1]: 0.389847405011666 (ACTUAL), 0.4999980052885981 (DESIRED)&#10; [2]: 0.38984740501166604 (ACTUAL), 0.4999980052885981 (DESIRED)&#10; [3]: 0.38984740501166604 (ACTUAL), 0.4999980052885981 (DESIRED)&#10; [4]: 0.3898474050116661 (ACTUAL), 0.4999980052885981 (DESIRED)&#10;Max absolute difference among violations: 0.1101506&#10;Max relative difference among violations: 0.22030208&#10; ACTUAL: array([0.389847, 0.389847, 0.389847, 0.389847, 0.389847])&#10; DESIRED: array(0.499998)">generator_cls = &lt;class '_b17_test_old_iv.InstrumentalGenerator'&gt;
+strength = 1000000.0
+
+    @pytest.mark.parametrize("strength", [0.0, 0.5, -3.0, 50.0, -100.0, 1e6])
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    def test_public_propensity_matches_gaussian_reference(generator_cls, strength):
+        gen = generator_cls(k=0, alpha_d=-5, u_strength_d=strength, seed=42)
+        frame = gen.generate(5, U=np.zeros(5))
+        if generator_cls is InstrumentalGenerator:
+            for z in (0, 1):
+                expected = 2 * joint_reference(-5 + z*gen.first_stage, strength, 0, 0, "binary")
+&gt;               np.testing.assert_allclose(frame[f"r_z{z}"], expected, atol=2e-11, rtol=0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=0, atol=2e-11
+E               
+E               Mismatched elements: 5 / 5 (100%)
+E               Mismatch at indices:
+E                [0]: 0.3898474050116659 (ACTUAL), 0.4999980052885981 (DESIRED)
+E                [1]: 0.389847405011666 (ACTUAL), 0.4999980052885981 (DESIRED)
+E                [2]: 0.38984740501166604 (ACTUAL), 0.4999980052885981 (DESIRED)
+E                [3]: 0.38984740501166604 (ACTUAL), 0.4999980052885981 (DESIRED)
+E                [4]: 0.3898474050116661 (ACTUAL), 0.4999980052885981 (DESIRED)
+E               Max absolute difference among violations: 0.1101506
+E               Max relative difference among violations: 0.22030208
+E                ACTUAL: array([0.389847, 0.389847, 0.389847, 0.389847, 0.389847])
+E                DESIRED: array(0.499998)
+
+tests/data/test_gaussian_propensity_joint_means.py:41: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[0-0-continuous]" time="0.001" /><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[0-0-binary]" time="0.004" /><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[0-0-poisson]" time="0.006" /><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[0-0-gamma]" time="0.006" /><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[0-50-continuous]" time="0.004" /><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[0-50-binary]" time="0.004"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 0.07004206&#10;Max relative difference among violations: 0.152324&#10; ACTUAL: array(0.389781)&#10; DESIRED: array(0.459823)">family = 'binary', sd = 0, sy = 50
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=0, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 0.07004206
+E               Max relative difference among violations: 0.152324
+E                ACTUAL: array(0.389781)
+E                DESIRED: array(0.459823)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[0-50-poisson]" time="0.005"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 35437490.2644732&#10;Max relative difference among violations: 0.23165114&#10; ACTUAL: array(1.884153e+08)&#10; DESIRED: array(1.529778e+08)">family = 'poisson', sd = 0, sy = 50
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 35437490.2644732
+E               Max relative difference among violations: 0.23165114
+E                ACTUAL: array(1.884153e+08)
+E                DESIRED: array(1.529778e+08)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[0-50-gamma]" time="0.005"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 35437490.2644732&#10;Max relative difference among violations: 0.23165114&#10; ACTUAL: array(1.884153e+08)&#10; DESIRED: array(1.529778e+08)">family = 'gamma', sd = 0, sy = 50
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 35437490.2644732
+E               Max relative difference among violations: 0.23165114
+E                ACTUAL: array(1.884153e+08)
+E                DESIRED: array(1.529778e+08)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[50-0-continuous]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 0.04438619&#10;Max relative difference among violations: 0.00933023&#10; ACTUAL: array(-4.801632)&#10; DESIRED: array(-4.757246)">family = 'continuous', sd = 50, sy = 0
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=0, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 0.04438619
+E               Max relative difference among violations: 0.00933023
+E                ACTUAL: array(-4.801632)
+E                DESIRED: array(-4.757246)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[50-0-binary]" time="0.004"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 0.00039082&#10;Max relative difference among violations: 0.04367319&#10; ACTUAL: array(0.008558)&#10; DESIRED: array(0.008949)">family = 'binary', sd = 50, sy = 0
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=0, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 0.00039082
+E               Max relative difference among violations: 0.04367319
+E                ACTUAL: array(0.008558)
+E                DESIRED: array(0.008949)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[50-0-poisson]" time="0.005"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 0.0003981&#10;Max relative difference among violations: 0.04404892&#10; ACTUAL: array(0.008639)&#10; DESIRED: array(0.009038)">family = 'poisson', sd = 50, sy = 0
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 0.0003981
+E               Max relative difference among violations: 0.04404892
+E                ACTUAL: array(0.008639)
+E                DESIRED: array(0.009038)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[50-0-gamma]" time="0.005"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 0.0003981&#10;Max relative difference among violations: 0.04404892&#10; ACTUAL: array(0.008639)&#10; DESIRED: array(0.009038)">family = 'gamma', sd = 50, sy = 0
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 0.0003981
+E               Max relative difference among violations: 0.04404892
+E                ACTUAL: array(0.008639)
+E                DESIRED: array(0.009038)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[2-50-continuous]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 1.48767487e-09&#10;Max relative difference among violations: 2.95601955e-10&#10; ACTUAL: array(-5.032696)&#10; DESIRED: array(-5.032696)">family = 'continuous', sd = 2, sy = 50
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=0, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 1.48767487e-09
+E               Max relative difference among violations: 2.95601955e-10
+E                ACTUAL: array(-5.032696)
+E                DESIRED: array(-5.032696)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[2-50-binary]" time="0.004"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 0.07004819&#10;Max relative difference among violations: 0.1523353&#10; ACTUAL: array(0.389781)&#10; DESIRED: array(0.459829)">family = 'binary', sd = 2, sy = 50
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=0, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 0.07004819
+E               Max relative difference among violations: 0.1523353
+E                ACTUAL: array(0.389781)
+E                DESIRED: array(0.459829)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[2-50-poisson]" time="0.005"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 35417606.96442491&#10;Max relative difference among violations: 0.23149108&#10; ACTUAL: array(1.884153e+08)&#10; DESIRED: array(1.529977e+08)">family = 'poisson', sd = 2, sy = 50
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 35417606.96442491
+E               Max relative difference among violations: 0.23149108
+E                ACTUAL: array(1.884153e+08)
+E                DESIRED: array(1.529977e+08)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[2-50-gamma]" time="0.005"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 35417606.96442491&#10;Max relative difference among violations: 0.23149108&#10; ACTUAL: array(1.884153e+08)&#10; DESIRED: array(1.529977e+08)">family = 'gamma', sd = 2, sy = 50
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 35417606.96442491
+E               Max relative difference among violations: 0.23149108
+E                ACTUAL: array(1.884153e+08)
+E                DESIRED: array(1.529977e+08)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[-20-10-continuous]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 0.00612686&#10;Max relative difference among violations: 0.00127755&#10; ACTUAL: array(-4.801921)&#10; DESIRED: array(-4.795794)">family = 'continuous', sd = -20, sy = 10
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=0, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 0.00612686
+E               Max relative difference among violations: 0.00127755
+E                ACTUAL: array(-4.801921)
+E                DESIRED: array(-4.795794)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[-20-10-binary]" time="0.004"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 0.00994135&#10;Max relative difference among violations: 0.03211031&#10; ACTUAL: array(0.319541)&#10; DESIRED: array(0.3096)">family = 'binary', sd = -20, sy = 10
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=0, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 0.00994135
+E               Max relative difference among violations: 0.03211031
+E                ACTUAL: array(0.319541)
+E                DESIRED: array(0.3096)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[-20-10-poisson]" time="0.005"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 928024.79266444&#10;Max relative difference among violations: 0.22796437&#10; ACTUAL: array(3142895.577218)&#10; DESIRED: array(4070920.369882)">family = 'poisson', sd = -20, sy = 10
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 928024.79266444
+E               Max relative difference among violations: 0.22796437
+E                ACTUAL: array(3142895.577218)
+E                DESIRED: array(4070920.369882)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[-20-10-gamma]" time="0.005"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 928024.79266444&#10;Max relative difference among violations: 0.22796437&#10; ACTUAL: array(3142895.577218)&#10; DESIRED: array(4070920.369882)">family = 'gamma', sd = -20, sy = 10
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 928024.79266444
+E               Max relative difference among violations: 0.22796437
+E                ACTUAL: array(3142895.577218)
+E                DESIRED: array(4070920.369882)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[50--10-continuous]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 0.04438619&#10;Max relative difference among violations: 0.00933023&#10; ACTUAL: array(-4.801632)&#10; DESIRED: array(-4.757246)">family = 'continuous', sd = 50, sy = -10
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=0, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 0.04438619
+E               Max relative difference among violations: 0.00933023
+E                ACTUAL: array(-4.801632)
+E                DESIRED: array(-4.757246)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[50--10-binary]" time="0.004"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 0.00988237&#10;Max relative difference among violations: 0.03191374&#10; ACTUAL: array(0.319541)&#10; DESIRED: array(0.309659)">family = 'binary', sd = 50, sy = -10
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=0, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 0.00988237
+E               Max relative difference among violations: 0.03191374
+E                ACTUAL: array(0.319541)
+E                DESIRED: array(0.309659)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[50--10-poisson]" time="0.005"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 928024.79272363&#10;Max relative difference among violations: 0.22796437&#10; ACTUAL: array(3142895.577218)&#10; DESIRED: array(4070920.369941)">family = 'poisson', sd = 50, sy = -10
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 928024.79272363
+E               Max relative difference among violations: 0.22796437
+E                ACTUAL: array(3142895.577218)
+E                DESIRED: array(4070920.369941)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[50--10-gamma]" time="0.005"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 928024.79272363&#10;Max relative difference among violations: 0.22796437&#10; ACTUAL: array(3142895.577218)&#10; DESIRED: array(4070920.369941)">family = 'gamma', sd = 50, sy = -10
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 928024.79272363
+E               Max relative difference among violations: 0.22796437
+E                ACTUAL: array(3142895.577218)
+E                DESIRED: array(4070920.369941)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[1000000.0--1000000.0-continuous]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 0.07063059&#10;Max relative difference among violations: 0.01492931&#10; ACTUAL: array(-4.801632)&#10; DESIRED: array(-4.731001)">family = 'continuous', sd = 1000000.0, sy = -1000000.0
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=0, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 0.07063059
+E               Max relative difference among violations: 0.01492931
+E                ACTUAL: array(-4.801632)
+E                DESIRED: array(-4.731001)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[1000000.0--1000000.0-binary]" time="0.004"><failure message="AssertionError: &#10;Not equal to tolerance rtol=0, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 0.11021717&#10;Max relative difference among violations: 0.22043524&#10; ACTUAL: array(0.389781)&#10; DESIRED: array(0.499998)">family = 'binary', sd = 1000000.0, sy = -1000000.0
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=0, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 0.11021717
+E               Max relative difference among violations: 0.22043524
+E                ACTUAL: array(0.389781)
+E                DESIRED: array(0.499998)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[1000000.0--1000000.0-poisson]" time="0.005"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 54162617.08594894&#10;Max relative difference among violations: 0.22327923&#10; ACTUAL: array(1.884153e+08)&#10; DESIRED: array(2.425779e+08)">family = 'poisson', sd = 1000000.0, sy = -1000000.0
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 54162617.08594894
+E               Max relative difference among violations: 0.22327923
+E                ACTUAL: array(1.884153e+08)
+E                DESIRED: array(2.425779e+08)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_iv_joint_mean_matches_shared_gaussian_reference[1000000.0--1000000.0-gamma]" time="0.005"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=3e-11&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 54162617.08594894&#10;Max relative difference among violations: 0.22327923&#10; ACTUAL: array(1.884153e+08)&#10; DESIRED: array(2.425779e+08)">family = 'gamma', sd = 1000000.0, sy = -1000000.0
+
+    @pytest.mark.parametrize("family", ["continuous", "binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("sd,sy", [(0, 0), (0, 50), (50, 0), (2, 50), (-20, 10),
+                                      (50, -10), (1e6, -1e6)])
+    def test_iv_joint_mean_matches_shared_gaussian_reference(family, sd, sy):
+        x = np.array([[-0.3], [0.4]])
+        tau = 0.7 + 0.2*x[:, 0]
+        gen = InstrumentalGenerator(k=1, alpha_d=-5, beta_d=np.array([0.3]),
+            score_bounding=1.2, propensity_sharpness=1.7, alpha_y=-5,
+            beta_y=np.array([0.2]), g_y=lambda v: 0.1*v[:, 0]**2,
+            u_strength_d=sd, u_strength_y=sy, outcome_type=family, seed=8)
+        for z in (0, 1):
+            actual = gen._g_by_z(x, z, tau)
+            for row in range(2):
+                a = -5 + 1.2*np.tanh(1.7*0.3*x[row, 0]/1.2) + z*gen.first_stage
+                b = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2
+                if family == "continuous":
+                    expected = b + tau[row]*2*joint_reference(a, sd, 0, 0, "binary")
+                else:
+                    expected = (joint_reference(-a, -sd, b, sy, family)
+                                + joint_reference(a, sd, b + tau[row], sy, family))
+&gt;               np.testing.assert_allclose(actual[row], expected, atol=3e-11,
+                                           rtol=3e-10 if family in {"poisson", "gamma"} else 0)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=3e-11
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 54162617.08594894
+E               Max relative difference among violations: 0.22327923
+E                ACTUAL: array(1.884153e+08)
+E                DESIRED: array(2.425779e+08)
+
+tests/data/test_gaussian_propensity_joint_means.py:70: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_tweedie_joint_mean_matches_shared_gaussian_reference[gamma-0-0]" time="0.004" /><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_tweedie_joint_mean_matches_shared_gaussian_reference[gamma-50-0]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=1e-12&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 0.03133682&#10;Max relative difference among violations: 0.20270894&#10; ACTUAL: array(0.123253)&#10; DESIRED: array(0.15459)">sz = 50, sy = 0, positive_family = 'gamma'
+
+    @pytest.mark.parametrize("sz,sy", [(0, 0), (50, 0), (0, 10), (2, 10),
+                                      (-50, 10), (50, -10), (1e6, -1e6)])
+    @pytest.mark.parametrize("positive_family", ["gamma", "lognormal"])
+    def test_tweedie_joint_mean_matches_shared_gaussian_reference(sz, sy, positive_family):
+        x = np.array([[-0.3], [0.4]])
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            outcome_type="tweedie", pos_dist=positive_family, alpha_zi=-5,
+            beta_zi=np.array([0.2]), g_zi=lambda v: 0.1*v[:, 0]**2,
+            tau_zi=lambda v: 0.6 + 0.2*v[:, 0], alpha_y=-1,
+            beta_y=np.array([0.3]), tau=lambda v: 0.8 + 0.1*v[:, 0],
+            u_strength_zi=sz, u_strength_y=sy, seed=7)
+        frame = gen.generate(2, U=np.zeros(2))
+        for row in range(2):
+            for d in (0, 1):
+                a = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2 + d*(0.6+0.2*x[row, 0])
+                b = -1 + 0.3*x[row, 0] + d*(0.8+0.1*x[row, 0])
+                expected = joint_reference(a, sz, b, sy, "gamma")
+&gt;               np.testing.assert_allclose(frame.loc[row, f"g{d}"], expected, atol=1e-12, rtol=3e-10)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=1e-12
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 0.03133682
+E               Max relative difference among violations: 0.20270894
+E                ACTUAL: array(0.123253)
+E                DESIRED: array(0.15459)
+
+tests/data/test_gaussian_propensity_joint_means.py:91: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_tweedie_joint_mean_matches_shared_gaussian_reference[gamma-0-10]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=1e-12&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 9404.53735651&#10;Max relative difference among violations: 0.13329341&#10; ACTUAL: array(79959.695844)&#10; DESIRED: array(70555.158488)">sz = 0, sy = 10, positive_family = 'gamma'
+
+    @pytest.mark.parametrize("sz,sy", [(0, 0), (50, 0), (0, 10), (2, 10),
+                                      (-50, 10), (50, -10), (1e6, -1e6)])
+    @pytest.mark.parametrize("positive_family", ["gamma", "lognormal"])
+    def test_tweedie_joint_mean_matches_shared_gaussian_reference(sz, sy, positive_family):
+        x = np.array([[-0.3], [0.4]])
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            outcome_type="tweedie", pos_dist=positive_family, alpha_zi=-5,
+            beta_zi=np.array([0.2]), g_zi=lambda v: 0.1*v[:, 0]**2,
+            tau_zi=lambda v: 0.6 + 0.2*v[:, 0], alpha_y=-1,
+            beta_y=np.array([0.3]), tau=lambda v: 0.8 + 0.1*v[:, 0],
+            u_strength_zi=sz, u_strength_y=sy, seed=7)
+        frame = gen.generate(2, U=np.zeros(2))
+        for row in range(2):
+            for d in (0, 1):
+                a = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2 + d*(0.6+0.2*x[row, 0])
+                b = -1 + 0.3*x[row, 0] + d*(0.8+0.1*x[row, 0])
+                expected = joint_reference(a, sz, b, sy, "gamma")
+&gt;               np.testing.assert_allclose(frame.loc[row, f"g{d}"], expected, atol=1e-12, rtol=3e-10)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=1e-12
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 9404.53735651
+E               Max relative difference among violations: 0.13329341
+E                ACTUAL: array(79959.695844)
+E                DESIRED: array(70555.158488)
+
+tests/data/test_gaussian_propensity_joint_means.py:91: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_tweedie_joint_mean_matches_shared_gaussian_reference[gamma-2-10]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=1e-12&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 105424.27844443&#10;Max relative difference among violations: 0.02270779&#10; ACTUAL: array(4748072.739548)&#10; DESIRED: array(4642648.461104)">sz = 2, sy = 10, positive_family = 'gamma'
+
+    @pytest.mark.parametrize("sz,sy", [(0, 0), (50, 0), (0, 10), (2, 10),
+                                      (-50, 10), (50, -10), (1e6, -1e6)])
+    @pytest.mark.parametrize("positive_family", ["gamma", "lognormal"])
+    def test_tweedie_joint_mean_matches_shared_gaussian_reference(sz, sy, positive_family):
+        x = np.array([[-0.3], [0.4]])
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            outcome_type="tweedie", pos_dist=positive_family, alpha_zi=-5,
+            beta_zi=np.array([0.2]), g_zi=lambda v: 0.1*v[:, 0]**2,
+            tau_zi=lambda v: 0.6 + 0.2*v[:, 0], alpha_y=-1,
+            beta_y=np.array([0.3]), tau=lambda v: 0.8 + 0.1*v[:, 0],
+            u_strength_zi=sz, u_strength_y=sy, seed=7)
+        frame = gen.generate(2, U=np.zeros(2))
+        for row in range(2):
+            for d in (0, 1):
+                a = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2 + d*(0.6+0.2*x[row, 0])
+                b = -1 + 0.3*x[row, 0] + d*(0.8+0.1*x[row, 0])
+                expected = joint_reference(a, sz, b, sy, "gamma")
+&gt;               np.testing.assert_allclose(frame.loc[row, f"g{d}"], expected, atol=1e-12, rtol=3e-10)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=1e-12
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 105424.27844443
+E               Max relative difference among violations: 0.02270779
+E                ACTUAL: array(4748072.739548)
+E                DESIRED: array(4642648.461104)
+
+tests/data/test_gaussian_propensity_joint_means.py:91: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_tweedie_joint_mean_matches_shared_gaussian_reference[gamma--50-10]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=1e-12&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 0.00444297&#10;Max relative difference among violations: 0.87059883&#10; ACTUAL: array(0.00066)&#10; DESIRED: array(0.005103)">sz = -50, sy = 10, positive_family = 'gamma'
+
+    @pytest.mark.parametrize("sz,sy", [(0, 0), (50, 0), (0, 10), (2, 10),
+                                      (-50, 10), (50, -10), (1e6, -1e6)])
+    @pytest.mark.parametrize("positive_family", ["gamma", "lognormal"])
+    def test_tweedie_joint_mean_matches_shared_gaussian_reference(sz, sy, positive_family):
+        x = np.array([[-0.3], [0.4]])
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            outcome_type="tweedie", pos_dist=positive_family, alpha_zi=-5,
+            beta_zi=np.array([0.2]), g_zi=lambda v: 0.1*v[:, 0]**2,
+            tau_zi=lambda v: 0.6 + 0.2*v[:, 0], alpha_y=-1,
+            beta_y=np.array([0.3]), tau=lambda v: 0.8 + 0.1*v[:, 0],
+            u_strength_zi=sz, u_strength_y=sy, seed=7)
+        frame = gen.generate(2, U=np.zeros(2))
+        for row in range(2):
+            for d in (0, 1):
+                a = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2 + d*(0.6+0.2*x[row, 0])
+                b = -1 + 0.3*x[row, 0] + d*(0.8+0.1*x[row, 0])
+                expected = joint_reference(a, sz, b, sy, "gamma")
+&gt;               np.testing.assert_allclose(frame.loc[row, f"g{d}"], expected, atol=1e-12, rtol=3e-10)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=1e-12
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 0.00444297
+E               Max relative difference among violations: 0.87059883
+E                ACTUAL: array(0.00066)
+E                DESIRED: array(0.005103)
+
+tests/data/test_gaussian_propensity_joint_means.py:91: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_tweedie_joint_mean_matches_shared_gaussian_reference[gamma-50--10]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=1e-12&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 0.00444297&#10;Max relative difference among violations: 0.87059883&#10; ACTUAL: array(0.00066)&#10; DESIRED: array(0.005103)">sz = 50, sy = -10, positive_family = 'gamma'
+
+    @pytest.mark.parametrize("sz,sy", [(0, 0), (50, 0), (0, 10), (2, 10),
+                                      (-50, 10), (50, -10), (1e6, -1e6)])
+    @pytest.mark.parametrize("positive_family", ["gamma", "lognormal"])
+    def test_tweedie_joint_mean_matches_shared_gaussian_reference(sz, sy, positive_family):
+        x = np.array([[-0.3], [0.4]])
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            outcome_type="tweedie", pos_dist=positive_family, alpha_zi=-5,
+            beta_zi=np.array([0.2]), g_zi=lambda v: 0.1*v[:, 0]**2,
+            tau_zi=lambda v: 0.6 + 0.2*v[:, 0], alpha_y=-1,
+            beta_y=np.array([0.3]), tau=lambda v: 0.8 + 0.1*v[:, 0],
+            u_strength_zi=sz, u_strength_y=sy, seed=7)
+        frame = gen.generate(2, U=np.zeros(2))
+        for row in range(2):
+            for d in (0, 1):
+                a = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2 + d*(0.6+0.2*x[row, 0])
+                b = -1 + 0.3*x[row, 0] + d*(0.8+0.1*x[row, 0])
+                expected = joint_reference(a, sz, b, sy, "gamma")
+&gt;               np.testing.assert_allclose(frame.loc[row, f"g{d}"], expected, atol=1e-12, rtol=3e-10)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=1e-12
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 0.00444297
+E               Max relative difference among violations: 0.87059883
+E                ACTUAL: array(0.00066)
+E                DESIRED: array(0.005103)
+
+tests/data/test_gaussian_propensity_joint_means.py:91: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_tweedie_joint_mean_matches_shared_gaussian_reference[gamma-1000000.0--1000000.0]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=1e-12&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 0.00057808&#10;Max relative difference among violations: 23750.23291535&#10; ACTUAL: array(0.000578)&#10; DESIRED: array(2.434009e-08)">sz = 1000000.0, sy = -1000000.0, positive_family = 'gamma'
+
+    @pytest.mark.parametrize("sz,sy", [(0, 0), (50, 0), (0, 10), (2, 10),
+                                      (-50, 10), (50, -10), (1e6, -1e6)])
+    @pytest.mark.parametrize("positive_family", ["gamma", "lognormal"])
+    def test_tweedie_joint_mean_matches_shared_gaussian_reference(sz, sy, positive_family):
+        x = np.array([[-0.3], [0.4]])
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            outcome_type="tweedie", pos_dist=positive_family, alpha_zi=-5,
+            beta_zi=np.array([0.2]), g_zi=lambda v: 0.1*v[:, 0]**2,
+            tau_zi=lambda v: 0.6 + 0.2*v[:, 0], alpha_y=-1,
+            beta_y=np.array([0.3]), tau=lambda v: 0.8 + 0.1*v[:, 0],
+            u_strength_zi=sz, u_strength_y=sy, seed=7)
+        frame = gen.generate(2, U=np.zeros(2))
+        for row in range(2):
+            for d in (0, 1):
+                a = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2 + d*(0.6+0.2*x[row, 0])
+                b = -1 + 0.3*x[row, 0] + d*(0.8+0.1*x[row, 0])
+                expected = joint_reference(a, sz, b, sy, "gamma")
+&gt;               np.testing.assert_allclose(frame.loc[row, f"g{d}"], expected, atol=1e-12, rtol=3e-10)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=1e-12
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 0.00057808
+E               Max relative difference among violations: 23750.23291535
+E                ACTUAL: array(0.000578)
+E                DESIRED: array(2.434009e-08)
+
+tests/data/test_gaussian_propensity_joint_means.py:91: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_tweedie_joint_mean_matches_shared_gaussian_reference[lognormal-0-0]" time="0.004" /><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_tweedie_joint_mean_matches_shared_gaussian_reference[lognormal-50-0]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=1e-12&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 0.03133682&#10;Max relative difference among violations: 0.20270894&#10; ACTUAL: array(0.123253)&#10; DESIRED: array(0.15459)">sz = 50, sy = 0, positive_family = 'lognormal'
+
+    @pytest.mark.parametrize("sz,sy", [(0, 0), (50, 0), (0, 10), (2, 10),
+                                      (-50, 10), (50, -10), (1e6, -1e6)])
+    @pytest.mark.parametrize("positive_family", ["gamma", "lognormal"])
+    def test_tweedie_joint_mean_matches_shared_gaussian_reference(sz, sy, positive_family):
+        x = np.array([[-0.3], [0.4]])
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            outcome_type="tweedie", pos_dist=positive_family, alpha_zi=-5,
+            beta_zi=np.array([0.2]), g_zi=lambda v: 0.1*v[:, 0]**2,
+            tau_zi=lambda v: 0.6 + 0.2*v[:, 0], alpha_y=-1,
+            beta_y=np.array([0.3]), tau=lambda v: 0.8 + 0.1*v[:, 0],
+            u_strength_zi=sz, u_strength_y=sy, seed=7)
+        frame = gen.generate(2, U=np.zeros(2))
+        for row in range(2):
+            for d in (0, 1):
+                a = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2 + d*(0.6+0.2*x[row, 0])
+                b = -1 + 0.3*x[row, 0] + d*(0.8+0.1*x[row, 0])
+                expected = joint_reference(a, sz, b, sy, "gamma")
+&gt;               np.testing.assert_allclose(frame.loc[row, f"g{d}"], expected, atol=1e-12, rtol=3e-10)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=1e-12
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 0.03133682
+E               Max relative difference among violations: 0.20270894
+E                ACTUAL: array(0.123253)
+E                DESIRED: array(0.15459)
+
+tests/data/test_gaussian_propensity_joint_means.py:91: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_tweedie_joint_mean_matches_shared_gaussian_reference[lognormal-0-10]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=1e-12&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 9404.53735651&#10;Max relative difference among violations: 0.13329341&#10; ACTUAL: array(79959.695844)&#10; DESIRED: array(70555.158488)">sz = 0, sy = 10, positive_family = 'lognormal'
+
+    @pytest.mark.parametrize("sz,sy", [(0, 0), (50, 0), (0, 10), (2, 10),
+                                      (-50, 10), (50, -10), (1e6, -1e6)])
+    @pytest.mark.parametrize("positive_family", ["gamma", "lognormal"])
+    def test_tweedie_joint_mean_matches_shared_gaussian_reference(sz, sy, positive_family):
+        x = np.array([[-0.3], [0.4]])
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            outcome_type="tweedie", pos_dist=positive_family, alpha_zi=-5,
+            beta_zi=np.array([0.2]), g_zi=lambda v: 0.1*v[:, 0]**2,
+            tau_zi=lambda v: 0.6 + 0.2*v[:, 0], alpha_y=-1,
+            beta_y=np.array([0.3]), tau=lambda v: 0.8 + 0.1*v[:, 0],
+            u_strength_zi=sz, u_strength_y=sy, seed=7)
+        frame = gen.generate(2, U=np.zeros(2))
+        for row in range(2):
+            for d in (0, 1):
+                a = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2 + d*(0.6+0.2*x[row, 0])
+                b = -1 + 0.3*x[row, 0] + d*(0.8+0.1*x[row, 0])
+                expected = joint_reference(a, sz, b, sy, "gamma")
+&gt;               np.testing.assert_allclose(frame.loc[row, f"g{d}"], expected, atol=1e-12, rtol=3e-10)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=1e-12
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 9404.53735651
+E               Max relative difference among violations: 0.13329341
+E                ACTUAL: array(79959.695844)
+E                DESIRED: array(70555.158488)
+
+tests/data/test_gaussian_propensity_joint_means.py:91: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_tweedie_joint_mean_matches_shared_gaussian_reference[lognormal-2-10]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=1e-12&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 105424.27844443&#10;Max relative difference among violations: 0.02270779&#10; ACTUAL: array(4748072.739548)&#10; DESIRED: array(4642648.461104)">sz = 2, sy = 10, positive_family = 'lognormal'
+
+    @pytest.mark.parametrize("sz,sy", [(0, 0), (50, 0), (0, 10), (2, 10),
+                                      (-50, 10), (50, -10), (1e6, -1e6)])
+    @pytest.mark.parametrize("positive_family", ["gamma", "lognormal"])
+    def test_tweedie_joint_mean_matches_shared_gaussian_reference(sz, sy, positive_family):
+        x = np.array([[-0.3], [0.4]])
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            outcome_type="tweedie", pos_dist=positive_family, alpha_zi=-5,
+            beta_zi=np.array([0.2]), g_zi=lambda v: 0.1*v[:, 0]**2,
+            tau_zi=lambda v: 0.6 + 0.2*v[:, 0], alpha_y=-1,
+            beta_y=np.array([0.3]), tau=lambda v: 0.8 + 0.1*v[:, 0],
+            u_strength_zi=sz, u_strength_y=sy, seed=7)
+        frame = gen.generate(2, U=np.zeros(2))
+        for row in range(2):
+            for d in (0, 1):
+                a = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2 + d*(0.6+0.2*x[row, 0])
+                b = -1 + 0.3*x[row, 0] + d*(0.8+0.1*x[row, 0])
+                expected = joint_reference(a, sz, b, sy, "gamma")
+&gt;               np.testing.assert_allclose(frame.loc[row, f"g{d}"], expected, atol=1e-12, rtol=3e-10)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=1e-12
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 105424.27844443
+E               Max relative difference among violations: 0.02270779
+E                ACTUAL: array(4748072.739548)
+E                DESIRED: array(4642648.461104)
+
+tests/data/test_gaussian_propensity_joint_means.py:91: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_tweedie_joint_mean_matches_shared_gaussian_reference[lognormal--50-10]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=1e-12&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 0.00444297&#10;Max relative difference among violations: 0.87059883&#10; ACTUAL: array(0.00066)&#10; DESIRED: array(0.005103)">sz = -50, sy = 10, positive_family = 'lognormal'
+
+    @pytest.mark.parametrize("sz,sy", [(0, 0), (50, 0), (0, 10), (2, 10),
+                                      (-50, 10), (50, -10), (1e6, -1e6)])
+    @pytest.mark.parametrize("positive_family", ["gamma", "lognormal"])
+    def test_tweedie_joint_mean_matches_shared_gaussian_reference(sz, sy, positive_family):
+        x = np.array([[-0.3], [0.4]])
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            outcome_type="tweedie", pos_dist=positive_family, alpha_zi=-5,
+            beta_zi=np.array([0.2]), g_zi=lambda v: 0.1*v[:, 0]**2,
+            tau_zi=lambda v: 0.6 + 0.2*v[:, 0], alpha_y=-1,
+            beta_y=np.array([0.3]), tau=lambda v: 0.8 + 0.1*v[:, 0],
+            u_strength_zi=sz, u_strength_y=sy, seed=7)
+        frame = gen.generate(2, U=np.zeros(2))
+        for row in range(2):
+            for d in (0, 1):
+                a = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2 + d*(0.6+0.2*x[row, 0])
+                b = -1 + 0.3*x[row, 0] + d*(0.8+0.1*x[row, 0])
+                expected = joint_reference(a, sz, b, sy, "gamma")
+&gt;               np.testing.assert_allclose(frame.loc[row, f"g{d}"], expected, atol=1e-12, rtol=3e-10)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=1e-12
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 0.00444297
+E               Max relative difference among violations: 0.87059883
+E                ACTUAL: array(0.00066)
+E                DESIRED: array(0.005103)
+
+tests/data/test_gaussian_propensity_joint_means.py:91: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_tweedie_joint_mean_matches_shared_gaussian_reference[lognormal-50--10]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=1e-12&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 0.00444297&#10;Max relative difference among violations: 0.87059883&#10; ACTUAL: array(0.00066)&#10; DESIRED: array(0.005103)">sz = 50, sy = -10, positive_family = 'lognormal'
+
+    @pytest.mark.parametrize("sz,sy", [(0, 0), (50, 0), (0, 10), (2, 10),
+                                      (-50, 10), (50, -10), (1e6, -1e6)])
+    @pytest.mark.parametrize("positive_family", ["gamma", "lognormal"])
+    def test_tweedie_joint_mean_matches_shared_gaussian_reference(sz, sy, positive_family):
+        x = np.array([[-0.3], [0.4]])
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            outcome_type="tweedie", pos_dist=positive_family, alpha_zi=-5,
+            beta_zi=np.array([0.2]), g_zi=lambda v: 0.1*v[:, 0]**2,
+            tau_zi=lambda v: 0.6 + 0.2*v[:, 0], alpha_y=-1,
+            beta_y=np.array([0.3]), tau=lambda v: 0.8 + 0.1*v[:, 0],
+            u_strength_zi=sz, u_strength_y=sy, seed=7)
+        frame = gen.generate(2, U=np.zeros(2))
+        for row in range(2):
+            for d in (0, 1):
+                a = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2 + d*(0.6+0.2*x[row, 0])
+                b = -1 + 0.3*x[row, 0] + d*(0.8+0.1*x[row, 0])
+                expected = joint_reference(a, sz, b, sy, "gamma")
+&gt;               np.testing.assert_allclose(frame.loc[row, f"g{d}"], expected, atol=1e-12, rtol=3e-10)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=1e-12
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 0.00444297
+E               Max relative difference among violations: 0.87059883
+E                ACTUAL: array(0.00066)
+E                DESIRED: array(0.005103)
+
+tests/data/test_gaussian_propensity_joint_means.py:91: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_tweedie_joint_mean_matches_shared_gaussian_reference[lognormal-1000000.0--1000000.0]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=1e-12&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 0.00057808&#10;Max relative difference among violations: 23750.23291535&#10; ACTUAL: array(0.000578)&#10; DESIRED: array(2.434009e-08)">sz = 1000000.0, sy = -1000000.0, positive_family = 'lognormal'
+
+    @pytest.mark.parametrize("sz,sy", [(0, 0), (50, 0), (0, 10), (2, 10),
+                                      (-50, 10), (50, -10), (1e6, -1e6)])
+    @pytest.mark.parametrize("positive_family", ["gamma", "lognormal"])
+    def test_tweedie_joint_mean_matches_shared_gaussian_reference(sz, sy, positive_family):
+        x = np.array([[-0.3], [0.4]])
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            outcome_type="tweedie", pos_dist=positive_family, alpha_zi=-5,
+            beta_zi=np.array([0.2]), g_zi=lambda v: 0.1*v[:, 0]**2,
+            tau_zi=lambda v: 0.6 + 0.2*v[:, 0], alpha_y=-1,
+            beta_y=np.array([0.3]), tau=lambda v: 0.8 + 0.1*v[:, 0],
+            u_strength_zi=sz, u_strength_y=sy, seed=7)
+        frame = gen.generate(2, U=np.zeros(2))
+        for row in range(2):
+            for d in (0, 1):
+                a = -5 + 0.2*x[row, 0] + 0.1*x[row, 0]**2 + d*(0.6+0.2*x[row, 0])
+                b = -1 + 0.3*x[row, 0] + d*(0.8+0.1*x[row, 0])
+                expected = joint_reference(a, sz, b, sy, "gamma")
+&gt;               np.testing.assert_allclose(frame.loc[row, f"g{d}"], expected, atol=1e-12, rtol=3e-10)
+E               AssertionError: 
+E               Not equal to tolerance rtol=3e-10, atol=1e-12
+E               
+E               Mismatched elements: 1 / 1 (100%)
+E               Max absolute difference among violations: 0.00057808
+E               Max relative difference among violations: 23750.23291535
+E                ACTUAL: array(0.000578)
+E                DESIRED: array(2.434009e-08)
+
+tests/data/test_gaussian_propensity_joint_means.py:91: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_joint_dependence_cannot_be_replaced_by_product_of_marginals" time="0.004"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=0&#10;&#10;Mismatched elements: 1 / 1 (100%)&#10;Max absolute difference among violations: 1.19979403e-05&#10;Max relative difference among violations: 2.39966954e-05&#10; ACTUAL: array(0.499971)&#10; DESIRED: array(0.499983)">def test_joint_dependence_cannot_be_replaced_by_product_of_marginals():
+        gen = CausalDatasetGenerator(k=0, outcome_type="tweedie", alpha_zi=0,
+            alpha_y=0, theta=0, u_strength_zi=-5, u_strength_y=5, seed=18)
+        actual = gen.generate(3, U=np.zeros(3))["g0"].iloc[0]
+        joint = joint_reference(0, -5, 0, 5, "gamma")
+        independent = joint_reference(0, -5, 0, 0, "binary")*4*joint_reference(0, 0, 0, 5, "gamma")
+        assert abs(joint - independent) &gt; 100
+&gt;       np.testing.assert_allclose(actual, joint, rtol=3e-10)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=0
+E       
+E       Mismatched elements: 1 / 1 (100%)
+E       Max absolute difference among violations: 1.19979403e-05
+E       Max relative difference among violations: 2.39966954e-05
+E        ACTUAL: array(0.499971)
+E        DESIRED: array(0.499983)
+
+tests/data/test_gaussian_propensity_joint_means.py:101: AssertionError</failure></testcase><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_supplied_u_preserves_gaussian_propensity_reference[CausalDatasetGenerator]" time="0.004" /><testcase classname="tests.data.test_gaussian_propensity_joint_means" name="test_supplied_u_preserves_gaussian_propensity_reference[InstrumentalGenerator]" time="0.012" /></testsuite></testsuites>

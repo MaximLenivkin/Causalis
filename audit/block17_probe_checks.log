@@ -1,0 +1,42 @@
+{
+  "pairs": 180,
+  "references": 52,
+  "max_binary_abs": 1.6653345369377348e-16,
+  "max_gamma_rel": 9.813845994250152e-11,
+  "repairs": [
+    {
+      "target": "binary m",
+      "baseline": 0.36667871933292406,
+      "current": 0.46019824525940084,
+      "reference": 0.4601982452594012,
+      "old_abs_error": 0.09351952592647711,
+      "new_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "target": "Tweedie g0",
+      "baseline": 0.36667871933292406,
+      "current": 0.46019824525940084,
+      "reference": 0.4601982452594012,
+      "old_abs_error": 0.09351952592647711,
+      "new_abs_error": 3.3306690738754696e-16
+    },
+    {
+      "target": "IV joint g_by_z",
+      "z": 0,
+      "baseline": 0.3911082754413025,
+      "current": 0.46452433385720326,
+      "reference": 0.46452433385720326,
+      "old_abs_error": 0.07341605841590076,
+      "new_abs_error": 0.0
+    },
+    {
+      "target": "IV joint g_by_z",
+      "z": 1,
+      "baseline": 0.3918075538392011,
+      "current": 0.4666037377603513,
+      "reference": 0.4666037377603513,
+      "old_abs_error": 0.07479618392115023,
+      "new_abs_error": 0.0
+    }
+  ]
+}

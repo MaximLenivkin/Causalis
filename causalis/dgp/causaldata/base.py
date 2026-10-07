@@ -41,6 +41,7 @@ from typing import Dict, Optional, Union, List, Tuple, Callable, Any
 from causalis.dgp.causaldata import CausalData
 from causalis.dgp.base import _sigmoid, _gaussian_copula
 from causalis.dgp._gaussian_outcome import _gaussian_outcome_mean
+from causalis.dgp._gaussian_joint import _gaussian_product_mean
 
 _DATACLASS_KWARGS = {"slots": True} if sys.version_info >= (3, 10) else {}
 
@@ -551,11 +552,8 @@ class CausalDatasetGenerator:
 
         # Marginal m(x) = E[D|X] (integrate out U if it affects treatment)
         if float(self.u_strength_d) != 0.0:
-            # Gauss-Hermite computes E[sigmoid(base + u_strength_d * U)] for U~N(0,1).
-            gh_x, gh_w = np.polynomial.hermite.hermgauss(21)
-            gh_w = gh_w / np.sqrt(np.pi)
             base = self.alpha_d + self._treatment_score(X, np.zeros(n))
-            m = np.sum(_sigmoid(base[:, None] + self.u_strength_d * np.sqrt(2.0) * gh_x[None, :]) * gh_w[None, :], axis=1)
+            m = _gaussian_outcome_mean(base, self.u_strength_d, "binary")
         else:
             # Closed form when U doesn't affect D
             base = self.alpha_d + self._treatment_score(X, np.zeros(n))
@@ -663,7 +661,7 @@ class CausalDatasetGenerator:
             # Oracle g(d) on natural scale:
             #   g(d) = E_U[sigmoid(zi(X,d,U)) * exp(loc(X,d,U))]
             # where U ~ N(0,1). This is a one-dimensional integral and is computed
-            # via Gauss-Hermite when latent U enters either zi or y locations.
+            # with bounded adaptive integration when latent U enters either location.
             Xf = np.asarray(X, dtype=float)
             base_zi = np.full(n, float(self.alpha_zi), dtype=float)
             if self.beta_zi is not None:
@@ -685,23 +683,8 @@ class CausalDatasetGenerator:
             uy = float(self.u_strength_y)
             uzi = float(self.u_strength_zi)
             if (uy != 0.0) or (uzi != 0.0):
-                gh_x, gh_w = np.polynomial.hermite.hermgauss(21)
-                gh_w = gh_w / np.sqrt(np.pi)
-                Uq = np.sqrt(2.0) * gh_x
-
-                zi0_u = base_zi[:, None] + uzi * Uq[None, :]
-                zi1_u = (base_zi + tau_zi_x)[:, None] + uzi * Uq[None, :]
-                loc0_u = loc0[:, None] + uy * Uq[None, :]
-                loc1_u = loc1[:, None] + uy * Uq[None, :]
-
-                # Product-of-means form comes from two-part construction: P(Y>0)*E[Y|Y>0].
-                p_pos0 = _sigmoid(zi0_u)
-                p_pos1 = _sigmoid(zi1_u)
-                mu_pos0 = np.exp(np.clip(loc0_u, -20, 20))
-                mu_pos1 = np.exp(np.clip(loc1_u, -20, 20))
-
-                g0 = np.sum(p_pos0 * mu_pos0 * gh_w[None, :], axis=1)
-                g1 = np.sum(p_pos1 * mu_pos1 * gh_w[None, :], axis=1)
+                g0 = _gaussian_product_mean(base_zi, uzi, loc0, uy, "gamma")
+                g1 = _gaussian_product_mean(base_zi + tau_zi_x, uzi, loc1, uy, "gamma")
             else:
                 p_pos0 = _sigmoid(base_zi)
                 p_pos1 = _sigmoid(base_zi + tau_zi_x)
@@ -774,8 +757,8 @@ class CausalDatasetGenerator:
         Parameters
         ----------
         num_quad : int, default=21
-            Number of Gauss-Hermite points for the treatment propensity only.
-            Nonlinear outcome means use the same Gaussian integration as
+            Retained for call compatibility; must convert to a positive integer.
+            All nonlinear Gaussian means use the same adaptive integration as
             ``generate``, independent of this setting.
 
         Returns
@@ -790,9 +773,8 @@ class CausalDatasetGenerator:
                 "Use instruments (PLIV-DML) or set one of u_strength_* to 0."
             )
 
-        # Precompute GH nodes/weights normalized for N(0,1)
-        gh_x, gh_w = np.polynomial.hermite.hermgauss(int(num_quad))
-        gh_w = gh_w / np.sqrt(np.pi)
+        if int(num_quad) < 1:
+            raise ValueError("num_quad must be a positive integer")
 
         def m_of_x(x_row: np.ndarray) -> float:
             x = np.asarray(x_row, dtype=float).reshape(1, -1)
@@ -802,9 +784,7 @@ class CausalDatasetGenerator:
             ut = float(getattr(self, "u_strength_d", 0.0))
             if ut == 0.0:
                 return float(_sigmoid(base))
-            # Integrate over U ~ N(0,1) using Gauss–Hermite: U = sqrt(2) * gh_x
-            z = base + ut * np.sqrt(2.0) * gh_x
-            return float(np.sum(_sigmoid(z) * gh_w))
+            return float(_gaussian_outcome_mean(base, ut, "binary"))
 
         def g_of_x_d(x_row: np.ndarray, d: int) -> float:
             x = np.asarray(x_row, dtype=float).reshape(1, -1)

@@ -1,0 +1,12 @@
+{
+  "baseline": "aaeadd810c5c4ab7e1710cb4e634338267a0f216",
+  "process_head": "aaeadd810c5c4ab7e1710cb4e634338267a0f216",
+  "baseline_sha256": {
+    "causalis/dgp/causaldata/base.py": "f73a18e9be53e88143c4d683c66711aecc29a88778029389ec4fd838ad8e307c",
+    "causalis/dgp/causaldata_instrumental/base.py": "2bc1f92cd5a7a8078a93214ea93e5a50f416587ad39e75a3788daa6f38babc55"
+  },
+  "test_path": "tests/data/test_gaussian_propensity_joint_means.py",
+  "test_sha256": "26cc05a88011bcfc4893ce9e09c54c894e8c7d0f8d5a6582782fcfca1d90575b",
+  "shared_helper_sha256": "37f82f9bac1f15285f5c42a0b2bec1bdfa900ae9e5283aa04b37811401f1fafc",
+  "exit_code": 1
+}
