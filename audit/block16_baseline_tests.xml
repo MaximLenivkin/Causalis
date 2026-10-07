@@ -1,0 +1,1420 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="37" skipped="0" tests="62" time="4.792" timestamp="2026-10-07T18:19:27.280289+03:00" hostname="macbook-C02GM2Y1Q6LR"><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[binary--5.0-50.0-CausalDatasetGenerator]" time="0.010"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=2e-11&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 0.36667871933292306 (ACTUAL), 0.4601982452594012 (DESIRED)&#10; [0, 1]: 0.3688627407310687 (ACTUAL), 0.4665501574601277 (DESIRED)&#10; [1, 0]: 0.3666787193329232 (ACTUAL), 0.4601982452594012 (DESIRED)&#10; [1, 1]: 0.3688627407310688 (ACTUAL), 0.4665501574601277 (DESIRED)&#10; [2, 0]: 0.3666787193329232 (ACTUAL), 0.4601982452594012 (DESIRED)&#10;Max absolute difference among violations: 0.09768742&#10;Max relative difference among violations: 0.20938245&#10; ACTUAL: array([[0.366679, 0.368863],&#10;       [0.366679, 0.368863],&#10;       [0.366679, 0.368863],...&#10; DESIRED: array([[0.460198, 0.46655 ],&#10;       [0.460198, 0.46655 ],&#10;       [0.460198, 0.46655 ],...">generator_cls = &lt;class 'causalis.dgp.causaldata.base.CausalDatasetGenerator'&gt;
+family = 'binary', location = -5.0, strength = 50.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=2e-11
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.36667871933292306 (ACTUAL), 0.4601982452594012 (DESIRED)
+E        [0, 1]: 0.3688627407310687 (ACTUAL), 0.4665501574601277 (DESIRED)
+E        [1, 0]: 0.3666787193329232 (ACTUAL), 0.4601982452594012 (DESIRED)
+E        [1, 1]: 0.3688627407310688 (ACTUAL), 0.4665501574601277 (DESIRED)
+E        [2, 0]: 0.3666787193329232 (ACTUAL), 0.4601982452594012 (DESIRED)
+E       Max absolute difference among violations: 0.09768742
+E       Max relative difference among violations: 0.20938245
+E        ACTUAL: array([[0.366679, 0.368863],
+E              [0.366679, 0.368863],
+E              [0.366679, 0.368863],...
+E        DESIRED: array([[0.460198, 0.46655 ],
+E              [0.460198, 0.46655 ],
+E              [0.460198, 0.46655 ],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[binary--5.0-50.0-InstrumentalGenerator]" time="0.008"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=2e-11&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 0.3898474049920016 (ACTUAL), 0.4601982452594012 (DESIRED)&#10; [0, 1]: 0.3916518853026647 (ACTUAL), 0.4665501574601277 (DESIRED)&#10; [1, 0]: 0.3898474049920016 (ACTUAL), 0.4601982452594012 (DESIRED)&#10; [1, 1]: 0.3916518853026647 (ACTUAL), 0.4665501574601277 (DESIRED)&#10; [2, 0]: 0.38984740499200166 (ACTUAL), 0.4601982452594012 (DESIRED)&#10;Max absolute difference among violations: 0.07489827&#10;Max relative difference among violations: 0.16053638&#10; ACTUAL: array([[0.389847, 0.391652],&#10;       [0.389847, 0.391652],&#10;       [0.389847, 0.391652],...&#10; DESIRED: array([[0.460198, 0.46655 ],&#10;       [0.460198, 0.46655 ],&#10;       [0.460198, 0.46655 ],...">generator_cls = &lt;class 'causalis.dgp.causaldata_instrumental.base.InstrumentalGenerator'&gt;
+family = 'binary', location = -5.0, strength = 50.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=2e-11
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.3898474049920016 (ACTUAL), 0.4601982452594012 (DESIRED)
+E        [0, 1]: 0.3916518853026647 (ACTUAL), 0.4665501574601277 (DESIRED)
+E        [1, 0]: 0.3898474049920016 (ACTUAL), 0.4601982452594012 (DESIRED)
+E        [1, 1]: 0.3916518853026647 (ACTUAL), 0.4665501574601277 (DESIRED)
+E        [2, 0]: 0.38984740499200166 (ACTUAL), 0.4601982452594012 (DESIRED)
+E       Max absolute difference among violations: 0.07489827
+E       Max relative difference among violations: 0.16053638
+E        ACTUAL: array([[0.389847, 0.391652],
+E              [0.389847, 0.391652],
+E              [0.389847, 0.391652],...
+E        DESIRED: array([[0.460198, 0.46655 ],
+E              [0.460198, 0.46655 ],
+E              [0.460198, 0.46655 ],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[binary-5.0--50.0-CausalDatasetGenerator]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=2e-11&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 0.6333212806670728 (ACTUAL), 0.5398017547405991 (DESIRED)&#10; [0, 1]: 0.6343143340365548 (ACTUAL), 0.5461435255485015 (DESIRED)&#10; [1, 0]: 0.6333212806670727 (ACTUAL), 0.5398017547405991 (DESIRED)&#10; [1, 1]: 0.6343143340365547 (ACTUAL), 0.5461435255485015 (DESIRED)&#10; [2, 0]: 0.6333212806670726 (ACTUAL), 0.5398017547405991 (DESIRED)&#10;Max absolute difference among violations: 0.09351953&#10;Max relative difference among violations: 0.17324791&#10; ACTUAL: array([[0.633321, 0.634314],&#10;       [0.633321, 0.634314],&#10;       [0.633321, 0.634314],...&#10; DESIRED: array([[0.539802, 0.546144],&#10;       [0.539802, 0.546144],&#10;       [0.539802, 0.546144],...">generator_cls = &lt;class 'causalis.dgp.causaldata.base.CausalDatasetGenerator'&gt;
+family = 'binary', location = 5.0, strength = -50.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=2e-11
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.6333212806670728 (ACTUAL), 0.5398017547405991 (DESIRED)
+E        [0, 1]: 0.6343143340365548 (ACTUAL), 0.5461435255485015 (DESIRED)
+E        [1, 0]: 0.6333212806670727 (ACTUAL), 0.5398017547405991 (DESIRED)
+E        [1, 1]: 0.6343143340365547 (ACTUAL), 0.5461435255485015 (DESIRED)
+E        [2, 0]: 0.6333212806670726 (ACTUAL), 0.5398017547405991 (DESIRED)
+E       Max absolute difference among violations: 0.09351953
+E       Max relative difference among violations: 0.17324791
+E        ACTUAL: array([[0.633321, 0.634314],
+E              [0.633321, 0.634314],
+E              [0.633321, 0.634314],...
+E        DESIRED: array([[0.539802, 0.546144],
+E              [0.539802, 0.546144],
+E              [0.539802, 0.546144],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[binary-5.0--50.0-InstrumentalGenerator]" time="0.007"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=2e-11&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 0.610152595007998 (ACTUAL), 0.5398017547405991 (DESIRED)&#10; [0, 1]: 0.6109730747413769 (ACTUAL), 0.5461435255485015 (DESIRED)&#10; [1, 0]: 0.610152595007998 (ACTUAL), 0.5398017547405991 (DESIRED)&#10; [1, 1]: 0.610973074741377 (ACTUAL), 0.5461435255485015 (DESIRED)&#10; [2, 0]: 0.610152595007998 (ACTUAL), 0.5398017547405991 (DESIRED)&#10;Max absolute difference among violations: 0.07035084&#10;Max relative difference among violations: 0.13032718&#10; ACTUAL: array([[0.610153, 0.610973],&#10;       [0.610153, 0.610973],&#10;       [0.610153, 0.610973],...&#10; DESIRED: array([[0.539802, 0.546144],&#10;       [0.539802, 0.546144],&#10;       [0.539802, 0.546144],...">generator_cls = &lt;class 'causalis.dgp.causaldata_instrumental.base.InstrumentalGenerator'&gt;
+family = 'binary', location = 5.0, strength = -50.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=2e-11
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.610152595007998 (ACTUAL), 0.5398017547405991 (DESIRED)
+E        [0, 1]: 0.6109730747413769 (ACTUAL), 0.5461435255485015 (DESIRED)
+E        [1, 0]: 0.610152595007998 (ACTUAL), 0.5398017547405991 (DESIRED)
+E        [1, 1]: 0.610973074741377 (ACTUAL), 0.5461435255485015 (DESIRED)
+E        [2, 0]: 0.610152595007998 (ACTUAL), 0.5398017547405991 (DESIRED)
+E       Max absolute difference among violations: 0.07035084
+E       Max relative difference among violations: 0.13032718
+E        ACTUAL: array([[0.610153, 0.610973],
+E              [0.610153, 0.610973],
+E              [0.610153, 0.610973],...
+E        DESIRED: array([[0.539802, 0.546144],
+E              [0.539802, 0.546144],
+E              [0.539802, 0.546144],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[binary--0.9-3.0-CausalDatasetGenerator]" time="0.002"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=2e-11&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 0.3977077175208547 (ACTUAL), 0.3978081834580294 (DESIRED)&#10; [0, 1]: 0.4884710892926932 (ACTUAL), 0.48851782032605623 (DESIRED)&#10; [1, 0]: 0.3977077175208547 (ACTUAL), 0.3978081834580294 (DESIRED)&#10; [1, 1]: 0.4884710892926932 (ACTUAL), 0.48851782032605623 (DESIRED)&#10; [2, 0]: 0.3977077175208547 (ACTUAL), 0.3978081834580294 (DESIRED)&#10;Max absolute difference among violations: 0.00010047&#10;Max relative difference among violations: 0.00025255&#10; ACTUAL: array([[0.397708, 0.488471],&#10;       [0.397708, 0.488471],&#10;       [0.397708, 0.488471],...&#10; DESIRED: array([[0.397808, 0.488518],&#10;       [0.397808, 0.488518],&#10;       [0.397808, 0.488518],...">generator_cls = &lt;class 'causalis.dgp.causaldata.base.CausalDatasetGenerator'&gt;
+family = 'binary', location = -0.9, strength = 3.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=2e-11
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.3977077175208547 (ACTUAL), 0.3978081834580294 (DESIRED)
+E        [0, 1]: 0.4884710892926932 (ACTUAL), 0.48851782032605623 (DESIRED)
+E        [1, 0]: 0.3977077175208547 (ACTUAL), 0.3978081834580294 (DESIRED)
+E        [1, 1]: 0.4884710892926932 (ACTUAL), 0.48851782032605623 (DESIRED)
+E        [2, 0]: 0.3977077175208547 (ACTUAL), 0.3978081834580294 (DESIRED)
+E       Max absolute difference among violations: 0.00010047
+E       Max relative difference among violations: 0.00025255
+E        ACTUAL: array([[0.397708, 0.488471],
+E              [0.397708, 0.488471],
+E              [0.397708, 0.488471],...
+E        DESIRED: array([[0.397808, 0.488518],
+E              [0.397808, 0.488518],
+E              [0.397808, 0.488518],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[binary--0.9-3.0-InstrumentalGenerator]" time="0.006"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=2e-11&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 0.3978066040498201 (ACTUAL), 0.3978081834580294 (DESIRED)&#10; [0, 1]: 0.48851036678266097 (ACTUAL), 0.48851782032605623 (DESIRED)&#10; [1, 0]: 0.3978066040498201 (ACTUAL), 0.3978081834580294 (DESIRED)&#10; [1, 1]: 0.48851036678266097 (ACTUAL), 0.48851782032605623 (DESIRED)&#10; [2, 0]: 0.3978066040498201 (ACTUAL), 0.3978081834580294 (DESIRED)&#10;Max absolute difference among violations: 7.4535434e-06&#10;Max relative difference among violations: 1.52574647e-05&#10; ACTUAL: array([[0.397807, 0.48851 ],&#10;       [0.397807, 0.48851 ],&#10;       [0.397807, 0.48851 ],...&#10; DESIRED: array([[0.397808, 0.488518],&#10;       [0.397808, 0.488518],&#10;       [0.397808, 0.488518],...">generator_cls = &lt;class 'causalis.dgp.causaldata_instrumental.base.InstrumentalGenerator'&gt;
+family = 'binary', location = -0.9, strength = 3.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=2e-11
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.3978066040498201 (ACTUAL), 0.3978081834580294 (DESIRED)
+E        [0, 1]: 0.48851036678266097 (ACTUAL), 0.48851782032605623 (DESIRED)
+E        [1, 0]: 0.3978066040498201 (ACTUAL), 0.3978081834580294 (DESIRED)
+E        [1, 1]: 0.48851036678266097 (ACTUAL), 0.48851782032605623 (DESIRED)
+E        [2, 0]: 0.3978066040498201 (ACTUAL), 0.3978081834580294 (DESIRED)
+E       Max absolute difference among violations: 7.4535434e-06
+E       Max relative difference among violations: 1.52574647e-05
+E        ACTUAL: array([[0.397807, 0.48851 ],
+E              [0.397807, 0.48851 ],
+E              [0.397807, 0.48851 ],...
+E        DESIRED: array([[0.397808, 0.488518],
+E              [0.397808, 0.488518],
+E              [0.397808, 0.488518],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[binary-0.7--10.0-CausalDatasetGenerator]" time="0.002"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=2e-11&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 0.5458246557014041 (ACTUAL), 0.5274599663319747 (DESIRED)&#10; [0, 1]: 0.5868642742669306 (ACTUAL), 0.5586761120110675 (DESIRED)&#10; [1, 0]: 0.5458246557014041 (ACTUAL), 0.5274599663319747 (DESIRED)&#10; [1, 1]: 0.5868642742669306 (ACTUAL), 0.5586761120110675 (DESIRED)&#10; [2, 0]: 0.5458246557014041 (ACTUAL), 0.5274599663319747 (DESIRED)&#10;Max absolute difference among violations: 0.02818816&#10;Max relative difference among violations: 0.05045528&#10; ACTUAL: array([[0.545825, 0.586864],&#10;       [0.545825, 0.586864],&#10;       [0.545825, 0.586864],...&#10; DESIRED: array([[0.52746 , 0.558676],&#10;       [0.52746 , 0.558676],&#10;       [0.52746 , 0.558676],...">generator_cls = &lt;class 'causalis.dgp.causaldata.base.CausalDatasetGenerator'&gt;
+family = 'binary', location = 0.7, strength = -10.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=2e-11
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.5458246557014041 (ACTUAL), 0.5274599663319747 (DESIRED)
+E        [0, 1]: 0.5868642742669306 (ACTUAL), 0.5586761120110675 (DESIRED)
+E        [1, 0]: 0.5458246557014041 (ACTUAL), 0.5274599663319747 (DESIRED)
+E        [1, 1]: 0.5868642742669306 (ACTUAL), 0.5586761120110675 (DESIRED)
+E        [2, 0]: 0.5458246557014041 (ACTUAL), 0.5274599663319747 (DESIRED)
+E       Max absolute difference among violations: 0.02818816
+E       Max relative difference among violations: 0.05045528
+E        ACTUAL: array([[0.545825, 0.586864],
+E              [0.545825, 0.586864],
+E              [0.545825, 0.586864],...
+E        DESIRED: array([[0.52746 , 0.558676],
+E              [0.52746 , 0.558676],
+E              [0.52746 , 0.558676],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[binary-0.7--10.0-InstrumentalGenerator]" time="0.006"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=2e-11&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 0.5386207772299447 (ACTUAL), 0.5274599663319747 (DESIRED)&#10; [0, 1]: 0.5738792892533325 (ACTUAL), 0.5586761120110675 (DESIRED)&#10; [1, 0]: 0.5386207772299447 (ACTUAL), 0.5274599663319747 (DESIRED)&#10; [1, 1]: 0.5738792892533325 (ACTUAL), 0.5586761120110675 (DESIRED)&#10; [2, 0]: 0.5386207772299447 (ACTUAL), 0.5274599663319747 (DESIRED)&#10;Max absolute difference among violations: 0.01520318&#10;Max relative difference among violations: 0.02721286&#10; ACTUAL: array([[0.538621, 0.573879],&#10;       [0.538621, 0.573879],&#10;       [0.538621, 0.573879],...&#10; DESIRED: array([[0.52746 , 0.558676],&#10;       [0.52746 , 0.558676],&#10;       [0.52746 , 0.558676],...">generator_cls = &lt;class 'causalis.dgp.causaldata_instrumental.base.InstrumentalGenerator'&gt;
+family = 'binary', location = 0.7, strength = -10.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=2e-11
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.5386207772299447 (ACTUAL), 0.5274599663319747 (DESIRED)
+E        [0, 1]: 0.5738792892533325 (ACTUAL), 0.5586761120110675 (DESIRED)
+E        [1, 0]: 0.5386207772299447 (ACTUAL), 0.5274599663319747 (DESIRED)
+E        [1, 1]: 0.5738792892533325 (ACTUAL), 0.5586761120110675 (DESIRED)
+E        [2, 0]: 0.5386207772299447 (ACTUAL), 0.5274599663319747 (DESIRED)
+E       Max absolute difference among violations: 0.01520318
+E       Max relative difference among violations: 0.02721286
+E        ACTUAL: array([[0.538621, 0.573879],
+E              [0.538621, 0.573879],
+E              [0.538621, 0.573879],...
+E        DESIRED: array([[0.52746 , 0.558676],
+E              [0.52746 , 0.558676],
+E              [0.52746 , 0.558676],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[binary--50.0-100.0-CausalDatasetGenerator]" time="0.002"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=2e-11&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 0.36486990422619664 (ACTUAL), 0.30856648577385143 (DESIRED)&#10; [0, 1]: 0.3648699064219223 (ACTUAL), 0.3113882688882985 (DESIRED)&#10; [1, 0]: 0.36486990422619675 (ACTUAL), 0.30856648577385143 (DESIRED)&#10; [1, 1]: 0.3648699064219224 (ACTUAL), 0.3113882688882985 (DESIRED)&#10; [2, 0]: 0.36486990422619675 (ACTUAL), 0.30856648577385143 (DESIRED)&#10;Max absolute difference among violations: 0.05630342&#10;Max relative difference among violations: 0.1824677&#10; ACTUAL: array([[0.36487, 0.36487],&#10;       [0.36487, 0.36487],&#10;       [0.36487, 0.36487],...&#10; DESIRED: array([[0.308566, 0.311388],&#10;       [0.308566, 0.311388],&#10;       [0.308566, 0.311388],...">generator_cls = &lt;class 'causalis.dgp.causaldata.base.CausalDatasetGenerator'&gt;
+family = 'binary', location = -50.0, strength = 100.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=2e-11
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.36486990422619664 (ACTUAL), 0.30856648577385143 (DESIRED)
+E        [0, 1]: 0.3648699064219223 (ACTUAL), 0.3113882688882985 (DESIRED)
+E        [1, 0]: 0.36486990422619675 (ACTUAL), 0.30856648577385143 (DESIRED)
+E        [1, 1]: 0.3648699064219224 (ACTUAL), 0.3113882688882985 (DESIRED)
+E        [2, 0]: 0.36486990422619675 (ACTUAL), 0.30856648577385143 (DESIRED)
+E       Max absolute difference among violations: 0.05630342
+E       Max relative difference among violations: 0.1824677
+E        ACTUAL: array([[0.36487, 0.36487],
+E              [0.36487, 0.36487],
+E              [0.36487, 0.36487],...
+E        DESIRED: array([[0.308566, 0.311388],
+E              [0.308566, 0.311388],
+E              [0.308566, 0.311388],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[binary--50.0-100.0-InstrumentalGenerator]" time="0.007"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=2e-11&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 0.38787785589305557 (ACTUAL), 0.30856648577385143 (DESIRED)&#10; [0, 1]: 0.38813917321171865 (ACTUAL), 0.3113882688882985 (DESIRED)&#10; [1, 0]: 0.38787785589305557 (ACTUAL), 0.30856648577385143 (DESIRED)&#10; [1, 1]: 0.38813917321171865 (ACTUAL), 0.3113882688882985 (DESIRED)&#10; [2, 0]: 0.38787785589305557 (ACTUAL), 0.30856648577385143 (DESIRED)&#10;Max absolute difference among violations: 0.07931137&#10;Max relative difference among violations: 0.25703171&#10; ACTUAL: array([[0.387878, 0.388139],&#10;       [0.387878, 0.388139],&#10;       [0.387878, 0.388139],...&#10; DESIRED: array([[0.308566, 0.311388],&#10;       [0.308566, 0.311388],&#10;       [0.308566, 0.311388],...">generator_cls = &lt;class 'causalis.dgp.causaldata_instrumental.base.InstrumentalGenerator'&gt;
+family = 'binary', location = -50.0, strength = 100.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=2e-11
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.38787785589305557 (ACTUAL), 0.30856648577385143 (DESIRED)
+E        [0, 1]: 0.38813917321171865 (ACTUAL), 0.3113882688882985 (DESIRED)
+E        [1, 0]: 0.38787785589305557 (ACTUAL), 0.30856648577385143 (DESIRED)
+E        [1, 1]: 0.38813917321171865 (ACTUAL), 0.3113882688882985 (DESIRED)
+E        [2, 0]: 0.38787785589305557 (ACTUAL), 0.30856648577385143 (DESIRED)
+E       Max absolute difference among violations: 0.07931137
+E       Max relative difference among violations: 0.25703171
+E        ACTUAL: array([[0.387878, 0.388139],
+E              [0.387878, 0.388139],
+E              [0.387878, 0.388139],...
+E        DESIRED: array([[0.308566, 0.311388],
+E              [0.308566, 0.311388],
+E              [0.308566, 0.311388],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[binary--200000.0-1000000.0-CausalDatasetGenerator]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=2e-11&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 0.36486990821355825 (ACTUAL), 0.4207402905610257 (DESIRED)&#10; [0, 1]: 0.36486990821355825 (ACTUAL), 0.42074060339520586 (DESIRED)&#10; [1, 0]: 0.36486990821355836 (ACTUAL), 0.4207402905610257 (DESIRED)&#10; [1, 1]: 0.36486990821355836 (ACTUAL), 0.42074060339520586 (DESIRED)&#10; [2, 0]: 0.36486990821355836 (ACTUAL), 0.4207402905610257 (DESIRED)&#10;Max absolute difference among violations: 0.0558707&#10;Max relative difference among violations: 0.13279131&#10; ACTUAL: array([[0.36487, 0.36487],&#10;       [0.36487, 0.36487],&#10;       [0.36487, 0.36487],...&#10; DESIRED: array([[0.42074 , 0.420741],&#10;       [0.42074 , 0.420741],&#10;       [0.42074 , 0.420741],...">generator_cls = &lt;class 'causalis.dgp.causaldata.base.CausalDatasetGenerator'&gt;
+family = 'binary', location = -200000.0, strength = 1000000.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=2e-11
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.36486990821355825 (ACTUAL), 0.4207402905610257 (DESIRED)
+E        [0, 1]: 0.36486990821355825 (ACTUAL), 0.42074060339520586 (DESIRED)
+E        [1, 0]: 0.36486990821355836 (ACTUAL), 0.4207402905610257 (DESIRED)
+E        [1, 1]: 0.36486990821355836 (ACTUAL), 0.42074060339520586 (DESIRED)
+E        [2, 0]: 0.36486990821355836 (ACTUAL), 0.4207402905610257 (DESIRED)
+E       Max absolute difference among violations: 0.0558707
+E       Max relative difference among violations: 0.13279131
+E        ACTUAL: array([[0.36487, 0.36487],
+E              [0.36487, 0.36487],
+E              [0.36487, 0.36487],...
+E        DESIRED: array([[0.42074 , 0.420741],
+E              [0.42074 , 0.420741],
+E              [0.42074 , 0.420741],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[binary--200000.0-1000000.0-InstrumentalGenerator]" time="0.008"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=2e-11&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 0.3883529306287962 (ACTUAL), 0.4207402905610257 (DESIRED)&#10; [0, 1]: 0.3883529306287962 (ACTUAL), 0.42074060339520586 (DESIRED)&#10; [1, 0]: 0.3883529306287963 (ACTUAL), 0.4207402905610257 (DESIRED)&#10; [1, 1]: 0.3883529306287963 (ACTUAL), 0.42074060339520586 (DESIRED)&#10; [2, 0]: 0.3883529306287964 (ACTUAL), 0.4207402905610257 (DESIRED)&#10;Max absolute difference among violations: 0.03238767&#10;Max relative difference among violations: 0.07697777&#10; ACTUAL: array([[0.388353, 0.388353],&#10;       [0.388353, 0.388353],&#10;       [0.388353, 0.388353],...&#10; DESIRED: array([[0.42074 , 0.420741],&#10;       [0.42074 , 0.420741],&#10;       [0.42074 , 0.420741],...">generator_cls = &lt;class 'causalis.dgp.causaldata_instrumental.base.InstrumentalGenerator'&gt;
+family = 'binary', location = -200000.0, strength = 1000000.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=2e-11
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.3883529306287962 (ACTUAL), 0.4207402905610257 (DESIRED)
+E        [0, 1]: 0.3883529306287962 (ACTUAL), 0.42074060339520586 (DESIRED)
+E        [1, 0]: 0.3883529306287963 (ACTUAL), 0.4207402905610257 (DESIRED)
+E        [1, 1]: 0.3883529306287963 (ACTUAL), 0.42074060339520586 (DESIRED)
+E        [2, 0]: 0.3883529306287964 (ACTUAL), 0.4207402905610257 (DESIRED)
+E       Max absolute difference among violations: 0.03238767
+E       Max relative difference among violations: 0.07697777
+E        ACTUAL: array([[0.388353, 0.388353],
+E              [0.388353, 0.388353],
+E              [0.388353, 0.388353],...
+E        DESIRED: array([[0.42074 , 0.420741],
+E              [0.42074 , 0.420741],
+E              [0.42074 , 0.420741],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[binary-0.2-0.999-CausalDatasetGenerator]" time="0.002" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[binary-0.2-0.999-InstrumentalGenerator]" time="0.006" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[binary--0.2-1.001-CausalDatasetGenerator]" time="0.002" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[binary--0.2-1.001-InstrumentalGenerator]" time="0.005" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[poisson--25.0-10.0-CausalDatasetGenerator]" time="0.002"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=0&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 1789.522799117206 (ACTUAL), 3015.77427931685 (DESIRED)&#10; [0, 1]: 3245.4176603774335 (ACTUAL), 4321.465463705973 (DESIRED)&#10; [1, 0]: 1789.522799117206 (ACTUAL), 3015.77427931685 (DESIRED)&#10; [1, 1]: 3245.4176603774335 (ACTUAL), 4321.465463705973 (DESIRED)&#10; [2, 0]: 1789.522799117206 (ACTUAL), 3015.77427931685 (DESIRED)&#10;Max absolute difference among violations: 1226.2514802&#10;Max relative difference among violations: 0.40661249&#10; ACTUAL: array([[1789.522799, 3245.41766 ],&#10;       [1789.522799, 3245.41766 ],&#10;       [1789.522799, 3245.41766 ],...&#10; DESIRED: array([[3015.774279, 4321.465464],&#10;       [3015.774279, 4321.465464],&#10;       [3015.774279, 4321.465464],...">generator_cls = &lt;class 'causalis.dgp.causaldata.base.CausalDatasetGenerator'&gt;
+family = 'poisson', location = -25.0, strength = 10.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=0
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 1789.522799117206 (ACTUAL), 3015.77427931685 (DESIRED)
+E        [0, 1]: 3245.4176603774335 (ACTUAL), 4321.465463705973 (DESIRED)
+E        [1, 0]: 1789.522799117206 (ACTUAL), 3015.77427931685 (DESIRED)
+E        [1, 1]: 3245.4176603774335 (ACTUAL), 4321.465463705973 (DESIRED)
+E        [2, 0]: 1789.522799117206 (ACTUAL), 3015.77427931685 (DESIRED)
+E       Max absolute difference among violations: 1226.2514802
+E       Max relative difference among violations: 0.40661249
+E        ACTUAL: array([[1789.522799, 3245.41766 ],
+E              [1789.522799, 3245.41766 ],
+E              [1789.522799, 3245.41766 ],...
+E        DESIRED: array([[3015.774279, 4321.465464],
+E              [3015.774279, 4321.465464],
+E              [3015.774279, 4321.465464],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[poisson--25.0-10.0-InstrumentalGenerator]" time="0.005"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=0&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 3291.7399375249593 (ACTUAL), 3015.77427931685 (DESIRED)&#10; [0, 1]: 3629.847876219826 (ACTUAL), 4321.465463705973 (DESIRED)&#10; [1, 0]: 3291.7399375249593 (ACTUAL), 3015.77427931685 (DESIRED)&#10; [1, 1]: 3629.847876219826 (ACTUAL), 4321.465463705973 (DESIRED)&#10; [2, 0]: 3291.7399375249593 (ACTUAL), 3015.77427931685 (DESIRED)&#10;Max absolute difference among violations: 691.61758749&#10;Max relative difference among violations: 0.16004237&#10; ACTUAL: array([[3291.739938, 3629.847876],&#10;       [3291.739938, 3629.847876],&#10;       [3291.739938, 3629.847876],...&#10; DESIRED: array([[3015.774279, 4321.465464],&#10;       [3015.774279, 4321.465464],&#10;       [3015.774279, 4321.465464],...">generator_cls = &lt;class 'causalis.dgp.causaldata_instrumental.base.InstrumentalGenerator'&gt;
+family = 'poisson', location = -25.0, strength = 10.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=0
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 3291.7399375249593 (ACTUAL), 3015.77427931685 (DESIRED)
+E        [0, 1]: 3629.847876219826 (ACTUAL), 4321.465463705973 (DESIRED)
+E        [1, 0]: 3291.7399375249593 (ACTUAL), 3015.77427931685 (DESIRED)
+E        [1, 1]: 3629.847876219826 (ACTUAL), 4321.465463705973 (DESIRED)
+E        [2, 0]: 3291.7399375249593 (ACTUAL), 3015.77427931685 (DESIRED)
+E       Max absolute difference among violations: 691.61758749
+E       Max relative difference among violations: 0.16004237
+E        ACTUAL: array([[3291.739938, 3629.847876],
+E              [3291.739938, 3629.847876],
+E              [3291.739938, 3629.847876],...
+E        DESIRED: array([[3015.774279, 4321.465464],
+E              [3015.774279, 4321.465464],
+E              [3015.774279, 4321.465464],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[gamma-0.0-10.0-CausalDatasetGenerator]" time="0.002"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=0&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 20048955.35973214 (ACTUAL), 14262957.080491796 (DESIRED)&#10; [0, 1]: 20156023.18959243 (ACTUAL), 17044217.65368342 (DESIRED)&#10; [1, 0]: 20048955.35973214 (ACTUAL), 14262957.080491796 (DESIRED)&#10; [1, 1]: 20156023.18959243 (ACTUAL), 17044217.65368342 (DESIRED)&#10; [2, 0]: 20048955.35973214 (ACTUAL), 14262957.080491796 (DESIRED)&#10;Max absolute difference among violations: 5785998.27924034&#10;Max relative difference among violations: 0.40566611&#10; ACTUAL: array([[20048955.359732, 20156023.189592],&#10;       [20048955.359732, 20156023.189592],&#10;       [20048955.359732, 20156023.189592],...&#10; DESIRED: array([[14262957.080492, 17044217.653683],&#10;       [14262957.080492, 17044217.653683],&#10;       [14262957.080492, 17044217.653683],...">generator_cls = &lt;class 'causalis.dgp.causaldata.base.CausalDatasetGenerator'&gt;
+family = 'gamma', location = 0.0, strength = 10.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=0
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 20048955.35973214 (ACTUAL), 14262957.080491796 (DESIRED)
+E        [0, 1]: 20156023.18959243 (ACTUAL), 17044217.65368342 (DESIRED)
+E        [1, 0]: 20048955.35973214 (ACTUAL), 14262957.080491796 (DESIRED)
+E        [1, 1]: 20156023.18959243 (ACTUAL), 17044217.65368342 (DESIRED)
+E        [2, 0]: 20048955.35973214 (ACTUAL), 14262957.080491796 (DESIRED)
+E       Max absolute difference among violations: 5785998.27924034
+E       Max relative difference among violations: 0.40566611
+E        ACTUAL: array([[20048955.359732, 20156023.189592],
+E              [20048955.359732, 20156023.189592],
+E              [20048955.359732, 20156023.189592],...
+E        DESIRED: array([[14262957.080492, 17044217.653683],
+E              [14262957.080492, 17044217.653683],
+E              [14262957.080492, 17044217.653683],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[gamma-0.0-10.0-InstrumentalGenerator]" time="0.005"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=0&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 12293569.226898238 (ACTUAL), 14262957.080491796 (DESIRED)&#10; [0, 1]: 13701782.32919222 (ACTUAL), 17044217.65368342 (DESIRED)&#10; [1, 0]: 12293569.226898238 (ACTUAL), 14262957.080491796 (DESIRED)&#10; [1, 1]: 13701782.32919222 (ACTUAL), 17044217.65368342 (DESIRED)&#10; [2, 0]: 12293569.226898238 (ACTUAL), 14262957.080491796 (DESIRED)&#10;Max absolute difference among violations: 3342435.3244912&#10;Max relative difference among violations: 0.19610377&#10; ACTUAL: array([[12293569.226898, 13701782.329192],&#10;       [12293569.226898, 13701782.329192],&#10;       [12293569.226898, 13701782.329192],...&#10; DESIRED: array([[14262957.080492, 17044217.653683],&#10;       [14262957.080492, 17044217.653683],&#10;       [14262957.080492, 17044217.653683],...">generator_cls = &lt;class 'causalis.dgp.causaldata_instrumental.base.InstrumentalGenerator'&gt;
+family = 'gamma', location = 0.0, strength = 10.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=0
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 12293569.226898238 (ACTUAL), 14262957.080491796 (DESIRED)
+E        [0, 1]: 13701782.32919222 (ACTUAL), 17044217.65368342 (DESIRED)
+E        [1, 0]: 12293569.226898238 (ACTUAL), 14262957.080491796 (DESIRED)
+E        [1, 1]: 13701782.32919222 (ACTUAL), 17044217.65368342 (DESIRED)
+E        [2, 0]: 12293569.226898238 (ACTUAL), 14262957.080491796 (DESIRED)
+E       Max absolute difference among violations: 3342435.3244912
+E       Max relative difference among violations: 0.19610377
+E        ACTUAL: array([[12293569.226898, 13701782.329192],
+E              [12293569.226898, 13701782.329192],
+E              [12293569.226898, 13701782.329192],...
+E        DESIRED: array([[14262957.080492, 17044217.653683],
+E              [14262957.080492, 17044217.653683],
+E              [14262957.080492, 17044217.653683],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[poisson--19.0-1.7-CausalDatasetGenerator]" time="0.002"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=0&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 2.4070923242736908e-08 (ACTUAL), 2.4076720628218993e-08 (DESIRED)&#10; [0, 1]: 5.305322959443276e-08 (ACTUAL), 5.3037849338462074e-08 (DESIRED)&#10; [1, 0]: 2.4070923242736908e-08 (ACTUAL), 2.4076720628218993e-08 (DESIRED)&#10; [1, 1]: 5.305322959443276e-08 (ACTUAL), 5.3037849338462074e-08 (DESIRED)&#10; [2, 0]: 2.4070923242736908e-08 (ACTUAL), 2.4076720628218993e-08 (DESIRED)&#10;Max absolute difference among violations: 1.5380256e-11&#10;Max relative difference among violations: 0.00028999&#10; ACTUAL: array([[2.407092e-08, 5.305323e-08],&#10;       [2.407092e-08, 5.305323e-08],&#10;       [2.407092e-08, 5.305323e-08],...&#10; DESIRED: array([[2.407672e-08, 5.303785e-08],&#10;       [2.407672e-08, 5.303785e-08],&#10;       [2.407672e-08, 5.303785e-08],...">generator_cls = &lt;class 'causalis.dgp.causaldata.base.CausalDatasetGenerator'&gt;
+family = 'poisson', location = -19.0, strength = 1.7
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=0
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 2.4070923242736908e-08 (ACTUAL), 2.4076720628218993e-08 (DESIRED)
+E        [0, 1]: 5.305322959443276e-08 (ACTUAL), 5.3037849338462074e-08 (DESIRED)
+E        [1, 0]: 2.4070923242736908e-08 (ACTUAL), 2.4076720628218993e-08 (DESIRED)
+E        [1, 1]: 5.305322959443276e-08 (ACTUAL), 5.3037849338462074e-08 (DESIRED)
+E        [2, 0]: 2.4070923242736908e-08 (ACTUAL), 2.4076720628218993e-08 (DESIRED)
+E       Max absolute difference among violations: 1.5380256e-11
+E       Max relative difference among violations: 0.00028999
+E        ACTUAL: array([[2.407092e-08, 5.305323e-08],
+E              [2.407092e-08, 5.305323e-08],
+E              [2.407092e-08, 5.305323e-08],...
+E        DESIRED: array([[2.407672e-08, 5.303785e-08],
+E              [2.407672e-08, 5.303785e-08],
+E              [2.407672e-08, 5.303785e-08],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[poisson--19.0-1.7-InstrumentalGenerator]" time="0.005"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=0&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 2.4053260560491532e-08 (ACTUAL), 2.4076720628218993e-08 (DESIRED)&#10; [0, 1]: 5.3033330235677476e-08 (ACTUAL), 5.3037849338462074e-08 (DESIRED)&#10; [1, 0]: 2.4053260560491532e-08 (ACTUAL), 2.4076720628218993e-08 (DESIRED)&#10; [1, 1]: 5.3033330235677476e-08 (ACTUAL), 5.3037849338462074e-08 (DESIRED)&#10; [2, 0]: 2.4053260560491532e-08 (ACTUAL), 2.4076720628218993e-08 (DESIRED)&#10;Max absolute difference among violations: 2.34600677e-11&#10;Max relative difference among violations: 0.00097439&#10; ACTUAL: array([[2.405326e-08, 5.303333e-08],&#10;       [2.405326e-08, 5.303333e-08],&#10;       [2.405326e-08, 5.303333e-08],...&#10; DESIRED: array([[2.407672e-08, 5.303785e-08],&#10;       [2.407672e-08, 5.303785e-08],&#10;       [2.407672e-08, 5.303785e-08],...">generator_cls = &lt;class 'causalis.dgp.causaldata_instrumental.base.InstrumentalGenerator'&gt;
+family = 'poisson', location = -19.0, strength = 1.7
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=0
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 2.4053260560491532e-08 (ACTUAL), 2.4076720628218993e-08 (DESIRED)
+E        [0, 1]: 5.3033330235677476e-08 (ACTUAL), 5.3037849338462074e-08 (DESIRED)
+E        [1, 0]: 2.4053260560491532e-08 (ACTUAL), 2.4076720628218993e-08 (DESIRED)
+E        [1, 1]: 5.3033330235677476e-08 (ACTUAL), 5.3037849338462074e-08 (DESIRED)
+E        [2, 0]: 2.4053260560491532e-08 (ACTUAL), 2.4076720628218993e-08 (DESIRED)
+E       Max absolute difference among violations: 2.34600677e-11
+E       Max relative difference among violations: 0.00097439
+E        ACTUAL: array([[2.405326e-08, 5.303333e-08],
+E              [2.405326e-08, 5.303333e-08],
+E              [2.405326e-08, 5.303333e-08],...
+E        DESIRED: array([[2.407672e-08, 5.303785e-08],
+E              [2.407672e-08, 5.303785e-08],
+E              [2.407672e-08, 5.303785e-08],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[gamma-19.0--1.7-CausalDatasetGenerator]" time="0.002"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=0&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 239510029.29771644 (ACTUAL), 235751043.73696515 (DESIRED)&#10; [0, 1]: 316091445.7563243 (ACTUAL), 315542982.3584204 (DESIRED)&#10; [1, 0]: 239510029.29771644 (ACTUAL), 235751043.73696515 (DESIRED)&#10; [1, 1]: 316091445.7563243 (ACTUAL), 315542982.3584204 (DESIRED)&#10; [2, 0]: 239510029.29771644 (ACTUAL), 235751043.73696515 (DESIRED)&#10;Max absolute difference among violations: 3758985.56075129&#10;Max relative difference among violations: 0.01594472&#10; ACTUAL: array([[2.395100e+08, 3.160914e+08],&#10;       [2.395100e+08, 3.160914e+08],&#10;       [2.395100e+08, 3.160914e+08],...&#10; DESIRED: array([[2.35751e+08, 3.15543e+08],&#10;       [2.35751e+08, 3.15543e+08],&#10;       [2.35751e+08, 3.15543e+08],...">generator_cls = &lt;class 'causalis.dgp.causaldata.base.CausalDatasetGenerator'&gt;
+family = 'gamma', location = 19.0, strength = -1.7
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=0
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 239510029.29771644 (ACTUAL), 235751043.73696515 (DESIRED)
+E        [0, 1]: 316091445.7563243 (ACTUAL), 315542982.3584204 (DESIRED)
+E        [1, 0]: 239510029.29771644 (ACTUAL), 235751043.73696515 (DESIRED)
+E        [1, 1]: 316091445.7563243 (ACTUAL), 315542982.3584204 (DESIRED)
+E        [2, 0]: 239510029.29771644 (ACTUAL), 235751043.73696515 (DESIRED)
+E       Max absolute difference among violations: 3758985.56075129
+E       Max relative difference among violations: 0.01594472
+E        ACTUAL: array([[2.395100e+08, 3.160914e+08],
+E              [2.395100e+08, 3.160914e+08],
+E              [2.395100e+08, 3.160914e+08],...
+E        DESIRED: array([[2.35751e+08, 3.15543e+08],
+E              [2.35751e+08, 3.15543e+08],
+E              [2.35751e+08, 3.15543e+08],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[gamma-19.0--1.7-InstrumentalGenerator]" time="0.005"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=0&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 240889567.03088346 (ACTUAL), 235751043.73696515 (DESIRED)&#10; [0, 1]: 314888472.6628036 (ACTUAL), 315542982.3584204 (DESIRED)&#10; [1, 0]: 240889567.03088346 (ACTUAL), 235751043.73696515 (DESIRED)&#10; [1, 1]: 314888472.6628036 (ACTUAL), 315542982.3584204 (DESIRED)&#10; [2, 0]: 240889567.03088346 (ACTUAL), 235751043.73696515 (DESIRED)&#10;Max absolute difference among violations: 5138523.29391831&#10;Max relative difference among violations: 0.0217964&#10; ACTUAL: array([[2.408896e+08, 3.148885e+08],&#10;       [2.408896e+08, 3.148885e+08],&#10;       [2.408896e+08, 3.148885e+08],...&#10; DESIRED: array([[2.35751e+08, 3.15543e+08],&#10;       [2.35751e+08, 3.15543e+08],&#10;       [2.35751e+08, 3.15543e+08],...">generator_cls = &lt;class 'causalis.dgp.causaldata_instrumental.base.InstrumentalGenerator'&gt;
+family = 'gamma', location = 19.0, strength = -1.7
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=0
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 240889567.03088346 (ACTUAL), 235751043.73696515 (DESIRED)
+E        [0, 1]: 314888472.6628036 (ACTUAL), 315542982.3584204 (DESIRED)
+E        [1, 0]: 240889567.03088346 (ACTUAL), 235751043.73696515 (DESIRED)
+E        [1, 1]: 314888472.6628036 (ACTUAL), 315542982.3584204 (DESIRED)
+E        [2, 0]: 240889567.03088346 (ACTUAL), 235751043.73696515 (DESIRED)
+E       Max absolute difference among violations: 5138523.29391831
+E       Max relative difference among violations: 0.0217964
+E        ACTUAL: array([[2.408896e+08, 3.148885e+08],
+E              [2.408896e+08, 3.148885e+08],
+E              [2.408896e+08, 3.148885e+08],...
+E        DESIRED: array([[2.35751e+08, 3.15543e+08],
+E              [2.35751e+08, 3.15543e+08],
+E              [2.35751e+08, 3.15543e+08],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[poisson--21.0-3.0-CausalDatasetGenerator]" time="0.003"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=0&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 6.933740540523932e-08 (ACTUAL), 6.929426544384518e-08 (DESIRED)&#10; [0, 1]: 1.527088771304511e-07 (ACTUAL), 1.5273724718412429e-07 (DESIRED)&#10; [1, 0]: 6.933740540523932e-08 (ACTUAL), 6.929426544384518e-08 (DESIRED)&#10; [1, 1]: 1.527088771304511e-07 (ACTUAL), 1.5273724718412429e-07 (DESIRED)&#10; [2, 0]: 6.933740540523932e-08 (ACTUAL), 6.929426544384518e-08 (DESIRED)&#10;Max absolute difference among violations: 4.31399614e-11&#10;Max relative difference among violations: 0.00062256&#10; ACTUAL: array([[6.933741e-08, 1.527089e-07],&#10;       [6.933741e-08, 1.527089e-07],&#10;       [6.933741e-08, 1.527089e-07],...&#10; DESIRED: array([[6.929427e-08, 1.527372e-07],&#10;       [6.929427e-08, 1.527372e-07],&#10;       [6.929427e-08, 1.527372e-07],...">generator_cls = &lt;class 'causalis.dgp.causaldata.base.CausalDatasetGenerator'&gt;
+family = 'poisson', location = -21.0, strength = 3.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=0
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 6.933740540523932e-08 (ACTUAL), 6.929426544384518e-08 (DESIRED)
+E        [0, 1]: 1.527088771304511e-07 (ACTUAL), 1.5273724718412429e-07 (DESIRED)
+E        [1, 0]: 6.933740540523932e-08 (ACTUAL), 6.929426544384518e-08 (DESIRED)
+E        [1, 1]: 1.527088771304511e-07 (ACTUAL), 1.5273724718412429e-07 (DESIRED)
+E        [2, 0]: 6.933740540523932e-08 (ACTUAL), 6.929426544384518e-08 (DESIRED)
+E       Max absolute difference among violations: 4.31399614e-11
+E       Max relative difference among violations: 0.00062256
+E        ACTUAL: array([[6.933741e-08, 1.527089e-07],
+E              [6.933741e-08, 1.527089e-07],
+E              [6.933741e-08, 1.527089e-07],...
+E        DESIRED: array([[6.929427e-08, 1.527372e-07],
+E              [6.929427e-08, 1.527372e-07],
+E              [6.929427e-08, 1.527372e-07],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[poisson--21.0-3.0-InstrumentalGenerator]" time="0.005"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=0&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 6.931698342989364e-08 (ACTUAL), 6.929426544384518e-08 (DESIRED)&#10; [0, 1]: 1.5272274596354094e-07 (ACTUAL), 1.5273724718412429e-07 (DESIRED)&#10; [1, 0]: 6.931698342989364e-08 (ACTUAL), 6.929426544384518e-08 (DESIRED)&#10; [1, 1]: 1.5272274596354094e-07 (ACTUAL), 1.5273724718412429e-07 (DESIRED)&#10; [2, 0]: 6.931698342989364e-08 (ACTUAL), 6.929426544384518e-08 (DESIRED)&#10;Max absolute difference among violations: 2.2717986e-11&#10;Max relative difference among violations: 0.00032785&#10; ACTUAL: array([[6.931698e-08, 1.527227e-07],&#10;       [6.931698e-08, 1.527227e-07],&#10;       [6.931698e-08, 1.527227e-07],...&#10; DESIRED: array([[6.929427e-08, 1.527372e-07],&#10;       [6.929427e-08, 1.527372e-07],&#10;       [6.929427e-08, 1.527372e-07],...">generator_cls = &lt;class 'causalis.dgp.causaldata_instrumental.base.InstrumentalGenerator'&gt;
+family = 'poisson', location = -21.0, strength = 3.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=0
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 6.931698342989364e-08 (ACTUAL), 6.929426544384518e-08 (DESIRED)
+E        [0, 1]: 1.5272274596354094e-07 (ACTUAL), 1.5273724718412429e-07 (DESIRED)
+E        [1, 0]: 6.931698342989364e-08 (ACTUAL), 6.929426544384518e-08 (DESIRED)
+E        [1, 1]: 1.5272274596354094e-07 (ACTUAL), 1.5273724718412429e-07 (DESIRED)
+E        [2, 0]: 6.931698342989364e-08 (ACTUAL), 6.929426544384518e-08 (DESIRED)
+E       Max absolute difference among violations: 2.2717986e-11
+E       Max relative difference among violations: 0.00032785
+E        ACTUAL: array([[6.931698e-08, 1.527227e-07],
+E              [6.931698e-08, 1.527227e-07],
+E              [6.931698e-08, 1.527227e-07],...
+E        DESIRED: array([[6.929427e-08, 1.527372e-07],
+E              [6.929427e-08, 1.527372e-07],
+E              [6.929427e-08, 1.527372e-07],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[gamma-21.0-3.0-CausalDatasetGenerator]" time="0.002"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=0&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 347803058.34331864 (ACTUAL), 356861445.8420977 (DESIRED)&#10; [0, 1]: 396408064.57333934 (ACTUAL), 394144784.8745566 (DESIRED)&#10; [1, 0]: 347803058.34331864 (ACTUAL), 356861445.8420977 (DESIRED)&#10; [1, 1]: 396408064.57333934 (ACTUAL), 394144784.8745566 (DESIRED)&#10; [2, 0]: 347803058.34331864 (ACTUAL), 356861445.8420977 (DESIRED)&#10;Max absolute difference among violations: 9058387.49877906&#10;Max relative difference among violations: 0.02538349&#10; ACTUAL: array([[3.478031e+08, 3.964081e+08],&#10;       [3.478031e+08, 3.964081e+08],&#10;       [3.478031e+08, 3.964081e+08],...&#10; DESIRED: array([[3.568614e+08, 3.941448e+08],&#10;       [3.568614e+08, 3.941448e+08],&#10;       [3.568614e+08, 3.941448e+08],...">generator_cls = &lt;class 'causalis.dgp.causaldata.base.CausalDatasetGenerator'&gt;
+family = 'gamma', location = 21.0, strength = 3.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=0
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 347803058.34331864 (ACTUAL), 356861445.8420977 (DESIRED)
+E        [0, 1]: 396408064.57333934 (ACTUAL), 394144784.8745566 (DESIRED)
+E        [1, 0]: 347803058.34331864 (ACTUAL), 356861445.8420977 (DESIRED)
+E        [1, 1]: 396408064.57333934 (ACTUAL), 394144784.8745566 (DESIRED)
+E        [2, 0]: 347803058.34331864 (ACTUAL), 356861445.8420977 (DESIRED)
+E       Max absolute difference among violations: 9058387.49877906
+E       Max relative difference among violations: 0.02538349
+E        ACTUAL: array([[3.478031e+08, 3.964081e+08],
+E              [3.478031e+08, 3.964081e+08],
+E              [3.478031e+08, 3.964081e+08],...
+E        DESIRED: array([[3.568614e+08, 3.941448e+08],
+E              [3.568614e+08, 3.941448e+08],
+E              [3.568614e+08, 3.941448e+08],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[gamma-21.0-3.0-InstrumentalGenerator]" time="0.005"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=0&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 349684313.3934879 (ACTUAL), 356861445.8420977 (DESIRED)&#10; [0, 1]: 402718340.37949854 (ACTUAL), 394144784.8745566 (DESIRED)&#10; [1, 0]: 349684313.3934879 (ACTUAL), 356861445.8420977 (DESIRED)&#10; [1, 1]: 402718340.37949854 (ACTUAL), 394144784.8745566 (DESIRED)&#10; [2, 0]: 349684313.3934879 (ACTUAL), 356861445.8420977 (DESIRED)&#10;Max absolute difference among violations: 8573555.50494194&#10;Max relative difference among violations: 0.0217523&#10; ACTUAL: array([[3.496843e+08, 4.027183e+08],&#10;       [3.496843e+08, 4.027183e+08],&#10;       [3.496843e+08, 4.027183e+08],...&#10; DESIRED: array([[3.568614e+08, 3.941448e+08],&#10;       [3.568614e+08, 3.941448e+08],&#10;       [3.568614e+08, 3.941448e+08],...">generator_cls = &lt;class 'causalis.dgp.causaldata_instrumental.base.InstrumentalGenerator'&gt;
+family = 'gamma', location = 21.0, strength = 3.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=0
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 349684313.3934879 (ACTUAL), 356861445.8420977 (DESIRED)
+E        [0, 1]: 402718340.37949854 (ACTUAL), 394144784.8745566 (DESIRED)
+E        [1, 0]: 349684313.3934879 (ACTUAL), 356861445.8420977 (DESIRED)
+E        [1, 1]: 402718340.37949854 (ACTUAL), 394144784.8745566 (DESIRED)
+E        [2, 0]: 349684313.3934879 (ACTUAL), 356861445.8420977 (DESIRED)
+E       Max absolute difference among violations: 8573555.50494194
+E       Max relative difference among violations: 0.0217523
+E        ACTUAL: array([[3.496843e+08, 4.027183e+08],
+E              [3.496843e+08, 4.027183e+08],
+E              [3.496843e+08, 4.027183e+08],...
+E        DESIRED: array([[3.568614e+08, 3.941448e+08],
+E              [3.568614e+08, 3.941448e+08],
+E              [3.568614e+08, 3.941448e+08],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[poisson-0.0-8.001-CausalDatasetGenerator]" time="0.002"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=0&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 3942502.4886223315 (ACTUAL), 4515677.975541432 (DESIRED)&#10; [0, 1]: 4498400.063006713 (ACTUAL), 5864821.48261435 (DESIRED)&#10; [1, 0]: 3942502.4886223315 (ACTUAL), 4515677.975541432 (DESIRED)&#10; [1, 1]: 4498400.063006713 (ACTUAL), 5864821.48261435 (DESIRED)&#10; [2, 0]: 3942502.4886223315 (ACTUAL), 4515677.975541432 (DESIRED)&#10;Max absolute difference among violations: 1366421.41960764&#10;Max relative difference among violations: 0.23298602&#10; ACTUAL: array([[3942502.488622, 4498400.063007],&#10;       [3942502.488622, 4498400.063007],&#10;       [3942502.488622, 4498400.063007],...&#10; DESIRED: array([[4515677.975541, 5864821.482614],&#10;       [4515677.975541, 5864821.482614],&#10;       [4515677.975541, 5864821.482614],...">generator_cls = &lt;class 'causalis.dgp.causaldata.base.CausalDatasetGenerator'&gt;
+family = 'poisson', location = 0.0, strength = 8.001
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=0
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 3942502.4886223315 (ACTUAL), 4515677.975541432 (DESIRED)
+E        [0, 1]: 4498400.063006713 (ACTUAL), 5864821.48261435 (DESIRED)
+E        [1, 0]: 3942502.4886223315 (ACTUAL), 4515677.975541432 (DESIRED)
+E        [1, 1]: 4498400.063006713 (ACTUAL), 5864821.48261435 (DESIRED)
+E        [2, 0]: 3942502.4886223315 (ACTUAL), 4515677.975541432 (DESIRED)
+E       Max absolute difference among violations: 1366421.41960764
+E       Max relative difference among violations: 0.23298602
+E        ACTUAL: array([[3942502.488622, 4498400.063007],
+E              [3942502.488622, 4498400.063007],
+E              [3942502.488622, 4498400.063007],...
+E        DESIRED: array([[4515677.975541, 5864821.482614],
+E              [4515677.975541, 5864821.482614],
+E              [4515677.975541, 5864821.482614],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[poisson-0.0-8.001-InstrumentalGenerator]" time="0.005"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=0&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 3689132.929938459 (ACTUAL), 4515677.975541432 (DESIRED)&#10; [0, 1]: 5235772.960733998 (ACTUAL), 5864821.48261435 (DESIRED)&#10; [1, 0]: 3689132.929938459 (ACTUAL), 4515677.975541432 (DESIRED)&#10; [1, 1]: 5235772.960733998 (ACTUAL), 5864821.48261435 (DESIRED)&#10; [2, 0]: 3689132.929938459 (ACTUAL), 4515677.975541432 (DESIRED)&#10;Max absolute difference among violations: 826545.04560297&#10;Max relative difference among violations: 0.18303897&#10; ACTUAL: array([[3689132.929938, 5235772.960734],&#10;       [3689132.929938, 5235772.960734],&#10;       [3689132.929938, 5235772.960734],...&#10; DESIRED: array([[4515677.975541, 5864821.482614],&#10;       [4515677.975541, 5864821.482614],&#10;       [4515677.975541, 5864821.482614],...">generator_cls = &lt;class 'causalis.dgp.causaldata_instrumental.base.InstrumentalGenerator'&gt;
+family = 'poisson', location = 0.0, strength = 8.001
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=0
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 3689132.929938459 (ACTUAL), 4515677.975541432 (DESIRED)
+E        [0, 1]: 5235772.960733998 (ACTUAL), 5864821.48261435 (DESIRED)
+E        [1, 0]: 3689132.929938459 (ACTUAL), 4515677.975541432 (DESIRED)
+E        [1, 1]: 5235772.960733998 (ACTUAL), 5864821.48261435 (DESIRED)
+E        [2, 0]: 3689132.929938459 (ACTUAL), 4515677.975541432 (DESIRED)
+E       Max absolute difference among violations: 826545.04560297
+E       Max relative difference among violations: 0.18303897
+E        ACTUAL: array([[3689132.929938, 5235772.960734],
+E              [3689132.929938, 5235772.960734],
+E              [3689132.929938, 5235772.960734],...
+E        DESIRED: array([[4515677.975541, 5864821.482614],
+E              [4515677.975541, 5864821.482614],
+E              [4515677.975541, 5864821.482614],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[gamma--30.0-100.0-CausalDatasetGenerator]" time="0.002"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=0&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 177022180.31758484 (ACTUAL), 151408183.76170382 (DESIRED)&#10; [0, 1]: 177022180.31758484 (ACTUAL), 152784070.60829964 (DESIRED)&#10; [1, 0]: 177022180.31758484 (ACTUAL), 151408183.76170382 (DESIRED)&#10; [1, 1]: 177022180.31758484 (ACTUAL), 152784070.60829964 (DESIRED)&#10; [2, 0]: 177022180.31758484 (ACTUAL), 151408183.76170382 (DESIRED)&#10;Max absolute difference among violations: 25613996.55588102&#10;Max relative difference among violations: 0.16917181&#10; ACTUAL: array([[1.770222e+08, 1.770222e+08],&#10;       [1.770222e+08, 1.770222e+08],&#10;       [1.770222e+08, 1.770222e+08],...&#10; DESIRED: array([[1.514082e+08, 1.527841e+08],&#10;       [1.514082e+08, 1.527841e+08],&#10;       [1.514082e+08, 1.527841e+08],...">generator_cls = &lt;class 'causalis.dgp.causaldata.base.CausalDatasetGenerator'&gt;
+family = 'gamma', location = -30.0, strength = 100.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=0
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 177022180.31758484 (ACTUAL), 151408183.76170382 (DESIRED)
+E        [0, 1]: 177022180.31758484 (ACTUAL), 152784070.60829964 (DESIRED)
+E        [1, 0]: 177022180.31758484 (ACTUAL), 151408183.76170382 (DESIRED)
+E        [1, 1]: 177022180.31758484 (ACTUAL), 152784070.60829964 (DESIRED)
+E        [2, 0]: 177022180.31758484 (ACTUAL), 151408183.76170382 (DESIRED)
+E       Max absolute difference among violations: 25613996.55588102
+E       Max relative difference among violations: 0.16917181
+E        ACTUAL: array([[1.770222e+08, 1.770222e+08],
+E              [1.770222e+08, 1.770222e+08],
+E              [1.770222e+08, 1.770222e+08],...
+E        DESIRED: array([[1.514082e+08, 1.527841e+08],
+E              [1.514082e+08, 1.527841e+08],
+E              [1.514082e+08, 1.527841e+08],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[gamma--30.0-100.0-InstrumentalGenerator]" time="0.005"><failure message="AssertionError: &#10;Not equal to tolerance rtol=3e-10, atol=0&#10;&#10;Mismatched elements: 18 / 18 (100%)&#10;First 5 mismatches are at indices:&#10; [0, 0]: 188415325.47648486 (ACTUAL), 151408183.76170382 (DESIRED)&#10; [0, 1]: 188415325.47648486 (ACTUAL), 152784070.60829964 (DESIRED)&#10; [1, 0]: 188415325.47648486 (ACTUAL), 151408183.76170382 (DESIRED)&#10; [1, 1]: 188415325.47648486 (ACTUAL), 152784070.60829964 (DESIRED)&#10; [2, 0]: 188415325.47648486 (ACTUAL), 151408183.76170382 (DESIRED)&#10;Max absolute difference among violations: 37007141.71478105&#10;Max relative difference among violations: 0.24441969&#10; ACTUAL: array([[1.884153e+08, 1.884153e+08],&#10;       [1.884153e+08, 1.884153e+08],&#10;       [1.884153e+08, 1.884153e+08],...&#10; DESIRED: array([[1.514082e+08, 1.527841e+08],&#10;       [1.514082e+08, 1.527841e+08],&#10;       [1.514082e+08, 1.527841e+08],...">generator_cls = &lt;class 'causalis.dgp.causaldata_instrumental.base.InstrumentalGenerator'&gt;
+family = 'gamma', location = -30.0, strength = 100.0
+
+    @pytest.mark.parametrize("generator_cls", [CausalDatasetGenerator, InstrumentalGenerator])
+    @pytest.mark.parametrize("family,location,strength", [
+        ("binary", -5.0, 50.0), ("binary", 5.0, -50.0),
+        ("binary", -0.9, 3.0), ("binary", 0.7, -10.0),
+        ("binary", -50.0, 100.0), ("binary", -2e5, 1e6),
+        ("binary", 0.2, 0.999), ("binary", -0.2, 1.001),
+        ("poisson", -25.0, 10.0), ("gamma", 0.0, 10.0),
+        ("poisson", -19.0, 1.7), ("gamma", 19.0, -1.7),
+        ("poisson", -21.0, 3.0), ("gamma", 21.0, 3.0),
+        ("poisson", 0.0, 8.001), ("gamma", -30.0, 100.0),
+        ("poisson", -100.0, 10.0), ("gamma", -200.0, 20.0),
+    ])
+    def test_public_marginal_outcomes_match_adaptive_reference(generator_cls, family, location, strength):
+        gen = generator_cls(k=0, alpha_y=location, theta=0.8, outcome_type=family,
+                            u_strength_y=strength, seed=71)
+        frame = gen.generate(9, U=np.zeros(9))
+        names = ("g_d0", "g_d1") if generator_cls is InstrumentalGenerator else ("g0", "g1")
+        expected = [reference(location + effect, strength, family) for effect in (0.0, 0.8)]
+&gt;       np.testing.assert_allclose(frame[list(names)], np.tile(expected, (9, 1)),
+                                   rtol=3e-10, atol=2e-11 if family == "binary" else 0.0)
+E       AssertionError: 
+E       Not equal to tolerance rtol=3e-10, atol=0
+E       
+E       Mismatched elements: 18 / 18 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 188415325.47648486 (ACTUAL), 151408183.76170382 (DESIRED)
+E        [0, 1]: 188415325.47648486 (ACTUAL), 152784070.60829964 (DESIRED)
+E        [1, 0]: 188415325.47648486 (ACTUAL), 151408183.76170382 (DESIRED)
+E        [1, 1]: 188415325.47648486 (ACTUAL), 152784070.60829964 (DESIRED)
+E        [2, 0]: 188415325.47648486 (ACTUAL), 151408183.76170382 (DESIRED)
+E       Max absolute difference among violations: 37007141.71478105
+E       Max relative difference among violations: 0.24441969
+E        ACTUAL: array([[1.884153e+08, 1.884153e+08],
+E              [1.884153e+08, 1.884153e+08],
+E              [1.884153e+08, 1.884153e+08],...
+E        DESIRED: array([[1.514082e+08, 1.527841e+08],
+E              [1.514082e+08, 1.527841e+08],
+E              [1.514082e+08, 1.527841e+08],...
+
+tests/data/test_binary_iv_marginal_outcomes.py:60: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[poisson--100.0-10.0-CausalDatasetGenerator]" time="0.002" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[poisson--100.0-10.0-InstrumentalGenerator]" time="0.005" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[gamma--200.0-20.0-CausalDatasetGenerator]" time="0.002" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_public_marginal_outcomes_match_adaptive_reference[gamma--200.0-20.0-InstrumentalGenerator]" time="0.005" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_outcome_callables_agree_with_generated_oracles[0.5-binary]" time="0.002"><failure message="AssertionError: &#10;Arrays are not equal&#10;&#10;Mismatched elements: 2 / 2 (100%)&#10;Mismatch at indices:&#10; [0]: 0.47405717815583 (ACTUAL), 0.47405731188548506 (DESIRED)&#10; [1]: 0.5587518225739123 (ACTUAL), 0.5587515487077024 (DESIRED)&#10;Max absolute difference among violations: 2.7386621e-07&#10;Max relative difference among violations: 4.90139509e-07&#10; ACTUAL: array([0.474057, 0.558752])&#10; DESIRED: array([0.474057, 0.558752])">family = 'binary', strength = 0.5
+
+    @pytest.mark.parametrize("family", ["binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("strength", [0.5, -3.0, 50.0])
+    def test_outcome_callables_agree_with_generated_oracles(family, strength):
+        x = np.linspace(-0.7, 0.7, 7).reshape(-1, 1)
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            beta_y=np.array([0.3]), alpha_y=0.1, tau=lambda values: 0.5 + values[:, 0] * 0.2,
+            outcome_type=family, u_strength_y=strength, seed=31)
+        frame = gen.generate(len(x))
+        for order in (5, 21, 61):
+            _, g0, g1 = gen.oracle_nuisance(num_quad=order)
+            for index, row in enumerate(x):
+                actual = np.array([g0(row), g1(row)])
+&gt;               np.testing.assert_array_equal(actual, frame.loc[index, ["g0", "g1"]].to_numpy(dtype=float))
+E               AssertionError: 
+E               Arrays are not equal
+E               
+E               Mismatched elements: 2 / 2 (100%)
+E               Mismatch at indices:
+E                [0]: 0.47405717815583 (ACTUAL), 0.47405731188548506 (DESIRED)
+E                [1]: 0.5587518225739123 (ACTUAL), 0.5587515487077024 (DESIRED)
+E               Max absolute difference among violations: 2.7386621e-07
+E               Max relative difference among violations: 4.90139509e-07
+E                ACTUAL: array([0.474057, 0.558752])
+E                DESIRED: array([0.474057, 0.558752])
+
+tests/data/test_binary_iv_marginal_outcomes.py:78: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_outcome_callables_agree_with_generated_oracles[0.5-poisson]" time="0.002"><failure message="AssertionError: &#10;Arrays are not equal&#10;&#10;Mismatched elements: 2 / 2 (100%)&#10;Mismatch at indices:&#10; [0]: 1.0151130339356556 (ACTUAL), 1.0151130646157196 (DESIRED)&#10; [1]: 1.4549913706435638 (ACTUAL), 1.4549914146182015 (DESIRED)&#10;Max absolute difference among violations: 4.39746377e-08&#10;Max relative difference among violations: 3.02232974e-08&#10; ACTUAL: array([1.015113, 1.454991])&#10; DESIRED: array([1.015113, 1.454991])">family = 'poisson', strength = 0.5
+
+    @pytest.mark.parametrize("family", ["binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("strength", [0.5, -3.0, 50.0])
+    def test_outcome_callables_agree_with_generated_oracles(family, strength):
+        x = np.linspace(-0.7, 0.7, 7).reshape(-1, 1)
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            beta_y=np.array([0.3]), alpha_y=0.1, tau=lambda values: 0.5 + values[:, 0] * 0.2,
+            outcome_type=family, u_strength_y=strength, seed=31)
+        frame = gen.generate(len(x))
+        for order in (5, 21, 61):
+            _, g0, g1 = gen.oracle_nuisance(num_quad=order)
+            for index, row in enumerate(x):
+                actual = np.array([g0(row), g1(row)])
+&gt;               np.testing.assert_array_equal(actual, frame.loc[index, ["g0", "g1"]].to_numpy(dtype=float))
+E               AssertionError: 
+E               Arrays are not equal
+E               
+E               Mismatched elements: 2 / 2 (100%)
+E               Mismatch at indices:
+E                [0]: 1.0151130339356556 (ACTUAL), 1.0151130646157196 (DESIRED)
+E                [1]: 1.4549913706435638 (ACTUAL), 1.4549914146182015 (DESIRED)
+E               Max absolute difference among violations: 4.39746377e-08
+E               Max relative difference among violations: 3.02232974e-08
+E                ACTUAL: array([1.015113, 1.454991])
+E                DESIRED: array([1.015113, 1.454991])
+
+tests/data/test_binary_iv_marginal_outcomes.py:78: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_outcome_callables_agree_with_generated_oracles[0.5-gamma]" time="0.002"><failure message="AssertionError: &#10;Arrays are not equal&#10;&#10;Mismatched elements: 2 / 2 (100%)&#10;Mismatch at indices:&#10; [0]: 1.0151130339356556 (ACTUAL), 1.0151130646157196 (DESIRED)&#10; [1]: 1.4549913706435638 (ACTUAL), 1.4549914146182015 (DESIRED)&#10;Max absolute difference among violations: 4.39746377e-08&#10;Max relative difference among violations: 3.02232974e-08&#10; ACTUAL: array([1.015113, 1.454991])&#10; DESIRED: array([1.015113, 1.454991])">family = 'gamma', strength = 0.5
+
+    @pytest.mark.parametrize("family", ["binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("strength", [0.5, -3.0, 50.0])
+    def test_outcome_callables_agree_with_generated_oracles(family, strength):
+        x = np.linspace(-0.7, 0.7, 7).reshape(-1, 1)
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            beta_y=np.array([0.3]), alpha_y=0.1, tau=lambda values: 0.5 + values[:, 0] * 0.2,
+            outcome_type=family, u_strength_y=strength, seed=31)
+        frame = gen.generate(len(x))
+        for order in (5, 21, 61):
+            _, g0, g1 = gen.oracle_nuisance(num_quad=order)
+            for index, row in enumerate(x):
+                actual = np.array([g0(row), g1(row)])
+&gt;               np.testing.assert_array_equal(actual, frame.loc[index, ["g0", "g1"]].to_numpy(dtype=float))
+E               AssertionError: 
+E               Arrays are not equal
+E               
+E               Mismatched elements: 2 / 2 (100%)
+E               Mismatch at indices:
+E                [0]: 1.0151130339356556 (ACTUAL), 1.0151130646157196 (DESIRED)
+E                [1]: 1.4549913706435638 (ACTUAL), 1.4549914146182015 (DESIRED)
+E               Max absolute difference among violations: 4.39746377e-08
+E               Max relative difference among violations: 3.02232974e-08
+E                ACTUAL: array([1.015113, 1.454991])
+E                DESIRED: array([1.015113, 1.454991])
+
+tests/data/test_binary_iv_marginal_outcomes.py:78: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_outcome_callables_agree_with_generated_oracles[-3.0-binary]" time="0.002"><failure message="AssertionError: &#10;Arrays are not equal&#10;&#10;Mismatched elements: 2 / 2 (100%)&#10;Mismatch at indices:&#10; [0]: 0.4845371658583279 (ACTUAL), 0.48731871351473793 (DESIRED)&#10; [1]: 0.5350177923856985 (ACTUAL), 0.5287931820827341 (DESIRED)&#10;Max absolute difference among violations: 0.00622461&#10;Max relative difference among violations: 0.01177135&#10; ACTUAL: array([0.484537, 0.535018])&#10; DESIRED: array([0.487319, 0.528793])">family = 'binary', strength = -3.0
+
+    @pytest.mark.parametrize("family", ["binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("strength", [0.5, -3.0, 50.0])
+    def test_outcome_callables_agree_with_generated_oracles(family, strength):
+        x = np.linspace(-0.7, 0.7, 7).reshape(-1, 1)
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            beta_y=np.array([0.3]), alpha_y=0.1, tau=lambda values: 0.5 + values[:, 0] * 0.2,
+            outcome_type=family, u_strength_y=strength, seed=31)
+        frame = gen.generate(len(x))
+        for order in (5, 21, 61):
+            _, g0, g1 = gen.oracle_nuisance(num_quad=order)
+            for index, row in enumerate(x):
+                actual = np.array([g0(row), g1(row)])
+&gt;               np.testing.assert_array_equal(actual, frame.loc[index, ["g0", "g1"]].to_numpy(dtype=float))
+E               AssertionError: 
+E               Arrays are not equal
+E               
+E               Mismatched elements: 2 / 2 (100%)
+E               Mismatch at indices:
+E                [0]: 0.4845371658583279 (ACTUAL), 0.48731871351473793 (DESIRED)
+E                [1]: 0.5350177923856985 (ACTUAL), 0.5287931820827341 (DESIRED)
+E               Max absolute difference among violations: 0.00622461
+E               Max relative difference among violations: 0.01177135
+E                ACTUAL: array([0.484537, 0.535018])
+E                DESIRED: array([0.487319, 0.528793])
+
+tests/data/test_binary_iv_marginal_outcomes.py:78: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_outcome_callables_agree_with_generated_oracles[-3.0-poisson]" time="0.002"><failure message="AssertionError: &#10;Arrays are not equal&#10;&#10;Mismatched elements: 2 / 2 (100%)&#10;Mismatch at indices:&#10; [0]: 65.30093775163205 (ACTUAL), 80.63636412990758 (DESIRED)&#10; [1]: 93.59775487778795 (ACTUAL), 115.56800814439535 (DESIRED)&#10;Max absolute difference among violations: 21.97025327&#10;Max relative difference among violations: 0.19018003&#10; ACTUAL: array([65.300938, 93.597755])&#10; DESIRED: array([ 80.636364, 115.568008])">family = 'poisson', strength = -3.0
+
+    @pytest.mark.parametrize("family", ["binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("strength", [0.5, -3.0, 50.0])
+    def test_outcome_callables_agree_with_generated_oracles(family, strength):
+        x = np.linspace(-0.7, 0.7, 7).reshape(-1, 1)
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            beta_y=np.array([0.3]), alpha_y=0.1, tau=lambda values: 0.5 + values[:, 0] * 0.2,
+            outcome_type=family, u_strength_y=strength, seed=31)
+        frame = gen.generate(len(x))
+        for order in (5, 21, 61):
+            _, g0, g1 = gen.oracle_nuisance(num_quad=order)
+            for index, row in enumerate(x):
+                actual = np.array([g0(row), g1(row)])
+&gt;               np.testing.assert_array_equal(actual, frame.loc[index, ["g0", "g1"]].to_numpy(dtype=float))
+E               AssertionError: 
+E               Arrays are not equal
+E               
+E               Mismatched elements: 2 / 2 (100%)
+E               Mismatch at indices:
+E                [0]: 65.30093775163205 (ACTUAL), 80.63636412990758 (DESIRED)
+E                [1]: 93.59775487778795 (ACTUAL), 115.56800814439535 (DESIRED)
+E               Max absolute difference among violations: 21.97025327
+E               Max relative difference among violations: 0.19018003
+E                ACTUAL: array([65.300938, 93.597755])
+E                DESIRED: array([ 80.636364, 115.568008])
+
+tests/data/test_binary_iv_marginal_outcomes.py:78: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_outcome_callables_agree_with_generated_oracles[-3.0-gamma]" time="0.002"><failure message="AssertionError: &#10;Arrays are not equal&#10;&#10;Mismatched elements: 2 / 2 (100%)&#10;Mismatch at indices:&#10; [0]: 65.30093775163205 (ACTUAL), 80.63636412990758 (DESIRED)&#10; [1]: 93.59775487778795 (ACTUAL), 115.56800814439535 (DESIRED)&#10;Max absolute difference among violations: 21.97025327&#10;Max relative difference among violations: 0.19018003&#10; ACTUAL: array([65.300938, 93.597755])&#10; DESIRED: array([ 80.636364, 115.568008])">family = 'gamma', strength = -3.0
+
+    @pytest.mark.parametrize("family", ["binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("strength", [0.5, -3.0, 50.0])
+    def test_outcome_callables_agree_with_generated_oracles(family, strength):
+        x = np.linspace(-0.7, 0.7, 7).reshape(-1, 1)
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            beta_y=np.array([0.3]), alpha_y=0.1, tau=lambda values: 0.5 + values[:, 0] * 0.2,
+            outcome_type=family, u_strength_y=strength, seed=31)
+        frame = gen.generate(len(x))
+        for order in (5, 21, 61):
+            _, g0, g1 = gen.oracle_nuisance(num_quad=order)
+            for index, row in enumerate(x):
+                actual = np.array([g0(row), g1(row)])
+&gt;               np.testing.assert_array_equal(actual, frame.loc[index, ["g0", "g1"]].to_numpy(dtype=float))
+E               AssertionError: 
+E               Arrays are not equal
+E               
+E               Mismatched elements: 2 / 2 (100%)
+E               Mismatch at indices:
+E                [0]: 65.30093775163205 (ACTUAL), 80.63636412990758 (DESIRED)
+E                [1]: 93.59775487778795 (ACTUAL), 115.56800814439535 (DESIRED)
+E               Max absolute difference among violations: 21.97025327
+E               Max relative difference among violations: 0.19018003
+E                ACTUAL: array([65.300938, 93.597755])
+E                DESIRED: array([ 80.636364, 115.568008])
+
+tests/data/test_binary_iv_marginal_outcomes.py:78: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_outcome_callables_agree_with_generated_oracles[50.0-binary]" time="0.002"><failure message="AssertionError: &#10;Arrays are not equal&#10;&#10;Mismatched elements: 2 / 2 (100%)&#10;Mismatch at indices:&#10; [0]: 0.4853481043495499 (ACTUAL), 0.49257532998465925 (DESIRED)&#10; [1]: 0.5331608004724256 (ACTUAL), 0.5168038325433142 (DESIRED)&#10;Max absolute difference among violations: 0.01635697&#10;Max relative difference among violations: 0.03165025&#10; ACTUAL: array([0.485348, 0.533161])&#10; DESIRED: array([0.492575, 0.516804])">family = 'binary', strength = 50.0
+
+    @pytest.mark.parametrize("family", ["binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("strength", [0.5, -3.0, 50.0])
+    def test_outcome_callables_agree_with_generated_oracles(family, strength):
+        x = np.linspace(-0.7, 0.7, 7).reshape(-1, 1)
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            beta_y=np.array([0.3]), alpha_y=0.1, tau=lambda values: 0.5 + values[:, 0] * 0.2,
+            outcome_type=family, u_strength_y=strength, seed=31)
+        frame = gen.generate(len(x))
+        for order in (5, 21, 61):
+            _, g0, g1 = gen.oracle_nuisance(num_quad=order)
+            for index, row in enumerate(x):
+                actual = np.array([g0(row), g1(row)])
+&gt;               np.testing.assert_array_equal(actual, frame.loc[index, ["g0", "g1"]].to_numpy(dtype=float))
+E               AssertionError: 
+E               Arrays are not equal
+E               
+E               Mismatched elements: 2 / 2 (100%)
+E               Mismatch at indices:
+E                [0]: 0.4853481043495499 (ACTUAL), 0.49257532998465925 (DESIRED)
+E                [1]: 0.5331608004724256 (ACTUAL), 0.5168038325433142 (DESIRED)
+E               Max absolute difference among violations: 0.01635697
+E               Max relative difference among violations: 0.03165025
+E                ACTUAL: array([0.485348, 0.533161])
+E                DESIRED: array([0.492575, 0.516804])
+
+tests/data/test_binary_iv_marginal_outcomes.py:78: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_outcome_callables_agree_with_generated_oracles[50.0-poisson]" time="0.002"><failure message="AssertionError: &#10;Arrays are not equal&#10;&#10;Mismatched elements: 2 / 2 (100%)&#10;Mismatch at indices:&#10; [0]: 113205212.7400626 (ACTUAL), 177022180.55969316 (DESIRED)&#10; [1]: 113205212.94709794 (ACTUAL), 177022180.6646058 (DESIRED)&#10;Max absolute difference among violations: 63816967.81963056&#10;Max relative difference among violations: 0.36050266&#10; ACTUAL: array([1.132052e+08, 1.132052e+08])&#10; DESIRED: array([1.770222e+08, 1.770222e+08])">family = 'poisson', strength = 50.0
+
+    @pytest.mark.parametrize("family", ["binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("strength", [0.5, -3.0, 50.0])
+    def test_outcome_callables_agree_with_generated_oracles(family, strength):
+        x = np.linspace(-0.7, 0.7, 7).reshape(-1, 1)
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            beta_y=np.array([0.3]), alpha_y=0.1, tau=lambda values: 0.5 + values[:, 0] * 0.2,
+            outcome_type=family, u_strength_y=strength, seed=31)
+        frame = gen.generate(len(x))
+        for order in (5, 21, 61):
+            _, g0, g1 = gen.oracle_nuisance(num_quad=order)
+            for index, row in enumerate(x):
+                actual = np.array([g0(row), g1(row)])
+&gt;               np.testing.assert_array_equal(actual, frame.loc[index, ["g0", "g1"]].to_numpy(dtype=float))
+E               AssertionError: 
+E               Arrays are not equal
+E               
+E               Mismatched elements: 2 / 2 (100%)
+E               Mismatch at indices:
+E                [0]: 113205212.7400626 (ACTUAL), 177022180.55969316 (DESIRED)
+E                [1]: 113205212.94709794 (ACTUAL), 177022180.6646058 (DESIRED)
+E               Max absolute difference among violations: 63816967.81963056
+E               Max relative difference among violations: 0.36050266
+E                ACTUAL: array([1.132052e+08, 1.132052e+08])
+E                DESIRED: array([1.770222e+08, 1.770222e+08])
+
+tests/data/test_binary_iv_marginal_outcomes.py:78: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_outcome_callables_agree_with_generated_oracles[50.0-gamma]" time="0.002"><failure message="AssertionError: &#10;Arrays are not equal&#10;&#10;Mismatched elements: 2 / 2 (100%)&#10;Mismatch at indices:&#10; [0]: 113205212.7400626 (ACTUAL), 177022180.55969316 (DESIRED)&#10; [1]: 113205212.94709794 (ACTUAL), 177022180.6646058 (DESIRED)&#10;Max absolute difference among violations: 63816967.81963056&#10;Max relative difference among violations: 0.36050266&#10; ACTUAL: array([1.132052e+08, 1.132052e+08])&#10; DESIRED: array([1.770222e+08, 1.770222e+08])">family = 'gamma', strength = 50.0
+
+    @pytest.mark.parametrize("family", ["binary", "poisson", "gamma"])
+    @pytest.mark.parametrize("strength", [0.5, -3.0, 50.0])
+    def test_outcome_callables_agree_with_generated_oracles(family, strength):
+        x = np.linspace(-0.7, 0.7, 7).reshape(-1, 1)
+        gen = CausalDatasetGenerator(k=1, x_sampler=lambda n, k, seed: x.copy(),
+            beta_y=np.array([0.3]), alpha_y=0.1, tau=lambda values: 0.5 + values[:, 0] * 0.2,
+            outcome_type=family, u_strength_y=strength, seed=31)
+        frame = gen.generate(len(x))
+        for order in (5, 21, 61):
+            _, g0, g1 = gen.oracle_nuisance(num_quad=order)
+            for index, row in enumerate(x):
+                actual = np.array([g0(row), g1(row)])
+&gt;               np.testing.assert_array_equal(actual, frame.loc[index, ["g0", "g1"]].to_numpy(dtype=float))
+E               AssertionError: 
+E               Arrays are not equal
+E               
+E               Mismatched elements: 2 / 2 (100%)
+E               Mismatch at indices:
+E                [0]: 113205212.7400626 (ACTUAL), 177022180.55969316 (DESIRED)
+E                [1]: 113205212.94709794 (ACTUAL), 177022180.6646058 (DESIRED)
+E               Max absolute difference among violations: 63816967.81963056
+E               Max relative difference among violations: 0.36050266
+E                ACTUAL: array([1.132052e+08, 1.132052e+08])
+E                DESIRED: array([1.770222e+08, 1.770222e+08])
+
+tests/data/test_binary_iv_marginal_outcomes.py:78: AssertionError</failure></testcase><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_supplied_latent_values_do_not_change_gaussian_reference[continuous-CausalDatasetGenerator]" time="0.002" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_supplied_latent_values_do_not_change_gaussian_reference[continuous-InstrumentalGenerator]" time="0.007" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_supplied_latent_values_do_not_change_gaussian_reference[binary-CausalDatasetGenerator]" time="0.003" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_supplied_latent_values_do_not_change_gaussian_reference[binary-InstrumentalGenerator]" time="0.012" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_supplied_latent_values_do_not_change_gaussian_reference[poisson-CausalDatasetGenerator]" time="0.002" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_supplied_latent_values_do_not_change_gaussian_reference[poisson-InstrumentalGenerator]" time="0.008" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_supplied_latent_values_do_not_change_gaussian_reference[gamma-CausalDatasetGenerator]" time="0.002" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_supplied_latent_values_do_not_change_gaussian_reference[gamma-InstrumentalGenerator]" time="0.008" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_zero_strength_preserves_natural_mean[continuous-CausalDatasetGenerator]" time="0.001" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_zero_strength_preserves_natural_mean[continuous-InstrumentalGenerator]" time="0.002" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_zero_strength_preserves_natural_mean[binary-CausalDatasetGenerator]" time="0.001" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_zero_strength_preserves_natural_mean[binary-InstrumentalGenerator]" time="0.002" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_zero_strength_preserves_natural_mean[poisson-CausalDatasetGenerator]" time="0.001" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_zero_strength_preserves_natural_mean[poisson-InstrumentalGenerator]" time="0.002" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_zero_strength_preserves_natural_mean[gamma-CausalDatasetGenerator]" time="0.001" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_zero_strength_preserves_natural_mean[gamma-InstrumentalGenerator]" time="0.002" /><testcase classname="tests.data.test_binary_iv_marginal_outcomes" name="test_oracle_identification_guard_remains" time="0.000" /></testsuite></testsuites>

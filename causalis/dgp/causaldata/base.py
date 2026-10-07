@@ -40,6 +40,7 @@ from typing import Dict, Optional, Union, List, Tuple, Callable, Any
 
 from causalis.dgp.causaldata import CausalData
 from causalis.dgp.base import _sigmoid, _gaussian_copula
+from causalis.dgp._gaussian_outcome import _gaussian_outcome_mean
 
 _DATACLASS_KWARGS = {"slots": True} if sys.version_info >= (3, 10) else {}
 
@@ -75,8 +76,8 @@ class CausalDatasetGenerator:
     - m: true propensity P(T=1 | X) marginalized over U
     - m_obs: realized propensity P(T=1 | X, U)
     - tau_link: tau(X) on the structural (link) scale
-    - g0: E[Y | X, T=0] on the natural outcome scale marginalized over U .,9 
-    - g1: E[Y | X, T=1] on the natural outcome scale marginalized over U
+    - g0: E[Y(0) | X] on the natural outcome scale, integrated over Gaussian U
+    - g1: E[Y(1) | X] on the natural outcome scale, integrated over Gaussian U
     - cate: g1 - g0 (conditional average treatment effect on the natural outcome scale)
 
     Notes on effect scale:
@@ -146,6 +147,11 @@ class CausalDatasetGenerator:
     - ``cate`` is always ``g1 - g0`` on that same natural scale, even when the
       structural treatment effect is specified on a link scale such as log-odds
       or log-mean.
+    - Nonlinear potential-outcome means use independent Gaussian-reference U,
+      including when realized U is supplied. Binary means use adaptive smooth
+      integrals with estimated absolute error 1e-11; Poisson/Gamma means
+      integrate the actual clipped exponential link. Nonconvergence raises
+      ValueError. These are not selected-U outcome regressions when U affects D.
 
     Examples
     --------
@@ -635,13 +641,10 @@ class CausalDatasetGenerator:
         elif self.outcome_type == "binary":
             if float(self.u_strength_y) != 0.0:
                 # Oracle risk under treatment/control integrates latent U out on probability scale.
-                gh_x, gh_w = np.polynomial.hermite.hermgauss(21)
-                gh_w = gh_w / np.sqrt(np.pi)
                 base0 = self._outcome_location(X, np.zeros(n), np.zeros(n), np.zeros(n))
                 base1 = self._outcome_location(X, np.ones(n),  np.zeros(n), tau_x)
-                Uq = np.sqrt(2.0) * gh_x
-                g0 = np.sum(_sigmoid(base0[:, None] + self.u_strength_y * Uq[None, :]) * gh_w[None, :], axis=1)
-                g1 = np.sum(_sigmoid(base1[:, None] + self.u_strength_y * Uq[None, :]) * gh_w[None, :], axis=1)
+                g0 = _gaussian_outcome_mean(base0, self.u_strength_y, "binary")
+                g1 = _gaussian_outcome_mean(base1, self.u_strength_y, "binary")
             else:
                 g0 = _sigmoid(self._outcome_location(X, np.zeros(n), np.zeros(n), np.zeros(n)))
                 g1 = _sigmoid(self._outcome_location(X, np.ones(n),  np.zeros(n), tau_x))
@@ -649,13 +652,10 @@ class CausalDatasetGenerator:
         elif self.outcome_type in {"poisson", "gamma"}:
             if float(self.u_strength_y) != 0.0:
                 # Oracle mean integrates exp(link) over U; clipping keeps exponentials stable.
-                gh_x, gh_w = np.polynomial.hermite.hermgauss(21)
-                gh_w = gh_w / np.sqrt(np.pi)
                 base0 = self._outcome_location(X, np.zeros(n), np.zeros(n), np.zeros(n))
                 base1 = self._outcome_location(X, np.ones(n),  np.zeros(n), tau_x)
-                Uq = np.sqrt(2.0) * gh_x
-                g0 = np.sum(np.exp(np.clip(base0[:, None] + self.u_strength_y * Uq[None, :], -20, 20)) * gh_w[None, :], axis=1)
-                g1 = np.sum(np.exp(np.clip(base1[:, None] + self.u_strength_y * Uq[None, :], -20, 20)) * gh_w[None, :], axis=1)
+                g0 = _gaussian_outcome_mean(base0, self.u_strength_y, self.outcome_type)
+                g1 = _gaussian_outcome_mean(base1, self.u_strength_y, self.outcome_type)
             else:
                 g0 = np.exp(np.clip(self._outcome_location(X, np.zeros(n), np.zeros(n), np.zeros(n)), -20, 20))
                 g1 = np.exp(np.clip(self._outcome_location(X, np.ones(n),  np.zeros(n), tau_x), -20, 20))
@@ -774,7 +774,9 @@ class CausalDatasetGenerator:
         Parameters
         ----------
         num_quad : int, default=21
-            Number of quadrature points for marginalizing over U.
+            Number of Gauss-Hermite points for the treatment propensity only.
+            Nonlinear outcome means use the same Gaussian integration as
+            ``generate``, independent of this setting.
 
         Returns
         -------
@@ -824,13 +826,11 @@ class CausalDatasetGenerator:
             if self.outcome_type == "binary":
                 if uy == 0.0:
                     return float(_sigmoid(loc))
-                z = loc + uy * np.sqrt(2.0) * gh_x
-                return float(np.sum(_sigmoid(z) * gh_w))
+                return float(_gaussian_outcome_mean(loc, uy, "binary"))
             if self.outcome_type in {"poisson", "gamma"}:
                 if uy == 0.0:
                     return float(np.exp(np.clip(loc, -20.0, 20.0)))
-                z = np.clip(loc + uy * np.sqrt(2.0) * gh_x, -20.0, 20.0)
-                return float(np.sum(np.exp(z) * gh_w))
+                return float(_gaussian_outcome_mean(loc, uy, self.outcome_type))
             raise ValueError("outcome_type must be 'continuous','binary','poisson','gamma'.")
 
         return (lambda x: m_of_x(x),

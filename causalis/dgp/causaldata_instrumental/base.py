@@ -26,6 +26,7 @@ import pandas as pd
 
 from causalis.data_contracts.iv_causal_data import IVCausalData
 from causalis.dgp.base import _sigmoid
+from causalis.dgp._gaussian_outcome import _gaussian_outcome_mean
 from causalis.dgp.causaldata.base import CausalDatasetGenerator
 
 _DATACLASS_KWARGS = {"slots": True} if sys.version_info >= (3, 10) else {}
@@ -272,12 +273,26 @@ class InstrumentalGenerator(CausalDatasetGenerator):
     def _potential_outcome_means(
         self, X: np.ndarray, tau_x: np.ndarray
     ) -> Tuple[np.ndarray, np.ndarray]:
-        """Compute treatment potential-outcome means on the natural scale."""
+        """Compute E[Y(d)|X] over independent Gaussian-reference latent U.
+
+        Nonlinear means share the binary generator's accuracy/failure policy.
+        This does not change the joint shared-U integrals in ``_g_by_z``.
+        Outcome callbacks should define deterministic functions of X; nonlinear
+        means evaluate each base location once, rather than at every GH node.
+        """
         n = X.shape[0]
         if float(self.u_strength_y) == 0.0:
             loc0 = self._outcome_location(X, np.zeros(n), np.zeros(n), np.zeros(n))
             loc1 = self._outcome_location(X, np.ones(n), np.zeros(n), tau_x)
             return self._natural_mean_from_location(loc0), self._natural_mean_from_location(loc1)
+
+        if self.outcome_type in {"binary", "poisson", "gamma"}:
+            loc0 = self._outcome_location(X, np.zeros(n), np.zeros(n), np.zeros(n))
+            loc1 = self._outcome_location(X, np.ones(n), np.zeros(n), tau_x)
+            return (
+                _gaussian_outcome_mean(loc0, self.u_strength_y, self.outcome_type),
+                _gaussian_outcome_mean(loc1, self.u_strength_y, self.outcome_type),
+            )
 
         uq, wq = self._u_quadrature()
         g0 = np.zeros(n, dtype=float)
