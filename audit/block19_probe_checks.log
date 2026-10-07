@@ -1,0 +1,52 @@
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1270: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+  warnings.warn(
+_b19_binary:1257: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+  warnings.warn(
+_b19_score_utils:31: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1270: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+  warnings.warn(
+_b19_binary:1257: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+  warnings.warn(
+_b19_score_utils:31: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1270: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+  warnings.warn(
+_b19_binary:1257: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+  warnings.warn(
+_b19_score_utils:31: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1270: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+  warnings.warn(
+_b19_binary:1257: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+  warnings.warn(
+_b19_score_utils:31: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1270: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+  warnings.warn(
+_b19_binary:1257: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+  warnings.warn(
+_b19_score_utils:31: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1270: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+  warnings.warn(
+_b19_binary:1257: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+  warnings.warn(
+_b19_score_utils:31: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1270: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+  warnings.warn(
+_b19_binary:1257: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+  warnings.warn(
+_b19_score_utils:31: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1270: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+  warnings.warn(
+_b19_binary:1257: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+  warnings.warn(
+_b19_score_utils:31: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+{
+  "exact_fit_pairs": 40,
+  "exact_inference_pairs": 72
+}

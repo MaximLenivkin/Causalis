@@ -8,6 +8,8 @@ https://github.com/DoubleML/doubleml-for-py/blob/main/doubleml/irm/irm.py
 from __future__ import annotations
 
 import hashlib
+from causalis.scenarios._numerics import _checked_arithmetic, _require_finite
+
 import numpy as np
 import pandas as pd
 import warnings
@@ -93,6 +95,8 @@ class IRM(BaseEstimator):
         and snapshots them before training, applies the same overlap retention
         mask, and normalizes by the retained mean at estimation. Changes to
         ``weights`` after fitting take effect only after a new ``fit()``.
+        The retained mean must exceed 1e-12. Both normalized weight vectors
+        must remain finite; otherwise estimation raises ``ValueError``.
         Note: If weights depend on treatment or outcome, E[w|X] must be provided for correct sensitivity analysis.
     relative_baseline_min : float, default 1e-8
         Minimum absolute baseline value used for relative effects. If |mu_c| is below this
@@ -152,6 +156,12 @@ class IRM(BaseEstimator):
 
     Notes
     -----
+    Score and inference calculations use float64. Overflow, invalid arithmetic,
+    or non-finite score/IF/SE/interval outputs raise ``RuntimeError``. Even a
+    mathematically finite result can fail if an intermediate is not representable;
+    rescale outcomes/weights or increase the overlap/trimming threshold and refit.
+    No score clipping or alternate estimating equation is used.
+
     Learner outputs must be real, finite and aligned with prediction rows.
     ``predict()`` accepts shapes ``(n,)`` and ``(n, 1)``; binary
     ``predict_proba()`` also accepts ``(n, 2)``. Scalars, row vectors,
@@ -1119,6 +1129,7 @@ class IRM(BaseEstimator):
             warn=warn,
         )
 
+    @_checked_arithmetic
     def _compute_estimate_components(
         self,
         *,
@@ -1138,6 +1149,8 @@ class IRM(BaseEstimator):
         )
         w, w_bar = self._get_weights(n, m_hat, d, score=score)
         psi_b = w * (g1_hat - g0_hat) + w_bar * (u1 * h1 - u0 * h0)
+
+        _require_finite(u0, u1, h1, h0, inv_m, inv_1m, w, w_bar, psi_b)
 
         if score == "ATE":
             psi_a = -np.ones(n)
@@ -1266,6 +1279,7 @@ class IRM(BaseEstimator):
                 RuntimeWarning,
             )
 
+    @_checked_arithmetic
     def _solve_moment_equation(
         self,
         *,
@@ -1274,6 +1288,7 @@ class IRM(BaseEstimator):
         alpha: float,
     ) -> Tuple[float, np.ndarray, float, float, float, float, float, float]:
         """Solve the moment equation and compute inference statistics."""
+        _require_finite(psi_a, psi_b)
         n = len(psi_a)
         # Jacobian (Neyman score derivative) for the one-dimensional moment.
         J = float(np.mean(psi_a))
@@ -1297,6 +1312,8 @@ class IRM(BaseEstimator):
         ci_low = theta_hat - z * se
         ci_high = theta_hat + z * se
 
+        if abs(J) >= 1e-16:
+            _require_finite(theta_hat, IF, se, ci_low, ci_high)
         return theta_hat, IF, se, t_stat, pval, ci_low, ci_high, z
 
     def _cache_estimate_core(
@@ -1315,6 +1332,7 @@ class IRM(BaseEstimator):
         self.psi_a_ = psi_a
         self.psi_b_ = psi_b
 
+    @_checked_arithmetic
     def _compute_relative_effect_stats(
         self,
         *,
@@ -1358,6 +1376,7 @@ class IRM(BaseEstimator):
             se_rel = float(np.sqrt(max(var_rel, 0.0)))
             ci_low_rel = tau_rel - z * se_rel
             ci_high_rel = tau_rel + z * se_rel
+            _require_finite(IF_rel, tau_rel, se_rel, ci_low_rel, ci_high_rel)
             if ci_low_rel > ci_high_rel:
                 ci_low_rel, ci_high_rel = ci_high_rel, ci_low_rel
         else:
@@ -1576,9 +1595,6 @@ class IRM(BaseEstimator):
         theta_hat, IF, se, t_stat, pval, ci_low, ci_high, z = (
             self._solve_moment_equation(psi_a=psi_a, psi_b=psi_b, alpha=alpha)
         )
-        self._cache_estimate_core(
-            theta_hat=theta_hat, se=se, IF=IF, psi_a=psi_a, psi_b=psi_b
-        )
 
         mu_c, tau_rel, ci_low_rel, ci_high_rel, se_rel = (
             self._compute_relative_effect_stats(
@@ -1592,6 +1608,9 @@ class IRM(BaseEstimator):
                 z=z,
                 score=score,
             )
+        )
+        self._cache_estimate_core(
+            theta_hat=theta_hat, se=se, IF=IF, psi_a=psi_a, psi_b=psi_b
         )
         self.mu_c_ = mu_c
         self.se_relative_ = np.array([se_rel])

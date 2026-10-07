@@ -5,6 +5,8 @@ from __future__ import annotations
 from typing import Any, Dict, Optional, Tuple
 import warnings
 
+from causalis.scenarios._numerics import _checked_arithmetic, _require_finite
+
 import numpy as np
 import pandas as pd
 from joblib import Parallel, delayed
@@ -74,6 +76,12 @@ class IIVM(BaseEstimator):
 
     Notes
     -----
+    Score and inference calculations use float64. Overflow, invalid arithmetic,
+    or non-finite score/IF/SE/interval outputs raise ``RuntimeError``. Even a
+    mathematically finite result can fail if an intermediate is not representable;
+    rescale outcomes/weights or increase the overlap/trimming threshold and refit.
+    No score clipping or alternate estimating equation is used.
+
     Learner outputs must be real, finite and aligned with prediction rows.
     ``predict()`` accepts shapes ``(n,)`` and ``(n, 1)``; binary
     ``predict_proba()`` also accepts ``(n, 2)``. Scalars, row vectors,
@@ -662,6 +670,7 @@ class IIVM(BaseEstimator):
         self.r_hat1_ = predictions["r_hat1"]
         return self
 
+    @_checked_arithmetic
     def _compute_ipw_terms(
         self, *, z: np.ndarray, m: np.ndarray
     ) -> Tuple[np.ndarray, np.ndarray]:
@@ -676,6 +685,44 @@ class IIVM(BaseEstimator):
             w_z1 = w_z1 / mean_w1
             w_z0 = w_z0 / mean_w0
         return w_z1, w_z0
+
+    @_checked_arithmetic
+    def _compute_late_inference(self, *, y, d, z, g0, g1, m, r0, r1, alpha):
+        """Compute the unchanged LATE score/Wald formula with explicit failure."""
+        n = len(y)
+        w_z1, w_z0 = self._compute_ipw_terms(z=z, m=m)
+        phi_y = g1 - g0 + w_z1 * (y - g1) - w_z0 * (y - g0)
+        phi_d = r1 - r0 + w_z1 * (d - r1) - w_z0 * (d - r0)
+
+        numerator = float(np.mean(phi_y))
+        denominator = float(np.mean(phi_d))
+        if abs(denominator) < 1e-8:
+            raise ValueError(
+                "Weak or zero first stage: mean(phi_d) is too close to zero. "
+                "LATE is not numerically stable."
+            )
+        if abs(denominator) < self.weak_iv_threshold:
+            warnings.warn(
+                "The estimated first stage is weak; LATE may be unstable.",
+                RuntimeWarning,
+            )
+
+        theta_hat = numerator / denominator
+        psi_a = -phi_d
+        psi_b = phi_y
+        psi = psi_a * theta_hat + psi_b
+        J = float(np.mean(psi_a))
+        se = float(np.sqrt(np.mean(psi**2) / (n * J**2)))
+        t_stat = theta_hat / se if se > 0 else np.nan
+        p_value = 2.0 * (1.0 - norm.cdf(abs(t_stat))) if np.isfinite(t_stat) else np.nan
+        z_crit = norm.ppf(1.0 - alpha / 2.0)
+        ci_low = float(theta_hat - z_crit * se)
+        ci_high = float(theta_hat + z_crit * se)
+
+        _require_finite(phi_y, phi_d, numerator, denominator, theta_hat,
+                        psi, se, ci_low, ci_high)
+        return (phi_y, phi_d, numerator, denominator, theta_hat, psi_a, psi_b,
+                psi, se, t_stat, p_value, ci_low, ci_high)
 
     def estimate(self, score: str = "LATE", alpha: float = 0.05) -> IVCausalEstimate:
         """Estimate LATE from cross-fitted IIVM nuisance predictions."""
@@ -708,34 +755,10 @@ class IIVM(BaseEstimator):
         r1 = self.r_hat1_
         n = len(y)
 
-        w_z1, w_z0 = self._compute_ipw_terms(z=z, m=m)
-        phi_y = g1 - g0 + w_z1 * (y - g1) - w_z0 * (y - g0)
-        phi_d = r1 - r0 + w_z1 * (d - r1) - w_z0 * (d - r0)
-
-        numerator = float(np.mean(phi_y))
-        denominator = float(np.mean(phi_d))
-        if abs(denominator) < 1e-8:
-            raise ValueError(
-                "Weak or zero first stage: mean(phi_d) is too close to zero. "
-                "LATE is not numerically stable."
-            )
-        if abs(denominator) < self.weak_iv_threshold:
-            warnings.warn(
-                "The estimated first stage is weak; LATE may be unstable.",
-                RuntimeWarning,
-            )
-
-        theta_hat = numerator / denominator
-        psi_a = -phi_d
-        psi_b = phi_y
-        psi = psi_a * theta_hat + psi_b
-        J = float(np.mean(psi_a))
-        se = float(np.sqrt(np.mean(psi**2) / (n * J**2)))
-        t_stat = theta_hat / se if se > 0 else np.nan
-        p_value = 2.0 * (1.0 - norm.cdf(abs(t_stat))) if np.isfinite(t_stat) else np.nan
-        z_crit = norm.ppf(1.0 - alpha / 2.0)
-        ci_low = float(theta_hat - z_crit * se)
-        ci_high = float(theta_hat + z_crit * se)
+        (phi_y, phi_d, numerator, denominator, theta_hat, psi_a, psi_b,
+         psi, se, t_stat, p_value, ci_low, ci_high) = self._compute_late_inference(
+            y=y, d=d, z=z, g0=g0, g1=g1, m=m, r0=r0, r1=r1, alpha=alpha
+        )
 
         clipped_propensity = bool(
             np.any(self.m_hat_raw_ <= self.trimming_threshold)

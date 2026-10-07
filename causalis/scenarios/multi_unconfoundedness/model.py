@@ -4,6 +4,8 @@ import hashlib
 from datetime import datetime
 from typing import Any, Dict, Optional, Tuple
 
+from causalis.scenarios._numerics import _checked_arithmetic, _require_finite
+
 import numpy as np
 import pandas as pd
 from joblib import Parallel, delayed
@@ -104,6 +106,12 @@ class MultiTreatmentIRM(BaseEstimator):
 
     Notes
     -----
+    Score and inference calculations use float64. Overflow, invalid arithmetic,
+    or non-finite score/IF/SE/interval outputs raise ``RuntimeError``. Even a
+    mathematically finite result can fail if an intermediate is not representable;
+    rescale outcomes/weights or increase the overlap/trimming threshold and refit.
+    No score clipping or alternate estimating equation is used.
+
     Learner outputs must be real and finite. ``predict()`` accepts shapes
     ``(n,)`` and ``(n, 1)``; binary ``predict_proba()`` also accepts ``(n, 2)``.
     Multiclass propensity probabilities require shape ``(n, K)`` with columns
@@ -728,6 +736,7 @@ class MultiTreatmentIRM(BaseEstimator):
             raise RuntimeError("Only ATE and ATTE are supported")
         return score_u
 
+    @_checked_arithmetic
     def _compute_score_terms(
         self,
         *,
@@ -780,8 +789,10 @@ class MultiTreatmentIRM(BaseEstimator):
             # Arm membership is a random ratio denominator. Replacing this
             # derivative by its mean (-1) preserves roots but changes the IF.
             psi_a = -dk / pk[None, :]
+        _require_finite(u, h, psi_a, psi_b)
         return y_col, u, h, psi_a, psi_b
 
+    @_checked_arithmetic
     def _solve_moment_and_inference(
         self,
         *,
@@ -790,6 +801,7 @@ class MultiTreatmentIRM(BaseEstimator):
         alpha: float,
     ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, float]:
         """Solve E_n[psi_a * theta + psi_b] = 0 and compute Wald inference."""
+        _require_finite(psi_a, psi_b)
         n, n_contrasts = psi_b.shape
         psi_a_by_contrast = np.broadcast_to(
             psi_a[:, None] if psi_a.ndim == 1 else psi_a, psi_b.shape
@@ -816,8 +828,11 @@ class MultiTreatmentIRM(BaseEstimator):
         z = float(norm.ppf(1 - alpha / 2.0))
         ci_low = theta_hat - z * se
         ci_high = theta_hat + z * se
+        _require_finite(theta_hat[valid], influence[:, valid], se[valid],
+                        ci_low[valid], ci_high[valid])
         return theta_hat, influence, se, t_stat, pval, ci_low, ci_high, z
 
+    @_checked_arithmetic
     def _compute_relative_effect_inference(
         self,
         *,
@@ -864,6 +879,7 @@ class MultiTreatmentIRM(BaseEstimator):
             se_rel = np.sqrt(np.maximum(var_rel, 0.0))
             ci_low_rel = tau_rel - z * se_rel
             ci_high_rel = tau_rel + z * se_rel
+            _require_finite(tau_rel, ci_low_rel, ci_high_rel)
             return tau_rel, ci_low_rel, ci_high_rel, None
 
         g0_hat = g_hat[:, [0]]
@@ -894,6 +910,7 @@ class MultiTreatmentIRM(BaseEstimator):
             else:
                 var_rel = np.full(np.sum(valid), np.nan, dtype=float)
             se_rel = np.sqrt(np.maximum(var_rel, 0.0))
+            _require_finite(if_rel, tau_rel[valid], se_rel)
             ci_low_rel[valid] = tau_rel[valid] - z * se_rel
             ci_high_rel[valid] = tau_rel[valid] + z * se_rel
         return tau_rel, ci_low_rel, ci_high_rel, mu_c

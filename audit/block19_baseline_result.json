@@ -1,0 +1,14 @@
+{
+  "baseline": "52cd6e2fbb1934edaa1191856f70424858a59f6f",
+  "observed_at": "2026-10-07T17:58:20.369989+00:00",
+  "interpreter": "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/bin/python",
+  "test_path": "tests/inference/test_extreme_score_arithmetic.py",
+  "test_sha256": "77b9b46cf59275da1d615dc7ac21b163251bd9115241cb993bc747461612a6e8",
+  "isolated_baseline_import_verified": true,
+  "exit_code": 1,
+  "tests": 67,
+  "failures": 54,
+  "errors": 0,
+  "skipped": 0,
+  "passed": 13
+}

@@ -1,0 +1,1576 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="54" skipped="0" tests="67" time="6.965" timestamp="2026-10-07T20:58:12.895717+03:00" hostname="macbook-C02GM2Y1Q6LR"><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[1e+155-False-binary-ATE]" time="0.032"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'binary', normalize = False, score = 'ATE', value = 1e+155
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[1e+155-False-binary-ATTE]" time="0.011"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'binary', normalize = False, score = 'ATTE', value = 1e+155
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[1e+155-False-multi-ATE]" time="0.014"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'multi', normalize = False, score = 'ATE', value = 1e+155
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[1e+155-False-multi-ATTE]" time="0.016"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'multi', normalize = False, score = 'ATTE', value = 1e+155
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[1e+155-False-iv-LATE]" time="0.025"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'iv', normalize = False, score = 'LATE', value = 1e+155
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[1e+155-True-binary-ATE]" time="0.010"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'binary', normalize = True, score = 'ATE', value = 1e+155
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[1e+155-True-binary-ATTE]" time="0.010"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'binary', normalize = True, score = 'ATTE', value = 1e+155
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[1e+155-True-multi-ATE]" time="0.012"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'multi', normalize = True, score = 'ATE', value = 1e+155
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[1e+155-True-multi-ATTE]" time="0.011"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'multi', normalize = True, score = 'ATTE', value = 1e+155
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[1e+155-True-iv-LATE]" time="0.014"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'iv', normalize = True, score = 'LATE', value = 1e+155
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[-1e+155-False-binary-ATE]" time="0.010"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'binary', normalize = False, score = 'ATE', value = -1e+155
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[-1e+155-False-binary-ATTE]" time="0.010"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'binary', normalize = False, score = 'ATTE', value = -1e+155
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[-1e+155-False-multi-ATE]" time="0.011"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'multi', normalize = False, score = 'ATE', value = -1e+155
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[-1e+155-False-multi-ATTE]" time="0.015"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'multi', normalize = False, score = 'ATTE', value = -1e+155
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[-1e+155-False-iv-LATE]" time="0.015"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'iv', normalize = False, score = 'LATE', value = -1e+155
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[-1e+155-True-binary-ATE]" time="0.011"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'binary', normalize = True, score = 'ATE', value = -1e+155
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[-1e+155-True-binary-ATTE]" time="0.009"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'binary', normalize = True, score = 'ATTE', value = -1e+155
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[-1e+155-True-multi-ATE]" time="0.015"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'multi', normalize = True, score = 'ATE', value = -1e+155
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[-1e+155-True-multi-ATTE]" time="0.012"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'multi', normalize = True, score = 'ATTE', value = -1e+155
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[-1e+155-True-iv-LATE]" time="0.020"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'iv', normalize = True, score = 'LATE', value = -1e+155
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[1e+307-False-binary-ATE]" time="0.007"><failure message="OverflowError: (34, 'Result too large')">kind = 'binary', normalize = False, score = 'ATE', value = 1e+307
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+        with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+&gt;           model.estimate(score=score)
+
+tests/inference/test_extreme_score_arithmetic.py:17: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+causalis/scenarios/unconfoundedness/model.py:1584: in estimate
+    self._compute_relative_effect_stats(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = IRM(status='fitted', n_folds=3, random_state=19), theta_hat = nan
+IF = array([nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan,
+       nan, nan, nan, nan, nan, nan, nan, nan,..., nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan,
+       nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan])
+w = array([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+       1., 1., 1., 1., 1., 1., 1., 1., 1., ...    1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+       1., 1., 1., 1., 1., 1., 1., 1., 1., 1.])
+w_bar = array([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+       1., 1., 1., 1., 1., 1., 1., 1., 1., ...    1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+       1., 1., 1., 1., 1., 1., 1., 1., 1., 1.])
+g0_hat = array([1.e+307, 1.e+307, 1.e+307, 1.e+307, 1.e+307, 1.e+307, 1.e+307,
+       1.e+307, 1.e+307, 1.e+307, 1.e+307, 1.e+3...    1.e+307, 1.e+307, 1.e+307, 1.e+307, 1.e+307, 1.e+307, 1.e+307,
+       1.e+307, 1.e+307, 1.e+307, 1.e+307, 1.e+307])
+u0 = array([-1.e+307, -1.e+307, -1.e+307, -1.e+307, -1.e+307, -1.e+307,
+       -1.e+307, -1.e+307, -1.e+307, -1.e+307, -1.e..., -1.e+307, -1.e+307, -1.e+307, -1.e+307, -1.e+307,
+       -1.e+307, -1.e+307, -1.e+307, -1.e+307, -1.e+307, -1.e+307])
+h0 = array([2.05126388, 0.        , 2.04141951, 0.        , 1.97054198,
+       0.        , 1.9933995 , 0.        , 0.      ...63, 0.        , 2.0202162 , 2.01214856, 2.04285933,
+       0.        , 0.        , 2.04831031, 0.        , 0.        ])
+z = np.float64(1.959963984540054), score = 'ATE'
+
+    def _compute_relative_effect_stats(
+        self,
+        *,
+        theta_hat: float,
+        IF: np.ndarray,
+        w: np.ndarray,
+        w_bar: np.ndarray,
+        g0_hat: np.ndarray,
+        u0: np.ndarray,
+        h0: np.ndarray,
+        z: float,
+        score: str,
+    ) -&gt; Tuple[float, float, float, float, float]:
+        """Compute relative effect and delta-method interval."""
+        n = len(w)
+        # Orthogonal signal for baseline E[w * Y(0)].
+        psi_mu_c = w * g0_hat + w_bar * (u0 * h0)
+    
+        mu_c = float(np.mean(psi_mu_c))
+        # ATT baseline is a ratio with the same empirical treated share as
+        # the absolute ATT. Its IF subtracts w*mu_c, rather than mu_c alone.
+        IF_mu = psi_mu_c - (w * mu_c if score == "ATTE" else mu_c)
+        mu_c_var = float(np.var(IF_mu, ddof=1)) / n if n &gt; 1 else 0.0
+        mu_c_se = float(np.sqrt(max(mu_c_var, 0.0)))
+        tau_rel = np.nan
+        ci_low_rel = np.nan
+        ci_high_rel = np.nan
+        se_rel = np.nan
+    
+        baseline_too_small = abs(mu_c) &lt; self.relative_baseline_min
+        baseline_low_signal = (
+            np.isfinite(mu_c_se) and mu_c_se &gt; 0.0 and abs(mu_c) &lt; z * mu_c_se
+        )
+    
+        if np.isfinite(mu_c) and not (baseline_too_small or baseline_low_signal):
+            tau_rel = 100.0 * theta_hat / mu_c
+            with np.errstate(divide="ignore", invalid="ignore"):
+                # Delta-method IF for tau_rel = 100 * theta / mu_c.
+&gt;               IF_rel = 100.0 * (IF / mu_c - (theta_hat * IF_mu) / (mu_c**2))
+                                                                     ^^^^^^^
+E               OverflowError: (34, 'Result too large')
+
+causalis/scenarios/unconfoundedness/model.py:1356: OverflowError</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[1e+307-False-binary-ATTE]" time="0.009"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'binary', normalize = False, score = 'ATTE', value = 1e+307
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[1e+307-False-multi-ATE]" time="0.010"><failure message="OverflowError: (34, 'Result too large')">kind = 'multi', normalize = False, score = 'ATE', value = 1e+307
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+        with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+&gt;           model.estimate(score=score)
+
+tests/inference/test_extreme_score_arithmetic.py:17: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+causalis/scenarios/multi_unconfoundedness/model.py:987: in estimate
+    tau_rel, ci_low_rel, ci_high_rel, control_mean_by_arm = self._compute_relative_effect_inference(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = MultiTreatmentIRM(status='fitted', n_folds=3, random_state=19)
+score = 'ATE', theta_hat = array([1.10435873e+305, 6.69965607e+305])
+se = array([inf, inf])
+psi_b = array([[ 3.63588587e+307,  3.63588587e+307],
+       [-3.18178552e+307,  0.00000000e+000],
+       [ 0.00000000e+000, -2...859e+307,  2.87224859e+307],
+       [-1.84999080e+307,  0.00000000e+000],
+       [ 0.00000000e+000, -2.90287975e+307]])
+influence = array([[ 3.62484228e+307,  3.56888930e+307],
+       [-3.19282910e+307, -6.69965607e+305],
+       [-1.10435873e+305, -2...501e+307,  2.80525203e+307],
+       [-1.86103439e+307, -6.69965607e+305],
+       [-1.10435873e+305, -2.96987631e+307]])
+y_col = array([[ 9.31159301],
+       [ 8.96555973],
+       [ 9.30952073],
+       [ 8.46543001],
+       [10.93614729],
+       [...01882 ],
+       [ 9.41927563],
+       [ 9.58462565],
+       [ 7.49349906],
+       [ 6.54259251],
+       [ 8.51377915]])
+d = array([[1, 0, 0],
+       [0, 1, 0],
+       [0, 0, 1],
+       [1, 0, 0],
+       [0, 1, 0],
+       [0, 0, 1],
+       [1,...[0, 0, 1],
+       [1, 0, 0],
+       [0, 1, 0],
+       [0, 0, 1],
+       [1, 0, 0],
+       [0, 1, 0],
+       [0, 0, 1]])
+g_hat = array([[1.e+307, 1.e+307, 1.e+307],
+       [1.e+307, 1.e+307, 1.e+307],
+       [1.e+307, 1.e+307, 1.e+307],
+       [1.... 1.e+307],
+       [1.e+307, 1.e+307, 1.e+307],
+       [1.e+307, 1.e+307, 1.e+307],
+       [1.e+307, 1.e+307, 1.e+307]])
+u = array([[-1.e+307, -1.e+307, -1.e+307],
+       [-1.e+307, -1.e+307, -1.e+307],
+       [-1.e+307, -1.e+307, -1.e+307],
+ ...,
+       [-1.e+307, -1.e+307, -1.e+307],
+       [-1.e+307, -1.e+307, -1.e+307],
+       [-1.e+307, -1.e+307, -1.e+307]])
+h = array([[3.63588587, 0.        , 0.        ],
+       [0.        , 3.18178552, 0.        ],
+       [0.        , 0.      ...59, 0.        , 0.        ],
+       [0.        , 1.8499908 , 0.        ],
+       [0.        , 0.        , 2.90287975]])
+m_hat = array([[0.27503614, 0.36522151, 0.35974235],
+       [0.36576345, 0.31428894, 0.31994761],
+       [0.33048207, 0.328024...28, 0.28714396, 0.36469676],
+       [0.26261586, 0.54054323, 0.19684091],
+       [0.31046396, 0.34505053, 0.34448551]])
+z = 1.959963984540054
+
+    def _compute_relative_effect_inference(
+        self,
+        *,
+        score: str,
+        theta_hat: np.ndarray,
+        se: np.ndarray,
+        psi_b: np.ndarray,
+        influence: np.ndarray,
+        y_col: np.ndarray,
+        d: np.ndarray,
+        g_hat: np.ndarray,
+        u: np.ndarray,
+        h: np.ndarray,
+        m_hat: np.ndarray,
+        z: float,
+    ) -&gt; Tuple[np.ndarray, np.ndarray, np.ndarray, Optional[np.ndarray]]:
+        """Compute relative effect (% vs baseline) and delta-method interval."""
+        score_u = str(score).upper()
+        n = u.shape[0]
+        if score_u == "ATE":
+            psi_mu_c = (g_hat[:, [0]] + u[:, [0]] * h[:, [0]]).ravel()
+            mu_c = float(psi_mu_c.mean())
+    
+            if mu_c == 0:
+                nan_vec = np.full_like(theta_hat, np.nan, dtype=float)
+                return nan_vec, nan_vec, nan_vec, None
+    
+            se_mu_c = psi_mu_c.std(ddof=1) / np.sqrt(n) if n &gt; 1 else np.nan
+            psi_mu_c_centered = psi_mu_c - mu_c
+            psi_b_centered = psi_b - theta_hat
+            if n &gt; 1:
+                cov_theta_mu_c = (psi_b_centered * psi_mu_c_centered[:, None]).mean(axis=0) / n
+            else:
+                cov_theta_mu_c = np.full(theta_hat.shape, np.nan, dtype=float)
+    
+            tau_rel = 100.0 * theta_hat / mu_c
+            d_theta = 100.0 / mu_c
+&gt;           d_mu = -100.0 * theta_hat / (mu_c ** 2)
+                                         ^^^^^^^^^
+E           OverflowError: (34, 'Result too large')
+
+causalis/scenarios/multi_unconfoundedness/model.py:858: OverflowError</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[1e+307-False-multi-ATTE]" time="0.012"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'multi', normalize = False, score = 'ATTE', value = 1e+307
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[1e+307-False-iv-LATE]" time="0.016"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'iv', normalize = False, score = 'LATE', value = 1e+307
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[1e+307-True-binary-ATE]" time="0.009"><failure message="OverflowError: (34, 'Result too large')">kind = 'binary', normalize = True, score = 'ATE', value = 1e+307
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+        with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+&gt;           model.estimate(score=score)
+
+tests/inference/test_extreme_score_arithmetic.py:17: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+causalis/scenarios/unconfoundedness/model.py:1584: in estimate
+    self._compute_relative_effect_stats(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = IRM(status='fitted', n_folds=3, random_state=19), theta_hat = nan
+IF = array([nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan,
+       nan, nan, nan, nan, nan, nan, nan, nan,..., nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan,
+       nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan])
+w = array([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+       1., 1., 1., 1., 1., 1., 1., 1., 1., ...    1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+       1., 1., 1., 1., 1., 1., 1., 1., 1., 1.])
+w_bar = array([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+       1., 1., 1., 1., 1., 1., 1., 1., 1., ...    1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+       1., 1., 1., 1., 1., 1., 1., 1., 1., 1.])
+g0_hat = array([1.e+307, 1.e+307, 1.e+307, 1.e+307, 1.e+307, 1.e+307, 1.e+307,
+       1.e+307, 1.e+307, 1.e+307, 1.e+307, 1.e+3...    1.e+307, 1.e+307, 1.e+307, 1.e+307, 1.e+307, 1.e+307, 1.e+307,
+       1.e+307, 1.e+307, 1.e+307, 1.e+307, 1.e+307])
+u0 = array([-1.e+307, -1.e+307, -1.e+307, -1.e+307, -1.e+307, -1.e+307,
+       -1.e+307, -1.e+307, -1.e+307, -1.e+307, -1.e..., -1.e+307, -1.e+307, -1.e+307, -1.e+307, -1.e+307,
+       -1.e+307, -1.e+307, -1.e+307, -1.e+307, -1.e+307, -1.e+307])
+h0 = array([2.06054916, 0.        , 2.05066023, 0.        , 1.97946186,
+       0.        , 2.00242285, 0.        , 0.      ...47, 0.        , 2.02936094, 2.02125678, 2.05210656,
+       0.        , 0.        , 2.05758222, 0.        , 0.        ])
+z = np.float64(1.959963984540054), score = 'ATE'
+
+    def _compute_relative_effect_stats(
+        self,
+        *,
+        theta_hat: float,
+        IF: np.ndarray,
+        w: np.ndarray,
+        w_bar: np.ndarray,
+        g0_hat: np.ndarray,
+        u0: np.ndarray,
+        h0: np.ndarray,
+        z: float,
+        score: str,
+    ) -&gt; Tuple[float, float, float, float, float]:
+        """Compute relative effect and delta-method interval."""
+        n = len(w)
+        # Orthogonal signal for baseline E[w * Y(0)].
+        psi_mu_c = w * g0_hat + w_bar * (u0 * h0)
+    
+        mu_c = float(np.mean(psi_mu_c))
+        # ATT baseline is a ratio with the same empirical treated share as
+        # the absolute ATT. Its IF subtracts w*mu_c, rather than mu_c alone.
+        IF_mu = psi_mu_c - (w * mu_c if score == "ATTE" else mu_c)
+        mu_c_var = float(np.var(IF_mu, ddof=1)) / n if n &gt; 1 else 0.0
+        mu_c_se = float(np.sqrt(max(mu_c_var, 0.0)))
+        tau_rel = np.nan
+        ci_low_rel = np.nan
+        ci_high_rel = np.nan
+        se_rel = np.nan
+    
+        baseline_too_small = abs(mu_c) &lt; self.relative_baseline_min
+        baseline_low_signal = (
+            np.isfinite(mu_c_se) and mu_c_se &gt; 0.0 and abs(mu_c) &lt; z * mu_c_se
+        )
+    
+        if np.isfinite(mu_c) and not (baseline_too_small or baseline_low_signal):
+            tau_rel = 100.0 * theta_hat / mu_c
+            with np.errstate(divide="ignore", invalid="ignore"):
+                # Delta-method IF for tau_rel = 100 * theta / mu_c.
+&gt;               IF_rel = 100.0 * (IF / mu_c - (theta_hat * IF_mu) / (mu_c**2))
+                                                                     ^^^^^^^
+E               OverflowError: (34, 'Result too large')
+
+causalis/scenarios/unconfoundedness/model.py:1356: OverflowError</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[1e+307-True-binary-ATTE]" time="0.010"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'binary', normalize = True, score = 'ATTE', value = 1e+307
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[1e+307-True-multi-ATE]" time="0.012"><failure message="OverflowError: (34, 'Result too large')">kind = 'multi', normalize = True, score = 'ATE', value = 1e+307
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+        with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+&gt;           model.estimate(score=score)
+
+tests/inference/test_extreme_score_arithmetic.py:17: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+causalis/scenarios/multi_unconfoundedness/model.py:987: in estimate
+    tau_rel, ci_low_rel, ci_high_rel, control_mean_by_arm = self._compute_relative_effect_inference(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = MultiTreatmentIRM(status='fitted', n_folds=3, random_state=19)
+score = 'ATE', theta_hat = array([ 1.19196018e+291, -1.88496029e+291])
+se = array([inf, inf])
+psi_b = array([[ 3.35511462e+307,  3.35511462e+307],
+       [-2.96630992e+307,  0.00000000e+000],
+       [ 0.00000000e+000, -2...713e+307,  2.65044713e+307],
+       [-1.72470647e+307,  0.00000000e+000],
+       [ 0.00000000e+000, -2.85523169e+307]])
+influence = array([[ 3.35511462e+307,  3.35511462e+307],
+       [-2.96630992e+307,  1.88496029e+291],
+       [-1.19196018e+291, -2...713e+307,  2.65044713e+307],
+       [-1.72470647e+307,  1.88496029e+291],
+       [-1.19196018e+291, -2.85523169e+307]])
+y_col = array([[ 9.31159301],
+       [ 8.96555973],
+       [ 9.30952073],
+       [ 8.46543001],
+       [10.93614729],
+       [...01882 ],
+       [ 9.41927563],
+       [ 9.58462565],
+       [ 7.49349906],
+       [ 6.54259251],
+       [ 8.51377915]])
+d = array([[1, 0, 0],
+       [0, 1, 0],
+       [0, 0, 1],
+       [1, 0, 0],
+       [0, 1, 0],
+       [0, 0, 1],
+       [1,...[0, 0, 1],
+       [1, 0, 0],
+       [0, 1, 0],
+       [0, 0, 1],
+       [1, 0, 0],
+       [0, 1, 0],
+       [0, 0, 1]])
+g_hat = array([[1.e+307, 1.e+307, 1.e+307],
+       [1.e+307, 1.e+307, 1.e+307],
+       [1.e+307, 1.e+307, 1.e+307],
+       [1.... 1.e+307],
+       [1.e+307, 1.e+307, 1.e+307],
+       [1.e+307, 1.e+307, 1.e+307],
+       [1.e+307, 1.e+307, 1.e+307]])
+u = array([[-1.e+307, -1.e+307, -1.e+307],
+       [-1.e+307, -1.e+307, -1.e+307],
+       [-1.e+307, -1.e+307, -1.e+307],
+ ...,
+       [-1.e+307, -1.e+307, -1.e+307],
+       [-1.e+307, -1.e+307, -1.e+307],
+       [-1.e+307, -1.e+307, -1.e+307]])
+h = array([[3.35511462, 0.        , 0.        ],
+       [0.        , 2.96630992, 0.        ],
+       [0.        , 0.      ...13, 0.        , 0.        ],
+       [0.        , 1.72470647, 0.        ],
+       [0.        , 0.        , 2.85523169]])
+m_hat = array([[0.27503614, 0.36522151, 0.35974235],
+       [0.36576345, 0.31428894, 0.31994761],
+       [0.33048207, 0.328024...28, 0.28714396, 0.36469676],
+       [0.26261586, 0.54054323, 0.19684091],
+       [0.31046396, 0.34505053, 0.34448551]])
+z = 1.959963984540054
+
+    def _compute_relative_effect_inference(
+        self,
+        *,
+        score: str,
+        theta_hat: np.ndarray,
+        se: np.ndarray,
+        psi_b: np.ndarray,
+        influence: np.ndarray,
+        y_col: np.ndarray,
+        d: np.ndarray,
+        g_hat: np.ndarray,
+        u: np.ndarray,
+        h: np.ndarray,
+        m_hat: np.ndarray,
+        z: float,
+    ) -&gt; Tuple[np.ndarray, np.ndarray, np.ndarray, Optional[np.ndarray]]:
+        """Compute relative effect (% vs baseline) and delta-method interval."""
+        score_u = str(score).upper()
+        n = u.shape[0]
+        if score_u == "ATE":
+            psi_mu_c = (g_hat[:, [0]] + u[:, [0]] * h[:, [0]]).ravel()
+            mu_c = float(psi_mu_c.mean())
+    
+            if mu_c == 0:
+                nan_vec = np.full_like(theta_hat, np.nan, dtype=float)
+                return nan_vec, nan_vec, nan_vec, None
+    
+            se_mu_c = psi_mu_c.std(ddof=1) / np.sqrt(n) if n &gt; 1 else np.nan
+            psi_mu_c_centered = psi_mu_c - mu_c
+            psi_b_centered = psi_b - theta_hat
+            if n &gt; 1:
+                cov_theta_mu_c = (psi_b_centered * psi_mu_c_centered[:, None]).mean(axis=0) / n
+            else:
+                cov_theta_mu_c = np.full(theta_hat.shape, np.nan, dtype=float)
+    
+            tau_rel = 100.0 * theta_hat / mu_c
+            d_theta = 100.0 / mu_c
+&gt;           d_mu = -100.0 * theta_hat / (mu_c ** 2)
+                                         ^^^^^^^^^
+E           OverflowError: (34, 'Result too large')
+
+causalis/scenarios/multi_unconfoundedness/model.py:858: OverflowError</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[1e+307-True-multi-ATTE]" time="0.012"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'multi', normalize = True, score = 'ATTE', value = 1e+307
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[1e+307-True-iv-LATE]" time="0.017"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'iv', normalize = True, score = 'LATE', value = 1e+307
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[-1e+308-False-binary-ATE]" time="0.009"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'binary', normalize = False, score = 'ATE', value = -1e+308
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[-1e+308-False-binary-ATTE]" time="0.010"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'binary', normalize = False, score = 'ATTE', value = -1e+308
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[-1e+308-False-multi-ATE]" time="0.014"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'multi', normalize = False, score = 'ATE', value = -1e+308
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[-1e+308-False-multi-ATTE]" time="0.014"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'multi', normalize = False, score = 'ATTE', value = -1e+308
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[-1e+308-False-iv-LATE]" time="0.016"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'iv', normalize = False, score = 'LATE', value = -1e+308
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[-1e+308-True-binary-ATE]" time="0.009"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'binary', normalize = True, score = 'ATE', value = -1e+308
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[-1e+308-True-binary-ATTE]" time="0.010"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'binary', normalize = True, score = 'ATTE', value = -1e+308
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[-1e+308-True-multi-ATE]" time="0.013"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'multi', normalize = True, score = 'ATE', value = -1e+308
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[-1e+308-True-multi-ATTE]" time="0.012"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'multi', normalize = True, score = 'ATTE', value = -1e+308
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_public_estimate_rejects_overflow_from_finite_predictions[-1e+308-True-iv-LATE]" time="0.014"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'iv', normalize = True, score = 'LATE', value = -1e+308
+
+    @pytest.mark.parametrize('kind,score', [('binary', 'ATE'), ('binary', 'ATTE'),
+                                            ('multi', 'ATE'), ('multi', 'ATTE'), ('iv', 'LATE')])
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('value', [1e155, -1e155, 1e307, -1e308])
+    def test_public_estimate_rejects_overflow_from_finite_predictions(kind, normalize, score, value):
+        model = estimator(kind, dataset(kind), g=ConstantRegressor(value))
+        model.normalize_ipw = normalize
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:16: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_binary_near_boundary_propensity_fails_explicitly[0.0-False]" time="0.006"><failure message="Failed: DID NOT RAISE RuntimeError">normalize = False, propensity = 0.0
+
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('propensity', [0., 1.])
+    def test_binary_near_boundary_propensity_fails_explicitly(normalize, propensity):
+        model = estimator('binary', dataset('binary'), g=ConstantRegressor(2.),
+                          m=ConstantRegressor(propensity))
+        model.normalize_ipw = normalize
+        model.overlap_threshold = np.nextafter(0., 1.)
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:30: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_binary_near_boundary_propensity_fails_explicitly[0.0-True]" time="0.006"><failure message="Failed: DID NOT RAISE RuntimeError">normalize = True, propensity = 0.0
+
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('propensity', [0., 1.])
+    def test_binary_near_boundary_propensity_fails_explicitly(normalize, propensity):
+        model = estimator('binary', dataset('binary'), g=ConstantRegressor(2.),
+                          m=ConstantRegressor(propensity))
+        model.normalize_ipw = normalize
+        model.overlap_threshold = np.nextafter(0., 1.)
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:30: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_binary_near_boundary_propensity_fails_explicitly[1.0-False]" time="0.006"><failure message="Failed: DID NOT RAISE RuntimeError">normalize = False, propensity = 1.0
+
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('propensity', [0., 1.])
+    def test_binary_near_boundary_propensity_fails_explicitly(normalize, propensity):
+        model = estimator('binary', dataset('binary'), g=ConstantRegressor(2.),
+                          m=ConstantRegressor(propensity))
+        model.normalize_ipw = normalize
+        model.overlap_threshold = np.nextafter(0., 1.)
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:30: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_binary_near_boundary_propensity_fails_explicitly[1.0-True]" time="0.007"><failure message="Failed: DID NOT RAISE RuntimeError">normalize = True, propensity = 1.0
+
+    @pytest.mark.parametrize('normalize', [False, True])
+    @pytest.mark.parametrize('propensity', [0., 1.])
+    def test_binary_near_boundary_propensity_fails_explicitly(normalize, propensity):
+        model = estimator('binary', dataset('binary'), g=ConstantRegressor(2.),
+                          m=ConstantRegressor(propensity))
+        model.normalize_ipw = normalize
+        model.overlap_threshold = np.nextafter(0., 1.)
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:30: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_custom_ate_near_boundary_matches_independent_fixed_normalization[1e-10-False]" time="0.006" /><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_custom_ate_near_boundary_matches_independent_fixed_normalization[1e-10-True]" time="0.007" /><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_custom_ate_near_boundary_matches_independent_fixed_normalization[0.9999999999-False]" time="0.006" /><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_custom_ate_near_boundary_matches_independent_fixed_normalization[0.9999999999-True]" time="0.007" /><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_custom_weights_bar_division_overflow_is_rejected[1.01e-12]" time="0.009"><failure message="Failed: DID NOT RAISE ValueError">mean = 1.01e-12
+
+    @pytest.mark.parametrize('mean', [1.01e-12, 1e-6])
+    def test_custom_weights_bar_division_overflow_is_rejected(mean):
+        model = estimator('binary', dataset('binary'), g=ConstantRegressor(2.))
+        model.weights = dict(weights=np.full(len(model.data.df), mean),
+                             weights_bar=np.full(len(model.data.df), 1e308))
+        model.fit()
+&gt;       with pytest.raises(ValueError, match='normalized.*finite'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_extreme_score_arithmetic.py:67: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_custom_weights_bar_division_overflow_is_rejected[1e-06]" time="0.011"><failure message="Failed: DID NOT RAISE ValueError">mean = 1e-06
+
+    @pytest.mark.parametrize('mean', [1.01e-12, 1e-6])
+    def test_custom_weights_bar_division_overflow_is_rejected(mean):
+        model = estimator('binary', dataset('binary'), g=ConstantRegressor(2.))
+        model.weights = dict(weights=np.full(len(model.data.df), mean),
+                             weights_bar=np.full(len(model.data.df), 1e308))
+        model.fit()
+&gt;       with pytest.raises(ValueError, match='normalized.*finite'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_extreme_score_arithmetic.py:67: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_existing_custom_weight_mean_floor_is_preserved[0.0]" time="0.003" /><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_existing_custom_weight_mean_floor_is_preserved[1e-13]" time="0.003" /><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_existing_custom_weight_mean_floor_is_preserved[1e-12]" time="0.003" /><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_ordinary_finite_inference_remains_available[False-binary]" time="0.010" /><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_ordinary_finite_inference_remains_available[False-multi]" time="0.016" /><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_ordinary_finite_inference_remains_available[False-iv]" time="0.017" /><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_ordinary_finite_inference_remains_available[True-binary]" time="0.012" /><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_ordinary_finite_inference_remains_available[True-multi]" time="0.014" /><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_ordinary_finite_inference_remains_available[True-iv]" time="0.030" /><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_relative_arithmetic_overflow_does_not_publish_partial_core[1e-200-ATE-binary]" time="0.015"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'binary', score = 'ATE', baseline = 1e-200
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi'])
+    @pytest.mark.parametrize('score', ['ATE', 'ATTE'])
+    @pytest.mark.parametrize('baseline', [1e-200, 1e155])
+    def test_relative_arithmetic_overflow_does_not_publish_partial_core(kind, score, baseline):
+        from causalis.data_contracts import CausalData, MultiCausalData
+        data = dataset(kind)
+        frame = data.get_df()
+        if kind == 'binary':
+            frame['y'] = baseline + frame['d'] * (1. if baseline &lt; 1 else baseline * .01)
+            data = CausalData.from_df(frame, 'd', 'y', ['x'])
+        else:
+            frame['y'] = baseline + frame['d1'] * (1. if baseline &lt; 1 else baseline * .01)
+            data = MultiCausalData.from_df(frame, outcome='y', treatment_names=['d0', 'd1', 'd2'],
+                                          confounders=['x'], control_treatment='d0')
+        model = estimator(kind, data, g=ArmMeanRegressor())
+        if kind == 'binary':
+            model.relative_baseline_min = 0.
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:115: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_relative_arithmetic_overflow_does_not_publish_partial_core[1e-200-ATE-multi]" time="0.014"><failure message="OverflowError: (34, 'Result too large')">kind = 'multi', score = 'ATE', baseline = 1e-200
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi'])
+    @pytest.mark.parametrize('score', ['ATE', 'ATTE'])
+    @pytest.mark.parametrize('baseline', [1e-200, 1e155])
+    def test_relative_arithmetic_overflow_does_not_publish_partial_core(kind, score, baseline):
+        from causalis.data_contracts import CausalData, MultiCausalData
+        data = dataset(kind)
+        frame = data.get_df()
+        if kind == 'binary':
+            frame['y'] = baseline + frame['d'] * (1. if baseline &lt; 1 else baseline * .01)
+            data = CausalData.from_df(frame, 'd', 'y', ['x'])
+        else:
+            frame['y'] = baseline + frame['d1'] * (1. if baseline &lt; 1 else baseline * .01)
+            data = MultiCausalData.from_df(frame, outcome='y', treatment_names=['d0', 'd1', 'd2'],
+                                          confounders=['x'], control_treatment='d0')
+        model = estimator(kind, data, g=ArmMeanRegressor())
+        if kind == 'binary':
+            model.relative_baseline_min = 0.
+        model.fit()
+        with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+&gt;           model.estimate(score=score)
+
+tests/inference/test_extreme_score_arithmetic.py:116: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+causalis/scenarios/multi_unconfoundedness/model.py:987: in estimate
+    tau_rel, ci_low_rel, ci_high_rel, control_mean_by_arm = self._compute_relative_effect_inference(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = MultiTreatmentIRM(status='fitted', n_folds=3, random_state=19)
+score = 'ATE', theta_hat = array([1., 0.]), se = array([0., 0.])
+psi_b = array([[1., 0.],
+       [1., 0.],
+       [1., 0.],
+       [1., 0.],
+       [1., 0.],
+       [1., 0.],
+       [1., 0.],...       [1., 0.],
+       [1., 0.],
+       [1., 0.],
+       [1., 0.],
+       [1., 0.],
+       [1., 0.],
+       [1., 0.]])
+influence = array([[0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.],...       [0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.]])
+y_col = array([[1.e-200],
+       [1.e+000],
+       [1.e-200],
+       [1.e-200],
+       [1.e+000],
+       [1.e-200],
+       [1....[1.e-200],
+       [1.e-200],
+       [1.e+000],
+       [1.e-200],
+       [1.e-200],
+       [1.e+000],
+       [1.e-200]])
+d = array([[1, 0, 0],
+       [0, 1, 0],
+       [0, 0, 1],
+       [1, 0, 0],
+       [0, 1, 0],
+       [0, 0, 1],
+       [1,...[0, 0, 1],
+       [1, 0, 0],
+       [0, 1, 0],
+       [0, 0, 1],
+       [1, 0, 0],
+       [0, 1, 0],
+       [0, 0, 1]])
+g_hat = array([[1.e-200, 1.e+000, 1.e-200],
+       [1.e-200, 1.e+000, 1.e-200],
+       [1.e-200, 1.e+000, 1.e-200],
+       [1.... 1.e-200],
+       [1.e-200, 1.e+000, 1.e-200],
+       [1.e-200, 1.e+000, 1.e-200],
+       [1.e-200, 1.e+000, 1.e-200]])
+u = array([[ 0., -1.,  0.],
+       [ 1.,  0.,  1.],
+       [ 0., -1.,  0.],
+       [ 0., -1.,  0.],
+       [ 1.,  0.,  1.]...      [ 1.,  0.,  1.],
+       [ 0., -1.,  0.],
+       [ 0., -1.,  0.],
+       [ 1.,  0.,  1.],
+       [ 0., -1.,  0.]])
+h = array([[3.63588587, 0.        , 0.        ],
+       [0.        , 3.18178552, 0.        ],
+       [0.        , 0.      ...59, 0.        , 0.        ],
+       [0.        , 1.8499908 , 0.        ],
+       [0.        , 0.        , 2.90287975]])
+m_hat = array([[0.27503614, 0.36522151, 0.35974235],
+       [0.36576345, 0.31428894, 0.31994761],
+       [0.33048207, 0.328024...28, 0.28714396, 0.36469676],
+       [0.26261586, 0.54054323, 0.19684091],
+       [0.31046396, 0.34505053, 0.34448551]])
+z = 1.959963984540054
+
+    def _compute_relative_effect_inference(
+        self,
+        *,
+        score: str,
+        theta_hat: np.ndarray,
+        se: np.ndarray,
+        psi_b: np.ndarray,
+        influence: np.ndarray,
+        y_col: np.ndarray,
+        d: np.ndarray,
+        g_hat: np.ndarray,
+        u: np.ndarray,
+        h: np.ndarray,
+        m_hat: np.ndarray,
+        z: float,
+    ) -&gt; Tuple[np.ndarray, np.ndarray, np.ndarray, Optional[np.ndarray]]:
+        """Compute relative effect (% vs baseline) and delta-method interval."""
+        score_u = str(score).upper()
+        n = u.shape[0]
+        if score_u == "ATE":
+            psi_mu_c = (g_hat[:, [0]] + u[:, [0]] * h[:, [0]]).ravel()
+            mu_c = float(psi_mu_c.mean())
+    
+            if mu_c == 0:
+                nan_vec = np.full_like(theta_hat, np.nan, dtype=float)
+                return nan_vec, nan_vec, nan_vec, None
+    
+            se_mu_c = psi_mu_c.std(ddof=1) / np.sqrt(n) if n &gt; 1 else np.nan
+            psi_mu_c_centered = psi_mu_c - mu_c
+            psi_b_centered = psi_b - theta_hat
+            if n &gt; 1:
+                cov_theta_mu_c = (psi_b_centered * psi_mu_c_centered[:, None]).mean(axis=0) / n
+            else:
+                cov_theta_mu_c = np.full(theta_hat.shape, np.nan, dtype=float)
+    
+            tau_rel = 100.0 * theta_hat / mu_c
+            d_theta = 100.0 / mu_c
+            d_mu = -100.0 * theta_hat / (mu_c ** 2)
+            var_rel = (
+&gt;               (d_theta ** 2) * (se ** 2)
+                 ^^^^^^^^^^^^
+                + (d_mu ** 2) * (se_mu_c ** 2)
+                + 2.0 * d_theta * d_mu * cov_theta_mu_c
+            )
+E           OverflowError: (34, 'Result too large')
+
+causalis/scenarios/multi_unconfoundedness/model.py:860: OverflowError</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_relative_arithmetic_overflow_does_not_publish_partial_core[1e-200-ATTE-binary]" time="0.013"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'binary', score = 'ATTE', baseline = 1e-200
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi'])
+    @pytest.mark.parametrize('score', ['ATE', 'ATTE'])
+    @pytest.mark.parametrize('baseline', [1e-200, 1e155])
+    def test_relative_arithmetic_overflow_does_not_publish_partial_core(kind, score, baseline):
+        from causalis.data_contracts import CausalData, MultiCausalData
+        data = dataset(kind)
+        frame = data.get_df()
+        if kind == 'binary':
+            frame['y'] = baseline + frame['d'] * (1. if baseline &lt; 1 else baseline * .01)
+            data = CausalData.from_df(frame, 'd', 'y', ['x'])
+        else:
+            frame['y'] = baseline + frame['d1'] * (1. if baseline &lt; 1 else baseline * .01)
+            data = MultiCausalData.from_df(frame, outcome='y', treatment_names=['d0', 'd1', 'd2'],
+                                          confounders=['x'], control_treatment='d0')
+        model = estimator(kind, data, g=ArmMeanRegressor())
+        if kind == 'binary':
+            model.relative_baseline_min = 0.
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:115: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_relative_arithmetic_overflow_does_not_publish_partial_core[1e-200-ATTE-multi]" time="0.016"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'multi', score = 'ATTE', baseline = 1e-200
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi'])
+    @pytest.mark.parametrize('score', ['ATE', 'ATTE'])
+    @pytest.mark.parametrize('baseline', [1e-200, 1e155])
+    def test_relative_arithmetic_overflow_does_not_publish_partial_core(kind, score, baseline):
+        from causalis.data_contracts import CausalData, MultiCausalData
+        data = dataset(kind)
+        frame = data.get_df()
+        if kind == 'binary':
+            frame['y'] = baseline + frame['d'] * (1. if baseline &lt; 1 else baseline * .01)
+            data = CausalData.from_df(frame, 'd', 'y', ['x'])
+        else:
+            frame['y'] = baseline + frame['d1'] * (1. if baseline &lt; 1 else baseline * .01)
+            data = MultiCausalData.from_df(frame, outcome='y', treatment_names=['d0', 'd1', 'd2'],
+                                          confounders=['x'], control_treatment='d0')
+        model = estimator(kind, data, g=ArmMeanRegressor())
+        if kind == 'binary':
+            model.relative_baseline_min = 0.
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:115: Failed</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_relative_arithmetic_overflow_does_not_publish_partial_core[1e+155-ATE-binary]" time="0.010"><failure message="OverflowError: (34, 'Result too large')">kind = 'binary', score = 'ATE', baseline = 1e+155
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi'])
+    @pytest.mark.parametrize('score', ['ATE', 'ATTE'])
+    @pytest.mark.parametrize('baseline', [1e-200, 1e155])
+    def test_relative_arithmetic_overflow_does_not_publish_partial_core(kind, score, baseline):
+        from causalis.data_contracts import CausalData, MultiCausalData
+        data = dataset(kind)
+        frame = data.get_df()
+        if kind == 'binary':
+            frame['y'] = baseline + frame['d'] * (1. if baseline &lt; 1 else baseline * .01)
+            data = CausalData.from_df(frame, 'd', 'y', ['x'])
+        else:
+            frame['y'] = baseline + frame['d1'] * (1. if baseline &lt; 1 else baseline * .01)
+            data = MultiCausalData.from_df(frame, outcome='y', treatment_names=['d0', 'd1', 'd2'],
+                                          confounders=['x'], control_treatment='d0')
+        model = estimator(kind, data, g=ArmMeanRegressor())
+        if kind == 'binary':
+            model.relative_baseline_min = 0.
+        model.fit()
+        with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+&gt;           model.estimate(score=score)
+
+tests/inference/test_extreme_score_arithmetic.py:116: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+causalis/scenarios/unconfoundedness/model.py:1584: in estimate
+    self._compute_relative_effect_stats(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = IRM(status='fitted', n_folds=3, random_state=19)
+theta_hat = 1.0000000000000045e+153
+IF = array([ 2.53056170e+139, -1.17224549e+139,  2.49334756e+139,
+       -2.36309806e+139,  1.17224549e+139, -2.36309806e+1...     1.26528085e+139, -2.36309806e+139, -1.17224549e+139,
+        2.51195463e+139, -2.36309806e+139, -1.17224549e+139])
+w = array([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+       1., 1., 1., 1., 1., 1., 1., 1., 1., ...    1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+       1., 1., 1., 1., 1., 1., 1., 1., 1., 1.])
+w_bar = array([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+       1., 1., 1., 1., 1., 1., 1., 1., 1., ...    1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1.,
+       1., 1., 1., 1., 1., 1., 1., 1., 1., 1.])
+g0_hat = array([1.e+155, 1.e+155, 1.e+155, 1.e+155, 1.e+155, 1.e+155, 1.e+155,
+       1.e+155, 1.e+155, 1.e+155, 1.e+155, 1.e+1...    1.e+155, 1.e+155, 1.e+155, 1.e+155, 1.e+155, 1.e+155, 1.e+155,
+       1.e+155, 1.e+155, 1.e+155, 1.e+155, 1.e+155])
+u0 = array([-2.38170513e+139,  1.00000000e+153, -2.38170513e+139,
+        1.00000000e+153, -1.19085257e+139,  1.00000000e+1...    -1.19085257e+139,  1.00000000e+153,  1.00000000e+153,
+       -2.38170513e+139,  1.00000000e+153,  1.00000000e+153])
+h0 = array([2.05126388, 0.        , 2.04141951, 0.        , 1.97054198,
+       0.        , 1.9933995 , 0.        , 0.      ...63, 0.        , 2.0202162 , 2.01214856, 2.04285933,
+       0.        , 0.        , 2.04831031, 0.        , 0.        ])
+z = np.float64(1.959963984540054), score = 'ATE'
+
+    def _compute_relative_effect_stats(
+        self,
+        *,
+        theta_hat: float,
+        IF: np.ndarray,
+        w: np.ndarray,
+        w_bar: np.ndarray,
+        g0_hat: np.ndarray,
+        u0: np.ndarray,
+        h0: np.ndarray,
+        z: float,
+        score: str,
+    ) -&gt; Tuple[float, float, float, float, float]:
+        """Compute relative effect and delta-method interval."""
+        n = len(w)
+        # Orthogonal signal for baseline E[w * Y(0)].
+        psi_mu_c = w * g0_hat + w_bar * (u0 * h0)
+    
+        mu_c = float(np.mean(psi_mu_c))
+        # ATT baseline is a ratio with the same empirical treated share as
+        # the absolute ATT. Its IF subtracts w*mu_c, rather than mu_c alone.
+        IF_mu = psi_mu_c - (w * mu_c if score == "ATTE" else mu_c)
+        mu_c_var = float(np.var(IF_mu, ddof=1)) / n if n &gt; 1 else 0.0
+        mu_c_se = float(np.sqrt(max(mu_c_var, 0.0)))
+        tau_rel = np.nan
+        ci_low_rel = np.nan
+        ci_high_rel = np.nan
+        se_rel = np.nan
+    
+        baseline_too_small = abs(mu_c) &lt; self.relative_baseline_min
+        baseline_low_signal = (
+            np.isfinite(mu_c_se) and mu_c_se &gt; 0.0 and abs(mu_c) &lt; z * mu_c_se
+        )
+    
+        if np.isfinite(mu_c) and not (baseline_too_small or baseline_low_signal):
+            tau_rel = 100.0 * theta_hat / mu_c
+            with np.errstate(divide="ignore", invalid="ignore"):
+                # Delta-method IF for tau_rel = 100 * theta / mu_c.
+&gt;               IF_rel = 100.0 * (IF / mu_c - (theta_hat * IF_mu) / (mu_c**2))
+                                                                     ^^^^^^^
+E               OverflowError: (34, 'Result too large')
+
+causalis/scenarios/unconfoundedness/model.py:1356: OverflowError</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_relative_arithmetic_overflow_does_not_publish_partial_core[1e+155-ATE-multi]" time="0.017"><failure message="OverflowError: (34, 'Result too large')">kind = 'multi', score = 'ATE', baseline = 1e+155
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi'])
+    @pytest.mark.parametrize('score', ['ATE', 'ATTE'])
+    @pytest.mark.parametrize('baseline', [1e-200, 1e155])
+    def test_relative_arithmetic_overflow_does_not_publish_partial_core(kind, score, baseline):
+        from causalis.data_contracts import CausalData, MultiCausalData
+        data = dataset(kind)
+        frame = data.get_df()
+        if kind == 'binary':
+            frame['y'] = baseline + frame['d'] * (1. if baseline &lt; 1 else baseline * .01)
+            data = CausalData.from_df(frame, 'd', 'y', ['x'])
+        else:
+            frame['y'] = baseline + frame['d1'] * (1. if baseline &lt; 1 else baseline * .01)
+            data = MultiCausalData.from_df(frame, outcome='y', treatment_names=['d0', 'd1', 'd2'],
+                                          confounders=['x'], control_treatment='d0')
+        model = estimator(kind, data, g=ArmMeanRegressor())
+        if kind == 'binary':
+            model.relative_baseline_min = 0.
+        model.fit()
+        with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+&gt;           model.estimate(score=score)
+
+tests/inference/test_extreme_score_arithmetic.py:116: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+causalis/scenarios/multi_unconfoundedness/model.py:987: in estimate
+    tau_rel, ci_low_rel, ci_high_rel, control_mean_by_arm = self._compute_relative_effect_inference(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = MultiTreatmentIRM(status='fitted', n_folds=3, random_state=19)
+score = 'ATE', theta_hat = array([1.e+153, 0.e+000]), se = array([0., 0.])
+psi_b = array([[1.e+153, 0.e+000],
+       [1.e+153, 0.e+000],
+       [1.e+153, 0.e+000],
+       [1.e+153, 0.e+000],
+       [1.... 0.e+000],
+       [1.e+153, 0.e+000],
+       [1.e+153, 0.e+000],
+       [1.e+153, 0.e+000],
+       [1.e+153, 0.e+000]])
+influence = array([[0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.],...       [0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.],
+       [0., 0.]])
+y_col = array([[1.00e+155],
+       [1.01e+155],
+       [1.00e+155],
+       [1.00e+155],
+       [1.01e+155],
+       [1.00e+155]...      [1.00e+155],
+       [1.01e+155],
+       [1.00e+155],
+       [1.00e+155],
+       [1.01e+155],
+       [1.00e+155]])
+d = array([[1, 0, 0],
+       [0, 1, 0],
+       [0, 0, 1],
+       [1, 0, 0],
+       [0, 1, 0],
+       [0, 0, 1],
+       [1,...[0, 0, 1],
+       [1, 0, 0],
+       [0, 1, 0],
+       [0, 0, 1],
+       [1, 0, 0],
+       [0, 1, 0],
+       [0, 0, 1]])
+g_hat = array([[1.00e+155, 1.01e+155, 1.00e+155],
+       [1.00e+155, 1.01e+155, 1.00e+155],
+       [1.00e+155, 1.01e+155, 1.00...[1.00e+155, 1.01e+155, 1.00e+155],
+       [1.00e+155, 1.01e+155, 1.00e+155],
+       [1.00e+155, 1.01e+155, 1.00e+155]])
+u = array([[ 0.e+000, -1.e+153,  0.e+000],
+       [ 1.e+153,  0.e+000,  1.e+153],
+       [ 0.e+000, -1.e+153,  0.e+000],
+ ...,
+       [ 0.e+000, -1.e+153,  0.e+000],
+       [ 1.e+153,  0.e+000,  1.e+153],
+       [ 0.e+000, -1.e+153,  0.e+000]])
+h = array([[3.63588587, 0.        , 0.        ],
+       [0.        , 3.18178552, 0.        ],
+       [0.        , 0.      ...59, 0.        , 0.        ],
+       [0.        , 1.8499908 , 0.        ],
+       [0.        , 0.        , 2.90287975]])
+m_hat = array([[0.27503614, 0.36522151, 0.35974235],
+       [0.36576345, 0.31428894, 0.31994761],
+       [0.33048207, 0.328024...28, 0.28714396, 0.36469676],
+       [0.26261586, 0.54054323, 0.19684091],
+       [0.31046396, 0.34505053, 0.34448551]])
+z = 1.959963984540054
+
+    def _compute_relative_effect_inference(
+        self,
+        *,
+        score: str,
+        theta_hat: np.ndarray,
+        se: np.ndarray,
+        psi_b: np.ndarray,
+        influence: np.ndarray,
+        y_col: np.ndarray,
+        d: np.ndarray,
+        g_hat: np.ndarray,
+        u: np.ndarray,
+        h: np.ndarray,
+        m_hat: np.ndarray,
+        z: float,
+    ) -&gt; Tuple[np.ndarray, np.ndarray, np.ndarray, Optional[np.ndarray]]:
+        """Compute relative effect (% vs baseline) and delta-method interval."""
+        score_u = str(score).upper()
+        n = u.shape[0]
+        if score_u == "ATE":
+            psi_mu_c = (g_hat[:, [0]] + u[:, [0]] * h[:, [0]]).ravel()
+            mu_c = float(psi_mu_c.mean())
+    
+            if mu_c == 0:
+                nan_vec = np.full_like(theta_hat, np.nan, dtype=float)
+                return nan_vec, nan_vec, nan_vec, None
+    
+            se_mu_c = psi_mu_c.std(ddof=1) / np.sqrt(n) if n &gt; 1 else np.nan
+            psi_mu_c_centered = psi_mu_c - mu_c
+            psi_b_centered = psi_b - theta_hat
+            if n &gt; 1:
+                cov_theta_mu_c = (psi_b_centered * psi_mu_c_centered[:, None]).mean(axis=0) / n
+            else:
+                cov_theta_mu_c = np.full(theta_hat.shape, np.nan, dtype=float)
+    
+            tau_rel = 100.0 * theta_hat / mu_c
+            d_theta = 100.0 / mu_c
+&gt;           d_mu = -100.0 * theta_hat / (mu_c ** 2)
+                                         ^^^^^^^^^
+E           OverflowError: (34, 'Result too large')
+
+causalis/scenarios/multi_unconfoundedness/model.py:858: OverflowError</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_relative_arithmetic_overflow_does_not_publish_partial_core[1e+155-ATTE-binary]" time="0.012"><failure message="OverflowError: (34, 'Result too large')">kind = 'binary', score = 'ATTE', baseline = 1e+155
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi'])
+    @pytest.mark.parametrize('score', ['ATE', 'ATTE'])
+    @pytest.mark.parametrize('baseline', [1e-200, 1e155])
+    def test_relative_arithmetic_overflow_does_not_publish_partial_core(kind, score, baseline):
+        from causalis.data_contracts import CausalData, MultiCausalData
+        data = dataset(kind)
+        frame = data.get_df()
+        if kind == 'binary':
+            frame['y'] = baseline + frame['d'] * (1. if baseline &lt; 1 else baseline * .01)
+            data = CausalData.from_df(frame, 'd', 'y', ['x'])
+        else:
+            frame['y'] = baseline + frame['d1'] * (1. if baseline &lt; 1 else baseline * .01)
+            data = MultiCausalData.from_df(frame, outcome='y', treatment_names=['d0', 'd1', 'd2'],
+                                          confounders=['x'], control_treatment='d0')
+        model = estimator(kind, data, g=ArmMeanRegressor())
+        if kind == 'binary':
+            model.relative_baseline_min = 0.
+        model.fit()
+        with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+&gt;           model.estimate(score=score)
+
+tests/inference/test_extreme_score_arithmetic.py:116: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+causalis/scenarios/unconfoundedness/model.py:1584: in estimate
+    self._compute_relative_effect_stats(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = IRM(status='fitted', n_folds=3, random_state=19)
+theta_hat = 1.000000000000004e+153
+IF = array([ 4.89874027e+139, -2.19563442e+139,  4.85286689e+139,
+       -4.54012541e+139,  2.26129384e+139, -4.54012541e+1...     2.42978812e+139, -4.54012541e+139, -2.19563442e+139,
+        4.88497707e+139, -4.54012541e+139, -2.19563442e+139])
+w = array([0.        , 1.95652174, 0.        , 1.95652174, 0.        ,
+       1.95652174, 0.        , 1.95652174, 1.956521...  , 1.95652174, 0.        , 0.        , 0.        ,
+       1.95652174, 1.95652174, 0.        , 1.95652174, 1.95652174])
+w_bar = array([1.00270894, 1.02984847, 0.99810936, 0.98793436, 0.96363665,
+       1.0054639 , 0.97502167, 0.997069  , 1.016282...45, 1.00222141, 0.98805028, 0.98416722, 0.99878485,
+       1.00022391, 0.94932997, 1.00133359, 0.96315902, 0.99275421])
+g0_hat = array([1.e+155, 1.e+155, 1.e+155, 1.e+155, 1.e+155, 1.e+155, 1.e+155,
+       1.e+155, 1.e+155, 1.e+155, 1.e+155, 1.e+1...    1.e+155, 1.e+155, 1.e+155, 1.e+155, 1.e+155, 1.e+155, 1.e+155,
+       1.e+155, 1.e+155, 1.e+155, 1.e+155, 1.e+155])
+u0 = array([-2.38170513e+139,  1.00000000e+153, -2.38170513e+139,
+        1.00000000e+153, -1.19085257e+139,  1.00000000e+1...    -1.19085257e+139,  1.00000000e+153,  1.00000000e+153,
+       -2.38170513e+139,  1.00000000e+153,  1.00000000e+153])
+h0 = array([2.05126388, 0.        , 2.04141951, 0.        , 1.97054198,
+       0.        , 1.9933995 , 0.        , 0.      ...63, 0.        , 2.0202162 , 2.01214856, 2.04285933,
+       0.        , 0.        , 2.04831031, 0.        , 0.        ])
+z = np.float64(1.959963984540054), score = 'ATTE'
+
+    def _compute_relative_effect_stats(
+        self,
+        *,
+        theta_hat: float,
+        IF: np.ndarray,
+        w: np.ndarray,
+        w_bar: np.ndarray,
+        g0_hat: np.ndarray,
+        u0: np.ndarray,
+        h0: np.ndarray,
+        z: float,
+        score: str,
+    ) -&gt; Tuple[float, float, float, float, float]:
+        """Compute relative effect and delta-method interval."""
+        n = len(w)
+        # Orthogonal signal for baseline E[w * Y(0)].
+        psi_mu_c = w * g0_hat + w_bar * (u0 * h0)
+    
+        mu_c = float(np.mean(psi_mu_c))
+        # ATT baseline is a ratio with the same empirical treated share as
+        # the absolute ATT. Its IF subtracts w*mu_c, rather than mu_c alone.
+        IF_mu = psi_mu_c - (w * mu_c if score == "ATTE" else mu_c)
+        mu_c_var = float(np.var(IF_mu, ddof=1)) / n if n &gt; 1 else 0.0
+        mu_c_se = float(np.sqrt(max(mu_c_var, 0.0)))
+        tau_rel = np.nan
+        ci_low_rel = np.nan
+        ci_high_rel = np.nan
+        se_rel = np.nan
+    
+        baseline_too_small = abs(mu_c) &lt; self.relative_baseline_min
+        baseline_low_signal = (
+            np.isfinite(mu_c_se) and mu_c_se &gt; 0.0 and abs(mu_c) &lt; z * mu_c_se
+        )
+    
+        if np.isfinite(mu_c) and not (baseline_too_small or baseline_low_signal):
+            tau_rel = 100.0 * theta_hat / mu_c
+            with np.errstate(divide="ignore", invalid="ignore"):
+                # Delta-method IF for tau_rel = 100 * theta / mu_c.
+&gt;               IF_rel = 100.0 * (IF / mu_c - (theta_hat * IF_mu) / (mu_c**2))
+                                                                     ^^^^^^^
+E               OverflowError: (34, 'Result too large')
+
+causalis/scenarios/unconfoundedness/model.py:1356: OverflowError</failure></testcase><testcase classname="tests.inference.test_extreme_score_arithmetic" name="test_relative_arithmetic_overflow_does_not_publish_partial_core[1e+155-ATTE-multi]" time="0.015"><failure message="Failed: DID NOT RAISE RuntimeError">kind = 'multi', score = 'ATTE', baseline = 1e+155
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi'])
+    @pytest.mark.parametrize('score', ['ATE', 'ATTE'])
+    @pytest.mark.parametrize('baseline', [1e-200, 1e155])
+    def test_relative_arithmetic_overflow_does_not_publish_partial_core(kind, score, baseline):
+        from causalis.data_contracts import CausalData, MultiCausalData
+        data = dataset(kind)
+        frame = data.get_df()
+        if kind == 'binary':
+            frame['y'] = baseline + frame['d'] * (1. if baseline &lt; 1 else baseline * .01)
+            data = CausalData.from_df(frame, 'd', 'y', ['x'])
+        else:
+            frame['y'] = baseline + frame['d1'] * (1. if baseline &lt; 1 else baseline * .01)
+            data = MultiCausalData.from_df(frame, outcome='y', treatment_names=['d0', 'd1', 'd2'],
+                                          confounders=['x'], control_treatment='d0')
+        model = estimator(kind, data, g=ArmMeanRegressor())
+        if kind == 'binary':
+            model.relative_baseline_min = 0.
+        model.fit()
+&gt;       with pytest.raises(RuntimeError, match='score/inference arithmetic'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests/inference/test_extreme_score_arithmetic.py:115: Failed</failure></testcase></testsuite></testsuites>

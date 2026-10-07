@@ -7,6 +7,8 @@ import warnings
 
 import numpy as np
 
+from causalis.scenarios._numerics import _checked_arithmetic, _require_finite
+
 
 def _normalize_ate_atte_score(score: Any) -> str:
     """Normalize supported score aliases to ``ATE`` or ``ATTE``."""
@@ -36,6 +38,7 @@ def _use_normalized_ipw(
     return bool(normalize_ipw)
 
 
+@_checked_arithmetic
 def _compute_ipw_components(
     *,
     d: np.ndarray,
@@ -62,6 +65,7 @@ def _compute_ipw_components(
         inv_m = inv_m / c1
         inv_1m = inv_1m / c0
 
+    _require_finite(h1, h0, inv_m, inv_1m)
     return h1, h0, inv_m, inv_1m
 
 
@@ -196,6 +200,9 @@ def _resolve_irm_weights(
     mean_w = float(np.mean(w))
     if not np.isfinite(mean_w) or mean_w <= 1e-12:
         raise ValueError("weights must have a strictly positive finite mean.")
-    w = w / mean_w
-    w_bar = w_bar / mean_w
+    with np.errstate(over="ignore", invalid="ignore", divide="ignore"):
+        w = w / mean_w
+        w_bar = w_bar / mean_w
+    if not np.all(np.isfinite(w)) or not np.all(np.isfinite(w_bar)):
+        raise ValueError("normalized custom ATE weights must contain only finite values.")
     return w, w_bar
