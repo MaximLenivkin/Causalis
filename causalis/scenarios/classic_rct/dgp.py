@@ -13,7 +13,19 @@ import numpy as np
 from typing import Optional, List, Union, Dict
 from causalis.dgp.causaldata import CausalData
 from causalis.dgp.causaldata.functional import generate_classic_rct, classic_rct_gamma
-from causalis.dgp.base import _deterministic_ids
+from causalis.dgp.base import _deterministic_ids, _validate_new_columns
+
+
+def _validate_scenario_pre_name(add_pre: bool, pre_name: str, outcome_name: str) -> None:
+    """Reserve the outcome and identifier created by this scenario."""
+    if not add_pre or not isinstance(pre_name, str):
+        return
+    reserved = {"user_id": "scenario identifier", outcome_name: "scenario outcome"}
+    if pre_name in reserved:
+        raise ValueError(
+            f"Generated column name {pre_name!r} collides between pre-period covariate "
+            f"and {reserved[pre_name]}"
+        )
 
 def generate_classic_rct_26(
     seed: int = 42,
@@ -90,12 +102,16 @@ def generate_classic_rct_26(
         Whether to generate deterministic user IDs.
     **kwargs : Any
         Additional arguments passed to the underlying `generate_classic_rct`.
+        With `add_pre=True`, `pre_name` must differ from the scenario's
+        `conversion` outcome and `user_id` identifier. Names of disabled
+        oracle columns remain available as pre-period features.
 
     Returns
     -------
     CausalData or pd.DataFrame
         The generated dataset.
     """
+    _validate_scenario_pre_name(add_pre, kwargs.get("pre_name", "y_pre"), "conversion")
     if outcome_params is None:
         outcome_params = {"p": {"A": 0.10, "B": 0.11}}
     df = generate_classic_rct(
@@ -112,6 +128,7 @@ def generate_classic_rct_26(
         return_causal_data=False,
         **kwargs
     )
+    _validate_new_columns(df, [("conversion", "scenario outcome")])
     if "user_id" not in df.columns:
         rng = np.random.default_rng(seed)
         if deterministic_ids:
@@ -119,13 +136,15 @@ def generate_classic_rct_26(
         else:
             user_ids = [uuid.uuid4().hex[:5] for _ in range(len(df))]
         df.insert(0, "user_id", user_ids)
-    # The requirement asks for outcome - conversion(binary)
+    # The scenario exposes the generated outcome under its public name.
     df = df.rename(columns={"y": "conversion"})
 
     if not return_causal_data:
         return df
 
-    exclude = {"conversion", "d", "m", "m_obs", "tau_link", "g0", "g1", "cate", "user_id"}
+    exclude = {"conversion", "d", "user_id"}
+    if include_oracle:
+        exclude.update({"m", "m_obs", "tau_link", "g0", "g1", "cate"})
     confounders = [
         c for c in df.columns
         if c not in exclude and pd.api.types.is_numeric_dtype(df[c])
@@ -214,12 +233,16 @@ def classic_rct_gamma_26(
         Whether to generate deterministic user IDs.
     **kwargs : Any
         Additional arguments passed to the underlying `classic_rct_gamma`.
+        With `add_pre=True`, `pre_name` must differ from the scenario's `y`
+        outcome and `user_id` identifier. Names of disabled oracle columns
+        remain available as pre-period features; `conversion` is also valid.
 
     Returns
     -------
     CausalData or pd.DataFrame
         The generated dataset.
     """
+    _validate_scenario_pre_name(add_pre, kwargs.get("pre_name", "y_pre"), "y")
     if outcome_params is None:
         outcome_params = {"shape": 2.0, "scale": {"A": 15.0, "B": 16.5}}
     df = classic_rct_gamma(
@@ -247,7 +270,9 @@ def classic_rct_gamma_26(
     if not return_causal_data:
         return df
 
-    exclude = {"y", "d", "m", "m_obs", "tau_link", "g0", "g1", "cate", "user_id"}
+    exclude = {"y", "d", "user_id"}
+    if include_oracle:
+        exclude.update({"m", "m_obs", "tau_link", "g0", "g1", "cate"})
     confounders = [
         c for c in df.columns
         if c not in exclude and pd.api.types.is_numeric_dtype(df[c])
