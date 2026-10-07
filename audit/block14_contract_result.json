@@ -1,0 +1,1422 @@
+{
+  "baseline_sha": "dbded76ecf8a207aad2094903b8f015fed8ae5d6",
+  "observed_head": "dbded76ecf8a207aad2094903b8f015fed8ae5d6",
+  "current_source_sha": null,
+  "current_source_kind": "working_tree_snapshot",
+  "baseline_source_sha256": {
+    "causalis/scenarios/did/model.py": "e6f2bde0b16c9810696aa74fcff03e3058ef75a445b19dbc5c83a1f29b8ef8ed",
+    "causalis/scenarios/did/refutation/post_inference.py": "e9ae23ef142e0e8be2b41bd5bdfe694abb72bb5e2738f8ae4d6c1d2527c8549a",
+    "tests/scenarios/did/refutation/test_did_post_inference_diagnostics.py": "61d91d7e296e47dbbd0eb800822ea5b58a7b440d5c3e57dac7daf6fb524042fb",
+    "causalis/data_contracts/_did_comparison_units.py": "72f92910fd87bef0fc3aa01d177f8fbfba461a3d6c6100c9d9490673089fa0e0",
+    "causalis/data_contracts/panel_data_did.py": "01ef50d6aea358314a2ad55f77fa349d26f14881594542f4f89dd23898bfbcba",
+    "causalis/data_contracts/panel_did_estimate.py": "d9a7dc66bb58fdd801949d88313a3b218e0f0493da048816c5874fd013f23a06"
+  },
+  "current_source_sha256": {
+    "causalis/scenarios/did/model.py": "10f2970af432507212e5355090dc3cfa97bdb3699acd279b5dbf4a0fff5610c1",
+    "causalis/scenarios/did/refutation/post_inference.py": "a77606edb6787b7c9cac8e539a9393c3101d2adfe68cbd1455430779bc19939e",
+    "causalis/data_contracts/_did_comparison_units.py": "72f92910fd87bef0fc3aa01d177f8fbfba461a3d6c6100c9d9490673089fa0e0",
+    "causalis/data_contracts/panel_data_did.py": "01ef50d6aea358314a2ad55f77fa349d26f14881594542f4f89dd23898bfbcba",
+    "causalis/data_contracts/panel_did_estimate.py": "d9a7dc66bb58fdd801949d88313a3b218e0f0493da048816c5874fd013f23a06"
+  },
+  "fixture_always_frozen": true,
+  "imports_verified": true,
+  "global_package_overlays": false,
+  "python": "3.12.14 (main, Sep 29 2026, 14:50:19) [Clang 22.1.3 ]",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "dependencies": {
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "pydantic": "2.13.5"
+  },
+  "original_fixture": {
+    "baseline": {
+      "label": "baseline",
+      "original_nodeid": "tests/scenarios/did/refutation/test_did_post_inference_diagnostics.py::test_post_inference_report_accepts_panel_and_estimate",
+      "bindings": {
+        "model_module": "_block14_contract_baseline_model",
+        "fixture_module": "_block14_contract_baseline_fixture",
+        "post_module": "_block14_contract_baseline_post",
+        "fixture_model_class_module": "_block14_contract_baseline_model",
+        "fixture_report_function_module": "_block14_contract_baseline_post",
+        "model_class_identity": true,
+        "report_function_identity": true
+      },
+      "original_frozen_test": {
+        "status": "failed",
+        "exception": "AssertionError",
+        "observed_overall_flag": "YELLOW"
+      },
+      "overall_flag": "YELLOW",
+      "report_rows": [
+        {
+          "test": "overall_inference_reliability",
+          "flag": "YELLOW",
+          "value": "yellow",
+          "threshold": "all checks GREEN for robust reliance",
+          "message": "I would treat the results as directionally useful, but not fully robust until yellow diagnostics are addressed."
+        },
+        {
+          "test": "data_estimate_alignment",
+          "flag": "GREEN",
+          "value": "aligned",
+          "threshold": "no mismatches",
+          "message": "PanelDataDID metadata matches the fitted estimate."
+        },
+        {
+          "test": "diagnostic_payload_available",
+          "flag": "GREEN",
+          "value": "available",
+          "threshold": "unit_level, overlap, influence_scores available",
+          "message": "Diagnostic payload required for post-inference checks is available."
+        },
+        {
+          "test": "fitted_post_cell_support",
+          "flag": "GREEN",
+          "value": {
+            "fitted_post_cells": 5,
+            "skipped_post_cell_share": 0.0
+          },
+          "threshold": "skipped share <= 0.2",
+          "message": "Fitted post-treatment cell support is within tolerance."
+        },
+        {
+          "test": "cell_warning_flags",
+          "flag": "GREEN",
+          "value": {
+            "green": 10
+          },
+          "threshold": "0 red cells, 0 yellow cells",
+          "message": "No fitted cells have model diagnostic warnings."
+        },
+        {
+          "test": "min_control_weight_ess",
+          "flag": "GREEN",
+          "value": 1.1936171463300964,
+          "threshold": ">= 1",
+          "message": "Comparison weight effective sample sizes are within tolerance."
+        },
+        {
+          "test": "max_propensity_clip_share",
+          "flag": "GREEN",
+          "value": 0.5,
+          "threshold": "<= 1",
+          "message": "Propensity clipping is within tolerance."
+        },
+        {
+          "test": "weighted_covariate_balance",
+          "flag": "GREEN",
+          "value": 2.954822895562177,
+          "threshold": "max |weighted SMD| <= 10",
+          "message": "Weighted covariate balance is within tolerance."
+        },
+        {
+          "test": "unit_influence_concentration",
+          "flag": "GREEN",
+          "value": {
+            "top_unit_share": 0.4883233516437585,
+            "influence_ess": 2.5131194287287992
+          },
+          "threshold": "top unit share <= 1; influence ESS >= 1",
+          "message": "Unit-level influence concentration is within tolerance."
+        },
+        {
+          "test": "cluster_influence_concentration",
+          "flag": "GREEN",
+          "value": {
+            "n_clusters": 3,
+            "top_cluster_share": 0.5004949776604489
+          },
+          "threshold": "clusters >= 2; top cluster share <= 1",
+          "message": "Cluster influence concentration is within tolerance."
+        },
+        {
+          "test": "fitted_pre_period_placebo",
+          "flag": "YELLOW",
+          "value": 378254753641406.06,
+          "threshold": "max |t| <= 10",
+          "message": "Fitted pre-period placebo cells show a large standardized deviation."
+        },
+        {
+          "test": "simple_aggregate_cell_weight",
+          "flag": "GREEN",
+          "value": 0.2,
+          "threshold": "max cell weight <= 1",
+          "message": "Simple aggregate cell weights are not overly concentrated."
+        },
+        {
+          "test": "simple_aggregate_inference_finite",
+          "flag": "GREEN",
+          "value": {
+            "se": 0.4156921938165306,
+            "ci_lower": 1.5852582714651566,
+            "ci_upper": 3.214741728534844,
+            "p_value": 7.764036537930669e-09
+          },
+          "threshold": "finite SE, ordered CI, p-value in [0, 1]",
+          "message": "Simple aggregate inference outputs are finite and internally consistent."
+        },
+        {
+          "test": "multiplier_bootstrap_inference",
+          "flag": "GREEN",
+          "value": 0,
+          "threshold": "optional",
+          "message": "Asymptotic influence inference was used; set require_multiplier_bootstrap=True to enforce bootstrap robustness."
+        }
+      ],
+      "cell_proof": [
+        {
+          "cell_id": 0,
+          "cohort": "2020-04",
+          "time": "2020-02",
+          "is_post_treatment": false,
+          "n_control": 2,
+          "n_parameters": 2,
+          "control_rank": 2,
+          "control_delta_min": 1.0,
+          "control_delta_max": 1.0,
+          "beta": [
+            0.9999999999999993,
+            1.570092458683775e-16
+          ],
+          "max_abs_control_residual": 5.551115123125783e-16,
+          "max_abs_influence": 6.958416895647656e-15,
+          "att": 1.1102230246251558e-16,
+          "se": 2.9351198205368013e-31,
+          "t_stat": 378254753641406.06,
+          "exact_mathematical_att": 0.0,
+          "exact_mathematical_cell_variance": 0.0,
+          "absolute_att_error": 1.1102230246251558e-16
+        },
+        {
+          "cell_id": 1,
+          "cohort": "2020-04",
+          "time": "2020-03",
+          "is_post_treatment": false,
+          "n_control": 2,
+          "n_parameters": 2,
+          "control_rank": 2,
+          "control_delta_min": 1.0,
+          "control_delta_max": 1.0,
+          "beta": [
+            0.9999999999999993,
+            7.850462293418875e-17
+          ],
+          "max_abs_control_residual": 6.661338147750939e-16,
+          "max_abs_influence": 8.01583014940564e-15,
+          "att": 9.875882056045989e-18,
+          "se": 1.9305699180236354e-16,
+          "t_stat": 0.051155267487831446,
+          "exact_mathematical_att": 0.0,
+          "exact_mathematical_cell_variance": 0.0,
+          "absolute_att_error": 9.875882056045989e-18
+        },
+        {
+          "cell_id": 2,
+          "cohort": "2020-04",
+          "time": "2020-04",
+          "is_post_treatment": true,
+          "n_control": 2,
+          "n_parameters": 2,
+          "control_rank": 2,
+          "control_delta_min": 1.0,
+          "control_delta_max": 1.0,
+          "beta": [
+            0.9999999999999996,
+            7.850462293418875e-17
+          ],
+          "max_abs_control_residual": 4.440892098500626e-16,
+          "max_abs_influence": 5.233249945570823e-15,
+          "att": 2.0,
+          "se": 1.9305999069827426e-16,
+          "t_stat": 1.0359474237858636e+16,
+          "exact_mathematical_att": 2.0,
+          "exact_mathematical_cell_variance": 0.0,
+          "absolute_att_error": 0.0
+        },
+        {
+          "cell_id": 3,
+          "cohort": "2020-04",
+          "time": "2020-05",
+          "is_post_treatment": true,
+          "n_control": 2,
+          "n_parameters": 2,
+          "control_rank": 2,
+          "control_delta_min": 2.0,
+          "control_delta_max": 2.0,
+          "beta": [
+            1.9999999999999991,
+            1.570092458683775e-16
+          ],
+          "max_abs_control_residual": 8.881784197001252e-16,
+          "max_abs_influence": 1.0466499891141647e-14,
+          "att": 2.0,
+          "se": 3.861199813965485e-16,
+          "t_stat": 5179737118929318.0,
+          "exact_mathematical_att": 2.0,
+          "exact_mathematical_cell_variance": 0.0,
+          "absolute_att_error": 0.0
+        },
+        {
+          "cell_id": 4,
+          "cohort": "2020-04",
+          "time": "2020-06",
+          "is_post_treatment": true,
+          "n_control": 2,
+          "n_parameters": 2,
+          "control_rank": 2,
+          "control_delta_min": 3.0,
+          "control_delta_max": 3.0,
+          "beta": [
+            3.0,
+            -1.0990647210786423e-15
+          ],
+          "max_abs_control_residual": 8.881784197001252e-16,
+          "max_abs_influence": 9.574909738503564e-15,
+          "att": 1.9999999999999996,
+          "se": 5.90474927523537e-16,
+          "t_stat": 3387104018773561.5,
+          "exact_mathematical_att": 2.0,
+          "exact_mathematical_cell_variance": 0.0,
+          "absolute_att_error": 4.440892098500626e-16
+        },
+        {
+          "cell_id": 5,
+          "cohort": "2020-05",
+          "time": "2020-02",
+          "is_post_treatment": false,
+          "n_control": 2,
+          "n_parameters": 2,
+          "control_rank": 2,
+          "control_delta_min": 1.0,
+          "control_delta_max": 1.0,
+          "beta": [
+            0.9999999999999993,
+            1.570092458683775e-16
+          ],
+          "max_abs_control_residual": 5.551115123125783e-16,
+          "max_abs_influence": 6.957735222743021e-15,
+          "att": -5.551115123125783e-17,
+          "se": 0.0,
+          "t_stat": 0.0,
+          "exact_mathematical_att": 0.0,
+          "exact_mathematical_cell_variance": 0.0,
+          "absolute_att_error": 5.551115123125783e-17
+        },
+        {
+          "cell_id": 6,
+          "cohort": "2020-05",
+          "time": "2020-03",
+          "is_post_treatment": false,
+          "n_control": 2,
+          "n_parameters": 2,
+          "control_rank": 2,
+          "control_delta_min": 1.0,
+          "control_delta_max": 1.0,
+          "beta": [
+            0.9999999999999993,
+            7.850462293418875e-17
+          ],
+          "max_abs_control_residual": 6.661338147750939e-16,
+          "max_abs_influence": 7.961121653805411e-15,
+          "att": -9.92265232838527e-18,
+          "se": 1.9306421495418166e-16,
+          "t_stat": -0.05139560602020489,
+          "exact_mathematical_att": 0.0,
+          "exact_mathematical_cell_variance": 0.0,
+          "absolute_att_error": 9.92265232838527e-18
+        },
+        {
+          "cell_id": 7,
+          "cohort": "2020-05",
+          "time": "2020-04",
+          "is_post_treatment": false,
+          "n_control": 2,
+          "n_parameters": 2,
+          "control_rank": 2,
+          "control_delta_min": 1.0,
+          "control_delta_max": 1.0,
+          "beta": [
+            0.9999999999999996,
+            7.850462293418875e-17
+          ],
+          "max_abs_control_residual": 4.440892098500626e-16,
+          "max_abs_influence": 5.17743287136667e-15,
+          "att": -9.918249982295734e-18,
+          "se": 1.930635336159977e-16,
+          "t_stat": -0.05137298482282562,
+          "exact_mathematical_att": 0.0,
+          "exact_mathematical_cell_variance": 0.0,
+          "absolute_att_error": 9.918249982295734e-18
+        },
+        {
+          "cell_id": 8,
+          "cohort": "2020-05",
+          "time": "2020-05",
+          "is_post_treatment": true,
+          "n_control": 2,
+          "n_parameters": 2,
+          "control_rank": 2,
+          "control_delta_min": 1.0,
+          "control_delta_max": 1.0,
+          "beta": [
+            0.9999999999999997,
+            7.850462293418875e-17
+          ],
+          "max_abs_control_residual": 3.3306690738754696e-16,
+          "max_abs_influence": 3.7852309633905676e-15,
+          "att": 3.0,
+          "se": 1.9305832411065984e-16,
+          "t_stat": 1.553934549996621e+16,
+          "exact_mathematical_att": 3.0,
+          "exact_mathematical_cell_variance": 0.0,
+          "absolute_att_error": 0.0
+        },
+        {
+          "cell_id": 9,
+          "cohort": "2020-05",
+          "time": "2020-06",
+          "is_post_treatment": true,
+          "n_control": 2,
+          "n_parameters": 2,
+          "control_rank": 2,
+          "control_delta_min": 2.0,
+          "control_delta_max": 2.0,
+          "beta": [
+            1.9999999999999993,
+            1.570092458683775e-16
+          ],
+          "max_abs_control_residual": 6.661338147750939e-16,
+          "max_abs_influence": 7.570461926781135e-15,
+          "att": 3.0,
+          "se": 3.861166482213197e-16,
+          "t_stat": 7769672749983105.0,
+          "exact_mathematical_att": 3.0,
+          "exact_mathematical_cell_variance": 0.0,
+          "absolute_att_error": 0.0
+        }
+      ],
+      "runtime_called_package_sha256": {
+        "causalis/data_contracts/_did_comparison_units.py": "72f92910fd87bef0fc3aa01d177f8fbfba461a3d6c6100c9d9490673089fa0e0",
+        "causalis/data_contracts/panel_data_did.py": "01ef50d6aea358314a2ad55f77fa349d26f14881594542f4f89dd23898bfbcba",
+        "causalis/data_contracts/panel_did_estimate.py": "d9a7dc66bb58fdd801949d88313a3b218e0f0493da048816c5874fd013f23a06",
+        "causalis/scenarios/did/model.py": "e6f2bde0b16c9810696aa74fcff03e3058ef75a445b19dbc5c83a1f29b8ef8ed",
+        "causalis/scenarios/did/refutation/post_inference.py": "e9ae23ef142e0e8be2b41bd5bdfe694abb72bb5e2738f8ae4d6c1d2527c8549a"
+      },
+      "runtime_paths": [
+        "causalis/data_contracts/_did_comparison_units.py",
+        "causalis/data_contracts/panel_data_did.py",
+        "causalis/data_contracts/panel_did_estimate.py",
+        "causalis/scenarios/did/model.py",
+        "causalis/scenarios/did/refutation/post_inference.py"
+      ],
+      "warnings": {}
+    },
+    "current": {
+      "label": "current",
+      "original_nodeid": "tests/scenarios/did/refutation/test_did_post_inference_diagnostics.py::test_post_inference_report_accepts_panel_and_estimate",
+      "bindings": {
+        "model_module": "_block14_contract_current_model",
+        "fixture_module": "_block14_contract_current_fixture",
+        "post_module": "_block14_contract_current_post",
+        "fixture_model_class_module": "_block14_contract_current_model",
+        "fixture_report_function_module": "_block14_contract_current_post",
+        "model_class_identity": true,
+        "report_function_identity": true
+      },
+      "original_frozen_test": {
+        "status": "failed",
+        "exception": "AssertionError",
+        "observed_overall_flag": "YELLOW"
+      },
+      "overall_flag": "YELLOW",
+      "report_rows": [
+        {
+          "test": "overall_inference_reliability",
+          "flag": "YELLOW",
+          "value": "yellow",
+          "threshold": "all checks GREEN for robust reliance",
+          "message": "I would treat the results as directionally useful, but not fully robust until yellow diagnostics are addressed."
+        },
+        {
+          "test": "data_estimate_alignment",
+          "flag": "GREEN",
+          "value": "aligned",
+          "threshold": "no mismatches",
+          "message": "PanelDataDID metadata matches the fitted estimate."
+        },
+        {
+          "test": "diagnostic_payload_available",
+          "flag": "GREEN",
+          "value": "available",
+          "threshold": "unit_level, overlap, influence_scores available",
+          "message": "Diagnostic payload required for post-inference checks is available."
+        },
+        {
+          "test": "fitted_post_cell_support",
+          "flag": "GREEN",
+          "value": {
+            "fitted_post_cells": 5,
+            "skipped_post_cell_share": 0.0
+          },
+          "threshold": "skipped share <= 0.2",
+          "message": "Fitted post-treatment cell support is within tolerance."
+        },
+        {
+          "test": "cell_warning_flags",
+          "flag": "GREEN",
+          "value": {
+            "green": 10
+          },
+          "threshold": "0 red cells, 0 yellow cells",
+          "message": "No fitted cells have model diagnostic warnings."
+        },
+        {
+          "test": "min_control_weight_ess",
+          "flag": "GREEN",
+          "value": 1.1936171463300964,
+          "threshold": ">= 1",
+          "message": "Comparison weight effective sample sizes are within tolerance."
+        },
+        {
+          "test": "max_propensity_clip_share",
+          "flag": "GREEN",
+          "value": 0.5,
+          "threshold": "<= 1",
+          "message": "Propensity clipping is within tolerance."
+        },
+        {
+          "test": "weighted_covariate_balance",
+          "flag": "GREEN",
+          "value": 2.954822895562177,
+          "threshold": "max |weighted SMD| <= 10",
+          "message": "Weighted covariate balance is within tolerance."
+        },
+        {
+          "test": "unit_influence_concentration",
+          "flag": "YELLOW",
+          "value": {
+            "top_unit_share": null,
+            "influence_ess": null
+          },
+          "threshold": "top unit share <= 1; influence ESS >= 1",
+          "message": "The simple ATT is concentrated in too few unit-level influence contributions."
+        },
+        {
+          "test": "cluster_influence_concentration",
+          "flag": "YELLOW",
+          "value": {
+            "n_clusters": 3,
+            "top_cluster_share": null
+          },
+          "threshold": "clusters >= 2; top cluster share <= 1",
+          "message": "Clustered inference is fragile because too few clusters or one dominant cluster drive the score."
+        },
+        {
+          "test": "fitted_pre_period_placebo",
+          "flag": "YELLOW",
+          "value": null,
+          "threshold": "max |t| <= 10",
+          "message": "At least one fitted pre-period placebo cell has an undefined or non-finite standardized statistic; check standard errors and numerical stability."
+        },
+        {
+          "test": "simple_aggregate_cell_weight",
+          "flag": "GREEN",
+          "value": 0.2,
+          "threshold": "max cell weight <= 1",
+          "message": "Simple aggregate cell weights are not overly concentrated."
+        },
+        {
+          "test": "simple_aggregate_inference_finite",
+          "flag": "GREEN",
+          "value": {
+            "se": 0.41569219381653055,
+            "ci_lower": 1.5852582714651566,
+            "ci_upper": 3.214741728534844,
+            "p_value": 7.764036537930669e-09
+          },
+          "threshold": "finite SE, ordered CI, p-value in [0, 1]",
+          "message": "Simple aggregate inference outputs are finite and internally consistent."
+        },
+        {
+          "test": "multiplier_bootstrap_inference",
+          "flag": "GREEN",
+          "value": 0,
+          "threshold": "optional",
+          "message": "Asymptotic influence inference was used; set require_multiplier_bootstrap=True to enforce bootstrap robustness."
+        }
+      ],
+      "cell_proof": [
+        {
+          "cell_id": 0,
+          "cohort": "2020-04",
+          "time": "2020-02",
+          "is_post_treatment": false,
+          "n_control": 2,
+          "n_parameters": 2,
+          "control_rank": 2,
+          "control_delta_min": 1.0,
+          "control_delta_max": 1.0,
+          "beta": [
+            1.0,
+            0.0
+          ],
+          "max_abs_control_residual": 0.0,
+          "max_abs_influence": 0.0,
+          "att": 0.0,
+          "se": 0.0,
+          "t_stat": "nan",
+          "exact_mathematical_att": 0.0,
+          "exact_mathematical_cell_variance": 0.0,
+          "absolute_att_error": 0.0
+        },
+        {
+          "cell_id": 1,
+          "cohort": "2020-04",
+          "time": "2020-03",
+          "is_post_treatment": false,
+          "n_control": 2,
+          "n_parameters": 2,
+          "control_rank": 2,
+          "control_delta_min": 1.0,
+          "control_delta_max": 1.0,
+          "beta": [
+            1.0,
+            0.0
+          ],
+          "max_abs_control_residual": 0.0,
+          "max_abs_influence": 0.0,
+          "att": 0.0,
+          "se": 0.0,
+          "t_stat": "nan",
+          "exact_mathematical_att": 0.0,
+          "exact_mathematical_cell_variance": 0.0,
+          "absolute_att_error": 0.0
+        },
+        {
+          "cell_id": 2,
+          "cohort": "2020-04",
+          "time": "2020-04",
+          "is_post_treatment": true,
+          "n_control": 2,
+          "n_parameters": 2,
+          "control_rank": 2,
+          "control_delta_min": 1.0,
+          "control_delta_max": 1.0,
+          "beta": [
+            1.0,
+            0.0
+          ],
+          "max_abs_control_residual": 0.0,
+          "max_abs_influence": 0.0,
+          "att": 2.0,
+          "se": 0.0,
+          "t_stat": "nan",
+          "exact_mathematical_att": 2.0,
+          "exact_mathematical_cell_variance": 0.0,
+          "absolute_att_error": 0.0
+        },
+        {
+          "cell_id": 3,
+          "cohort": "2020-04",
+          "time": "2020-05",
+          "is_post_treatment": true,
+          "n_control": 2,
+          "n_parameters": 2,
+          "control_rank": 2,
+          "control_delta_min": 2.0,
+          "control_delta_max": 2.0,
+          "beta": [
+            2.0,
+            0.0
+          ],
+          "max_abs_control_residual": 0.0,
+          "max_abs_influence": 0.0,
+          "att": 2.0,
+          "se": 0.0,
+          "t_stat": "nan",
+          "exact_mathematical_att": 2.0,
+          "exact_mathematical_cell_variance": 0.0,
+          "absolute_att_error": 0.0
+        },
+        {
+          "cell_id": 4,
+          "cohort": "2020-04",
+          "time": "2020-06",
+          "is_post_treatment": true,
+          "n_control": 2,
+          "n_parameters": 2,
+          "control_rank": 2,
+          "control_delta_min": 3.0,
+          "control_delta_max": 3.0,
+          "beta": [
+            3.0,
+            0.0
+          ],
+          "max_abs_control_residual": 0.0,
+          "max_abs_influence": 0.0,
+          "att": 2.0,
+          "se": 0.0,
+          "t_stat": "nan",
+          "exact_mathematical_att": 2.0,
+          "exact_mathematical_cell_variance": 0.0,
+          "absolute_att_error": 0.0
+        },
+        {
+          "cell_id": 5,
+          "cohort": "2020-05",
+          "time": "2020-02",
+          "is_post_treatment": false,
+          "n_control": 2,
+          "n_parameters": 2,
+          "control_rank": 2,
+          "control_delta_min": 1.0,
+          "control_delta_max": 1.0,
+          "beta": [
+            1.0,
+            0.0
+          ],
+          "max_abs_control_residual": 0.0,
+          "max_abs_influence": 0.0,
+          "att": 0.0,
+          "se": 0.0,
+          "t_stat": "nan",
+          "exact_mathematical_att": 0.0,
+          "exact_mathematical_cell_variance": 0.0,
+          "absolute_att_error": 0.0
+        },
+        {
+          "cell_id": 6,
+          "cohort": "2020-05",
+          "time": "2020-03",
+          "is_post_treatment": false,
+          "n_control": 2,
+          "n_parameters": 2,
+          "control_rank": 2,
+          "control_delta_min": 1.0,
+          "control_delta_max": 1.0,
+          "beta": [
+            1.0,
+            0.0
+          ],
+          "max_abs_control_residual": 0.0,
+          "max_abs_influence": 0.0,
+          "att": 0.0,
+          "se": 0.0,
+          "t_stat": "nan",
+          "exact_mathematical_att": 0.0,
+          "exact_mathematical_cell_variance": 0.0,
+          "absolute_att_error": 0.0
+        },
+        {
+          "cell_id": 7,
+          "cohort": "2020-05",
+          "time": "2020-04",
+          "is_post_treatment": false,
+          "n_control": 2,
+          "n_parameters": 2,
+          "control_rank": 2,
+          "control_delta_min": 1.0,
+          "control_delta_max": 1.0,
+          "beta": [
+            1.0,
+            0.0
+          ],
+          "max_abs_control_residual": 0.0,
+          "max_abs_influence": 0.0,
+          "att": 0.0,
+          "se": 0.0,
+          "t_stat": "nan",
+          "exact_mathematical_att": 0.0,
+          "exact_mathematical_cell_variance": 0.0,
+          "absolute_att_error": 0.0
+        },
+        {
+          "cell_id": 8,
+          "cohort": "2020-05",
+          "time": "2020-05",
+          "is_post_treatment": true,
+          "n_control": 2,
+          "n_parameters": 2,
+          "control_rank": 2,
+          "control_delta_min": 1.0,
+          "control_delta_max": 1.0,
+          "beta": [
+            1.0,
+            0.0
+          ],
+          "max_abs_control_residual": 0.0,
+          "max_abs_influence": 0.0,
+          "att": 3.0,
+          "se": 0.0,
+          "t_stat": "nan",
+          "exact_mathematical_att": 3.0,
+          "exact_mathematical_cell_variance": 0.0,
+          "absolute_att_error": 0.0
+        },
+        {
+          "cell_id": 9,
+          "cohort": "2020-05",
+          "time": "2020-06",
+          "is_post_treatment": true,
+          "n_control": 2,
+          "n_parameters": 2,
+          "control_rank": 2,
+          "control_delta_min": 2.0,
+          "control_delta_max": 2.0,
+          "beta": [
+            2.0,
+            0.0
+          ],
+          "max_abs_control_residual": 0.0,
+          "max_abs_influence": 0.0,
+          "att": 3.0,
+          "se": 0.0,
+          "t_stat": "nan",
+          "exact_mathematical_att": 3.0,
+          "exact_mathematical_cell_variance": 0.0,
+          "absolute_att_error": 0.0
+        }
+      ],
+      "runtime_called_package_sha256": {
+        "causalis/data_contracts/_did_comparison_units.py": "72f92910fd87bef0fc3aa01d177f8fbfba461a3d6c6100c9d9490673089fa0e0",
+        "causalis/data_contracts/panel_data_did.py": "01ef50d6aea358314a2ad55f77fa349d26f14881594542f4f89dd23898bfbcba",
+        "causalis/data_contracts/panel_did_estimate.py": "d9a7dc66bb58fdd801949d88313a3b218e0f0493da048816c5874fd013f23a06",
+        "causalis/scenarios/did/model.py": "10f2970af432507212e5355090dc3cfa97bdb3699acd279b5dbf4a0fff5610c1",
+        "causalis/scenarios/did/refutation/post_inference.py": "a77606edb6787b7c9cac8e539a9393c3101d2adfe68cbd1455430779bc19939e"
+      },
+      "runtime_paths": [
+        "causalis/data_contracts/_did_comparison_units.py",
+        "causalis/data_contracts/panel_data_did.py",
+        "causalis/data_contracts/panel_did_estimate.py",
+        "causalis/scenarios/did/model.py",
+        "causalis/scenarios/did/refutation/post_inference.py"
+      ],
+      "warnings": {}
+    }
+  },
+  "regression_references": [
+    {
+      "case": "exact_constant_full_rank_0.0",
+      "exact_unique_constant_solution": true,
+      "control_rank": 2,
+      "parameters": 2,
+      "baseline_beta": [
+        -0.0,
+        0.0
+      ],
+      "current_beta": [
+        0.0,
+        0.0
+      ],
+      "predictions_exact_equal": true,
+      "coefficients_exact_equal": true,
+      "current_control_residual_max": 0.0,
+      "current_treated_residual_abs_sum": 0.0
+    },
+    {
+      "case": "exact_constant_full_rank_1.0",
+      "exact_unique_constant_solution": true,
+      "control_rank": 2,
+      "parameters": 2,
+      "baseline_beta": [
+        0.9999999999999993,
+        1.570092458683775e-16
+      ],
+      "current_beta": [
+        1.0,
+        0.0
+      ],
+      "predictions_exact_equal": false,
+      "coefficients_exact_equal": false,
+      "current_control_residual_max": 0.0,
+      "current_treated_residual_abs_sum": 0.0
+    },
+    {
+      "case": "exact_constant_full_rank_-2.0",
+      "exact_unique_constant_solution": true,
+      "control_rank": 2,
+      "parameters": 2,
+      "baseline_beta": [
+        -1.9999999999999987,
+        -3.14018491736755e-16
+      ],
+      "current_beta": [
+        -2.0,
+        0.0
+      ],
+      "predictions_exact_equal": false,
+      "coefficients_exact_equal": false,
+      "current_control_residual_max": 0.0,
+      "current_treated_residual_abs_sum": 0.0
+    },
+    {
+      "case": "exact_constant_full_rank_3.054936363499605e-151",
+      "exact_unique_constant_solution": true,
+      "control_rank": 2,
+      "parameters": 2,
+      "baseline_beta": [
+        3.0549363634996026e-151,
+        4.796532546089565e-167
+      ],
+      "current_beta": [
+        3.054936363499605e-151,
+        0.0
+      ],
+      "predictions_exact_equal": false,
+      "coefficients_exact_equal": false,
+      "current_control_residual_max": 0.0,
+      "current_treated_residual_abs_sum": 0.0
+    },
+    {
+      "case": "exact_constant_full_rank_3.273390607896142e+150",
+      "exact_unique_constant_solution": true,
+      "control_rank": 2,
+      "parameters": 2,
+      "baseline_beta": [
+        3.2733906078961397e+150,
+        5.13952590778403e+134
+      ],
+      "current_beta": [
+        3.273390607896142e+150,
+        0.0
+      ],
+      "predictions_exact_equal": false,
+      "coefficients_exact_equal": false,
+      "current_control_residual_max": 0.0,
+      "current_treated_residual_abs_sum": 0.0
+    },
+    {
+      "case": "tiny_treated_departures",
+      "exact_unique_constant_solution": true,
+      "control_rank": 2,
+      "parameters": 2,
+      "baseline_beta": [
+        0.9999999999999993,
+        1.570092458683775e-16
+      ],
+      "current_beta": [
+        1.0,
+        0.0
+      ],
+      "predictions_exact_equal": false,
+      "coefficients_exact_equal": false,
+      "current_control_residual_max": 0.0,
+      "current_treated_residual_abs_sum": 3.000044657142098e-12
+    },
+    {
+      "case": "representably_near_constant_control",
+      "exact_unique_constant_solution": false,
+      "control_rank": 2,
+      "parameters": 2,
+      "baseline_beta": [
+        0.9999999999999984,
+        1.7271017045521523e-15
+      ],
+      "current_beta": [
+        0.9999999999999984,
+        1.7271017045521523e-15
+      ],
+      "predictions_exact_equal": true,
+      "coefficients_exact_equal": true,
+      "current_control_residual_max": 6.661338147750939e-16,
+      "current_treated_residual_abs_sum": 0.8999999999999977
+    },
+    {
+      "case": "nonconstant_control",
+      "exact_unique_constant_solution": false,
+      "control_rank": 2,
+      "parameters": 2,
+      "baseline_beta": [
+        -0.5500000000000007,
+        2.500000000000001
+      ],
+      "current_beta": [
+        -0.5500000000000007,
+        2.500000000000001
+      ],
+      "predictions_exact_equal": true,
+      "coefficients_exact_equal": true,
+      "current_control_residual_max": 2.220446049250313e-16,
+      "current_treated_residual_abs_sum": 2.250000000000001
+    },
+    {
+      "case": "rank_deficient_constant_control",
+      "exact_unique_constant_solution": false,
+      "control_rank": 1,
+      "parameters": 2,
+      "baseline_beta": [
+        0.49999999999999983,
+        0.49999999999999967
+      ],
+      "current_beta": [
+        0.49999999999999983,
+        0.49999999999999967
+      ],
+      "predictions_exact_equal": true,
+      "coefficients_exact_equal": true,
+      "current_control_residual_max": 4.440892098500626e-16,
+      "current_treated_residual_abs_sum": 1.499999999999998
+    },
+    {
+      "case": "nonunit_intercept_constant_control",
+      "exact_unique_constant_solution": false,
+      "control_rank": 2,
+      "parameters": 2,
+      "baseline_beta": [
+        0.5,
+        1.570092458683775e-16
+      ],
+      "current_beta": [
+        0.5,
+        1.570092458683775e-16
+      ],
+      "predictions_exact_equal": true,
+      "coefficients_exact_equal": true,
+      "current_control_residual_max": 0.0,
+      "current_treated_residual_abs_sum": 2.220446049250313e-16
+    },
+    {
+      "case": "zero_column_private_helper",
+      "exact_unique_constant_solution": false,
+      "control_rank": 0,
+      "parameters": 0,
+      "baseline_beta": [],
+      "current_beta": [],
+      "predictions_exact_equal": true,
+      "coefficients_exact_equal": true,
+      "current_control_residual_max": 1.0,
+      "current_treated_residual_abs_sum": 2.0
+    }
+  ],
+  "rank_deficient_centering_counterexample": {
+    "control_rank": 1,
+    "parameters": 2,
+    "minimum_norm_beta": [
+      0.49999999999999983,
+      0.49999999999999967
+    ],
+    "centered_intercept_beta": [
+      1.0,
+      0.0
+    ],
+    "treated_prediction_absolute_difference_sum": 1.499999999999998
+  },
+  "safe_t_stat_references": [
+    {
+      "label": "baseline",
+      "pairs": [
+        {
+          "att": 0.0,
+          "se": 0.0,
+          "t_stat": 0.0,
+          "normal_p_value": 1.0
+        },
+        {
+          "att": 1.0,
+          "se": 0.0,
+          "t_stat": "inf",
+          "normal_p_value": "nan"
+        },
+        {
+          "att": -1.0,
+          "se": 0.0,
+          "t_stat": "inf",
+          "normal_p_value": "nan"
+        },
+        {
+          "att": 1e-17,
+          "se": 0.0,
+          "t_stat": 0.0,
+          "normal_p_value": 1.0
+        },
+        {
+          "att": 1.0,
+          "se": -1.0,
+          "t_stat": "nan",
+          "normal_p_value": "nan"
+        },
+        {
+          "att": 1.0,
+          "se": "nan",
+          "t_stat": "nan",
+          "normal_p_value": "nan"
+        },
+        {
+          "att": 1.0,
+          "se": "inf",
+          "t_stat": "nan",
+          "normal_p_value": 1.0
+        },
+        {
+          "att": "nan",
+          "se": 1.0,
+          "t_stat": "nan",
+          "normal_p_value": "nan"
+        },
+        {
+          "att": "inf",
+          "se": 1.0,
+          "t_stat": "inf",
+          "normal_p_value": 0.0
+        },
+        {
+          "att": 1e-300,
+          "se": 1e-300,
+          "t_stat": 1.0,
+          "normal_p_value": 0.31731050786291415
+        },
+        {
+          "att": 1e-12,
+          "se": 1e-20,
+          "t_stat": 100000000.0,
+          "normal_p_value": 0.0
+        },
+        {
+          "att": -1e-12,
+          "se": 1e-20,
+          "t_stat": -100000000.0,
+          "normal_p_value": 0.0
+        },
+        {
+          "att": 0.0,
+          "se": 1e-300,
+          "t_stat": 0.0,
+          "normal_p_value": 1.0
+        },
+        {
+          "att": 1.0,
+          "se": 1e-320,
+          "t_stat": "inf",
+          "normal_p_value": 0.0
+        }
+      ]
+    },
+    {
+      "label": "current",
+      "pairs": [
+        {
+          "att": 0.0,
+          "se": 0.0,
+          "t_stat": "nan",
+          "normal_p_value": 1.0
+        },
+        {
+          "att": 1.0,
+          "se": 0.0,
+          "t_stat": "nan",
+          "normal_p_value": "nan"
+        },
+        {
+          "att": -1.0,
+          "se": 0.0,
+          "t_stat": "nan",
+          "normal_p_value": "nan"
+        },
+        {
+          "att": 1e-17,
+          "se": 0.0,
+          "t_stat": "nan",
+          "normal_p_value": "nan"
+        },
+        {
+          "att": 1.0,
+          "se": -1.0,
+          "t_stat": "nan",
+          "normal_p_value": "nan"
+        },
+        {
+          "att": 1.0,
+          "se": "nan",
+          "t_stat": "nan",
+          "normal_p_value": "nan"
+        },
+        {
+          "att": 1.0,
+          "se": "inf",
+          "t_stat": "nan",
+          "normal_p_value": "nan"
+        },
+        {
+          "att": "nan",
+          "se": 1.0,
+          "t_stat": "nan",
+          "normal_p_value": "nan"
+        },
+        {
+          "att": "inf",
+          "se": 1.0,
+          "t_stat": "nan",
+          "normal_p_value": "nan"
+        },
+        {
+          "att": 1e-300,
+          "se": 1e-300,
+          "t_stat": 1.0,
+          "normal_p_value": 0.31731050786291415
+        },
+        {
+          "att": 1e-12,
+          "se": 1e-20,
+          "t_stat": 100000000.0,
+          "normal_p_value": 0.0
+        },
+        {
+          "att": -1e-12,
+          "se": 1e-20,
+          "t_stat": -100000000.0,
+          "normal_p_value": 0.0
+        },
+        {
+          "att": 0.0,
+          "se": 1e-300,
+          "t_stat": 0.0,
+          "normal_p_value": 1.0
+        },
+        {
+          "att": 1.0,
+          "se": 1e-320,
+          "t_stat": "inf",
+          "normal_p_value": 0.0
+        }
+      ]
+    }
+  ],
+  "mixed_valid_invalid_pre_reports": [
+    {
+      "label": "baseline",
+      "case": "zero_se_zero_att",
+      "flag": "GREEN",
+      "value": 0.0,
+      "message": "Fitted pre-period placebo cells are within the standardized threshold."
+    },
+    {
+      "label": "current",
+      "case": "zero_se_zero_att",
+      "flag": "YELLOW",
+      "value": 0.0,
+      "message": "At least one fitted pre-period placebo cell has an undefined or non-finite standardized statistic; check standard errors and numerical stability."
+    },
+    {
+      "label": "baseline",
+      "case": "zero_se_nonzero_att",
+      "flag": "GREEN",
+      "value": 0.0,
+      "message": "Fitted pre-period placebo cells are within the standardized threshold."
+    },
+    {
+      "label": "current",
+      "case": "zero_se_nonzero_att",
+      "flag": "YELLOW",
+      "value": 0.0,
+      "message": "At least one fitted pre-period placebo cell has an undefined or non-finite standardized statistic; check standard errors and numerical stability."
+    },
+    {
+      "label": "baseline",
+      "case": "nan_se",
+      "flag": "GREEN",
+      "value": 0.0,
+      "message": "Fitted pre-period placebo cells are within the standardized threshold."
+    },
+    {
+      "label": "current",
+      "case": "nan_se",
+      "flag": "YELLOW",
+      "value": 0.0,
+      "message": "At least one fitted pre-period placebo cell has an undefined or non-finite standardized statistic; check standard errors and numerical stability."
+    },
+    {
+      "label": "baseline",
+      "case": "negative_se",
+      "flag": "GREEN",
+      "value": 0.0,
+      "message": "Fitted pre-period placebo cells are within the standardized threshold."
+    },
+    {
+      "label": "current",
+      "case": "negative_se",
+      "flag": "YELLOW",
+      "value": 0.0,
+      "message": "At least one fitted pre-period placebo cell has an undefined or non-finite standardized statistic; check standard errors and numerical stability."
+    },
+    {
+      "label": "baseline",
+      "case": "infinite_se",
+      "flag": "GREEN",
+      "value": 0.0,
+      "message": "Fitted pre-period placebo cells are within the standardized threshold."
+    },
+    {
+      "label": "current",
+      "case": "infinite_se",
+      "flag": "YELLOW",
+      "value": 0.0,
+      "message": "At least one fitted pre-period placebo cell has an undefined or non-finite standardized statistic; check standard errors and numerical stability."
+    },
+    {
+      "label": "baseline",
+      "case": "infinite_att",
+      "flag": "GREEN",
+      "value": 0.0,
+      "message": "Fitted pre-period placebo cells are within the standardized threshold."
+    },
+    {
+      "label": "current",
+      "case": "infinite_att",
+      "flag": "YELLOW",
+      "value": 0.0,
+      "message": "At least one fitted pre-period placebo cell has an undefined or non-finite standardized statistic; check standard errors and numerical stability."
+    },
+    {
+      "label": "baseline",
+      "case": "overflow_finite_ratio",
+      "flag": "GREEN",
+      "value": 0.0,
+      "message": "Fitted pre-period placebo cells are within the standardized threshold."
+    },
+    {
+      "label": "current",
+      "case": "overflow_finite_ratio",
+      "flag": "YELLOW",
+      "value": "inf",
+      "message": "At least one fitted pre-period placebo cell has an undefined or non-finite standardized statistic; check standard errors and numerical stability."
+    }
+  ],
+  "degenerate_bootstrap_references": [
+    {
+      "label": "baseline",
+      "case": "all_zero_scores_simultaneous_bootstrap",
+      "aggregate_rows": [
+        {
+          "att": 0.0,
+          "se": 0.0,
+          "ci_lower": 0.0,
+          "ci_upper": 0.0,
+          "p_value": 1.0,
+          "alpha": 0.05,
+          "is_significant": false,
+          "inference": "clustered_multiplier_bootstrap",
+          "simultaneous_critical_value": "nan",
+          "sim_ci_lower": "nan",
+          "sim_ci_upper": "nan"
+        },
+        {
+          "att": 0.0,
+          "se": 0.0,
+          "ci_lower": 0.0,
+          "ci_upper": 0.0,
+          "p_value": 1.0,
+          "alpha": 0.05,
+          "is_significant": false,
+          "inference": "clustered_multiplier_bootstrap",
+          "simultaneous_critical_value": "nan",
+          "sim_ci_lower": "nan",
+          "sim_ci_upper": "nan"
+        }
+      ],
+      "warning_count": 2,
+      "warnings": [
+        "All-NaN slice encountered",
+        "All-NaN slice encountered"
+      ]
+    },
+    {
+      "label": "current",
+      "case": "all_zero_scores_simultaneous_bootstrap",
+      "aggregate_rows": [
+        {
+          "att": 0.0,
+          "se": 0.0,
+          "ci_lower": 0.0,
+          "ci_upper": 0.0,
+          "p_value": 1.0,
+          "alpha": 0.05,
+          "is_significant": false,
+          "inference": "clustered_multiplier_bootstrap",
+          "simultaneous_critical_value": "nan",
+          "sim_ci_lower": "nan",
+          "sim_ci_upper": "nan"
+        },
+        {
+          "att": 0.0,
+          "se": 0.0,
+          "ci_lower": 0.0,
+          "ci_upper": 0.0,
+          "p_value": 1.0,
+          "alpha": 0.05,
+          "is_significant": false,
+          "inference": "clustered_multiplier_bootstrap",
+          "simultaneous_critical_value": "nan",
+          "sim_ci_lower": "nan",
+          "sim_ci_upper": "nan"
+        }
+      ],
+      "warning_count": 0,
+      "warnings": []
+    }
+  ],
+  "missing_payload_cached_stat_reports": [
+    {
+      "label": "baseline",
+      "missing_column": "att",
+      "flag": "GREEN",
+      "value": 0.0,
+      "all_t_statistics_nan": false
+    },
+    {
+      "label": "baseline",
+      "missing_column": "se",
+      "flag": "GREEN",
+      "value": 0.0,
+      "all_t_statistics_nan": false
+    },
+    {
+      "label": "current",
+      "missing_column": "att",
+      "flag": "YELLOW",
+      "value": null,
+      "all_t_statistics_nan": true
+    },
+    {
+      "label": "current",
+      "missing_column": "se",
+      "flag": "YELLOW",
+      "value": null,
+      "all_t_statistics_nan": true
+    }
+  ],
+  "nondegenerate_fixture_prototype": [
+    {
+      "label": "baseline",
+      "evidence_kind": "independent_fixture_prototype_not_public_test",
+      "units": 12,
+      "controls": 4,
+      "clusters": 12,
+      "periods": 6,
+      "overall_flag": "GREEN",
+      "min_pre_se": 0.17423052114026663,
+      "max_abs_pre_t": 1.3081931319110782,
+      "all_pre_se_positive_finite": true,
+      "non_green_rows": []
+    },
+    {
+      "label": "current",
+      "evidence_kind": "independent_fixture_prototype_not_public_test",
+      "units": 12,
+      "controls": 4,
+      "clusters": 12,
+      "periods": 6,
+      "overall_flag": "GREEN",
+      "min_pre_se": 0.17423052114026663,
+      "max_abs_pre_t": 1.3081931319110782,
+      "all_pre_se_positive_finite": true,
+      "non_green_rows": []
+    }
+  ],
+  "individual_rows_saved": false,
+  "limits": [
+    "Synthetic aggregate-only mathematical/numerical proof, not pytest/integration counts",
+    "Current snapshot may be uncommitted; exact hashes identify actually loaded source",
+    "Old fixture still warrants caution after numerical solution is exact"
+  ]
+}

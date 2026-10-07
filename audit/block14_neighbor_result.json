@@ -1,0 +1,16 @@
+{
+  "tests": 151,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "passed": 151,
+  "evidence_kind": "preliminary_neighbor_check",
+  "source_checkpoint": null,
+  "runtime_source_hashes_instrumented": false,
+  "final_source_validation": false,
+  "pytest_elapsed_seconds": 24.68,
+  "exit_code": 0,
+  "scope": "tests/scenarios/did excluding the two B14-owned regression files",
+  "log": "audit/block14_neighbor_tests.log",
+  "limitation": "Run preceded the final all-zero-SE bootstrap and missing-input cached-statistic guards. The committed-source integration validates their final version; this preliminary run does not establish final-source equivalence."
+}

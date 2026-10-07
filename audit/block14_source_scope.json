@@ -1,0 +1,29 @@
+{
+  "baseline": "dbded76ecf8a207aad2094903b8f015fed8ae5d6",
+  "records": [
+    {
+      "path": "causalis/scenarios/did/model.py",
+      "baseline_sha256": "e6f2bde0b16c9810696aa74fcff03e3058ef75a445b19dbc5c83a1f29b8ef8ed",
+      "current_sha256": "10f2970af432507212e5355090dc3cfa97bdb3699acd279b5dbf4a0fff5610c1",
+      "changed_runtime_functions": [
+        "_normal_p_value",
+        "_fit_outcome_regression",
+        "_add_inference"
+      ],
+      "all_other_top_level_functions_classes_ast_unchanged": true,
+      "all_signatures_unchanged": true
+    },
+    {
+      "path": "causalis/scenarios/did/refutation/post_inference.py",
+      "baseline_sha256": "e9ae23ef142e0e8be2b41bd5bdfe694abb72bb5e2738f8ae4d6c1d2527c8549a",
+      "current_sha256": "a77606edb6787b7c9cac8e539a9393c3101d2adfe68cbd1455430779bc19939e",
+      "changed_runtime_functions": [
+        "_safe_t_stat",
+        "did_post_inference_cell_table",
+        "run_did_post_inference_diagnostics"
+      ],
+      "all_other_top_level_functions_classes_ast_unchanged": true,
+      "all_signatures_unchanged": true
+    }
+  ]
+}

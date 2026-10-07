@@ -1,0 +1,863 @@
+{
+  "regression": {
+    "unchanged": [
+      {
+        "form": "intercept",
+        "constant": false,
+        "scale": 1e-220
+      },
+      {
+        "form": "intercept",
+        "constant": false,
+        "scale": 1.0
+      },
+      {
+        "form": "intercept",
+        "constant": false,
+        "scale": 1e+120
+      },
+      {
+        "form": "rank_deficient",
+        "constant": false,
+        "scale": 1e-220
+      },
+      {
+        "form": "rank_deficient",
+        "constant": false,
+        "scale": 1.0
+      },
+      {
+        "form": "rank_deficient",
+        "constant": false,
+        "scale": 1e+120
+      },
+      {
+        "form": "rank_deficient",
+        "constant": true,
+        "scale": 1e-220
+      },
+      {
+        "form": "rank_deficient",
+        "constant": true,
+        "scale": 1.0
+      },
+      {
+        "form": "rank_deficient",
+        "constant": true,
+        "scale": 1e+120
+      },
+      {
+        "form": "no_intercept",
+        "constant": false,
+        "scale": 1e-220
+      },
+      {
+        "form": "no_intercept",
+        "constant": false,
+        "scale": 1.0
+      },
+      {
+        "form": "no_intercept",
+        "constant": false,
+        "scale": 1e+120
+      },
+      {
+        "form": "no_intercept",
+        "constant": true,
+        "scale": 1e-220
+      },
+      {
+        "form": "no_intercept",
+        "constant": true,
+        "scale": 1.0
+      },
+      {
+        "form": "no_intercept",
+        "constant": true,
+        "scale": 1e+120
+      },
+      {
+        "form": "scaled_intercept",
+        "constant": false,
+        "scale": 1e-220
+      },
+      {
+        "form": "scaled_intercept",
+        "constant": false,
+        "scale": 1.0
+      },
+      {
+        "form": "scaled_intercept",
+        "constant": false,
+        "scale": 1e+120
+      },
+      {
+        "form": "scaled_intercept",
+        "constant": true,
+        "scale": 1e-220
+      },
+      {
+        "form": "scaled_intercept",
+        "constant": true,
+        "scale": 1.0
+      },
+      {
+        "form": "scaled_intercept",
+        "constant": true,
+        "scale": 1e+120
+      },
+      {
+        "form": "zero_columns",
+        "constant": false,
+        "scale": 1e-220
+      },
+      {
+        "form": "zero_columns",
+        "constant": false,
+        "scale": 1.0
+      },
+      {
+        "form": "zero_columns",
+        "constant": false,
+        "scale": 1e+120
+      },
+      {
+        "form": "zero_columns",
+        "constant": true,
+        "scale": 1e-220
+      },
+      {
+        "form": "zero_columns",
+        "constant": true,
+        "scale": 1.0
+      },
+      {
+        "form": "zero_columns",
+        "constant": true,
+        "scale": 1e+120
+      }
+    ],
+    "analytical_constant_cases": [
+      {
+        "form": "intercept",
+        "constant": true,
+        "scale": 1e-220
+      },
+      {
+        "form": "intercept",
+        "constant": true,
+        "scale": 1.0
+      },
+      {
+        "form": "intercept",
+        "constant": true,
+        "scale": 1e+120
+      },
+      {
+        "form": "intercept",
+        "constant": true,
+        "value": 0.0
+      },
+      {
+        "form": "intercept",
+        "constant": true,
+        "value": 5e-324
+      },
+      {
+        "form": "intercept",
+        "constant": true,
+        "value": -5e-324
+      },
+      {
+        "form": "intercept",
+        "constant": true,
+        "value": -1e-20
+      }
+    ]
+  },
+  "fitted_references": [
+    {
+      "id": 0,
+      "estimator": "dr",
+      "clustered": false,
+      "bootstrap_replications": 0,
+      "base_period": "varying",
+      "diagnostic_data": true,
+      "rank_deficient": false,
+      "estimate_calls": 2
+    },
+    {
+      "id": 1,
+      "estimator": "dr",
+      "clustered": false,
+      "bootstrap_replications": 31,
+      "base_period": "varying",
+      "diagnostic_data": true,
+      "rank_deficient": false,
+      "estimate_calls": 2
+    },
+    {
+      "id": 2,
+      "estimator": "dr",
+      "clustered": true,
+      "bootstrap_replications": 0,
+      "base_period": "varying",
+      "diagnostic_data": true,
+      "rank_deficient": false,
+      "estimate_calls": 2
+    },
+    {
+      "id": 3,
+      "estimator": "dr",
+      "clustered": true,
+      "bootstrap_replications": 31,
+      "base_period": "varying",
+      "diagnostic_data": true,
+      "rank_deficient": false,
+      "estimate_calls": 2
+    },
+    {
+      "id": 4,
+      "estimator": "aipw",
+      "clustered": false,
+      "bootstrap_replications": 0,
+      "base_period": "varying",
+      "diagnostic_data": true,
+      "rank_deficient": false,
+      "estimate_calls": 2
+    },
+    {
+      "id": 5,
+      "estimator": "aipw",
+      "clustered": false,
+      "bootstrap_replications": 31,
+      "base_period": "varying",
+      "diagnostic_data": true,
+      "rank_deficient": false,
+      "estimate_calls": 2
+    },
+    {
+      "id": 6,
+      "estimator": "aipw",
+      "clustered": true,
+      "bootstrap_replications": 0,
+      "base_period": "varying",
+      "diagnostic_data": true,
+      "rank_deficient": false,
+      "estimate_calls": 2
+    },
+    {
+      "id": 7,
+      "estimator": "aipw",
+      "clustered": true,
+      "bootstrap_replications": 31,
+      "base_period": "varying",
+      "diagnostic_data": true,
+      "rank_deficient": false,
+      "estimate_calls": 2
+    },
+    {
+      "id": 8,
+      "estimator": "ipw",
+      "clustered": false,
+      "bootstrap_replications": 0,
+      "base_period": "varying",
+      "diagnostic_data": true,
+      "rank_deficient": false,
+      "estimate_calls": 2
+    },
+    {
+      "id": 9,
+      "estimator": "ipw",
+      "clustered": false,
+      "bootstrap_replications": 31,
+      "base_period": "varying",
+      "diagnostic_data": true,
+      "rank_deficient": false,
+      "estimate_calls": 2
+    },
+    {
+      "id": 10,
+      "estimator": "ipw",
+      "clustered": true,
+      "bootstrap_replications": 0,
+      "base_period": "varying",
+      "diagnostic_data": true,
+      "rank_deficient": false,
+      "estimate_calls": 2
+    },
+    {
+      "id": 11,
+      "estimator": "ipw",
+      "clustered": true,
+      "bootstrap_replications": 31,
+      "base_period": "varying",
+      "diagnostic_data": true,
+      "rank_deficient": false,
+      "estimate_calls": 2
+    },
+    {
+      "id": 12,
+      "estimator": "dr",
+      "clustered": false,
+      "bootstrap_replications": 0,
+      "base_period": "universal",
+      "diagnostic_data": false,
+      "rank_deficient": false,
+      "estimate_calls": 2
+    },
+    {
+      "id": 13,
+      "estimator": "aipw",
+      "clustered": true,
+      "bootstrap_replications": 31,
+      "base_period": "universal",
+      "diagnostic_data": false,
+      "rank_deficient": false,
+      "estimate_calls": 2
+    },
+    {
+      "id": 14,
+      "estimator": "dr",
+      "clustered": true,
+      "bootstrap_replications": 0,
+      "base_period": "universal",
+      "diagnostic_data": true,
+      "rank_deficient": true,
+      "estimate_calls": 2
+    },
+    {
+      "id": 15,
+      "estimator": "ipw",
+      "clustered": false,
+      "bootstrap_replications": 31,
+      "base_period": "universal",
+      "diagnostic_data": true,
+      "rank_deficient": true,
+      "estimate_calls": 2
+    }
+  ],
+  "arithmetic": {
+    "studentization_cases": 28,
+    "p_value_cases": 9
+  },
+  "mixed_report_cases": [
+    {
+      "case": "zero_zero",
+      "flag": "YELLOW"
+    },
+    {
+      "case": "tiny_zero",
+      "flag": "YELLOW"
+    },
+    {
+      "case": "negative_se",
+      "flag": "YELLOW"
+    },
+    {
+      "case": "nan_se",
+      "flag": "YELLOW"
+    },
+    {
+      "case": "inf_se",
+      "flag": "YELLOW"
+    },
+    {
+      "case": "nan_att",
+      "flag": "YELLOW"
+    },
+    {
+      "case": "inf_att",
+      "flag": "YELLOW"
+    },
+    {
+      "case": "overflow",
+      "flag": "YELLOW"
+    },
+    {
+      "case": "large_finite",
+      "flag": "YELLOW"
+    },
+    {
+      "case": "threshold",
+      "flag": "GREEN"
+    },
+    {
+      "case": "ordinary",
+      "flag": "GREEN"
+    },
+    {
+      "case": "missing_att",
+      "flag": "YELLOW"
+    },
+    {
+      "case": "missing_se",
+      "flag": "YELLOW"
+    }
+  ],
+  "original_saturated_fixture": {
+    "baseline": {
+      "pre_cells": 5,
+      "max_abs_att": 1.1102230246251558e-16,
+      "max_se": 1.9306421495418166e-16,
+      "max_abs_t": 378254753641406.06,
+      "fitted_pre_flag": "YELLOW"
+    },
+    "current": {
+      "pre_cells": 5,
+      "max_abs_att": 0.0,
+      "max_se": 0.0,
+      "max_abs_t": NaN,
+      "fitted_pre_flag": "YELLOW"
+    }
+  },
+  "baseline": "dbded76ecf8a207aad2094903b8f015fed8ae5d6",
+  "reviewed_head": "dbded76ecf8a207aad2094903b8f015fed8ae5d6",
+  "observed_at": "2026-10-07T10:55:58.770549+00:00",
+  "source_sha256": {
+    "causalis/scenarios/did/model.py": "d28a73b1a47119c24fef8a6d0cf93770d659ba2769ab6a8a8395b5f869f56371",
+    "causalis/scenarios/did/refutation/post_inference.py": "5fcc771a7951e86406be446added7fdbbab6945b632c9338549aa14f46b557fc"
+  },
+  "baseline_sha256": {
+    "causalis/scenarios/did/model.py": "e6f2bde0b16c9810696aa74fcff03e3058ef75a445b19dbc5c83a1f29b8ef8ed",
+    "causalis/scenarios/did/refutation/post_inference.py": "e9ae23ef142e0e8be2b41bd5bdfe694abb72bb5e2738f8ae4d6c1d2527c8549a"
+  },
+  "unchanged_dependency_sha256": {
+    "causalis/data_contracts/_did_comparison_units.py": "72f92910fd87bef0fc3aa01d177f8fbfba461a3d6c6100c9d9490673089fa0e0",
+    "causalis/data_contracts/panel_data_did.py": "01ef50d6aea358314a2ad55f77fa349d26f14881594542f4f89dd23898bfbcba",
+    "causalis/data_contracts/panel_did_estimate.py": "d9a7dc66bb58fdd801949d88313a3b218e0f0493da048816c5874fd013f23a06",
+    "causalis/data_contracts/__init__.py": "d5031fa0af776b3495ae9d0ee64197bfa1e2314960aeea6220bce71fb2037593",
+    "causalis/scenarios/did/refutation/diagnostics.py": "966b0ea648d1dd061ce39b0f92562beac055e07617c6440cefc75ea57b13b007",
+    "causalis/scenarios/did/__init__.py": "cf6a5d8cbcacd80631665e6ec9fa0319397df40e4c6f8e1b578a8d975a07c0de",
+    "causalis/scenarios/did/refutation/__init__.py": "2a301d3582b7a4a5bb88cb681ceb2e63314e7369f4c589ef691b9f128bc728e6"
+  },
+  "public_signatures_unchanged": true,
+  "nonmutation_verified": true,
+  "warnings": [],
+  "issues": [],
+  "test_module_sha256": {
+    "tests/scenarios/did/refutation/test_did_post_inference_diagnostics.py": "61d91d7e296e47dbbd0eb800822ea5b58a7b440d5c3e57dac7daf6fb524042fb"
+  },
+  "delta_verification": {
+    "observed_at": "2026-10-07T10:59:36.252600+00:00",
+    "proof": {
+      "normal_runtime_bytes_unchanged": true,
+      "only_additional_runtime_branches": [
+        "all simultaneous SE zero",
+        "missing ATT or SE inputs"
+      ],
+      "original_full_reference_hashes": {
+        "causalis/scenarios/did/model.py": "d28a73b1a47119c24fef8a6d0cf93770d659ba2769ab6a8a8395b5f869f56371",
+        "causalis/scenarios/did/refutation/post_inference.py": "5fcc771a7951e86406be446added7fdbbab6945b632c9338549aa14f46b557fc"
+      },
+      "final_source_sha256": {
+        "causalis/scenarios/did/model.py": "10f2970af432507212e5355090dc3cfa97bdb3699acd279b5dbf4a0fff5610c1",
+        "causalis/scenarios/did/refutation/post_inference.py": "a77606edb6787b7c9cac8e539a9393c3101d2adfe68cbd1455430779bc19939e"
+      }
+    },
+    "arithmetic": {
+      "studentization_cases": 28,
+      "p_value_cases": 9
+    },
+    "mixed_report_cases": [
+      {
+        "case": "zero_zero",
+        "flag": "YELLOW"
+      },
+      {
+        "case": "tiny_zero",
+        "flag": "YELLOW"
+      },
+      {
+        "case": "negative_se",
+        "flag": "YELLOW"
+      },
+      {
+        "case": "nan_se",
+        "flag": "YELLOW"
+      },
+      {
+        "case": "inf_se",
+        "flag": "YELLOW"
+      },
+      {
+        "case": "nan_att",
+        "flag": "YELLOW"
+      },
+      {
+        "case": "inf_att",
+        "flag": "YELLOW"
+      },
+      {
+        "case": "overflow",
+        "flag": "YELLOW"
+      },
+      {
+        "case": "large_finite",
+        "flag": "YELLOW"
+      },
+      {
+        "case": "threshold",
+        "flag": "GREEN"
+      },
+      {
+        "case": "ordinary",
+        "flag": "GREEN"
+      },
+      {
+        "case": "missing_att",
+        "flag": "YELLOW"
+      },
+      {
+        "case": "cached_stats_missing_att",
+        "flag": "YELLOW"
+      },
+      {
+        "case": "missing_se",
+        "flag": "YELLOW"
+      },
+      {
+        "case": "cached_stats_missing_se",
+        "flag": "YELLOW"
+      }
+    ],
+    "saturated_bootstrap": [
+      {
+        "version": "baseline",
+        "covariates": [
+          "x"
+        ],
+        "all_cell_se_zero": false,
+        "cell_bands_nan": false,
+        "warnings": []
+      },
+      {
+        "version": "baseline",
+        "covariates": [],
+        "all_cell_se_zero": true,
+        "cell_bands_nan": true,
+        "warnings": [
+          "All-NaN slice encountered",
+          "All-NaN slice encountered"
+        ]
+      },
+      {
+        "version": "current",
+        "covariates": [
+          "x"
+        ],
+        "all_cell_se_zero": true,
+        "cell_bands_nan": true,
+        "warnings": []
+      },
+      {
+        "version": "current",
+        "covariates": [],
+        "all_cell_se_zero": true,
+        "cell_bands_nan": true,
+        "warnings": []
+      }
+    ],
+    "warnings_outside_expected_baseline_bootstrap": []
+  },
+  "current_source_sha256": {
+    "causalis/scenarios/did/model.py": "10f2970af432507212e5355090dc3cfa97bdb3699acd279b5dbf4a0fff5610c1",
+    "causalis/scenarios/did/refutation/post_inference.py": "a77606edb6787b7c9cac8e539a9393c3101d2adfe68cbd1455430779bc19939e"
+  },
+  "final_test_review": {
+    "observed_at": "2026-10-07T11:06:18.622097+00:00",
+    "test_module_sha256": {
+      "tests/scenarios/did/refutation/test_did_studentization_contract.py": "94c9bfc2ac8a789002bfa5f372b83a306a8ceede8a8214e0306e2990be4ab888",
+      "tests/scenarios/did/refutation/test_did_post_inference_diagnostics.py": "551ef86e297cabfeaf160ba8a1ec0264baaa69e53c93465a122c783d93b2fbf0"
+    },
+    "baseline_counts": {
+      "tests": 56,
+      "failures": 28,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 28
+    },
+    "focused_counts": {
+      "tests": 56,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "passed": 56
+    },
+    "identical_final_case_ids": true,
+    "public_class_and_refutation_aliases_verified": true,
+    "plot_influence_bindings_verified": true,
+    "final_failure_assertions_not_time_construction_errors": true,
+    "all_51_new_and_5_existing_cases_read": true,
+    "issues": []
+  },
+  "committed_source_linkage": {
+    "source_checkpoint": "4bdcff7d6388d1d72d5be4a546e8abb2a67a767c",
+    "observed_at": "2026-10-07T11:07:31.395947+00:00",
+    "four_reviewed_source_test_files_match": true,
+    "seven_unchanged_dependencies_match": true,
+    "committed_file_sha256": {
+      "causalis/scenarios/did/model.py": "10f2970af432507212e5355090dc3cfa97bdb3699acd279b5dbf4a0fff5610c1",
+      "causalis/scenarios/did/refutation/post_inference.py": "a77606edb6787b7c9cac8e539a9393c3101d2adfe68cbd1455430779bc19939e",
+      "tests/scenarios/did/refutation/test_did_studentization_contract.py": "94c9bfc2ac8a789002bfa5f372b83a306a8ceede8a8214e0306e2990be4ab888",
+      "tests/scenarios/did/refutation/test_did_post_inference_diagnostics.py": "551ef86e297cabfeaf160ba8a1ec0264baaa69e53c93465a122c783d93b2fbf0",
+      "causalis/data_contracts/_did_comparison_units.py": "72f92910fd87bef0fc3aa01d177f8fbfba461a3d6c6100c9d9490673089fa0e0",
+      "causalis/data_contracts/panel_data_did.py": "01ef50d6aea358314a2ad55f77fa349d26f14881594542f4f89dd23898bfbcba",
+      "causalis/data_contracts/panel_did_estimate.py": "d9a7dc66bb58fdd801949d88313a3b218e0f0493da048816c5874fd013f23a06",
+      "causalis/data_contracts/__init__.py": "d5031fa0af776b3495ae9d0ee64197bfa1e2314960aeea6220bce71fb2037593",
+      "causalis/scenarios/did/refutation/diagnostics.py": "966b0ea648d1dd061ce39b0f92562beac055e07617c6440cefc75ea57b13b007",
+      "causalis/scenarios/did/__init__.py": "cf6a5d8cbcacd80631665e6ec9fa0319397df40e4c6f8e1b578a8d975a07c0de",
+      "causalis/scenarios/did/refutation/__init__.py": "2a301d3582b7a4a5bb88cb681ceb2e63314e7369f4c589ef691b9f128bc728e6"
+    },
+    "initial_reference_provenance_preserved": true,
+    "guard_delta_proof_preserved": true,
+    "full_runtime_references_repeated": false,
+    "issues": []
+  },
+  "ci_review": {
+    "observed_at": "2026-10-07T11:12:16.802075+00:00",
+    "run_id": 37611862809,
+    "run_url": "https://github.com/MaximLenivkin/Causalis/actions/runs/37611862809",
+    "source_checkpoint": "4bdcff7d6388d1d72d5be4a546e8abb2a67a767c",
+    "snapshot_observed_at": "2026-10-07T11:10:36.429091+00:00",
+    "matrix_verified": true,
+    "verified_jobs": 6,
+    "expected_tests_per_job": 2539,
+    "all_56_focused_case_ids_each_job": true,
+    "all_51_new_case_ids_each_job": true,
+    "seven_exclusions_unchanged_from_B13": true,
+    "actual_ignore_arguments_verified": true,
+    "all_six_full_junit_case_sets_identical": true,
+    "jobs": [
+      {
+        "artifact": "correctness-py3.10-latest",
+        "job_id": 112760741155,
+        "environment": {
+          "python": "3.10.22",
+          "implementation": "CPython",
+          "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "executable": "/home/runner/work/Causalis/Causalis/.venv/bin/python",
+          "commit": "4bdcff7d6388d1d72d5be4a546e8abb2a67a767c",
+          "packages": {
+            "causalis": "0.2.9.dev1",
+            "numpy": "2.2.6",
+            "pandas": "2.3.3",
+            "scipy": "1.15.3",
+            "statsmodels": "0.15.0",
+            "scikit-learn": "1.7.2",
+            "pydantic": "2.13.5",
+            "catboost": "1.2.10",
+            "matplotlib": "3.10.9",
+            "pytest": "9.1.1",
+            "sphinx": "8.1.3",
+            "myst-parser": "4.0.1",
+            "sphinx-autodoc2": "0.5.0"
+          },
+          "docs_build_environment": "false"
+        },
+        "junit": {
+          "tests": 2539,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "passed": 2539
+        },
+        "focused_case_ids_present": 56,
+        "new_case_ids_present": 51,
+        "exact_ignore_arguments": true,
+        "exit_code": 0
+      },
+      {
+        "artifact": "correctness-py3.10-legacy",
+        "job_id": 112760741345,
+        "environment": {
+          "python": "3.10.22",
+          "implementation": "CPython",
+          "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "executable": "/home/runner/work/Causalis/Causalis/.venv/bin/python",
+          "commit": "4bdcff7d6388d1d72d5be4a546e8abb2a67a767c",
+          "packages": {
+            "causalis": "0.2.9.dev1",
+            "numpy": "1.26.4",
+            "pandas": "1.5.3",
+            "scipy": "1.11.4",
+            "statsmodels": "0.14.0",
+            "scikit-learn": "1.3.2",
+            "pydantic": "2.0.3",
+            "catboost": "1.2.8",
+            "matplotlib": "3.10.9",
+            "pytest": "9.1.1",
+            "sphinx": "8.1.3",
+            "myst-parser": "4.0.1",
+            "sphinx-autodoc2": "0.5.0"
+          },
+          "docs_build_environment": "false"
+        },
+        "junit": {
+          "tests": 2539,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "passed": 2539
+        },
+        "focused_case_ids_present": 56,
+        "new_case_ids_present": 51,
+        "exact_ignore_arguments": true,
+        "exit_code": 0
+      },
+      {
+        "artifact": "correctness-py3.11-latest",
+        "job_id": 112760741179,
+        "environment": {
+          "python": "3.11.17",
+          "implementation": "CPython",
+          "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "executable": "/home/runner/work/Causalis/Causalis/.venv/bin/python",
+          "commit": "4bdcff7d6388d1d72d5be4a546e8abb2a67a767c",
+          "packages": {
+            "causalis": "0.2.9.dev1",
+            "numpy": "2.4.6",
+            "pandas": "3.0.6",
+            "scipy": "1.17.1",
+            "statsmodels": "0.15.0",
+            "scikit-learn": "1.9.1",
+            "pydantic": "2.13.5",
+            "catboost": "1.2.10",
+            "matplotlib": "3.11.2",
+            "pytest": "9.1.1",
+            "sphinx": "9.0.4",
+            "myst-parser": "5.1.0",
+            "sphinx-autodoc2": "0.5.0"
+          },
+          "docs_build_environment": "false"
+        },
+        "junit": {
+          "tests": 2539,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "passed": 2539
+        },
+        "focused_case_ids_present": 56,
+        "new_case_ids_present": 51,
+        "exact_ignore_arguments": true,
+        "exit_code": 0
+      },
+      {
+        "artifact": "correctness-py3.12-latest",
+        "job_id": 112760741163,
+        "environment": {
+          "python": "3.12.14",
+          "implementation": "CPython",
+          "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "executable": "/home/runner/work/Causalis/Causalis/.venv/bin/python",
+          "commit": "4bdcff7d6388d1d72d5be4a546e8abb2a67a767c",
+          "packages": {
+            "causalis": "0.2.9.dev1",
+            "numpy": "2.5.3",
+            "pandas": "3.0.6",
+            "scipy": "1.18.1",
+            "statsmodels": "0.15.0",
+            "scikit-learn": "1.9.1",
+            "pydantic": "2.13.5",
+            "catboost": "1.2.10",
+            "matplotlib": "3.11.2",
+            "pytest": "9.1.1",
+            "sphinx": "9.1.0",
+            "myst-parser": "5.1.0",
+            "sphinx-autodoc2": "0.5.0"
+          },
+          "docs_build_environment": "false"
+        },
+        "junit": {
+          "tests": 2539,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "passed": 2539
+        },
+        "focused_case_ids_present": 56,
+        "new_case_ids_present": 51,
+        "exact_ignore_arguments": true,
+        "exit_code": 0
+      },
+      {
+        "artifact": "correctness-py3.13-latest",
+        "job_id": 112760740943,
+        "environment": {
+          "python": "3.13.15",
+          "implementation": "CPython",
+          "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "executable": "/home/runner/work/Causalis/Causalis/.venv/bin/python",
+          "commit": "4bdcff7d6388d1d72d5be4a546e8abb2a67a767c",
+          "packages": {
+            "causalis": "0.2.9.dev1",
+            "numpy": "2.5.3",
+            "pandas": "3.0.6",
+            "scipy": "1.18.1",
+            "statsmodels": "0.15.0",
+            "scikit-learn": "1.9.1",
+            "pydantic": "2.13.5",
+            "catboost": "1.2.10",
+            "matplotlib": "3.11.2",
+            "pytest": "9.1.1",
+            "sphinx": "9.1.0",
+            "myst-parser": "5.1.0",
+            "sphinx-autodoc2": "0.5.0"
+          },
+          "docs_build_environment": "false"
+        },
+        "junit": {
+          "tests": 2539,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "passed": 2539
+        },
+        "focused_case_ids_present": 56,
+        "new_case_ids_present": 51,
+        "exact_ignore_arguments": true,
+        "exit_code": 0
+      },
+      {
+        "artifact": "correctness-py3.14-latest",
+        "job_id": 112760741275,
+        "environment": {
+          "python": "3.14.7",
+          "implementation": "CPython",
+          "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+          "executable": "/home/runner/work/Causalis/Causalis/.venv/bin/python",
+          "commit": "4bdcff7d6388d1d72d5be4a546e8abb2a67a767c",
+          "packages": {
+            "causalis": "0.2.9.dev1",
+            "numpy": "2.5.3",
+            "pandas": "3.0.6",
+            "scipy": "1.18.1",
+            "statsmodels": "0.15.0",
+            "scikit-learn": "1.9.1",
+            "pydantic": "2.13.5",
+            "catboost": "1.2.10",
+            "matplotlib": "3.11.2",
+            "pytest": "9.1.1",
+            "sphinx": "9.1.0",
+            "myst-parser": "5.1.0",
+            "sphinx-autodoc2": "0.5.0"
+          },
+          "docs_build_environment": "false"
+        },
+        "junit": {
+          "tests": 2539,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "passed": 2539
+        },
+        "focused_case_ids_present": 56,
+        "new_case_ids_present": 51,
+        "exact_ignore_arguments": true,
+        "exit_code": 0
+      }
+    ],
+    "issues": []
+  }
+}

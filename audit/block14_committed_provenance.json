@@ -1,0 +1,44 @@
+{
+  "baseline": "dbded76ecf8a207aad2094903b8f015fed8ae5d6",
+  "source_checkpoint": "4bdcff7d6388d1d72d5be4a546e8abb2a67a767c",
+  "linked_at_utc": "2026-10-07T11:07:02.596747+00:00",
+  "committed_file_sha256": {
+    "causalis/scenarios/did/model.py": "10f2970af432507212e5355090dc3cfa97bdb3699acd279b5dbf4a0fff5610c1",
+    "causalis/scenarios/did/refutation/post_inference.py": "a77606edb6787b7c9cac8e539a9393c3101d2adfe68cbd1455430779bc19939e",
+    "tests/scenarios/did/refutation/test_did_studentization_contract.py": "94c9bfc2ac8a789002bfa5f372b83a306a8ceede8a8214e0306e2990be4ab888",
+    "tests/scenarios/did/refutation/test_did_post_inference_diagnostics.py": "551ef86e297cabfeaf160ba8a1ec0264baaa69e53c93465a122c783d93b2fbf0",
+    "causalis/data_contracts/panel_data_did.py": "01ef50d6aea358314a2ad55f77fa349d26f14881594542f4f89dd23898bfbcba",
+    "causalis/data_contracts/panel_did_estimate.py": "d9a7dc66bb58fdd801949d88313a3b218e0f0493da048816c5874fd013f23a06",
+    "causalis/scenarios/did/__init__.py": "cf6a5d8cbcacd80631665e6ec9fa0319397df40e4c6f8e1b578a8d975a07c0de",
+    "causalis/scenarios/did/refutation/__init__.py": "2a301d3582b7a4a5bb88cb681ceb2e63314e7369f4c589ef691b9f128bc728e6",
+    "causalis/scenarios/did/refutation/post_inference_plots.py": "b950b24fc8fab16223535bb651cd115d69c0cfaed170030c9fc47aea9a78ba8a",
+    "causalis/data_contracts/_did_comparison_units.py": "72f92910fd87bef0fc3aa01d177f8fbfba461a3d6c6100c9d9490673089fa0e0",
+    "causalis/data_contracts/__init__.py": "d5031fa0af776b3495ae9d0ee64197bfa1e2314960aeea6220bce71fb2037593",
+    "causalis/scenarios/did/refutation/diagnostics.py": "966b0ea648d1dd061ce39b0f92562beac055e07617c6440cefc75ea57b13b007"
+  },
+  "all_recorded_bytes_match_committed_source": true,
+  "runtime_observations_preserved": true,
+  "focused_observed_head": "dbded76ecf8a207aad2094903b8f015fed8ae5d6",
+  "contract_observed_head": "dbded76ecf8a207aad2094903b8f015fed8ae5d6",
+  "full_reference_observed_head": "dbded76ecf8a207aad2094903b8f015fed8ae5d6",
+  "full_reference_source_sha256": {
+    "causalis/scenarios/did/model.py": "d28a73b1a47119c24fef8a6d0cf93770d659ba2769ab6a8a8395b5f869f56371",
+    "causalis/scenarios/did/refutation/post_inference.py": "5fcc771a7951e86406be446added7fdbbab6945b632c9338549aa14f46b557fc"
+  },
+  "final_guard_delta_proof": {
+    "normal_runtime_bytes_unchanged": true,
+    "only_additional_runtime_branches": [
+      "all simultaneous SE zero",
+      "missing ATT or SE inputs"
+    ],
+    "original_full_reference_hashes": {
+      "causalis/scenarios/did/model.py": "d28a73b1a47119c24fef8a6d0cf93770d659ba2769ab6a8a8395b5f869f56371",
+      "causalis/scenarios/did/refutation/post_inference.py": "5fcc771a7951e86406be446added7fdbbab6945b632c9338549aa14f46b557fc"
+    },
+    "final_source_sha256": {
+      "causalis/scenarios/did/model.py": "10f2970af432507212e5355090dc3cfa97bdb3699acd279b5dbf4a0fff5610c1",
+      "causalis/scenarios/did/refutation/post_inference.py": "a77606edb6787b7c9cac8e539a9393c3101d2adfe68cbd1455430779bc19939e"
+    }
+  },
+  "linkage_kind": "Static exact Git object byte verification of original runtime evidence; no new numerical run."
+}

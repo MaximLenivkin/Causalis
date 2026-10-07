@@ -1,0 +1,30 @@
+{
+  "fitted_configurations": 16,
+  "full_estimate_calls": 32,
+  "exact_unchanged_regression_cases": 27,
+  "analytical_constant_cases": 7,
+  "arithmetic": {
+    "studentization_cases": 28,
+    "p_value_cases": 9
+  },
+  "mixed_report_cases": 13,
+  "warnings": [],
+  "issues": []
+}
+{
+  "delta_guards_verified": [
+    "all simultaneous SE zero",
+    "missing ATT or SE inputs"
+  ],
+  "mixed_report_cases": 15,
+  "saturated_bootstrap_cases": 4,
+  "source_sha256": {
+    "causalis/scenarios/did/model.py": "10f2970af432507212e5355090dc3cfa97bdb3699acd279b5dbf4a0fff5610c1",
+    "causalis/scenarios/did/refutation/post_inference.py": "a77606edb6787b7c9cac8e539a9393c3101d2adfe68cbd1455430779bc19939e"
+  },
+  "warnings": [],
+  "issues": []
+}
+Final frozen test review: 51 new + 5 retained API cases; baseline 28 failed / 28 passed, focused 56 passed; case IDs/hashes/public aliases independently verified; issues=[]
+Committed source linkage: 4bdcff7d6388d1d72d5be4a546e8abb2a67a767c; four reviewed source/test and seven unchanged dependency bytes verified; original timestamps/HEAD/full-reference hashes preserved; no broad rerun.
+Independent CI artifact review: run 37611862809, exact source 4bdcff7; six actual Linux/CPython artifacts, each 2539 passed / 0 failures / 0 errors / 0 skipped; same 7 exclusions and actual ignore arguments; all 56 focused / 51 new IDs; source, versions, result, JUnit, snapshot and summary match; issues=[]

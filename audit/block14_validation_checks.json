@@ -1,0 +1,133 @@
+{
+  "baseline_sha": "dbded76ecf8a207aad2094903b8f015fed8ae5d6",
+  "source_checkpoint": "4bdcff7d6388d1d72d5be4a546e8abb2a67a767c",
+  "changed_source_test_paths": [
+    "causalis/scenarios/did/model.py",
+    "causalis/scenarios/did/refutation/post_inference.py",
+    "tests/scenarios/did/refutation/test_did_post_inference_diagnostics.py",
+    "tests/scenarios/did/refutation/test_did_studentization_contract.py"
+  ],
+  "changed_runtime_functions_verified": true,
+  "original_api_assertions_and_thresholds_preserved": true,
+  "baseline": {
+    "tests": 56,
+    "failures": 28,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 28
+  },
+  "focused": {
+    "tests": 56,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 56
+  },
+  "local": {
+    "tests": 2539,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 2539
+  },
+  "verified_ci_jobs": 6,
+  "final_cases_in_every_ci_artifact": true,
+  "sensitivity_validated": false,
+  "independent_ci_review_verified": true,
+  "full_ci_and_local_case_sets_identical": true,
+  "parsed_python_files": [
+    "audit/block14_contract_probe.py",
+    "audit/block14_did_test_runner.py",
+    "audit/block14_review_probe.py",
+    "audit/run_block14_integration.py",
+    "audit/summarize_block14_ci.py",
+    "audit/verify_block14.py",
+    "causalis/scenarios/did/model.py",
+    "causalis/scenarios/did/refutation/post_inference.py",
+    "tests/scenarios/did/refutation/test_did_post_inference_diagnostics.py",
+    "tests/scenarios/did/refutation/test_did_studentization_contract.py"
+  ],
+  "checked_relative_links": [
+    {
+      "report": "B14_DID_IMPLEMENTATION.md",
+      "target": "B14_DID_TESTS.md"
+    },
+    {
+      "report": "B14_DID_IMPLEMENTATION.md",
+      "target": "B14_DID_CONTRACT.md"
+    },
+    {
+      "report": "B14_DID_IMPLEMENTATION.md",
+      "target": "B14_DID_REVIEW.md"
+    },
+    {
+      "report": "B14_DID_IMPLEMENTATION.md",
+      "target": "BLOCK14_DID_NUMERICAL_ZERO.md"
+    },
+    {
+      "report": "B14_DID_CONTRACT.md",
+      "target": "block14_contract_probe.py"
+    },
+    {
+      "report": "B14_DID_CONTRACT.md",
+      "target": "block14_contract_result.json"
+    },
+    {
+      "report": "B14_DID_CONTRACT.md",
+      "target": "B09_LOCAL_INTEGRATION_NOTE.md"
+    },
+    {
+      "report": "BLOCK14_DID_NUMERICAL_ZERO.md",
+      "target": "B14_DID_IMPLEMENTATION.md"
+    },
+    {
+      "report": "BLOCK14_DID_NUMERICAL_ZERO.md",
+      "target": "B14_DID_CONTRACT.md"
+    },
+    {
+      "report": "BLOCK14_DID_NUMERICAL_ZERO.md",
+      "target": "B14_DID_REVIEW.md"
+    },
+    {
+      "report": "BLOCK14_DID_NUMERICAL_ZERO.md",
+      "target": "B14_DID_TESTS.md"
+    },
+    {
+      "report": "BLOCK14_DID_NUMERICAL_ZERO.md",
+      "target": "block14_did_test_result.json"
+    },
+    {
+      "report": "BLOCK14_DID_NUMERICAL_ZERO.md",
+      "target": "block14_committed_provenance.json"
+    },
+    {
+      "report": "BLOCK14_DID_NUMERICAL_ZERO.md",
+      "target": "block14_integration_selection.json"
+    },
+    {
+      "report": "BLOCK14_DID_NUMERICAL_ZERO.md",
+      "target": "block14_integration_result.json"
+    },
+    {
+      "report": "BLOCK14_DID_NUMERICAL_ZERO.md",
+      "target": "block14_integration_tests.log"
+    },
+    {
+      "report": "BLOCK14_DID_NUMERICAL_ZERO.md",
+      "target": "block14_neighbor_result.json"
+    },
+    {
+      "report": "BLOCK14_DID_NUMERICAL_ZERO.md",
+      "target": "block14_ci_result.json"
+    },
+    {
+      "report": "BLOCK14_DID_NUMERICAL_ZERO.md",
+      "target": "verify_block14.py"
+    },
+    {
+      "report": "BLOCK14_DID_NUMERICAL_ZERO.md",
+      "target": "block14_validation_checks.json"
+    }
+  ],
+  "issues": []
+}

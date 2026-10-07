@@ -10,7 +10,7 @@
 
 1. `AGENTS.md` — локальная `.venv` обязательна. На текущем Mac использовать **`.venv/bin/python`**, Python3.12.14, не старый backing path `/Users/ioann/...`. Окружение восстановлено из project extras dev/docs, dependencycheck и5setupsmoketests прошли. Local setup manifest `.venv/setup-environment.json`; B09 integration manifest записывает реальные проверенные версии.
 2. `audit/FIX_PLAN.md` — порядок блоков, scope gates и deferred findings.
-3. Этот файл и **`audit/BLOCK13_SCENARIO_NAMESPACE.md`** — последнее состояние. B09–B12 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
+3. Этот файл и **`audit/BLOCK14_DID_NUMERICAL_ZERO.md`** — последнее состояние. B09–B13 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
 4. `audit/REPORT.md` — исторический аудит исходного SHA, не текущий residual bug count.
 
 ## Git
@@ -20,6 +20,28 @@ GitHub авторизация завершена пользователем и �
 GitHubCLI2.102.0: `& 'C:\Program Files\GitHub CLI\gh.exe' ...` — использовать полный путь, если текущий Codex PATH ещё не обновлён. Авторизацию повторно запрашивать не требуется. Git mutations/network в ограниченной среде могут требовать разрешённого запуска; пользователь уже авторизовал commits/push в личную ветку. PR не создавался. Полная текущая информация — GIT_ACCESS.md.
 
 ## Текущая работа
+
+**B14 завершён** 7 октября 2026 (Moscow). Source/test checkpoint **`4bdcff7d6388d1d72d5be4a546e8abb2a67a767c`**, ordinary personal push выполнен; final audit checkpoint определяется git log-1. Baseline **`dbded76ecf8a207aad2094903b8f015fed8ae5d6`**. Изменены ровно два library paths: `causalis/scenarios/did/model.py` и `causalis/scenarios/did/refutation/post_inference.py`; 51-case новый public test module и fixture существующих fiveAPItests.
+
+Exact constant control response при actual solver fullrank и unit intercept получает unique analytic OLS β=(c,0,…), без tolerance. Nearconstant/nonconstant/deficient-rank/no-intercept fits прежние. Positive finite SE всегда даёт actual signed ATT/SE, tiny real effects сохраняются. Zero/invalid SE и nonfinite ATT дают NaN; overflow остаётся signed infinity. Все fitted pre cells должны иметь finite t для GREEN, invalid/cached missing-input cells не исчезают. Exact ATT=SE=0 retains legacy p1 convention, но studentization undefined/YELLOW; nonzero zero-SE effects дают NaN p. Fully zero-SE bootstrap keeps NaN simultaneous critical/bands without all-NaN reduction warnings; draws unchanged.
+
+Frozen original six-unit fixture теперь имеет exact preATT/IF/SE0 и **обоснованный YELLOW**, а не rounding-driven huge t. Original GREEN assertion intentionally reproduced as failure на frozen baseline и candidate в отдельном contractprobe; не считать это remaining regression. API successfixture теперь36units/12controls/6cross-cohortclusters/seeded independentnoise, все прежние asserts/thresholds/modelreportargs сохранены, добавлены positive finite preSE assertions. Это numerical/reference policy и correction дизайна теста, а не green-by-threshold workaround.
+
+Final focused: **56passed**,0failures/errors/skips/warnings,5.96s (51new+5existing). Same finalfiles/exactbaseline: **28failed/28passed**,0errors/skips,4oldoverflowwarnings,5.17s; allfive revisedAPI tests passbaseline. Source/class/public/plot bindings, finaltestSHA и exact56collection checked. PrecommitHEAD/time сохранены,4source/test+5dependencies linked exactGitbytes без rerun. Rootcommittedprovenance covers12unique paths.
+
+Independent contract:11OLSrefs,14arithmeticpairs eachversion,7mixedinvalidconfigs andcachedpayload/zero-bootstrap boundaries; actualfive-pathclosure andloadedhashes pinned. Independent review:16configs×2estimatecalls=32old/currentfullreferencepairs (64evaluations), exacttables/dtypes/metadata/diagnostics/reports/RNGstates/next10;27unchangedOLS/7analytic/28studentization/9pvaluecases. Two finalguards have exactinverse-byte link to full-reference hashes plus15mixed-report/fourbootstrap delta proof; originaltimestamps/hashes preserved, broad refs not repeated. No open material findings.
+
+**Local exact4bdc scoped integration:2539passed,0failures/errors/skips,78warnings,80.36s**,exit0. Seven named sensitivity modules remain excluded unchanged. Full sensitivity/release/Sphinx/coverage/benchmark notvalidated. Preliminary151neighbors preceded finaltwo guards and lack instrumentedruntimehashes; finalintegration validatesfinalbytes.
+
+**CI37611862809 completed/success** onexact4bdc; six downloaded selection/result/JUnit sets **2539passed each**,0failures/errors/skips, all56focused caseIDs/source/exclusions verified. SnapshotUTC2026-10-07T11:10:36.429091. **ActualPython3.10.22 latest/legacy,3.11.17,3.12.14,3.13.15,3.14.7**; do not copyB13versions (3.10.21/3.11.16/3.13.16). Per-jobenvironment JSON authoritative. IndependentCIreview separately recorded; audit-onlypush doesnotrerunmatrix.
+
+Primaryreport `BLOCK14_DID_NUMERICAL_ZERO.md`, B14_DID_CONTRACT/IMPLEMENTATION/TESTS/REVIEW notes and reproducible probes/runners/manifests. `verify_block14.py` verifiesexactscope/runtimeAST/retainedassertions/frozenfocusedJUnits/sourcehashes/references/provenance/allCIpayloads. English DOCUMENTATION_HANDOFF addsfour immutablelinks, **107 links verified**, noexternalmessage. Source/tests frozen после4bdc. Final validator прошёл:10PythonAST,20relative links, original baseline/focus/localJUnits, committed provenance, independent CI review и все six downloaded artifacts; issues[]. Final audit commit/ordinary push и live remote/local equality+cleanstatus проверяются на завершении.
+
+Следующий самостоятельный **B15**: Gaussian marginal-oracle numerical accuracy и compatible additive API по B07_DGP_REVIEW.md/FIX_PLAN. Сначала target/law/independent adaptive reference, accuracy/convergence/boundedmemory policy. Existing m/m_obs/RNG semantics сохранить; supplied-U law и latent-selected ATT не подменять treated mean marginal CATE. Затем learner shape/real/IVstorage contracts, extreme finite scores/IF, normalized customATE, duplicate/snapshot/Sphinx gates. Features repeatedCF→groupCF→externalOOF→DR/R-CATE aftercorrectness. **Sensitivity/SC08LOO deferred** untilseparateupstreamsync/review. **Остановиться на границе B14; B15 начинается новым запросом.**
+
+Окружение прежнее: `.venv/bin/python`3.12.14macOSarm64; `/Users/m.lenivkin/.local/bin/gh` with `--repo MaximLenivkin/Causalis`. Login/fork/envreinstall/upstreamsync/PR/release не нужны. Personalbranchcommits/push authorized earlier. Final livegitstate checkmandatory, earlieragents/toolinstallations arenotfactsaboutfutureenvironment.
+
+## Исторический B13 checkpoint
 
 **B13 завершён** 7 октября 2026 (Moscow). Source/tests checkpoint: **`4428be0e39bda8a2a47f1a6f184c92873da10976`**, обычный push в личную ветку выполнен. Изменён один library path `causalis/scenarios/classic_rct/dgp.py`, оба *_26 helpers; новый `tests/data/test_scenario_namespace_contract.py`, 91 cases. Root и три существующих CLI агента независимо проверили baseline contract, regressions, valid reference/RNG и CI artifacts.
 
