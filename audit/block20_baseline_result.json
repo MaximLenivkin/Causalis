@@ -1,0 +1,14 @@
+{
+  "baseline": "98d5478a36b5fbb051c863db4599cbc0bc9a8bbf",
+  "observed_at": "2026-10-07T18:17:37.490943+00:00",
+  "interpreter": "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/bin/python",
+  "test_path": "tests/inference/test_data_snapshot_contracts.py",
+  "test_sha256": "4d55fe9d507ef82c755cd03abf5fdd5741616c1fdd7f6f10f79a0ef6f4e6f7d4",
+  "isolated_baseline_import_verified": true,
+  "exit_code": 1,
+  "tests": 107,
+  "failures": 86,
+  "errors": 0,
+  "skipped": 0,
+  "passed": 21
+}

@@ -1,0 +1,4 @@
+/private/tmp/causalis-b20-compat-241rsrle/baseline/causalis/scenarios/iv/dgp.py:177: SyntaxWarning: invalid escape sequence '\e'
+  Z &= f_Z(X, \epsilon_Z) \\
+{"exact_fit_pairs": 20, "exact_inference_pairs": 36, "input_frames_unchanged": true}
+Unchanged functions: 132

@@ -20,6 +20,7 @@ from joblib import Parallel, delayed
 from sklearn.base import clone, BaseEstimator
 from sklearn.model_selection import StratifiedKFold
 from sklearn.utils.validation import check_is_fitted
+from causalis.scenarios._fit_state import _publish_complete_fit, _diagnostic_snapshot
 from scipy.stats import norm
 
 try:
@@ -1016,6 +1017,13 @@ class IRM(BaseEstimator):
         else:
             self._X = None
 
+    def _estimation_data_roles(self):
+        """Resolve fitted names, with compatibility for older fitted objects."""
+        if hasattr(self, "_fit_data_roles_"):
+            return self._fit_data_roles_
+        return (self.data.outcome.name, self.data.treatment.name,
+                tuple(self.data.confounders), self.data.user_id_name)
+
     def _resolve_estimation_targets(self) -> Tuple[np.ndarray, np.ndarray]:
         """Return fit-time outcomes and treatments for ATE/ATTE/GATE estimation."""
         if self._y is not None and self._d is not None:
@@ -1173,6 +1181,7 @@ class IRM(BaseEstimator):
         }
 
     # --------- API ---------
+    @_publish_complete_fit
     def fit(
         self,
         data: Optional[CausalData] = None,
@@ -1180,6 +1189,12 @@ class IRM(BaseEstimator):
         store_diagnostics: Optional[bool] = None,
     ) -> "IRM":
         """Fit nuisance models via cross-fitting.
+
+        A failed refit preserves the previous fit. Successful refits clear
+        primary inference; call estimate() again. Sample arrays and result
+        labels use fit-time snapshots; returned diagnostic arrays are copies.
+        External callback effects and public model-attribute mutations are
+        not rolled back.
 
         Parameters
         ----------
@@ -1417,7 +1432,7 @@ class IRM(BaseEstimator):
         inv_1m: np.ndarray,
     ) -> Optional[Any]:
         """Build optional diagnostics payload for CausalEstimate."""
-        return _build_irm_estimate_diagnostic_data(
+        return _diagnostic_snapshot(_build_irm_estimate_diagnostic_data(
             model=self,
             y=y,
             d=d,
@@ -1433,7 +1448,7 @@ class IRM(BaseEstimator):
             x=x,
             inv_m=inv_m,
             inv_1m=inv_1m,
-        )
+        ))
 
     def _build_causal_estimate(
         self,
@@ -1491,9 +1506,9 @@ class IRM(BaseEstimator):
             n_control=int(np.sum(d == 0)),
             treatment_mean=treatment_mean,
             control_mean=control_mean,
-            outcome=self.data.outcome.name,
-            treatment=self.data.treatment.name,
-            confounders=list(self.data.confounders),
+            outcome=self._estimation_data_roles()[0],
+            treatment=self._estimation_data_roles()[1],
+            confounders=list(self._estimation_data_roles()[2]),
             time=datetime.now().strftime("%Y-%m-%d"),
             diagnostic_data=diag,
         )
@@ -1958,7 +1973,7 @@ class IRM(BaseEstimator):
         ci_high = self.coef_[0] + z * self.se_[0]
         return pd.DataFrame(
             {f"{alpha/2*100:.1f} %": [ci_low], f"{(1-alpha/2)*100:.1f} %": [ci_high]},
-            index=[self.data.treatment.name],
+            index=[self._estimation_data_roles()[1]],
         )
 
     def __repr__(self) -> str:

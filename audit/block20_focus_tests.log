@@ -1,0 +1,121 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis
+configfile: pyproject.toml
+plugins: platformdirs-4.12.3
+collected 2106 items
+
+tests/inference/test_data_snapshot_contracts.py ........................ [  1%]
+........................................................................ [  4%]
+...........                                                              [  5%]
+tests/inference/test_irm_fit_weight_alignment.py ....................... [  6%]
+                                                                         [  6%]
+tests/inference/test_learner_output_shapes.py .......................... [  7%]
+........................................................................ [ 10%]
+........................................................................ [ 14%]
+........................................................................ [ 17%]
+........................................................................ [ 21%]
+..........................................                               [ 23%]
+tests/inference/test_extreme_score_arithmetic.py ....................... [ 24%]
+............................................                             [ 26%]
+tests/inference/test_nuisance_prediction_contract.py ................... [ 27%]
+........................................................................ [ 30%]
+.............                                                            [ 31%]
+tests/data/test_binary_iv_marginal_outcomes.py ......................... [ 32%]
+.....................................                                    [ 34%]
+tests/data/test_binary_iv_namespace_contract.py ........................ [ 35%]
+........................................................................ [ 38%]
+...................................................................      [ 41%]
+tests/data/test_causal_dataset_generator.py ..........                   [ 42%]
+tests/data/test_causal_diagnostic_data.py ...........                    [ 42%]
+tests/data/test_causaldata_new_features.py ...............               [ 43%]
+tests/data/test_causaldata_numeric_df.py ..                              [ 43%]
+tests/data/test_causaldata_robustness_issues.py ...                      [ 43%]
+tests/data/test_causaldata_user_id.py .....                              [ 44%]
+tests/data/test_causaldata_validation_and_x_property.py ....             [ 44%]
+tests/data/test_constant_confounder.py .                                 [ 44%]
+tests/data/test_copula_categorical_coordinates.py ...................... [ 45%]
+...........                                                              [ 45%]
+tests/data/test_copula_cofounders.py ...                                 [ 46%]
+tests/data/test_dgp_user_ids.py ...                                      [ 46%]
+tests/data/test_diagnostic_data_storage.py ..                            [ 46%]
+tests/data/test_duplicate_screening.py ................................. [ 47%]
+......................................                                   [ 49%]
+tests/data/test_effect_scale_and_propensity_columns.py ...               [ 49%]
+tests/data/test_gaussian_joint_accuracy_policy.py ...................... [ 50%]
+...........                                                              [ 51%]
+tests/data/test_gaussian_outcome_accuracy_policy.py .................... [ 52%]
+.......................................                                  [ 54%]
+tests/data/test_gaussian_propensity_joint_means.py ..................... [ 55%]
+....................................                                     [ 56%]
+tests/data/test_generators_semantics_and_categorical.py ..               [ 56%]
+tests/data/test_generators_u_and_sigmoid.py ...                          [ 57%]
+tests/data/test_iv_causal_data.py ........                               [ 57%]
+tests/data/test_iv_generator.py ...                                      [ 57%]
+tests/data/test_multicausal_assignment_policy.py ....................... [ 58%]
+....................................................                     [ 61%]
+tests/data/test_multicausal_generator_contracts.py ..................... [ 62%]
+........................................................................ [ 65%]
+...................                                                      [ 66%]
+tests/data/test_multicausal_generator_semantics.py ..                    [ 66%]
+tests/data/test_multicausal_latent_oracles.py .......................... [ 67%]
+..                                                                       [ 67%]
+tests/data/test_multicausal_marginal_propensity.py ..................... [ 68%]
+..........................................................               [ 71%]
+tests/data/test_multicausal_namespace_contract.py ...................... [ 72%]
+........................................................................ [ 76%]
+.............................                                            [ 77%]
+tests/data/test_numeric_contract_boundaries.py ......................... [ 78%]
+........................................                                 [ 80%]
+tests/data/test_oracle_nuisance.py ...                                   [ 80%]
+tests/data/test_panel_data_did.py ......................                 [ 81%]
+tests/data/test_panel_data_did_dgp.py .....                              [ 82%]
+tests/data/test_panel_data_scm.py .......................                [ 83%]
+tests/data/test_panel_estimate.py ............                           [ 83%]
+tests/data/test_panel_estimate_summary.py ...                            [ 83%]
+tests/data/test_poisson_and_calibrator.py ..                             [ 83%]
+tests/data/test_rct_ancillary_no_leakage.py ..                           [ 83%]
+tests/data/test_rct_causal_data.py ..................................... [ 85%]
+.............                                                            [ 86%]
+tests/data/test_rct_dgp.py .................................             [ 87%]
+tests/data/test_scenario_namespace_contract.py ......................... [ 89%]
+..................................................................       [ 92%]
+tests/data/test_target_d_rate_calibration_notes.py .                     [ 92%]
+tests/data/test_wrapper_namespace_contract.py .......................... [ 93%]
+........................................................................ [ 96%]
+................................................................         [100%]
+
+=============================== warnings summary ===============================
+tests/inference/test_extreme_score_arithmetic.py::test_public_estimate_rejects_overflow_from_finite_predictions[1e+155-True-binary-ATE]
+tests/inference/test_extreme_score_arithmetic.py::test_public_estimate_rejects_overflow_from_finite_predictions[-1e+155-True-binary-ATE]
+tests/inference/test_extreme_score_arithmetic.py::test_public_estimate_rejects_overflow_from_finite_predictions[1e+307-True-binary-ATE]
+tests/inference/test_extreme_score_arithmetic.py::test_public_estimate_rejects_overflow_from_finite_predictions[-1e+308-True-binary-ATE]
+tests/inference/test_extreme_score_arithmetic.py::test_binary_near_boundary_propensity_fails_explicitly[0.0-True]
+tests/inference/test_extreme_score_arithmetic.py::test_binary_near_boundary_propensity_fails_explicitly[1.0-True]
+tests/inference/test_extreme_score_arithmetic.py::test_ordinary_finite_inference_remains_available[True-binary]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1285: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+    warnings.warn(
+
+tests/inference/test_extreme_score_arithmetic.py::test_public_estimate_rejects_overflow_from_finite_predictions[1e+155-True-binary-ATTE]
+tests/inference/test_extreme_score_arithmetic.py::test_public_estimate_rejects_overflow_from_finite_predictions[-1e+155-True-binary-ATTE]
+tests/inference/test_extreme_score_arithmetic.py::test_public_estimate_rejects_overflow_from_finite_predictions[1e+307-True-binary-ATTE]
+tests/inference/test_extreme_score_arithmetic.py::test_public_estimate_rejects_overflow_from_finite_predictions[-1e+308-True-binary-ATTE]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+    warnings.warn(
+
+tests/inference/test_extreme_score_arithmetic.py::test_custom_weights_bar_division_overflow_is_rejected[1.01e-12]
+tests/inference/test_extreme_score_arithmetic.py::test_custom_weights_bar_division_overflow_is_rejected[1e-06]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1291: RuntimeWarning: ATE custom weights are normalized by sample mean; SE/IF treats this normalization as fixed (approximate).
+    warnings.warn(
+
+tests/data/test_diagnostic_data_storage.py::test_dml_ate_returns_diagnostic_data
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1408: RuntimeWarning: Relative effect baseline |mu_c|=1.307e-01 is within 1.64 SE of 0 (SE=1.442e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/data/test_diagnostic_data_storage.py::test_dml_att_returns_diagnostic_data
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1408: RuntimeWarning: Relative effect baseline |mu_c|=3.238e-01 is within 1.64 SE of 0 (SE=2.800e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block20_focus.xml -
+====================== 2106 passed, 15 warnings in 31.36s ======================

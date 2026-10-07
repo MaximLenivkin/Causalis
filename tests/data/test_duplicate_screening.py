@@ -112,14 +112,14 @@ def test_public_contracts_match_full_fingerprint_reference(monkeypatch, kind, ca
         assert 1 not in np.linspace(0, len(frame) - 1, 64, dtype=np.intp)
         frame.iloc[1, frame.columns.get_loc("other")] = -100.0
     elif case == "object_numeric_id":
-        # Historical numeric/object fingerprint categories stay distinct,
-        # although Python value equality alone would regard this as a duplicate.
+        # B20 aligns numeric object IDs with exact dtype-agnostic equality.
+        # This intentionally changes the historical separate-category policy.
         frame["y"] = i + 10
         frame["uid"] = np.asarray(i + 10, dtype=object)
     elif case == "datetime_id":
         frame["uid"] = pd.date_range("2020-01-01", periods=len(frame))
     result = _assert_legacy_equivalent(monkeypatch, kind, frame, confounders)
-    if case in {"int_float", "nullable", "signed_zero", "bool_numeric"}:
+    if case in {"int_float", "nullable", "signed_zero", "bool_numeric", "object_numeric_id"}:
         assert isinstance(result, str) and "have identical values" in result
     else:
         assert isinstance(result, pd.DataFrame)

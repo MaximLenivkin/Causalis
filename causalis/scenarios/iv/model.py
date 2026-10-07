@@ -14,6 +14,7 @@ from scipy.stats import norm
 from sklearn.base import BaseEstimator, clone
 from sklearn.model_selection import StratifiedKFold
 from sklearn.utils.validation import check_is_fitted
+from causalis.scenarios._fit_state import _diagnostic_snapshot
 
 try:
     from catboost import CatBoostClassifier, CatBoostRegressor
@@ -628,14 +629,16 @@ class IIVM(BaseEstimator):
 
         Call ``estimate()`` after a successful fit before passing this model
         to IV diagnostics. A failed refit leaves the model unfitted;
-        previously returned estimates remain usable.
+        previously returned estimates retain independent diagnostic arrays.
+        Estimation labels use the successful fit's schema snapshot. Public
+        model attributes and the data contract itself remain mutable.
         """
         for name in (
             "y_", "d_", "z_", "X_", "predictions_", "models_", "folds_",
             "causaldata_", "g_hat0_", "g_hat1_", "m_hat_", "m_hat_raw_",
             "r_hat0_", "r_hat1_", "result_", "coef_", "se_", "t_stat_",
             "pval_", "confint_", "psi_", "psi_a_", "psi_b_", "phi_y_",
-            "phi_d_", "summary_",
+            "phi_d_", "summary_", "_fit_data_roles_",
         ):
             if hasattr(self, name):
                 delattr(self, name)
@@ -662,6 +665,8 @@ class IIVM(BaseEstimator):
         self.models_ = fitted_models
         self.folds_ = folds
         self.causaldata_ = self.data
+        self._fit_data_roles_ = (self.data.outcome_name, self.data.treatment_name,
+                                 tuple(self.data.instruments_names), tuple(self.data.confounders_names))
         self.g_hat0_ = predictions["g_hat0"]
         self.g_hat1_ = predictions["g_hat1"]
         self.m_hat_ = predictions["m_hat"]
@@ -669,6 +674,13 @@ class IIVM(BaseEstimator):
         self.r_hat0_ = predictions["r_hat0"]
         self.r_hat1_ = predictions["r_hat1"]
         return self
+
+    def _estimation_data_roles(self):
+        """Resolve fitted names, with compatibility for older fitted objects."""
+        if hasattr(self, "_fit_data_roles_"):
+            return self._fit_data_roles_
+        return (self.causaldata_.outcome_name, self.causaldata_.treatment_name,
+                tuple(self.causaldata_.instruments_names), tuple(self.causaldata_.confounders_names))
 
     @_checked_arithmetic
     def _compute_ipw_terms(
@@ -796,7 +808,7 @@ class IIVM(BaseEstimator):
             d=d,
             z=z,
             x=getattr(self, "X_", None),
-            x_names=list(getattr(self.causaldata_, "confounders_names", [])),
+            x_names=list(self._estimation_data_roles()[3]),
             g0_hat=g0,
             g1_hat=g1,
             m_hat=m,
@@ -850,11 +862,11 @@ class IIVM(BaseEstimator):
             ci_upper_absolute=ci_high,
             alpha=alpha,
             is_significant=bool(p_value < alpha) if np.isfinite(p_value) else False,
-            outcome=self.causaldata_.outcome_name,
-            treatment=self.causaldata_.treatment_name,
-            instrument=self.causaldata_.instruments_names[0],
-            confounders=list(self.causaldata_.confounders_names),
-            diagnostic_data=diagnostic_data,
+            outcome=self._estimation_data_roles()[0],
+            treatment=self._estimation_data_roles()[1],
+            instrument=self._estimation_data_roles()[2][0],
+            confounders=list(self._estimation_data_roles()[3]),
+            diagnostic_data=_diagnostic_snapshot(diagnostic_data),
             model_options={
                 "n_folds": self.n_folds,
                 "n_rep": self.n_rep,

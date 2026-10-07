@@ -458,19 +458,29 @@ class CausalData(BaseModel):
         """Return a dtype-agnostic value fingerprint for duplicate-column screening."""
         hasher = hashlib.blake2b(digest_size=16)
 
-        if pdtypes.is_numeric_dtype(series) or pdtypes.is_bool_dtype(series):
-            values = series.to_numpy(dtype=np.float64, copy=True)
-            # Keep dtype-agnostic equality consistent for 0.0 and -0.0.
-            values[values == 0.0] = 0.0
-            hasher.update(np.ascontiguousarray(values).view(np.uint8))
-            return ("numeric", len(series), hasher.hexdigest())
-
-        hashed = pd.util.hash_pandas_object(series, index=False, categorize=True).to_numpy(
-            dtype=np.uint64,
-            copy=False,
-        )
-        hasher.update(np.ascontiguousarray(hashed).view(np.uint8))
-        return ("object", len(series), hasher.hexdigest())
+        # Float-convertible object IDs use the numeric screening category too.
+        # Strings may collide with numbers here; only exact Python value
+        # equality below can establish a duplicate. Conversion never changes
+        # the stored column or the exact comparison.
+        try:
+            if pdtypes.is_complex_dtype(series):
+                values = series.to_numpy(dtype=np.complex128, copy=True).real.copy()
+            else:
+                try:
+                    values = series.to_numpy(dtype=np.float64, copy=True)
+                except (TypeError, ValueError, OverflowError):
+                    # Zero-imaginary complex object IDs can equal real values.
+                    # Other imaginary parts merely cause extra candidates.
+                    values = series.to_numpy(dtype=np.complex128, copy=True).real.copy()
+        except (TypeError, ValueError, OverflowError):
+            # Python hashes respect equality across numeric scalar types in
+            # heterogeneous object IDs; pandas hashes need not do so.
+            hashed = np.fromiter((hash(value) for value in series), dtype=np.int64, count=len(series))
+            hasher.update(np.ascontiguousarray(hashed).view(np.uint8))
+            return ("object", len(series), hasher.hexdigest())
+        values[values == 0.0] = 0.0
+        hasher.update(np.ascontiguousarray(values).view(np.uint8))
+        return ("numeric", len(series), hasher.hexdigest())
 
 
     def _get_column_type(self, column_name: str) -> str:

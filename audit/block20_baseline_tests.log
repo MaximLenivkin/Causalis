@@ -1,0 +1,2398 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /private/tmp/causalis-b20-mtc4up7y/baseline
+configfile: pyproject.toml
+plugins: platformdirs-4.12.3
+collected 107 items
+
+tests/inference/test_data_snapshot_contracts.py FFFFFFFFFFFFFFFFFFFFFFFF [ 22%]
+FFFFFFFFFFFFFFFFFFFFFFFF............FFFFFFFFFFFFFFFFFF...FFFFFFFF.FF.FF. [ 89%]
+FFFFFFFF...                                                              [100%]
+
+=================================== FAILURES ===================================
+________ test_numeric_object_duplicates_are_rejected[integer-12-binary] ________
+
+kind = 'binary', n = 12, representation = 'integer'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+________ test_numeric_object_duplicates_are_rejected[integer-12-multi] _________
+
+kind = 'multi', n = 12, representation = 'integer'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+__________ test_numeric_object_duplicates_are_rejected[integer-12-iv] __________
+
+kind = 'iv', n = 12, representation = 'integer'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_________ test_numeric_object_duplicates_are_rejected[integer-12-rct] __________
+
+kind = 'rct', n = 12, representation = 'integer'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_______ test_numeric_object_duplicates_are_rejected[integer-129-binary] ________
+
+kind = 'binary', n = 129, representation = 'integer'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+________ test_numeric_object_duplicates_are_rejected[integer-129-multi] ________
+
+kind = 'multi', n = 129, representation = 'integer'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_________ test_numeric_object_duplicates_are_rejected[integer-129-iv] __________
+
+kind = 'iv', n = 129, representation = 'integer'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_________ test_numeric_object_duplicates_are_rejected[integer-129-rct] _________
+
+kind = 'rct', n = 129, representation = 'integer'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_________ test_numeric_object_duplicates_are_rejected[float-12-binary] _________
+
+kind = 'binary', n = 12, representation = 'float'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_________ test_numeric_object_duplicates_are_rejected[float-12-multi] __________
+
+kind = 'multi', n = 12, representation = 'float'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+___________ test_numeric_object_duplicates_are_rejected[float-12-iv] ___________
+
+kind = 'iv', n = 12, representation = 'float'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+__________ test_numeric_object_duplicates_are_rejected[float-12-rct] ___________
+
+kind = 'rct', n = 12, representation = 'float'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+________ test_numeric_object_duplicates_are_rejected[float-129-binary] _________
+
+kind = 'binary', n = 129, representation = 'float'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_________ test_numeric_object_duplicates_are_rejected[float-129-multi] _________
+
+kind = 'multi', n = 129, representation = 'float'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+__________ test_numeric_object_duplicates_are_rejected[float-129-iv] ___________
+
+kind = 'iv', n = 129, representation = 'float'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+__________ test_numeric_object_duplicates_are_rejected[float-129-rct] __________
+
+kind = 'rct', n = 129, representation = 'float'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_________ test_numeric_object_duplicates_are_rejected[mixed-12-binary] _________
+
+kind = 'binary', n = 12, representation = 'mixed'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_________ test_numeric_object_duplicates_are_rejected[mixed-12-multi] __________
+
+kind = 'multi', n = 12, representation = 'mixed'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+___________ test_numeric_object_duplicates_are_rejected[mixed-12-iv] ___________
+
+kind = 'iv', n = 12, representation = 'mixed'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+__________ test_numeric_object_duplicates_are_rejected[mixed-12-rct] ___________
+
+kind = 'rct', n = 12, representation = 'mixed'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+________ test_numeric_object_duplicates_are_rejected[mixed-129-binary] _________
+
+kind = 'binary', n = 129, representation = 'mixed'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_________ test_numeric_object_duplicates_are_rejected[mixed-129-multi] _________
+
+kind = 'multi', n = 129, representation = 'mixed'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+__________ test_numeric_object_duplicates_are_rejected[mixed-129-iv] ___________
+
+kind = 'iv', n = 129, representation = 'mixed'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+__________ test_numeric_object_duplicates_are_rejected[mixed-129-rct] __________
+
+kind = 'rct', n = 129, representation = 'mixed'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+________ test_numeric_object_duplicates_are_rejected[complex-12-binary] ________
+
+kind = 'binary', n = 12, representation = 'complex'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+________ test_numeric_object_duplicates_are_rejected[complex-12-multi] _________
+
+kind = 'multi', n = 12, representation = 'complex'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+__________ test_numeric_object_duplicates_are_rejected[complex-12-iv] __________
+
+kind = 'iv', n = 12, representation = 'complex'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_________ test_numeric_object_duplicates_are_rejected[complex-12-rct] __________
+
+kind = 'rct', n = 12, representation = 'complex'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_______ test_numeric_object_duplicates_are_rejected[complex-129-binary] ________
+
+kind = 'binary', n = 129, representation = 'complex'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+________ test_numeric_object_duplicates_are_rejected[complex-129-multi] ________
+
+kind = 'multi', n = 129, representation = 'complex'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_________ test_numeric_object_duplicates_are_rejected[complex-129-iv] __________
+
+kind = 'iv', n = 129, representation = 'complex'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_________ test_numeric_object_duplicates_are_rejected[complex-129-rct] _________
+
+kind = 'rct', n = 129, representation = 'complex'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+________ test_numeric_object_duplicates_are_rejected[decimal-12-binary] ________
+
+kind = 'binary', n = 12, representation = 'decimal'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+________ test_numeric_object_duplicates_are_rejected[decimal-12-multi] _________
+
+kind = 'multi', n = 12, representation = 'decimal'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+__________ test_numeric_object_duplicates_are_rejected[decimal-12-iv] __________
+
+kind = 'iv', n = 12, representation = 'decimal'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_________ test_numeric_object_duplicates_are_rejected[decimal-12-rct] __________
+
+kind = 'rct', n = 12, representation = 'decimal'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_______ test_numeric_object_duplicates_are_rejected[decimal-129-binary] ________
+
+kind = 'binary', n = 129, representation = 'decimal'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+________ test_numeric_object_duplicates_are_rejected[decimal-129-multi] ________
+
+kind = 'multi', n = 129, representation = 'decimal'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_________ test_numeric_object_duplicates_are_rejected[decimal-129-iv] __________
+
+kind = 'iv', n = 129, representation = 'decimal'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_________ test_numeric_object_duplicates_are_rejected[decimal-129-rct] _________
+
+kind = 'rct', n = 129, representation = 'decimal'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_______ test_numeric_object_duplicates_are_rejected[fraction-12-binary] ________
+
+kind = 'binary', n = 12, representation = 'fraction'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+________ test_numeric_object_duplicates_are_rejected[fraction-12-multi] ________
+
+kind = 'multi', n = 12, representation = 'fraction'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_________ test_numeric_object_duplicates_are_rejected[fraction-12-iv] __________
+
+kind = 'iv', n = 12, representation = 'fraction'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_________ test_numeric_object_duplicates_are_rejected[fraction-12-rct] _________
+
+kind = 'rct', n = 12, representation = 'fraction'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_______ test_numeric_object_duplicates_are_rejected[fraction-129-binary] _______
+
+kind = 'binary', n = 129, representation = 'fraction'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_______ test_numeric_object_duplicates_are_rejected[fraction-129-multi] ________
+
+kind = 'multi', n = 129, representation = 'fraction'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+_________ test_numeric_object_duplicates_are_rejected[fraction-129-iv] _________
+
+kind = 'iv', n = 129, representation = 'fraction'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+________ test_numeric_object_duplicates_are_rejected[fraction-129-rct] _________
+
+kind = 'rct', n = 129, representation = 'fraction'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv', 'rct'])
+    @pytest.mark.parametrize('n', [12, 129])
+    @pytest.mark.parametrize('representation', ['integer', 'float', 'mixed', 'complex', 'decimal', 'fraction'])
+    def test_numeric_object_duplicates_are_rejected(kind, n, representation):
+        values = [int(i + 10) if representation == 'integer' or representation == 'mixed' and i % 2
+                  else float(i + 10) for i in range(n)]
+        converters = {'complex': complex, 'decimal': Decimal, 'fraction': Fraction}
+        if representation in converters:
+            values = [converters[representation](int(v)) for v in values]
+>       with pytest.raises(ValueError, match='identical values'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_data_snapshot_contracts.py:42: Failed
+________________ test_returned_diagnostics_own_arrays[y-binary] ________________
+
+kind = 'binary', field = 'y'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('field', ['y', 'd', 'x', 'm_hat', 'g', 'folds', 'psi_b'])
+    def test_returned_diagnostics_own_arrays(kind, field):
+        model = estimator(kind, dataset(kind))
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        first_value = np.asarray(first.value).copy()
+        diag = first.diagnostic_data
+        name = ('g_hat' if kind == 'multi' else 'g0_hat') if field == 'g' else field
+        original = getattr(diag, name).copy()
+        getattr(diag, name)[...] = 0
+        second = estimate(model, kind)
+>       np.testing.assert_array_equal(second.value, first_value)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 1 / 1 (100%)
+E       Max absolute difference among violations: 1.38172871
+E       Max relative difference among violations: 1.13275176
+E        ACTUAL: array(-0.16193)
+E        DESIRED: array(1.219798)
+
+tests/inference/test_data_snapshot_contracts.py:79: AssertionError
+________________ test_returned_diagnostics_own_arrays[y-multi] _________________
+
+kind = 'multi', field = 'y'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('field', ['y', 'd', 'x', 'm_hat', 'g', 'folds', 'psi_b'])
+    def test_returned_diagnostics_own_arrays(kind, field):
+        model = estimator(kind, dataset(kind))
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        first_value = np.asarray(first.value).copy()
+        diag = first.diagnostic_data
+        name = ('g_hat' if kind == 'multi' else 'g0_hat') if field == 'g' else field
+        original = getattr(diag, name).copy()
+        getattr(diag, name)[...] = 0
+        second = estimate(model, kind)
+>       np.testing.assert_array_equal(second.value, first_value)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 2 / 2 (100%)
+E       Mismatch at indices:
+E        [0]: 0.12041169734654401 (ACTUAL), -0.14688495510814284 (DESIRED)
+E        [1]: 0.6734439913060147 (ACTUAL), -0.04449087756290627 (DESIRED)
+E       Max absolute difference among violations: 0.71793487
+E       Max relative difference among violations: 16.13667584
+E        ACTUAL: array([0.120412, 0.673444])
+E        DESIRED: array([-0.146885, -0.044491])
+
+tests/inference/test_data_snapshot_contracts.py:79: AssertionError
+__________________ test_returned_diagnostics_own_arrays[y-iv] __________________
+
+kind = 'iv', field = 'y'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('field', ['y', 'd', 'x', 'm_hat', 'g', 'folds', 'psi_b'])
+    def test_returned_diagnostics_own_arrays(kind, field):
+        model = estimator(kind, dataset(kind))
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        first_value = np.asarray(first.value).copy()
+        diag = first.diagnostic_data
+        name = ('g_hat' if kind == 'multi' else 'g0_hat') if field == 'g' else field
+        original = getattr(diag, name).copy()
+        getattr(diag, name)[...] = 0
+        second = estimate(model, kind)
+>       np.testing.assert_array_equal(second.value, first_value)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 1 / 1 (100%)
+E       Max absolute difference among violations: 1.05464302
+E       Max relative difference among violations: 0.91269161
+E        ACTUAL: array(0.100888)
+E        DESIRED: array(1.155531)
+
+tests/inference/test_data_snapshot_contracts.py:79: AssertionError
+________________ test_returned_diagnostics_own_arrays[d-binary] ________________
+
+kind = 'binary', field = 'd'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('field', ['y', 'd', 'x', 'm_hat', 'g', 'folds', 'psi_b'])
+    def test_returned_diagnostics_own_arrays(kind, field):
+        model = estimator(kind, dataset(kind))
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        first_value = np.asarray(first.value).copy()
+        diag = first.diagnostic_data
+        name = ('g_hat' if kind == 'multi' else 'g0_hat') if field == 'g' else field
+        original = getattr(diag, name).copy()
+        getattr(diag, name)[...] = 0
+        second = estimate(model, kind)
+>       np.testing.assert_array_equal(second.value, first_value)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 1 / 1 (100%)
+E       Max absolute difference among violations: 1.24990179
+E       Max relative difference among violations: 1.02467904
+E        ACTUAL: array(-0.030103)
+E        DESIRED: array(1.219798)
+
+tests/inference/test_data_snapshot_contracts.py:79: AssertionError
+________________ test_returned_diagnostics_own_arrays[d-multi] _________________
+
+kind = 'multi', field = 'd'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('field', ['y', 'd', 'x', 'm_hat', 'g', 'folds', 'psi_b'])
+    def test_returned_diagnostics_own_arrays(kind, field):
+        model = estimator(kind, dataset(kind))
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        first_value = np.asarray(first.value).copy()
+        diag = first.diagnostic_data
+        name = ('g_hat' if kind == 'multi' else 'g0_hat') if field == 'g' else field
+        original = getattr(diag, name).copy()
+        getattr(diag, name)[...] = 0
+        second = estimate(model, kind)
+>       np.testing.assert_array_equal(second.value, first_value)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 2 / 2 (100%)
+E       Mismatch at indices:
+E        [0]: -0.05860429699268628 (ACTUAL), -0.14688495510814284 (DESIRED)
+E        [1]: 0.018163377209701344 (ACTUAL), -0.04449087756290627 (DESIRED)
+E       Max absolute difference among violations: 0.08828066
+E       Max relative difference among violations: 1.40824947
+E        ACTUAL: array([-0.058604,  0.018163])
+E        DESIRED: array([-0.146885, -0.044491])
+
+tests/inference/test_data_snapshot_contracts.py:79: AssertionError
+__________________ test_returned_diagnostics_own_arrays[d-iv] __________________
+
+kind = 'iv', field = 'd'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('field', ['y', 'd', 'x', 'm_hat', 'g', 'folds', 'psi_b'])
+    def test_returned_diagnostics_own_arrays(kind, field):
+        model = estimator(kind, dataset(kind))
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        first_value = np.asarray(first.value).copy()
+        diag = first.diagnostic_data
+        name = ('g_hat' if kind == 'multi' else 'g0_hat') if field == 'g' else field
+        original = getattr(diag, name).copy()
+        getattr(diag, name)[...] = 0
+        second = estimate(model, kind)
+>       np.testing.assert_array_equal(second.value, first_value)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 1 / 1 (100%)
+E       Max absolute difference among violations: 95.85027983
+E       Max relative difference among violations: 82.94915359
+E        ACTUAL: array(97.00581)
+E        DESIRED: array(1.155531)
+
+tests/inference/test_data_snapshot_contracts.py:79: AssertionError
+________________ test_returned_diagnostics_own_arrays[x-binary] ________________
+
+kind = 'binary', field = 'x'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('field', ['y', 'd', 'x', 'm_hat', 'g', 'folds', 'psi_b'])
+    def test_returned_diagnostics_own_arrays(kind, field):
+        model = estimator(kind, dataset(kind))
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        first_value = np.asarray(first.value).copy()
+        diag = first.diagnostic_data
+        name = ('g_hat' if kind == 'multi' else 'g0_hat') if field == 'g' else field
+        original = getattr(diag, name).copy()
+        getattr(diag, name)[...] = 0
+        second = estimate(model, kind)
+        np.testing.assert_array_equal(second.value, first_value)
+>       np.testing.assert_array_equal(getattr(second.diagnostic_data, name), original)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 180 / 180 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.0 (ACTUAL), 0.5702505761966152 (DESIRED)
+E        [1, 0]: 0.0 (ACTUAL), -0.38395733205295884 (DESIRED)
+E        [2, 0]: 0.0 (ACTUAL), 0.3056450128089509 (DESIRED)
+E        [3, 0]: 0.0 (ACTUAL), -0.44870202275837345 (DESIRED)
+E        [4, 0]: 0.0 (ACTUAL), 0.6223149833499255 (DESIRED)
+E       Max absolute difference among violations: 2.77634362
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([[0.],
+E              [0.],
+E              [0.],...
+E        DESIRED: array([[ 0.570251],
+E              [-0.383957],
+E              [ 0.305645],...
+
+tests/inference/test_data_snapshot_contracts.py:80: AssertionError
+________________ test_returned_diagnostics_own_arrays[x-multi] _________________
+
+kind = 'multi', field = 'x'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('field', ['y', 'd', 'x', 'm_hat', 'g', 'folds', 'psi_b'])
+    def test_returned_diagnostics_own_arrays(kind, field):
+        model = estimator(kind, dataset(kind))
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        first_value = np.asarray(first.value).copy()
+        diag = first.diagnostic_data
+        name = ('g_hat' if kind == 'multi' else 'g0_hat') if field == 'g' else field
+        original = getattr(diag, name).copy()
+        getattr(diag, name)[...] = 0
+        second = estimate(model, kind)
+        np.testing.assert_array_equal(second.value, first_value)
+>       np.testing.assert_array_equal(getattr(second.diagnostic_data, name), original)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 180 / 180 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.0 (ACTUAL), 0.5702505761966152 (DESIRED)
+E        [1, 0]: 0.0 (ACTUAL), -0.38395733205295884 (DESIRED)
+E        [2, 0]: 0.0 (ACTUAL), 0.3056450128089509 (DESIRED)
+E        [3, 0]: 0.0 (ACTUAL), -0.44870202275837345 (DESIRED)
+E        [4, 0]: 0.0 (ACTUAL), 0.6223149833499255 (DESIRED)
+E       Max absolute difference among violations: 2.77634362
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([[0.],
+E              [0.],
+E              [0.],...
+E        DESIRED: array([[ 0.570251],
+E              [-0.383957],
+E              [ 0.305645],...
+
+tests/inference/test_data_snapshot_contracts.py:80: AssertionError
+__________________ test_returned_diagnostics_own_arrays[x-iv] __________________
+
+kind = 'iv', field = 'x'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('field', ['y', 'd', 'x', 'm_hat', 'g', 'folds', 'psi_b'])
+    def test_returned_diagnostics_own_arrays(kind, field):
+        model = estimator(kind, dataset(kind))
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        first_value = np.asarray(first.value).copy()
+        diag = first.diagnostic_data
+        name = ('g_hat' if kind == 'multi' else 'g0_hat') if field == 'g' else field
+        original = getattr(diag, name).copy()
+        getattr(diag, name)[...] = 0
+        second = estimate(model, kind)
+        np.testing.assert_array_equal(second.value, first_value)
+>       np.testing.assert_array_equal(getattr(second.diagnostic_data, name), original)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 180 / 180 (100%)
+E       First 5 mismatches are at indices:
+E        [0, 0]: 0.0 (ACTUAL), 0.5702505761966152 (DESIRED)
+E        [1, 0]: 0.0 (ACTUAL), -0.38395733205295884 (DESIRED)
+E        [2, 0]: 0.0 (ACTUAL), 0.3056450128089509 (DESIRED)
+E        [3, 0]: 0.0 (ACTUAL), -0.44870202275837345 (DESIRED)
+E        [4, 0]: 0.0 (ACTUAL), 0.6223149833499255 (DESIRED)
+E       Max absolute difference among violations: 2.77634362
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([[0.],
+E              [0.],
+E              [0.],...
+E        DESIRED: array([[ 0.570251],
+E              [-0.383957],
+E              [ 0.305645],...
+
+tests/inference/test_data_snapshot_contracts.py:80: AssertionError
+______________ test_returned_diagnostics_own_arrays[m_hat-binary] ______________
+
+args = ()
+kwargs = {'d': array([0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1,
+       0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0,..., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), 'normalize_ipw': False, 'score': 'ATE', ...}
+
+    @wraps(function)
+    def checked(*args, **kwargs):
+        try:
+            with np.errstate(over='raise', invalid='raise', divide='raise'):
+>               return function(*args, **kwargs)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+causalis/scenarios/_numerics.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+d = array([0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1,
+       0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0,...1, 0, 1, 0, 1, 1, 0, 1, 1,
+       0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1,
+       1, 0, 1, 1])
+m_hat = array([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0., 0., 0., 0., 0., ...    0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
+normalize_ipw = False, score = 'ATE', warn = True
+
+    @_checked_arithmetic
+    def _compute_ipw_components(
+        *,
+        d: np.ndarray,
+        m_hat: np.ndarray,
+        normalize_ipw: bool,
+        score: Optional[str] = None,
+        warn: bool = True,
+    ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+        """Compute IPW terms plus inverse propensity factors used in IRM scores."""
+        with np.errstate(divide="ignore", invalid="ignore"):
+            inv_m = 1.0 / m_hat
+            inv_1m = 1.0 / (1.0 - m_hat)
+    
+>       h1 = d * inv_m
+             ^^^^^^^^^
+E       FloatingPointError: invalid value encountered in multiply
+
+causalis/scenarios/unconfoundedness/_score_utils.py:55: FloatingPointError
+
+The above exception was the direct cause of the following exception:
+
+kind = 'binary', field = 'm_hat'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('field', ['y', 'd', 'x', 'm_hat', 'g', 'folds', 'psi_b'])
+    def test_returned_diagnostics_own_arrays(kind, field):
+        model = estimator(kind, dataset(kind))
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        first_value = np.asarray(first.value).copy()
+        diag = first.diagnostic_data
+        name = ('g_hat' if kind == 'multi' else 'g0_hat') if field == 'g' else field
+        original = getattr(diag, name).copy()
+        getattr(diag, name)[...] = 0
+>       second = estimate(model, kind)
+                 ^^^^^^^^^^^^^^^^^^^^^
+
+tests/inference/test_data_snapshot_contracts.py:78: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/inference/test_data_snapshot_contracts.py:62: in estimate
+    return model.estimate(**({'diagnostic_data': diagnostics} if kind == 'multi' else {}))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis/scenarios/unconfoundedness/model.py:1588: in estimate
+    components = self._compute_estimate_components(
+causalis/scenarios/_numerics.py:27: in checked
+    return function(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis/scenarios/unconfoundedness/model.py:1147: in _compute_estimate_components
+    h1, h0, inv_m, inv_1m = self._compute_ipw_components(
+causalis/scenarios/unconfoundedness/model.py:680: in _compute_ipw_components
+    return _compute_irm_ipw_components(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = ()
+kwargs = {'d': array([0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 1, 0, 1,
+       0, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0,..., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), 'normalize_ipw': False, 'score': 'ATE', ...}
+
+    @wraps(function)
+    def checked(*args, **kwargs):
+        try:
+            with np.errstate(over='raise', invalid='raise', divide='raise'):
+                return function(*args, **kwargs)
+        except (FloatingPointError, OverflowError) as error:
+>           raise RuntimeError(
+                "Non-finite score/inference arithmetic in " + function.__name__
+                + ". Rescale outcomes or weights or increase the overlap/trimming threshold and refit."
+            ) from error
+E           RuntimeError: Non-finite score/inference arithmetic in _compute_ipw_components. Rescale outcomes or weights or increase the overlap/trimming threshold and refit.
+
+causalis/scenarios/_numerics.py:29: RuntimeError
+______________ test_returned_diagnostics_own_arrays[m_hat-multi] _______________
+
+args = (MultiTreatmentIRM(status='fitted', n_folds=3, random_state=19),)
+kwargs = {'y': array([ 9.31159301,  8.96555973,  9.30952073,  8.46543001, 10.93614729,
+        9.82907904,  7.21809637,  8.8508...., 0.],
+       [0., 0., 0.],
+       [0., 0., 0.],
+       [0., 0., 0.],
+       [0., 0., 0.],
+       [0., 0., 0.]]), ...}
+
+    @wraps(function)
+    def checked(*args, **kwargs):
+        try:
+            with np.errstate(over='raise', invalid='raise', divide='raise'):
+>               return function(*args, **kwargs)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+causalis/scenarios/_numerics.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+causalis/scenarios/multi_unconfoundedness/model.py:753: in _compute_score_terms
+    h = self._normalize_ipw_terms(d, m_hat, score=score_u)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis/scenarios/multi_unconfoundedness/model.py:341: in _normalize_ipw_terms
+    return _normalize_multiclass_ipw_terms(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+d = array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.],
+       [1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0...[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.],
+       [1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]])
+m_hat = array([[0., 0., 0.],
+       [0., 0., 0.],
+       [0., 0., 0.],
+       [0., 0., 0.],
+       [0., 0., 0.],
+       [0., 0...[0., 0., 0.],
+       [0., 0., 0.],
+       [0., 0., 0.],
+       [0., 0., 0.],
+       [0., 0., 0.],
+       [0., 0., 0.]])
+normalize_ipw = False
+
+    def _normalize_multiclass_ipw_terms(
+        d: np.ndarray,
+        m_hat: np.ndarray,
+        *,
+        normalize_ipw: bool,
+    ) -> np.ndarray:
+        """Return d_k / m_k with optional Hajek column normalization."""
+        d = np.asarray(d, dtype=float)
+        m_hat = np.asarray(m_hat, dtype=float)
+>       h = d / m_hat
+            ^^^^^^^^^
+E       FloatingPointError: divide by zero encountered in divide
+
+causalis/scenarios/multi_unconfoundedness/_utils.py:137: FloatingPointError
+
+The above exception was the direct cause of the following exception:
+
+kind = 'multi', field = 'm_hat'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('field', ['y', 'd', 'x', 'm_hat', 'g', 'folds', 'psi_b'])
+    def test_returned_diagnostics_own_arrays(kind, field):
+        model = estimator(kind, dataset(kind))
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        first_value = np.asarray(first.value).copy()
+        diag = first.diagnostic_data
+        name = ('g_hat' if kind == 'multi' else 'g0_hat') if field == 'g' else field
+        original = getattr(diag, name).copy()
+        getattr(diag, name)[...] = 0
+>       second = estimate(model, kind)
+                 ^^^^^^^^^^^^^^^^^^^^^
+
+tests/inference/test_data_snapshot_contracts.py:78: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/inference/test_data_snapshot_contracts.py:62: in estimate
+    return model.estimate(**({'diagnostic_data': diagnostics} if kind == 'multi' else {}))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis/scenarios/multi_unconfoundedness/model.py:994: in estimate
+    y_col, u, h, psi_a, psi_b = self._compute_score_terms(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = (MultiTreatmentIRM(status='fitted', n_folds=3, random_state=19),)
+kwargs = {'y': array([ 9.31159301,  8.96555973,  9.30952073,  8.46543001, 10.93614729,
+        9.82907904,  7.21809637,  8.8508...., 0.],
+       [0., 0., 0.],
+       [0., 0., 0.],
+       [0., 0., 0.],
+       [0., 0., 0.],
+       [0., 0., 0.]]), ...}
+
+    @wraps(function)
+    def checked(*args, **kwargs):
+        try:
+            with np.errstate(over='raise', invalid='raise', divide='raise'):
+                return function(*args, **kwargs)
+        except (FloatingPointError, OverflowError) as error:
+>           raise RuntimeError(
+                "Non-finite score/inference arithmetic in " + function.__name__
+                + ". Rescale outcomes or weights or increase the overlap/trimming threshold and refit."
+            ) from error
+E           RuntimeError: Non-finite score/inference arithmetic in _compute_score_terms. Rescale outcomes or weights or increase the overlap/trimming threshold and refit.
+
+causalis/scenarios/_numerics.py:29: RuntimeError
+________________ test_returned_diagnostics_own_arrays[m_hat-iv] ________________
+
+args = (IIVM(status='fitted', n_folds=3, random_state=19),)
+kwargs = {'z': array([0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,
+       0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0,...   0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])}
+
+    @wraps(function)
+    def checked(*args, **kwargs):
+        try:
+            with np.errstate(over='raise', invalid='raise', divide='raise'):
+>               return function(*args, **kwargs)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+causalis/scenarios/_numerics.py:27: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = IIVM(status='fitted', n_folds=3, random_state=19)
+z = array([0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,
+       0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0,...1, 0, 1, 0, 1, 0, 1, 0, 1,
+       0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,
+       0, 1, 0, 1])
+m = array([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0., 0., 0., 0., 0., ...    0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
+
+    @_checked_arithmetic
+    def _compute_ipw_terms(
+        self, *, z: np.ndarray, m: np.ndarray
+    ) -> Tuple[np.ndarray, np.ndarray]:
+        """Compute instrument-arm inverse-probability weights."""
+>       w_z1 = z / m
+               ^^^^^
+E       FloatingPointError: divide by zero encountered in divide
+
+causalis/scenarios/iv/model.py:678: FloatingPointError
+
+The above exception was the direct cause of the following exception:
+
+kind = 'iv', field = 'm_hat'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('field', ['y', 'd', 'x', 'm_hat', 'g', 'folds', 'psi_b'])
+    def test_returned_diagnostics_own_arrays(kind, field):
+        model = estimator(kind, dataset(kind))
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        first_value = np.asarray(first.value).copy()
+        diag = first.diagnostic_data
+        name = ('g_hat' if kind == 'multi' else 'g0_hat') if field == 'g' else field
+        original = getattr(diag, name).copy()
+        getattr(diag, name)[...] = 0
+>       second = estimate(model, kind)
+                 ^^^^^^^^^^^^^^^^^^^^^
+
+tests/inference/test_data_snapshot_contracts.py:78: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/inference/test_data_snapshot_contracts.py:62: in estimate
+    return model.estimate(**({'diagnostic_data': diagnostics} if kind == 'multi' else {}))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis/scenarios/iv/model.py:759: in estimate
+    psi, se, t_stat, p_value, ci_low, ci_high) = self._compute_late_inference(
+causalis/scenarios/_numerics.py:27: in checked
+    return function(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis/scenarios/iv/model.py:693: in _compute_late_inference
+    w_z1, w_z0 = self._compute_ipw_terms(z=z, m=m)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+args = (IIVM(status='fitted', n_folds=3, random_state=19),)
+kwargs = {'z': array([0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,
+       0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0,...   0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.,
+       0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])}
+
+    @wraps(function)
+    def checked(*args, **kwargs):
+        try:
+            with np.errstate(over='raise', invalid='raise', divide='raise'):
+                return function(*args, **kwargs)
+        except (FloatingPointError, OverflowError) as error:
+>           raise RuntimeError(
+                "Non-finite score/inference arithmetic in " + function.__name__
+                + ". Rescale outcomes or weights or increase the overlap/trimming threshold and refit."
+            ) from error
+E           RuntimeError: Non-finite score/inference arithmetic in _compute_ipw_terms. Rescale outcomes or weights or increase the overlap/trimming threshold and refit.
+
+causalis/scenarios/_numerics.py:29: RuntimeError
+________________ test_returned_diagnostics_own_arrays[g-binary] ________________
+
+kind = 'binary', field = 'g'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('field', ['y', 'd', 'x', 'm_hat', 'g', 'folds', 'psi_b'])
+    def test_returned_diagnostics_own_arrays(kind, field):
+        model = estimator(kind, dataset(kind))
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        first_value = np.asarray(first.value).copy()
+        diag = first.diagnostic_data
+        name = ('g_hat' if kind == 'multi' else 'g0_hat') if field == 'g' else field
+        original = getattr(diag, name).copy()
+        getattr(diag, name)[...] = 0
+        second = estimate(model, kind)
+>       np.testing.assert_array_equal(second.value, first_value)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 1 / 1 (100%)
+E       Max absolute difference among violations: 0.03254762
+E       Max relative difference among violations: 0.02668279
+E        ACTUAL: array(1.252346)
+E        DESIRED: array(1.219798)
+
+tests/inference/test_data_snapshot_contracts.py:79: AssertionError
+________________ test_returned_diagnostics_own_arrays[g-multi] _________________
+
+kind = 'multi', field = 'g'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('field', ['y', 'd', 'x', 'm_hat', 'g', 'folds', 'psi_b'])
+    def test_returned_diagnostics_own_arrays(kind, field):
+        model = estimator(kind, dataset(kind))
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        first_value = np.asarray(first.value).copy()
+        diag = first.diagnostic_data
+        name = ('g_hat' if kind == 'multi' else 'g0_hat') if field == 'g' else field
+        original = getattr(diag, name).copy()
+        getattr(diag, name)[...] = 0
+        second = estimate(model, kind)
+>       np.testing.assert_array_equal(second.value, first_value)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 2 / 2 (100%)
+E       Mismatch at indices:
+E        [0]: -0.26729665245468653 (ACTUAL), -0.14688495510814284 (DESIRED)
+E        [1]: -0.7179348688689209 (ACTUAL), -0.04449087756290627 (DESIRED)
+E       Max absolute difference among violations: 0.67344399
+E       Max relative difference among violations: 15.13667584
+E        ACTUAL: array([-0.267297, -0.717935])
+E        DESIRED: array([-0.146885, -0.044491])
+
+tests/inference/test_data_snapshot_contracts.py:79: AssertionError
+__________________ test_returned_diagnostics_own_arrays[g-iv] __________________
+
+kind = 'iv', field = 'g'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('field', ['y', 'd', 'x', 'm_hat', 'g', 'folds', 'psi_b'])
+    def test_returned_diagnostics_own_arrays(kind, field):
+        model = estimator(kind, dataset(kind))
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        first_value = np.asarray(first.value).copy()
+        diag = first.diagnostic_data
+        name = ('g_hat' if kind == 'multi' else 'g0_hat') if field == 'g' else field
+        original = getattr(diag, name).copy()
+        getattr(diag, name)[...] = 0
+        second = estimate(model, kind)
+>       np.testing.assert_array_equal(second.value, first_value)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 1 / 1 (100%)
+E       Max absolute difference among violations: 0.12000991
+E       Max relative difference among violations: 0.10385698
+E        ACTUAL: array(1.035521)
+E        DESIRED: array(1.155531)
+
+tests/inference/test_data_snapshot_contracts.py:79: AssertionError
+______________ test_returned_diagnostics_own_arrays[folds-binary] ______________
+
+kind = 'binary', field = 'folds'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('field', ['y', 'd', 'x', 'm_hat', 'g', 'folds', 'psi_b'])
+    def test_returned_diagnostics_own_arrays(kind, field):
+        model = estimator(kind, dataset(kind))
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        first_value = np.asarray(first.value).copy()
+        diag = first.diagnostic_data
+        name = ('g_hat' if kind == 'multi' else 'g0_hat') if field == 'g' else field
+        original = getattr(diag, name).copy()
+        getattr(diag, name)[...] = 0
+        second = estimate(model, kind)
+        np.testing.assert_array_equal(second.value, first_value)
+>       np.testing.assert_array_equal(getattr(second.diagnostic_data, name), original)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 120 / 180 (66.7%)
+E       First 5 mismatches are at indices:
+E        [0]: 0 (ACTUAL), 2 (DESIRED)
+E        [2]: 0 (ACTUAL), 2 (DESIRED)
+E        [3]: 0 (ACTUAL), 1 (DESIRED)
+E        [5]: 0 (ACTUAL), 1 (DESIRED)
+E        [6]: 0 (ACTUAL), 1 (DESIRED)
+E       Max absolute difference among violations: 2
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+E              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+E              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...
+E        DESIRED: array([2, 0, 2, 1, 0, 1, 1, 1, 2, 2, 1, 2, 2, 0, 1, 1, 2, 1, 0, 0, 2, 0,
+E              2, 2, 2, 0, 0, 2, 2, 1, 2, 1, 1, 1, 1, 1, 0, 2, 0, 2, 1, 0, 1, 2,
+E              1, 0, 2, 1, 0, 0, 0, 0, 0, 1, 2, 2, 0, 0, 0, 2, 1, 1, 2, 0, 2, 0,...
+
+tests/inference/test_data_snapshot_contracts.py:80: AssertionError
+______________ test_returned_diagnostics_own_arrays[folds-multi] _______________
+
+kind = 'multi', field = 'folds'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('field', ['y', 'd', 'x', 'm_hat', 'g', 'folds', 'psi_b'])
+    def test_returned_diagnostics_own_arrays(kind, field):
+        model = estimator(kind, dataset(kind))
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        first_value = np.asarray(first.value).copy()
+        diag = first.diagnostic_data
+        name = ('g_hat' if kind == 'multi' else 'g0_hat') if field == 'g' else field
+        original = getattr(diag, name).copy()
+        getattr(diag, name)[...] = 0
+        second = estimate(model, kind)
+        np.testing.assert_array_equal(second.value, first_value)
+>       np.testing.assert_array_equal(getattr(second.diagnostic_data, name), original)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 120 / 180 (66.7%)
+E       First 5 mismatches are at indices:
+E        [2]: 0 (ACTUAL), 2 (DESIRED)
+E        [3]: 0 (ACTUAL), 1 (DESIRED)
+E        [4]: 0 (ACTUAL), 2 (DESIRED)
+E        [5]: 0 (ACTUAL), 1 (DESIRED)
+E        [6]: 0 (ACTUAL), 2 (DESIRED)
+E       Max absolute difference among violations: 2
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+E              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+E              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...
+E        DESIRED: array([0, 0, 2, 1, 2, 1, 2, 2, 0, 0, 2, 1, 1, 0, 2, 1, 1, 1, 0, 1, 2, 2,
+E              2, 0, 2, 0, 1, 1, 0, 2, 2, 1, 1, 1, 0, 1, 2, 0, 0, 1, 0, 0, 0, 2,
+E              0, 2, 0, 0, 0, 1, 1, 0, 1, 2, 1, 2, 0, 2, 1, 1, 1, 2, 2, 0, 1, 2,...
+
+tests/inference/test_data_snapshot_contracts.py:80: AssertionError
+________________ test_returned_diagnostics_own_arrays[folds-iv] ________________
+
+kind = 'iv', field = 'folds'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('field', ['y', 'd', 'x', 'm_hat', 'g', 'folds', 'psi_b'])
+    def test_returned_diagnostics_own_arrays(kind, field):
+        model = estimator(kind, dataset(kind))
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        first_value = np.asarray(first.value).copy()
+        diag = first.diagnostic_data
+        name = ('g_hat' if kind == 'multi' else 'g0_hat') if field == 'g' else field
+        original = getattr(diag, name).copy()
+        getattr(diag, name)[...] = 0
+        second = estimate(model, kind)
+        np.testing.assert_array_equal(second.value, first_value)
+>       np.testing.assert_array_equal(getattr(second.diagnostic_data, name), original)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 120 / 180 (66.7%)
+E       First 5 mismatches are at indices:
+E        [0]: 0 (ACTUAL), 2 (DESIRED)
+E        [2]: 0 (ACTUAL), 1 (DESIRED)
+E        [3]: 0 (ACTUAL), 1 (DESIRED)
+E        [4]: 0 (ACTUAL), 1 (DESIRED)
+E        [5]: 0 (ACTUAL), 1 (DESIRED)
+E       Max absolute difference among violations: 2
+E       Max relative difference among violations: 1.
+E        ACTUAL: array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+E              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+E              0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,...
+E        DESIRED: array([2, 0, 1, 1, 1, 1, 2, 0, 2, 1, 1, 0, 0, 0, 0, 0, 2, 1, 0, 0, 0, 2,
+E              2, 2, 1, 0, 0, 2, 0, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 0, 1, 2, 2, 0,
+E              2, 1, 1, 2, 0, 0, 0, 2, 0, 2, 1, 2, 0, 1, 2, 0, 1, 0, 2, 1, 1, 0,...
+
+tests/inference/test_data_snapshot_contracts.py:80: AssertionError
+_________ test_fit_freezes_sample_and_schema_until_refit[False-binary] _________
+
+kind = 'binary', diagnostics = False
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('diagnostics', [False, True])
+    def test_fit_freezes_sample_and_schema_until_refit(kind, diagnostics):
+        data = dataset(kind)
+        model = estimator(kind, data)
+        if kind != 'iv':
+            model.store_diagnostics = diagnostics
+        model.fit()
+        first = estimate(model, kind, diagnostics)
+        data.df.loc[:, 'y'] += 4
+        # Assignment to role fields is currently part of the mutable contract API.
+        if kind != 'multi':
+            data.outcome_name = 'changed_y'
+        # Rename consistently so this remains a valid new sample for refit.
+        if kind == 'multi':
+            data.outcome = 'changed_y'
+        data.df.rename(columns={'y': 'changed_y'}, inplace=True)
+        second = estimate(model, kind, diagnostics)
+        np.testing.assert_array_equal(second.value, first.value)
+>       assert second.outcome == first.outcome == 'y'
+E       AssertionError: assert 'changed_y' == 'y'
+E         
+E         - y
+E         + changed_y
+
+tests/inference/test_data_snapshot_contracts.py:104: AssertionError
+_________ test_fit_freezes_sample_and_schema_until_refit[False-multi] __________
+
+kind = 'multi', diagnostics = False
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('diagnostics', [False, True])
+    def test_fit_freezes_sample_and_schema_until_refit(kind, diagnostics):
+        data = dataset(kind)
+        model = estimator(kind, data)
+        if kind != 'iv':
+            model.store_diagnostics = diagnostics
+        model.fit()
+        first = estimate(model, kind, diagnostics)
+        data.df.loc[:, 'y'] += 4
+        # Assignment to role fields is currently part of the mutable contract API.
+        if kind != 'multi':
+            data.outcome_name = 'changed_y'
+        # Rename consistently so this remains a valid new sample for refit.
+        if kind == 'multi':
+            data.outcome = 'changed_y'
+        data.df.rename(columns={'y': 'changed_y'}, inplace=True)
+        second = estimate(model, kind, diagnostics)
+        np.testing.assert_array_equal(second.value, first.value)
+>       assert second.outcome == first.outcome == 'y'
+E       AssertionError: assert 'changed_y' == 'y'
+E         
+E         - y
+E         + changed_y
+
+tests/inference/test_data_snapshot_contracts.py:104: AssertionError
+___________ test_fit_freezes_sample_and_schema_until_refit[False-iv] ___________
+
+kind = 'iv', diagnostics = False
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('diagnostics', [False, True])
+    def test_fit_freezes_sample_and_schema_until_refit(kind, diagnostics):
+        data = dataset(kind)
+        model = estimator(kind, data)
+        if kind != 'iv':
+            model.store_diagnostics = diagnostics
+        model.fit()
+        first = estimate(model, kind, diagnostics)
+        data.df.loc[:, 'y'] += 4
+        # Assignment to role fields is currently part of the mutable contract API.
+        if kind != 'multi':
+            data.outcome_name = 'changed_y'
+        # Rename consistently so this remains a valid new sample for refit.
+        if kind == 'multi':
+            data.outcome = 'changed_y'
+        data.df.rename(columns={'y': 'changed_y'}, inplace=True)
+        second = estimate(model, kind, diagnostics)
+        np.testing.assert_array_equal(second.value, first.value)
+>       assert second.outcome == first.outcome == 'y'
+E       AssertionError: assert 'changed_y' == 'y'
+E         
+E         - y
+E         + changed_y
+
+tests/inference/test_data_snapshot_contracts.py:104: AssertionError
+_________ test_fit_freezes_sample_and_schema_until_refit[True-binary] __________
+
+kind = 'binary', diagnostics = True
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('diagnostics', [False, True])
+    def test_fit_freezes_sample_and_schema_until_refit(kind, diagnostics):
+        data = dataset(kind)
+        model = estimator(kind, data)
+        if kind != 'iv':
+            model.store_diagnostics = diagnostics
+        model.fit()
+        first = estimate(model, kind, diagnostics)
+        data.df.loc[:, 'y'] += 4
+        # Assignment to role fields is currently part of the mutable contract API.
+        if kind != 'multi':
+            data.outcome_name = 'changed_y'
+        # Rename consistently so this remains a valid new sample for refit.
+        if kind == 'multi':
+            data.outcome = 'changed_y'
+        data.df.rename(columns={'y': 'changed_y'}, inplace=True)
+        second = estimate(model, kind, diagnostics)
+        np.testing.assert_array_equal(second.value, first.value)
+>       assert second.outcome == first.outcome == 'y'
+E       AssertionError: assert 'changed_y' == 'y'
+E         
+E         - y
+E         + changed_y
+
+tests/inference/test_data_snapshot_contracts.py:104: AssertionError
+__________ test_fit_freezes_sample_and_schema_until_refit[True-multi] __________
+
+kind = 'multi', diagnostics = True
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('diagnostics', [False, True])
+    def test_fit_freezes_sample_and_schema_until_refit(kind, diagnostics):
+        data = dataset(kind)
+        model = estimator(kind, data)
+        if kind != 'iv':
+            model.store_diagnostics = diagnostics
+        model.fit()
+        first = estimate(model, kind, diagnostics)
+        data.df.loc[:, 'y'] += 4
+        # Assignment to role fields is currently part of the mutable contract API.
+        if kind != 'multi':
+            data.outcome_name = 'changed_y'
+        # Rename consistently so this remains a valid new sample for refit.
+        if kind == 'multi':
+            data.outcome = 'changed_y'
+        data.df.rename(columns={'y': 'changed_y'}, inplace=True)
+        second = estimate(model, kind, diagnostics)
+        np.testing.assert_array_equal(second.value, first.value)
+>       assert second.outcome == first.outcome == 'y'
+E       AssertionError: assert 'changed_y' == 'y'
+E         
+E         - y
+E         + changed_y
+
+tests/inference/test_data_snapshot_contracts.py:104: AssertionError
+___________ test_fit_freezes_sample_and_schema_until_refit[True-iv] ____________
+
+kind = 'iv', diagnostics = True
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('diagnostics', [False, True])
+    def test_fit_freezes_sample_and_schema_until_refit(kind, diagnostics):
+        data = dataset(kind)
+        model = estimator(kind, data)
+        if kind != 'iv':
+            model.store_diagnostics = diagnostics
+        model.fit()
+        first = estimate(model, kind, diagnostics)
+        data.df.loc[:, 'y'] += 4
+        # Assignment to role fields is currently part of the mutable contract API.
+        if kind != 'multi':
+            data.outcome_name = 'changed_y'
+        # Rename consistently so this remains a valid new sample for refit.
+        if kind == 'multi':
+            data.outcome = 'changed_y'
+        data.df.rename(columns={'y': 'changed_y'}, inplace=True)
+        second = estimate(model, kind, diagnostics)
+        np.testing.assert_array_equal(second.value, first.value)
+>       assert second.outcome == first.outcome == 'y'
+E       AssertionError: assert 'changed_y' == 'y'
+E         
+E         - y
+E         + changed_y
+
+tests/inference/test_data_snapshot_contracts.py:104: AssertionError
+____________ test_failed_refit_does_not_mix_samples[learner-binary] ____________
+
+kind = 'binary', stage = 'learner'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('stage', ['learner', 'configuration'])
+    def test_failed_refit_does_not_mix_samples(kind, stage):
+        model = estimator(kind, dataset(kind)).fit()
+        first = estimate(model, kind, False)
+        new_data = dataset(kind)
+        new_data.df.loc[:, 'y'] += 6
+        if stage == 'learner':
+            model.ml_g = ConstantRegressor(np.nan)
+        else:
+            model.n_folds = 1
+        with pytest.raises((RuntimeError, ValueError)):
+            model.fit(new_data)
+        if kind == 'iv':
+            with pytest.raises(NotFittedError):
+                estimate(model, kind)
+        else:
+>           np.testing.assert_array_equal(estimate(model, kind, False).value, first.value)
+E           AssertionError: 
+E           Arrays are not equal
+E           
+E           Mismatched elements: 1 / 1 (100%)
+E           Max absolute difference among violations: 0.10889217
+E           Max relative difference among violations: 0.08927063
+E            ACTUAL: array(1.328691)
+E            DESIRED: array(1.219798)
+
+tests/inference/test_data_snapshot_contracts.py:133: AssertionError
+____________ test_failed_refit_does_not_mix_samples[learner-multi] _____________
+
+kind = 'multi', stage = 'learner'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('stage', ['learner', 'configuration'])
+    def test_failed_refit_does_not_mix_samples(kind, stage):
+        model = estimator(kind, dataset(kind)).fit()
+        first = estimate(model, kind, False)
+        new_data = dataset(kind)
+        new_data.df.loc[:, 'y'] += 6
+        if stage == 'learner':
+            model.ml_g = ConstantRegressor(np.nan)
+        else:
+            model.n_folds = 1
+        with pytest.raises((RuntimeError, ValueError)):
+            model.fit(new_data)
+        if kind == 'iv':
+            with pytest.raises(NotFittedError):
+                estimate(model, kind)
+        else:
+>           np.testing.assert_array_equal(estimate(model, kind, False).value, first.value)
+E           AssertionError: 
+E           Arrays are not equal
+E           
+E           Mismatched elements: 2 / 2 (100%)
+E           Mismatch at indices:
+E            [0]: -0.2131464790424687 (ACTUAL), -0.14688495510814284 (DESIRED)
+E            [1]: -0.44647024146801073 (ACTUAL), -0.04449087756290627 (DESIRED)
+E           Max absolute difference among violations: 0.40197936
+E           Max relative difference among violations: 9.03509631
+E            ACTUAL: array([-0.213146, -0.44647 ])
+E            DESIRED: array([-0.146885, -0.044491])
+
+tests/inference/test_data_snapshot_contracts.py:133: AssertionError
+_________ test_failed_refit_does_not_mix_samples[configuration-binary] _________
+
+kind = 'binary', stage = 'configuration'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('stage', ['learner', 'configuration'])
+    def test_failed_refit_does_not_mix_samples(kind, stage):
+        model = estimator(kind, dataset(kind)).fit()
+        first = estimate(model, kind, False)
+        new_data = dataset(kind)
+        new_data.df.loc[:, 'y'] += 6
+        if stage == 'learner':
+            model.ml_g = ConstantRegressor(np.nan)
+        else:
+            model.n_folds = 1
+        with pytest.raises((RuntimeError, ValueError)):
+            model.fit(new_data)
+        if kind == 'iv':
+            with pytest.raises(NotFittedError):
+                estimate(model, kind)
+        else:
+            np.testing.assert_array_equal(estimate(model, kind, False).value, first.value)
+>           assert model.data is not new_data
+E           AssertionError: assert CausalData(df=(180, 3), treatment='d', outcome='y', confounders=['x']) is not CausalData(df=(180, 3), treatment='d', outcome='y', confounders=['x'])
+E            +  where CausalData(df=(180, 3), treatment='d', outcome='y', confounders=['x']) = IRM(status='fitted', n_folds=1, random_state=19).data
+
+tests/inference/test_data_snapshot_contracts.py:134: AssertionError
+_________ test_failed_refit_does_not_mix_samples[configuration-multi] __________
+
+kind = 'multi', stage = 'configuration'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('stage', ['learner', 'configuration'])
+    def test_failed_refit_does_not_mix_samples(kind, stage):
+        model = estimator(kind, dataset(kind)).fit()
+        first = estimate(model, kind, False)
+        new_data = dataset(kind)
+        new_data.df.loc[:, 'y'] += 6
+        if stage == 'learner':
+            model.ml_g = ConstantRegressor(np.nan)
+        else:
+            model.n_folds = 1
+        with pytest.raises((RuntimeError, ValueError)):
+            model.fit(new_data)
+        if kind == 'iv':
+            with pytest.raises(NotFittedError):
+                estimate(model, kind)
+        else:
+            np.testing.assert_array_equal(estimate(model, kind, False).value, first.value)
+>           assert model.data is not new_data
+E           AssertionError: assert MultiCausalData(df=(180, 5), treatment_names=['d0', 'd1', 'd2'], control_treatment='d0')outcome='y', confounders=['x'], user_id=None,  is not MultiCausalData(df=(180, 5), treatment_names=['d0', 'd1', 'd2'], control_treatment='d0')outcome='y', confounders=['x'], user_id=None, 
+E            +  where MultiCausalData(df=(180, 5), treatment_names=['d0', 'd1', 'd2'], control_treatment='d0')outcome='y', confounders=['x'], user_id=None,  = MultiTreatmentIRM(status='fitted', n_folds=1, random_state=19).data
+
+tests/inference/test_data_snapshot_contracts.py:134: AssertionError
+_____________ test_successful_refit_requires_new_inference[binary] _____________
+
+kind = 'binary'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    def test_successful_refit_requires_new_inference(kind):
+        model = estimator(kind, dataset(kind)).fit()
+        first = estimate(model, kind, False)
+        before = np.asarray(first.value).copy()
+        new_data = dataset(kind)
+        new_data.df.loc[:, 'y'] += 5
+        model.fit(new_data)
+>       with pytest.raises(NotFittedError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE NotFittedError
+
+tests/inference/test_data_snapshot_contracts.py:145: Failed
+_____________ test_successful_refit_requires_new_inference[multi] ______________
+
+kind = 'multi'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    def test_successful_refit_requires_new_inference(kind):
+        model = estimator(kind, dataset(kind)).fit()
+        first = estimate(model, kind, False)
+        before = np.asarray(first.value).copy()
+        new_data = dataset(kind)
+        new_data.df.loc[:, 'y'] += 5
+        model.fit(new_data)
+>       with pytest.raises(NotFittedError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE NotFittedError
+
+tests/inference/test_data_snapshot_contracts.py:145: Failed
+_ test_estimate_labels_and_diagnostic_feature_names_are_fit_snapshots[treatment-binary] _
+
+kind = 'binary', role = 'treatment'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('role', ['treatment', 'confounder'])
+    def test_estimate_labels_and_diagnostic_feature_names_are_fit_snapshots(kind, role):
+        data = dataset(kind)
+        model = estimator(kind, data)
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        if role == 'confounder':
+            if kind == 'multi':
+                data.confounders = ['changed_x']
+            else:
+                data.confounders_names = ['changed_x']
+            data.df.rename(columns={'x': 'changed_x'}, inplace=True)
+        elif kind == 'multi':
+            data.treatment_names = ['d0', 'changed_d1', 'd2']
+            data.df.rename(columns={'d1': 'changed_d1'}, inplace=True)
+        else:
+            data.treatment_name = 'changed_d'
+            data.df.rename(columns={'d': 'changed_d'}, inplace=True)
+        second = estimate(model, kind)
+>       assert second.treatment == first.treatment
+E       AssertionError: assert 'changed_d' == 'd'
+E         
+E         - d
+E         + changed_d
+
+tests/inference/test_data_snapshot_contracts.py:173: AssertionError
+_ test_estimate_labels_and_diagnostic_feature_names_are_fit_snapshots[treatment-multi] _
+
+kind = 'multi', role = 'treatment'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('role', ['treatment', 'confounder'])
+    def test_estimate_labels_and_diagnostic_feature_names_are_fit_snapshots(kind, role):
+        data = dataset(kind)
+        model = estimator(kind, data)
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        if role == 'confounder':
+            if kind == 'multi':
+                data.confounders = ['changed_x']
+            else:
+                data.confounders_names = ['changed_x']
+            data.df.rename(columns={'x': 'changed_x'}, inplace=True)
+        elif kind == 'multi':
+            data.treatment_names = ['d0', 'changed_d1', 'd2']
+            data.df.rename(columns={'d1': 'changed_d1'}, inplace=True)
+        else:
+            data.treatment_name = 'changed_d'
+            data.df.rename(columns={'d': 'changed_d'}, inplace=True)
+        second = estimate(model, kind)
+>       assert second.treatment == first.treatment
+E       AssertionError: assert ['d0', 'changed_d1', 'd2'] == ['d0', 'd1', 'd2']
+E         
+E         At index 1 diff: 'changed_d1' != 'd1'
+E         Use -v to get more diff
+
+tests/inference/test_data_snapshot_contracts.py:173: AssertionError
+_ test_estimate_labels_and_diagnostic_feature_names_are_fit_snapshots[treatment-iv] _
+
+kind = 'iv', role = 'treatment'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('role', ['treatment', 'confounder'])
+    def test_estimate_labels_and_diagnostic_feature_names_are_fit_snapshots(kind, role):
+        data = dataset(kind)
+        model = estimator(kind, data)
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        if role == 'confounder':
+            if kind == 'multi':
+                data.confounders = ['changed_x']
+            else:
+                data.confounders_names = ['changed_x']
+            data.df.rename(columns={'x': 'changed_x'}, inplace=True)
+        elif kind == 'multi':
+            data.treatment_names = ['d0', 'changed_d1', 'd2']
+            data.df.rename(columns={'d1': 'changed_d1'}, inplace=True)
+        else:
+            data.treatment_name = 'changed_d'
+            data.df.rename(columns={'d': 'changed_d'}, inplace=True)
+        second = estimate(model, kind)
+>       assert second.treatment == first.treatment
+E       AssertionError: assert 'changed_d' == 'd'
+E         
+E         - d
+E         + changed_d
+
+tests/inference/test_data_snapshot_contracts.py:173: AssertionError
+_ test_estimate_labels_and_diagnostic_feature_names_are_fit_snapshots[confounder-binary] _
+
+kind = 'binary', role = 'confounder'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('role', ['treatment', 'confounder'])
+    def test_estimate_labels_and_diagnostic_feature_names_are_fit_snapshots(kind, role):
+        data = dataset(kind)
+        model = estimator(kind, data)
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        if role == 'confounder':
+            if kind == 'multi':
+                data.confounders = ['changed_x']
+            else:
+                data.confounders_names = ['changed_x']
+            data.df.rename(columns={'x': 'changed_x'}, inplace=True)
+        elif kind == 'multi':
+            data.treatment_names = ['d0', 'changed_d1', 'd2']
+            data.df.rename(columns={'d1': 'changed_d1'}, inplace=True)
+        else:
+            data.treatment_name = 'changed_d'
+            data.df.rename(columns={'d': 'changed_d'}, inplace=True)
+        second = estimate(model, kind)
+        assert second.treatment == first.treatment
+>       assert second.confounders == first.confounders
+E       AssertionError: assert ['changed_x'] == ['x']
+E         
+E         At index 0 diff: 'changed_x' != 'x'
+E         Use -v to get more diff
+
+tests/inference/test_data_snapshot_contracts.py:174: AssertionError
+_ test_estimate_labels_and_diagnostic_feature_names_are_fit_snapshots[confounder-multi] _
+
+kind = 'multi', role = 'confounder'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('role', ['treatment', 'confounder'])
+    def test_estimate_labels_and_diagnostic_feature_names_are_fit_snapshots(kind, role):
+        data = dataset(kind)
+        model = estimator(kind, data)
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        if role == 'confounder':
+            if kind == 'multi':
+                data.confounders = ['changed_x']
+            else:
+                data.confounders_names = ['changed_x']
+            data.df.rename(columns={'x': 'changed_x'}, inplace=True)
+        elif kind == 'multi':
+            data.treatment_names = ['d0', 'changed_d1', 'd2']
+            data.df.rename(columns={'d1': 'changed_d1'}, inplace=True)
+        else:
+            data.treatment_name = 'changed_d'
+            data.df.rename(columns={'d': 'changed_d'}, inplace=True)
+        second = estimate(model, kind)
+        assert second.treatment == first.treatment
+>       assert second.confounders == first.confounders
+E       AssertionError: assert ['changed_x'] == ['x']
+E         
+E         At index 0 diff: 'changed_x' != 'x'
+E         Use -v to get more diff
+
+tests/inference/test_data_snapshot_contracts.py:174: AssertionError
+_ test_estimate_labels_and_diagnostic_feature_names_are_fit_snapshots[confounder-iv] _
+
+kind = 'iv', role = 'confounder'
+
+    @pytest.mark.parametrize('kind', ['binary', 'multi', 'iv'])
+    @pytest.mark.parametrize('role', ['treatment', 'confounder'])
+    def test_estimate_labels_and_diagnostic_feature_names_are_fit_snapshots(kind, role):
+        data = dataset(kind)
+        model = estimator(kind, data)
+        if kind != 'iv':
+            model.store_diagnostics = True
+        model.fit()
+        first = estimate(model, kind)
+        if role == 'confounder':
+            if kind == 'multi':
+                data.confounders = ['changed_x']
+            else:
+                data.confounders_names = ['changed_x']
+            data.df.rename(columns={'x': 'changed_x'}, inplace=True)
+        elif kind == 'multi':
+            data.treatment_names = ['d0', 'changed_d1', 'd2']
+            data.df.rename(columns={'d1': 'changed_d1'}, inplace=True)
+        else:
+            data.treatment_name = 'changed_d'
+            data.df.rename(columns={'d': 'changed_d'}, inplace=True)
+        second = estimate(model, kind)
+        assert second.treatment == first.treatment
+>       assert second.confounders == first.confounders
+E       AssertionError: assert ['changed_x'] == ['x']
+E         
+E         At index 0 diff: 'changed_x' != 'x'
+E         Use -v to get more diff
+
+tests/inference/test_data_snapshot_contracts.py:174: AssertionError
+__________________ test_iv_instrument_label_is_a_fit_snapshot __________________
+
+    def test_iv_instrument_label_is_a_fit_snapshot():
+        data = dataset('iv')
+        model = estimator('iv', data).fit()
+        first = model.estimate()
+        data.instruments_names = ['changed_z']
+        data.df.rename(columns={'z': 'changed_z'}, inplace=True)
+>       assert model.estimate().instrument == first.instrument == 'z'
+E       AssertionError: assert 'changed_z' == 'z'
+E         
+E         - z
+E         + changed_z
+
+tests/inference/test_data_snapshot_contracts.py:191: AssertionError
+__________ test_binary_failed_overlap_publication_keeps_previous_fit ___________
+
+    def test_binary_failed_overlap_publication_keeps_previous_fit():
+        model = estimator('binary', dataset('binary')).fit()
+        first = model.estimate()
+        old_y = model._y.copy()
+        old_predictions = model.m_hat_.copy()
+        model.ml_m = ConstantRegressor(0.2)
+        model.overlap_policy = 'drop'
+        model.overlap_threshold = 0.4
+        new_data = dataset('binary')
+        new_data.df.loc[:, 'y'] += 6
+        with pytest.raises(ValueError, match='removed all observations'):
+            model.fit(new_data)
+>       np.testing.assert_array_equal(model._y, old_y)
+E       AssertionError: 
+E       Arrays are not equal
+E       
+E       Mismatched elements: 180 / 180 (100%)
+E       First 5 mismatches are at indices:
+E        [0]: 15.31159300747834 (ACTUAL), 9.31159300747834 (DESIRED)
+E        [1]: 14.965559733042879 (ACTUAL), 8.965559733042879 (DESIRED)
+E        [2]: 15.30952073043122 (ACTUAL), 9.30952073043122 (DESIRED)
+E        [3]: 14.465430013584495 (ACTUAL), 8.465430013584495 (DESIRED)
+E        [4]: 16.936147289036953 (ACTUAL), 10.93614728903695 (DESIRED)
+E       Max absolute difference among violations: 6.
+E       Max relative difference among violations: 1.55958091
+E        ACTUAL: array([15.311593, 14.96556 , 15.309521, 14.46543 , 16.936147, 15.829079,
+E              13.218096, 14.85081 , 14.993957, 14.369203, 13.958268, 15.351053,
+E              12.821722, 15.060769, 14.092802, 14.258495, 16.197841, 18.860847,...
+E        DESIRED: array([ 9.311593,  8.96556 ,  9.309521,  8.46543 , 10.936147,  9.829079,
+E               7.218096,  8.85081 ,  8.993957,  8.369203,  7.958268,  9.351053,
+E               6.821722,  9.060769,  8.092802,  8.258495, 10.197841, 12.860847,...
+
+tests/inference/test_data_snapshot_contracts.py:208: AssertionError
+=============================== warnings summary ===============================
+causalis/scenarios/iv/dgp.py:177
+  /private/tmp/causalis-b20-mtc4up7y/baseline/causalis/scenarios/iv/dgp.py:177: SyntaxWarning: invalid escape sequence '\e'
+    Z &= f_Z(X, \epsilon_Z) \\
+
+tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[y-binary]
+  /private/tmp/causalis-b20-mtc4up7y/baseline/causalis/scenarios/unconfoundedness/model.py:1393: RuntimeWarning: Relative effect baseline |mu_c|=3.255e-02 is within 1.96 SE of 0 (SE=6.020e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[y-iv]
+  /private/tmp/causalis-b20-mtc4up7y/baseline/causalis/scenarios/iv/refutation/diagnostics.py:522: SyntaxWarning: invalid escape sequence '\m'
+    \theta = \frac{\mathbb{E}[Y|Z=1] - \mathbb{E}[Y|Z=0]}{\mathbb{E}[D|Z=1] - \mathbb{E}[D|Z=0]}
+
+tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[y-iv]
+  /private/tmp/causalis-b20-mtc4up7y/baseline/causalis/scenarios/iv/refutation/diagnostics.py:566: SyntaxWarning: invalid escape sequence '\m'
+    Visualizes the overlap of :math:`\mathbb{P}(Z=1|X)` between the :math:`Z=0` and
+
+tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[d-iv]
+  /private/tmp/causalis-b20-mtc4up7y/baseline/causalis/scenarios/iv/model.py:705: RuntimeWarning: The estimated first stage is weak; LATE may be unstable.
+    warnings.warn(
+
+tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[d-iv]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/lib/python3.12/site-packages/statsmodels/regression/linear_model.py:2018: RuntimeWarning: invalid value encountered in scalar divide
+    return 1 - self.ssr / self.centered_tss
+
+tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[x-iv]
+  /private/tmp/causalis-b20-mtc4up7y/baseline/causalis/scenarios/iv/refutation/diagnostics.py:273: SingularMatrixWarning: The design matrix is rank-deficient. The model parameters are not uniquely determined.
+    return sm.OLS(y, design).fit(cov_type="HC1")
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block20_baseline.xml -
+=========================== short test summary info ============================
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[integer-12-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[integer-12-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[integer-12-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[integer-12-rct]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[integer-129-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[integer-129-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[integer-129-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[integer-129-rct]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[float-12-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[float-12-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[float-12-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[float-12-rct]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[float-129-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[float-129-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[float-129-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[float-129-rct]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[mixed-12-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[mixed-12-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[mixed-12-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[mixed-12-rct]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[mixed-129-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[mixed-129-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[mixed-129-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[mixed-129-rct]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[complex-12-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[complex-12-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[complex-12-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[complex-12-rct]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[complex-129-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[complex-129-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[complex-129-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[complex-129-rct]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[decimal-12-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[decimal-12-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[decimal-12-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[decimal-12-rct]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[decimal-129-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[decimal-129-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[decimal-129-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[decimal-129-rct]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[fraction-12-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[fraction-12-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[fraction-12-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[fraction-12-rct]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[fraction-129-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[fraction-129-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[fraction-129-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_numeric_object_duplicates_are_rejected[fraction-129-rct]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[y-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[y-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[y-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[d-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[d-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[d-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[x-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[x-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[x-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[m_hat-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[m_hat-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[m_hat-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[g-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[g-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[g-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[folds-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[folds-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_returned_diagnostics_own_arrays[folds-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_fit_freezes_sample_and_schema_until_refit[False-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_fit_freezes_sample_and_schema_until_refit[False-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_fit_freezes_sample_and_schema_until_refit[False-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_fit_freezes_sample_and_schema_until_refit[True-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_fit_freezes_sample_and_schema_until_refit[True-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_fit_freezes_sample_and_schema_until_refit[True-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_failed_refit_does_not_mix_samples[learner-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_failed_refit_does_not_mix_samples[learner-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_failed_refit_does_not_mix_samples[configuration-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_failed_refit_does_not_mix_samples[configuration-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_successful_refit_requires_new_inference[binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_successful_refit_requires_new_inference[multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_estimate_labels_and_diagnostic_feature_names_are_fit_snapshots[treatment-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_estimate_labels_and_diagnostic_feature_names_are_fit_snapshots[treatment-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_estimate_labels_and_diagnostic_feature_names_are_fit_snapshots[treatment-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_estimate_labels_and_diagnostic_feature_names_are_fit_snapshots[confounder-binary]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_estimate_labels_and_diagnostic_feature_names_are_fit_snapshots[confounder-multi]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_estimate_labels_and_diagnostic_feature_names_are_fit_snapshots[confounder-iv]
+FAILED tests/inference/test_data_snapshot_contracts.py::test_iv_instrument_label_is_a_fit_snapshot
+FAILED tests/inference/test_data_snapshot_contracts.py::test_binary_failed_overlap_publication_keeps_previous_fit
+================== 86 failed, 21 passed, 7 warnings in 9.32s ===================

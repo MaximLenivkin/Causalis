@@ -12,6 +12,7 @@ from joblib import Parallel, delayed
 from sklearn.base import clone, BaseEstimator
 from sklearn.model_selection import StratifiedKFold
 from sklearn.utils.validation import check_is_fitted
+from causalis.scenarios._fit_state import _publish_complete_fit, _diagnostic_snapshot
 from scipy.stats import norm
 try:
     from catboost import CatBoostClassifier, CatBoostRegressor
@@ -486,6 +487,8 @@ class MultiTreatmentIRM(BaseEstimator):
 
     def _store_fit_sample(self, X: np.ndarray, y: np.ndarray, d: np.ndarray) -> None:
         """Persist immutable fit-time targets and optional diagnostic covariates."""
+        self._fit_data_roles_ = (self.data.outcome, tuple(self.data.treatments.columns),
+                                 tuple(self.data.confounders))
         self._fit_sample_fingerprint_ = self._compute_sample_fingerprint(X=X, y=y, d=d)
         self._y = np.asarray(y, dtype=float).copy()
         self._d = np.asarray(d, dtype=int).copy()
@@ -512,6 +515,13 @@ class MultiTreatmentIRM(BaseEstimator):
         else:
             self.folds_ = None
             self.m_hat_raw_ = None
+
+    def _estimation_data_roles(self):
+        """Resolve fitted names, with compatibility for older fitted objects."""
+        if hasattr(self, "_fit_data_roles_"):
+            return self._fit_data_roles_
+        return (self.data.outcome, tuple(self.data.treatments.columns),
+                tuple(self.data.confounders))
 
     def _resolve_estimation_targets(self) -> Tuple[np.ndarray, np.ndarray]:
         """Return fit-time outcomes and treatments for ATE/ATTE estimation."""
@@ -701,12 +711,20 @@ class MultiTreatmentIRM(BaseEstimator):
             raise RuntimeError("Cross-fitted predictions contain non-finite values.")
         return g_hat, m_hat, folds
 
+    @_publish_complete_fit
     def fit(
         self,
         data: Optional[MultiCausalData] = None,
         *,
         store_diagnostics: Optional[bool] = None,
     ) -> "MultiTreatmentIRM":
+        """Publish a complete replacement fit; preserve the old fit on failure.
+
+        Successful refits clear primary inference; call estimate() again.
+        Sample arrays and result labels use fit-time snapshots. Returned
+        diagnostic arrays are independent copies. External callback effects
+        and mutation of public model attributes are not rolled back.
+        """
         if data is not None:
             self.data = data
         if store_diagnostics is not None:
@@ -953,7 +971,7 @@ class MultiTreatmentIRM(BaseEstimator):
             **sens_elements,
         )
         diag._model = self
-        return diag
+        return _diagnostic_snapshot(diag)
 
     def estimate(
         self,
@@ -1030,7 +1048,7 @@ class MultiTreatmentIRM(BaseEstimator):
             normalize_ipw_effective=normalize_ipw_effective,
             x=x,
         )
-        treatment_cols = list(self.data.treatments.columns)
+        treatment_cols = list(self._estimation_data_roles()[1])
         baseline_treatment = treatment_cols[0]
         active_treatments = treatment_cols[1:]
         contrast_labels = [f"{t} vs {baseline_treatment}" for t in active_treatments]
@@ -1073,14 +1091,14 @@ class MultiTreatmentIRM(BaseEstimator):
             ),
             n_treated=int(np.sum(d[:, 1:] == 1)),
             n_control=int(np.sum(d[:, 0] == 1)),
-            outcome=self.data.outcome,
+            outcome=self._estimation_data_roles()[0],
             treatment=treatment_cols,
             n_treated_by_arm=n_treated_by_arm,
             treatment_mean=treatment_mean,
             control_mean=control_mean,
             control_mean_by_arm=control_mean_by_arm,
             contrast_labels=contrast_labels,
-            confounders=list(self.data.confounders),
+            confounders=list(self._estimation_data_roles()[2]),
             time=datetime.now().strftime("%Y-%m-%d"),
             diagnostic_data=diag,
         )
@@ -1310,7 +1328,7 @@ class MultiTreatmentIRM(BaseEstimator):
 
     def confint(self) -> pd.DataFrame:
         check_is_fitted(self, attributes=["confint_"])
-        treatment_cols = list(self.data.treatments.columns)
+        treatment_cols = list(self._estimation_data_roles()[1])
         contrast_labels = [f"{treatment_cols[0]}_vs_{t}" for t in treatment_cols[1:]]
         return pd.DataFrame(
             {
