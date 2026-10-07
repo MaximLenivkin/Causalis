@@ -1,0 +1,42 @@
+{
+  "source": "28acf6b4fea588ee682251a35a5f23a8757f4415",
+  "baseline": "98d5478a36b5fbb051c863db4599cbc0bc9a8bbf",
+  "changed_source_test_paths": [
+    "causalis/data_contracts/_duplicate_columns.py",
+    "causalis/data_contracts/causaldata.py",
+    "causalis/scenarios/_fit_state.py",
+    "causalis/scenarios/iv/model.py",
+    "causalis/scenarios/multi_unconfoundedness/model.py",
+    "causalis/scenarios/unconfoundedness/model.py",
+    "tests/data/test_duplicate_screening.py",
+    "tests/inference/test_data_snapshot_contracts.py"
+  ],
+  "committed_hashes_verified": 8,
+  "unchanged_executable_functions": 132,
+  "baseline_counts": {
+    "tests": 107,
+    "failures": 86,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 21
+  },
+  "focus_counts": {
+    "tests": 2106,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 2106
+  },
+  "integration_counts": {
+    "tests": 3359,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 3359
+  },
+  "ci_jobs_verified": 6,
+  "complete_case_sets_verified": true,
+  "local_report_links_verified": 23,
+  "handoff_links_verified": 127,
+  "issues": []
+}

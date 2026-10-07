@@ -1,6 +1,7 @@
 # B20 — duplicate values and fitted data snapshots
 
 Baseline: `98d5478a36b5fbb051c863db4599cbc0bc9a8bbf`.
+Source: `28acf6b4fea588ee682251a35a5f23a8757f4415` (source/tests frozen after this checkpoint).
 Scope: four row-data contracts' shared duplicate screening and primary
 binary/multi/IV estimation snapshots. Synthetic data exists only in memory;
 artifacts retain code, counts, configurations, hashes and test evidence.
@@ -58,7 +59,7 @@ Final identical new-test file on isolated exact baseline: **107 cases,
 86 failed / 21 passed / zero errors or skips**. Failures reproduce missing
 rejections, array aliasing, incorrect labels, mixed failed-refit samples and
 stale primary inference. Final focus: **2106 passed**, zero failures/errors/
-skips; existing warning policies are recorded in the log.
+skips; **15 existing policy warnings / 31.36s** are recorded in the log.
 
 Exact compatibility probe: **20 fit pairs / 36 inference pairs**, comparing
 ordinary finite folds/nuisances, score/IF, effect/SE/CI/p, diagnostic arrays and
@@ -67,10 +68,28 @@ binary/multi diagnostic storage0/1. Source frames are unchanged. **132 existing
 functions have unchanged executable ASTs**, excluding docstrings and explicitly
 listed changed methods. These checks do not certify every dependency/input or
 extreme arithmetic magnitude, nor supply a performance/memory improvement.
-Returned payload copies add memory proportional to the payload.
+Returned payload copies add memory proportional to the payload. An additional
+8public numeric/object large-integer cases share exactly the same rounded
+float64 fingerprint but are accepted because exact values differ; inputs are
+unchanged. These are supplementary checks, not additional pytest counts.
 
-Committed integration and six-stack CI evidence will be linked here after
-completion; sensitivity and standalone Sphinx are separate gates.
+Committed correctness integration: **3359 passed**, zero failures/errors/skips,
+**91 warnings / 115.72s**, exit0. Seven named sensitivity exclusions are
+unchanged. Source/tests are frozen at the checkpoint above. This is a scoped
+correctness run, not full sensitivity, standalone Sphinx or release validation.
+[CI37665898544](https://github.com/MaximLenivkin/Causalis/actions/runs/37665898544) completed/success on exact `28acf6b4fea588ee682251a35a5f23a8757f4415`.
+All six downloaded JUnit artifacts contain **3359 passed**, zero failures/
+errors/skips each. Complete case sets, all2106focus cases, exact source,
+actual normalized pytest argv and all seven sensitivity exclusions match the
+local committed integration. Snapshot UTC2026-10-07T18:23:05.139669+00:00.
+Actual Python versions:3.10.21latest/3.10.22legacy,3.11.16,3.12.15,3.13.16,
+3.14.7. Full dependency/source/selection/hash evidence is in the CI manifest.
+Root verification checks8changedsource/testpaths,8committedhashes,
+132unchanged executablefunctions, originalbaseline/probe provenance and
+alllocal/CIcaseIDs/artifacthashes; issues[]. Handoff127immutablelinksverified.
+Only audit artifacts change after the source checkpoint. Owned worktrees and
+pytest temporary files were removed; aggregate evidence is retained. Personal
+source/final audit pushes use the existing branch; no PR/release/upstream merge.
 
 ## Evidence
 
@@ -79,7 +98,12 @@ completion; sensitivity and standalone Sphinx are separate gates.
 - [Fit/payload publication helper](../causalis/scenarios/_fit_state.py)
 - [Baseline runner](run_block20_baseline.py), [manifest](block20_baseline_result.json), [JUnit](block20_baseline.xml), [log](block20_baseline_tests.log)
 - [Focus JUnit](block20_focus.xml), [log](block20_focus_tests.log)
+- [Rounded fingerprint collision evidence](block20_collision_result.json)
 - [Compatibility/AST probe](probe_block20.py), [manifest](block20_probe_result.json), [log](block20_probe_checks.log)
+
+- [Integration runner](run_block20_integration.py), [selection](block20_integration_selection.json), [result](block20_integration_result.json), [log](block20_integration_tests.log)
+- [CI observer](observe_block20_ci.py), [artifact verifier](summarize_block20_ci.py), [manifest](block20_ci_result.json), [log](block20_ci_checks.log)
+- [Root verifier](verify_block20.py), [result](block20_validation_result.json)
 
 Next B21: dedicated standalone Sphinx build and documentation compatibility
 gate. Repeated cross-fitting, group-aware cross-fitting, external OOF and

@@ -104,3 +104,26 @@ seven exclusions verified. [CI](block19_ci_result.json),
 only audit updates after1993cf1. Handoff123immutablelinksverified.
 Next B20 duplicate numeric/object and snapshot/refit contracts; standalone Sphinx
 separate. Stop at B19; sensitivity remains deferred.
+
+
+## B20 — duplicate values and fitted snapshots (2026-10-07)
+
+Source `28acf6b4fea588ee682251a35a5f23a8757f4415`, baseline `98d5478`.
+[Report](BLOCK20_DATA_SNAPSHOT_CONTRACTS.md): exact numeric/object duplicate
+policy, independent returned diagnostic fields, fit-time role labels and
+complete binary/multi fit publication. Failed binary/multi refits retain the
+previous fit; successful refits require fresh primary inference. IV retains
+failed-refit→unfitted. Live private model links/shared learner effects and generic
+sensitivity scalar-state behavior remain outside this guarantee.
+Final107baseline86failed/21passed, focus2106passed/15existingwarnings/31.36s;
+20exactfit/36exactinference pairs and132unchangedexecutablefunctionASTs.
+Committed correctness3359passed,zero failures/errors/skips,91warnings/115.72s.
+Seven sensitivity exclusions unchanged; source/tests frozen; personal push done.
+CI37665898544 completed/success on exactsource: all6artifacts3359passed each.
+FullcaseIDs/2106focus/source/actualnormalizedargv/7exclusions verified.
+[CI](block20_ci_result.json), [validation](block20_validation_result.json),issues[].
+Handoff127immutablelinksverified. Only audit updates aftersource; finalcheckpoint
+via gitlog-1. Owned worktrees/pytesttemporarydata removed; ordinary personal
+push/liveequality and clean state checked at completion.
+Next B21 dedicated standalone Sphinx gate; features after correctness.
+Stop at B20 before context cleanup; sensitivity remains deferred.

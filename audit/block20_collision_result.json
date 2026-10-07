@@ -1,0 +1,63 @@
+{
+  "source": "28acf6b4fea588ee682251a35a5f23a8757f4415",
+  "checks": [
+    {
+      "kind": "binary",
+      "n": 12,
+      "rounded_fingerprints_equal": true,
+      "distinct_exact_values_accepted": true,
+      "input_unchanged": true
+    },
+    {
+      "kind": "binary",
+      "n": 129,
+      "rounded_fingerprints_equal": true,
+      "distinct_exact_values_accepted": true,
+      "input_unchanged": true
+    },
+    {
+      "kind": "multi",
+      "n": 12,
+      "rounded_fingerprints_equal": true,
+      "distinct_exact_values_accepted": true,
+      "input_unchanged": true
+    },
+    {
+      "kind": "multi",
+      "n": 129,
+      "rounded_fingerprints_equal": true,
+      "distinct_exact_values_accepted": true,
+      "input_unchanged": true
+    },
+    {
+      "kind": "iv",
+      "n": 12,
+      "rounded_fingerprints_equal": true,
+      "distinct_exact_values_accepted": true,
+      "input_unchanged": true
+    },
+    {
+      "kind": "iv",
+      "n": 129,
+      "rounded_fingerprints_equal": true,
+      "distinct_exact_values_accepted": true,
+      "input_unchanged": true
+    },
+    {
+      "kind": "rct",
+      "n": 12,
+      "rounded_fingerprints_equal": true,
+      "distinct_exact_values_accepted": true,
+      "input_unchanged": true
+    },
+    {
+      "kind": "rct",
+      "n": 129,
+      "rounded_fingerprints_equal": true,
+      "distinct_exact_values_accepted": true,
+      "input_unchanged": true
+    }
+  ],
+  "source_sha256": "b2d91d30894345d63be4ebeade9519e7ecdff7c209c7ece9ff067acf3a616fc9",
+  "individual_data_saved": false
+}

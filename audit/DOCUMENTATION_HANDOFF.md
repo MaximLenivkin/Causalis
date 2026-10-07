@@ -788,3 +788,43 @@ normalized pytest argv and the seven unchanged sensitivity exclusions match
 local integration. Root validation verifies6changedsource/testpaths,10hashes,
 129unchangedfunctions and exact extraction of IV score/Wald statements.
 Sensitivity, standalone Sphinx and release remain outside this block.
+
+
+## B20 — exact duplicate values and fit-time snapshots (2026-10-07)
+
+Selected columns with exact Python-equal values are rejected even when a numeric
+outcome and numeric object user ID have different dtypes. This replaces B06's
+historical separate numeric/object category policy. Numeric-looking strings
+remain distinct values, and large-integer rounding or matching sampled/hash
+signatures never determines equality. Analysis columns retain real/finite
+validation; support for zero-imaginary complex IDs adds no complex outcome API.
+
+Returned primary binary/multi/IV diagnostics own copies of their public fields.
+Editing their arrays does not change subsequent model estimates, and a later
+refit does not rewrite those arrays. The private live-model link retains its
+meaning; these payloads are not standalone model archives for sensitivity.
+Scalar estimates and confidence-interval labels use fit-time role names until
+refit. Data contracts, model attributes, model configuration and lazy CATE/group
+inputs remain mutable.
+
+Binary/multi failed refits retain the previous complete fit and data reference.
+A successful fit publishes its complete replacement state and clears primary
+scalar inference; call estimate() again before reading coef/SE/CI. Shared
+learner objects and external callback effects are not rolled back. IV retains
+its earlier different contract: a failed refit leaves the model unfitted.
+Generic sensitivity scalar-state semantics remain deferred.
+
+Source checkpoint `28acf6b4fea588ee682251a35a5f23a8757f4415`:
+[duplicate screening](https://github.com/MaximLenivkin/Causalis/blob/28acf6b4fea588ee682251a35a5f23a8757f4415/causalis/data_contracts/causaldata.py),
+[fit/payload publication](https://github.com/MaximLenivkin/Causalis/blob/28acf6b4fea588ee682251a35a5f23a8757f4415/causalis/scenarios/_fit_state.py),
+[public regressions](https://github.com/MaximLenivkin/Causalis/blob/28acf6b4fea588ee682251a35a5f23a8757f4415/tests/inference/test_data_snapshot_contracts.py),
+[block report](https://github.com/MaximLenivkin/Causalis/blob/28acf6b4fea588ee682251a35a5f23a8757f4415/audit/BLOCK20_DATA_SNAPSHOT_CONTRACTS.md).
+
+Final identical baseline107cases:86failed/21passed;2106focusedpassed,
+15existing policy warnings. Twenty exact finite-fit pairs/36exact inference
+pairs preserve score/IF/SE/CI and public signatures;132existing executable
+functions are unchanged. Committed correctness3359passed, zero failures/errors/
+skips,91warnings/115.72s; seven sensitivity exclusions unchanged. [CI37665898544](https://github.com/MaximLenivkin/Causalis/actions/runs/37665898544) completed/success on exactsource: all six
+JUnit artifacts contain3359passing cases each. CompletecaseIDs/all2106focus,
+source/actualnormalizedpytestargv/seven exclusions match local integration. Sensitivity, standalone Sphinx and release are outside
+this block. Additional payload copies cost memory proportional to payload size.

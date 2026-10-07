@@ -10,7 +10,7 @@
 
 1. `AGENTS.md` — локальная `.venv` обязательна. На текущем Mac использовать **`.venv/bin/python`**, Python3.12.14, не старый backing path `/Users/ioann/...`. Окружение восстановлено из project extras dev/docs, dependencycheck и5setupsmoketests прошли. Local setup manifest `.venv/setup-environment.json`; B09 integration manifest записывает реальные проверенные версии.
 2. `audit/FIX_PLAN.md` — порядок блоков, scope gates и deferred findings.
-3. Этот файл и **`audit/BLOCK19_EXTREME_SCORE_ARITHMETIC.md`** — последнее состояние. B09–B18 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
+3. Этот файл и **`audit/BLOCK20_DATA_SNAPSHOT_CONTRACTS.md`** — последнее состояние. B09–B18 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
 4. `audit/REPORT.md` — исторический аудит исходного SHA, не текущий residual bug count.
 
 ## Git
@@ -20,6 +20,41 @@ GitHub авторизация завершена пользователем и �
 Исторический Windows GitHubCLI2.102.0: `& 'C:\Program Files\GitHub CLI\gh.exe' ...` — использовать полный путь, если текущий Codex PATH ещё не обновлён. Авторизацию повторно запрашивать не требуется. Git mutations/network в ограниченной среде могут требовать разрешённого запуска; пользователь уже авторизовал commits/push в личную ветку. PR не создавался. Полная текущая информация — GIT_ACCESS.md.
 
 ## Текущая работа
+
+**B20 завершён** 7 October2026.
+Source `28acf6b4fea588ee682251a35a5f23a8757f4415`, baseline `98d5478`.
+[Report](BLOCK20_DATA_SNAPSHOT_CONTRACTS.md). Exact numeric/object duplicate
+policy explicitly replaces B06's separate categories. Numeric-looking strings
+and large-integer rounding cannot establish equality. Returned binary/multi/IV
+primary diagnostic fields are copied; private model links remain live.
+Successful fits freeze role labels with sample arrays. Binary/multi stage fits:
+failure retains previous complete fit/data reference, success clears primary
+inference until estimate(). IV retains failed-refit→unfitted. Caller parameter
+mutations, shared learner/callback effects and sensitivity scalar-state contracts
+are not rolled back/certified. Model attrs/contracts/config/lazy CATE/groups
+remain mutable. No new ownership/view/performance optimization introduced.
+Final107baseline86failed/21passed, focus2106passed/15warnings/31.36s;
+20exactfit/36exactinference pairs,132unchangedexecutablefunctionASTs,8hashes.
+Committed correctness3359passed,0failures/errors/skips,91warnings/115.72s;
+seven sensitivity exclusions unchanged. Source/tests frozen after28acf6b.
+Personal source push completed; CI37665898544 completed/success on exact28acf6b:
+all6artifacts3359passed each. FullcaseIDs/2106focus/source/normalizedargv and
+seven exclusions verified; snapshotUTC2026-10-07T18:23:05.139669+00:00.
+ActualPython3.10.21latest/3.10.22legacy,3.11.16,3.12.15,3.13.16,3.14.7;
+complete dependency/source evidence in block20_ci_result.json.
+Handoff127immutablelinksverified,issues[]. Root verifier checks8source/testpaths,8hashes,132unchangedexecutablefunctions,
+originalbaseline/probeprovenance and alllocal/CIcaseIDs/artifacthashes,issues[].
+Supplementary8exactroundedfingerprintcollisions accepted (not added to pytest
+counts). Only audit updates aftersource; finalcheckpoint via gitlog-1. Owned
+worktrees/pytesttemp removed. Ordinaryfinalpush/liveequality andcleanstate
+checked at completion. No PR/release/upstream merge.
+
+Next standalone B21: dedicated standalone Sphinx build/documentation
+compatibility gate. Then repeatedCF→groupCF→externalOOF→DR/R-CATE features.
+Sensitivity, SC08LOO and selected-UATT deferred. Stop at B20; B21 requires a
+new user request. Do not repeat login/fork/environment setup.
+
+## Historical B19 checkpoint
 
 **B19 завершён** 7 октября2026: extreme finite score/IF and normalized custom ATE.
 Source `1993cf1040e21630844688e415ef2cf15598ffc3`, baseline `52cd6e2`.
