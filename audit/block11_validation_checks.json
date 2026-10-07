@@ -1,0 +1,23 @@
+{
+  "baseline": "4d6b8143db7a93c1a7eba371fcd144878d80c896",
+  "source": "cdc2c9590246c5b049d2184ba3479324217b2b00",
+  "changed_source_paths": [
+    "causalis/dgp/causaldata/base.py",
+    "causalis/dgp/causaldata_instrumental/base.py",
+    "tests/data/test_binary_iv_namespace_contract.py"
+  ],
+  "new_cases": 163,
+  "local": {
+    "tests": 2235,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 2234
+  },
+  "ci_jobs_verified": 6,
+  "prior_did_runtime_source": "95a8b7599fb129fb2c5973f50e9b4a8018732f6c",
+  "did_called_closure_unchanged": true,
+  "python_files_parsed": 9,
+  "relative_links_checked": 18,
+  "issues": []
+}

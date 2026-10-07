@@ -1,0 +1,3219 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF.........................FFFF [ 44%]
+FFFFFFFFFFFFFFFFFFFF....FFFFFFFFFF...........................FFFFFFFFFFF [ 88%]
+FFFFFFF....FFFFFFFF                                                      [100%]
+=================================== FAILURES ===================================
+_ test_confounders_cannot_replace_fixed_outcome_or_treatment[y-outcome-False-binary] _
+
+kind = 'binary', include_oracle = False, column = 'y', role = 'outcome'
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("column,role", [("y", "outcome"), ("d", "treatment")])
+    def test_confounders_cannot_replace_fixed_outcome_or_treatment(
+        kind, include_oracle, column, role
+    ):
+>       _collision(
+            lambda: _generator(
+                kind,
+                include_oracle=include_oracle,
+                confounder_specs=[{"name": column, "dist": "normal"}],
+            ).generate(N),
+            column,
+            ("confounder", role),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_fixed_outcome_or_treatment.<locals>.<lambda> at 0x115826c00>
+column = 'y', roles = ('confounder', 'outcome')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_ test_confounders_cannot_replace_fixed_outcome_or_treatment[y-outcome-False-iv] _
+
+kind = 'iv', include_oracle = False, column = 'y', role = 'outcome'
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("column,role", [("y", "outcome"), ("d", "treatment")])
+    def test_confounders_cannot_replace_fixed_outcome_or_treatment(
+        kind, include_oracle, column, role
+    ):
+>       _collision(
+            lambda: _generator(
+                kind,
+                include_oracle=include_oracle,
+                confounder_specs=[{"name": column, "dist": "normal"}],
+            ).generate(N),
+            column,
+            ("confounder", role),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_fixed_outcome_or_treatment.<locals>.<lambda> at 0x1158276a0>
+column = 'y', roles = ('confounder', 'outcome')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_ test_confounders_cannot_replace_fixed_outcome_or_treatment[y-outcome-True-binary] _
+
+kind = 'binary', include_oracle = True, column = 'y', role = 'outcome'
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("column,role", [("y", "outcome"), ("d", "treatment")])
+    def test_confounders_cannot_replace_fixed_outcome_or_treatment(
+        kind, include_oracle, column, role
+    ):
+>       _collision(
+            lambda: _generator(
+                kind,
+                include_oracle=include_oracle,
+                confounder_specs=[{"name": column, "dist": "normal"}],
+            ).generate(N),
+            column,
+            ("confounder", role),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_fixed_outcome_or_treatment.<locals>.<lambda> at 0x1159002c0>
+column = 'y', roles = ('confounder', 'outcome')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_ test_confounders_cannot_replace_fixed_outcome_or_treatment[y-outcome-True-iv] _
+
+kind = 'iv', include_oracle = True, column = 'y', role = 'outcome'
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("column,role", [("y", "outcome"), ("d", "treatment")])
+    def test_confounders_cannot_replace_fixed_outcome_or_treatment(
+        kind, include_oracle, column, role
+    ):
+>       _collision(
+            lambda: _generator(
+                kind,
+                include_oracle=include_oracle,
+                confounder_specs=[{"name": column, "dist": "normal"}],
+            ).generate(N),
+            column,
+            ("confounder", role),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_fixed_outcome_or_treatment.<locals>.<lambda> at 0x115900680>
+column = 'y', roles = ('confounder', 'outcome')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_ test_confounders_cannot_replace_fixed_outcome_or_treatment[d-treatment-False-binary] _
+
+kind = 'binary', include_oracle = False, column = 'd', role = 'treatment'
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("column,role", [("y", "outcome"), ("d", "treatment")])
+    def test_confounders_cannot_replace_fixed_outcome_or_treatment(
+        kind, include_oracle, column, role
+    ):
+>       _collision(
+            lambda: _generator(
+                kind,
+                include_oracle=include_oracle,
+                confounder_specs=[{"name": column, "dist": "normal"}],
+            ).generate(N),
+            column,
+            ("confounder", role),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_fixed_outcome_or_treatment.<locals>.<lambda> at 0x115900040>
+column = 'd', roles = ('confounder', 'treatment')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_ test_confounders_cannot_replace_fixed_outcome_or_treatment[d-treatment-False-iv] _
+
+kind = 'iv', include_oracle = False, column = 'd', role = 'treatment'
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("column,role", [("y", "outcome"), ("d", "treatment")])
+    def test_confounders_cannot_replace_fixed_outcome_or_treatment(
+        kind, include_oracle, column, role
+    ):
+>       _collision(
+            lambda: _generator(
+                kind,
+                include_oracle=include_oracle,
+                confounder_specs=[{"name": column, "dist": "normal"}],
+            ).generate(N),
+            column,
+            ("confounder", role),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_fixed_outcome_or_treatment.<locals>.<lambda> at 0x115900b80>
+column = 'd', roles = ('confounder', 'treatment')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_ test_confounders_cannot_replace_fixed_outcome_or_treatment[d-treatment-True-binary] _
+
+kind = 'binary', include_oracle = True, column = 'd', role = 'treatment'
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("column,role", [("y", "outcome"), ("d", "treatment")])
+    def test_confounders_cannot_replace_fixed_outcome_or_treatment(
+        kind, include_oracle, column, role
+    ):
+>       _collision(
+            lambda: _generator(
+                kind,
+                include_oracle=include_oracle,
+                confounder_specs=[{"name": column, "dist": "normal"}],
+            ).generate(N),
+            column,
+            ("confounder", role),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_fixed_outcome_or_treatment.<locals>.<lambda> at 0x1159007c0>
+column = 'd', roles = ('confounder', 'treatment')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_ test_confounders_cannot_replace_fixed_outcome_or_treatment[d-treatment-True-iv] _
+
+kind = 'iv', include_oracle = True, column = 'd', role = 'treatment'
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("include_oracle", [False, True])
+    @pytest.mark.parametrize("column,role", [("y", "outcome"), ("d", "treatment")])
+    def test_confounders_cannot_replace_fixed_outcome_or_treatment(
+        kind, include_oracle, column, role
+    ):
+>       _collision(
+            lambda: _generator(
+                kind,
+                include_oracle=include_oracle,
+                confounder_specs=[{"name": column, "dist": "normal"}],
+            ).generate(N),
+            column,
+            ("confounder", role),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:61: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_fixed_outcome_or_treatment.<locals>.<lambda> at 0x115900a40>
+column = 'd', roles = ('confounder', 'treatment')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+__________________ test_confounder_cannot_replace_instrument ___________________
+
+    def test_confounder_cannot_replace_instrument():
+>       _collision(
+            lambda: _generator("iv", confounder_specs=[{"name": "z"}]).generate(N),
+            "z",
+            ("confounder", "instrument"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:73: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounder_cannot_replace_instrument.<locals>.<lambda> at 0x115901580>
+column = 'z', roles = ('confounder', 'instrument')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_____ test_confounders_cannot_replace_any_enabled_family_oracle[binary-m] ______
+
+kind = 'binary', column = 'm'
+
+    @pytest.mark.parametrize("kind,column", ORACLE_CASES)
+    def test_confounders_cannot_replace_any_enabled_family_oracle(kind, column):
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[{"name": column}]).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_any_enabled_family_oracle.<locals>.<lambda> at 0x115900f40>
+column = 'm', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+___ test_confounders_cannot_replace_any_enabled_family_oracle[binary-m_obs] ____
+
+kind = 'binary', column = 'm_obs'
+
+    @pytest.mark.parametrize("kind,column", ORACLE_CASES)
+    def test_confounders_cannot_replace_any_enabled_family_oracle(kind, column):
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[{"name": column}]).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_any_enabled_family_oracle.<locals>.<lambda> at 0x115901a80>
+column = 'm_obs', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+__ test_confounders_cannot_replace_any_enabled_family_oracle[binary-tau_link] __
+
+kind = 'binary', column = 'tau_link'
+
+    @pytest.mark.parametrize("kind,column", ORACLE_CASES)
+    def test_confounders_cannot_replace_any_enabled_family_oracle(kind, column):
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[{"name": column}]).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_any_enabled_family_oracle.<locals>.<lambda> at 0x115901bc0>
+column = 'tau_link', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_____ test_confounders_cannot_replace_any_enabled_family_oracle[binary-g0] _____
+
+kind = 'binary', column = 'g0'
+
+    @pytest.mark.parametrize("kind,column", ORACLE_CASES)
+    def test_confounders_cannot_replace_any_enabled_family_oracle(kind, column):
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[{"name": column}]).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_any_enabled_family_oracle.<locals>.<lambda> at 0x115902200>
+column = 'g0', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_____ test_confounders_cannot_replace_any_enabled_family_oracle[binary-g1] _____
+
+kind = 'binary', column = 'g1'
+
+    @pytest.mark.parametrize("kind,column", ORACLE_CASES)
+    def test_confounders_cannot_replace_any_enabled_family_oracle(kind, column):
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[{"name": column}]).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_any_enabled_family_oracle.<locals>.<lambda> at 0x1159023e0>
+column = 'g1', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+____ test_confounders_cannot_replace_any_enabled_family_oracle[binary-cate] ____
+
+kind = 'binary', column = 'cate'
+
+    @pytest.mark.parametrize("kind,column", ORACLE_CASES)
+    def test_confounders_cannot_replace_any_enabled_family_oracle(kind, column):
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[{"name": column}]).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_any_enabled_family_oracle.<locals>.<lambda> at 0x1159028e0>
+column = 'cate', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_______ test_confounders_cannot_replace_any_enabled_family_oracle[iv-m] ________
+
+kind = 'iv', column = 'm'
+
+    @pytest.mark.parametrize("kind,column", ORACLE_CASES)
+    def test_confounders_cannot_replace_any_enabled_family_oracle(kind, column):
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[{"name": column}]).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_any_enabled_family_oracle.<locals>.<lambda> at 0x115902b60>
+column = 'm', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_____ test_confounders_cannot_replace_any_enabled_family_oracle[iv-r_obs] ______
+
+kind = 'iv', column = 'r_obs'
+
+    @pytest.mark.parametrize("kind,column", ORACLE_CASES)
+    def test_confounders_cannot_replace_any_enabled_family_oracle(kind, column):
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[{"name": column}]).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_any_enabled_family_oracle.<locals>.<lambda> at 0x115903100>
+column = 'r_obs', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+______ test_confounders_cannot_replace_any_enabled_family_oracle[iv-r_z0] ______
+
+kind = 'iv', column = 'r_z0'
+
+    @pytest.mark.parametrize("kind,column", ORACLE_CASES)
+    def test_confounders_cannot_replace_any_enabled_family_oracle(kind, column):
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[{"name": column}]).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_any_enabled_family_oracle.<locals>.<lambda> at 0x1159018a0>
+column = 'r_z0', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+______ test_confounders_cannot_replace_any_enabled_family_oracle[iv-r_z1] ______
+
+kind = 'iv', column = 'r_z1'
+
+    @pytest.mark.parametrize("kind,column", ORACLE_CASES)
+    def test_confounders_cannot_replace_any_enabled_family_oracle(kind, column):
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[{"name": column}]).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_any_enabled_family_oracle.<locals>.<lambda> at 0x115901b20>
+column = 'r_z1', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+______ test_confounders_cannot_replace_any_enabled_family_oracle[iv-g_z0] ______
+
+kind = 'iv', column = 'g_z0'
+
+    @pytest.mark.parametrize("kind,column", ORACLE_CASES)
+    def test_confounders_cannot_replace_any_enabled_family_oracle(kind, column):
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[{"name": column}]).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_any_enabled_family_oracle.<locals>.<lambda> at 0x1159019e0>
+column = 'g_z0', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+______ test_confounders_cannot_replace_any_enabled_family_oracle[iv-g_z1] ______
+
+kind = 'iv', column = 'g_z1'
+
+    @pytest.mark.parametrize("kind,column", ORACLE_CASES)
+    def test_confounders_cannot_replace_any_enabled_family_oracle(kind, column):
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[{"name": column}]).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_any_enabled_family_oracle.<locals>.<lambda> at 0x115900a40>
+column = 'g_z1', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_ test_confounders_cannot_replace_any_enabled_family_oracle[iv-iv_first_stage] _
+
+kind = 'iv', column = 'iv_first_stage'
+
+    @pytest.mark.parametrize("kind,column", ORACLE_CASES)
+    def test_confounders_cannot_replace_any_enabled_family_oracle(kind, column):
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[{"name": column}]).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_any_enabled_family_oracle.<locals>.<lambda> at 0x115900b80>
+column = 'iv_first_stage', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_ test_confounders_cannot_replace_any_enabled_family_oracle[iv-iv_reduced_form] _
+
+kind = 'iv', column = 'iv_reduced_form'
+
+    @pytest.mark.parametrize("kind,column", ORACLE_CASES)
+    def test_confounders_cannot_replace_any_enabled_family_oracle(kind, column):
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[{"name": column}]).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_any_enabled_family_oracle.<locals>.<lambda> at 0x1159034c0>
+column = 'iv_reduced_form', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_____ test_confounders_cannot_replace_any_enabled_family_oracle[iv-late_x] _____
+
+kind = 'iv', column = 'late_x'
+
+    @pytest.mark.parametrize("kind,column", ORACLE_CASES)
+    def test_confounders_cannot_replace_any_enabled_family_oracle(kind, column):
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[{"name": column}]).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_any_enabled_family_oracle.<locals>.<lambda> at 0x1159037e0>
+column = 'late_x', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+______ test_confounders_cannot_replace_any_enabled_family_oracle[iv-late] ______
+
+kind = 'iv', column = 'late'
+
+    @pytest.mark.parametrize("kind,column", ORACLE_CASES)
+    def test_confounders_cannot_replace_any_enabled_family_oracle(kind, column):
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[{"name": column}]).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_any_enabled_family_oracle.<locals>.<lambda> at 0x115903240>
+column = 'late', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+____ test_confounders_cannot_replace_any_enabled_family_oracle[iv-tau_link] ____
+
+kind = 'iv', column = 'tau_link'
+
+    @pytest.mark.parametrize("kind,column", ORACLE_CASES)
+    def test_confounders_cannot_replace_any_enabled_family_oracle(kind, column):
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[{"name": column}]).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_any_enabled_family_oracle.<locals>.<lambda> at 0x115903ce0>
+column = 'tau_link', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+______ test_confounders_cannot_replace_any_enabled_family_oracle[iv-g_d0] ______
+
+kind = 'iv', column = 'g_d0'
+
+    @pytest.mark.parametrize("kind,column", ORACLE_CASES)
+    def test_confounders_cannot_replace_any_enabled_family_oracle(kind, column):
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[{"name": column}]).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_any_enabled_family_oracle.<locals>.<lambda> at 0x115903880>
+column = 'g_d0', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+______ test_confounders_cannot_replace_any_enabled_family_oracle[iv-g_d1] ______
+
+kind = 'iv', column = 'g_d1'
+
+    @pytest.mark.parametrize("kind,column", ORACLE_CASES)
+    def test_confounders_cannot_replace_any_enabled_family_oracle(kind, column):
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[{"name": column}]).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_any_enabled_family_oracle.<locals>.<lambda> at 0x115940540>
+column = 'g_d1', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+______ test_confounders_cannot_replace_any_enabled_family_oracle[iv-cate] ______
+
+kind = 'iv', column = 'cate'
+
+    @pytest.mark.parametrize("kind,column", ORACLE_CASES)
+    def test_confounders_cannot_replace_any_enabled_family_oracle(kind, column):
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[{"name": column}]).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_confounders_cannot_replace_any_enabled_family_oracle.<locals>.<lambda> at 0x1159031a0>
+column = 'cate', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+____________ test_instrument_cannot_share_an_enabled_oracle_name[m] ____________
+
+column = 'm'
+
+    @pytest.mark.parametrize("column", IV_ORACLES)
+    def test_instrument_cannot_share_an_enabled_oracle_name(column):
+>       _collision(
+            lambda: _generator("iv", instrument_name=column).generate(N),
+            column,
+            ("instrument", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_instrument_cannot_share_an_enabled_oracle_name.<locals>.<lambda> at 0x115900b80>
+column = 'm', roles = ('instrument', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+__________ test_instrument_cannot_share_an_enabled_oracle_name[r_obs] __________
+
+column = 'r_obs'
+
+    @pytest.mark.parametrize("column", IV_ORACLES)
+    def test_instrument_cannot_share_an_enabled_oracle_name(column):
+>       _collision(
+            lambda: _generator("iv", instrument_name=column).generate(N),
+            column,
+            ("instrument", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_instrument_cannot_share_an_enabled_oracle_name.<locals>.<lambda> at 0x115901b20>
+column = 'r_obs', roles = ('instrument', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+__________ test_instrument_cannot_share_an_enabled_oracle_name[r_z0] ___________
+
+column = 'r_z0'
+
+    @pytest.mark.parametrize("column", IV_ORACLES)
+    def test_instrument_cannot_share_an_enabled_oracle_name(column):
+>       _collision(
+            lambda: _generator("iv", instrument_name=column).generate(N),
+            column,
+            ("instrument", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_instrument_cannot_share_an_enabled_oracle_name.<locals>.<lambda> at 0x1159018a0>
+column = 'r_z0', roles = ('instrument', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+__________ test_instrument_cannot_share_an_enabled_oracle_name[r_z1] ___________
+
+column = 'r_z1'
+
+    @pytest.mark.parametrize("column", IV_ORACLES)
+    def test_instrument_cannot_share_an_enabled_oracle_name(column):
+>       _collision(
+            lambda: _generator("iv", instrument_name=column).generate(N),
+            column,
+            ("instrument", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_instrument_cannot_share_an_enabled_oracle_name.<locals>.<lambda> at 0x115940400>
+column = 'r_z1', roles = ('instrument', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+__________ test_instrument_cannot_share_an_enabled_oracle_name[g_z0] ___________
+
+column = 'g_z0'
+
+    @pytest.mark.parametrize("column", IV_ORACLES)
+    def test_instrument_cannot_share_an_enabled_oracle_name(column):
+>       _collision(
+            lambda: _generator("iv", instrument_name=column).generate(N),
+            column,
+            ("instrument", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_instrument_cannot_share_an_enabled_oracle_name.<locals>.<lambda> at 0x115940a40>
+column = 'g_z0', roles = ('instrument', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+__________ test_instrument_cannot_share_an_enabled_oracle_name[g_z1] ___________
+
+column = 'g_z1'
+
+    @pytest.mark.parametrize("column", IV_ORACLES)
+    def test_instrument_cannot_share_an_enabled_oracle_name(column):
+>       _collision(
+            lambda: _generator("iv", instrument_name=column).generate(N),
+            column,
+            ("instrument", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_instrument_cannot_share_an_enabled_oracle_name.<locals>.<lambda> at 0x115940d60>
+column = 'g_z1', roles = ('instrument', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_____ test_instrument_cannot_share_an_enabled_oracle_name[iv_first_stage] ______
+
+column = 'iv_first_stage'
+
+    @pytest.mark.parametrize("column", IV_ORACLES)
+    def test_instrument_cannot_share_an_enabled_oracle_name(column):
+>       _collision(
+            lambda: _generator("iv", instrument_name=column).generate(N),
+            column,
+            ("instrument", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_instrument_cannot_share_an_enabled_oracle_name.<locals>.<lambda> at 0x115941080>
+column = 'iv_first_stage', roles = ('instrument', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_____ test_instrument_cannot_share_an_enabled_oracle_name[iv_reduced_form] _____
+
+column = 'iv_reduced_form'
+
+    @pytest.mark.parametrize("column", IV_ORACLES)
+    def test_instrument_cannot_share_an_enabled_oracle_name(column):
+>       _collision(
+            lambda: _generator("iv", instrument_name=column).generate(N),
+            column,
+            ("instrument", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_instrument_cannot_share_an_enabled_oracle_name.<locals>.<lambda> at 0x115940ae0>
+column = 'iv_reduced_form', roles = ('instrument', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_________ test_instrument_cannot_share_an_enabled_oracle_name[late_x] __________
+
+column = 'late_x'
+
+    @pytest.mark.parametrize("column", IV_ORACLES)
+    def test_instrument_cannot_share_an_enabled_oracle_name(column):
+>       _collision(
+            lambda: _generator("iv", instrument_name=column).generate(N),
+            column,
+            ("instrument", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_instrument_cannot_share_an_enabled_oracle_name.<locals>.<lambda> at 0x1159416c0>
+column = 'late_x', roles = ('instrument', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+__________ test_instrument_cannot_share_an_enabled_oracle_name[late] ___________
+
+column = 'late'
+
+    @pytest.mark.parametrize("column", IV_ORACLES)
+    def test_instrument_cannot_share_an_enabled_oracle_name(column):
+>       _collision(
+            lambda: _generator("iv", instrument_name=column).generate(N),
+            column,
+            ("instrument", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_instrument_cannot_share_an_enabled_oracle_name.<locals>.<lambda> at 0x1159419e0>
+column = 'late', roles = ('instrument', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+________ test_instrument_cannot_share_an_enabled_oracle_name[tau_link] _________
+
+column = 'tau_link'
+
+    @pytest.mark.parametrize("column", IV_ORACLES)
+    def test_instrument_cannot_share_an_enabled_oracle_name(column):
+>       _collision(
+            lambda: _generator("iv", instrument_name=column).generate(N),
+            column,
+            ("instrument", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_instrument_cannot_share_an_enabled_oracle_name.<locals>.<lambda> at 0x115941d00>
+column = 'tau_link', roles = ('instrument', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+__________ test_instrument_cannot_share_an_enabled_oracle_name[g_d0] ___________
+
+column = 'g_d0'
+
+    @pytest.mark.parametrize("column", IV_ORACLES)
+    def test_instrument_cannot_share_an_enabled_oracle_name(column):
+>       _collision(
+            lambda: _generator("iv", instrument_name=column).generate(N),
+            column,
+            ("instrument", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_instrument_cannot_share_an_enabled_oracle_name.<locals>.<lambda> at 0x115900b80>
+column = 'g_d0', roles = ('instrument', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+__________ test_instrument_cannot_share_an_enabled_oracle_name[g_d1] ___________
+
+column = 'g_d1'
+
+    @pytest.mark.parametrize("column", IV_ORACLES)
+    def test_instrument_cannot_share_an_enabled_oracle_name(column):
+>       _collision(
+            lambda: _generator("iv", instrument_name=column).generate(N),
+            column,
+            ("instrument", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_instrument_cannot_share_an_enabled_oracle_name.<locals>.<lambda> at 0x115941a80>
+column = 'g_d1', roles = ('instrument', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+__________ test_instrument_cannot_share_an_enabled_oracle_name[cate] ___________
+
+column = 'cate'
+
+    @pytest.mark.parametrize("column", IV_ORACLES)
+    def test_instrument_cannot_share_an_enabled_oracle_name(column):
+>       _collision(
+            lambda: _generator("iv", instrument_name=column).generate(N),
+            column,
+            ("instrument", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_instrument_cannot_share_an_enabled_oracle_name.<locals>.<lambda> at 0x115941620>
+column = 'cate', roles = ('instrument', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_ test_categorical_expansion_cannot_replace_enabled_oracles[binary-spec0-m_obs] _
+
+kind = 'binary'
+spec = {'name': 'm', 'categories': ['base', 'obs'], 'dist': 'categorical'}
+column = 'm_obs'
+
+    @pytest.mark.parametrize(
+        "kind,spec,column",
+        [
+            ("binary", {"name": "m", "categories": ["base", "obs"]}, "m_obs"),
+            ("binary", {"name": "tau", "categories": ["base", "link"]}, "tau_link"),
+            ("iv", {"name": "r", "categories": ["base", "z0"]}, "r_z0"),
+            ("iv", {"name": "iv", "categories": ["base", "first_stage"]}, "iv_first_stage"),
+        ],
+    )
+    def test_categorical_expansion_cannot_replace_enabled_oracles(kind, spec, column):
+        spec = dict(spec, dist="categorical")
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[spec], use_copula=True).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:142: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_categorical_expansion_cannot_replace_enabled_oracles.<locals>.<lambda> at 0x1159416c0>
+column = 'm_obs', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_ test_categorical_expansion_cannot_replace_enabled_oracles[binary-spec1-tau_link] _
+
+kind = 'binary'
+spec = {'name': 'tau', 'categories': ['base', 'link'], 'dist': 'categorical'}
+column = 'tau_link'
+
+    @pytest.mark.parametrize(
+        "kind,spec,column",
+        [
+            ("binary", {"name": "m", "categories": ["base", "obs"]}, "m_obs"),
+            ("binary", {"name": "tau", "categories": ["base", "link"]}, "tau_link"),
+            ("iv", {"name": "r", "categories": ["base", "z0"]}, "r_z0"),
+            ("iv", {"name": "iv", "categories": ["base", "first_stage"]}, "iv_first_stage"),
+        ],
+    )
+    def test_categorical_expansion_cannot_replace_enabled_oracles(kind, spec, column):
+        spec = dict(spec, dist="categorical")
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[spec], use_copula=True).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:142: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_categorical_expansion_cannot_replace_enabled_oracles.<locals>.<lambda> at 0x115943880>
+column = 'tau_link', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+___ test_categorical_expansion_cannot_replace_enabled_oracles[iv-spec2-r_z0] ___
+
+kind = 'iv'
+spec = {'name': 'r', 'categories': ['base', 'z0'], 'dist': 'categorical'}
+column = 'r_z0'
+
+    @pytest.mark.parametrize(
+        "kind,spec,column",
+        [
+            ("binary", {"name": "m", "categories": ["base", "obs"]}, "m_obs"),
+            ("binary", {"name": "tau", "categories": ["base", "link"]}, "tau_link"),
+            ("iv", {"name": "r", "categories": ["base", "z0"]}, "r_z0"),
+            ("iv", {"name": "iv", "categories": ["base", "first_stage"]}, "iv_first_stage"),
+        ],
+    )
+    def test_categorical_expansion_cannot_replace_enabled_oracles(kind, spec, column):
+        spec = dict(spec, dist="categorical")
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[spec], use_copula=True).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:142: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_categorical_expansion_cannot_replace_enabled_oracles.<locals>.<lambda> at 0x115943ec0>
+column = 'r_z0', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_ test_categorical_expansion_cannot_replace_enabled_oracles[iv-spec3-iv_first_stage] _
+
+kind = 'iv'
+spec = {'name': 'iv', 'categories': ['base', 'first_stage'], 'dist': 'categorical'}
+column = 'iv_first_stage'
+
+    @pytest.mark.parametrize(
+        "kind,spec,column",
+        [
+            ("binary", {"name": "m", "categories": ["base", "obs"]}, "m_obs"),
+            ("binary", {"name": "tau", "categories": ["base", "link"]}, "tau_link"),
+            ("iv", {"name": "r", "categories": ["base", "z0"]}, "r_z0"),
+            ("iv", {"name": "iv", "categories": ["base", "first_stage"]}, "iv_first_stage"),
+        ],
+    )
+    def test_categorical_expansion_cannot_replace_enabled_oracles(kind, spec, column):
+        spec = dict(spec, dist="categorical")
+>       _collision(
+            lambda: _generator(kind, confounder_specs=[spec], use_copula=True).generate(N),
+            column,
+            ("confounder", "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:142: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_categorical_expansion_cannot_replace_enabled_oracles.<locals>.<lambda> at 0x1159a0180>
+column = 'iv_first_stage', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_ test_expanded_and_ordinary_confounders_must_have_distinct_names[binary-False] _
+
+kind = 'binary', use_copula = False
+
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    def test_expanded_and_ordinary_confounders_must_have_distinct_names(kind, use_copula):
+        specs = [
+            {"name": "tier", "dist": "categorical", "categories": ["base", "B"]},
+            {"name": "tier_B", "dist": "normal"},
+        ]
+>       _collision(
+            lambda: _generator(
+                kind, confounder_specs=specs, use_copula=use_copula
+            ).generate(N),
+            "tier_B",
+            ("confounder",),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:156: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_expanded_and_ordinary_confounders_must_have_distinct_names.<locals>.<lambda> at 0x1159a0680>
+column = 'tier_B', roles = ('confounder',)
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_ test_expanded_and_ordinary_confounders_must_have_distinct_names[binary-True] _
+
+kind = 'binary', use_copula = True
+
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    def test_expanded_and_ordinary_confounders_must_have_distinct_names(kind, use_copula):
+        specs = [
+            {"name": "tier", "dist": "categorical", "categories": ["base", "B"]},
+            {"name": "tier_B", "dist": "normal"},
+        ]
+>       _collision(
+            lambda: _generator(
+                kind, confounder_specs=specs, use_copula=use_copula
+            ).generate(N),
+            "tier_B",
+            ("confounder",),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:156: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_expanded_and_ordinary_confounders_must_have_distinct_names.<locals>.<lambda> at 0x1159a0ae0>
+column = 'tier_B', roles = ('confounder',)
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+__ test_expanded_and_ordinary_confounders_must_have_distinct_names[iv-False] ___
+
+kind = 'iv', use_copula = False
+
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    def test_expanded_and_ordinary_confounders_must_have_distinct_names(kind, use_copula):
+        specs = [
+            {"name": "tier", "dist": "categorical", "categories": ["base", "B"]},
+            {"name": "tier_B", "dist": "normal"},
+        ]
+>       _collision(
+            lambda: _generator(
+                kind, confounder_specs=specs, use_copula=use_copula
+            ).generate(N),
+            "tier_B",
+            ("confounder",),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:156: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_expanded_and_ordinary_confounders_must_have_distinct_names.<locals>.<lambda> at 0x1159a0e00>
+column = 'tier_B', roles = ('confounder',)
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+___ test_expanded_and_ordinary_confounders_must_have_distinct_names[iv-True] ___
+
+kind = 'iv', use_copula = True
+
+    @pytest.mark.parametrize("use_copula", [False, True])
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    def test_expanded_and_ordinary_confounders_must_have_distinct_names(kind, use_copula):
+        specs = [
+            {"name": "tier", "dist": "categorical", "categories": ["base", "B"]},
+            {"name": "tier_B", "dist": "normal"},
+        ]
+>       _collision(
+            lambda: _generator(
+                kind, confounder_specs=specs, use_copula=use_copula
+            ).generate(N),
+            "tier_B",
+            ("confounder",),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:156: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_expanded_and_ordinary_confounders_must_have_distinct_names.<locals>.<lambda> at 0x1159a1120>
+column = 'tier_B', roles = ('confounder',)
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+__ test_stringified_category_labels_cannot_produce_duplicate_columns[binary] ___
+
+kind = 'binary'
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    def test_stringified_category_labels_cannot_produce_duplicate_columns(kind):
+        specs = [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}]
+>       _collision(
+            lambda: _generator(kind, confounder_specs=specs).generate(N),
+            "tier_1",
+            ("confounder",),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:168: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_stringified_category_labels_cannot_produce_duplicate_columns.<locals>.<lambda> at 0x1159a1440>
+column = 'tier_1', roles = ('confounder',)
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+____ test_stringified_category_labels_cannot_produce_duplicate_columns[iv] _____
+
+kind = 'iv'
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    def test_stringified_category_labels_cannot_produce_duplicate_columns(kind):
+        specs = [{"name": "tier", "dist": "categorical", "categories": [0, 1, "1"]}]
+>       _collision(
+            lambda: _generator(kind, confounder_specs=specs).generate(N),
+            "tier_1",
+            ("confounder",),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:168: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_stringified_category_labels_cannot_produce_duplicate_columns.<locals>.<lambda> at 0x1159439c0>
+column = 'tier_1', roles = ('confounder',)
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+__ test_expanded_confounder_cannot_replace_a_custom_instrument[spec0-offer_B] __
+
+spec = {'name': 'offer', 'categories': ['base', 'B']}, column = 'offer_B'
+
+    @pytest.mark.parametrize(
+        "spec,column",
+        [
+            ({"name": "offer", "categories": ["base", "B"]}, "offer_B"),
+            ({"name": "tier", "categories": ["sole"]}, "tier__onlylevel"),
+        ],
+    )
+    def test_expanded_confounder_cannot_replace_a_custom_instrument(spec, column):
+>       _collision(
+            lambda: _generator(
+                "iv",
+                instrument_name=column,
+                confounder_specs=[dict(spec, dist="categorical")],
+            ).generate(N),
+            column,
+            ("confounder", "instrument"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:183: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_expanded_confounder_cannot_replace_a_custom_instrument.<locals>.<lambda> at 0x115941620>
+column = 'offer_B', roles = ('confounder', 'instrument')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_ test_expanded_confounder_cannot_replace_a_custom_instrument[spec1-tier__onlylevel] _
+
+spec = {'name': 'tier', 'categories': ['sole']}, column = 'tier__onlylevel'
+
+    @pytest.mark.parametrize(
+        "spec,column",
+        [
+            ({"name": "offer", "categories": ["base", "B"]}, "offer_B"),
+            ({"name": "tier", "categories": ["sole"]}, "tier__onlylevel"),
+        ],
+    )
+    def test_expanded_confounder_cannot_replace_a_custom_instrument(spec, column):
+>       _collision(
+            lambda: _generator(
+                "iv",
+                instrument_name=column,
+                confounder_specs=[dict(spec, dist="categorical")],
+            ).generate(N),
+            column,
+            ("confounder", "instrument"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:183: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_expanded_confounder_cannot_replace_a_custom_instrument.<locals>.<lambda> at 0x1159a14e0>
+column = 'tier__onlylevel', roles = ('confounder', 'instrument')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+____ test_actual_custom_sampler_names_must_be_nonempty_strings[None-binary] ____
+
+kind = 'binary', name = None
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("name", [None, "", 1, [1]])
+    def test_actual_custom_sampler_names_must_be_nonempty_strings(kind, name):
+>       with pytest.raises(ValueError, match="confounder|column name"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:197: Failed
+______ test_actual_custom_sampler_names_must_be_nonempty_strings[None-iv] ______
+
+kind = 'iv', name = None
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("name", [None, "", 1, [1]])
+    def test_actual_custom_sampler_names_must_be_nonempty_strings(kind, name):
+>       with pytest.raises(ValueError, match="confounder|column name"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:197: Failed
+______ test_actual_custom_sampler_names_must_be_nonempty_strings[-binary] ______
+
+kind = 'binary', name = ''
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("name", [None, "", 1, [1]])
+    def test_actual_custom_sampler_names_must_be_nonempty_strings(kind, name):
+>       with pytest.raises(ValueError, match="confounder|column name"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:197: Failed
+________ test_actual_custom_sampler_names_must_be_nonempty_strings[-iv] ________
+
+kind = 'iv', name = ''
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("name", [None, "", 1, [1]])
+    def test_actual_custom_sampler_names_must_be_nonempty_strings(kind, name):
+>       with pytest.raises(ValueError, match="confounder|column name"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:197: Failed
+_____ test_actual_custom_sampler_names_must_be_nonempty_strings[1-binary] ______
+
+kind = 'binary', name = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("name", [None, "", 1, [1]])
+    def test_actual_custom_sampler_names_must_be_nonempty_strings(kind, name):
+>       with pytest.raises(ValueError, match="confounder|column name"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:197: Failed
+_______ test_actual_custom_sampler_names_must_be_nonempty_strings[1-iv] ________
+
+kind = 'iv', name = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("name", [None, "", 1, [1]])
+    def test_actual_custom_sampler_names_must_be_nonempty_strings(kind, name):
+>       with pytest.raises(ValueError, match="confounder|column name"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:197: Failed
+___ test_actual_custom_sampler_names_must_be_nonempty_strings[name3-binary] ____
+
+kind = 'binary', name = [1]
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("name", [None, "", 1, [1]])
+    def test_actual_custom_sampler_names_must_be_nonempty_strings(kind, name):
+>       with pytest.raises(ValueError, match="confounder|column name"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'confounder|column name'
+E         Actual message: 'Columns must be same length as key'
+
+tests/data/test_binary_iv_namespace_contract.py:197: AssertionError
+_____ test_actual_custom_sampler_names_must_be_nonempty_strings[name3-iv] ______
+
+kind = 'iv', name = [1]
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("name", [None, "", 1, [1]])
+    def test_actual_custom_sampler_names_must_be_nonempty_strings(kind, name):
+>       with pytest.raises(ValueError, match="confounder|column name"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'confounder|column name'
+E         Actual message: 'Columns must be same length as key'
+
+tests/data/test_binary_iv_namespace_contract.py:197: AssertionError
+_________ test_actual_ordinary_sampler_names_must_be_strings[1-binary] _________
+
+kind = 'binary', name = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("name", [1, [1]])
+    def test_actual_ordinary_sampler_names_must_be_strings(kind, name):
+>       with pytest.raises(ValueError, match="confounder|column name"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:208: Failed
+___________ test_actual_ordinary_sampler_names_must_be_strings[1-iv] ___________
+
+kind = 'iv', name = 1
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("name", [1, [1]])
+    def test_actual_ordinary_sampler_names_must_be_strings(kind, name):
+>       with pytest.raises(ValueError, match="confounder|column name"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:208: Failed
+_______ test_actual_ordinary_sampler_names_must_be_strings[name1-binary] _______
+
+kind = 'binary', name = [1]
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("name", [1, [1]])
+    def test_actual_ordinary_sampler_names_must_be_strings(kind, name):
+>       with pytest.raises(ValueError, match="confounder|column name"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'confounder|column name'
+E         Actual message: 'Columns must be same length as key'
+
+tests/data/test_binary_iv_namespace_contract.py:208: AssertionError
+_________ test_actual_ordinary_sampler_names_must_be_strings[name1-iv] _________
+
+kind = 'iv', name = [1]
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("name", [1, [1]])
+    def test_actual_ordinary_sampler_names_must_be_strings(kind, name):
+>       with pytest.raises(ValueError, match="confounder|column name"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'confounder|column name'
+E         Actual message: 'Columns must be same length as key'
+
+tests/data/test_binary_iv_namespace_contract.py:208: AssertionError
+_ test_mutating_instrument_to_an_invalid_type_is_revalidated_before_sampling[None] _
+
+name = None
+
+    @pytest.mark.parametrize("name", [None, "", 1, []])
+    def test_mutating_instrument_to_an_invalid_type_is_revalidated_before_sampling(name):
+        calls = []
+        generator = _generator(
+            "iv", x_sampler=lambda n, k, seed: calls.append("sampled") or np.empty((n, k))
+        )
+        generator.instrument_name = name
+>       with pytest.raises(ValueError, match="instrument|column name"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:227: Failed
+_ test_mutating_instrument_to_an_invalid_type_is_revalidated_before_sampling[] _
+
+name = ''
+
+    @pytest.mark.parametrize("name", [None, "", 1, []])
+    def test_mutating_instrument_to_an_invalid_type_is_revalidated_before_sampling(name):
+        calls = []
+        generator = _generator(
+            "iv", x_sampler=lambda n, k, seed: calls.append("sampled") or np.empty((n, k))
+        )
+        generator.instrument_name = name
+>       with pytest.raises(ValueError, match="instrument|column name"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:227: Failed
+_ test_mutating_instrument_to_an_invalid_type_is_revalidated_before_sampling[1] _
+
+name = 1
+
+    @pytest.mark.parametrize("name", [None, "", 1, []])
+    def test_mutating_instrument_to_an_invalid_type_is_revalidated_before_sampling(name):
+        calls = []
+        generator = _generator(
+            "iv", x_sampler=lambda n, k, seed: calls.append("sampled") or np.empty((n, k))
+        )
+        generator.instrument_name = name
+>       with pytest.raises(ValueError, match="instrument|column name"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:227: Failed
+_ test_mutating_instrument_to_an_invalid_type_is_revalidated_before_sampling[name3] _
+
+name = []
+
+    @pytest.mark.parametrize("name", [None, "", 1, []])
+    def test_mutating_instrument_to_an_invalid_type_is_revalidated_before_sampling(name):
+        calls = []
+        generator = _generator(
+            "iv", x_sampler=lambda n, k, seed: calls.append("sampled") or np.empty((n, k))
+        )
+        generator.instrument_name = name
+        with pytest.raises(ValueError, match="instrument|column name"):
+>           generator.generate(N)
+
+tests/data/test_binary_iv_namespace_contract.py:228: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = InstrumentalGenerator(theta=1.0, tau=None, beta_y=None, beta_d=None, g_y=None, g_d=None, alpha_y=0.0, alpha_d=0.0, sig... instrument_name=[], first_stage=1.25, beta_z=None, g_z=None, alpha_z=0.0, target_z_rate=0.5, instrument_sharpness=1.0)
+n = 64
+U = array([-0.06877469,  1.29142915, -1.37436678, -1.3815546 , -0.63138414,
+        0.70369441,  0.39140417, -1.14187497, ...408895, -0.76747567,  0.33869184,  0.43571534, -2.32865251,
+        0.11876607,  0.87117092,  0.15094568, -0.68536381])
+
+    def generate(self, n: int, U: Optional[np.ndarray] = None) -> pd.DataFrame:
+        """
+        Draw a synthetic IV dataset of size ``n``.
+    
+        Parameters
+        ----------
+        n : int
+            Number of samples to generate.
+        U : numpy.ndarray, optional
+            Latent confounder. If omitted, sampled from ``N(0, 1)``.
+    
+        Returns
+        -------
+        pandas.DataFrame
+            Generated dataset with outcome ``y``, treatment ``d``, instrument
+            ``z`` (or ``instrument_name``), confounders, and optional oracle
+            columns.
+        """
+        n = int(n)
+        if n < 0:
+            raise ValueError("n must be non-negative.")
+    
+        X, names = self._sample_X(n)
+        if U is None:
+            U = self.rng.normal(size=n)
+        U = np.asarray(U, dtype=float).reshape(-1)
+        if U.shape[0] != n:
+            raise ValueError("U must have shape (n,).")
+    
+        m = self._instrument_propensity(X)
+        Z = self.rng.binomial(1, m).astype(float)
+    
+        r_obs = self._treatment_propensity(X, Z, U, calibrate=True)
+        shared_uniform = self.rng.uniform(size=n)
+        D = (shared_uniform < r_obs).astype(float)
+    
+        tau_x = (
+            np.asarray(self.tau(X), dtype=float).reshape(-1)
+            if self.tau is not None
+            else np.full(n, float(self.theta), dtype=float)
+        )
+        if tau_x.shape[0] != n:
+            raise ValueError("tau(X) must return shape (n,).")
+    
+        loc = self._outcome_location(X, D, U, tau_x)
+        Y = self._sample_outcome(loc, n)
+    
+>       df = pd.DataFrame({"y": Y, "d": D, self.instrument_name: Z})
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: unhashable type: 'list'
+
+.venv/b11-schema-4rlj6ncz/causalis/dgp/causaldata_instrumental/base.py:354: TypeError
+______ test_actual_name_count_must_match_custom_covariate_width[0-binary] ______
+
+kind = 'binary', width = 0
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("width", [0, 2])
+    def test_actual_name_count_must_match_custom_covariate_width(kind, width):
+        with pytest.raises(ValueError, match="confounder|column|name"):
+            _generator(
+                kind,
+                confounder_specs=[{"name": "age"}],
+                x_sampler=lambda n, k, seed: np.zeros((n, width)),
+>           ).generate(N)
+              ^^^^^^^^^^^
+
+tests/data/test_binary_iv_namespace_contract.py:240: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = CausalDatasetGenerator(theta=1.0, tau=None, beta_y=None, beta_d=None, g_y=None, g_d=None, alpha_y=0.0, alpha_d=0.0, si... u_strength_zi=0.0, tau_zi=None, pos_dist='gamma', gamma_shape=2.0, lognormal_sigma=1.0, include_oracle=True, seed=731)
+n = 64
+U = array([-0.06877469,  1.29142915, -1.37436678, -1.3815546 , -0.63138414,
+        0.70369441,  0.39140417, -1.14187497, ...408895, -0.76747567,  0.33869184,  0.43571534, -2.32865251,
+        0.11876607,  0.87117092,  0.15094568, -0.68536381])
+
+    def generate(self, n: int, U: Optional[np.ndarray] = None) -> pd.DataFrame:
+        """
+        Draw a synthetic dataset of size `n`.
+    
+        Parameters
+        ----------
+        n : int
+            Number of samples to generate.
+        U : numpy.ndarray, optional
+            Unobserved confounder. If None, generated from N(0,1).
+    
+        Returns
+        -------
+        pandas.DataFrame
+            The generated dataset with outcome 'y', treatment 'd', confounders,
+            and oracle ground-truth columns.
+        """
+        X, names = self._sample_X(n)
+        if U is None:
+            U = self.rng.normal(size=n)  # unobserved confounder
+        U = np.asarray(U, dtype=float)
+    
+        # Treatment assignment
+        if self.target_d_rate is not None:
+            # Recalibrate alpha_d on the sampled X each call so realized prevalence tracks target.
+            self.alpha_d = self._calibrate_alpha_d(X, U, self.target_d_rate)
+        logits_t = self.alpha_d + self._treatment_score(X, U)
+        m_obs = _sigmoid(logits_t)  # realized propensity including U
+    
+        # Marginal m(x) = E[D|X] (integrate out U if it affects treatment)
+        if float(self.u_strength_d) != 0.0:
+            # Gauss-Hermite computes E[sigmoid(base + u_strength_d * U)] for U~N(0,1).
+            gh_x, gh_w = np.polynomial.hermite.hermgauss(21)
+            gh_w = gh_w / np.sqrt(np.pi)
+            base = self.alpha_d + self._treatment_score(X, np.zeros(n))
+            m = np.sum(_sigmoid(base[:, None] + self.u_strength_d * np.sqrt(2.0) * gh_x[None, :]) * gh_w[None, :], axis=1)
+        else:
+            # Closed form when U doesn't affect D
+            base = self.alpha_d + self._treatment_score(X, np.zeros(n))
+            m = _sigmoid(base)
+    
+        D = self.rng.binomial(1, m_obs).astype(float)
+    
+        # Treatment effect (constant or heterogeneous)
+        # tau_x is always on the structural link scale used by the selected outcome family.
+        tau_x = (self.tau(X) if self.tau is not None else np.full(n, self.theta)).astype(float)
+    
+        # Outcome generation
+        loc = self._outcome_location(X, D, U, tau_x)
+    
+        if self.outcome_type == "continuous":
+            Y = loc + self.rng.normal(0, self.sigma_y, size=n)
+        elif self.outcome_type == "binary":
+            # logit: logit P(Y=1|D,X) = loc
+            p = _sigmoid(loc)
+            Y = self.rng.binomial(1, p).astype(float)
+        elif self.outcome_type == "poisson":
+            # log link: log E[Y|D,X] = loc; guard against overflow on link scale
+            loc_c = np.clip(loc, -20, 20)
+            lam = np.exp(loc_c)
+            Y = self.rng.poisson(lam).astype(float)
+        elif self.outcome_type == "gamma":
+            # log link: log E[Y|D,X] = loc; draw Gamma with mean mu and shape k
+            loc_c = np.clip(loc, -20, 20)
+            mu = np.exp(loc_c)
+            k = float(self.gamma_shape)
+            scale = mu / max(k, 1e-12)
+            Y = self.rng.gamma(shape=k, scale=scale, size=n).astype(float)
+        elif self.outcome_type == "tweedie":
+            # 1) Zero/positive part: logit P(Y>0 | X,D,U).
+            Xf = np.asarray(X, dtype=float)
+            base_zi = np.full(n, float(self.alpha_zi), dtype=float)
+            if self.beta_zi is not None:
+                bz = np.asarray(self.beta_zi, dtype=float).reshape(-1)
+                if bz.shape[0] != Xf.shape[1]:
+                    raise ValueError("beta_zi incompatible with X")
+                base_zi += np.sum(Xf * bz, axis=1)
+            if self.g_zi is not None:
+                base_zi += np.asarray(self.g_zi(Xf), dtype=float)
+            if self.u_strength_zi != 0.0:
+                base_zi += float(self.u_strength_zi) * np.asarray(U, dtype=float)
+    
+            tau_zi_x = np.zeros(n, dtype=float)
+            if self.tau_zi is not None:
+                tau_zi_x = np.asarray(self.tau_zi(Xf), dtype=float).reshape(-1)
+    
+            p_pos = _sigmoid(base_zi + D * tau_zi_x)
+            is_pos = self.rng.binomial(1, p_pos, size=n).astype(float)
+    
+            # 2) Positive-part mean: loc is interpreted as log E[Y | Y>0, X,D,U].
+            # IMPORTANT: interpret alpha_y / beta_y / g_y as log-mean components for tweedie
+            loc_pos = np.clip(loc, -20, 20)
+            mu_pos = np.exp(loc_pos)
+    
+            # 3) draw positive values
+            if str(self.pos_dist).lower() == "gamma":
+                k = float(self.gamma_shape)
+                scale = mu_pos / max(k, 1e-12)
+                y_pos = self.rng.gamma(shape=k, scale=scale, size=n)
+            elif str(self.pos_dist).lower() == "lognormal":
+                s = float(self.lognormal_sigma)
+                # pick mean-corrected lognormal: if log Y ~ N(m, s^2), then E[Y]=exp(m+s^2/2)
+                m = np.log(mu_pos) - 0.5 * s * s
+                y_pos = self.rng.lognormal(mean=m, sigma=s, size=n)
+            else:
+                raise ValueError("pos_dist must be 'gamma' or 'lognormal'")
+    
+            Y = is_pos * y_pos
+        else:
+            raise ValueError("outcome_type must be 'continuous', 'binary', 'poisson', 'gamma' or 'tweedie'")
+    
+        # Compute oracle g0/g1 on the natural scale, excluding U for continuous, and
+        # marginalizing over U for binary/poisson when u_strength_y != 0.
+        if self.outcome_type == "continuous":
+            # Oracle means exclude U (mean-zero unobserved)
+            g0 = self._outcome_location(X, np.zeros(n), np.zeros(n), np.zeros(n))
+            g1 = self._outcome_location(X, np.ones(n),  np.zeros(n), tau_x)
+    
+        elif self.outcome_type == "binary":
+            if float(self.u_strength_y) != 0.0:
+                # Oracle risk under treatment/control integrates latent U out on probability scale.
+                gh_x, gh_w = np.polynomial.hermite.hermgauss(21)
+                gh_w = gh_w / np.sqrt(np.pi)
+                base0 = self._outcome_location(X, np.zeros(n), np.zeros(n), np.zeros(n))
+                base1 = self._outcome_location(X, np.ones(n),  np.zeros(n), tau_x)
+                Uq = np.sqrt(2.0) * gh_x
+                g0 = np.sum(_sigmoid(base0[:, None] + self.u_strength_y * Uq[None, :]) * gh_w[None, :], axis=1)
+                g1 = np.sum(_sigmoid(base1[:, None] + self.u_strength_y * Uq[None, :]) * gh_w[None, :], axis=1)
+            else:
+                g0 = _sigmoid(self._outcome_location(X, np.zeros(n), np.zeros(n), np.zeros(n)))
+                g1 = _sigmoid(self._outcome_location(X, np.ones(n),  np.zeros(n), tau_x))
+    
+        elif self.outcome_type in {"poisson", "gamma"}:
+            if float(self.u_strength_y) != 0.0:
+                # Oracle mean integrates exp(link) over U; clipping keeps exponentials stable.
+                gh_x, gh_w = np.polynomial.hermite.hermgauss(21)
+                gh_w = gh_w / np.sqrt(np.pi)
+                base0 = self._outcome_location(X, np.zeros(n), np.zeros(n), np.zeros(n))
+                base1 = self._outcome_location(X, np.ones(n),  np.zeros(n), tau_x)
+                Uq = np.sqrt(2.0) * gh_x
+                g0 = np.sum(np.exp(np.clip(base0[:, None] + self.u_strength_y * Uq[None, :], -20, 20)) * gh_w[None, :], axis=1)
+                g1 = np.sum(np.exp(np.clip(base1[:, None] + self.u_strength_y * Uq[None, :], -20, 20)) * gh_w[None, :], axis=1)
+            else:
+                g0 = np.exp(np.clip(self._outcome_location(X, np.zeros(n), np.zeros(n), np.zeros(n)), -20, 20))
+                g1 = np.exp(np.clip(self._outcome_location(X, np.ones(n),  np.zeros(n), tau_x), -20, 20))
+        elif self.outcome_type == "tweedie":
+            # Oracle g(d) on natural scale:
+            #   g(d) = E_U[sigmoid(zi(X,d,U)) * exp(loc(X,d,U))]
+            # where U ~ N(0,1). This is a one-dimensional integral and is computed
+            # via Gauss-Hermite when latent U enters either zi or y locations.
+            Xf = np.asarray(X, dtype=float)
+            base_zi = np.full(n, float(self.alpha_zi), dtype=float)
+            if self.beta_zi is not None:
+                bz = np.asarray(self.beta_zi, dtype=float).reshape(-1)
+                if bz.shape[0] != Xf.shape[1]:
+                    raise ValueError("beta_zi incompatible with X")
+                base_zi += np.sum(Xf * bz, axis=1)
+            if self.g_zi is not None:
+                base_zi += np.asarray(self.g_zi(Xf), dtype=float)
+    
+            tau_zi_x = np.zeros(n, dtype=float)
+            if self.tau_zi is not None:
+                tau_zi_x = np.asarray(self.tau_zi(Xf), dtype=float).reshape(-1)
+    
+            # Base log-mean locations excluding U
+            loc0 = self._outcome_location(X, np.zeros(n), np.zeros(n), np.zeros(n))
+            loc1 = self._outcome_location(X, np.ones(n), np.zeros(n), tau_x)
+    
+            uy = float(self.u_strength_y)
+            uzi = float(self.u_strength_zi)
+            if (uy != 0.0) or (uzi != 0.0):
+                gh_x, gh_w = np.polynomial.hermite.hermgauss(21)
+                gh_w = gh_w / np.sqrt(np.pi)
+                Uq = np.sqrt(2.0) * gh_x
+    
+                zi0_u = base_zi[:, None] + uzi * Uq[None, :]
+                zi1_u = (base_zi + tau_zi_x)[:, None] + uzi * Uq[None, :]
+                loc0_u = loc0[:, None] + uy * Uq[None, :]
+                loc1_u = loc1[:, None] + uy * Uq[None, :]
+    
+                # Product-of-means form comes from two-part construction: P(Y>0)*E[Y|Y>0].
+                p_pos0 = _sigmoid(zi0_u)
+                p_pos1 = _sigmoid(zi1_u)
+                mu_pos0 = np.exp(np.clip(loc0_u, -20, 20))
+                mu_pos1 = np.exp(np.clip(loc1_u, -20, 20))
+    
+                g0 = np.sum(p_pos0 * mu_pos0 * gh_w[None, :], axis=1)
+                g1 = np.sum(p_pos1 * mu_pos1 * gh_w[None, :], axis=1)
+            else:
+                p_pos0 = _sigmoid(base_zi)
+                p_pos1 = _sigmoid(base_zi + tau_zi_x)
+                mu_pos0 = np.exp(np.clip(loc0, -20, 20))
+                mu_pos1 = np.exp(np.clip(loc1, -20, 20))
+    
+                g0 = p_pos0 * mu_pos0
+                g1 = p_pos1 * mu_pos1
+        else:
+            raise ValueError("outcome_type must be 'continuous', 'binary', 'poisson', 'gamma' or 'tweedie'")
+    
+        df = pd.DataFrame({"y": Y, "d": D})
+        for j, name in enumerate(names):
+>           df[name] = X[:, j]
+                       ^^^^^^^
+E           IndexError: index 0 is out of bounds for axis 1 with size 0
+
+.venv/b11-schema-4rlj6ncz/causalis/dgp/causaldata/base.py:668: IndexError
+________ test_actual_name_count_must_match_custom_covariate_width[0-iv] ________
+
+kind = 'iv', width = 0
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("width", [0, 2])
+    def test_actual_name_count_must_match_custom_covariate_width(kind, width):
+        with pytest.raises(ValueError, match="confounder|column|name"):
+            _generator(
+                kind,
+                confounder_specs=[{"name": "age"}],
+                x_sampler=lambda n, k, seed: np.zeros((n, width)),
+>           ).generate(N)
+              ^^^^^^^^^^^
+
+tests/data/test_binary_iv_namespace_contract.py:240: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = InstrumentalGenerator(theta=1.0, tau=None, beta_y=None, beta_d=None, g_y=None, g_d=None, alpha_y=0.0, alpha_d=0.0, sig...instrument_name='z', first_stage=1.25, beta_z=None, g_z=None, alpha_z=0.0, target_z_rate=0.5, instrument_sharpness=1.0)
+n = 64
+U = array([-0.06877469,  1.29142915, -1.37436678, -1.3815546 , -0.63138414,
+        0.70369441,  0.39140417, -1.14187497, ...408895, -0.76747567,  0.33869184,  0.43571534, -2.32865251,
+        0.11876607,  0.87117092,  0.15094568, -0.68536381])
+
+    def generate(self, n: int, U: Optional[np.ndarray] = None) -> pd.DataFrame:
+        """
+        Draw a synthetic IV dataset of size ``n``.
+    
+        Parameters
+        ----------
+        n : int
+            Number of samples to generate.
+        U : numpy.ndarray, optional
+            Latent confounder. If omitted, sampled from ``N(0, 1)``.
+    
+        Returns
+        -------
+        pandas.DataFrame
+            Generated dataset with outcome ``y``, treatment ``d``, instrument
+            ``z`` (or ``instrument_name``), confounders, and optional oracle
+            columns.
+        """
+        n = int(n)
+        if n < 0:
+            raise ValueError("n must be non-negative.")
+    
+        X, names = self._sample_X(n)
+        if U is None:
+            U = self.rng.normal(size=n)
+        U = np.asarray(U, dtype=float).reshape(-1)
+        if U.shape[0] != n:
+            raise ValueError("U must have shape (n,).")
+    
+        m = self._instrument_propensity(X)
+        Z = self.rng.binomial(1, m).astype(float)
+    
+        r_obs = self._treatment_propensity(X, Z, U, calibrate=True)
+        shared_uniform = self.rng.uniform(size=n)
+        D = (shared_uniform < r_obs).astype(float)
+    
+        tau_x = (
+            np.asarray(self.tau(X), dtype=float).reshape(-1)
+            if self.tau is not None
+            else np.full(n, float(self.theta), dtype=float)
+        )
+        if tau_x.shape[0] != n:
+            raise ValueError("tau(X) must return shape (n,).")
+    
+        loc = self._outcome_location(X, D, U, tau_x)
+        Y = self._sample_outcome(loc, n)
+    
+        df = pd.DataFrame({"y": Y, "d": D, self.instrument_name: Z})
+        for j, name in enumerate(names):
+>           df[name] = X[:, j]
+                       ^^^^^^^
+E           IndexError: index 0 is out of bounds for axis 1 with size 0
+
+.venv/b11-schema-4rlj6ncz/causalis/dgp/causaldata_instrumental/base.py:356: IndexError
+______ test_actual_name_count_must_match_custom_covariate_width[2-binary] ______
+
+kind = 'binary', width = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("width", [0, 2])
+    def test_actual_name_count_must_match_custom_covariate_width(kind, width):
+>       with pytest.raises(ValueError, match="confounder|column|name"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:235: Failed
+________ test_actual_name_count_must_match_custom_covariate_width[2-iv] ________
+
+kind = 'iv', width = 2
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    @pytest.mark.parametrize("width", [0, 2])
+    def test_actual_name_count_must_match_custom_covariate_width(kind, width):
+>       with pytest.raises(ValueError, match="confounder|column|name"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:235: Failed
+_ test_positive_custom_covariate_width_cannot_be_hidden_by_empty_name_list[binary] _
+
+kind = 'binary'
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    def test_positive_custom_covariate_width_cannot_be_hidden_by_empty_name_list(kind):
+>       with pytest.raises(ValueError, match="confounder|column|name"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:245: Failed
+_ test_positive_custom_covariate_width_cannot_be_hidden_by_empty_name_list[iv] _
+
+kind = 'iv'
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    def test_positive_custom_covariate_width_cannot_be_hidden_by_empty_name_list(kind):
+>       with pytest.raises(ValueError, match="confounder|column|name"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:245: Failed
+____ test_enabling_oracles_on_a_reused_generator_revalidates_names[binary] _____
+
+kind = 'binary'
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    def test_enabling_oracles_on_a_reused_generator_revalidates_names(kind):
+        generator = _generator(kind, include_oracle=False, confounder_specs=[{"name": "m"}])
+        generator.generate(N)
+        generator.include_oracle = True
+>       _collision(lambda: generator.generate(N), "m", ("confounder", "oracle"))
+
+tests/data/test_binary_iv_namespace_contract.py:326: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_enabling_oracles_on_a_reused_generator_revalidates_names.<locals>.<lambda> at 0x115aee340>
+column = 'm', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+______ test_enabling_oracles_on_a_reused_generator_revalidates_names[iv] _______
+
+kind = 'iv'
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    def test_enabling_oracles_on_a_reused_generator_revalidates_names(kind):
+        generator = _generator(kind, include_oracle=False, confounder_specs=[{"name": "m"}])
+        generator.generate(N)
+        generator.include_oracle = True
+>       _collision(lambda: generator.generate(N), "m", ("confounder", "oracle"))
+
+tests/data/test_binary_iv_namespace_contract.py:326: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_enabling_oracles_on_a_reused_generator_revalidates_names.<locals>.<lambda> at 0x115aeec00>
+column = 'm', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_____ test_reusing_generator_revalidates_changed_confounder_specs[binary] ______
+
+kind = 'binary'
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    def test_reusing_generator_revalidates_changed_confounder_specs(kind):
+        generator = _generator(kind, confounder_specs=[{"name": "age"}])
+        generator.generate(N)
+        generator.confounder_specs[0]["name"] = "d"
+>       _collision(lambda: generator.generate(N), "d", ("confounder", "treatment"))
+
+tests/data/test_binary_iv_namespace_contract.py:334: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_reusing_generator_revalidates_changed_confounder_specs.<locals>.<lambda> at 0x115aee980>
+column = 'd', roles = ('confounder', 'treatment')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_______ test_reusing_generator_revalidates_changed_confounder_specs[iv] ________
+
+kind = 'iv'
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    def test_reusing_generator_revalidates_changed_confounder_specs(kind):
+        generator = _generator(kind, confounder_specs=[{"name": "age"}])
+        generator.generate(N)
+        generator.confounder_specs[0]["name"] = "d"
+>       _collision(lambda: generator.generate(N), "d", ("confounder", "treatment"))
+
+tests/data/test_binary_iv_namespace_contract.py:334: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_reusing_generator_revalidates_changed_confounder_specs.<locals>.<lambda> at 0x115aeede0>
+column = 'd', roles = ('confounder', 'treatment')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_________ test_mutating_instrument_to_core_column_is_rejected_on_reuse _________
+
+    def test_mutating_instrument_to_core_column_is_rejected_on_reuse():
+        generator = _generator("iv")
+        generator.generate(N)
+        generator.instrument_name = "y"
+>       _collision(lambda: generator.generate(N), "y", ("outcome", "instrument"))
+
+tests/data/test_binary_iv_namespace_contract.py:341: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_mutating_instrument_to_core_column_is_rejected_on_reuse.<locals>.<lambda> at 0x115aef1a0>
+column = 'y', roles = ('outcome', 'instrument')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_ test_enabling_oracles_rejects_instrument_collision_before_custom_sampler_runs _
+
+    def test_enabling_oracles_rejects_instrument_collision_before_custom_sampler_runs():
+        calls = []
+        generator = _generator(
+            "iv",
+            include_oracle=False,
+            instrument_name="m",
+            x_sampler=lambda n, k, seed: calls.append("sampled") or np.empty((n, k)),
+        )
+        generator.include_oracle = True
+>       _collision(lambda: generator.generate(N), "m", ("instrument", "oracle"))
+
+tests/data/test_binary_iv_namespace_contract.py:353: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_enabling_oracles_rejects_instrument_collision_before_custom_sampler_runs.<locals>.<lambda> at 0x115aef6a0>
+column = 'm', roles = ('instrument', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_ test_invalid_actual_namespace_is_rejected_before_structural_callbacks[binary-g_y] _
+
+kind = 'binary', callback = 'g_y'
+
+    @pytest.mark.parametrize(
+        "kind,callback",
+        [
+            (kind, callback)
+            for kind in ["binary", "iv"]
+            for callback in ["g_y", "g_d", "tau"]
+        ]
+        + [("iv", "g_z")],
+    )
+    def test_invalid_actual_namespace_is_rejected_before_structural_callbacks(
+        kind, callback
+    ):
+        calls = []
+    
+        def should_not_run(x):
+            calls.append(callback)
+            raise AssertionError("callback ran for an invalid generated schema")
+    
+>       _collision(
+            lambda: _generator(
+                kind, confounder_specs=[{"name": "d"}], **{callback: should_not_run}
+            ).generate(N),
+            "d",
+            ("confounder", "treatment"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:375: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/data/test_binary_iv_namespace_contract.py:47: in _collision
+    operation()
+tests/data/test_binary_iv_namespace_contract.py:378: in <lambda>
+    ).generate(N),
+      ^^^^^^^^^^^
+.venv/b11-schema-4rlj6ncz/causalis/dgp/causaldata/base.py:515: in generate
+    loc = self._outcome_location(X, D, U, tau_x)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/b11-schema-4rlj6ncz/causalis/dgp/causaldata/base.py:411: in _outcome_location
+    loc += np.asarray(self.g_y(Xf), dtype=float)
+                      ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+x = array([[-0.06877469],
+       [ 1.29142915],
+       [-1.37436678],
+       [-1.3815546 ],
+       [-0.63138414],
+       [...571534],
+       [-2.32865251],
+       [ 0.11876607],
+       [ 0.87117092],
+       [ 0.15094568],
+       [-0.68536381]])
+
+    def should_not_run(x):
+        calls.append(callback)
+>       raise AssertionError("callback ran for an invalid generated schema")
+E       AssertionError: callback ran for an invalid generated schema
+
+tests/data/test_binary_iv_namespace_contract.py:373: AssertionError
+_ test_invalid_actual_namespace_is_rejected_before_structural_callbacks[binary-g_d] _
+
+kind = 'binary', callback = 'g_d'
+
+    @pytest.mark.parametrize(
+        "kind,callback",
+        [
+            (kind, callback)
+            for kind in ["binary", "iv"]
+            for callback in ["g_y", "g_d", "tau"]
+        ]
+        + [("iv", "g_z")],
+    )
+    def test_invalid_actual_namespace_is_rejected_before_structural_callbacks(
+        kind, callback
+    ):
+        calls = []
+    
+        def should_not_run(x):
+            calls.append(callback)
+            raise AssertionError("callback ran for an invalid generated schema")
+    
+>       _collision(
+            lambda: _generator(
+                kind, confounder_specs=[{"name": "d"}], **{callback: should_not_run}
+            ).generate(N),
+            "d",
+            ("confounder", "treatment"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:375: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/data/test_binary_iv_namespace_contract.py:47: in _collision
+    operation()
+tests/data/test_binary_iv_namespace_contract.py:378: in <lambda>
+    ).generate(N),
+      ^^^^^^^^^^^
+.venv/b11-schema-4rlj6ncz/causalis/dgp/causaldata/base.py:493: in generate
+    logits_t = self.alpha_d + self._treatment_score(X, U)
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/b11-schema-4rlj6ncz/causalis/dgp/causaldata/base.py:362: in _treatment_score
+    score_x += np.asarray(self.g_d(Xf), dtype=float)
+                          ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+x = array([[-0.06877469],
+       [ 1.29142915],
+       [-1.37436678],
+       [-1.3815546 ],
+       [-0.63138414],
+       [...571534],
+       [-2.32865251],
+       [ 0.11876607],
+       [ 0.87117092],
+       [ 0.15094568],
+       [-0.68536381]])
+
+    def should_not_run(x):
+        calls.append(callback)
+>       raise AssertionError("callback ran for an invalid generated schema")
+E       AssertionError: callback ran for an invalid generated schema
+
+tests/data/test_binary_iv_namespace_contract.py:373: AssertionError
+_ test_invalid_actual_namespace_is_rejected_before_structural_callbacks[binary-tau] _
+
+kind = 'binary', callback = 'tau'
+
+    @pytest.mark.parametrize(
+        "kind,callback",
+        [
+            (kind, callback)
+            for kind in ["binary", "iv"]
+            for callback in ["g_y", "g_d", "tau"]
+        ]
+        + [("iv", "g_z")],
+    )
+    def test_invalid_actual_namespace_is_rejected_before_structural_callbacks(
+        kind, callback
+    ):
+        calls = []
+    
+        def should_not_run(x):
+            calls.append(callback)
+            raise AssertionError("callback ran for an invalid generated schema")
+    
+>       _collision(
+            lambda: _generator(
+                kind, confounder_specs=[{"name": "d"}], **{callback: should_not_run}
+            ).generate(N),
+            "d",
+            ("confounder", "treatment"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:375: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/data/test_binary_iv_namespace_contract.py:47: in _collision
+    operation()
+tests/data/test_binary_iv_namespace_contract.py:378: in <lambda>
+    ).generate(N),
+      ^^^^^^^^^^^
+.venv/b11-schema-4rlj6ncz/causalis/dgp/causaldata/base.py:512: in generate
+    tau_x = (self.tau(X) if self.tau is not None else np.full(n, self.theta)).astype(float)
+             ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+x = array([[-0.06877469],
+       [ 1.29142915],
+       [-1.37436678],
+       [-1.3815546 ],
+       [-0.63138414],
+       [...571534],
+       [-2.32865251],
+       [ 0.11876607],
+       [ 0.87117092],
+       [ 0.15094568],
+       [-0.68536381]])
+
+    def should_not_run(x):
+        calls.append(callback)
+>       raise AssertionError("callback ran for an invalid generated schema")
+E       AssertionError: callback ran for an invalid generated schema
+
+tests/data/test_binary_iv_namespace_contract.py:373: AssertionError
+_ test_invalid_actual_namespace_is_rejected_before_structural_callbacks[iv-g_y] _
+
+kind = 'iv', callback = 'g_y'
+
+    @pytest.mark.parametrize(
+        "kind,callback",
+        [
+            (kind, callback)
+            for kind in ["binary", "iv"]
+            for callback in ["g_y", "g_d", "tau"]
+        ]
+        + [("iv", "g_z")],
+    )
+    def test_invalid_actual_namespace_is_rejected_before_structural_callbacks(
+        kind, callback
+    ):
+        calls = []
+    
+        def should_not_run(x):
+            calls.append(callback)
+            raise AssertionError("callback ran for an invalid generated schema")
+    
+>       _collision(
+            lambda: _generator(
+                kind, confounder_specs=[{"name": "d"}], **{callback: should_not_run}
+            ).generate(N),
+            "d",
+            ("confounder", "treatment"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:375: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/data/test_binary_iv_namespace_contract.py:47: in _collision
+    operation()
+tests/data/test_binary_iv_namespace_contract.py:378: in <lambda>
+    ).generate(N),
+      ^^^^^^^^^^^
+.venv/b11-schema-4rlj6ncz/causalis/dgp/causaldata_instrumental/base.py:351: in generate
+    loc = self._outcome_location(X, D, U, tau_x)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/b11-schema-4rlj6ncz/causalis/dgp/causaldata/base.py:411: in _outcome_location
+    loc += np.asarray(self.g_y(Xf), dtype=float)
+                      ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+x = array([[-0.06877469],
+       [ 1.29142915],
+       [-1.37436678],
+       [-1.3815546 ],
+       [-0.63138414],
+       [...571534],
+       [-2.32865251],
+       [ 0.11876607],
+       [ 0.87117092],
+       [ 0.15094568],
+       [-0.68536381]])
+
+    def should_not_run(x):
+        calls.append(callback)
+>       raise AssertionError("callback ran for an invalid generated schema")
+E       AssertionError: callback ran for an invalid generated schema
+
+tests/data/test_binary_iv_namespace_contract.py:373: AssertionError
+_ test_invalid_actual_namespace_is_rejected_before_structural_callbacks[iv-g_d] _
+
+kind = 'iv', callback = 'g_d'
+
+    @pytest.mark.parametrize(
+        "kind,callback",
+        [
+            (kind, callback)
+            for kind in ["binary", "iv"]
+            for callback in ["g_y", "g_d", "tau"]
+        ]
+        + [("iv", "g_z")],
+    )
+    def test_invalid_actual_namespace_is_rejected_before_structural_callbacks(
+        kind, callback
+    ):
+        calls = []
+    
+        def should_not_run(x):
+            calls.append(callback)
+            raise AssertionError("callback ran for an invalid generated schema")
+    
+>       _collision(
+            lambda: _generator(
+                kind, confounder_specs=[{"name": "d"}], **{callback: should_not_run}
+            ).generate(N),
+            "d",
+            ("confounder", "treatment"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:375: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/data/test_binary_iv_namespace_contract.py:47: in _collision
+    operation()
+tests/data/test_binary_iv_namespace_contract.py:378: in <lambda>
+    ).generate(N),
+      ^^^^^^^^^^^
+.venv/b11-schema-4rlj6ncz/causalis/dgp/causaldata_instrumental/base.py:339: in generate
+    r_obs = self._treatment_propensity(X, Z, U, calibrate=True)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/b11-schema-4rlj6ncz/causalis/dgp/causaldata_instrumental/base.py:200: in _treatment_propensity
+    score = self._treatment_score(Xf, Uf) + float(self.first_stage) * Zf
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/b11-schema-4rlj6ncz/causalis/dgp/causaldata/base.py:362: in _treatment_score
+    score_x += np.asarray(self.g_d(Xf), dtype=float)
+                          ^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+x = array([[-0.06877469],
+       [ 1.29142915],
+       [-1.37436678],
+       [-1.3815546 ],
+       [-0.63138414],
+       [...571534],
+       [-2.32865251],
+       [ 0.11876607],
+       [ 0.87117092],
+       [ 0.15094568],
+       [-0.68536381]])
+
+    def should_not_run(x):
+        calls.append(callback)
+>       raise AssertionError("callback ran for an invalid generated schema")
+E       AssertionError: callback ran for an invalid generated schema
+
+tests/data/test_binary_iv_namespace_contract.py:373: AssertionError
+_ test_invalid_actual_namespace_is_rejected_before_structural_callbacks[iv-tau] _
+
+kind = 'iv', callback = 'tau'
+
+    @pytest.mark.parametrize(
+        "kind,callback",
+        [
+            (kind, callback)
+            for kind in ["binary", "iv"]
+            for callback in ["g_y", "g_d", "tau"]
+        ]
+        + [("iv", "g_z")],
+    )
+    def test_invalid_actual_namespace_is_rejected_before_structural_callbacks(
+        kind, callback
+    ):
+        calls = []
+    
+        def should_not_run(x):
+            calls.append(callback)
+            raise AssertionError("callback ran for an invalid generated schema")
+    
+>       _collision(
+            lambda: _generator(
+                kind, confounder_specs=[{"name": "d"}], **{callback: should_not_run}
+            ).generate(N),
+            "d",
+            ("confounder", "treatment"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:375: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/data/test_binary_iv_namespace_contract.py:47: in _collision
+    operation()
+tests/data/test_binary_iv_namespace_contract.py:378: in <lambda>
+    ).generate(N),
+      ^^^^^^^^^^^
+.venv/b11-schema-4rlj6ncz/causalis/dgp/causaldata_instrumental/base.py:344: in generate
+    np.asarray(self.tau(X), dtype=float).reshape(-1)
+               ^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+x = array([[-0.06877469],
+       [ 1.29142915],
+       [-1.37436678],
+       [-1.3815546 ],
+       [-0.63138414],
+       [...571534],
+       [-2.32865251],
+       [ 0.11876607],
+       [ 0.87117092],
+       [ 0.15094568],
+       [-0.68536381]])
+
+    def should_not_run(x):
+        calls.append(callback)
+>       raise AssertionError("callback ran for an invalid generated schema")
+E       AssertionError: callback ran for an invalid generated schema
+
+tests/data/test_binary_iv_namespace_contract.py:373: AssertionError
+_ test_invalid_actual_namespace_is_rejected_before_structural_callbacks[iv-g_z] _
+
+kind = 'iv', callback = 'g_z'
+
+    @pytest.mark.parametrize(
+        "kind,callback",
+        [
+            (kind, callback)
+            for kind in ["binary", "iv"]
+            for callback in ["g_y", "g_d", "tau"]
+        ]
+        + [("iv", "g_z")],
+    )
+    def test_invalid_actual_namespace_is_rejected_before_structural_callbacks(
+        kind, callback
+    ):
+        calls = []
+    
+        def should_not_run(x):
+            calls.append(callback)
+            raise AssertionError("callback ran for an invalid generated schema")
+    
+>       _collision(
+            lambda: _generator(
+                kind, confounder_specs=[{"name": "d"}], **{callback: should_not_run}
+            ).generate(N),
+            "d",
+            ("confounder", "treatment"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:375: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/data/test_binary_iv_namespace_contract.py:47: in _collision
+    operation()
+tests/data/test_binary_iv_namespace_contract.py:378: in <lambda>
+    ).generate(N),
+      ^^^^^^^^^^^
+.venv/b11-schema-4rlj6ncz/causalis/dgp/causaldata_instrumental/base.py:336: in generate
+    m = self._instrument_propensity(X)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/b11-schema-4rlj6ncz/causalis/dgp/causaldata_instrumental/base.py:181: in _instrument_propensity
+    score_z = self._instrument_score(X)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/b11-schema-4rlj6ncz/causalis/dgp/causaldata_instrumental/base.py:171: in _instrument_score
+    return self._linear_component(
+.venv/b11-schema-4rlj6ncz/causalis/dgp/causaldata_instrumental/base.py:139: in _linear_component
+    score += np.asarray(g(Xf), dtype=float).reshape(-1)
+                        ^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+x = array([[-0.06877469],
+       [ 1.29142915],
+       [-1.37436678],
+       [-1.3815546 ],
+       [-0.63138414],
+       [...571534],
+       [-2.32865251],
+       [ 0.11876607],
+       [ 0.87117092],
+       [ 0.15094568],
+       [-0.68536381]])
+
+    def should_not_run(x):
+        calls.append(callback)
+>       raise AssertionError("callback ran for an invalid generated schema")
+E       AssertionError: callback ran for an invalid generated schema
+
+tests/data/test_binary_iv_namespace_contract.py:373: AssertionError
+_ test_rejection_after_custom_sampling_precedes_latent_and_assignment_rng_draws[binary] _
+
+kind = 'binary'
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    def test_rejection_after_custom_sampling_precedes_latent_and_assignment_rng_draws(kind):
+        generator = _generator(
+            kind,
+            confounder_specs=[{"name": "d"}],
+            x_sampler=lambda n, k, seed: np.arange(n, dtype=float).reshape(n, k),
+        )
+>       _collision(lambda: generator.generate(N), "d", ("confounder", "treatment"))
+
+tests/data/test_binary_iv_namespace_contract.py:392: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_rejection_after_custom_sampling_precedes_latent_and_assignment_rng_draws.<locals>.<lambda> at 0x115aefd80>
+column = 'd', roles = ('confounder', 'treatment')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_ test_rejection_after_custom_sampling_precedes_latent_and_assignment_rng_draws[iv] _
+
+kind = 'iv'
+
+    @pytest.mark.parametrize("kind", ["binary", "iv"])
+    def test_rejection_after_custom_sampling_precedes_latent_and_assignment_rng_draws(kind):
+        generator = _generator(
+            kind,
+            confounder_specs=[{"name": "d"}],
+            x_sampler=lambda n, k, seed: np.arange(n, dtype=float).reshape(n, k),
+        )
+>       _collision(lambda: generator.generate(N), "d", ("confounder", "treatment"))
+
+tests/data/test_binary_iv_namespace_contract.py:392: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_rejection_after_custom_sampling_precedes_latent_and_assignment_rng_draws.<locals>.<lambda> at 0x115b8c680>
+column = 'd', roles = ('confounder', 'treatment')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_ test_callback_enabling_oracles_cannot_silently_overwrite_confounders[binary-g_y] _
+
+kind = 'binary', callback = 'g_y'
+
+    @pytest.mark.parametrize("kind,callback", [("binary", "g_y"), ("iv", "g_z")])
+    def test_callback_enabling_oracles_cannot_silently_overwrite_confounders(
+        kind, callback
+    ):
+        generator = None
+    
+        def enable_oracles(x):
+            generator.include_oracle = True
+            return np.zeros(len(x))
+    
+        generator = _generator(
+            kind,
+            include_oracle=False,
+            confounder_specs=[{"name": "m"}],
+            **{callback: enable_oracles},
+        )
+>       _collision(lambda: generator.generate(N), "m", ("confounder", "oracle"))
+
+tests/data/test_binary_iv_namespace_contract.py:414: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_callback_enabling_oracles_cannot_silently_overwrite_confounders.<locals>.<lambda> at 0x115b8c540>
+column = 'm', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_ test_callback_enabling_oracles_cannot_silently_overwrite_confounders[iv-g_z] _
+
+kind = 'iv', callback = 'g_z'
+
+    @pytest.mark.parametrize("kind,callback", [("binary", "g_y"), ("iv", "g_z")])
+    def test_callback_enabling_oracles_cannot_silently_overwrite_confounders(
+        kind, callback
+    ):
+        generator = None
+    
+        def enable_oracles(x):
+            generator.include_oracle = True
+            return np.zeros(len(x))
+    
+        generator = _generator(
+            kind,
+            include_oracle=False,
+            confounder_specs=[{"name": "m"}],
+            **{callback: enable_oracles},
+        )
+>       _collision(lambda: generator.generate(N), "m", ("confounder", "oracle"))
+
+tests/data/test_binary_iv_namespace_contract.py:414: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_callback_enabling_oracles_cannot_silently_overwrite_confounders.<locals>.<lambda> at 0x115b8c220>
+column = 'm', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_____ test_callback_mutating_instrument_cannot_silently_overwrite_outcome ______
+
+    def test_callback_mutating_instrument_cannot_silently_overwrite_outcome():
+        generator = None
+    
+        def change_instrument(x):
+            generator.instrument_name = "y"
+            return np.zeros(len(x))
+    
+        generator = _generator("iv", g_z=change_instrument)
+>       _collision(lambda: generator.generate(N), "y", ("instrument", "outcome"))
+
+tests/data/test_binary_iv_namespace_contract.py:425: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_callback_mutating_instrument_cannot_silently_overwrite_outcome.<locals>.<lambda> at 0x115b8cc20>
+column = 'y', roles = ('instrument', 'outcome')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+__ test_rct_wrapper_inherits_core_guard_before_optional_augmentation[d-False] __
+
+column = 'd', return_causal_data = False
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("column", ["d", "g0"])
+    def test_rct_wrapper_inherits_core_guard_before_optional_augmentation(
+        column, return_causal_data
+    ):
+>       _collision(
+            lambda: generate_rct(
+                n=N,
+                random_state=SEED,
+                outcome_type="normal",
+                confounder_specs=[{"name": column}],
+                add_ancillary=False,
+                add_pre=False,
+                return_causal_data=return_causal_data,
+            ),
+            column,
+            ("confounder", "treatment" if column == "d" else "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:456: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_rct_wrapper_inherits_core_guard_before_optional_augmentation.<locals>.<lambda> at 0x115b8cfe0>
+column = 'd', roles = ('confounder', 'treatment')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+__ test_rct_wrapper_inherits_core_guard_before_optional_augmentation[d-True] ___
+
+column = 'd', return_causal_data = True
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("column", ["d", "g0"])
+    def test_rct_wrapper_inherits_core_guard_before_optional_augmentation(
+        column, return_causal_data
+    ):
+>       _collision(
+            lambda: generate_rct(
+                n=N,
+                random_state=SEED,
+                outcome_type="normal",
+                confounder_specs=[{"name": column}],
+                add_ancillary=False,
+                add_pre=False,
+                return_causal_data=return_causal_data,
+            ),
+            column,
+            ("confounder", "treatment" if column == "d" else "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:456: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_rct_wrapper_inherits_core_guard_before_optional_augmentation.<locals>.<lambda> at 0x115b8db20>
+column = 'd', roles = ('confounder', 'treatment')
+
+    def _collision(operation, column, roles):
+        with pytest.raises(ValueError) as caught:
+            operation()
+        message = str(caught.value)
+        assert repr(column) in message
+>       assert re.search("collid|collision|overlap", message, flags=re.IGNORECASE)
+E       assert None
+E        +  where None = <function search at 0x109d2afc0>('collid|collision|overlap', "1 validation error for CausalData\n  Value error, Column 'd' specified as treatment must be binary encoded in {0,1}. ..., 'user_id': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error", flags=re.IGNORECASE)
+E        +    where <function search at 0x109d2afc0> = re.search
+E        +    and   re.IGNORECASE = re.IGNORECASE
+
+tests/data/test_binary_iv_namespace_contract.py:50: AssertionError
+_ test_rct_wrapper_inherits_core_guard_before_optional_augmentation[g0-False] __
+
+column = 'g0', return_causal_data = False
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("column", ["d", "g0"])
+    def test_rct_wrapper_inherits_core_guard_before_optional_augmentation(
+        column, return_causal_data
+    ):
+>       _collision(
+            lambda: generate_rct(
+                n=N,
+                random_state=SEED,
+                outcome_type="normal",
+                confounder_specs=[{"name": column}],
+                add_ancillary=False,
+                add_pre=False,
+                return_causal_data=return_causal_data,
+            ),
+            column,
+            ("confounder", "treatment" if column == "d" else "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:456: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_rct_wrapper_inherits_core_guard_before_optional_augmentation.<locals>.<lambda> at 0x115b8ccc0>
+column = 'g0', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+__ test_rct_wrapper_inherits_core_guard_before_optional_augmentation[g0-True] __
+
+column = 'g0', return_causal_data = True
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("column", ["d", "g0"])
+    def test_rct_wrapper_inherits_core_guard_before_optional_augmentation(
+        column, return_causal_data
+    ):
+>       _collision(
+            lambda: generate_rct(
+                n=N,
+                random_state=SEED,
+                outcome_type="normal",
+                confounder_specs=[{"name": column}],
+                add_ancillary=False,
+                add_pre=False,
+                return_causal_data=return_causal_data,
+            ),
+            column,
+            ("confounder", "treatment" if column == "d" else "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:456: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_rct_wrapper_inherits_core_guard_before_optional_augmentation.<locals>.<lambda> at 0x115aede40>
+column = 'g0', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+______ test_iv_wrapper_inherits_core_guard_in_both_return_modes[d-False] _______
+
+column = 'd', return_causal_data = False
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("column", ["d", "g_z0"])
+    def test_iv_wrapper_inherits_core_guard_in_both_return_modes(
+        column, return_causal_data
+    ):
+>       _collision(
+            lambda: generate_iv_data(
+                n=N,
+                random_state=SEED,
+                confounder_specs=[{"name": column}],
+                add_ancillary=False,
+                return_causal_data=return_causal_data,
+            ),
+            column,
+            ("confounder", "treatment" if column == "d" else "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:476: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_iv_wrapper_inherits_core_guard_in_both_return_modes.<locals>.<lambda> at 0x1159a3380>
+column = 'd', roles = ('confounder', 'treatment')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_______ test_iv_wrapper_inherits_core_guard_in_both_return_modes[d-True] _______
+
+column = 'd', return_causal_data = True
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("column", ["d", "g_z0"])
+    def test_iv_wrapper_inherits_core_guard_in_both_return_modes(
+        column, return_causal_data
+    ):
+>       _collision(
+            lambda: generate_iv_data(
+                n=N,
+                random_state=SEED,
+                confounder_specs=[{"name": column}],
+                add_ancillary=False,
+                return_causal_data=return_causal_data,
+            ),
+            column,
+            ("confounder", "treatment" if column == "d" else "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:476: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_iv_wrapper_inherits_core_guard_in_both_return_modes.<locals>.<lambda> at 0x115941c60>
+column = 'd', roles = ('confounder', 'treatment')
+
+    def _collision(operation, column, roles):
+        with pytest.raises(ValueError) as caught:
+            operation()
+        message = str(caught.value)
+        assert repr(column) in message
+>       assert re.search("collid|collision|overlap", message, flags=re.IGNORECASE)
+E       assert None
+E        +  where None = <function search at 0x109d2afc0>('collid|collision|overlap', "1 validation error for IVCausalData\n  Value error, Column 'd' specified as treatment must be binary encoded with val..., 'user_id': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/value_error", flags=re.IGNORECASE)
+E        +    where <function search at 0x109d2afc0> = re.search
+E        +    and   re.IGNORECASE = re.IGNORECASE
+
+tests/data/test_binary_iv_namespace_contract.py:50: AssertionError
+_____ test_iv_wrapper_inherits_core_guard_in_both_return_modes[g_z0-False] _____
+
+column = 'g_z0', return_causal_data = False
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("column", ["d", "g_z0"])
+    def test_iv_wrapper_inherits_core_guard_in_both_return_modes(
+        column, return_causal_data
+    ):
+>       _collision(
+            lambda: generate_iv_data(
+                n=N,
+                random_state=SEED,
+                confounder_specs=[{"name": column}],
+                add_ancillary=False,
+                return_causal_data=return_causal_data,
+            ),
+            column,
+            ("confounder", "treatment" if column == "d" else "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:476: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_iv_wrapper_inherits_core_guard_in_both_return_modes.<locals>.<lambda> at 0x115903560>
+column = 'g_z0', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+_____ test_iv_wrapper_inherits_core_guard_in_both_return_modes[g_z0-True] ______
+
+column = 'g_z0', return_causal_data = True
+
+    @pytest.mark.parametrize("return_causal_data", [False, True])
+    @pytest.mark.parametrize("column", ["d", "g_z0"])
+    def test_iv_wrapper_inherits_core_guard_in_both_return_modes(
+        column, return_causal_data
+    ):
+>       _collision(
+            lambda: generate_iv_data(
+                n=N,
+                random_state=SEED,
+                confounder_specs=[{"name": column}],
+                add_ancillary=False,
+                return_causal_data=return_causal_data,
+            ),
+            column,
+            ("confounder", "treatment" if column == "d" else "oracle"),
+        )
+
+tests/data/test_binary_iv_namespace_contract.py:476: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+operation = <function test_iv_wrapper_inherits_core_guard_in_both_return_modes.<locals>.<lambda> at 0x115aefce0>
+column = 'g_z0', roles = ('confounder', 'oracle')
+
+    def _collision(operation, column, roles):
+>       with pytest.raises(ValueError) as caught:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/data/test_binary_iv_namespace_contract.py:46: Failed
+=========================== short test summary info ============================
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_fixed_outcome_or_treatment[y-outcome-False-binary]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_fixed_outcome_or_treatment[y-outcome-False-iv]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_fixed_outcome_or_treatment[y-outcome-True-binary]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_fixed_outcome_or_treatment[y-outcome-True-iv]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_fixed_outcome_or_treatment[d-treatment-False-binary]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_fixed_outcome_or_treatment[d-treatment-False-iv]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_fixed_outcome_or_treatment[d-treatment-True-binary]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_fixed_outcome_or_treatment[d-treatment-True-iv]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounder_cannot_replace_instrument
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_any_enabled_family_oracle[binary-m]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_any_enabled_family_oracle[binary-m_obs]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_any_enabled_family_oracle[binary-tau_link]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_any_enabled_family_oracle[binary-g0]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_any_enabled_family_oracle[binary-g1]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_any_enabled_family_oracle[binary-cate]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_any_enabled_family_oracle[iv-m]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_any_enabled_family_oracle[iv-r_obs]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_any_enabled_family_oracle[iv-r_z0]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_any_enabled_family_oracle[iv-r_z1]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_any_enabled_family_oracle[iv-g_z0]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_any_enabled_family_oracle[iv-g_z1]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_any_enabled_family_oracle[iv-iv_first_stage]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_any_enabled_family_oracle[iv-iv_reduced_form]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_any_enabled_family_oracle[iv-late_x]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_any_enabled_family_oracle[iv-late]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_any_enabled_family_oracle[iv-tau_link]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_any_enabled_family_oracle[iv-g_d0]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_any_enabled_family_oracle[iv-g_d1]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_confounders_cannot_replace_any_enabled_family_oracle[iv-cate]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_instrument_cannot_share_an_enabled_oracle_name[m]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_instrument_cannot_share_an_enabled_oracle_name[r_obs]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_instrument_cannot_share_an_enabled_oracle_name[r_z0]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_instrument_cannot_share_an_enabled_oracle_name[r_z1]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_instrument_cannot_share_an_enabled_oracle_name[g_z0]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_instrument_cannot_share_an_enabled_oracle_name[g_z1]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_instrument_cannot_share_an_enabled_oracle_name[iv_first_stage]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_instrument_cannot_share_an_enabled_oracle_name[iv_reduced_form]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_instrument_cannot_share_an_enabled_oracle_name[late_x]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_instrument_cannot_share_an_enabled_oracle_name[late]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_instrument_cannot_share_an_enabled_oracle_name[tau_link]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_instrument_cannot_share_an_enabled_oracle_name[g_d0]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_instrument_cannot_share_an_enabled_oracle_name[g_d1]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_instrument_cannot_share_an_enabled_oracle_name[cate]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_categorical_expansion_cannot_replace_enabled_oracles[binary-spec0-m_obs]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_categorical_expansion_cannot_replace_enabled_oracles[binary-spec1-tau_link]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_categorical_expansion_cannot_replace_enabled_oracles[iv-spec2-r_z0]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_categorical_expansion_cannot_replace_enabled_oracles[iv-spec3-iv_first_stage]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_expanded_and_ordinary_confounders_must_have_distinct_names[binary-False]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_expanded_and_ordinary_confounders_must_have_distinct_names[binary-True]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_expanded_and_ordinary_confounders_must_have_distinct_names[iv-False]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_expanded_and_ordinary_confounders_must_have_distinct_names[iv-True]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_stringified_category_labels_cannot_produce_duplicate_columns[binary]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_stringified_category_labels_cannot_produce_duplicate_columns[iv]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_expanded_confounder_cannot_replace_a_custom_instrument[spec0-offer_B]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_expanded_confounder_cannot_replace_a_custom_instrument[spec1-tier__onlylevel]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_actual_custom_sampler_names_must_be_nonempty_strings[None-binary]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_actual_custom_sampler_names_must_be_nonempty_strings[None-iv]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_actual_custom_sampler_names_must_be_nonempty_strings[-binary]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_actual_custom_sampler_names_must_be_nonempty_strings[-iv]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_actual_custom_sampler_names_must_be_nonempty_strings[1-binary]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_actual_custom_sampler_names_must_be_nonempty_strings[1-iv]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_actual_custom_sampler_names_must_be_nonempty_strings[name3-binary]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_actual_custom_sampler_names_must_be_nonempty_strings[name3-iv]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_actual_ordinary_sampler_names_must_be_strings[1-binary]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_actual_ordinary_sampler_names_must_be_strings[1-iv]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_actual_ordinary_sampler_names_must_be_strings[name1-binary]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_actual_ordinary_sampler_names_must_be_strings[name1-iv]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_mutating_instrument_to_an_invalid_type_is_revalidated_before_sampling[None]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_mutating_instrument_to_an_invalid_type_is_revalidated_before_sampling[]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_mutating_instrument_to_an_invalid_type_is_revalidated_before_sampling[1]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_mutating_instrument_to_an_invalid_type_is_revalidated_before_sampling[name3]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_actual_name_count_must_match_custom_covariate_width[0-binary]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_actual_name_count_must_match_custom_covariate_width[0-iv]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_actual_name_count_must_match_custom_covariate_width[2-binary]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_actual_name_count_must_match_custom_covariate_width[2-iv]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_positive_custom_covariate_width_cannot_be_hidden_by_empty_name_list[binary]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_positive_custom_covariate_width_cannot_be_hidden_by_empty_name_list[iv]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_enabling_oracles_on_a_reused_generator_revalidates_names[binary]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_enabling_oracles_on_a_reused_generator_revalidates_names[iv]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_reusing_generator_revalidates_changed_confounder_specs[binary]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_reusing_generator_revalidates_changed_confounder_specs[iv]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_mutating_instrument_to_core_column_is_rejected_on_reuse
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_enabling_oracles_rejects_instrument_collision_before_custom_sampler_runs
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_invalid_actual_namespace_is_rejected_before_structural_callbacks[binary-g_y]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_invalid_actual_namespace_is_rejected_before_structural_callbacks[binary-g_d]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_invalid_actual_namespace_is_rejected_before_structural_callbacks[binary-tau]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_invalid_actual_namespace_is_rejected_before_structural_callbacks[iv-g_y]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_invalid_actual_namespace_is_rejected_before_structural_callbacks[iv-g_d]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_invalid_actual_namespace_is_rejected_before_structural_callbacks[iv-tau]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_invalid_actual_namespace_is_rejected_before_structural_callbacks[iv-g_z]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_rejection_after_custom_sampling_precedes_latent_and_assignment_rng_draws[binary]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_rejection_after_custom_sampling_precedes_latent_and_assignment_rng_draws[iv]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_callback_enabling_oracles_cannot_silently_overwrite_confounders[binary-g_y]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_callback_enabling_oracles_cannot_silently_overwrite_confounders[iv-g_z]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_callback_mutating_instrument_cannot_silently_overwrite_outcome
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_rct_wrapper_inherits_core_guard_before_optional_augmentation[d-False]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_rct_wrapper_inherits_core_guard_before_optional_augmentation[d-True]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_rct_wrapper_inherits_core_guard_before_optional_augmentation[g0-False]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_rct_wrapper_inherits_core_guard_before_optional_augmentation[g0-True]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_iv_wrapper_inherits_core_guard_in_both_return_modes[d-False]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_iv_wrapper_inherits_core_guard_in_both_return_modes[d-True]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_iv_wrapper_inherits_core_guard_in_both_return_modes[g_z0-False]
+FAILED tests/data/test_binary_iv_namespace_contract.py::test_iv_wrapper_inherits_core_guard_in_both_return_modes[g_z0-True]
+103 failed, 60 passed in 5.81s

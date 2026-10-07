@@ -1,0 +1,1224 @@
+{
+  "baseline_sha": "4d6b8143db7a93c1a7eba371fcd144878d80c896",
+  "reviewed_head": "cdc2c9590246c5b049d2184ba3479324217b2b00",
+  "library_sha256": {
+    "causalis/dgp/causaldata/base.py": "f1e9e35eee2c5fb3d0e2e0f574ad1ae9acf02961921daf790c3acc57810929d3",
+    "causalis/dgp/causaldata_instrumental/base.py": "6df54418fe67a7e0af84b2347c0a02ced94b3ce97af489a04f87446c32317633"
+  },
+  "current_test_module_sha256": "84a0fb73fc82e19431a0b7aea00c80bfa5d0d7b65e56166e2046e56cefed9ea3",
+  "valid_configurations": [
+    {
+      "family": "continuous",
+      "class": "CausalDatasetGenerator",
+      "sampling": "default",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "continuous",
+      "class": "CausalDatasetGenerator",
+      "sampling": "default",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "continuous",
+      "class": "CausalDatasetGenerator",
+      "sampling": "independent",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "continuous",
+      "class": "CausalDatasetGenerator",
+      "sampling": "independent",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "continuous",
+      "class": "CausalDatasetGenerator",
+      "sampling": "copula",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "continuous",
+      "class": "CausalDatasetGenerator",
+      "sampling": "copula",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "continuous",
+      "class": "CausalDatasetGenerator",
+      "sampling": "custom",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "continuous",
+      "class": "CausalDatasetGenerator",
+      "sampling": "custom",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "binary",
+      "class": "CausalDatasetGenerator",
+      "sampling": "default",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "binary",
+      "class": "CausalDatasetGenerator",
+      "sampling": "default",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "binary",
+      "class": "CausalDatasetGenerator",
+      "sampling": "independent",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "binary",
+      "class": "CausalDatasetGenerator",
+      "sampling": "independent",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "binary",
+      "class": "CausalDatasetGenerator",
+      "sampling": "copula",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "binary",
+      "class": "CausalDatasetGenerator",
+      "sampling": "copula",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "binary",
+      "class": "CausalDatasetGenerator",
+      "sampling": "custom",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "binary",
+      "class": "CausalDatasetGenerator",
+      "sampling": "custom",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "poisson",
+      "class": "CausalDatasetGenerator",
+      "sampling": "default",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "poisson",
+      "class": "CausalDatasetGenerator",
+      "sampling": "default",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "poisson",
+      "class": "CausalDatasetGenerator",
+      "sampling": "independent",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "poisson",
+      "class": "CausalDatasetGenerator",
+      "sampling": "independent",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "poisson",
+      "class": "CausalDatasetGenerator",
+      "sampling": "copula",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "poisson",
+      "class": "CausalDatasetGenerator",
+      "sampling": "copula",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "poisson",
+      "class": "CausalDatasetGenerator",
+      "sampling": "custom",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "poisson",
+      "class": "CausalDatasetGenerator",
+      "sampling": "custom",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "gamma",
+      "class": "CausalDatasetGenerator",
+      "sampling": "default",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "gamma",
+      "class": "CausalDatasetGenerator",
+      "sampling": "default",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "gamma",
+      "class": "CausalDatasetGenerator",
+      "sampling": "independent",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "gamma",
+      "class": "CausalDatasetGenerator",
+      "sampling": "independent",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "gamma",
+      "class": "CausalDatasetGenerator",
+      "sampling": "copula",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "gamma",
+      "class": "CausalDatasetGenerator",
+      "sampling": "copula",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "gamma",
+      "class": "CausalDatasetGenerator",
+      "sampling": "custom",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "gamma",
+      "class": "CausalDatasetGenerator",
+      "sampling": "custom",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "tweedie_gamma",
+      "class": "CausalDatasetGenerator",
+      "sampling": "default",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "tweedie_gamma",
+      "class": "CausalDatasetGenerator",
+      "sampling": "default",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "tweedie_gamma",
+      "class": "CausalDatasetGenerator",
+      "sampling": "independent",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "tweedie_gamma",
+      "class": "CausalDatasetGenerator",
+      "sampling": "independent",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "tweedie_gamma",
+      "class": "CausalDatasetGenerator",
+      "sampling": "copula",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "tweedie_gamma",
+      "class": "CausalDatasetGenerator",
+      "sampling": "copula",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "tweedie_gamma",
+      "class": "CausalDatasetGenerator",
+      "sampling": "custom",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "tweedie_gamma",
+      "class": "CausalDatasetGenerator",
+      "sampling": "custom",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "tweedie_lognormal",
+      "class": "CausalDatasetGenerator",
+      "sampling": "default",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "tweedie_lognormal",
+      "class": "CausalDatasetGenerator",
+      "sampling": "default",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "tweedie_lognormal",
+      "class": "CausalDatasetGenerator",
+      "sampling": "independent",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "tweedie_lognormal",
+      "class": "CausalDatasetGenerator",
+      "sampling": "independent",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "tweedie_lognormal",
+      "class": "CausalDatasetGenerator",
+      "sampling": "copula",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "tweedie_lognormal",
+      "class": "CausalDatasetGenerator",
+      "sampling": "copula",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "tweedie_lognormal",
+      "class": "CausalDatasetGenerator",
+      "sampling": "custom",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "tweedie_lognormal",
+      "class": "CausalDatasetGenerator",
+      "sampling": "custom",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "continuous",
+      "class": "InstrumentalGenerator",
+      "sampling": "default",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "continuous",
+      "class": "InstrumentalGenerator",
+      "sampling": "default",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "continuous",
+      "class": "InstrumentalGenerator",
+      "sampling": "independent",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "continuous",
+      "class": "InstrumentalGenerator",
+      "sampling": "independent",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "continuous",
+      "class": "InstrumentalGenerator",
+      "sampling": "copula",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "continuous",
+      "class": "InstrumentalGenerator",
+      "sampling": "copula",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "continuous",
+      "class": "InstrumentalGenerator",
+      "sampling": "custom",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "continuous",
+      "class": "InstrumentalGenerator",
+      "sampling": "custom",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "binary",
+      "class": "InstrumentalGenerator",
+      "sampling": "default",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "binary",
+      "class": "InstrumentalGenerator",
+      "sampling": "default",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "binary",
+      "class": "InstrumentalGenerator",
+      "sampling": "independent",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "binary",
+      "class": "InstrumentalGenerator",
+      "sampling": "independent",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "binary",
+      "class": "InstrumentalGenerator",
+      "sampling": "copula",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "binary",
+      "class": "InstrumentalGenerator",
+      "sampling": "copula",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "binary",
+      "class": "InstrumentalGenerator",
+      "sampling": "custom",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "binary",
+      "class": "InstrumentalGenerator",
+      "sampling": "custom",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "poisson",
+      "class": "InstrumentalGenerator",
+      "sampling": "default",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "poisson",
+      "class": "InstrumentalGenerator",
+      "sampling": "default",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "poisson",
+      "class": "InstrumentalGenerator",
+      "sampling": "independent",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "poisson",
+      "class": "InstrumentalGenerator",
+      "sampling": "independent",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "poisson",
+      "class": "InstrumentalGenerator",
+      "sampling": "copula",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "poisson",
+      "class": "InstrumentalGenerator",
+      "sampling": "copula",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "poisson",
+      "class": "InstrumentalGenerator",
+      "sampling": "custom",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "poisson",
+      "class": "InstrumentalGenerator",
+      "sampling": "custom",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "gamma",
+      "class": "InstrumentalGenerator",
+      "sampling": "default",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "gamma",
+      "class": "InstrumentalGenerator",
+      "sampling": "default",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "gamma",
+      "class": "InstrumentalGenerator",
+      "sampling": "independent",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "gamma",
+      "class": "InstrumentalGenerator",
+      "sampling": "independent",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "gamma",
+      "class": "InstrumentalGenerator",
+      "sampling": "copula",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "gamma",
+      "class": "InstrumentalGenerator",
+      "sampling": "copula",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "gamma",
+      "class": "InstrumentalGenerator",
+      "sampling": "custom",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    },
+    {
+      "family": "gamma",
+      "class": "InstrumentalGenerator",
+      "sampling": "custom",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_dtypes_schema_next10rng": true
+    }
+  ],
+  "family_specific_available_names": [
+    {
+      "class": "CausalDatasetGenerator",
+      "instrument_name": "z",
+      "oracle": true,
+      "confounders": [
+        "r_obs",
+        "g_d0"
+      ],
+      "exact_frame_next10rng": true
+    },
+    {
+      "class": "CausalDatasetGenerator",
+      "instrument_name": "z",
+      "oracle": false,
+      "confounders": [
+        "m",
+        "cate"
+      ],
+      "exact_frame_next10rng": true
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "instrument_name": "z",
+      "oracle": true,
+      "confounders": [
+        "m_obs",
+        "g0",
+        "g1"
+      ],
+      "exact_frame_next10rng": true
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "instrument_name": "m_obs",
+      "oracle": true,
+      "confounders": [
+        "g0",
+        "g1"
+      ],
+      "exact_frame_next10rng": true
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "instrument_name": "m",
+      "oracle": false,
+      "confounders": [
+        "late",
+        "g_z0"
+      ],
+      "exact_frame_next10rng": true
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "instrument_name": " ",
+      "oracle": true,
+      "confounders": [
+        "\t"
+      ],
+      "exact_frame_next10rng": true
+    }
+  ],
+  "rejected_schemas": [
+    {
+      "class": "CausalDatasetGenerator",
+      "column": "y",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'y' collides between outcome and confounder[0]"
+    },
+    {
+      "class": "CausalDatasetGenerator",
+      "column": "d",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'd' collides between treatment and confounder[0]"
+    },
+    {
+      "class": "CausalDatasetGenerator",
+      "column": "m",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'm' collides between m oracle and confounder[0]"
+    },
+    {
+      "class": "CausalDatasetGenerator",
+      "column": "m_obs",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'm_obs' collides between m_obs oracle and confounder[0]"
+    },
+    {
+      "class": "CausalDatasetGenerator",
+      "column": "tau_link",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'tau_link' collides between tau_link oracle and confounder[0]"
+    },
+    {
+      "class": "CausalDatasetGenerator",
+      "column": "g0",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'g0' collides between g0 oracle and confounder[0]"
+    },
+    {
+      "class": "CausalDatasetGenerator",
+      "column": "g1",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'g1' collides between g1 oracle and confounder[0]"
+    },
+    {
+      "class": "CausalDatasetGenerator",
+      "column": "cate",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'cate' collides between cate oracle and confounder[0]"
+    },
+    {
+      "class": "CausalDatasetGenerator",
+      "column": "same",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'same' collides between confounder[0] and confounder[1]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "y",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'y' collides between outcome and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "d",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'd' collides between treatment and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "z",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'z' collides between instrument and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "m",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'm' collides between m oracle and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "r_obs",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'r_obs' collides between r_obs oracle and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "r_z0",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'r_z0' collides between r_z0 oracle and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "r_z1",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'r_z1' collides between r_z1 oracle and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "g_z0",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'g_z0' collides between g_z0 oracle and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "g_z1",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'g_z1' collides between g_z1 oracle and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "iv_first_stage",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'iv_first_stage' collides between iv_first_stage oracle and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "iv_reduced_form",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'iv_reduced_form' collides between iv_reduced_form oracle and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "late_x",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'late_x' collides between late_x oracle and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "late",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'late' collides between late oracle and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "tau_link",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'tau_link' collides between tau_link oracle and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "g_d0",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'g_d0' collides between g_d0 oracle and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "g_d1",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'g_d1' collides between g_d1 oracle and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "cate",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'cate' collides between cate oracle and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "same",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'same' collides between confounder[0] and confounder[1]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "m",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'm' collides between instrument and m oracle"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "r_obs",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'r_obs' collides between instrument and r_obs oracle"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "r_z0",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'r_z0' collides between instrument and r_z0 oracle"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "r_z1",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'r_z1' collides between instrument and r_z1 oracle"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "g_z0",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'g_z0' collides between instrument and g_z0 oracle"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "g_z1",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'g_z1' collides between instrument and g_z1 oracle"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "iv_first_stage",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'iv_first_stage' collides between instrument and iv_first_stage oracle"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "iv_reduced_form",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'iv_reduced_form' collides between instrument and iv_reduced_form oracle"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "late_x",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'late_x' collides between instrument and late_x oracle"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "late",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'late' collides between instrument and late oracle"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "tau_link",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'tau_link' collides between instrument and tau_link oracle"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "g_d0",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'g_d0' collides between instrument and g_d0 oracle"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "g_d1",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'g_d1' collides between instrument and g_d1 oracle"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "cate",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'cate' collides between instrument and cate oracle"
+    },
+    {
+      "class": "CausalDatasetGenerator",
+      "column": "m_obs",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'm_obs' collides between m_obs oracle and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "r_z0",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'r_z0' collides between r_z0 oracle and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "segment_top",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'segment_top' collides between instrument and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "column": "x1",
+      "baseline_returned_raw_frame": true,
+      "new_status": "ValueError",
+      "message": "Generated column name 'x1' collides between instrument and confounder[0]"
+    }
+  ],
+  "mutation_checks": [
+    {
+      "class": "CausalDatasetGenerator",
+      "mutation": "enable_oracles_in_g_y",
+      "status": "ValueError",
+      "message": "Generated column name 'm' collides between m oracle and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "mutation": "enable_oracles_in_g_z",
+      "status": "ValueError",
+      "message": "Generated column name 'm' collides between m oracle and confounder[0]"
+    },
+    {
+      "class": "IV",
+      "mutation": "instrument_y_in_g_z",
+      "status": "ValueError",
+      "message": "Generated column name 'y' collides between outcome and instrument"
+    },
+    {
+      "class": "IV",
+      "mutation": "'y'",
+      "status": "ValueError",
+      "message": "Generated column name 'y' collides between outcome and instrument"
+    },
+    {
+      "class": "IV",
+      "mutation": "'d'",
+      "status": "ValueError",
+      "message": "Generated column name 'd' collides between treatment and instrument"
+    },
+    {
+      "class": "IV",
+      "mutation": "'m'",
+      "status": "ValueError",
+      "message": "Generated column name 'm' collides between instrument and m oracle"
+    },
+    {
+      "class": "IV",
+      "mutation": "''",
+      "status": "ValueError",
+      "message": "instrument column name must be a nonempty string"
+    },
+    {
+      "class": "IV",
+      "mutation": "None",
+      "status": "ValueError",
+      "message": "instrument column name must be a nonempty string"
+    },
+    {
+      "class": "IV",
+      "mutation": "['unhashable']",
+      "status": "ValueError",
+      "message": "instrument column name must be a nonempty string"
+    },
+    {
+      "class": "CausalDatasetGenerator",
+      "mutation": "enable_oracles_between_calls",
+      "status": "ValueError",
+      "message": "Generated column name 'm' collides between m oracle and confounder[0]"
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "mutation": "enable_oracles_between_calls",
+      "status": "ValueError",
+      "message": "Generated column name 'm' collides between m oracle and confounder[0]"
+    }
+  ],
+  "zero_confounder_containers": [
+    {
+      "class": "CausalDatasetGenerator",
+      "n": 30,
+      "container": "rows",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "class": "CausalDatasetGenerator",
+      "n": 30,
+      "container": "rows",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "class": "CausalDatasetGenerator",
+      "n": 0,
+      "container": "rows",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "class": "CausalDatasetGenerator",
+      "n": 0,
+      "container": "rows",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "class": "CausalDatasetGenerator",
+      "n": 0,
+      "container": "flat",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "class": "CausalDatasetGenerator",
+      "n": 0,
+      "container": "flat",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "class": "CausalDatasetGenerator",
+      "n": 30,
+      "container": "flat",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "class": "CausalDatasetGenerator",
+      "n": 30,
+      "container": "flat",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "n": 0,
+      "container": "rows",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "n": 30,
+      "container": "rows",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "n": 0,
+      "container": "flat",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "n": 0,
+      "container": "flat",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "n": 30,
+      "container": "flat",
+      "oracle": false,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    },
+    {
+      "class": "InstrumentalGenerator",
+      "n": 30,
+      "container": "flat",
+      "oracle": true,
+      "generations": 2,
+      "exact_frame_schema_next10rng": true
+    }
+  ],
+  "wrapper_residuals": [
+    {
+      "trigger": "generate_iv_data instrument_name='age', add_ancillary=True",
+      "n": 30,
+      "seed": 731,
+      "include_oracle": false,
+      "generated_instrument_binary": false,
+      "nonbinary_instrument_count": 30,
+      "scope": "separate optional ancillary wrapper overwrite; core IV generator name is valid"
+    }
+  ],
+  "issues": []
+}

@@ -496,3 +496,27 @@ Migration: corrected categorical X values can change D, Y and oracle columns for
 B10 CI: [completed run and downloaded per-job evidence](https://github.com/MaximLenivkin/Causalis/actions/runs/37532909989), exact source95a8b7599fb129fb2c5973f50e9b4a8018732f6c. All six representative Linux configurations passed **2072 tests each**, without failures/errors/skips; 33 new cases are included. Local macOS integration recorded **2071 passed and one confirmed pre-existing DiD near-zero diagnostic assertion failure**, with unchanged fixture/called-source and the same B09 cell values. Seven sensitivity modules remain deferred; full sensitivity, standalone Sphinx and release validation are not claimed.
 
 B10 does not establish complete output-name validation for binary or IV generators. A separately confirmed confounder named d can overwrite their raw treatment column; B09's namespace guard covers the multi-treatment generator. Complete binary/IV actual-schema validation remains a separate planned correction.
+
+
+## B11 · Binary and IV output column names
+
+Implementation checkpoint: **cdc2c9590246c5b049d2184ba3479324217b2b00**. Sources: [binary generator](https://github.com/MaximLenivkin/Causalis/blob/cdc2c9590246c5b049d2184ba3479324217b2b00/causalis/dgp/causaldata/base.py), [IV generator](https://github.com/MaximLenivkin/Causalis/blob/cdc2c9590246c5b049d2184ba3479324217b2b00/causalis/dgp/causaldata_instrumental/base.py), [schema regressions](https://github.com/MaximLenivkin/Causalis/blob/cdc2c9590246c5b049d2184ba3479324217b2b00/tests/data/test_binary_iv_namespace_contract.py).
+
+**P2: reject collisions across the actual core-generator output schema.** A confounder named `d` previously replaced the binary treatment with arbitrary numeric values in both generator families. Duplicate expanded confounders, outcome names and enabled oracle names could also silently replace columns. An IV instrument named `m` was replaced by its instrument-propensity oracle when oracles were enabled.
+
+Ready-to-use text:
+
+> CausalDatasetGenerator and InstrumentalGenerator require unique, nonempty string names across every emitted core column, actual expanded confounder and enabled oracle. ValueError identifies the conflicting column and both roles. The generator preserves exact names, including whitespace, and requires the actual confounder-name count to match the sampled width. Existing categorical expansion and custom-sampler naming rules remain in effect.
+
+> Each family reserves only its own enabled oracle columns. IV emits m, r_obs, r_z0, r_z1, g_z0, g_z1, iv_first_stage, iv_reduced_form, late_x, late, tau_link, g_d0, g_d1 and cate. Binary emits m, m_obs, tau_link, g0, g1 and cate. With oracles disabled, their names remain available. IV also permits binary-only names such as m_obs and g0 with IV oracles enabled.
+
+> Fixed output names are checked at construction and before every generation. The complete actual namespace is checked after covariate sampling and before latent draws, structural callbacks, calibration and assignment. A final check before DataFrame assembly catches callbacks that change the instrument name or enable colliding oracle columns during the same call. A late rejection can occur after callbacks and random draws; failed generation does not roll back their effects.
+
+Migration: explicitly choose unique names for formerly colliding configurations. Valid schemas retain values, column order, dtypes and RNG progression, including previously accepted zero-confounder custom containers. Public signatures, assignment and oracle arithmetic remain unchanged. The IV alias and wrappers inherit core conflicts through generate.
+
+Wrapper-added pre-period and ancillary columns, column ordering and data-contract feature projection retain separate policies. Confirmed remaining cases include custom pre_name='y', ancillary/confounder age overwrite, IV ordering that duplicates instrument names user_id or a disabled oracle name, and automatic conversion that excludes disabled-oracle-named confounders. Complete wrapper namespace validation is a separate planned correction. Sensitivity, marginal-propensity API, selected-treatment ATT and numerical-zero DiD diagnostics remain separate work.
+
+B11 baseline/focused evidence: the same163newcases produced103failures/60passes on exact4d6b814 and163passes after the correction. Final local integration and CI results are recorded in the B11 block report.
+
+
+B11 CI: [completed run and per-job artifacts](https://github.com/MaximLenivkin/Causalis/actions/runs/37589241406), exact source `cdc2c9590246c5b049d2184ba3479324217b2b00`. Each of the six representative Linux configurations passed2235cases without failures/errors/skips. The Mac run passed2234cases with the same confirmed pre-existing numerical-zero DiD assertion failure; the local suite is not clean. Seven named sensitivity modules remain deferred; standalone Sphinx and release were not validated.

@@ -1,0 +1,7 @@
+{
+  "valid_configs": 80,
+  "family_name_configs": 6,
+  "rejected_schemas": 45,
+  "mutation_checks": 11,
+  "issues": []
+}

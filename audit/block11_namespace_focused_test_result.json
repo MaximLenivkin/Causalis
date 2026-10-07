@@ -1,0 +1,34 @@
+{
+  "mode": "focused",
+  "baseline_sha": "4d6b8143db7a93c1a7eba371fcd144878d80c896",
+  "head_at_start": "4d6b8143db7a93c1a7eba371fcd144878d80c896",
+  "source_files": [
+    "causalis/dgp/causaldata/base.py",
+    "causalis/dgp/causaldata_instrumental/base.py"
+  ],
+  "source_sha256": {
+    "causalis/dgp/causaldata/base.py": "f1e9e35eee2c5fb3d0e2e0f574ad1ae9acf02961921daf790c3acc57810929d3",
+    "causalis/dgp/causaldata_instrumental/base.py": "6df54418fe67a7e0af84b2347c0a02ced94b3ce97af489a04f87446c32317633"
+  },
+  "test_file": "tests/data/test_binary_iv_namespace_contract.py",
+  "test_file_sha256": "84a0fb73fc82e19431a0b7aea00c80bfa5d0d7b65e56166e2046e56cefed9ea3",
+  "counts": {
+    "tests": 163,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 163
+  },
+  "exit_code": 0,
+  "started_utc": "2026-10-07T07:42:59.481126+00:00",
+  "finished_utc": "2026-10-07T07:43:04.014304+00:00",
+  "elapsed_seconds": 4.532845458000111,
+  "python": "3.12.14 (main, Sep 29 2026, 14:50:19) [Clang 22.1.3 ]",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "junit": "audit/block11_namespace_test_temp/current.xml",
+  "log": "audit/block11_namespace_focused_tests.log",
+  "wrapper_bindings_and_iv_inheritance_verified": true,
+  "non_target_tracked_package_paths_unchanged": true,
+  "full_suite_run": false,
+  "sensitivity_validated": false
+}

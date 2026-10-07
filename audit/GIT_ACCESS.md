@@ -93,3 +93,8 @@ Source/tests commit **9fb8041300410b560da80a45cabac4b541d1629d** pushed normally
 ## 2026-10-07 — B10 personal checkpoint
 
 Source/tests95a8b7599fb129fb2c5973f50e9b4a8018732f6c pushed обычным способом в origin/codex/correctness-roadmap. CI37532909989 completed/success: все6jobs/artifacts2072passed каждый, exactsource95a. После него меняются только audit artifacts. Итоговый checkpoint — git log -1; remote/local equality и clean tree проверяются после финального ordinary push. Existing GitHub credentials использованы без нового login; upstream не обновлялся, PR/release не создавались.
+
+
+## 2026-10-07 — B11 personal checkpoint
+
+Source/tests **cdc2c9590246c5b049d2184ba3479324217b2b00** ordinary pushed в `origin/codex/correctness-roadmap`. CI37589241406 completed/success: exactsourcecdc, все6downloadedjobartifacts2235passed каждый. Послеcdc толькоauditchanges; итоговый checkpoint — git log -1, finalremote/localequality+cleantree проверяются послеaudit-onlypush. Existing credentials/remotes использованы безnewlogin/fork/upstreamsync; PR/release/externalmessages несоздавались.
