@@ -609,6 +609,75 @@ See scenario notebooks: https://causalis.causalcraft.com/explore-scenarios
 
 https://github.com/DoubleML/doubleml-for-py
 
+## Inference for prespecified effect families
+
+```python
+from causalis.inference import InferenceFamily
+
+# Both fitted IRMs describe the same ordered stable user IDs and treatment.
+# Each may have a different outcome, feature set and cross-fitting partition.
+family = InferenceFamily.from_irm({"revenue": revenue_irm, "retention": retention_irm}, score="ATE")
+family.infer(alpha=.05, method="bonferroni").summary()
+family.infer(alpha=.05, method="max-t", n_boot=1999, random_state=42).summary()
+
+# Prespecified contrasts in commensurate units form their own declared family.
+contrast = family.contrast([[1., -1.]], names=["difference"])
+contrast.infer().summary()
+```
+
+The target is a fixed vector of population scalar effects. `from_irm` supports
+absolute ATE or ATTE from internal, single-partition, iid, unweighted binary IRM
+fits with overlap clipping and `normalize_ipw=False`. It validates unchanged
+fit-time data and unique, nonmissing stable user IDs in the same order, plus the
+same treatment role and values. Different outcomes, confounders and folds are
+allowed. It computes effects and influences without fitting, predicting,
+updating source inference caches or drawing random numbers. The family owns
+its snapshot; later changes to source models do not change family inference.
+External OOF, clustered, repeated, trimmed and weighted fits are rejected.
+These limits apply to the adapter; passing such rows to the generic interface
+does not establish a valid iid influence representation.
+
+For other regular iid estimators, use
+`InferenceFamily(values, influence, names)`, with values shape `(p,)` and raw
+observation-scale influences shape `(n, p)` on the **same ordered units**.
+Do not divide the influences by sample size. Empirically centered influences
+give covariance `IF.T @ IF / (n*(n-1))`. Each column needs positive variance;
+singular dependence across nondegenerate columns is supported. `covariance`
+returns a detached aggregate matrix. `contrast(L, names)` transforms both
+effects and influences, preserving dependence. Contrasts must have meaningful
+units and be declared before inspecting results.
+
+Bonferroni uses normal marginal p-values, adjusted p-values `min(1, p*p_value)`
+and critical value `norm.isf(alpha/(2*p))`. Max-t shares Gaussian multipliers
+across columns, studentizes each perturbation using the same iid variance, and
+uses the maximum absolute statistic. It processes draws in batches of at most
+256; it perturbs scores rather than refitting the causal pipeline. Its local
+Generator preserves global/source RNG state. Choose enough draws for the
+desired tail accuracy: at least 99, with `alpha >= 1/(n_boot+1)`; integer seeds
+must be uint32. Cross-version exact RNG reproducibility is not promised.
+Finite-draw adjusted p-values are `(1+exceedances)/(n_boot+1)`, including ties;
+the band critical value uses ordered draw `ceil((1-alpha)*(n_boot+1))`.
+These are Monte Carlo approximations, not exact randomization p-values.
+
+Results contain only aggregates, simultaneous two-sided absolute confidence
+bands, marginal and family-adjusted p-values, and explicit method/draw metadata.
+`null` may be a scalar or one value per effect; it changes tests but not bands
+centered on estimates. Rejection uses adjusted p-value `<= alpha`; finite-draw
+ties can differ from open-band endpoint comparisons. `summary()` returns a
+fresh table. Bonferroni uses no bootstrap draws and records `n_boot=0`.
+
+Family error control and coverage are **asymptotic**, conditional on a valid
+joint influence representation, moments and nondegenerate variances. Causal
+interpretation additionally needs consistency, conditional exchangeability,
+overlap and appropriate nuisance convergence. Estimated nuisances, active
+clipping or confounding can bias the effects; multiplicity correction cannot
+remove that bias. Stable IDs cannot verify independence, hidden preprocessing
+leakage or selection history. A family selected after inspecting outcomes,
+validation scores or effect estimates requires separate selection inference or
+an independent sample. This API supplies no pointwise CATE intervals,
+finite-sample coverage certificate, arbitrary growing-family theorem,
+Romano-Wolf stepdown, weak-IV or cluster inference.
+
 ## Search terms / supported methods
 
 Causalis covers methods often searched as:
