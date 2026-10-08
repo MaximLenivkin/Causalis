@@ -56,8 +56,38 @@ comparison without that normalization differed only by this generated module.
 [Probe result](block21_probe_result.json), [probe log](block21_probe_checks.log),
 [baseline regressions](block21_baseline_tests.log).
 
-Committed-source integration, standalone check, remote matrix, handoff and
-final validation will be recorded below before completion.
+Source checkpoint: `1780d8c715a15182137d51313e502280d6982dd9`.
+The final eight baseline regressions produced **7 failed / 1 passed**, no errors
+or skips. Both compared builds have **144 pages / 1296 inventory records**.
+Committed correctness: **3367 passed**, zero failures/errors/skips,
+91 existing warnings, 115.39 seconds. Docs builds were enabled (`false` skip flag).
+[Integration selection](block21_integration_selection.json),
+[result](block21_integration_result.json), [log](block21_integration_tests.log).
+This remains the scoped correctness suite with seven sensitivity exclusions.
+Standalone committed check: exit 0, strict warnings, no publication;
+[manifest](block21_docs_result.json), [log](block21_standalone_checks.log).
+Handoff: **132 immutable source links**, issues []; [check](block21_handoff_checks.log).
+
+[CI run 37740334131](https://github.com/MaximLenivkin/Causalis/actions/runs/37740334131)
+completed successfully on exact `1780d8c`: **all six jobs passed 3367 tests each**
+and each separate Sphinx gate exited 0. Downloaded artifacts verified complete
+case sets, focused cases, actual normalized arguments, seven sensitivity
+exclusions, exact commit, environment, generator and log hashes.
+[CI manifest](block21_ci_result.json), [CI check](block21_ci_checks.log).
+Snapshot UTC: 2026-10-08T07:00:19.131486+00:00. Actual Python versions: 3.10.21
+for both stacks, 3.11.16, 3.12.15, 3.13.15, 3.14.8; exact dependency versions
+are preserved in the manifest. Six representative Linux stacks are not all
+possible documentation dependency combinations.
+
+[Root verifier](verify_block21.py) checks the six changed non-audit paths,
+committed hashes, zero library changes, original comparison provenance and
+local/baseline/focus/CI case sets plus standalone evidence.
+[Validation](block21_validation_result.json), [log](block21_validation_checks.log):
+issues []. Source frozen after `1780d8c`; all later edits are audit-only.
+Owned disposable build copies and the recorded integration basetemp are removed;
+aggregate JUnit remains for verification. Final checkpoint is `git log -1`.
+Ordinary personal push, live local/remote equality and clean state are checked
+at completion. No PR was created.
 
 ## Limits and next block
 

@@ -1,0 +1,32 @@
+{
+  "source": "1780d8c715a15182137d51313e502280d6982dd9",
+  "baseline": "2db4802b13d6a312ddb5109fa5d8a9beca30bac8",
+  "source_paths": [
+    ".github/workflows/ci.yml",
+    ".github/workflows/release.yml",
+    "README.md",
+    "scripts/generate_api_reference.py",
+    "scripts/run_docs_check.py",
+    "tests/docs/test_generate_api_reference.py"
+  ],
+  "library_source_changes": 0,
+  "committed_hashes": {
+    ".github/workflows/release.yml": "04181e01795497eb5f4e15bfc297f97f0714931f8c2aaff2ff296ddf75a3f42a",
+    "tests/docs/test_generate_api_reference.py": "9cc182b0c65a912fe71c72b4905526d3632f8f3c141bfc0e4fb089cfb19c7807",
+    "scripts/run_docs_check.py": "6b1abbfa2a7e13a7790cd445c387e818256b3e39cb481b5fc08b0153b77c4ec2",
+    "README.md": "7555344816707e67793c9f0d19453ae83afb0b61cb4107c5aa741a753656f079",
+    "scripts/generate_api_reference.py": "fff79a2147fae775c132f196f02da326324c63f4555eec4081c8a04edabc6dc7",
+    ".github/workflows/ci.yml": "0226cd52a0d031dca9c45f3ce12fcbe722794f2cc7718c0217d799d81b4e5a00"
+  },
+  "baseline_cases": 8,
+  "baseline_failed": 7,
+  "focus_passed": 11,
+  "local_passed": 3367,
+  "verified_ci_jobs": 6,
+  "same_html_pages": 144,
+  "same_inventory_records": 1296,
+  "handoff_links": 132,
+  "report_local_links": 20,
+  "standalone_local_and_ci_verified": true,
+  "issues": []
+}

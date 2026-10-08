@@ -10,7 +10,7 @@
 
 1. `AGENTS.md` — локальная `.venv` обязательна. На текущем Mac использовать **`.venv/bin/python`**, Python3.12.14, не старый backing path `/Users/ioann/...`. Окружение восстановлено из project extras dev/docs, dependencycheck и5setupsmoketests прошли. Local setup manifest `.venv/setup-environment.json`; B09 integration manifest записывает реальные проверенные версии.
 2. `audit/FIX_PLAN.md` — порядок блоков, scope gates и deferred findings.
-3. Этот файл и **`audit/BLOCK20_DATA_SNAPSHOT_CONTRACTS.md`** — последнее состояние. B09–B18 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
+3. Этот файл и **`audit/BLOCK21_SPHINX_GATE.md`** — последнее состояние. B09–B18 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
 4. `audit/REPORT.md` — исторический аудит исходного SHA, не текущий residual bug count.
 
 ## Git
@@ -20,6 +20,45 @@ GitHub авторизация завершена пользователем и �
 Исторический Windows GitHubCLI2.102.0: `& 'C:\Program Files\GitHub CLI\gh.exe' ...` — использовать полный путь, если текущий Codex PATH ещё не обновлён. Авторизацию повторно запрашивать не требуется. Git mutations/network в ограниченной среде могут требовать разрешённого запуска; пользователь уже авторизовал commits/push в личную ветку. PR не создавался. Полная текущая информация — GIT_ACCESS.md.
 
 ## Текущая работа
+
+**B21 завершён — standalone Sphinx gate**, 8 October 2026.
+Source `1780d8c715a15182137d51313e502280d6982dd9`, baseline `2db4802`.
+[Report](BLOCK21_SPHINX_GATE.md). Eight generator regressions (baseline 7 failed /
+1 passed), focused docs 11 passed. Same 144 HTML pages / 1296 inventory records;
+ignored editable-install `_version.py` matched on both comparison sides.
+All library bytes and seven sensitivity exclusions unchanged. Actual entrypoint
+is `scripts/generate_api_reference.py`, no `docs/` tree. Generator always uses
+`-W --keep-going`; --check builds in disposable dirs without publication.
+Default publishing retains its path; --output-dir replaces a dedicated output.
+Package-source overlap rejected; publication exception restores prior output.
+No concurrency/crash durability claim. Returned HTML is not regenerated here.
+Root-only __all__, actual prior MyST docstring rendering now explicit. Broad
+__all__ probe failed; RST probe had 29 warnings / 25 docutils errors. NumPy/RST
+migration is separate documentation debt, not certified by this gate. No warning
+suppression and no sensitivity source/docstring edits.
+Standalone evidence runner ignores SKIP_DOCS_BUILD; pytest build cases can skip
+explicitly or without optional deps. Local committed check exit 0; correctness
+with docs enabled: 3367 passed, zero failures/errors/skips, 91 warnings / 115.39s.
+Six CI jobs and release workflow now require standalone check and upload logs,
+source/environment/command/results/hashes. Release full sensitivity gate intact.
+CI37740334131 completed/success on exact1780d8c: six artifacts each3367passed
+and standalone Sphinx exit0. Full case sets, normalized args, seven exclusions,
+docs source/environment/log hashes verified. SnapshotUTC2026-10-08T07:00:19.131486+00:00.
+Actual Python3.10.21 both stacks,3.11.16,3.12.15,3.13.15,3.14.8. Root verifier
+checks six source paths/hashes, zero library changes, local/baseline/focus/CI
+cases and docs evidence; issues[]. Final checkpoint via gitlog-1, ordinary
+personal push/live localremote equality and clean tree checked at completion.
+Handoff132 immutable links checked, issues[]. Only audit edits after source.
+No notebooks, website publishing, release or upstream merge. No new dependency
+install/setup, login, fork or sub-agents used.
+
+Next B22: repeated cross-fitting. Begin with explicit public API, split/RNG,
+repetition aggregation and inference contracts before implementation. Then group
+cross-fitting, external OOF, DR/R-CATE. Sensitivity, SC08 LOO and selected-U ATT
+remain deferred. Stop at B21; B22 requires a new user request/context cleanup.
+Do not repeat login/fork/environment setup or old broad suites without changes.
+
+## Historical B20 checkpoint
 
 **B20 завершён** 7 October2026.
 Source `28acf6b4fea588ee682251a35a5f23a8757f4415`, baseline `98d5478`.

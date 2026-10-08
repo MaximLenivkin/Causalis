@@ -828,3 +828,35 @@ skips,91warnings/115.72s; seven sensitivity exclusions unchanged. [CI37665898544
 JUnit artifacts contain3359passing cases each. CompletecaseIDs/all2106focus,
 source/actualnormalizedpytestargv/seven exclusions match local integration. Sensitivity, standalone Sphinx and release are outside
 this block. Additional payload copies cost memory proportional to payload size.
+
+## B21 migration — strict standalone API reference build
+
+Implementation checkpoint `1780d8c715a15182137d51313e502280d6982dd9`.
+
+> Build the API reference with `scripts/generate_api_reference.py --check` before
+> merging documentation or package changes. The command builds in a disposable
+> directory and treats Sphinx warnings as errors. Running the generator without
+> arguments still replaces `notebooks/api` after success. `--output-dir` replaces
+> the entire specified output directory; use a dedicated generated-output path.
+> CI runs this check independently of pytest and records command, source,
+> environment, exit status and log hashes.
+>
+> Docstrings retain their existing MyST rendering. Earlier regex settings did
+> not enable RST parsing for child modules. A future NumPy/RST migration requires
+> review of the mixed-format docstring corpus and static/lazy export policy.
+> A successful build does not certify statistical claims, executed notebook
+> examples, resolved RST roles, sensitivity methods or the hosted website.
+
+The root-only `__all__` filter is intentional: many child modules have no
+`__all__`, and lazy re-exports are not all statically resolvable. There is no
+warning suppression. Strict failures retain the previous published reference;
+publication exceptions restore it and clean owned staging. Concurrent writers
+and process-crash durability are outside this guarantee.
+
+Immutable sources: [generator](https://github.com/MaximLenivkin/Causalis/blob/1780d8c715a15182137d51313e502280d6982dd9/scripts/generate_api_reference.py),
+[standalone evidence runner](https://github.com/MaximLenivkin/Causalis/blob/1780d8c715a15182137d51313e502280d6982dd9/scripts/run_docs_check.py),
+[regressions](https://github.com/MaximLenivkin/Causalis/blob/1780d8c715a15182137d51313e502280d6982dd9/tests/docs/test_generate_api_reference.py),
+[compatibility workflow](https://github.com/MaximLenivkin/Causalis/blob/1780d8c715a15182137d51313e502280d6982dd9/.github/workflows/ci.yml),
+[release gate](https://github.com/MaximLenivkin/Causalis/blob/1780d8c715a15182137d51313e502280d6982dd9/.github/workflows/release.yml).
+The current B21 report records final local and matrix evidence. No site, release
+or upstream publishing was performed.

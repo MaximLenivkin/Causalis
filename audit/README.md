@@ -127,3 +127,28 @@ via gitlog-1. Owned worktrees/pytesttemporarydata removed; ordinary personal
 push/liveequality and clean state checked at completion.
 Next B21 dedicated standalone Sphinx gate; features after correctness.
 Stop at B20 before context cleanup; sensitivity remains deferred.
+
+## B21 завершён — 8 October 2026
+
+Source `1780d8c715a15182137d51313e502280d6982dd9`, baseline `2db4802`.
+[Report](BLOCK21_SPHINX_GATE.md). Standalone Sphinx gate with warnings as errors,
+--check without publication, explicit prior MyST rendering/root-only __all__;
+NumPy/RST migration remains documentation debt. CI and release require the gate;
+release full sensitivity scope unchanged. No library bytes changed.
+Eight regressions: baseline7failed/1passed; focused docs11passed.
+Same144HTMLpages/1296inventoryrecords (matched generated _version.py).
+Committed local3367passed, no failures/errors/skips,91warnings/115.39s;
+SKIP_DOCS_BUILD=false. Standalone localexit0/15.90s.
+CI37740334131 on exactsource: all six jobs3367passed each and standaloneexit0.
+Full local/focus/CIcase sets, scope/argv, docs source/environment/log hashes checked.
+SnapshotUTC2026-10-08T07:00:19.131486+00:00; actual Python3.10.21 both stacks,
+3.11.16,3.12.15,3.13.15,3.14.8. Seven sensitivity exclusions preserved.
+[CI manifest](block21_ci_result.json), [root validation](block21_validation_result.json),
+issues[]. Handoff132immutablelinks, issues[]. Source frozen after1780d8c;
+only audit changes follow. Owned build copies and recorded integration basetemp
+removed; aggregate JUnit retained. Final checkpoint via gitlog-1; ordinary personal
+push/live equality and clean state checked at completion. No notebook/website
+execution/publishing, release, upstream merge or sub-agents.
+Next B22 repeated cross-fitting: explicit API/splits/RNG/aggregation/inference
+contract first. GroupCF, externalOOF, DR/R-CATE afterward. Sensitivity, SC08LOO,
+selected-U ATT deferred. Stop after B21 for user context cleanup/new request.
