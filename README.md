@@ -737,6 +737,68 @@ Unrepresentable finite roots, statistics or underflowed coefficients raise.
 Common rescaling of the signals can improve arithmetic but does not change
 statistical assumptions or cure an extreme difference between their scales.
 
+## Robust event-study inference under trend violations
+
+```python
+from causalis.scenarios.did import HonestDiD
+
+# Covariance of the coefficient ESTIMATES; omit the common reference time -1.
+event = HonestDiD(
+    estimates=[0.1, 0.05, 1.0, 1.2],
+    covariance=[[0.04, 0, 0, 0], [0, 0.04, 0, 0],
+                [0, 0, 0.09, 0], [0, 0, 0, 0.09]],
+    event_times=[-3, -2, 0, 1],
+)
+robust = event.infer(restriction="smoothness", bound=0.2,
+                     post_weights=[0.5, 0.5], alpha=0.05)
+robust.confidence_set  # closed interval tuple; () means incompatible restriction
+robust.summary()
+relative = event.infer(restriction="relative_magnitude", bound=1.0)
+```
+
+`HonestDiD` snapshots inputs and projects a joint Bonferroni Gaussian confidence
+rectangle through the chosen population restrictions. It includes uncertainty
+in pre-trends. `smoothness` bounds absolute second differences of the untreated
+trend gap across consecutive periods. Its zero bound allows a linear gap;
+it does not require parallel trends. `relative_magnitude` bounds each post
+first difference by the bound times the largest absolute pre first difference,
+including the difference into the omitted reference. Its zero bound imposes
+zero post violation. Bounds and post contrasts must be prespecified.
+
+These conservative HonestDiD-style intervals use the Rambachan–Roth restriction
+sets. They do not implement the original R package's conditional, hybrid or
+optimal fixed-length inference. Validity requires asymptotic normality,
+consistent estimator covariance, no anticipation, a common population and
+comparison/reference, and the specified trend restriction. This does not
+repair invalid identification, nuisance misspecification, clipping bias or
+adaptive selection. Singular covariance with positive marginal variances is
+allowed; off-diagonal entries are validated but not used by this projection.
+Smoothness endpoints use numerical LP tolerances, and extreme dynamic ranges
+can fail explicitly. No finite-sample or few-cluster guarantee is provided.
+
+For a supported existing CSA result:
+
+```python
+from causalis.scenarios.did import CallawaySantAnnaDID
+
+result = CallawaySantAnnaDID(
+    control_group="never_treated", base_period="universal",
+    include_pre_periods=True, diagnostic_data=True,
+).fit(panel_data).estimate()
+snapshot = HonestDiD.from_did(result)
+snapshot.infer(restriction="relative_magnitude", bound=1.0)
+```
+
+The adapter requires iid inference, one cohort, zero anticipation, equally
+spaced periods and identical complete treated/control populations across cells.
+It rejects varying-base pre estimates, clustered results, changing populations
+and staggered-cohort aggregation. It uses the existing CSA iid covariance
+convention, without refitting or changing the source result. Generic inputs
+must satisfy the same population and coefficient interpretation; supplying
+arrays does not certify these assumptions. An empty projection expresses
+incompatibility between the confidence rectangle and the restriction, and is
+not evidence of a significant treatment effect. No scalar p-value is fabricated.
+
 ## Search terms / supported methods
 
 Causalis covers methods often searched as:

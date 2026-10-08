@@ -1,5 +1,6 @@
 from .dgp import generate_did_gamma_26, generate_staggered_did_gamma_26
 from .model import CallawaySantAnnaDID, CallawaySantAnnaDIDEstimate
+from .honest import HonestDiD, HonestDiDResult
 from .refutation import (
     did_cluster_influence_table,
     did_base_design_table,
@@ -18,6 +19,8 @@ from .refutation import (
 )
 
 __all__ = [
+    "HonestDiD",
+    "HonestDiDResult",
     "generate_did_gamma_26",
     "generate_staggered_did_gamma_26",
     "CallawaySantAnnaDID",
