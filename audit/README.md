@@ -154,26 +154,37 @@ contract first. GroupCF, externalOOF, DR/R-CATE afterward. Sensitivity, SC08LOO,
 selected-U ATT deferred. Stop after B21 for user context cleanup/new request.
 
 
-## B22 — локальная реализация, push/CI ожидают разрешения (8 October2026)
+## B22 — завершён: repeated binary IRM (8 October2026)
 
 Source `ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0`, baseline357e16e.
-Binary IRM repeated ATE/ATTE through n_rep; median-variance SE, same sample,
+Binary IRM repeated ATE/ATTE through n_rep; median-variance SE, common sample,
 local recorded split seeds, separate relative aggregation and per-repeat
 results/diagnostics. n_rep=1 exactcompatibility16fits/24estimates/8rejections.
-Strict integer repetition counts; M>1 drop/GATE/GATET/CATE/sensitivity not
-supported; multi/IV repetition remains a separate follow-up. Existing
-sensitivity algorithms unchanged; two new repeated-fit entry guards only.
+Strict integer repetition counts; M>1 drop/GATE/GATET/CATE/sensitivity
+aggregation unavailable; multi/IV repetition remains a separate follow-up.
+Sensitivity algorithms unchanged; two new repeated-fit entry guards only.
 67newcases; focused221passed; committed correctness3434passed/no failures,
 errors or skips,116warnings,115.66s; seven exclusions unchanged. Strict
 Sphinx exit0 on committed source. Favorable synthetic MC200x600,R3 coverage
-.965 bothscores, no general guarantee. Root source/AST/case/evidence validation
-issues[]. Handoff136immutable URLs verified locally; new URLs await push.
+.965 bothscores, no general guarantee. Root verifies six non-audit paths,
+43unchanged IRMmethodASTs, source/completecase/evidence hashes, issues[].
+Handoff136immutable implementation URLs verified locally; implementation pushed.
 
-Automatic approval review rejected personalbranchpush: no explicittrusted
-permission in available messages. All local work and commits completed; ask
-user to confirm push to MaximLenivkin/Causalis:codex/correctness-roadmap.
-Do not bypass rejection. Six-job CI remains unrun; B22 not fully closed.
-After approval run/verify exact-source CI, update audit-only evidence, commit,
-push and stop. [Report](BLOCK22_REPEATED_CROSSFIT.md).
-Next B23 only after B22 closes/newrequest: group-aware binaryIRM contracts.
-Sensitivity/SC08LOO/selected-UATT/NumPyRST debt deferred. No release/PR/upstream.
+User explicitly allowed push: «Разрешаю пуш в нашу ветку»; ordinarypersonal
+branch pushes remain authorized, no repeat confirmation. Implementationede6ded
+and initial evidence d99ea8f pushed. CI37751321348 completed/success on exact
+head `d99ea8ffea853e48f750ca642a3918769cc38004` (audit-only changes fromimplementation):
+all six jobs3434passed each plus strictSphinxexit0. Executablecode/CIconfig
+unchanged; no claim that CIran directly onede6ded. FullcaseIDs/local221new67,
+normalizedargv/exclusions/source/dependencies and5artifacthashes/job checked.
+SnapshotUTC2026-10-08T08:44:54.121787+00:00; actualPython3.10.22bothstacks,
+3.11.16,3.12.15,3.13.15,3.14.8. [CI manifest](block22_ci_result.json),
+[root validation](block22_validation_result.json), [report](BLOCK22_REPEATED_CROSSFIT.md).
+Source frozen; latercommits audit-only. Finalcheckpoint gitlog-1; ordinaryfinal
+push/livelocalremoteequality/cleantree checked atcompletion. Ownedcopies and
+recorded integration pytest-temp removed. No release/PR/upstream/sub-agents.
+
+Next B23: group-aware binaryIRM split and inference contracts before changes.
+Multi/IV repetition, externalOOF, DR/R-CATE follow-ups remain separate.
+Sensitivity/SC08LOO/selected-UATT/NumPyRST debt deferred. Stop after B22 for
+contextcleanup/newuserrequest. Do not repeatlogin/fork/setup/oldbroadtests.

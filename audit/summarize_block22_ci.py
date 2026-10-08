@@ -18,6 +18,7 @@ EXCLUDED = [
     "tests/refutation/test_trim_sensitivity_ate.py",
 ]
 CONFIGS = {(f"3.{minor}", "latest") for minor in range(10, 15)} | {("3.10", "legacy")}
+IMPLEMENTATION = "ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0"
 
 
 def main() -> int:
@@ -27,6 +28,10 @@ def main() -> int:
     parser.add_argument("--expected-tests", required=True, type=int)
     options = parser.parse_args()
     assert re.fullmatch(r"[a-f0-9]{40}", options.source)
+    subprocess = __import__('subprocess')
+    changed = subprocess.check_output(
+        ['git', 'diff', '--name-only', IMPLEMENTATION, options.source], cwd=ROOT, text=True).splitlines()
+    assert all(path.startswith('audit/') for path in changed), changed
     temp = ROOT / f"audit/block22_ci_test_temp/run-{options.run_id}"
     snapshot = json.loads((temp / "run_status.json").read_text(encoding="utf-8-sig"))
     assert snapshot["headSha"] == options.source
@@ -101,6 +106,8 @@ def main() -> int:
     verified = [job for job in jobs if job["artifact_verified"] and job["conclusion"] == "success"]
     evidence = dict(run_id=options.run_id, run_url=snapshot["url"],
                     tested_source_checkpoint=options.source,
+                    implementation_checkpoint=IMPLEMENTATION,
+                    only_audit_changes_from_implementation=True,
                     expected_tests_per_job=options.expected_tests,
                     snapshot_observed_at=snapshot["observed_at"],
                     run_status=snapshot["status"], run_conclusion=snapshot["conclusion"],

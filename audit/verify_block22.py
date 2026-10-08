@@ -13,6 +13,7 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 BASELINE = '357e16e8d1faf37e221b92b7e1f83ee5fba3c2dc'
 SOURCE = 'ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0'
+CI_SOURCE = 'd99ea8ffea853e48f750ca642a3918769cc38004'
 PATHS = {'README.md', 'causalis/data_contracts/__init__.py',
          'causalis/data_contracts/repeated_causal_estimate.py',
          'causalis/scenarios/unconfoundedness/model.py',
@@ -120,8 +121,35 @@ def main():
                for score in sampling['scores'].values())
     if options.require_ci:
         ci = read('block22_ci_result.json')
-        assert ci['tested_source_checkpoint'] == SOURCE and ci['matrix_verified'] is True
+        assert ci['tested_source_checkpoint'] == CI_SOURCE and ci['matrix_verified'] is True
+        assert ci['implementation_checkpoint'] == SOURCE
+        changed_from_implementation = git('diff', '--name-only', SOURCE, CI_SOURCE).splitlines()
+        assert all(path.startswith('audit/') for path in changed_from_implementation)
+        ci_root = ROOT / f"audit/block22_ci_test_temp/run-{ci['run_id']}"
+        snapshot = json.loads((ci_root / 'run_status.json').read_text())
+        assert snapshot['headSha'] == CI_SOURCE
+        assert snapshot['status'] == 'completed' and snapshot['conclusion'] == 'success'
         assert ci['verified_successful_jobs'] == 6 and ci['issues'] == []
+        configs = set()
+        for job in ci['jobs']:
+            config = (job['python_minor'], job['stack'])
+            assert config not in configs
+            configs.add(config)
+            artifact = ci_root / f"correctness-py{config[0]}-{config[1]}"
+            for name, value in job['artifact_sha256'].items():
+                assert digest(artifact / 'ci-tests' / name) == value
+            for name, value in job['docs_artifact_sha256'].items():
+                assert digest(artifact / 'docs-check' / name) == value
+            assert cases(artifact / 'ci-tests/junit.xml') == integration_cases
+            remote_selection = json.loads((artifact / 'ci-tests/selection.json').read_text())
+            assert remote_selection['environment']['commit'] == CI_SOURCE
+            assert remote_selection['excluded_modules'] == selection['excluded_modules']
+            remote_docs = json.loads((artifact / 'docs-check/result.json').read_text())
+            assert remote_docs['environment']['commit'] == CI_SOURCE
+            assert remote_docs['exit_code'] == 0
+            assert remote_docs['log_sha256'] == digest(artifact / 'docs-check/build.log')
+            assert remote_docs['generator_sha256'] == docs['generator_sha256']
+        assert configs == {(f'3.{minor}', 'latest') for minor in range(10, 15)} | {('3.10', 'legacy')}
     handoff = read('handoff_validation.json')
     assert handoff['issues'] == []
     report = ROOT / 'audit/BLOCK22_REPEATED_CROSSFIT.md'
@@ -134,7 +162,9 @@ def main():
                    unchanged_irm_method_count=len(unchanged), unchanged_irm_methods=unchanged,
                    sensitivity_methods_only_entry_guard=True, focused_cases=221, new_cases=67,
                    local_cases=3434, sensitivity_exclusions=7, docs_exit_code=0,
-                   ci_verified=options.require_ci, handoff_links=handoff['snapshot_links_checked'],
+                   ci_verified=options.require_ci,
+                   ci_source=CI_SOURCE if options.require_ci else None,
+                   handoff_links=handoff['snapshot_links_checked'],
                    report_local_links=len(local_links), issues=[])
     (ROOT / 'audit/block22_validation_result.json').write_text(json.dumps(payload, indent=2))
     print(json.dumps(payload, indent=2))

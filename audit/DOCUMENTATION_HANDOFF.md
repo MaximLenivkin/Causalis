@@ -862,7 +862,7 @@ The current B21 report records final local and matrix evidence. No site, release
 or upstream publishing was performed.
 
 
-## B22: repeated binary IRM (local implementation)
+## B22: repeated binary IRM
 
 `IRM(n_rep=M)` now supports binary ATE/ATTE repeated cross-fitting.
 `n_rep=1` retains the single-partition numerical path; counts must now be
@@ -888,10 +888,11 @@ Multi-treatment/IV repetition, grouped folds and external OOF remain deferred.
 These repetitions do not repair unconfoundedness, overlap, clustering or
 nuisance assumptions, and increase storage/fitting cost with M.
 
-Implementation is committed locally at ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0.
-Remote push was rejected by automatic approval review; the immutable URLs
-below are intended destinations and are not yet guaranteed accessible until
-that authorized push succeeds. Local git-show verification only:
+Implementation ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0 is pushed to the
+personal correctness branch. CI37751321348 passed all six jobs on
+d99ea8ffea853e48f750ca642a3918769cc38004, each3434tests plus strict Sphinx.
+Only audit files differ from the implementation commit; no CI-on-ede6ded claim.
+Immutable sources:
 
 - [Binary IRM](https://github.com/MaximLenivkin/Causalis/blob/ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0/causalis/scenarios/unconfoundedness/model.py)
 - [Aggregation and partition seeds](https://github.com/MaximLenivkin/Causalis/blob/ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0/causalis/scenarios/unconfoundedness/_repeated.py)

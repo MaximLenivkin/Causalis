@@ -118,3 +118,14 @@ Source/tests **4bdcff7d6388d1d72d5be4a546e8abb2a67a767c** ordinary pushed в ori
 ## 2026-10-07 — B15 personal checkpoint
 
 Source/tests **9a57e91942a4b90b0401c0f8e3ebe6f5b4d82cdf** обычным push отправлены в origin/codex/correctness-roadmap. [CI37628255646](https://github.com/MaximLenivkin/Causalis/actions/runs/37628255646) completed/success на exact source; все шесть downloaded artifacts —2618passed каждый,0failures/errors/skips. Local committed correctness suite также2618passed. Existing credentials/CLI/branch/remotes использованы; новый login/fork/upstreamsync не требовался. После sourcefreeze — только audit changes; finalcheckpoint gitlog-1, live remote/local equality+cleanstatus после finalordinarypush. Audit-onlypush не запускает matrix. Upstream push/sync, PR/release и внешние сообщения не выполнялись.
+
+
+## B22: явное разрешение на push, 8 October2026
+
+Пользователь подтвердил: «Разрешаю пуш в нашу ветку». Разрешение относится
+к существующему личному fork MaximLenivkin/Causalis и ветке
+codex/correctness-roadmap; последующие обычные push завершённых блоков в эту
+ветку продолжают этот разрешённый процесс. Не запрашивать повторно разрешение
+на такие push. Upstream/main, force-push и публикация PR не входят в это действие.
+Обычный push357e16e..d99ea8f успешен; CI37751321348 completed/success на d99ea8f,
+в котором исходники идентичны implementation ede6ded (изменился только audit).

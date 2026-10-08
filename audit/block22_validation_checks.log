@@ -61,8 +61,9 @@
   "local_cases": 3434,
   "sensitivity_exclusions": 7,
   "docs_exit_code": 0,
-  "ci_verified": false,
+  "ci_verified": true,
+  "ci_source": "d99ea8ffea853e48f750ca642a3918769cc38004",
   "handoff_links": 136,
-  "report_local_links": 13,
+  "report_local_links": 15,
   "issues": []
 }

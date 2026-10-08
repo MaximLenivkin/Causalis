@@ -1,4 +1,4 @@
-# B22: repeated binary IRM cross-fitting
+# B22: repeated binary IRM cross-fitting — completed
 
 Baseline: `357e16e8d1faf37e221b92b7e1f83ee5fba3c2dc`.
 
@@ -100,11 +100,20 @@ integration: **3434 passed**, zero failures/errors/skips, 116 warnings,
 115.66 seconds (runner115.870). All 67 new cases and 221 focused cases are
 included by complete JUnit case IDs. Seven sensitivity exclusions unchanged.
 Local environment Python3.12.14; versions and argv in selection manifest.
-Remote push in the ordinary personal branch was rejected by automatic
-approval review: it found no explicit trusted authorization to send code to
-this repository/branch. Push and the six-job CI matrix have NOT run. Request
-explicit user confirmation for that concrete push after local checks finish;
-do not bypass the rejection or treat the historical handoff as renewed approval.
+Both implementation and local-evidence commits were ordinarily pushed to
+MaximLenivkin/Causalis:codex/correctness-roadmap after the user explicitly
+confirmed push authorization. That authorization remains valid for ordinary
+pushes of subsequent finished blocks in this personal branch.
+
+**CI37751321348 completed/success**, [run](https://github.com/MaximLenivkin/Causalis/actions/runs/37751321348). All six jobs have **3434 passed**,
+zero failures/errors/skips, and standalone Sphinx exit0. Actual Python versions:
+3.10.22 (latest and legacy), 3.11.16, 3.12.15, 3.13.15, 3.14.8.
+Snapshot UTC2026-10-08T08:44:54.121787+00:00. Full dependencies, normalized pytest arguments,
+complete case sets and five artifact hashes per job verified. The CI head is
+`d99ea8ffea853e48f750ca642a3918769cc38004` (audit-evidence commit), while local tests use implementation
+`ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0`. git diff between those commits contains audit files only; all
+library/tests/scripts/README and workflow bytes match. CI was not run on the
+implementation SHA itself; the verified snapshot has identical executable code.
 No release, upstream merge or PR.
 
 Evidence:
@@ -114,21 +123,29 @@ Evidence:
 - [Sampling aggregates](block22_sampling_result.json), [runner](sample_block22.py).
 - [Committed correctness](block22_integration_result.json), [selection](block22_integration_selection.json), [log](block22_integration_tests.log).
 - [Committed Sphinx result](block22_docs_result.json), [log](block22_standalone_checks.log).
+- [CI artifacts](block22_ci_result.json), [CI observation](block22_ci_checks.log).
 - [Root validation](block22_validation_result.json), [verifier](verify_block22.py).
 
 Root verifier confirms six changed non-audit paths and committed hashes,
 43 unchanged IRM method ASTs, and unchanged sensitivity bodies after
 removing exactly the two new entry guards. Compatibility/focus/local/docs
-manifests and all case sets verified, issues[]. Portable handoff136 immutable
-URLs verified against local git objects; four new URLs await remote push.
+manifests, six CI artifacts/source equivalence and all case sets verified,
+issues[]. Portable handoff136 immutable URLs verified against local git objects;
+implementation commit is now pushed.
 The exact owned integration pytest-temp was removed after successful use;
 JUnit, aggregate evidence and raw code/test logs remain. Probe-owned source
 copies and synthetic per-row payload files were removed by TemporaryDirectory.
 Pytest's default focused temp directories are not claimed removed here.
 
-Completion requires confirming the personal push, running/verifying its exact-
-source CI, and updating this report/handoff. Only audit files change after the
-source commit. The next feature block should establish group-aware binary IRM
-contracts; multi-treatment/IV repetition remain explicitly separate follow-ups.
-Sensitivity, SC08 LOO, selected-U ATT and NumPy/RST migration remain deferred.
-Do not begin the next block until B22 is finished and the user asks.
+B22 is complete for binary IRM ATE/ATTE repetition. Source/tests were frozen
+at the implementation commit; all following changes are audit files only.
+Final audit checkpoint is git log-1. Ordinary final push, live local/remote
+head equality and clean tree are checked at completion.
+
+Next B23: establish group-aware binary IRM split and inference contracts before
+implementation. Multi-treatment/IV repetition remains a separate follow-up;
+external OOF and DR/R-CATE follow. Sensitivity, SC08 LOO, selected-U ATT and
+NumPy/RST migration remain deferred. This gate does not certify clustered,
+subgroup, sensitivity or joint inference, general finite-sample coverage,
+notebook execution, website publishing or release. Stop after B22; B23 requires
+the user's next request after context cleanup.

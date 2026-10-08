@@ -10,7 +10,7 @@
 
 1. `AGENTS.md` — локальная `.venv` обязательна. На текущем Mac использовать **`.venv/bin/python`**, Python3.12.14, не старый backing path `/Users/ioann/...`. Окружение восстановлено из project extras dev/docs, dependencycheck и5setupsmoketests прошли. Local setup manifest `.venv/setup-environment.json`; B09 integration manifest записывает реальные проверенные версии.
 2. `audit/FIX_PLAN.md` — порядок блоков, scope gates и deferred findings.
-3. Этот файл и **`audit/BLOCK22_REPEATED_CROSSFIT.md`** — последнее состояние; B22 local checks complete, push/CI pending approval. B09–B18 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
+3. Этот файл и **`audit/BLOCK22_REPEATED_CROSSFIT.md`** — последнее состояние; B22 завершён; source/final evidence pushed, CI и root validation проверены. B09–B18 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
 4. `audit/REPORT.md` — исторический аудит исходного SHA, не текущий residual bug count.
 
 ## Git
@@ -21,7 +21,7 @@ GitHub авторизация завершена пользователем и �
 
 ## Текущая работа
 
-**B22 реализован и проверен локально; push/CI ожидают явного разрешения**, 8 October2026.
+**B22 завершён — repeated binary IRM ATE/ATTE**, 8 October2026.
 Source `ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0`, baseline `357e16e`.
 [Report](BLOCK22_REPEATED_CROSSFIT.md). Binary IRM existing n_rep supports
 ATE/ATTE repetitions via single-partition children. Scalar median-variance SE
@@ -43,28 +43,29 @@ ede6ded. Seeded synthetic MC200x600, R3: bothATE/ATTE coverage.965; meanSE/SD
 1.0061/1.0266, favorableDGP only, MCSEabout.015. No general coverage guarantee.
 Root verifier validates source/AST/provenance/cases/docs; issues[]. Source/tests
 frozen afterede6ded; only audit files change. Handoff136 URLs verified locally;
-fournewURLs may not resolve remotely untilpush. Owned probe copies/integration
+implementation pushed to the personal branch. Owned probe copies/integration
 pytest-temp removed; JUnits and code/test metadata remain. No sub-agents.
 
-**Blocking permission:** automatic approval review rejected ordinary
-`git push origin codex/correctness-roadmap`: no explicit trusted permission
-found to send code to this repository/branch. Do not retry by workaround.
-Root completed all local work and must ask for explicit approval for push to
-`MaximLenivkin/Causalis`, personal branch `codex/correctness-roadmap`.
-Historical handoff authorization did not satisfy this review. No remote CI
-run exists for ede6ded yet. Keep B22 incomplete until approval/push/CI verified.
-If user approves: ordinary push (no upstream/main/force), find CI by exact
-ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0 using GH, observe/download with
-observe_block22_ci.py --run-id ID --source SHA --expected-tests3434 (argument
-must be `--expected-tests 3434`), summarize all6artifacts3434+strictdocs and
-complete cases vs local; root verify_block22.py --require-ci. Existing local
-checks should not rerun without source changes. Update current report,
-DOCUMENTATION_HANDOFF/PROGRESS/FIX_PLAN/README and this file; audit-onlycommit,
-ordinarypush and live local/remote equality/clean status. Stop for cleanup.
-GH `/Users/m.lenivkin/.local/bin/gh`, repo MaximLenivkin/Causalis. No newlogin,
-fork or environmentsetup. Full local SHA/status via git log/status.
+Пользователь явно подтвердил: «Разрешаю пуш в нашу ветку».
+Разрешение на обычный push в MaximLenivkin/Causalis:codex/correctness-roadmap
+сохраняется для завершённых блоков; повторно не спрашивать. Прежние отказы
+автопроверки разрешены этим новым явным пользовательским сообщением.
+Sourceede6ded и evidence d99ea8f pushed. **CI37751321348 completed/success** on
+`d99ea8ffea853e48f750ca642a3918769cc38004`: all6artifacts3434passed each and strict standalone docs exit0.
+CI head is audit commitd99ea8f; implementation/local test sourceede6ded.
+Gitdiffede6..d99 contains audit files only; all executable source bytes match.
+Do not claim CI ran directly onede6ded. Full case sets, focused221/new67,
+selection/normalizedargv/sevenexclusions, source/dependencies and all5artifact
+hashes/job verified. SnapshotUTC2026-10-08T08:44:54.121787+00:00. ActualPython
+3.10.22bothstacks,3.11.16,3.12.15,3.13.15,3.14.8. Root verify_block22.py
+--require-ci validates sourceequivalence/allrawartifacts/hashes/cases,43unchanged
+IRM methodASTs and unchanged sensitivity bodies minus2newentryguards; issues[].
+Only audit updates aftersource. Finalcommit via gitlog-1; ordinarypersonalpush,
+livelocal/remoteequality andclean tree checked atcompletion. NoPR/release/upstream.
+GH /Users/m.lenivkin/.local/bin/gh, repoMaximLenivkin/Causalis. No newlogin,
+fork/environmentsetup, sub-agents or unnecessary local suite reruns.
 
-After B22 closes and new user request: B23 group-aware binary IRM cross-fitting,
+Next B23 after context cleanup and a new user request: B23 group-aware binary IRM cross-fitting,
 beginning with unit/group split and inference contracts. Repeated multi/IV,
 externalOOF andDR/R-CATE remain explicitly separate follow-ups. Sensitivity,
 SC08LOO,selected-UATT and NumPy/RST migration deferred. Do not start B23 now.
