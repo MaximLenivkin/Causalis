@@ -129,3 +129,14 @@ codex/correctness-roadmap; последующие обычные push завер
 на такие push. Upstream/main, force-push и публикация PR не входят в это действие.
 Обычный push357e16e..d99ea8f успешен; CI37751321348 completed/success на d99ea8f,
 в котором исходники идентичны implementation ede6ded (изменился только audit).
+
+
+## B23 personal checkpoint, 8 October 2026
+
+Ordinary source push1409e95..b1adeb2 succeeded using the user's persisting
+«Разрешаю пуш в нашу ветку» authorization. CI37763490246 completed/success on
+exact b1adeb291870c965825c60712144d23ea4c31ce9: all six verified artifacts
+3521passed each plus strict standalone docs exit0. No new login/fork/setup.
+Final audit-only ordinary push/live equality and clean tree checked at completion;
+final checkpoint is gitlog-1. Personal branch authorization continues; upstream/
+main, force-push, PR, release and external messages are not authorized by it.

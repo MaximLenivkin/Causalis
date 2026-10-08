@@ -898,3 +898,56 @@ Immutable sources:
 - [Aggregation and partition seeds](https://github.com/MaximLenivkin/Causalis/blob/ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0/causalis/scenarios/unconfoundedness/_repeated.py)
 - [Repeated result contract](https://github.com/MaximLenivkin/Causalis/blob/ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0/causalis/data_contracts/repeated_causal_estimate.py)
 - [Synthetic regressions](https://github.com/MaximLenivkin/Causalis/blob/ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0/tests/inference/test_irm_repeated_crossfit.py)
+
+## B23 migration: one-way cluster cross-fitting for binary IRM
+
+Implementation snapshot `b1adeb291870c965825c60712144d23ea4c31ce9` is pushed to the personal working branch.
+Sources: [IRM](https://github.com/MaximLenivkin/Causalis/blob/b1adeb291870c965825c60712144d23ea4c31ce9/causalis/scenarios/unconfoundedness/model.py),
+[group/CR1 helper](https://github.com/MaximLenivkin/Causalis/blob/b1adeb291870c965825c60712144d23ea4c31ce9/causalis/scenarios/unconfoundedness/_cluster.py),
+[contracts/tests](https://github.com/MaximLenivkin/Causalis/blob/b1adeb291870c965825c60712144d23ea4c31ce9/tests/inference/test_irm_cluster_crossfit.py),
+[GATE entry guard](https://github.com/MaximLenivkin/Causalis/blob/b1adeb291870c965825c60712144d23ea4c31ce9/causalis/scenarios/gate/model.py),
+[CATE entry guard](https://github.com/MaximLenivkin/Causalis/blob/b1adeb291870c965825c60712144d23ea4c31ce9/causalis/scenarios/uplift/model.py).
+
+Suggested wording:
+
+> Binary IRM accepts cluster_groups, a positional vector of nonmissing scalar
+> labels. A pandas Series must match the fitted DataFrame index exactly in order.
+> Labels are snapshotted at fit time, remain separate from confounders and GATE
+> subgroups, and define one level of independent sampling units. Whole clusters
+> are assigned to shuffled KFold partitions; cluster counts are balanced, while
+> row counts and treatment proportions need not be. Each training complement
+> must contain both treatment arms. Unsupported partitions fail without random
+> retry or row-level fallback.
+
+> ATE and ATTE retain their observation-weighted targets. With n rows, G clusters
+> and row influence phi_i, one-way CR1 uses G/(G-1) times the sum of squared
+> cluster totals of phi_i-mean(phi), divided by n squared. Baseline and relative
+> effect delta-method inference use the same cluster covariance, including the
+> ATTE treated-share derivative. Normal Wald inference needs many independent
+> clusters, no dominating cluster and suitable nuisance rates, as well as the
+> original causal assumptions. The correction does not guarantee few-cluster
+> coverage or establish no interference/unconfoundedness. Unequal cluster sizes
+> do not change the target to an equal-cluster average.
+
+> Clipping is required. Cluster GATE/GATET, CATE scoring and IRM sensitivity
+> operations are unavailable; exported GATE/CATE adapters enforce the same
+> restrictions. Existing custom-weight and normalized-IPW approximation flags
+> remain relevant. Repeated partitions use B22's median-variance aggregation of
+> cluster SEs with no repetition divisor and no fabricated aggregate IF.
+> cluster_split_seed_ records a single realized seed, including local-entropy
+> draws; repeated fits record their replayable repetition seeds. Raw group labels
+> are not included in results. Lightweight fits retain integer membership for SEs.
+
+Acceptance: document cluster_groups separately from estimate(groups=...),
+row weighting, exact Series alignment, seed replay, support errors and cluster
+assumptions. Show n_rep=1/3 examples and result metadata inference/n_clusters/
+cluster_target. Keep one-way grouping distinct from multiway, cluster bootstrap,
+equal-cluster targets and small-G inference. No claim of parity with DoubleML's
+multiway estimator or certification of downstream iid diagnostic tests.
+Strict Sphinx validates build compatibility; NumPy/RST migration remains separate.
+
+B23 retained input eligibility: the pre-existing IRM row-support gate also
+requires at least n_folds rows in each treatment arm, in addition to enough
+clusters and both arms in each training complement. A mathematically feasible
+group split can still fail this conservative gate. Document the current error;
+relaxing this legacy criterion for cluster partitions is a separate follow-up.

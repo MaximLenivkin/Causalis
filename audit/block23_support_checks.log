@@ -1,0 +1,20 @@
+{
+  "tested_source_checkpoint": "b1adeb291870c965825c60712144d23ea4c31ce9",
+  "synthetic": true,
+  "training_arm_support_verified": true,
+  "minimum_rows_per_arm": 2,
+  "n_folds": 4,
+  "independent_clusters": 20,
+  "rejected_before_fitting": [
+    {
+      "n_rep": 1,
+      "error": "n_folds=4 exceeds minimum treatment class count=2. Reduce n_folds or collect more data."
+    },
+    {
+      "n_rep": 3,
+      "error": "n_folds=4 exceeds minimum treatment class count=2. Reduce n_folds or collect more data."
+    }
+  ],
+  "pytest_cases_added": 0,
+  "limitation": "Inherited row count gate remains n_folds <= min treatment arm count, even if a group partition otherwise has both arms in every training complement"
+}

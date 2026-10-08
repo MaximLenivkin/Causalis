@@ -1,6 +1,6 @@
 # B23 — one-way group cross-fitting for binary IRM
 
-Baseline: `1409e95cf0cfb0cb1f9ab8541eefc25b3cbe1342`. Status: in progress.
+Baseline: `1409e95cf0cfb0cb1f9ab8541eefc25b3cbe1342`. Status: completed (local and six-job CI gates verified).
 
 ## Contract fixed before implementation
 
@@ -113,4 +113,74 @@ Both sensitivity bodies are identical after removing one new cluster entry
 guard each. GATE and uplift adapters each gain only one entry guard; all other
 code in those modules is unchanged. No sensitivity algorithm rewrite. Single
 partition zero-SE t/p-value behavior remains unchanged; repeated zero-SE policy
-is B22's policy. Source/tests will freeze after the implementation commit.
+is B22's policy. Source/tests are frozen at the implementation commit; subsequent changes are audit-only.
+
+## Committed local gate
+
+Implementation source `b1adeb291870c965825c60712144d23ea4c31ce9` is pushed.
+[Correctness manifest](block23_integration_result.json),
+[selection](block23_integration_selection.json), [log](block23_integration_tests.log):
+3521 passed, zero failures/errors/skips, 125 warnings; pytest 211.90s, runner
+212.079s. Local Python 3.12.14/macOS. Seven sensitivity exclusions unchanged;
+selected_full_suite=false and sensitivity_validated=false. No full release/tag
+gate claim. All 364 focused cases (including all 87 new ones) are present.
+
+[Standalone docs](block23_docs_result.json), [log](block23_standalone_checks.log):
+strict Sphinx exit0, warnings are errors, 23.928s on the same source, no HTML
+publication. B21's generator/workflow remain unchanged. NumPy/RST migration is
+still documentation debt, not certified by build compatibility.
+
+[Cleanup](block23_cleanup_result.json): removed only this run's exact integration
+pytest-temp and probe-owned source copies. Code/test JUnits, standalone logs
+and environment metadata remain in ignored runtime directories. No real client
+records, credentials, notebook execution, external messages, release, upstream
+merge or website publication. Root-only work; no subagents or setup/login repeats.
+
+## CI and completion
+
+[CI run 37763490246](https://github.com/MaximLenivkin/Causalis/actions/runs/37763490246)
+completed/success on exact implementation source
+`b1adeb291870c965825c60712144d23ea4c31ce9`. All six downloaded artifacts have
+3521 passed each, zero failures/errors/skips, and strict standalone Sphinx exit0.
+Actual Python: 3.10.21 latest, 3.10.22 legacy, 3.11.16, 3.12.15, 3.13.16,
+3.14.7. Snapshot UTC 2026-10-08T10:31:35.169995+00:00.
+[CI manifest](block23_ci_result.json) and [observation log](block23_ci_checks.log).
+Full case sets equal the local committed suite; all focused 364/new87 cases,
+normalized pytest arguments, unchanged seven exclusions, source/dependency
+metadata and five artifact hashes per job are checked. Six representative
+Linux stacks, not every possible dependency combination.
+
+[Root verifier](verify_block23.py), [manifest](block23_validation_result.json),
+[log](block23_validation_checks.log) validate seven non-audit paths, 45 unchanged
+IRM method ASTs, unchanged sensitivity/adapter bodies minus new entry guards,
+compatibility/focus/MC provenance, local/CI source/cases/docs and raw artifacts;
+issues[]. [Documentation handoff](DOCUMENTATION_HANDOFF.md) contains 141 locally
+verified immutable links; implementation sources are pushed. All code/test
+evidence is local aggregate/synthetic evidence, not client data.
+
+Ordinary push to MaximLenivkin/Causalis:codex/correctness-roadmap remains
+authorized by the user's explicit «Разрешаю пуш в нашу ветку». Final checkpoint
+is git log -1; final ordinary audit push, live HEAD/remote equality and clean
+working tree are checked at completion. Audit-only changes do not rerun the
+workflow. No PR, upstream/main push, force-push or release.
+
+Stop at B23 for context cleanup. Next B24: binary IRM external OOF predictions
+and manifest/alignment/ownership/leakage contracts before implementation.
+Repeated multi/IV, multiway grouping, equal-cluster/few-cluster inference,
+DR/R-CATE, sensitivity, SC08 LOO, selected-U ATT and NumPy/RST migration remain
+separate or deferred. This block does not certify downstream iid diagnostic
+inference, joint/subgroup inference, notebook execution or universal coverage.
+
+## Retained conservative support limitation
+
+The original `_validate_treatment_support` method is unchanged: in addition to
+G>=n_folds and both arms in each training complement, it requires at least
+n_folds input rows in each treatment arm. Therefore a cluster partition with
+adequate training support can still fail this inherited row-count gate. B23
+retains the existing input eligibility policy; relaxing it for clustered data
+is a separate follow-up. [Supplementary support probe](block23_support_result.json)
+and [log](block23_support_checks.log) demonstrate two before-fitting rejections
+(n_rep1/3) with two treated rows across distinct clusters and valid first-split
+training complements. These two supplementary checks are not added to the
+87 new/364 focused/3521 full pytest counts. This restriction is explicit in the
+documentation handoff; it is not a fallback to iid inference.

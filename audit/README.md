@@ -188,3 +188,46 @@ Next B23: group-aware binaryIRM split and inference contracts before changes.
 Multi/IV repetition, externalOOF, DR/R-CATE follow-ups remain separate.
 Sensitivity/SC08LOO/selected-UATT/NumPyRST debt deferred. Stop after B22 for
 contextcleanup/newuserrequest. Do not repeatlogin/fork/setup/oldbroadtests.
+
+
+## B23 — завершён: one-way cluster binary IRM (8 October 2026)
+
+Source `b1adeb291870c965825c60712144d23ea4c31ce9`, baseline `1409e95`.
+IRM(..., cluster_groups=labels) snapshots positional membership (Series index
+must match exactly), holds whole clusters out with recorded shuffled group
+KFold seeds, and uses row-weighted scalar CR1 for absolute/baseline/relative
+ATE/ATTE inference. Repetitions aggregate cluster SEs using B22's policy.
+No row fallback/retry; each training complement needs both treatment arms.
+The inherited input gate additionally requires at least n_folds rows per arm;
+two supplementary support probes document this conservative limitation.
+Drop/fixed folds and cluster GATE/GATET/CATE/sensitivity reject; exported
+GATE/CATE adapters also enforce the guard. Few-cluster/multiway/multi/IV
+contracts remain separate. Original approximate weight/Hajek flags retained.
+
+87 new cases; focused364passed/38warnings/18.87s. Exact iid compatibility:
+32 fit configurations, 48 estimates, 16 weighted-ATTE rejections.
+Committed correctness3521passed/no failures/errors/skips,125warnings/211.90s;
+seven sensitivity exclusions unchanged. Strict standalone Sphinx exit0/23.928s.
+45 unchanged IRM method ASTs; two sensitivity bodies unchanged except new guards;
+GATE/uplift adapters only gain guards. MC400 samples,80 independent clusters:
+ATE R1/R3 coverage .945/.945, ATTE .9525/.9425; same-fit iid SE comparator
+.4825/.475 and .495/.505. MCSE about .011, one favorable DGP only.
+
+[CI37763490246](https://github.com/MaximLenivkin/Causalis/actions/runs/37763490246)
+completed/success on exact sourceb1adeb2: all6artifacts3521passed each and strict
+Sphinxexit0. Fullcase sets/focus/source/dependencies/normalizedargv/exclusions
+and five hashes/job verified. Python3.10.21latest/3.10.22legacy,3.11.16,3.12.15,
+3.13.16,3.14.7. SnapshotUTC2026-10-08T10:31:35.169995+00:00.
+[Report](BLOCK23_GROUP_CROSSFIT.md), [CI](block23_ci_result.json),
+[root validation](block23_validation_result.json), issues[]. Handoff141links
+verified; source pushed. Owned probe copies and exact integration pytest-temp
+removed; code/test JUnits/metadata/logs retained. Source/tests frozen; later
+changes audit-only. No login/setup, subagents, PR/release/upstream or messages.
+User push authorization persists for the personal branch. Final checkpoint via
+gitlog-1; final ordinary push/live local-remote equality and clean tree checked
+at completion. Stop at B23 for context cleanup/new user request.
+
+Next B24: external OOF predictions for binary IRM, beginning with manifest,
+alignment, ownership and leakage contracts. Multi/IV repetitions, multiway/
+few-cluster inference and DR/R-CATE remain separate; sensitivity/SC08LOO/
+selected-UATT/NumPyRST debt deferred. Do not repeat login/fork/setup/old suites.

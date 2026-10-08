@@ -1,0 +1,9 @@
+{
+  "owned_pytest_basetemp": "audit/block23_integration_test_temp/pytest-temp",
+  "removed": true,
+  "ownership": "Exact basetemp of the B23 integration launched by this run; no prior B23 runtime existed",
+  "selection_sha256": "9d06a8ee11f17d33dfac535081f69c56d7bb00e60fd7e0a693117e4ecf1041ad",
+  "junit_retained": true,
+  "probe_source_copies_removed": true,
+  "raw_client_data_acquired": false
+}
