@@ -1248,16 +1248,17 @@ class IRM(BaseEstimator):
         manifest = build_manifest(self, arrays, sample_context, folds, training_indices, split_seeds)
         return validate_manifest(self, arrays, manifest, sample_context, d, codes)
 
-    def _validate_external_oof_config(self) -> None:
+    def _validate_external_oof_config(self) -> Tuple[str, float]:
         """Check external configuration without consulting supplied learners."""
         validate_n_rep(self.n_rep)
         if self.n_folds < 2:
             raise ValueError("n_folds must be at least 2")
-        policy, _ = _validate_overlap_config(self.overlap_policy, self.overlap_threshold)
+        policy, threshold = _validate_overlap_config(self.overlap_policy, self.overlap_threshold)
         if policy != "clip":
             raise ValueError("External OOF IRM requires overlap_policy='clip'")
         if self._fixed_fold_assignments_ is not None:
             raise ValueError("External OOF IRM uses manifest folds, not fixed folds")
+        return policy, threshold
 
     @_publish_complete_fit
     def fit(
@@ -1314,7 +1315,7 @@ class IRM(BaseEstimator):
         if external != (oof_manifest is not None):
             raise ValueError("external_predictions and oof_manifest must be supplied together")
         if external:
-            self._validate_external_oof_config()
+            self.overlap_policy, self.overlap_threshold = self._validate_external_oof_config()
         else:
             # Preserve the original learner and configuration path.
             self._initialize_default_learners_for_fit(y_is_binary=y_is_binary)

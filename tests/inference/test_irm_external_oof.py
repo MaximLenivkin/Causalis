@@ -419,3 +419,23 @@ def test_external_finite_sample_required(column, value):
     model.data.df.loc[model.data.df.index[0], column] = value
     with pytest.raises(ValueError, match='finite'):
         model.fit(external_predictions=predictions, oof_manifest=manifest)
+
+
+@pytest.mark.parametrize('cluster', [False, True])
+def test_set_params_overlap_normalization_matches_regular_fit(cluster):
+    model, predictions, manifest, _ = fixture(cluster=cluster)
+    # sklearn set_params legitimately inspects nested parameters before fit.
+    model.ml_g, model.ml_m = LinearRegression(), LogisticRegression()
+    model.set_params(overlap_policy='CLIP', overlap_threshold='0.01')
+    model.ml_g, model.ml_m = Bomb(), Bomb()
+    predictions['m'][:2] = [0, 1]
+    manifest = model.make_oof_manifest(predictions, folds=manifest['folds'],
+                                     training_indices=manifest['training_indices'], split_seeds=[17])
+    # Manifest construction validates without rewriting caller configuration.
+    assert model.overlap_policy == 'CLIP' and model.overlap_threshold == '0.01'
+    model.fit(external_predictions=predictions, oof_manifest=manifest)
+    result = model.estimate()
+    assert result.model_options['overlap_policy'] == 'clip'
+    assert result.model_options['overlap_threshold'] == .01
+    assert model.overlap_n_clipped_ == 2
+    np.testing.assert_array_equal(model.m_hat_[:2], [.01, .99])
