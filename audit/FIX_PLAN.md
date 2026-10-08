@@ -573,3 +573,50 @@ integration basetemps removed, synthetic-only. Three commits including final
 audit checkpoint via gitlog-1; authorized personal-branch pushes/clean state
 checked at completion. Stop B29; nextB30policy costs/capacity after user request.
 Seven deferred DML sensitivity exclusions remain outside a full release gate.
+
+
+## B30 — completed: known policy costs and training capacity, 9 October 2026
+
+[Report](BLOCK30_POLICY_COST_CAPACITY.md). Baseline15f316d;
+source `d4b8f62a281c37e98b44941f12314de073cad721`. Existing
+UpliftPolicyTree adds treatment_cost (known nonnegative scalar or fitted
+pre-treatment cost-confounder, in outcome units) and max_treatment_fraction.
+Greedy partition uses net DR signals; binary knapsack selects whole leaves
+within floor(n_train*fraction). Optimal over fixed leaves only. Capacity can
+remain unused; no population or hard deployment cap. New batches retain
+pointwise frozen rules and can exceed the training fraction.
+
+Independent evaluation compares net values with paired signals, including
+heterogeneous-cost sampling variation/covariance; pointwise rule HC3 describes
+net group benefit. Gross/cost decompositions are aggregate. Cost definition is
+frozen; failed refit preserves complete state. Default zero cost/fraction one
+retains legacy columns and decisions. Nondefault contexts require internal,
+single-partition, iid, unweighted clipped IRMs, matching roles/snapshots and
+disjoint unique IDs. Repeated/external/grouped fits reject. Known costs do not
+repair identification/nuisance/clipping/selection problems; no cost-model,
+finite-sample, retraining or optimal-regret inference is supplied.
+
+92new cases; committed380focuspassed/7warnings/8.58s and4374correctnesspassed/
+157warnings/140.53s,0failures/errors/skips. StrictSphinx0/17.232s.
+All4282oldcase IDs and187existingPython test paths retained;152other existing
+library/scripts/workflow Python/YAML paths unchanged; source diff3paths.
+171immutable handoff links/issues[]. Root --require-ci verifies raw history,
+local gates, exact cleanup and six CI artifacts. Actual CI37848086801 exactd4b8f62
+completed/success, allsix4374passed/docs0. SnapshotUTC2026-10-08T21:42:52.761024+00:00;
+Python3.10.22latest/legacy,3.11.17,3.12.15,3.13.16,3.14.8. Full/focus cases,
+source/env/normalized args/7exclusions and5artifact hashes per job verified.
+One actual CI run, no reruns. Source/tests frozen afterwards.
+
+Development fixture failures (greedy partition expectations, lost tiny signal,
+invalid global treatment and empty-leaf setup), historical complex-cast warning
+and initial audit verifier JSON-schema error are preserved, not hidden. Final
+gates green. Exactly owned focus/integration basetemps removed; raw evidence
+retained under ignored runtime dirs. Synthetic fixtures only; no client export.
+Persistent user «Разрешаю пуш в нашу ветку» covers ordinary source and final
+audit pushes; no auto-review rejection. Final audit checkpoint via gitlog-1,
+local/remote identity and clean/synced tree checked at completion. Stop B30.
+The ordered feature list ends here; next scope should come from residual backlog,
+not an automatically invented B31. Hard deployment capacity/uncertain costs,
+deferred sensitivity rewrite/SC08LOO/selected-UATT/multi-IV repetitions/grouping/
+few-multiwayclusters/NumPyRST debt remain separate. No subagents/login/setup/
+dependency refresh/upstream/main/forcepush/PR/release/website/external messages.

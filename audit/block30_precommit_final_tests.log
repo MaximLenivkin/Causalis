@@ -1,0 +1,18 @@
+........................................................................ [ 50%]
+...................F...................................................  [100%]
+=================================== FAILURES ===================================
+______ test_empty_and_unsupported_cost_rule_reports_keep_explicit_status _______
+
+    def test_empty_and_unsupported_cost_rule_reports_keep_explicit_status():
+        fitted = policy(exact_irm(), treatment_cost=1)
+        report = fitted.evaluate(make_irm("eval", x_values=(1., 2.)))
+        rules = report.rules_summary()
+>       assert "empty" in set(rules.status)
+E       AssertionError: assert 'empty' in {'ok'}
+E        +  where {'ok'} = set(0    ok\n1    ok\nName: status, dtype: str)
+E        +    where 0    ok\n1    ok\nName: status, dtype: str =   rule_id conditions       predicates  ...     std_error  ci_lower  ci_upper\n0  rule_1   x <= 1.5  ((x, <=, 1.5),)  .....      1.0       1.0\n1  rule_2    x > 1.5   ((x, >, 1.5),)  ...  5.206563e-16       3.0       3.0\n\n[2 rows x 14 columns].status
+
+tests/scenarios/uplift/test_policy_cost_capacity.py:306: AssertionError
+=========================== short test summary info ============================
+FAILED tests/scenarios/uplift/test_policy_cost_capacity.py::test_empty_and_unsupported_cost_rule_reports_keep_explicit_status
+1 failed, 142 passed in 6.23s

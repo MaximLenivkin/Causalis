@@ -233,3 +233,18 @@ remote/local equality/clean tree are checked at completion. No automatic
 approval rejection, new login, remote/fork setup, PR, upstream/main write,
 forcepush, release, dependency install, client query/export or external message.
 Stop at B29; B30 starts only after new user request.
+
+
+## B30 — 9 October 2026
+
+Persistent user «Разрешаю пуш в нашу ветку» authorizes ordinary commits/pushes
+to MaximLenivkin/Causalis:codex/correctness-roadmap. Source push15f316d..d4b8f62
+succeeded; source d4b8f62a281c37e98b44941f12314de073cad721. One CI run37848086801,
+all6jobs/artifacts4374passed and strictdocs0, source/env/cases/args/hashes verified.
+Final root --require-ci exit0/issues[],171handoff links, source/tests frozen.
+Final audit-only checkpoint via gitlog-1; its ordinary push and live local/remote
+identity/clean tree are checked at completion. Audit-only push does not rerun
+matrix (existing paths-ignore audit/**). No approval rejection, login/reset,
+upstream/main/forcepush/PR/release/website/external message. Both exact owned
+pytest basetemps removed; synthetic-only records in test evidence. Stop B30;
+next scope requires a new user request and review of residual backlog.

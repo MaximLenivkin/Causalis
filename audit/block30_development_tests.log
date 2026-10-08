@@ -1,0 +1,99 @@
+.........................FFF.........F.................................. [ 93%]
+F....                                                                    [100%]
+=================================== FAILURES ===================================
+_______ test_training_capacity_selects_whole_profitable_leaves[0.25-30] ________
+
+fraction = 0.25, expected = 30
+
+    @pytest.mark.parametrize("fraction,expected", [(0, 0), (.25, 30), (.5, 60), (1, 60)])
+    def test_training_capacity_selects_whole_profitable_leaves(fraction, expected):
+        irm = exact_irm()
+        fitted = policy(irm, max_treatment_fraction=fraction)
+        assignments = fitted.assign(irm.data.df, user_id="client_id")
+        rules = fitted.rules()
+>       assert assignments.action.sum() == expected
+E       assert np.int64(0) == 30
+E        +  where np.int64(0) = sum()
+E        +    where sum = 7      0\n10     0\n13     0\n16     0\n19     0\n      ..\n352    0\n355    0\n358    0\n361    0\n364    0\nName: action, Length: 120, dtype: int64.sum
+E        +      where 7      0\n10     0\n13     0\n16     0\n19     0\n      ..\n352    0\n355    0\n358    0\n361    0\n364    0\nName: action, Length: 120, dtype: int64 =      client_id rule_id  action\n7      train_0  rule_1       0\n10     train_1  rule_1       0\n13     train_2  rule_1   ... 0\n358  train_117  rule_2       0\n361  train_118  rule_2       0\n364  train_119  rule_2       0\n\n[120 rows x 3 columns].action
+
+tests/scenarios/uplift/test_policy_cost_capacity.py:54: AssertionError
+________ test_training_capacity_selects_whole_profitable_leaves[0.5-60] ________
+
+fraction = 0.5, expected = 60
+
+    @pytest.mark.parametrize("fraction,expected", [(0, 0), (.25, 30), (.5, 60), (1, 60)])
+    def test_training_capacity_selects_whole_profitable_leaves(fraction, expected):
+        irm = exact_irm()
+        fitted = policy(irm, max_treatment_fraction=fraction)
+        assignments = fitted.assign(irm.data.df, user_id="client_id")
+        rules = fitted.rules()
+>       assert assignments.action.sum() == expected
+E       assert np.int64(0) == 60
+E        +  where np.int64(0) = sum()
+E        +    where sum = 7      0\n10     0\n13     0\n16     0\n19     0\n      ..\n352    0\n355    0\n358    0\n361    0\n364    0\nName: action, Length: 120, dtype: int64.sum
+E        +      where 7      0\n10     0\n13     0\n16     0\n19     0\n      ..\n352    0\n355    0\n358    0\n361    0\n364    0\nName: action, Length: 120, dtype: int64 =      client_id rule_id  action\n7      train_0  rule_1       0\n10     train_1  rule_1       0\n13     train_2  rule_1   ... 0\n358  train_117  rule_2       0\n361  train_118  rule_2       0\n364  train_119  rule_2       0\n\n[120 rows x 3 columns].action
+
+tests/scenarios/uplift/test_policy_cost_capacity.py:54: AssertionError
+_________ test_training_capacity_selects_whole_profitable_leaves[1-60] _________
+
+fraction = 1, expected = 60
+
+    @pytest.mark.parametrize("fraction,expected", [(0, 0), (.25, 30), (.5, 60), (1, 60)])
+    def test_training_capacity_selects_whole_profitable_leaves(fraction, expected):
+        irm = exact_irm()
+        fitted = policy(irm, max_treatment_fraction=fraction)
+        assignments = fitted.assign(irm.data.df, user_id="client_id")
+        rules = fitted.rules()
+>       assert assignments.action.sum() == expected
+E       assert np.int64(90) == 60
+E        +  where np.int64(90) = sum()
+E        +    where sum = 7      0\n10     0\n13     0\n16     0\n19     0\n      ..\n352    1\n355    1\n358    1\n361    1\n364    1\nName: action, Length: 120, dtype: int64.sum
+E        +      where 7      0\n10     0\n13     0\n16     0\n19     0\n      ..\n352    1\n355    1\n358    1\n361    1\n364    1\nName: action, Length: 120, dtype: int64 =      client_id rule_id  action\n7      train_0  rule_1       0\n10     train_1  rule_1       0\n13     train_2  rule_1   ... 1\n358  train_117  rule_2       1\n361  train_118  rule_2       1\n364  train_119  rule_2       1\n\n[120 rows x 3 columns].action
+
+tests/scenarios/uplift/test_policy_cost_capacity.py:54: AssertionError
+_________ test_capacity_is_training_only_and_assignments_are_pointwise _________
+
+    def test_capacity_is_training_only_and_assignments_are_pointwise():
+        irm = exact_irm()
+        fitted = policy(irm, max_treatment_fraction=.25)
+        batch = pd.DataFrame({"id": range(10), "x": np.full(10, 2.)})
+>       assert fitted.assign(batch, user_id="id").action.eq(1).all()
+E       AssertionError: assert np.False_
+E        +  where np.False_ = all()
+E        +    where all = 0    False\n1    False\n2    False\n3    False\n4    False\n5    False\n6    False\n7    False\n8    False\n9    False\nName: action, dtype: bool.all
+E        +      where 0    False\n1    False\n2    False\n3    False\n4    False\n5    False\n6    False\n7    False\n8    False\n9    False\nName: action, dtype: bool = eq(1)
+E        +        where eq = 0    0\n1    0\n2    0\n3    0\n4    0\n5    0\n6    0\n7    0\n8    0\n9    0\nName: action, dtype: int64.eq
+E        +          where 0    0\n1    0\n2    0\n3    0\n4    0\n5    0\n6    0\n7    0\n8    0\n9    0\nName: action, dtype: int64 =    id rule_id  action\n0   0  rule_2       0\n1   1  rule_2       0\n2   2  rule_2       0\n3   3  rule_2       0\n4   4  r...2       0\n5   5  rule_2       0\n6   6  rule_2       0\n7   7  rule_2       0\n8   8  rule_2       0\n9   9  rule_2       0.action
+E        +            where    id rule_id  action\n0   0  rule_2       0\n1   1  rule_2       0\n2   2  rule_2       0\n3   3  rule_2       0\n4   4  r...2       0\n5   5  rule_2       0\n6   6  rule_2       0\n7   7  rule_2       0\n8   8  rule_2       0\n9   9  rule_2       0 = assign(   id    x\n0   0  2.0\n1   1  2.0\n2   2  2.0\n3   3  2.0\n4   4  2.0\n5   5  2.0\n6   6  2.0\n7   7  2.0\n8   8  2.0\n9   9  2.0, user_id='id')
+E        +              where assign = UpliftPolicyTree(max_depth=3, max_treatment_fraction=0.25, min_samples_leaf=20).assign
+
+tests/scenarios/uplift/test_policy_cost_capacity.py:130: AssertionError
+__________________ test_net_objective_scale_invariance[1e-80] __________________
+
+scale = 1e-80
+
+    @pytest.mark.parametrize("scale", [1e-80, 1., 1e80])
+    def test_net_objective_scale_invariance(scale):
+        irm = exact_irm(effects=(-3 * scale, 4 * scale, -3 * scale, 6 * scale))
+        fitted = policy(irm, treatment_cost=scale, max_treatment_fraction=.25)
+>       assert fitted.assign(pd.DataFrame({"id": [1, 2], "x": [-1, 2]}), user_id="id").action.tolist() == [0, 1]
+E       assert [0, 0] == [0, 1]
+E         
+E         At index 1 diff: 0 != 1
+E         Use -v to get more diff
+
+tests/scenarios/uplift/test_policy_cost_capacity.py:220: AssertionError
+=============================== warnings summary ===============================
+tests/scenarios/uplift/test_policy_cost_capacity.py::test_cost_column_validated_even_when_excluded_from_policy_features[complex]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/lib/python3.12/site-packages/pandas/core/internals/managers.py:1944: ComplexWarning: Casting complex values to real discards the imaginary part
+    result[rl.indexer] = arr
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/scenarios/uplift/test_policy_cost_capacity.py::test_training_capacity_selects_whole_profitable_leaves[0.25-30]
+FAILED tests/scenarios/uplift/test_policy_cost_capacity.py::test_training_capacity_selects_whole_profitable_leaves[0.5-60]
+FAILED tests/scenarios/uplift/test_policy_cost_capacity.py::test_training_capacity_selects_whole_profitable_leaves[1-60]
+FAILED tests/scenarios/uplift/test_policy_cost_capacity.py::test_capacity_is_training_only_and_assignments_are_pointwise
+FAILED tests/scenarios/uplift/test_policy_cost_capacity.py::test_net_objective_scale_invariance[1e-80]
+5 failed, 72 passed, 1 warning in 5.92s

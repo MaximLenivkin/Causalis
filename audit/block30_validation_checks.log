@@ -1,0 +1,83 @@
+{
+  "snapshot_links_checked": 171,
+  "issues": []
+}
+{
+  "run_id": 37848086801,
+  "run_status": "completed",
+  "verified_successful_jobs": 6,
+  "matrix_verified": true,
+  "issues": []
+}
+{
+  "source": "d4b8f62a281c37e98b44941f12314de073cad721",
+  "baseline": "15f316dc086e658b7cb5567448025f32b7e2f23a",
+  "source_sha256": {
+    "README.md": "a60b84859e5805f28088c53fcc8d42a9162a934dad3405cfcff552a8bded3b0a",
+    "causalis/scenarios/uplift/policy.py": "9777b0be35c363c4cf8dcb9efe6f500fd861c6fb0875704e6a55261cecec1e60",
+    "tests/scenarios/uplift/test_policy_cost_capacity.py": "fcc2c5eb5580f967b464dc0c427ab93f7290377aa19e46c332fc2789facdadeb"
+  },
+  "source_diff": [
+    "README.md",
+    "causalis/scenarios/uplift/policy.py",
+    "tests/scenarios/uplift/test_policy_cost_capacity.py"
+  ],
+  "existing_source_paths_unchanged": 152,
+  "existing_test_paths_unchanged": 187,
+  "old_cases_retained": 4282,
+  "new_cases": 92,
+  "focus": {
+    "tests": 380,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "correctness": {
+    "tests": 4374,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "docs": {
+    "command": [
+      "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/bin/python",
+      "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/scripts/generate_api_reference.py",
+      "--check"
+    ],
+    "environment": {
+      "python": "3.12.14",
+      "implementation": "CPython",
+      "platform": "macOS-26.6.2-arm64-arm-64bit",
+      "executable": "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/bin/python",
+      "commit": "d4b8f62a281c37e98b44941f12314de073cad721",
+      "packages": {
+        "causalis": "1.0.8.dev37",
+        "numpy": "2.5.3",
+        "pandas": "3.0.6",
+        "scipy": "1.18.1",
+        "statsmodels": "0.15.0",
+        "scikit-learn": "1.9.1",
+        "pydantic": "2.13.5",
+        "catboost": "1.2.10",
+        "matplotlib": "3.11.2",
+        "pytest": "9.1.1",
+        "sphinx": "9.1.0",
+        "myst-parser": "5.1.0",
+        "sphinx-autodoc2": "0.5.0"
+      },
+      "docs_build_environment": null
+    },
+    "warnings_are_errors": true,
+    "publishes_html": false,
+    "exit_code": 0,
+    "elapsed_seconds": 17.232280624986743,
+    "log_sha256": "e1a651fe0c16a626bf55a34dc02ea8dc3c58e472d765adf677c239f1c399ec4e",
+    "generator_sha256": "fff79a2147fae775c132f196f02da326324c63f4555eec4081c8a04edabc6dc7"
+  },
+  "handoff_links_checked": 171,
+  "report_links_checked": 12,
+  "history_verified": true,
+  "cleanup_verified": true,
+  "ci_verified": true,
+  "issues": []
+}

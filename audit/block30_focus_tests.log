@@ -1,0 +1,31 @@
+........................................................................ [ 18%]
+........................................................................ [ 37%]
+........................................................................ [ 56%]
+........................................................................ [ 75%]
+........................................................................ [ 94%]
+....................                                                     [100%]
+=============================== warnings summary ===============================
+tests/scenarios/uplift/test_dr_r_learners.py::test_source_score_and_ipw_normalization_do_not_change_conditional_target[ATE-True-DRLearner]
+tests/scenarios/uplift/test_dr_r_learners.py::test_source_score_and_ipw_normalization_do_not_change_conditional_target[ATE-True-RLearner]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1466: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+    warnings.warn(
+
+tests/scenarios/uplift/test_dr_r_learners.py::test_source_score_and_ipw_normalization_do_not_change_conditional_target[ATTE-True-DRLearner]
+tests/scenarios/uplift/test_dr_r_learners.py::test_source_score_and_ipw_normalization_do_not_change_conditional_target[ATTE-True-RLearner]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+    warnings.warn(
+
+tests/test_no_tests_imports_in_causalis.py::test_causalis_has_no_imports_from_tests
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/iv/dgp.py:177: SyntaxWarning: invalid escape sequence '\e'
+    Z &= f_Z(X, \epsilon_Z) \\
+
+tests/test_no_tests_imports_in_causalis.py::test_causalis_has_no_imports_from_tests
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/iv/refutation/diagnostics.py:522: SyntaxWarning: invalid escape sequence '\m'
+    \theta = \frac{\mathbb{E}[Y|Z=1] - \mathbb{E}[Y|Z=0]}{\mathbb{E}[D|Z=1] - \mathbb{E}[D|Z=0]}
+
+tests/test_no_tests_imports_in_causalis.py::test_causalis_has_no_imports_from_tests
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/iv/refutation/diagnostics.py:566: SyntaxWarning: invalid escape sequence '\m'
+    Visualizes the overlap of :math:`\mathbb{P}(Z=1|X)` between the :math:`Z=0` and
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+380 passed, 7 warnings in 8.58s

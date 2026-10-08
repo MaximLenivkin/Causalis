@@ -1251,3 +1251,43 @@ Immutable sources:
 [exports](https://github.com/MaximLenivkin/Causalis/blob/2c63f8d73c5d6f3ca15c4ca17ab0c1beb296f720/causalis/scenarios/did/__init__.py),
 [analytic/vertex/CSA regression tests](https://github.com/MaximLenivkin/Causalis/blob/2c63f8d73c5d6f3ca15c4ca17ab0c1beb296f720/tests/scenarios/did/test_honest_did.py),
 [README examples and assumptions](https://github.com/MaximLenivkin/Causalis/blob/2c63f8d73c5d6f3ca15c4ca17ab0c1beb296f720/README.md).
+
+
+## B30 — known treatment costs and training capacity (9 October 2026)
+
+`UpliftPolicyTree(treatment_cost=0.0, max_treatment_fraction=1.0)` now accepts
+known nonnegative scalar costs or a fitted pre-treatment cost-confounder name,
+in outcome units. Higher outcomes are better. Use a prespecified conversion
+for monetary costs, and do not subtract costs already included in the outcome.
+The objective is mean(action * (Gamma - cost)). Growing the greedy partition
+uses net signals; whole-leaf binary knapsack then maximizes net training reward
+subject to floor(n_train * max_treatment_fraction) recipients. The partition
+is fixed before allocation, so global constrained-tree optimization and regret
+guarantees are not claimed. Capacity can be unused, even with positive benefits.
+
+The constraint is training-sample feasibility only. Pointwise frozen assign
+rules can exceed this fraction in a new batch or population. There is no
+hard deployment cap, monetary resource-budget solver, leaf randomization or
+learned/realized post-treatment cost model. The cost definition is frozen at
+fit. For nondefault settings, training and evaluation must use internal,
+single-partition, iid, unweighted, clipped IRMs with valid fit snapshots,
+matching roles and disjoint unique IDs. Neither IRM is fitted or modified.
+
+Net policy value is E[pi(Z)*(Y(1)-C(X))+(1-pi(Z))*Y(0)]. Overall comparisons
+use paired evaluation signals a*(Gamma-C), (a-1)*(Gamma-C), and Gamma-C.
+Their ddof1/sqrt(n) standard errors include heterogeneous-cost variation and
+covariance. Summary value is net; gross_value and signed incremental_cost
+provide the decomposition. Rule value and pointwise HC3 intervals describe
+net group benefit irrespective of action. Training means are descriptive;
+unsupported rules have NaN effects. Default zero cost and fraction one preserve
+legacy columns/decisions. Known costs do not certify unconfoundedness/overlap,
+repair clipping/nuisance bias, or justify selection on evaluation results.
+Independent evaluation conditions on the fixed trained policy; no retraining,
+finite-sample or cluster uncertainty guarantee is supplied.
+
+Immutable implementation links:
+
+- [Policy implementation](https://github.com/MaximLenivkin/Causalis/blob/d4b8f62a281c37e98b44941f12314de073cad721/causalis/scenarios/uplift/policy.py)
+- [Public exports](https://github.com/MaximLenivkin/Causalis/blob/d4b8f62a281c37e98b44941f12314de073cad721/causalis/scenarios/uplift/__init__.py)
+- [Independent cost/capacity tests](https://github.com/MaximLenivkin/Causalis/blob/d4b8f62a281c37e98b44941f12314de073cad721/tests/scenarios/uplift/test_policy_cost_capacity.py)
+- [Usage and limits](https://github.com/MaximLenivkin/Causalis/blob/d4b8f62a281c37e98b44941f12314de073cad721/README.md#L802)

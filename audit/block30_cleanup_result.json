@@ -1,0 +1,18 @@
+{
+  "allowed_paths": [
+    "audit/block30_focus_test_temp/pytest-temp",
+    "audit/block30_integration_test_temp/pytest-temp"
+  ],
+  "paths": [
+    {
+      "path": "audit/block30_focus_test_temp/pytest-temp",
+      "existed": true,
+      "removed": true
+    },
+    {
+      "path": "audit/block30_integration_test_temp/pytest-temp",
+      "existed": true,
+      "removed": true
+    }
+  ]
+}

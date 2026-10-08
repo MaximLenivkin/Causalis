@@ -1,0 +1,30 @@
+{
+  "observed_head": "d4b8f62a281c37e98b44941f12314de073cad721",
+  "source_state": "committed source; audit-only working tree",
+  "command": [
+    "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/scenarios/uplift",
+    "tests/scenarios/unconfoundedness",
+    "tests/test_no_tests_imports_in_causalis.py",
+    "-q",
+    "--junitxml=/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block30_focus_test_temp/junit.xml",
+    "--basetemp=/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block30_focus_test_temp/pytest-temp"
+  ],
+  "source_sha256": {
+    "README.md": "a60b84859e5805f28088c53fcc8d42a9162a934dad3405cfcff552a8bded3b0a",
+    "causalis/scenarios/uplift/policy.py": "9777b0be35c363c4cf8dcb9efe6f500fd861c6fb0875704e6a55261cecec1e60",
+    "tests/scenarios/uplift/test_policy_cost_capacity.py": "fcc2c5eb5580f967b464dc0c427ab93f7290377aa19e46c332fc2789facdadeb"
+  },
+  "exit_code": 0,
+  "tests": 380,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "new_cases": 92,
+  "passed": 380,
+  "warnings": 7,
+  "pytest_elapsed_seconds": 8.58,
+  "junit_sha256": "adbcd53f6955ad3797f8ef8e5cd01298c647b0f69d07b277b26d8423ec681587"
+}

@@ -1,0 +1,9 @@
+........................................................................ [ 93%]
+.....                                                                    [100%]
+=============================== warnings summary ===============================
+tests/scenarios/uplift/test_policy_cost_capacity.py::test_cost_column_validated_even_when_excluded_from_policy_features[complex]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/lib/python3.12/site-packages/pandas/core/internals/managers.py:1944: ComplexWarning: Casting complex values to real discards the imaginary part
+    result[rl.indexer] = arr
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+77 passed, 1 warning in 5.62s

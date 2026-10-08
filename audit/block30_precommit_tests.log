@@ -1,0 +1,74 @@
+........................................................................ [ 50%]
+...................F...................................................  [100%]
+=================================== FAILURES ===================================
+______ test_empty_and_unsupported_cost_rule_reports_keep_explicit_status _______
+
+    def test_empty_and_unsupported_cost_rule_reports_keep_explicit_status():
+        fitted = policy(exact_irm(), treatment_cost=1)
+>       report = fitted.evaluate(make_irm("eval", x_values=(1., 2.), separated=True))
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/scenarios/uplift/test_policy_cost_capacity.py:304: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/scenarios/uplift/test_policy_tree.py:42: in make_irm
+    data = CausalData.from_df(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+cls = <class 'causalis.data_contracts.causaldata.CausalData'>
+df =     client_id    x         z  d          y
+7      eval_0  1.0  0.304717  1  12.760943
+10     eval_1  1.0 -1.039984  1 ...l_57  2.0  1.494941  1  15.698988
+181   eval_58  2.0 -0.865831  1  15.226834
+184   eval_59  2.0  0.968278  1  15.593656
+treatment = 'd', outcome = 'y', confounders = ['x', 'z'], user_id = 'client_id'
+kwargs = {}
+
+    @classmethod
+    def from_df(
+            cls,
+            df: pd.DataFrame,
+            treatment: str,
+            outcome: str,
+            confounders: Optional[Union[str, List[str]]] = None,
+            user_id: Optional[str] = None,
+            **kwargs: Any
+    ) -> 'CausalData':
+        """
+        Friendly constructor for CausalData.
+    
+        Parameters
+        ----------
+        df : pd.DataFrame
+            The DataFrame containing the data_contracts.
+        treatment : str
+            Column name representing the treatment variable.
+        outcome : str
+            Column name representing the outcome  variable.
+        confounders : Union[str, List[str]], optional
+            Column name(s) representing the confounders/covariates.
+        user_id : str, optional
+            Column name representing the unique identifier for each observation/user.
+        **kwargs : Any
+            Additional arguments passed to the Pydantic model constructor.
+    
+        Returns
+        -------
+        CausalData
+            A validated CausalData instance.
+        """
+>       return cls(
+            df=df,
+            treatment=treatment,
+            outcome=outcome,
+            confounders=confounders,
+            user_id=user_id,
+            **kwargs
+        )
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for CausalData
+E         Value error, Column 'd' specified as treatment is constant (has zero variance / single unique value), which is not allowed for causal inference. [type=value_error, input_value={'df':     client_id    x... 'user_id': 'client_id'}, input_type=dict]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+causalis/data_contracts/causaldata.py:92: ValidationError
+=========================== short test summary info ============================
+FAILED tests/scenarios/uplift/test_policy_cost_capacity.py::test_empty_and_unsupported_cost_rule_reports_keep_explicit_status
+1 failed, 142 passed in 6.45s

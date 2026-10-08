@@ -1,0 +1,56 @@
+[
+  {
+    "stage": "legacy",
+    "path": "audit/block30_legacy_test_temp/junit.xml",
+    "sha256": "609693749c69fa78e0b9f126a11bdf6e6cff32ba10ad43db761e8e42301a260f",
+    "tests": 51,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "stage": "development",
+    "path": "audit/block30_development_test_temp/junit.xml",
+    "sha256": "64408fa7ecc8f7f1f041dea952f57989c4ae388d3342a5fd128a38994faa8ab1",
+    "tests": 77,
+    "failures": 5,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "stage": "development_fixed",
+    "path": "audit/block30_development_fixed_test_temp/junit.xml",
+    "sha256": "e99458c5c3a60e23a27ceb66bf4c4b97ecd15b2ebbf092298e442afac6607c4b",
+    "tests": 77,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "stage": "precommit",
+    "path": "audit/block30_precommit_test_temp/junit.xml",
+    "sha256": "c46bbc972d4ab7041bc60aca661c28fcae7915f3b1557e9689c9ce6078a8f062",
+    "tests": 143,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "stage": "precommit_final",
+    "path": "audit/block30_precommit_final_test_temp/junit.xml",
+    "sha256": "ed359b10bc7fec1b040c8d649477c352243f1a119090a22f70ff949083b6061e",
+    "tests": 143,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0
+  },
+  {
+    "stage": "precommit_verified",
+    "path": "audit/block30_precommit_verified_test_temp/junit.xml",
+    "sha256": "1ac5b6bc1729f9b44fc10fa66aa3412bb33498c297f0304ab7c0ebb25086d40e",
+    "tests": 143,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  }
+]

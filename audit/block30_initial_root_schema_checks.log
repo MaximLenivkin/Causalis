@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/verify_block30.py", line 139, in <module>
+    main()
+  File "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/verify_block30.py", line 71, in main
+    assert record["environment"]["commit"] == SOURCE
+           ~~~~~~^^^^^^^^^^^^^^^
+KeyError: 'environment'
