@@ -383,3 +383,45 @@ Next B27: inference families — сначала estimand, assumptions и support
 evaluation contexts. Sensitivity/SC08LOO/selected-UATT/multi-IV grouping and
 repetition/few-multiway clusters/NumPyRST debt остаются отдельными. Stop after
 B26 for context cleanup; не начинать B27 без нового запроса пользователя.
+
+
+## B27 — завершён: inference families (8 October 2026)
+
+Final source `72f6918b1eb06b8bfd743397b2bf0bde6a8ef8a0`, baseline750354b;
+initial implementationf718634, root lazy export correction72f6918.
+[Report](BLOCK27_INFERENCE_FAMILIES.md). New `causalis.inference.InferenceFamily`
+provides owned fixed iid effect families, linear contrasts, covariance, normal
+Bonferroni or Gaussian multiplier max-t simultaneous absolute bands/tests.
+Frozen aggregate results, shared rows/draws, empirical centering/ddof1 covariance,
+plus-one finite-draw p-values and matching order-statistic bands. Nonfinite/
+complex/shape/zero variance/underflow/seed/draw resolution guards. Generic input
+requires valid joint observation-scale iid influences; assumptions are caller's
+responsibility. `from_irm` supports only internal R1 iid unweighted clip ATE/ATTE,
+current normalize_ipwFalse, unique stable nonmissing ordered IDs/same treatment.
+No fit/predict/source cache mutation/RNG consumption. Different outcomes/features/
+folds allowed; external/repeated/cluster/drop/weighted/relative/CATE/GATE rejected.
+No finite-sample guarantee, arbitrary growing-p theorem, nuisance bias correction,
+selection/identification certification, cluster/repeated or CATE inference.
+
+107new cases, final793focuspassed/72warnings/39.36s; committed correctness
+3981passed/157warnings/132.77s,0failures/errors/skips;7sensitivity exclusions
+unchanged. Final strict standalone Sphinx0/18.183s. Initial f718634 docs warning
+(package omitted from root __all__) failed both standalone and old docs test:
+1failed3979passed initialintegration; preserved separately, fixed by72f6918 and
+lazy-export regression. Development fixture5failures corrected separately.
+All3874old case IDs retained;154existing library/scripts/workflowfiles byte-identical,
+root functionASTunchanged,5non-auditpaths changed. Handoff158immutablelinks.
+Exact owned focus/integration pytest-temp removed; synthetic fixtures only.
+Final root --require-ci validation exit0/issues[]; raw local/initial/docs/CI evidence verified. Source/tests frozen after72f6918.
+
+Ordinary source push750354b..72f6918 succeeded under user's persistent explicit
+«Разрешаю пуш в нашу ветку». [CI37809518217](https://github.com/MaximLenivkin/Causalis/actions/runs/37809518217) completed/success on exact source;
+all6artifacts3981passed plus strictdocs0. Full case sets/focus/source/env/normalized
+argv/7exclusions and5hashes/job verified; Python3.10.22bothstacks,3.11.17,3.12.15,
+3.13.16,3.14.8, snapshotUTC2026-10-08T16:37:07.010575+00:00.
+[CI manifest](block27_ci_result.json), [root manifest](block27_validation_result.json),
+issues[]. One CI run, no reruns. Final audit checkpoint via gitlog-1; ordinary
+final audit push/live local-remote identity and clean tree checked at completion. No subagents/login/setup/fork/upstream/main/forcepush/PR/
+release/notebooks/website/external messages. NextB28weak-IVLATE only after B27
+completion, context cleanup and a new request. Sensitivity/SC08LOO/selected-UATT/
+multi-IVrepetitions/grouping/few-multiwayclusters/NumPyRSTdebt remain separate.

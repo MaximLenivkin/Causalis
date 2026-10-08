@@ -181,3 +181,19 @@ Persistent authorization is the user's explicit «Разрешаю пуш в н�
 No automatic review rejection, new login/auth/fork setup or repeat permission
 question. No upstream/main/forcepush/PR/release or external messaging. Stop at
 B26 for context cleanup; next B27 requires a new user request.
+
+
+## B27 checkpoint — 8 October 2026
+
+Implementationf71863483c59df3d740a4984981998bfcb0da627; final source root-export
+correction72f6918b1eb06b8bfd743397b2bf0bde6a8ef8a0, baseline750354b.
+Ordinary push750354b..72f6918 to MaximLenivkin/Causalis:codex/correctness-roadmap
+succeeded under persistent user «Разрешаю пуш в нашу ветку» authorization.
+No automatic review rejection/new permission/auth/login/setup/fork changes.
+Final correctness3981passed, strictSphinx0, CI37809518217 completed/success on
+exact72f6918:all6artifacts3981passed plus strictdocs0. Root --require-ci verifies
+raw evidence/source/cases/scope/env/hashes/cleanup/158handofflinks, issues[].
+Source/tests frozen; final changes audit-only. Final audit checkpoint via gitlog-1,
+ordinary final audit push/live identity and clean/synced tree checked at completion.
+No upstream/main/forcepush/PR/release/external messages. Stop after B27; next
+B28weak-IVLATE requires context cleanup and a new user request.

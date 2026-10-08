@@ -175,7 +175,7 @@ p_rank = (1 + count(R_placebo >= R_treated)) / (J + 1)
 4. Newcombe D05, IV resolver и другие поведенческие изменения публиковать с соответствующими code commits.
 5. Rebuild API от release SHA, site version marker, links/snippet checks; затем общая smoke проверка.
 
-Не добавлять обещания отсутствующих возможностей: GATE contrasts, held-out policy evaluation, DID simultaneous multiplier bands и SCM conformal уже есть; B22–B26 добавили repeated/group CF, external OOF, отдельные DR/R CATE learners и independent validation с ограничениями своих контрактов; weak-IV robust sets остаются отдельной future feature. Homepage «state-of-the-art/best-in-class/production-ready» подкреплять versioned benchmarks/assumption/support list.
+Не добавлять обещания отсутствующих возможностей: GATE contrasts, held-out policy evaluation, DID simultaneous multiplier bands и SCM conformal уже есть; B22–B27 добавили repeated/group CF, external OOF, отдельные DR/R CATE learners и independent validation и simultaneous iid effect-family inference с ограничениями своих контрактов; weak-IV robust sets остаются отдельной future feature. Homepage «state-of-the-art/best-in-class/production-ready» подкреплять versioned benchmarks/assumption/support list.
 
 Прочитаны markdown всех40notebooks и ключевые статьи сайта; все40 notebooks не переисполнялись. Из27подозрительных import flags после runtime проверки actual export errors0. Ошибка web extractor отдельной страницы не классифицируется как broken URL. Эти границы не меняют подтверждённых текстовых несогласованностей выше.
 
@@ -1102,3 +1102,57 @@ orchestrate outer splitting or preprocessing. Document the manual recipe:
 for each outer train sample refit transformations/IRM/CATE, transform outer
 validation using training-fitted transformations and evaluate; never slice OOF
 signals computed once on all rows. Inference families remain separate B27.
+
+
+## B27 — simultaneous inference for prespecified effect families
+
+> `InferenceFamily.from_irm(named_models, score="ATE" or "ATTE")` snapshots
+> absolute scalar effects and jointly aligned influences from internal R1 iid,
+> unweighted clip fits with `normalize_ipw=False`. All models need unchanged
+> fit-time sample/roles, identical ordered unique nonmissing stable user IDs
+> and treatment. Different outcomes/features/folds are permitted. No model
+> fit/predict, source cache update, diagnostics construction or RNG draw occurs.
+> The family owns arrays. External/repeated/cluster/drop/custom-weight contexts
+> and relative/CATE/GATE effects are rejected by the adapter.
+>
+> Generic `InferenceFamily(values, influence, names)` requires observation-scale
+> iid influences `(n,p)` on exactly the same units, without division by n.
+> Centered IF covariance is `IF.T @ IF/[n*(n-1)]`; positive column variance is
+> mandatory. Singular dependence across nondegenerate columns is allowed.
+> `contrast(L, names)` transforms both effects and influences; choose contrasts
+> with meaningful units before seeing results. `covariance` is a detached copy.
+>
+> `infer(method="bonferroni")` supplies simultaneous normal Bonferroni bands and
+> corrected marginal p-values. `infer(method="max-t", n_boot=1999,
+> random_state=42)` shares Gaussian multipliers across columns and uses maximum
+> absolute studentized perturbations. Finite-draw p-values include ties and
+> plus-one correction; bands use the corresponding order statistic. At least
+> 99 draws and alpha>=1/(B+1) are mandatory; enough tail accuracy remains the
+> caller's choice. The local Generator preserves global RNG; no cross-version
+> exact draw promise. Score perturbation does not refit the causal pipeline.
+>
+> Frozen results contain aggregate scalar tuples and fresh summary tables with
+> centered simultaneous absolute bands, marginal/adjusted p-values, nulls and
+> method/draw metadata. Null scalar/vector changes tests, not band centers.
+> Reject at adjusted p<=alpha; finite-draw endpoint ties may differ. Underflow
+> to zero covariance and nonfinite arithmetic are explicit failures.
+>
+> Coverage/FWER are asymptotic under joint linearity, adequate moments and
+> valid nuisances, not a finite-sample certificate. Causal interpretation needs
+> identification and overlap. Confounding, active clipping, nuisance bias and
+> adaptive family selection remain outside what multiplicity correction solves.
+> IDs check alignment, not independence or hidden leakage. Generic array entry
+> does not certify other estimators or bypass iid assumptions. No CATE CI,
+> repeated/cluster joint inference, arbitrary growing-family theorem or
+> Romano-Wolf stepdown. Existing scalar algorithms stay unchanged.
+
+Acceptance: show family-adjusted versus marginal tests explicitly; declare the
+family and contrasts before looking at outcomes/results. Do not promise exact
+finite-sample coverage or inferential guarantees for validation-selected CATE.
+
+Immutable sources:
+- [Family implementation](https://github.com/MaximLenivkin/Causalis/blob/72f6918b1eb06b8bfd743397b2bf0bde6a8ef8a0/causalis/inference/family.py)
+- [Public exports](https://github.com/MaximLenivkin/Causalis/blob/72f6918b1eb06b8bfd743397b2bf0bde6a8ef8a0/causalis/inference/__init__.py)
+- [Root lazy package export](https://github.com/MaximLenivkin/Causalis/blob/72f6918b1eb06b8bfd743397b2bf0bde6a8ef8a0/causalis/__init__.py)
+- [Independent numerical and contract tests](https://github.com/MaximLenivkin/Causalis/blob/72f6918b1eb06b8bfd743397b2bf0bde6a8ef8a0/tests/inference/test_inference_family.py)
+- [README usage and assumptions](https://github.com/MaximLenivkin/Causalis/blob/72f6918b1eb06b8bfd743397b2bf0bde6a8ef8a0/README.md)

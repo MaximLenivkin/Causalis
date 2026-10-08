@@ -1,0 +1,38 @@
+{
+  "observed_head": "72f6918b1eb06b8bfd743397b2bf0bde6a8ef8a0",
+  "source_state": "committed source; audit-only working tree",
+  "command": [
+    "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/inference/test_inference_family.py",
+    "tests/scenarios/uplift",
+    "tests/inference/test_irm_external_oof.py",
+    "tests/inference/test_irm_cluster_crossfit.py",
+    "tests/inference/test_irm_repeated_crossfit.py",
+    "tests/inference/test_data_snapshot_contracts.py",
+    "tests/inference/test_irm_estimator.py",
+    "tests/inference/test_irm_score_identities.py",
+    "tests/test_no_tests_imports_in_causalis.py",
+    "-q",
+    "--junitxml=/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block27_focus_test_temp/junit.xml",
+    "--basetemp=/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block27_focus_test_temp/pytest-temp"
+  ],
+  "source_sha256": {
+    "README.md": "e988da4c1612e6b59e219c52d35d005efdf0c008c610b33a00a901e45ce50e77",
+    "causalis/__init__.py": "449a0a7e98c7f0131277b49d0367dcde594c3d659a811e757ea47bff62c83b5c",
+    "causalis/inference/family.py": "26c5b5444be49183ec77abc0d6a093aab0685fdd7652f426941b56e6d6501a3a",
+    "causalis/inference/__init__.py": "ab428df009478f513a83415ce44e7e833e959542e4f3034a2eed986752131ec7",
+    "tests/inference/test_inference_family.py": "37f6941cd808319ab685a0e72e5f89501919fa1f1317ac4280d84d5414adb968"
+  },
+  "exit_code": 0,
+  "tests": 793,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "new_cases": 107,
+  "passed": 793,
+  "warnings": 72,
+  "pytest_elapsed_seconds": 39.36,
+  "junit_sha256": "d1093a4742670f829c0e98b16ef673a27cefbd5293a1401bc0cf6f6c13d0e73e"
+}

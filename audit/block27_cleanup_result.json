@@ -1,0 +1,11 @@
+{
+  "source": "72f6918b1eb06b8bfd743397b2bf0bde6a8ef8a0",
+  "removed_paths": [
+    "audit/block27_focus_test_temp/pytest-temp",
+    "audit/block27_integration_test_temp/pytest-temp"
+  ],
+  "focus_junit_sha256": "d1093a4742670f829c0e98b16ef673a27cefbd5293a1401bc0cf6f6c13d0e73e",
+  "integration_junit_sha256": "37460aac88a323cc95db49e20c71978d204ee0cf55632cd98265f3efc1b9576b",
+  "synthetic_only": true,
+  "client_records_downloaded": false
+}

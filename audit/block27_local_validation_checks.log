@@ -1,0 +1,33 @@
+{
+  "snapshot_links_checked": 158,
+  "issues": []
+}
+{
+  "source": "72f6918b1eb06b8bfd743397b2bf0bde6a8ef8a0",
+  "baseline": "750354b51896f0d775b3eb73c1cebaec1b882f17",
+  "issues": [],
+  "changed_non_audit_paths": [
+    "README.md",
+    "causalis/__init__.py",
+    "causalis/inference/__init__.py",
+    "causalis/inference/family.py",
+    "tests/inference/test_inference_family.py"
+  ],
+  "unchanged_existing_source_files": 154,
+  "source_sha256": {
+    "README.md": "e988da4c1612e6b59e219c52d35d005efdf0c008c610b33a00a901e45ce50e77",
+    "causalis/__init__.py": "449a0a7e98c7f0131277b49d0367dcde594c3d659a811e757ea47bff62c83b5c",
+    "causalis/inference/__init__.py": "ab428df009478f513a83415ce44e7e833e959542e4f3034a2eed986752131ec7",
+    "causalis/inference/family.py": "26c5b5444be49183ec77abc0d6a093aab0685fdd7652f426941b56e6d6501a3a",
+    "tests/inference/test_inference_family.py": "37f6941cd808319ab685a0e72e5f89501919fa1f1317ac4280d84d5414adb968"
+  },
+  "focused_cases": 793,
+  "new_cases": 107,
+  "integration_cases": 3981,
+  "previous_cases_preserved": 3874,
+  "sensitivity_validated": false,
+  "standalone_sphinx_exit_code": 0,
+  "handoff_links_checked": 158,
+  "report_local_links_checked": 19,
+  "ci_required": false
+}

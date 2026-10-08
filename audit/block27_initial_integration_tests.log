@@ -1,0 +1,1049 @@
+{
+  "scope": "correctness",
+  "selected_full_suite": false,
+  "collect_only": false,
+  "excluded_modules": [
+    "tests/refutation/test_multi_sensitivity_benchmark.py",
+    "tests/refutation/test_sensitivity_benchmark.py",
+    "tests/refutation/test_sensitivity_combination.py",
+    "tests/refutation/test_sensitivity_integration_irm.py",
+    "tests/refutation/test_sensitivity_protocol.py",
+    "tests/refutation/test_sensitivity_rv_signed_rr.py",
+    "tests/refutation/test_trim_sensitivity_ate.py"
+  ],
+  "pytest_args": [
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp=/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block27_integration_test_temp/pytest-temp",
+    "--junitxml=/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block27_integration_test_temp/junit.xml",
+    "tests",
+    "--ignore",
+    "tests/refutation/test_multi_sensitivity_benchmark.py",
+    "--ignore",
+    "tests/refutation/test_sensitivity_benchmark.py",
+    "--ignore",
+    "tests/refutation/test_sensitivity_combination.py",
+    "--ignore",
+    "tests/refutation/test_sensitivity_integration_irm.py",
+    "--ignore",
+    "tests/refutation/test_sensitivity_protocol.py",
+    "--ignore",
+    "tests/refutation/test_sensitivity_rv_signed_rr.py",
+    "--ignore",
+    "tests/refutation/test_trim_sensitivity_ate.py"
+  ],
+  "environment": {
+    "python": "3.12.14",
+    "implementation": "CPython",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "executable": "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/bin/python",
+    "commit": "f71863483c59df3d740a4984981998bfcb0da627",
+    "packages": {
+      "causalis": "1.0.8.dev37",
+      "numpy": "2.5.3",
+      "pandas": "3.0.6",
+      "scipy": "1.18.1",
+      "statsmodels": "0.15.0",
+      "scikit-learn": "1.9.1",
+      "pydantic": "2.13.5",
+      "catboost": "1.2.10",
+      "matplotlib": "3.11.2",
+      "pytest": "9.1.1",
+      "sphinx": "9.1.0",
+      "myst-parser": "5.1.0",
+      "sphinx-autodoc2": "0.5.0"
+    },
+    "docs_build_environment": "false"
+  }
+}
+Scoped correctness run: sensitivity modules listed above are deferred.
+........................................................................ [  1%]
+........................................................................ [  3%]
+........................................................................ [  5%]
+........................................................................ [  7%]
+........................................................................ [  9%]
+........................................................................ [ 10%]
+........................................................................ [ 12%]
+........................................................................ [ 14%]
+........................................................................ [ 16%]
+........................................................................ [ 18%]
+........................................................................ [ 19%]
+........................................................................ [ 21%]
+........................................................................ [ 23%]
+........................................................................ [ 25%]
+........................................................................ [ 27%]
+........................................................................ [ 28%]
+........................................................................ [ 30%]
+........................................................................ [ 32%]
+........................................................................ [ 34%]
+........................................................................ [ 36%]
+............F........................................................... [ 37%]
+........................................................................ [ 39%]
+........................................................................ [ 41%]
+........................................................................ [ 43%]
+........................................................................ [ 45%]
+........................................................................ [ 47%]
+...................................binary_relative_att_oracle_sampling {"coverage_95": 0.955, "empirical_sd_percent": 2.9844819116168306, "mean_estimate_percent": 29.562383165311754, "mean_se_over_empirical_sd": 1.0008532045127816, "mean_se_percent": 2.9870282850521375, "n": 600, "repetitions": 600, "seed": 40317, "truth_percent": 29.88505747126437}
+..................................... [ 48%]
+........................................................................ [ 50%]
+........................................................................ [ 52%]
+........................................................................ [ 54%]
+........................................................................ [ 56%]
+........................................................................ [ 57%]
+........................................................................ [ 59%]
+........................................................................ [ 61%]
+........................................................................ [ 63%]
+........................................................................ [ 65%]
+........................................................................ [ 66%]
+........................................................................ [ 68%]
+........................................................................ [ 70%]
+........................................................................ [ 72%]
+........................................................................ [ 74%]
+........................................................................ [ 75%]
+........................................................................ [ 77%]
+........................................................................ [ 79%]
+........................................................................ [ 81%]
+........................................................................ [ 83%]
+........................................................................ [ 85%]
+........................................................................ [ 86%]
+........................................................................ [ 88%]
+........................................................................ [ 90%]
+........................................................................ [ 92%]
+........................................................................ [ 94%]
+........................................................................ [ 95%]
+........................................................................ [ 97%]
+........................................................................ [ 99%]
+....................                                                     [100%]
+=================================== FAILURES ===================================
+______________ test_check_builds_full_package_without_publishing _______________
+
+tmp_path = PosixPath('/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block27_integration_test_temp/pytest-temp/test_check_builds_full_package0')
+
+    def test_check_builds_full_package_without_publishing(tmp_path):
+        _require_docs_dependencies()
+        repo = _copy_repo(tmp_path, full=True)
+        before = _tree_hashes(repo)
+        run = _run(repo, '--check')
+>       assert run.returncode == 0, run.stdout + run.stderr
+E       AssertionError: Running Sphinx v9.1.0
+E         loading translations [en]... done
+E         myst v5.1.0: MdParserConfig(commonmark_only=False, gfm_only=False, enable_extensions=set(), disable_syntax=[], all_links_external=False, links_external_new_tab=False, url_schemes=('http', 'https', 'mailto', 'ftp'), ref_domains=None, fence_as_directive=set(), number_code_blocks=[], title_to_header=False, heading_anchors=0, heading_slug_func=None, html_meta={}, footnote_sort=True, footnote_transition=True, words_per_minute=200, substitutions={}, linkify_fuzzy_links=True, dmath_allow_labels=True, dmath_allow_space=True, dmath_allow_digits=True, dmath_double_inline=False, update_mathjax=True, mathjax_classes='tex2jax_process|mathjax_process|math|output_area', enable_checkboxes=False, strikethrough_single_tilde=False, colon_fence_exact_match=False, suppress_warnings=[], highlight_code_blocks=True)
+E         [Autodoc2] Analysing package...[  1%] causalis._version
+E         [Autodoc2] Analysing package...[  1%] causalis.__init__
+E         [Autodoc2] Analysing package...[  2%] causalis.dgp.rct_causal_data
+E         [Autodoc2] Analysing package...[  3%] causalis.dgp.__init__
+E         [Autodoc2] Analysing package...[  3%] causalis.dgp._gaussian_outcome
+E         [Autodoc2] Analysing package...[  4%] causalis.dgp.base
+E         [Autodoc2] Analysing package...[  5%] causalis.dgp._gaussian_joint
+E         [Autodoc2] Analysing package...[  5%] causalis.dgp.panel_data_scm.__init__
+E         [Autodoc2] Analysing package...[  6%] causalis.dgp.panel_data_scm.functional
+E         [Autodoc2] Analysing package...[  7%] causalis.dgp.panel_data_scm.base
+E         [Autodoc2] Analysing package...[  7%] causalis.dgp.causaldata.preperiod
+E         [Autodoc2] Analysing package...[  8%] causalis.dgp.causaldata.__init__
+E         [Autodoc2] Analysing package...[  9%] causalis.dgp.causaldata.functional
+E         [Autodoc2] Analysing package...[ 10%] causalis.dgp.causaldata.base
+E         [Autodoc2] Analysing package...[ 10%] causalis.dgp.multicausaldata.__init__
+E         [Autodoc2] Analysing package...[ 11%] causalis.dgp.multicausaldata.functional
+E         [Autodoc2] Analysing package...[ 12%] causalis.dgp.multicausaldata.base
+E         [Autodoc2] Analysing package...[ 12%] causalis.dgp.panel_data_did.__init__
+E         [Autodoc2] Analysing package...[ 13%] causalis.dgp.panel_data_did.functional
+E         [Autodoc2] Analysing package...[ 14%] causalis.dgp.panel_data_did.base
+E         [Autodoc2] Analysing package...[ 14%] causalis.dgp.causaldata_instrumental.__init__
+E         [Autodoc2] Analysing package...[ 15%] causalis.dgp.causaldata_instrumental.functional
+E         [Autodoc2] Analysing package...[ 16%] causalis.dgp.causaldata_instrumental.base
+E         [Autodoc2] Analysing package...[ 16%] causalis.shared.outcome_outliers
+E         [Autodoc2] Analysing package...[ 17%] causalis.shared.confounders_balance
+E         [Autodoc2] Analysing package...[ 18%] causalis.shared.outcome_plots
+E         [Autodoc2] Analysing package...[ 18%] causalis.shared.outcome_stats
+E         [Autodoc2] Analysing package...[ 19%] causalis.shared.__init__
+E         [Autodoc2] Analysing package...[ 20%] causalis.shared.confounder_clustering
+E         [Autodoc2] Analysing package...[ 20%] causalis.shared.sutva_validation
+E         [Autodoc2] Analysing package...[ 21%] causalis.shared.srm
+E         [Autodoc2] Analysing package...[ 22%] causalis.shared.rct_design.design
+E         [Autodoc2] Analysing package...[ 22%] causalis.shared.rct_design.__init__
+E         [Autodoc2] Analysing package...[ 23%] causalis.shared.rct_design.split
+E         [Autodoc2] Analysing package...[ 24%] causalis.scenarios.__init__
+E         [Autodoc2] Analysing package...[ 24%] causalis.scenarios._fit_state
+E         [Autodoc2] Analysing package...[ 25%] causalis.scenarios._orthogonal
+E         [Autodoc2] Analysing package...[ 26%] causalis.scenarios._numerics
+E         [Autodoc2] Analysing package...[ 27%] causalis.scenarios._prediction
+E         [Autodoc2] Analysing package...[ 27%] causalis.scenarios.did.dgp
+E         [Autodoc2] Analysing package...[ 28%] causalis.scenarios.did.__init__
+E         [Autodoc2] Analysing package...[ 29%] causalis.scenarios.did.model
+E         [Autodoc2] Analysing package...[ 29%] causalis.scenarios.did.refutation.post_inference_plots
+E         [Autodoc2] Analysing package...[ 30%] causalis.scenarios.did.refutation.diagnostics
+E         [Autodoc2] Analysing package...[ 31%] causalis.scenarios.did.refutation.__init__
+E         [Autodoc2] Analysing package...[ 31%] causalis.scenarios.did.refutation.diagnostic_plots
+E         [Autodoc2] Analysing package...[ 32%] causalis.scenarios.did.refutation.post_inference
+E         [Autodoc2] Analysing package...[ 33%] causalis.scenarios.cuped.dgp
+E         [Autodoc2] Analysing package...[ 33%] causalis.scenarios.cuped.__init__
+E         [Autodoc2] Analysing package...[ 34%] causalis.scenarios.cuped.model
+E         [Autodoc2] Analysing package...[ 35%] causalis.scenarios.cuped._ols
+E         [Autodoc2] Analysing package...[ 35%] causalis.scenarios.cuped.refutation.regression_checks
+E         [Autodoc2] Analysing package...[ 36%] causalis.scenarios.cuped.refutation.config
+E         [Autodoc2] Analysing package...[ 37%] causalis.scenarios.cuped.refutation.__init__
+E         [Autodoc2] Analysing package...[ 37%] causalis.scenarios.cuped.refutation.forest_plot
+E         [Autodoc2] Analysing package...[ 38%] causalis.scenarios.classic_rct.dgp
+E         [Autodoc2] Analysing package...[ 39%] causalis.scenarios.classic_rct.__init__
+E         [Autodoc2] Analysing package...[ 39%] causalis.scenarios.classic_rct.model
+E         [Autodoc2] Analysing package...[ 40%] causalis.scenarios.classic_rct.inference.ttest
+E         [Autodoc2] Analysing package...[ 41%] causalis.scenarios.classic_rct.inference.__init__
+E         [Autodoc2] Analysing package...[ 41%] causalis.scenarios.classic_rct.inference.welch_permutation_t_test
+E         [Autodoc2] Analysing package...[ 42%] causalis.scenarios.classic_rct.inference.conversion_ztest
+E         [Autodoc2] Analysing package...[ 43%] causalis.scenarios.synthetic_control.dgp
+E         [Autodoc2] Analysing package...[ 44%] causalis.scenarios.synthetic_control.__init__
+E         [Autodoc2] Analysing package...[ 44%] causalis.scenarios.synthetic_control.model
+E         [Autodoc2] Analysing package...[ 45%] causalis.scenarios.synthetic_control._utils
+E         [Autodoc2] Analysing package...[ 46%] causalis.scenarios.synthetic_control.refutation.__init__
+E         [Autodoc2] Analysing package...[ 46%] causalis.scenarios.synthetic_control.refutation.sensitivity
+E         [Autodoc2] Analysing package...[ 47%] causalis.scenarios.synthetic_control.refutation.donors_diagnostics
+E         [Autodoc2] Analysing package...[ 48%] causalis.scenarios.synthetic_control.refutation.scm_diagnostics
+E         [Autodoc2] Analysing package...[ 48%] causalis.scenarios.synthetic_control.refutation.placebo
+E         [Autodoc2] Analysing package...[ 49%] causalis.scenarios.synthetic_control.refutation.diagnostic_plots
+E         [Autodoc2] Analysing package...[ 50%] causalis.scenarios.synthetic_control.refutation.outcome_panel_plot
+E         [Autodoc2] Analysing package...[ 50%] causalis.scenarios.unconfoundedness.dgp
+E         [Autodoc2] Analysing package...[ 51%] causalis.scenarios.unconfoundedness.__init__
+E         [Autodoc2] Analysing package...[ 52%] causalis.scenarios.unconfoundedness.model
+E         [Autodoc2] Analysing package...[ 52%] causalis.scenarios.unconfoundedness._cluster
+E         [Autodoc2] Analysing package...[ 53%] causalis.scenarios.unconfoundedness._diagnostic_utils
+E         [Autodoc2] Analysing package...[ 54%] causalis.scenarios.unconfoundedness._repeated
+E         [Autodoc2] Analysing package...[ 54%] causalis.scenarios.unconfoundedness._external_oof
+E         [Autodoc2] Analysing package...[ 55%] causalis.scenarios.unconfoundedness._score_utils
+E         [Autodoc2] Analysing package...[ 56%] causalis.scenarios.unconfoundedness._utils
+E         [Autodoc2] Analysing package...[ 56%] causalis.scenarios.unconfoundedness.refutation.__init__
+E         [Autodoc2] Analysing package...[ 57%] causalis.scenarios.unconfoundedness.refutation._shared
+E         [Autodoc2] Analysing package...[ 58%] causalis.scenarios.unconfoundedness.refutation.unconfoundedness.unconfoundedness_validation
+E         [Autodoc2] Analysing package...[ 59%] causalis.scenarios.unconfoundedness.refutation.unconfoundedness.__init__
+E         [Autodoc2] Analysing package...[ 59%] causalis.scenarios.unconfoundedness.refutation.unconfoundedness.sensitivity
+E         [Autodoc2] Analysing package...[ 60%] causalis.scenarios.unconfoundedness.refutation.unconfoundedness.love_plot
+E         [Autodoc2] Analysing package...[ 61%] causalis.scenarios.unconfoundedness.refutation.score.score_validation
+E         [Autodoc2] Analysing package...[ 61%] causalis.scenarios.unconfoundedness.refutation.score.influence_plot
+E         [Autodoc2] Analysing package...[ 62%] causalis.scenarios.unconfoundedness.refutation.score.__init__
+E         [Autodoc2] Analysing package...[ 63%] causalis.scenarios.unconfoundedness.refutation.score.residual_plots
+E         [Autodoc2] Analysing package...[ 63%] causalis.scenarios.unconfoundedness.refutation.overlap.overlap_validation
+E         [Autodoc2] Analysing package...[ 64%] causalis.scenarios.unconfoundedness.refutation.overlap.feature_importance_plot
+E         [Autodoc2] Analysing package...[ 65%] causalis.scenarios.unconfoundedness.refutation.overlap.overlap_plot
+E         [Autodoc2] Analysing package...[ 65%] causalis.scenarios.unconfoundedness.refutation.overlap.__init__
+E         [Autodoc2] Analysing package...[ 66%] causalis.scenarios.unconfoundedness.refutation.overlap.reliability_plot
+E         [Autodoc2] Analysing package...[ 67%] causalis.scenarios.uplift.policy
+E         [Autodoc2] Analysing package...[ 67%] causalis.scenarios.uplift.__init__
+E         [Autodoc2] Analysing package...[ 68%] causalis.scenarios.uplift.model
+E         [Autodoc2] Analysing package...[ 69%] causalis.scenarios.uplift.learners
+E         [Autodoc2] Analysing package...[ 69%] causalis.scenarios.uplift.validation
+E         [Autodoc2] Analysing package...[ 70%] causalis.scenarios.gate.gate_plot
+E         [Autodoc2] Analysing package...[ 71%] causalis.scenarios.gate.__init__
+E         [Autodoc2] Analysing package...[ 71%] causalis.scenarios.gate.model
+E         [Autodoc2] Analysing package...[ 72%] causalis.scenarios.iv.dgp
+E         [Autodoc2] Analysing package...[ 73%] causalis.scenarios.iv.__init__
+E         [Autodoc2] Analysing package...[ 73%] causalis.scenarios.iv.model
+E         [Autodoc2] Analysing package...[ 74%] causalis.scenarios.iv.refutation.diagnostics
+E         [Autodoc2] Analysing package...[ 75%] causalis.scenarios.iv.refutation.__init__
+E         [Autodoc2] Analysing package...[ 76%] causalis.scenarios.iv.refutation.iv_confounders_balance
+E         [Autodoc2] Analysing package...[ 76%] causalis.scenarios.multi_unconfoundedness.dgp
+E         [Autodoc2] Analysing package...[ 77%] causalis.scenarios.multi_unconfoundedness.__init__
+E         [Autodoc2] Analysing package...[ 78%] causalis.scenarios.multi_unconfoundedness.model
+E         [Autodoc2] Analysing package...[ 78%] causalis.scenarios.multi_unconfoundedness._utils
+E         [Autodoc2] Analysing package...[ 79%] causalis.scenarios.multi_unconfoundedness.refutation.__init__
+E         [Autodoc2] Analysing package...[ 80%] causalis.scenarios.multi_unconfoundedness.refutation.unconfoundedness.unconfoundedness_validation
+E         [Autodoc2] Analysing package...[ 80%] causalis.scenarios.multi_unconfoundedness.refutation.unconfoundedness.__init__
+E         [Autodoc2] Analysing package...[ 81%] causalis.scenarios.multi_unconfoundedness.refutation.unconfoundedness.sensitivity
+E         [Autodoc2] Analysing package...[ 82%] causalis.scenarios.multi_unconfoundedness.refutation.score.score_validation
+E         [Autodoc2] Analysing package...[ 82%] causalis.scenarios.multi_unconfoundedness.refutation.score.__init__
+E         [Autodoc2] Analysing package...[ 83%] causalis.scenarios.multi_unconfoundedness.refutation.score.residual_plots
+E         [Autodoc2] Analysing package...[ 84%] causalis.scenarios.multi_unconfoundedness.refutation.overlap.overlap_validation
+E         [Autodoc2] Analysing package...[ 84%] causalis.scenarios.multi_unconfoundedness.refutation.overlap.overlap_plot
+E         [Autodoc2] Analysing package...[ 85%] causalis.scenarios.multi_unconfoundedness.refutation.overlap.__init__
+E         [Autodoc2] Analysing package...[ 86%] causalis.inference.__init__
+E         [Autodoc2] Analysing package...[ 86%] causalis.inference.family
+E         [Autodoc2] Analysing package...[ 87%] causalis.data_contracts.panel_did_estimate
+E         [Autodoc2] Analysing package...[ 88%] causalis.data_contracts.gate_contrast_estimate
+E         [Autodoc2] Analysing package...[ 88%] causalis.data_contracts._duplicate_columns
+E         [Autodoc2] Analysing package...[ 89%] causalis.data_contracts.repeated_causal_estimate
+E         [Autodoc2] Analysing package...[ 90%] causalis.data_contracts.sensitivity_analysis_result
+E         [Autodoc2] Analysing package...[ 90%] causalis.data_contracts.causal_diagnostic_data
+E         [Autodoc2] Analysing package...[ 91%] causalis.data_contracts.rct_causal_data
+E         [Autodoc2] Analysing package...[ 92%] causalis.data_contracts.causal_estimate
+E         [Autodoc2] Analysing package...[ 93%] causalis.data_contracts.panel_data_scm
+E         [Autodoc2] Analysing package...[ 93%] causalis.data_contracts.__init__
+E         [Autodoc2] Analysing package...[ 94%] causalis.data_contracts.panel_estimate
+E         [Autodoc2] Analysing package...[ 95%] causalis.data_contracts.iv_causal_data
+E         [Autodoc2] Analysing package...[ 95%] causalis.data_contracts._did_comparison_units
+E         [Autodoc2] Analysing package...[ 96%] causalis.data_contracts.iv_causal_estimate
+E         [Autodoc2] Analysing package...[ 97%] causalis.data_contracts.multicausal_estimate
+E         [Autodoc2] Analysing package...[ 97%] causalis.data_contracts.rct_estimates
+E         [Autodoc2] Analysing package...[ 98%] causalis.data_contracts.panel_data_did
+E         [Autodoc2] Analysing package...[ 99%] causalis.data_contracts.causaldata
+E         [Autodoc2] Analysing package...[ 99%] causalis.data_contracts.gate_estimate
+E         [Autodoc2] Analysing package...[100%] causalis.data_contracts.multicausaldata
+E         
+E         [Autodoc2] Determining files to write ...
+E         [Autodoc2] Writing modules...[  1%] causalis
+E         [Autodoc2] Writing modules...[  1%] causalis.data_contracts
+E         [Autodoc2] Writing modules...[  2%] causalis.data_contracts.multicausaldata
+E         [Autodoc2] Writing modules...[  3%] causalis.data_contracts.gate_estimate
+E         [Autodoc2] Writing modules...[  3%] causalis.data_contracts.causaldata
+E         [Autodoc2] Writing modules...[  4%] causalis.data_contracts.panel_data_did
+E         [Autodoc2] Writing modules...[  5%] causalis.data_contracts.rct_estimates
+E         [Autodoc2] Writing modules...[  5%] causalis.data_contracts.multicausal_estimate
+E         [Autodoc2] Writing modules...[  6%] causalis.data_contracts.iv_causal_estimate
+E         [Autodoc2] Writing modules...[  7%] causalis.data_contracts._did_comparison_units
+E         [Autodoc2] Writing modules...[  7%] causalis.data_contracts.iv_causal_data
+E         [Autodoc2] Writing modules...[  8%] causalis.data_contracts.panel_estimate
+E         [Autodoc2] Writing modules...[  9%] causalis.data_contracts.panel_data_scm
+E         [Autodoc2] Writing modules...[ 10%] causalis.data_contracts.causal_estimate
+E         [Autodoc2] Writing modules...[ 10%] causalis.data_contracts.rct_causal_data
+E         [Autodoc2] Writing modules...[ 11%] causalis.data_contracts.causal_diagnostic_data
+E         [Autodoc2] Writing modules...[ 12%] causalis.data_contracts.sensitivity_analysis_result
+E         [Autodoc2] Writing modules...[ 12%] causalis.data_contracts.repeated_causal_estimate
+E         [Autodoc2] Writing modules...[ 13%] causalis.data_contracts._duplicate_columns
+E         [Autodoc2] Writing modules...[ 14%] causalis.data_contracts.gate_contrast_estimate
+E         [Autodoc2] Writing modules...[ 14%] causalis.data_contracts.panel_did_estimate
+E         [Autodoc2] Writing modules...[ 15%] causalis.inference
+E         [Autodoc2] Writing modules...[ 16%] causalis.inference.family
+E         [Autodoc2] Writing modules...[ 16%] causalis.scenarios
+E         [Autodoc2] Writing modules...[ 17%] causalis.scenarios.multi_unconfoundedness
+E         [Autodoc2] Writing modules...[ 18%] causalis.scenarios.multi_unconfoundedness.refutation
+E         [Autodoc2] Writing modules...[ 18%] causalis.scenarios.multi_unconfoundedness.refutation.overlap
+E         [Autodoc2] Writing modules...[ 19%] causalis.scenarios.multi_unconfoundedness.refutation.overlap.overlap_plot
+E         [Autodoc2] Writing modules...[ 20%] causalis.scenarios.multi_unconfoundedness.refutation.overlap.overlap_validation
+E         [Autodoc2] Writing modules...[ 20%] causalis.scenarios.multi_unconfoundedness.refutation.score
+E         [Autodoc2] Writing modules...[ 21%] causalis.scenarios.multi_unconfoundedness.refutation.score.residual_plots
+E         [Autodoc2] Writing modules...[ 22%] causalis.scenarios.multi_unconfoundedness.refutation.score.score_validation
+E         [Autodoc2] Writing modules...[ 22%] causalis.scenarios.multi_unconfoundedness.refutation.unconfoundedness
+E         [Autodoc2] Writing modules...[ 23%] causalis.scenarios.multi_unconfoundedness.refutation.unconfoundedness.sensitivity
+E         [Autodoc2] Writing modules...[ 24%] causalis.scenarios.multi_unconfoundedness.refutation.unconfoundedness.unconfoundedness_validation
+E         [Autodoc2] Writing modules...[ 24%] causalis.scenarios.multi_unconfoundedness._utils
+E         [Autodoc2] Writing modules...[ 25%] causalis.scenarios.multi_unconfoundedness.model
+E         [Autodoc2] Writing modules...[ 26%] causalis.scenarios.multi_unconfoundedness.dgp
+E         [Autodoc2] Writing modules...[ 27%] causalis.scenarios.iv
+E         [Autodoc2] Writing modules...[ 27%] causalis.scenarios.iv.refutation
+E         [Autodoc2] Writing modules...[ 28%] causalis.scenarios.iv.refutation.iv_confounders_balance
+E         [Autodoc2] Writing modules...[ 29%] causalis.scenarios.iv.refutation.diagnostics
+E         [Autodoc2] Writing modules...[ 29%] causalis.scenarios.iv.model
+E         [Autodoc2] Writing modules...[ 30%] causalis.scenarios.iv.dgp
+E         [Autodoc2] Writing modules...[ 31%] causalis.scenarios.gate
+E         [Autodoc2] Writing modules...[ 31%] causalis.scenarios.gate.model
+E         [Autodoc2] Writing modules...[ 32%] causalis.scenarios.gate.gate_plot
+E         [Autodoc2] Writing modules...[ 33%] causalis.scenarios.uplift
+E         [Autodoc2] Writing modules...[ 33%] causalis.scenarios.uplift.validation
+E         [Autodoc2] Writing modules...[ 34%] causalis.scenarios.uplift.learners
+E         [Autodoc2] Writing modules...[ 35%] causalis.scenarios.uplift.model
+E         [Autodoc2] Writing modules...[ 35%] causalis.scenarios.uplift.policy
+E         [Autodoc2] Writing modules...[ 36%] causalis.scenarios.unconfoundedness
+E         [Autodoc2] Writing modules...[ 37%] causalis.scenarios.unconfoundedness.refutation
+E         [Autodoc2] Writing modules...[ 37%] causalis.scenarios.unconfoundedness.refutation.overlap
+E         [Autodoc2] Writing modules...[ 38%] causalis.scenarios.unconfoundedness.refutation.overlap.reliability_plot
+E         [Autodoc2] Writing modules...[ 39%] causalis.scenarios.unconfoundedness.refutation.overlap.overlap_plot
+E         [Autodoc2] Writing modules...[ 39%] causalis.scenarios.unconfoundedness.refutation.overlap.feature_importance_plot
+E         [Autodoc2] Writing modules...[ 40%] causalis.scenarios.unconfoundedness.refutation.overlap.overlap_validation
+E         [Autodoc2] Writing modules...[ 41%] causalis.scenarios.unconfoundedness.refutation.score
+E         [Autodoc2] Writing modules...[ 41%] causalis.scenarios.unconfoundedness.refutation.score.residual_plots
+E         [Autodoc2] Writing modules...[ 42%] causalis.scenarios.unconfoundedness.refutation.score.influence_plot
+E         [Autodoc2] Writing modules...[ 43%] causalis.scenarios.unconfoundedness.refutation.score.score_validation
+E         [Autodoc2] Writing modules...[ 44%] causalis.scenarios.unconfoundedness.refutation.unconfoundedness
+E         [Autodoc2] Writing modules...[ 44%] causalis.scenarios.unconfoundedness.refutation.unconfoundedness.love_plot
+E         [Autodoc2] Writing modules...[ 45%] causalis.scenarios.unconfoundedness.refutation.unconfoundedness.sensitivity
+E         [Autodoc2] Writing modules...[ 46%] causalis.scenarios.unconfoundedness.refutation.unconfoundedness.unconfoundedness_validation
+E         [Autodoc2] Writing modules...[ 46%] causalis.scenarios.unconfoundedness.refutation._shared
+E         [Autodoc2] Writing modules...[ 47%] causalis.scenarios.unconfoundedness._utils
+E         [Autodoc2] Writing modules...[ 48%] causalis.scenarios.unconfoundedness._score_utils
+E         [Autodoc2] Writing modules...[ 48%] causalis.scenarios.unconfoundedness._external_oof
+E         [Autodoc2] Writing modules...[ 49%] causalis.scenarios.unconfoundedness._repeated
+E         [Autodoc2] Writing modules...[ 50%] causalis.scenarios.unconfoundedness._diagnostic_utils
+E         [Autodoc2] Writing modules...[ 50%] causalis.scenarios.unconfoundedness._cluster
+E         [Autodoc2] Writing modules...[ 51%] causalis.scenarios.unconfoundedness.model
+E         [Autodoc2] Writing modules...[ 52%] causalis.scenarios.unconfoundedness.dgp
+E         [Autodoc2] Writing modules...[ 52%] causalis.scenarios.synthetic_control
+E         [Autodoc2] Writing modules...[ 53%] causalis.scenarios.synthetic_control.refutation
+E         [Autodoc2] Writing modules...[ 54%] causalis.scenarios.synthetic_control.refutation.outcome_panel_plot
+E         [Autodoc2] Writing modules...[ 54%] causalis.scenarios.synthetic_control.refutation.diagnostic_plots
+E         [Autodoc2] Writing modules...[ 55%] causalis.scenarios.synthetic_control.refutation.placebo
+E         [Autodoc2] Writing modules...[ 56%] causalis.scenarios.synthetic_control.refutation.scm_diagnostics
+E         [Autodoc2] Writing modules...[ 56%] causalis.scenarios.synthetic_control.refutation.donors_diagnostics
+E         [Autodoc2] Writing modules...[ 57%] causalis.scenarios.synthetic_control.refutation.sensitivity
+E         [Autodoc2] Writing modules...[ 58%] causalis.scenarios.synthetic_control._utils
+E         [Autodoc2] Writing modules...[ 59%] causalis.scenarios.synthetic_control.model
+E         [Autodoc2] Writing modules...[ 59%] causalis.scenarios.synthetic_control.dgp
+E         [Autodoc2] Writing modules...[ 60%] causalis.scenarios.classic_rct
+E         [Autodoc2] Writing modules...[ 61%] causalis.scenarios.classic_rct.inference
+E         [Autodoc2] Writing modules...[ 61%] causalis.scenarios.classic_rct.inference.conversion_ztest
+E         [Autodoc2] Writing modules...[ 62%] causalis.scenarios.classic_rct.inference.welch_permutation_t_test
+E         [Autodoc2] Writing modules...[ 63%] causalis.scenarios.classic_rct.inference.ttest
+E         [Autodoc2] Writing modules...[ 63%] causalis.scenarios.classic_rct.model
+E         [Autodoc2] Writing modules...[ 64%] causalis.scenarios.classic_rct.dgp
+E         [Autodoc2] Writing modules...[ 65%] causalis.scenarios.cuped
+E         [Autodoc2] Writing modules...[ 65%] causalis.scenarios.cuped.refutation
+E         [Autodoc2] Writing modules...[ 66%] causalis.scenarios.cuped.refutation.forest_plot
+E         [Autodoc2] Writing modules...[ 67%] causalis.scenarios.cuped.refutation.config
+E         [Autodoc2] Writing modules...[ 67%] causalis.scenarios.cuped.refutation.regression_checks
+E         [Autodoc2] Writing modules...[ 68%] causalis.scenarios.cuped._ols
+E         [Autodoc2] Writing modules...[ 69%] causalis.scenarios.cuped.model
+E         [Autodoc2] Writing modules...[ 69%] causalis.scenarios.cuped.dgp
+E         [Autodoc2] Writing modules...[ 70%] causalis.scenarios.did
+E         [Autodoc2] Writing modules...[ 71%] causalis.scenarios.did.refutation
+E         [Autodoc2] Writing modules...[ 71%] causalis.scenarios.did.refutation.post_inference
+E         [Autodoc2] Writing modules...[ 72%] causalis.scenarios.did.refutation.diagnostic_plots
+E         [Autodoc2] Writing modules...[ 73%] causalis.scenarios.did.refutation.diagnostics
+E         [Autodoc2] Writing modules...[ 73%] causalis.scenarios.did.refutation.post_inference_plots
+E         [Autodoc2] Writing modules...[ 74%] causalis.scenarios.did.model
+E         [Autodoc2] Writing modules...[ 75%] causalis.scenarios.did.dgp
+E         [Autodoc2] Writing modules...[ 76%] causalis.scenarios._prediction
+E         [Autodoc2] Writing modules...[ 76%] causalis.scenarios._numerics
+E         [Autodoc2] Writing modules...[ 77%] causalis.scenarios._orthogonal
+E         [Autodoc2] Writing modules...[ 78%] causalis.scenarios._fit_state
+E         [Autodoc2] Writing modules...[ 78%] causalis.shared
+E         [Autodoc2] Writing modules...[ 79%] causalis.shared.rct_design
+E         [Autodoc2] Writing modules...[ 80%] causalis.shared.rct_design.split
+E         [Autodoc2] Writing modules...[ 80%] causalis.shared.rct_design.design
+E         [Autodoc2] Writing modules...[ 81%] causalis.shared.srm
+E         [Autodoc2] Writing modules...[ 82%] causalis.shared.sutva_validation
+E         [Autodoc2] Writing modules...[ 82%] causalis.shared.confounder_clustering
+E         [Autodoc2] Writing modules...[ 83%] causalis.shared.outcome_stats
+E         [Autodoc2] Writing modules...[ 84%] causalis.shared.outcome_plots
+E         [Autodoc2] Writing modules...[ 84%] causalis.shared.confounders_balance
+E         [Autodoc2] Writing modules...[ 85%] causalis.shared.outcome_outliers
+E         [Autodoc2] Writing modules...[ 86%] causalis.dgp
+E         [Autodoc2] Writing modules...[ 86%] causalis.dgp.causaldata_instrumental
+E         [Autodoc2] Writing modules...[ 87%] causalis.dgp.causaldata_instrumental.base
+E         [Autodoc2] Writing modules...[ 88%] causalis.dgp.causaldata_instrumental.functional
+E         [Autodoc2] Writing modules...[ 88%] causalis.dgp.panel_data_did
+E         [Autodoc2] Writing modules...[ 89%] causalis.dgp.panel_data_did.base
+E         [Autodoc2] Writing modules...[ 90%] causalis.dgp.panel_data_did.functional
+E         [Autodoc2] Writing modules...[ 90%] causalis.dgp.multicausaldata
+E         [Autodoc2] Writing modules...[ 91%] causalis.dgp.multicausaldata.base
+E         [Autodoc2] Writing modules...[ 92%] causalis.dgp.multicausaldata.functional
+E         [Autodoc2] Writing modules...[ 93%] causalis.dgp.causaldata
+E         [Autodoc2] Writing modules...[ 93%] causalis.dgp.causaldata.base
+E         [Autodoc2] Writing modules...[ 94%] causalis.dgp.causaldata.functional
+E         [Autodoc2] Writing modules...[ 95%] causalis.dgp.causaldata.preperiod
+E         [Autodoc2] Writing modules...[ 95%] causalis.dgp.panel_data_scm
+E         [Autodoc2] Writing modules...[ 96%] causalis.dgp.panel_data_scm.base
+E         [Autodoc2] Writing modules...[ 97%] causalis.dgp.panel_data_scm.functional
+E         [Autodoc2] Writing modules...[ 97%] causalis.dgp._gaussian_joint
+E         [Autodoc2] Writing modules...[ 98%] causalis.dgp.base
+E         [Autodoc2] Writing modules...[ 99%] causalis.dgp._gaussian_outcome
+E         [Autodoc2] Writing modules...[ 99%] causalis.dgp.rct_causal_data
+E         [Autodoc2] Writing modules...[100%] causalis._version
+E         
+E         building [mo]: targets for 0 po files that are out of date
+E         writing output... 
+E         building [html]: targets for 2 source files that are out of date
+E         updating environment: [new config] 149 added, 0 changed, 0 removed
+E         reading sources... [  1%] apidocs/causalis/causalis
+E         reading sources... [  1%] apidocs/causalis/causalis._version
+E         reading sources... [  2%] apidocs/causalis/causalis.data_contracts
+E         reading sources... [  3%] apidocs/causalis/causalis.data_contracts._did_comparison_units
+E         reading sources... [  3%] apidocs/causalis/causalis.data_contracts._duplicate_columns
+E         reading sources... [  4%] apidocs/causalis/causalis.data_contracts.causal_diagnostic_data
+E         reading sources... [  5%] apidocs/causalis/causalis.data_contracts.causal_estimate
+E         reading sources... [  5%] apidocs/causalis/causalis.data_contracts.causaldata
+E         reading sources... [  6%] apidocs/causalis/causalis.data_contracts.gate_contrast_estimate
+E         reading sources... [  7%] apidocs/causalis/causalis.data_contracts.gate_estimate
+E         reading sources... [  7%] apidocs/causalis/causalis.data_contracts.iv_causal_data
+E         reading sources... [  8%] apidocs/causalis/causalis.data_contracts.iv_causal_estimate
+E         reading sources... [  9%] apidocs/causalis/causalis.data_contracts.multicausal_estimate
+E         reading sources... [  9%] apidocs/causalis/causalis.data_contracts.multicausaldata
+E         reading sources... [ 10%] apidocs/causalis/causalis.data_contracts.panel_data_did
+E         reading sources... [ 11%] apidocs/causalis/causalis.data_contracts.panel_data_scm
+E         reading sources... [ 11%] apidocs/causalis/causalis.data_contracts.panel_did_estimate
+E         reading sources... [ 12%] apidocs/causalis/causalis.data_contracts.panel_estimate
+E         reading sources... [ 13%] apidocs/causalis/causalis.data_contracts.rct_causal_data
+E         reading sources... [ 13%] apidocs/causalis/causalis.data_contracts.rct_estimates
+E         reading sources... [ 14%] apidocs/causalis/causalis.data_contracts.repeated_causal_estimate
+E         reading sources... [ 15%] apidocs/causalis/causalis.data_contracts.sensitivity_analysis_result
+E         reading sources... [ 15%] apidocs/causalis/causalis.dgp
+E         reading sources... [ 16%] apidocs/causalis/causalis.dgp._gaussian_joint
+E         reading sources... [ 17%] apidocs/causalis/causalis.dgp._gaussian_outcome
+E         reading sources... [ 17%] apidocs/causalis/causalis.dgp.base
+E         reading sources... [ 18%] apidocs/causalis/causalis.dgp.causaldata
+E         reading sources... [ 19%] apidocs/causalis/causalis.dgp.causaldata.base
+E         reading sources... [ 19%] apidocs/causalis/causalis.dgp.causaldata.functional
+E         reading sources... [ 20%] apidocs/causalis/causalis.dgp.causaldata.preperiod
+E         reading sources... [ 21%] apidocs/causalis/causalis.dgp.causaldata_instrumental
+E         reading sources... [ 21%] apidocs/causalis/causalis.dgp.causaldata_instrumental.base
+E         reading sources... [ 22%] apidocs/causalis/causalis.dgp.causaldata_instrumental.functional
+E         reading sources... [ 23%] apidocs/causalis/causalis.dgp.multicausaldata
+E         reading sources... [ 23%] apidocs/causalis/causalis.dgp.multicausaldata.base
+E         reading sources... [ 24%] apidocs/causalis/causalis.dgp.multicausaldata.functional
+E         reading sources... [ 25%] apidocs/causalis/causalis.dgp.panel_data_did
+E         reading sources... [ 26%] apidocs/causalis/causalis.dgp.panel_data_did.base
+E         reading sources... [ 26%] apidocs/causalis/causalis.dgp.panel_data_did.functional
+E         reading sources... [ 27%] apidocs/causalis/causalis.dgp.panel_data_scm
+E         reading sources... [ 28%] apidocs/causalis/causalis.dgp.panel_data_scm.base
+E         reading sources... [ 28%] apidocs/causalis/causalis.dgp.panel_data_scm.functional
+E         reading sources... [ 29%] apidocs/causalis/causalis.dgp.rct_causal_data
+E         reading sources... [ 30%] apidocs/causalis/causalis.inference
+E         reading sources... [ 30%] apidocs/causalis/causalis.inference.family
+E         reading sources... [ 31%] apidocs/causalis/causalis.scenarios
+E         reading sources... [ 32%] apidocs/causalis/causalis.scenarios._fit_state
+E         reading sources... [ 32%] apidocs/causalis/causalis.scenarios._numerics
+E         reading sources... [ 33%] apidocs/causalis/causalis.scenarios._orthogonal
+E         reading sources... [ 34%] apidocs/causalis/causalis.scenarios._prediction
+E         reading sources... [ 34%] apidocs/causalis/causalis.scenarios.classic_rct
+E         reading sources... [ 35%] apidocs/causalis/causalis.scenarios.classic_rct.dgp
+E         reading sources... [ 36%] apidocs/causalis/causalis.scenarios.classic_rct.inference
+E         reading sources... [ 36%] apidocs/causalis/causalis.scenarios.classic_rct.inference.conversion_ztest
+E         reading sources... [ 37%] apidocs/causalis/causalis.scenarios.classic_rct.inference.ttest
+E         reading sources... [ 38%] apidocs/causalis/causalis.scenarios.classic_rct.inference.welch_permutation_t_test
+E         reading sources... [ 38%] apidocs/causalis/causalis.scenarios.classic_rct.model
+E         reading sources... [ 39%] apidocs/causalis/causalis.scenarios.cuped
+E         reading sources... [ 40%] apidocs/causalis/causalis.scenarios.cuped._ols
+E         reading sources... [ 40%] apidocs/causalis/causalis.scenarios.cuped.dgp
+E         reading sources... [ 41%] apidocs/causalis/causalis.scenarios.cuped.model
+E         reading sources... [ 42%] apidocs/causalis/causalis.scenarios.cuped.refutation
+E         reading sources... [ 42%] apidocs/causalis/causalis.scenarios.cuped.refutation.config
+E         reading sources... [ 43%] apidocs/causalis/causalis.scenarios.cuped.refutation.forest_plot
+E         reading sources... [ 44%] apidocs/causalis/causalis.scenarios.cuped.refutation.regression_checks
+E         reading sources... [ 44%] apidocs/causalis/causalis.scenarios.did
+E         reading sources... [ 45%] apidocs/causalis/causalis.scenarios.did.dgp
+E         reading sources... [ 46%] apidocs/causalis/causalis.scenarios.did.model
+E         reading sources... [ 46%] apidocs/causalis/causalis.scenarios.did.refutation
+E         reading sources... [ 47%] apidocs/causalis/causalis.scenarios.did.refutation.diagnostic_plots
+E         reading sources... [ 48%] apidocs/causalis/causalis.scenarios.did.refutation.diagnostics
+E         reading sources... [ 48%] apidocs/causalis/causalis.scenarios.did.refutation.post_inference
+E         reading sources... [ 49%] apidocs/causalis/causalis.scenarios.did.refutation.post_inference_plots
+E         reading sources... [ 50%] apidocs/causalis/causalis.scenarios.gate
+E         reading sources... [ 50%] apidocs/causalis/causalis.scenarios.gate.gate_plot
+E         reading sources... [ 51%] apidocs/causalis/causalis.scenarios.gate.model
+E         reading sources... [ 52%] apidocs/causalis/causalis.scenarios.iv
+E         reading sources... [ 52%] apidocs/causalis/causalis.scenarios.iv.dgp
+E         reading sources... [ 53%] apidocs/causalis/causalis.scenarios.iv.model
+E         reading sources... [ 54%] apidocs/causalis/causalis.scenarios.iv.refutation
+E         reading sources... [ 54%] apidocs/causalis/causalis.scenarios.iv.refutation.diagnostics
+E         reading sources... [ 55%] apidocs/causalis/causalis.scenarios.iv.refutation.iv_confounders_balance
+E         reading sources... [ 56%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness
+E         reading sources... [ 56%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness._utils
+E         reading sources... [ 57%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.dgp
+E         reading sources... [ 58%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.model
+E         reading sources... [ 58%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.refutation
+E         reading sources... [ 59%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.refutation.overlap
+E         reading sources... [ 60%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.refutation.overlap.overlap_plot
+E         reading sources... [ 60%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.refutation.overlap.overlap_validation
+E         reading sources... [ 61%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.refutation.score
+E         reading sources... [ 62%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.refutation.score.residual_plots
+E         reading sources... [ 62%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.refutation.score.score_validation
+E         reading sources... [ 63%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.refutation.unconfoundedness
+E         reading sources... [ 64%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.refutation.unconfoundedness.sensitivity
+E         reading sources... [ 64%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.refutation.unconfoundedness.unconfoundedness_validation
+E         reading sources... [ 65%] apidocs/causalis/causalis.scenarios.synthetic_control
+E         reading sources... [ 66%] apidocs/causalis/causalis.scenarios.synthetic_control._utils
+E         reading sources... [ 66%] apidocs/causalis/causalis.scenarios.synthetic_control.dgp
+E         reading sources... [ 67%] apidocs/causalis/causalis.scenarios.synthetic_control.model
+E         reading sources... [ 68%] apidocs/causalis/causalis.scenarios.synthetic_control.refutation
+E         reading sources... [ 68%] apidocs/causalis/causalis.scenarios.synthetic_control.refutation.diagnostic_plots
+E         reading sources... [ 69%] apidocs/causalis/causalis.scenarios.synthetic_control.refutation.donors_diagnostics
+E         reading sources... [ 70%] apidocs/causalis/causalis.scenarios.synthetic_control.refutation.outcome_panel_plot
+E         reading sources... [ 70%] apidocs/causalis/causalis.scenarios.synthetic_control.refutation.placebo
+E         reading sources... [ 71%] apidocs/causalis/causalis.scenarios.synthetic_control.refutation.scm_diagnostics
+E         reading sources... [ 72%] apidocs/causalis/causalis.scenarios.synthetic_control.refutation.sensitivity
+E         reading sources... [ 72%] apidocs/causalis/causalis.scenarios.unconfoundedness
+E         reading sources... [ 73%] apidocs/causalis/causalis.scenarios.unconfoundedness._cluster
+E         reading sources... [ 74%] apidocs/causalis/causalis.scenarios.unconfoundedness._diagnostic_utils
+E         reading sources... [ 74%] apidocs/causalis/causalis.scenarios.unconfoundedness._external_oof
+E         reading sources... [ 75%] apidocs/causalis/causalis.scenarios.unconfoundedness._repeated
+E         reading sources... [ 76%] apidocs/causalis/causalis.scenarios.unconfoundedness._score_utils
+E         reading sources... [ 77%] apidocs/causalis/causalis.scenarios.unconfoundedness._utils
+E         reading sources... [ 77%] apidocs/causalis/causalis.scenarios.unconfoundedness.dgp
+E         reading sources... [ 78%] apidocs/causalis/causalis.scenarios.unconfoundedness.model
+E         reading sources... [ 79%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation
+E         reading sources... [ 79%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation._shared
+E         reading sources... [ 80%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.overlap
+E         reading sources... [ 81%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.overlap.feature_importance_plot
+E         reading sources... [ 81%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.overlap.overlap_plot
+E         reading sources... [ 82%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.overlap.overlap_validation
+E         reading sources... [ 83%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.overlap.reliability_plot
+E         reading sources... [ 83%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.score
+E         reading sources... [ 84%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.score.influence_plot
+E         reading sources... [ 85%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.score.residual_plots
+E         reading sources... [ 85%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.score.score_validation
+E         reading sources... [ 86%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.unconfoundedness
+E         reading sources... [ 87%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.unconfoundedness.love_plot
+E         reading sources... [ 87%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.unconfoundedness.sensitivity
+E         reading sources... [ 88%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.unconfoundedness.unconfoundedness_validation
+E         reading sources... [ 89%] apidocs/causalis/causalis.scenarios.uplift
+E         reading sources... [ 89%] apidocs/causalis/causalis.scenarios.uplift.learners
+E         reading sources... [ 90%] apidocs/causalis/causalis.scenarios.uplift.model
+E         reading sources... [ 91%] apidocs/causalis/causalis.scenarios.uplift.policy
+E         reading sources... [ 91%] apidocs/causalis/causalis.scenarios.uplift.validation
+E         reading sources... [ 92%] apidocs/causalis/causalis.shared
+E         reading sources... [ 93%] apidocs/causalis/causalis.shared.confounder_clustering
+E         reading sources... [ 93%] apidocs/causalis/causalis.shared.confounders_balance
+E         reading sources... [ 94%] apidocs/causalis/causalis.shared.outcome_outliers
+E         reading sources... [ 95%] apidocs/causalis/causalis.shared.outcome_plots
+E         reading sources... [ 95%] apidocs/causalis/causalis.shared.outcome_stats
+E         reading sources... [ 96%] apidocs/causalis/causalis.shared.rct_design
+E         reading sources... [ 97%] apidocs/causalis/causalis.shared.rct_design.design
+E         reading sources... [ 97%] apidocs/causalis/causalis.shared.rct_design.split
+E         reading sources... [ 98%] apidocs/causalis/causalis.shared.srm
+E         reading sources... [ 99%] apidocs/causalis/causalis.shared.sutva_validation
+E         reading sources... [ 99%] apidocs/index
+E         reading sources... [100%] reference
+E         
+E         looking for now-outdated files... none found
+E         pickling environment... done
+E         checking consistency... done
+E         preparing documents... done
+E         copying assets... 
+E         copying static files... 
+E         Writing evaluated template result to /private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/generate_api_reference_fx1y7ex7/build/_static/basic.css
+E         Writing evaluated template result to /private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/generate_api_reference_fx1y7ex7/build/_static/language_data.js
+E         Writing evaluated template result to /private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/generate_api_reference_fx1y7ex7/build/_static/documentation_options.js
+E         Writing evaluated template result to /private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/generate_api_reference_fx1y7ex7/build/_static/alabaster.css
+E         copying static files: done
+E         copying extra files... 
+E         copying extra files: done
+E         copying assets: done
+E         writing output... [  1%] apidocs/causalis/causalis
+E         writing output... [  1%] apidocs/causalis/causalis._version
+E         writing output... [  2%] apidocs/causalis/causalis.data_contracts
+E         writing output... [  3%] apidocs/causalis/causalis.data_contracts._did_comparison_units
+E         writing output... [  3%] apidocs/causalis/causalis.data_contracts._duplicate_columns
+E         writing output... [  4%] apidocs/causalis/causalis.data_contracts.causal_diagnostic_data
+E         writing output... [  5%] apidocs/causalis/causalis.data_contracts.causal_estimate
+E         writing output... [  5%] apidocs/causalis/causalis.data_contracts.causaldata
+E         writing output... [  6%] apidocs/causalis/causalis.data_contracts.gate_contrast_estimate
+E         writing output... [  7%] apidocs/causalis/causalis.data_contracts.gate_estimate
+E         writing output... [  7%] apidocs/causalis/causalis.data_contracts.iv_causal_data
+E         writing output... [  8%] apidocs/causalis/causalis.data_contracts.iv_causal_estimate
+E         writing output... [  9%] apidocs/causalis/causalis.data_contracts.multicausal_estimate
+E         writing output... [  9%] apidocs/causalis/causalis.data_contracts.multicausaldata
+E         writing output... [ 10%] apidocs/causalis/causalis.data_contracts.panel_data_did
+E         writing output... [ 11%] apidocs/causalis/causalis.data_contracts.panel_data_scm
+E         writing output... [ 11%] apidocs/causalis/causalis.data_contracts.panel_did_estimate
+E         writing output... [ 12%] apidocs/causalis/causalis.data_contracts.panel_estimate
+E         writing output... [ 13%] apidocs/causalis/causalis.data_contracts.rct_causal_data
+E         writing output... [ 13%] apidocs/causalis/causalis.data_contracts.rct_estimates
+E         writing output... [ 14%] apidocs/causalis/causalis.data_contracts.repeated_causal_estimate
+E         writing output... [ 15%] apidocs/causalis/causalis.data_contracts.sensitivity_analysis_result
+E         writing output... [ 15%] apidocs/causalis/causalis.dgp
+E         writing output... [ 16%] apidocs/causalis/causalis.dgp._gaussian_joint
+E         writing output... [ 17%] apidocs/causalis/causalis.dgp._gaussian_outcome
+E         writing output... [ 17%] apidocs/causalis/causalis.dgp.base
+E         writing output... [ 18%] apidocs/causalis/causalis.dgp.causaldata
+E         writing output... [ 19%] apidocs/causalis/causalis.dgp.causaldata.base
+E         writing output... [ 19%] apidocs/causalis/causalis.dgp.causaldata.functional
+E         writing output... [ 20%] apidocs/causalis/causalis.dgp.causaldata.preperiod
+E         writing output... [ 21%] apidocs/causalis/causalis.dgp.causaldata_instrumental
+E         writing output... [ 21%] apidocs/causalis/causalis.dgp.causaldata_instrumental.base
+E         writing output... [ 22%] apidocs/causalis/causalis.dgp.causaldata_instrumental.functional
+E         writing output... [ 23%] apidocs/causalis/causalis.dgp.multicausaldata
+E         writing output... [ 23%] apidocs/causalis/causalis.dgp.multicausaldata.base
+E         writing output... [ 24%] apidocs/causalis/causalis.dgp.multicausaldata.functional
+E         writing output... [ 25%] apidocs/causalis/causalis.dgp.panel_data_did
+E         writing output... [ 26%] apidocs/causalis/causalis.dgp.panel_data_did.base
+E         writing output... [ 26%] apidocs/causalis/causalis.dgp.panel_data_did.functional
+E         writing output... [ 27%] apidocs/causalis/causalis.dgp.panel_data_scm
+E         writing output... [ 28%] apidocs/causalis/causalis.dgp.panel_data_scm.base
+E         writing output... [ 28%] apidocs/causalis/causalis.dgp.panel_data_scm.functional
+E         writing output... [ 29%] apidocs/causalis/causalis.dgp.rct_causal_data
+E         writing output... [ 30%] apidocs/causalis/causalis.inference
+E         writing output... [ 30%] apidocs/causalis/causalis.inference.family
+E         writing output... [ 31%] apidocs/causalis/causalis.scenarios
+E         writing output... [ 32%] apidocs/causalis/causalis.scenarios._fit_state
+E         writing output... [ 32%] apidocs/causalis/causalis.scenarios._numerics
+E         writing output... [ 33%] apidocs/causalis/causalis.scenarios._orthogonal
+E         writing output... [ 34%] apidocs/causalis/causalis.scenarios._prediction
+E         writing output... [ 34%] apidocs/causalis/causalis.scenarios.classic_rct
+E         writing output... [ 35%] apidocs/causalis/causalis.scenarios.classic_rct.dgp
+E         writing output... [ 36%] apidocs/causalis/causalis.scenarios.classic_rct.inference
+E         writing output... [ 36%] apidocs/causalis/causalis.scenarios.classic_rct.inference.conversion_ztest
+E         writing output... [ 37%] apidocs/causalis/causalis.scenarios.classic_rct.inference.ttest
+E         writing output... [ 38%] apidocs/causalis/causalis.scenarios.classic_rct.inference.welch_permutation_t_test
+E         writing output... [ 38%] apidocs/causalis/causalis.scenarios.classic_rct.model
+E         writing output... [ 39%] apidocs/causalis/causalis.scenarios.cuped
+E         writing output... [ 40%] apidocs/causalis/causalis.scenarios.cuped._ols
+E         writing output... [ 40%] apidocs/causalis/causalis.scenarios.cuped.dgp
+E         writing output... [ 41%] apidocs/causalis/causalis.scenarios.cuped.model
+E         writing output... [ 42%] apidocs/causalis/causalis.scenarios.cuped.refutation
+E         writing output... [ 42%] apidocs/causalis/causalis.scenarios.cuped.refutation.config
+E         writing output... [ 43%] apidocs/causalis/causalis.scenarios.cuped.refutation.forest_plot
+E         writing output... [ 44%] apidocs/causalis/causalis.scenarios.cuped.refutation.regression_checks
+E         writing output... [ 44%] apidocs/causalis/causalis.scenarios.did
+E         writing output... [ 45%] apidocs/causalis/causalis.scenarios.did.dgp
+E         writing output... [ 46%] apidocs/causalis/causalis.scenarios.did.model
+E         writing output... [ 46%] apidocs/causalis/causalis.scenarios.did.refutation
+E         writing output... [ 47%] apidocs/causalis/causalis.scenarios.did.refutation.diagnostic_plots
+E         writing output... [ 48%] apidocs/causalis/causalis.scenarios.did.refutation.diagnostics
+E         writing output... [ 48%] apidocs/causalis/causalis.scenarios.did.refutation.post_inference
+E         writing output... [ 49%] apidocs/causalis/causalis.scenarios.did.refutation.post_inference_plots
+E         writing output... [ 50%] apidocs/causalis/causalis.scenarios.gate
+E         writing output... [ 50%] apidocs/causalis/causalis.scenarios.gate.gate_plot
+E         writing output... [ 51%] apidocs/causalis/causalis.scenarios.gate.model
+E         writing output... [ 52%] apidocs/causalis/causalis.scenarios.iv
+E         writing output... [ 52%] apidocs/causalis/causalis.scenarios.iv.dgp
+E         writing output... [ 53%] apidocs/causalis/causalis.scenarios.iv.model
+E         writing output... [ 54%] apidocs/causalis/causalis.scenarios.iv.refutation
+E         writing output... [ 54%] apidocs/causalis/causalis.scenarios.iv.refutation.diagnostics
+E         writing output... [ 55%] apidocs/causalis/causalis.scenarios.iv.refutation.iv_confounders_balance
+E         writing output... [ 56%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness
+E         writing output... [ 56%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness._utils
+E         writing output... [ 57%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.dgp
+E         writing output... [ 58%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.model
+E         writing output... [ 58%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.refutation
+E         writing output... [ 59%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.refutation.overlap
+E         writing output... [ 60%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.refutation.overlap.overlap_plot
+E         writing output... [ 60%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.refutation.overlap.overlap_validation
+E         writing output... [ 61%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.refutation.score
+E         writing output... [ 62%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.refutation.score.residual_plots
+E         writing output... [ 62%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.refutation.score.score_validation
+E         writing output... [ 63%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.refutation.unconfoundedness
+E         writing output... [ 64%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.refutation.unconfoundedness.sensitivity
+E         writing output... [ 64%] apidocs/causalis/causalis.scenarios.multi_unconfoundedness.refutation.unconfoundedness.unconfoundedness_validation
+E         writing output... [ 65%] apidocs/causalis/causalis.scenarios.synthetic_control
+E         writing output... [ 66%] apidocs/causalis/causalis.scenarios.synthetic_control._utils
+E         writing output... [ 66%] apidocs/causalis/causalis.scenarios.synthetic_control.dgp
+E         writing output... [ 67%] apidocs/causalis/causalis.scenarios.synthetic_control.model
+E         writing output... [ 68%] apidocs/causalis/causalis.scenarios.synthetic_control.refutation
+E         writing output... [ 68%] apidocs/causalis/causalis.scenarios.synthetic_control.refutation.diagnostic_plots
+E         writing output... [ 69%] apidocs/causalis/causalis.scenarios.synthetic_control.refutation.donors_diagnostics
+E         writing output... [ 70%] apidocs/causalis/causalis.scenarios.synthetic_control.refutation.outcome_panel_plot
+E         writing output... [ 70%] apidocs/causalis/causalis.scenarios.synthetic_control.refutation.placebo
+E         writing output... [ 71%] apidocs/causalis/causalis.scenarios.synthetic_control.refutation.scm_diagnostics
+E         writing output... [ 72%] apidocs/causalis/causalis.scenarios.synthetic_control.refutation.sensitivity
+E         writing output... [ 72%] apidocs/causalis/causalis.scenarios.unconfoundedness
+E         writing output... [ 73%] apidocs/causalis/causalis.scenarios.unconfoundedness._cluster
+E         writing output... [ 74%] apidocs/causalis/causalis.scenarios.unconfoundedness._diagnostic_utils
+E         writing output... [ 74%] apidocs/causalis/causalis.scenarios.unconfoundedness._external_oof
+E         writing output... [ 75%] apidocs/causalis/causalis.scenarios.unconfoundedness._repeated
+E         writing output... [ 76%] apidocs/causalis/causalis.scenarios.unconfoundedness._score_utils
+E         writing output... [ 77%] apidocs/causalis/causalis.scenarios.unconfoundedness._utils
+E         writing output... [ 77%] apidocs/causalis/causalis.scenarios.unconfoundedness.dgp
+E         writing output... [ 78%] apidocs/causalis/causalis.scenarios.unconfoundedness.model
+E         writing output... [ 79%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation
+E         writing output... [ 79%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation._shared
+E         writing output... [ 80%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.overlap
+E         writing output... [ 81%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.overlap.feature_importance_plot
+E         writing output... [ 81%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.overlap.overlap_plot
+E         writing output... [ 82%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.overlap.overlap_validation
+E         writing output... [ 83%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.overlap.reliability_plot
+E         writing output... [ 83%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.score
+E         writing output... [ 84%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.score.influence_plot
+E         writing output... [ 85%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.score.residual_plots
+E         writing output... [ 85%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.score.score_validation
+E         writing output... [ 86%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.unconfoundedness
+E         writing output... [ 87%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.unconfoundedness.love_plot
+E         writing output... [ 87%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.unconfoundedness.sensitivity
+E         writing output... [ 88%] apidocs/causalis/causalis.scenarios.unconfoundedness.refutation.unconfoundedness.unconfoundedness_validation
+E         writing output... [ 89%] apidocs/causalis/causalis.scenarios.uplift
+E         writing output... [ 89%] apidocs/causalis/causalis.scenarios.uplift.learners
+E         writing output... [ 90%] apidocs/causalis/causalis.scenarios.uplift.model
+E         writing output... [ 91%] apidocs/causalis/causalis.scenarios.uplift.policy
+E         writing output... [ 91%] apidocs/causalis/causalis.scenarios.uplift.validation
+E         writing output... [ 92%] apidocs/causalis/causalis.shared
+E         writing output... [ 93%] apidocs/causalis/causalis.shared.confounder_clustering
+E         writing output... [ 93%] apidocs/causalis/causalis.shared.confounders_balance
+E         writing output... [ 94%] apidocs/causalis/causalis.shared.outcome_outliers
+E         writing output... [ 95%] apidocs/causalis/causalis.shared.outcome_plots
+E         writing output... [ 95%] apidocs/causalis/causalis.shared.outcome_stats
+E         writing output... [ 96%] apidocs/causalis/causalis.shared.rct_design
+E         writing output... [ 97%] apidocs/causalis/causalis.shared.rct_design.design
+E         writing output... [ 97%] apidocs/causalis/causalis.shared.rct_design.split
+E         writing output... [ 98%] apidocs/causalis/causalis.shared.srm
+E         writing output... [ 99%] apidocs/causalis/causalis.shared.sutva_validation
+E         writing output... [ 99%] apidocs/index
+E         writing output... [100%] reference
+E         
+E         generating indices... genindex py-modindex done
+E         writing additional pages... search done
+E         dumping search index in English (code: en)... done
+E         dumping object inventory... done
+E         build finished with problems, 1 warning (with warnings treated as errors).
+E         /private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/generate_api_reference_fx1y7ex7/source/apidocs/causalis/causalis.inference.md: WARNING: document isn't included in any toctree [toc.not_included]
+E         Traceback (most recent call last):
+E           File "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block27_integration_test_temp/pytest-temp/test_check_builds_full_package0/repo/scripts/generate_api_reference.py", line 201, in <module>
+E             raise SystemExit(main())
+E                              ^^^^^^
+E           File "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block27_integration_test_temp/pytest-temp/test_check_builds_full_package0/repo/scripts/generate_api_reference.py", line 192, in main
+E             generate_api_reference(Path(tmp_dir) / "api")
+E           File "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block27_integration_test_temp/pytest-temp/test_check_builds_full_package0/repo/scripts/generate_api_reference.py", line 175, in generate_api_reference
+E             staged_output = _build_staged_output(output_dir)
+E                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           File "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block27_integration_test_temp/pytest-temp/test_check_builds_full_package0/repo/scripts/generate_api_reference.py", line 127, in _build_staged_output
+E             raise RuntimeError(f"Sphinx build failed with exit code {result}.")
+E         RuntimeError: Sphinx build failed with exit code 1.
+E         
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/bin/python', 'scrip... RuntimeError(f"Sphinx build failed with exit code {result}.")\nRuntimeError: Sphinx build failed with exit code 1.\n').returncode
+
+tests/docs/test_generate_api_reference.py:72: AssertionError
+=============================== warnings summary ===============================
+tests/data/test_diagnostic_data_storage.py::test_dml_ate_returns_diagnostic_data
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.307e-01 is within 1.64 SE of 0 (SE=1.442e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/data/test_diagnostic_data_storage.py::test_dml_att_returns_diagnostic_data
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=3.238e-01 is within 1.64 SE of 0 (SE=2.800e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_extreme_score_arithmetic.py: 7 warnings
+tests/inference/test_irm_cluster_crossfit.py: 4 warnings
+tests/inference/test_irm_external_oof.py: 8 warnings
+tests/inference/test_irm_repeated_crossfit.py: 12 warnings
+tests/refutation/test_overlap_score_refutation_api.py: 4 warnings
+tests/refutation/test_score_diagnostics_entrypoint.py: 2 warnings
+tests/refutation/test_score_flags.py: 2 warnings
+tests/refutation/test_score_flags_in_run.py: 1 warning
+tests/refutation/test_score_se_plugin_flag.py: 2 warnings
+tests/refutation/test_uncofoundedness_balance.py: 1 warning
+tests/refutation/test_uncofoundedness_balance_extras.py: 1 warning
+tests/refutation/test_uncofoundedness_refutation_api.py: 2 warnings
+tests/scenarios/uplift/test_dr_r_learners.py: 2 warnings
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1466: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+    warnings.warn(
+
+tests/inference/test_extreme_score_arithmetic.py: 4 warnings
+tests/inference/test_irm_att_normalize_ipw.py: 1 warning
+tests/inference/test_irm_cluster_crossfit.py: 5 warnings
+tests/inference/test_irm_external_oof.py: 9 warnings
+tests/inference/test_irm_repeated_crossfit.py: 12 warnings
+tests/inference/test_irm_score_identities.py: 1 warning
+tests/refutation/test_uncofoundedness_balance.py: 1 warning
+tests/refutation/test_uncofoundedness_refutation_api.py: 1 warning
+tests/scenarios/uplift/test_dr_r_learners.py: 2 warnings
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+    warnings.warn(
+
+tests/inference/test_extreme_score_arithmetic.py::test_custom_weights_bar_division_overflow_is_rejected[1.01e-12]
+tests/inference/test_extreme_score_arithmetic.py::test_custom_weights_bar_division_overflow_is_rejected[1e-06]
+tests/inference/test_irm_relative_ci.py::test_relative_ci_delta_method_matches_formula_with_weights
+tests/inference/test_irm_repeated_crossfit.py::test_binary_outcome_and_custom_weight_support[ATE]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1472: RuntimeWarning: ATE custom weights are normalized by sample mean; SE/IF treats this normalization as fixed (approximate).
+    warnings.warn(
+
+tests/inference/test_inference_family.py::test_real_irm_matches_scalar_effect_covariance_and_preserves_source[False-ATE]
+tests/inference/test_inference_family.py::test_real_irm_matches_scalar_effect_covariance_and_preserves_source[True-ATE]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=2.469e-01 is within 1.96 SE of 0 (SE=1.456e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_inference_family.py::test_real_irm_matches_scalar_effect_covariance_and_preserves_source[False-ATE]
+tests/inference/test_inference_family.py::test_real_irm_matches_scalar_effect_covariance_and_preserves_source[True-ATE]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.287e-01 is within 1.96 SE of 0 (SE=1.880e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_inference_family.py::test_real_irm_matches_scalar_effect_covariance_and_preserves_source[False-ATTE]
+tests/inference/test_inference_family.py::test_real_irm_matches_scalar_effect_covariance_and_preserves_source[True-ATTE]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.320e-01 is within 1.96 SE of 0 (SE=1.693e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_inference_family.py::test_real_irm_matches_scalar_effect_covariance_and_preserves_source[False-ATTE]
+tests/inference/test_inference_family.py::test_real_irm_matches_scalar_effect_covariance_and_preserves_source[True-ATTE]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.775e-01 is within 1.96 SE of 0 (SE=2.256e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_irm_estimator.py::test_irm_ate_runs_and_shapes
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=5.612e-02 is within 1.96 SE of 0 (SE=7.118e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_irm_estimator.py::test_irm_atte_runs
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.836e-01 is within 1.96 SE of 0 (SE=9.984e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_irm_external_oof.py::test_relative_undefined_and_seed_metadata[1]
+tests/inference/test_irm_external_oof.py::test_relative_undefined_and_seed_metadata[3]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.002e+01 is below relative_baseline_min=1.000e+06. Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_irm_external_oof.py::test_relative_undefined_and_seed_metadata[3]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.003e+01 is below relative_baseline_min=1.000e+06. Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_irm_parallel_fit.py::test_parallel_cross_fit_matches_sequential
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=6.832e-02 is within 1.96 SE of 0 (SE=9.823e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_causal_estimate_refutation.py::test_overlap_diagnostics_with_causal_estimate
+tests/refutation/test_causal_estimate_refutation.py::test_score_diagnostics_with_causal_estimate
+tests/refutation/test_causal_estimate_refutation.py::test_unconfoundedness_diagnostics_with_causal_estimate
+tests/refutation/test_causal_estimate_refutation.py::test_unconfoundedness_diagnostics_returns_balance_outputs
+tests/refutation/test_causal_estimate_refutation.py::test_score_diagnostics_with_missing_y_d_falls_back_to_causal_data
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=8.908e-03 is within 1.96 SE of 0 (SE=7.917e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_diagnostic_data_flag.py::test_fit_store_diagnostics_controls_ate_payload
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.701e-01 is within 1.96 SE of 0 (SE=1.963e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_diagnostic_data_flag.py::test_fit_store_diagnostics_controls_ate_payload
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=2.367e-01 is within 1.96 SE of 0 (SE=1.692e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_diagnostic_data_flag.py::test_fit_store_diagnostics_controls_atte_payload
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.188e-01 is within 1.96 SE of 0 (SE=4.837e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_diagnostic_data_flag.py::test_diagnostics_use_cached_x_without_reloading_dataframe
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=2.216e-01 is within 1.96 SE of 0 (SE=2.182e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_diagnostic_data_flag.py::test_repeated_estimate_calls_are_stable_with_reused_intermediates
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=6.383e-03 is within 1.96 SE of 0 (SE=1.629e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_diagnostic_data_flag.py::test_lightweight_mode_skips_model_level_diagnostic_caches
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=3.929e-02 is within 1.96 SE of 0 (SE=1.371e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_diagnostic_data_flag.py::test_lightweight_mode_estimate_uses_cached_targets_without_reloading_dataframe
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.896e-01 is within 1.96 SE of 0 (SE=1.606e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_diagnostic_data_flag.py::test_lightweight_mode_matches_full_mode_on_unchanged_data[ATE]
+tests/refutation/test_diagnostic_data_flag.py::test_lightweight_mode_matches_full_mode_on_unchanged_data[ATE]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=7.306e-02 is within 1.96 SE of 0 (SE=1.458e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_diagnostic_data_flag.py::test_lightweight_mode_matches_full_mode_on_unchanged_data[ATTE]
+tests/refutation/test_diagnostic_data_flag.py::test_lightweight_mode_matches_full_mode_on_unchanged_data[ATTE]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=3.107e-01 is within 1.96 SE of 0 (SE=1.753e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_diagnostic_data_flag.py::test_lightweight_mode_estimate_is_stable_after_data_reordering
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=3.042e-02 is within 1.96 SE of 0 (SE=1.564e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_feature_importance_diagnostics.py::test_feature_importance_is_collected_with_default_diagnostics
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.726e-02 is within 1.96 SE of 0 (SE=1.633e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_feature_importance_diagnostics.py::test_feature_importance_payload_uses_tree_native_importances
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=4.801e-01 is within 1.96 SE of 0 (SE=3.693e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_feature_importance_diagnostics.py::test_feature_importance_payload_uses_coef_native_importances
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=4.060e-02 is within 1.96 SE of 0 (SE=1.405e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_feature_importance_diagnostics.py::test_plot_feature_importance_returns_figure
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=6.490e-01 is within 1.96 SE of 0 (SE=4.684e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_feature_importance_diagnostics.py::test_plot_feature_importance_raises_without_diagnostic_payload
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=6.955e-01 is within 1.96 SE of 0 (SE=4.287e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_feature_importance_diagnostics.py::test_plot_feature_importance_raises_when_no_native_importance_available
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=8.570e-01 is within 1.96 SE of 0 (SE=5.179e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_feature_importance_diagnostics.py::test_feature_importance_is_skipped_when_diagnostics_are_disabled
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=6.233e-01 is within 1.96 SE of 0 (SE=6.493e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_orthogonality_att.py::test_atte_derivative_wrt_g1_is_zero
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.424e-01 is within 1.96 SE of 0 (SE=1.407e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_orthogonality_att.py::test_atte_has_expected_columns_and_finite_main_stats
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=7.362e-02 is within 1.96 SE of 0 (SE=1.080e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_orthogonality_default_basis.py::test_default_basis_uses_all_confounders_plus_constant
+tests/refutation/test_orthogonality_default_basis.py::test_explicit_n_basis_funcs_is_respected
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=5.999e-02 is within 1.96 SE of 0 (SE=1.993e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_orthogonality_fastpath.py::test_score_diagnostics_is_deterministic_for_fixed_estimate
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.140e-01 is within 1.96 SE of 0 (SE=1.083e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_orthogonality_irm.py::test_score_diagnostics_att_runs_and_returns_expected_columns
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.500e-01 is within 1.96 SE of 0 (SE=1.862e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_orthogonality_naming.py::test_score_diagnostics_derivative_column_names
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.702e-01 is within 1.96 SE of 0 (SE=1.477e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_orthogonality_naming.py::test_score_diagnostics_att_score_normalization_and_basic_outputs
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=6.828e-02 is within 1.96 SE of 0 (SE=1.341e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_orthogonality_nullable_float_cofounds.py::test_refute_irm_orthogonality_with_nullable_float_confounders_runs
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.480e-01 is within 1.96 SE of 0 (SE=1.328e-01). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_overlap_score_refutation_api.py::test_overlap_single_api_with_causal_estimate
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=3.730e-02 is within 1.64 SE of 0 (SE=4.553e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_overlap_score_refutation_api.py::test_overlap_single_api_with_causal_estimate_and_causal_data_fallback
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=4.566e-02 is within 1.64 SE of 0 (SE=4.039e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_overlap_score_refutation_api.py::test_score_single_api_with_causal_estimate
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=7.565e-03 is within 1.64 SE of 0 (SE=4.664e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_overlap_score_refutation_api.py::test_score_single_api_with_causal_estimate_and_causal_data_fallback
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=2.334e-03 is within 1.64 SE of 0 (SE=4.628e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_score_diagnostics_entrypoint.py::test_run_score_diagnostics_with_causal_estimate_and_data
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=2.397e-02 is within 1.64 SE of 0 (SE=4.336e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_score_diagnostics_entrypoint.py::test_run_score_diagnostics_falls_back_to_causal_data_when_y_d_missing
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.102e-02 is within 1.64 SE of 0 (SE=5.016e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_score_flags.py::test_score_diagnostics_flag_keys_are_present
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=3.921e-02 is within 1.64 SE of 0 (SE=5.608e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_score_flags_in_run.py::test_run_score_diagnostics_has_flags_by_default
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=2.304e-02 is within 1.96 SE of 0 (SE=6.686e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_score_flags_practical.py::test_score_flags_and_thresholds_present
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=4.103e-02 is within 1.96 SE of 0 (SE=6.020e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_score_flags_practical.py::test_summary_flags_align_with_report_flags
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.917e-02 is within 1.96 SE of 0 (SE=5.104e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_score_se_plugin_flag.py::test_se_plugin_metric_present_and_finite
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=6.599e-03 is within 1.96 SE of 0 (SE=7.787e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_score_se_plugin_flag.py::test_summary_contains_flag_column_and_expected_metrics
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=3.656e-02 is within 1.96 SE of 0 (SE=5.197e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_uncofoundedness_refutation_api.py::test_uncofoundedness_single_api_with_causal_estimate
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=3.267e-02 is within 1.64 SE of 0 (SE=4.322e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_uncofoundedness_refutation_api.py::test_uncofoundedness_single_api_with_causal_estimate_and_causal_data_fallback
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=2.879e-02 is within 1.64 SE of 0 (SE=3.866e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/refutation/test_uncofoundedness_refutation_api.py::test_atte_keeps_canonical_unnormalized_weights
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=6.496e-02 is within 1.64 SE of 0 (SE=3.977e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/scenarios/synthetic_control/refutation/test_placebo_config_inheritance.py::test_pointwise_configuration_is_inherited_and_can_be_explicitly_disabled
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/synthetic_control/model.py:1372: RuntimeWarning: Pointwise conformal confidence set touches the grid boundary; widen the grid.
+    ) = self._invert_pointwise_ci_for_post_period(
+
+tests/scenarios/synthetic_control/refutation/test_scm_diagnostics.py::test_scm_diagnostics_skips_scale_based_pre_checks_when_pre_is_flat
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/synthetic_control/model.py:1511: RuntimeWarning: Average ATT t-test fold dispersion is numerically zero; returning a degenerate interval.
+    result = self._compute_average_att_ttest(
+
+tests/test_no_tests_imports_in_causalis.py::test_causalis_has_no_imports_from_tests
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/iv/dgp.py:177: SyntaxWarning: invalid escape sequence '\e'
+    Z &= f_Z(X, \epsilon_Z) \\
+
+tests/test_no_tests_imports_in_causalis.py::test_causalis_has_no_imports_from_tests
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/iv/refutation/diagnostics.py:522: SyntaxWarning: invalid escape sequence '\m'
+    \theta = \frac{\mathbb{E}[Y|Z=1] - \mathbb{E}[Y|Z=0]}{\mathbb{E}[D|Z=1] - \mathbb{E}[D|Z=0]}
+
+tests/test_no_tests_imports_in_causalis.py::test_causalis_has_no_imports_from_tests
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/iv/refutation/diagnostics.py:566: SyntaxWarning: invalid escape sequence '\m'
+    Visualizes the overlap of :math:`\mathbb{P}(Z=1|X)` between the :math:`Z=0` and
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/docs/test_generate_api_reference.py::test_check_builds_full_package_without_publishing
+1 failed, 3979 passed, 157 warnings in 131.17s (0:02:11)
