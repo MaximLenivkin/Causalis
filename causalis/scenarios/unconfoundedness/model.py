@@ -56,6 +56,10 @@ from causalis.scenarios.unconfoundedness._repeated import (
 from causalis.scenarios.unconfoundedness._cluster import (
     cluster_codes, cluster_splits, cluster_standard_error,
 )
+from causalis.scenarios.unconfoundedness._external_oof import (
+    prediction_arrays, context as oof_context, build_manifest,
+    validate_manifest, partition_manifest,
+)
 from causalis.data_contracts.repeated_causal_estimate import RepeatedCausalEstimate
 from causalis.scenarios.unconfoundedness._utils import (
     _apply_overlap_policy,
@@ -1216,12 +1220,53 @@ class IRM(BaseEstimator):
         }
 
     # --------- API ---------
+    def make_oof_manifest(
+        self, predictions, *, folds, training_indices, split_seeds,
+    ) -> Dict[str, Any]:
+        """Build a detached version-1 manifest for external nuisance predictions.
+
+        All g0/g1/m vectors have shape (n,) for one partition, or (n, n_rep)
+        for repetitions. Pandas inputs must match the data index in order.
+        Folds have the same shape. Training indices are nested as repetition,
+        fold, row positions, and must equal each held-out fold's complement.
+        Seeds record supplied partitions; they do not regenerate them.
+
+        The caller declares that all training, preprocessing and tuning used
+        only these outer training samples. Validation checks declarations and
+        numeric alignment, and cannot verify external training history. Do not
+        build a new manifest to conceal a changed row order or leaked fit.
+        """
+        if self.data is None:
+            raise ValueError("CausalData is required to make an OOF manifest")
+        self._validate_external_oof_config()
+        X, y, d, binary = self._check_data()
+        self._validate_treatment_support(d)
+        codes = None if self.cluster_groups is None else cluster_codes(
+            self.cluster_groups, self.data.df.index)[0]
+        arrays = prediction_arrays(predictions, self.data.df.index, self.n_rep, binary)
+        sample_context = oof_context(self, X, y, d, codes)
+        manifest = build_manifest(self, arrays, sample_context, folds, training_indices, split_seeds)
+        return validate_manifest(self, arrays, manifest, sample_context, d, codes)
+
+    def _validate_external_oof_config(self) -> None:
+        """Check external configuration without consulting supplied learners."""
+        validate_n_rep(self.n_rep)
+        if self.n_folds < 2:
+            raise ValueError("n_folds must be at least 2")
+        policy, _ = _validate_overlap_config(self.overlap_policy, self.overlap_threshold)
+        if policy != "clip":
+            raise ValueError("External OOF IRM requires overlap_policy='clip'")
+        if self._fixed_fold_assignments_ is not None:
+            raise ValueError("External OOF IRM uses manifest folds, not fixed folds")
+
     @_publish_complete_fit
     def fit(
         self,
         data: Optional[CausalData] = None,
         *,
         store_diagnostics: Optional[bool] = None,
+        external_predictions: Optional[Dict[str, Any]] = None,
+        oof_manifest: Optional[Dict[str, Any]] = None,
     ) -> "IRM":
         """Fit nuisance models via cross-fitting.
 
@@ -1240,6 +1285,13 @@ class IRM(BaseEstimator):
             diagnostics-oriented arrays and expose diagnostic payloads from
             subsequent ``estimate()`` calls. Outcome and treatment snapshots are
             always retained to keep post-fit estimation deterministic.
+        external_predictions : Optional[dict], default None
+            All three external OOF nuisances g0, g1 and m, with shape (n,)
+            for n_rep=1 or (n, n_rep) otherwise. No learners are fitted.
+        oof_manifest : Optional[dict], default None
+            Required with external_predictions; create with make_oof_manifest.
+            Only ATE/ATTE is supported. Validation checks declared splits and
+            sample/prediction alignment, not external training history.
 
         Returns
         -------
@@ -1258,13 +1310,17 @@ class IRM(BaseEstimator):
             )
         X, y, d, y_is_binary = self._check_data()
 
-        # Initialize default learners if not provided and data is now available
-        self._initialize_default_learners_for_fit(y_is_binary=y_is_binary)
-        self._ensure_learners_available()
-        self._configure_default_learner_parallelism()
-
-        # Cache for sensitivity analysis and effect calculation
-        self._validate_fit_config(y_is_binary=y_is_binary)
+        external = external_predictions is not None
+        if external != (oof_manifest is not None):
+            raise ValueError("external_predictions and oof_manifest must be supplied together")
+        if external:
+            self._validate_external_oof_config()
+        else:
+            # Preserve the original learner and configuration path.
+            self._initialize_default_learners_for_fit(y_is_binary=y_is_binary)
+            self._ensure_learners_available()
+            self._configure_default_learner_parallelism()
+            self._validate_fit_config(y_is_binary=y_is_binary)
         self._validate_treatment_support(d)
         self._store_fit_sample(X=X, y=y, d=d)
 
@@ -1281,8 +1337,19 @@ class IRM(BaseEstimator):
             )
             if self.n_clusters_ < self.n_folds:
                 raise ValueError("n_folds exceeds the number of distinct cluster_groups")
-            if self.n_rep == 1:
+            if self.n_rep == 1 and not external:
                 self.cluster_split_seed_ = repetition_seeds(self.random_state, 1)[0]
+
+        self._fit_external_oof_ = external
+        self.__dict__.pop("_fit_oof_manifest_", None)
+        if external:
+            arrays = prediction_arrays(
+                external_predictions, self.data.df.index, self.n_rep, y_is_binary)
+            self._fit_oof_manifest_ = validate_manifest(
+                self, arrays, oof_manifest, oof_context(self, X, y, d, self._fit_cluster_codes_),
+                d, self._fit_cluster_codes_)
+            if self._fit_cluster_codes_ is not None and self.n_rep == 1:
+                self.cluster_split_seed_ = self._fit_oof_manifest_["split_seeds"][0]
 
         self.__dict__.pop("_fit_repetitions_", None)
         self.__dict__.pop("repetition_seeds_", None)
@@ -1290,15 +1357,23 @@ class IRM(BaseEstimator):
         if self.n_rep > 1:
             if self._fixed_fold_assignments_ is not None:
                 raise ValueError("Repeated IRM does not accept fixed single-partition folds")
-            seeds = repetition_seeds(self.random_state, self.n_rep)
+            seeds = (self._fit_oof_manifest_["split_seeds"] if external
+                     else repetition_seeds(self.random_state, self.n_rep))
             params = self.get_params(deep=False)
             params.update(n_rep=1)
             if self._fit_cluster_codes_ is not None:
                 params.update(cluster_groups=self._fit_cluster_codes_)
             repetitions = []
-            for seed in seeds:
+            for rep, seed in enumerate(seeds):
                 child_params = dict(params, random_state=seed)
-                repetitions.append(IRM(**child_params).fit())
+                child = IRM(**child_params)
+                if external:
+                    child_arrays = {name: values[:, rep].copy() for name, values in arrays.items()}
+                    child.fit(external_predictions=child_arrays,
+                              oof_manifest=partition_manifest(self, child_arrays, self._fit_oof_manifest_, rep))
+                else:
+                    child.fit()
+                repetitions.append(child)
             self._fit_repetitions_ = tuple(repetitions)
             self.repetition_seeds_ = tuple(seeds)
             self.folds_repetitions_ = (
@@ -1313,9 +1388,14 @@ class IRM(BaseEstimator):
             self.overlap_n_dropped_ = 0
             return self
 
-        g0_hat, g1_hat, m_hat, folds, feature_importance = self._cross_fit_nuisances(
-            X=X, y=y, d=d, y_is_binary=y_is_binary
-        )
+        if external:
+            g0_hat, g1_hat, m_hat = (arrays[name] for name in ("g0", "g1", "m"))
+            folds = np.asarray(self._fit_oof_manifest_["folds"], dtype=int)
+            feature_importance = None
+        else:
+            g0_hat, g1_hat, m_hat, folds, feature_importance = self._cross_fit_nuisances(
+                X=X, y=y, d=d, y_is_binary=y_is_binary
+            )
         self._store_cross_fitted_predictions(
             g0_hat=g0_hat,
             g1_hat=g1_hat,
@@ -1686,6 +1766,8 @@ class IRM(BaseEstimator):
             return self._estimate_repetitions(score, alpha)
         check_is_fitted(self, attributes=["g0_hat_", "g1_hat_", "m_hat_"])
         score = self._validate_estimate_request(score=score, alpha=alpha)
+        if getattr(self, "_fit_external_oof_", False) and score in {"GATE", "GATET"}:
+            raise ValueError("External OOF IRM supports only ATE/ATTE inference")
         if self._fit_cluster_codes_ is not None and score in {"GATE", "GATET"}:
             raise NotImplementedError("Cluster IRM supports ATE/ATTE inference only")
         self.score = score
@@ -1789,6 +1871,13 @@ class IRM(BaseEstimator):
                 cluster_target="row_weighted",
                 cluster_split="shuffled_group_kfold",
             )
+        if getattr(self, "_fit_external_oof_", False):
+            results.model_options.update(
+                nuisance_source="external_oof", oof_manifest_version=1,
+                oof_split_seed=self._fit_oof_manifest_["split_seeds"][0],
+            )
+            if self._fit_cluster_codes_ is not None:
+                results.model_options["cluster_split"] = "external_manifest"
         self._update_estimate_state(
             theta_hat=theta_hat,
             se=se,
@@ -1951,6 +2040,8 @@ class IRM(BaseEstimator):
 
     def predict_cate(self, X: pd.DataFrame | np.ndarray) -> np.ndarray:
         """Predict CATE/uplift for new rows using lazy full-sample scoring models."""
+        if getattr(self, "_fit_external_oof_", False):
+            raise ValueError("External OOF IRM does not support CATE prediction")
         if self._fit_cluster_codes_ is not None:
             raise NotImplementedError("Cluster IRM CATE scoring is unavailable")
         if hasattr(self, "_fit_repetitions_"):
@@ -2003,6 +2094,8 @@ class IRM(BaseEstimator):
             Sensitivity elements including 'sigma2', 'nu2', 'psi_sigma2', 'psi_nu2',
             'riesz_rep', 'm_alpha', and 'psi'.
         """
+        if getattr(self, "_fit_external_oof_", False):
+            raise ValueError("External OOF IRM does not support sensitivity inference")
         if self._fit_cluster_codes_ is not None:
             raise NotImplementedError("Cluster IRM sensitivity inference is unavailable")
         if hasattr(self, "_fit_repetitions_"):
@@ -2075,6 +2168,8 @@ class IRM(BaseEstimator):
         alpha : float, default 0.05
             Significance level for CI bounds.
         """
+        if getattr(self, "_fit_external_oof_", False):
+            raise ValueError("External OOF IRM does not support sensitivity inference")
         if self._fit_cluster_codes_ is not None:
             raise NotImplementedError("Cluster IRM sensitivity inference is unavailable")
         if hasattr(self, "_fit_repetitions_"):

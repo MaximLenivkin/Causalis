@@ -41,6 +41,8 @@ class _ConstantOutcomeModel:
 
 def _validate_fitted_irm(irm_model: Any) -> None:
     """Validate that the object can provide lazy CATE predictions."""
+    if getattr(irm_model, "_fit_external_oof_", False):
+        raise NotImplementedError("External OOF IRM CATE scoring is unavailable")
     if getattr(irm_model, "_fit_cluster_codes_", None) is not None:
         raise NotImplementedError("Cluster IRM CATE scoring is unavailable")
     check_is_fitted(irm_model, attributes=["g0_hat_", "g1_hat_", "m_hat_"])

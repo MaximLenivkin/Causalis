@@ -81,6 +81,7 @@ def aggregate_estimates(estimates, seeds, relative_errors, alpha):
     # Its seed describes a partition, so omit it from aggregate metadata.
     options.pop("random_state", None)
     options.pop("cluster_split_seed", None)
+    options.pop("oof_split_seed", None)
     fields = {name: getattr(first, name) for name in CausalEstimate.model_fields}
     fields.update(
         model="RepeatedIRM", model_options=options, value=theta,

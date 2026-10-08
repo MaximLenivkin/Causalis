@@ -1,0 +1,21 @@
+{
+  "baseline": "3668eec10a5cc794dd16be26d8ade6c284277bf4",
+  "observed_head": "3668eec10a5cc794dd16be26d8ade6c284277bf4",
+  "exact_internal_fit_configuration_pairs": 64,
+  "exact_internal_estimate_pairs": 96,
+  "exact_unsupported_weighted_atte_rejections": 32,
+  "baseline_feature": {
+    "status": "unsupported"
+  },
+  "current_feature": {
+    "status": "supported"
+  },
+  "compared_payload_sha256": "9db630b677f16f1a45e4902d45e759fdca757a0fe0372f8e86067e3f174ae682",
+  "source_sha256": {
+    "causalis/scenarios/unconfoundedness/model.py": "1005024c48324cada0170afd2655f24a0d310eb9d61c9b66fec2079a8a81202d",
+    "causalis/scenarios/unconfoundedness/_repeated.py": "c71a9896bff805699a33a01389c5785cf8b3f4781819f885dc3cf4a0f393604f",
+    "causalis/scenarios/unconfoundedness/_external_oof.py": "c1f41e3ab71299ffd3bca068afc4d6b8460f8ce02e4b7411430888f65294f41c",
+    "causalis/data_contracts/__init__.py": "6b9d642286f7074c264328a2b66503d1669c51287490dabca0ae69de5738f4d4"
+  },
+  "temporary_copies_removed": true
+}

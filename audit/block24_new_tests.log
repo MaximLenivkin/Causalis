@@ -1,0 +1,28 @@
+........................................................................ [ 64%]
+.......................................                                  [100%]
+=============================== warnings summary ===============================
+tests/inference/test_irm_external_oof.py::test_external_absolute_relative_independent_oracle[False-False-False-True-ATE]
+tests/inference/test_irm_external_oof.py::test_external_absolute_relative_independent_oracle[False-False-True-True-ATE]
+tests/inference/test_irm_external_oof.py::test_external_absolute_relative_independent_oracle[False-True-False-True-ATE]
+tests/inference/test_irm_external_oof.py::test_external_absolute_relative_independent_oracle[False-True-True-True-ATE]
+tests/inference/test_irm_external_oof.py::test_external_absolute_relative_independent_oracle[True-False-False-True-ATE]
+tests/inference/test_irm_external_oof.py::test_external_absolute_relative_independent_oracle[True-False-True-True-ATE]
+tests/inference/test_irm_external_oof.py::test_external_absolute_relative_independent_oracle[True-True-False-True-ATE]
+tests/inference/test_irm_external_oof.py::test_external_absolute_relative_independent_oracle[True-True-True-True-ATE]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1465: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+    warnings.warn(
+
+tests/inference/test_irm_external_oof.py::test_external_absolute_relative_independent_oracle[False-False-False-True-ATTE]
+tests/inference/test_irm_external_oof.py::test_external_absolute_relative_independent_oracle[False-False-True-True-ATTE]
+tests/inference/test_irm_external_oof.py::test_external_absolute_relative_independent_oracle[False-True-False-True-ATTE]
+tests/inference/test_irm_external_oof.py::test_external_absolute_relative_independent_oracle[False-True-True-True-ATTE]
+tests/inference/test_irm_external_oof.py::test_external_absolute_relative_independent_oracle[True-False-False-True-ATTE]
+tests/inference/test_irm_external_oof.py::test_external_absolute_relative_independent_oracle[True-False-True-True-ATTE]
+tests/inference/test_irm_external_oof.py::test_external_absolute_relative_independent_oracle[True-True-False-True-ATTE]
+tests/inference/test_irm_external_oof.py::test_external_absolute_relative_independent_oracle[True-True-True-True-ATTE]
+tests/inference/test_irm_external_oof.py::test_custom_weight_policy_unchanged
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+111 passed, 17 warnings in 22.66s

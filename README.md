@@ -428,6 +428,58 @@ mode. Cluster GATE/GATET, CATE scoring and sensitivity reject explicitly;
 multiway clustering, cluster bootstrap, few-cluster inference and grouping for
 multi-treatment/IV models are separate follow-ups.
 
+## External OOF predictions for binary IRM
+
+```python
+# Predictions and fold_ids were produced by your external cross-fitting code.
+# All arrays refer to the original data.df rows, in exactly the same order.
+import numpy as np
+
+predictions = {"g0": g0_oof, "g1": g1_oof, "m": propensity_oof}
+model = IRM(data, n_folds=4)
+training_indices = [[np.flatnonzero(fold_ids != fold).tolist()
+                     for fold in range(4)]]
+manifest = model.make_oof_manifest(
+    predictions, folds=fold_ids, training_indices=training_indices,
+    split_seeds=[3141],
+)
+result = model.fit(external_predictions=predictions,
+                   oof_manifest=manifest).estimate(score="ATE")
+```
+
+Supply all three nuisances; partial replacement is unavailable. With `n_rep=1`,
+predictions and folds must be vectors `(n,)`. With repetitions, they must have
+shape `(n, n_rep)`; training indices are nested as repetition, fold, row
+positions, and `split_seeds` contains one recorded uint32 seed per repetition.
+Each outer training sample must equal its held-out fold's complement and
+contain both treatment arms. Folds must cover `0..n_folds-1`. When
+`cluster_groups` is supplied, each cluster must belong to one held-out fold.
+The inherited support guard also requires at least `n_folds` rows per arm.
+
+The version-1 manifest binds ordered numeric data, row index, variable roles,
+cluster membership and prediction hashes. Pandas predictions require exactly
+the input index in order, including duplicates; arrays are positional. Inputs
+are copied. Values must be real and finite; propensities and binary-outcome
+predictions must lie in `[0, 1]` before propensity clipping. External fits
+require `overlap_policy="clip"` and reject private fixed folds.
+
+All preprocessing, tuning and nuisance fitting must use only the recorded outer
+training samples; outcome learners use the corresponding treatment subsets.
+Validation checks the caller's declarations and alignment, and cannot prove
+the history of an external program. Rebuilding a manifest around leaked or
+misordered predictions does not make them valid OOF predictions. Time-series
+splitting, independent external training samples and arbitrary train subsets
+need separate contracts.
+
+Fit invokes no nuisance learner methods and draws no split RNG. Supplied folds
+are used directly; `random_state` does not override recorded manifest seeds.
+ATE/ATTE use the existing scores, iid or one-way cluster SE and relative-effect
+policy. Repetitions use median-variance aggregation without dividing by their
+count. Identification, nuisance-rate and independent-unit/cluster assumptions
+still apply. Results record `nuisance_source="external_oof"` and manifest
+version; full training indices remain private. External GATE/GATET, CATE
+prediction and sensitivity inference reject, including direct adapters.
+
 # Pick your scenario
 
 | Scenario                                                                                   | Estimator                                                 | Assumptions                                                                                                                     |
