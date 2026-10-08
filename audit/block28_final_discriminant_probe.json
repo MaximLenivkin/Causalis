@@ -1,0 +1,14 @@
+{
+  "status": "rejected",
+  "error": "Quadratic discriminant underflowed; rescale the signals",
+  "source": "b9110f0d24d3cc8a107883720d2e475f4317f085",
+  "coefficients": [
+    1.0,
+    1e-200,
+    0.0
+  ],
+  "exact_factored_roots": [
+    -1e-200,
+    0.0
+  ]
+}

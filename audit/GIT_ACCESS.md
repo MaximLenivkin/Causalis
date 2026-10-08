@@ -197,3 +197,23 @@ Source/tests frozen; final changes audit-only. Final audit checkpoint via gitlog
 ordinary final audit push/live identity and clean/synced tree checked at completion.
 No upstream/main/forcepush/PR/release/external messages. Stop after B27; next
 B28weak-IVLATE requires context cleanup and a new user request.
+
+
+## B28 checkpoint — 8 October 2026
+
+Baselineab789bf; implementation856b05ca78a7127bdd342eb79cd9fda961aa6873,
+set-geometry guard8aad3a07b96d174151bd7ef39bcaba05f7d98bfe,
+final sourceb9110f0d24d3cc8a107883720d2e475f4317f085. Ordinary pushes
+ab789bf..8aad3a0 and8aad3a0..b9110f0 to
+MaximLenivkin/Causalis:codex/correctness-roadmap succeeded under persistent
+user «Разрешаю пуш в нашу ветку». No auto-review rejection/new approval/
+auth/login/setup/fork changes. Final correctness4092passed, strictSphinx0,
+CI37815247713 completed/success on exactb9110f0: all6artifacts4092passed
+plus strictdocs0. IntermediateCI37813839790 on8aad3a0 also passed4091cases
+perjob; source guard change required final run. Root --require-ci verifies
+raw local/initial/intermediate/finalCI evidence/source/cases/scope/env/5hashes/
+owned cleanup/163handofflinks, issues[]. Source/tests frozen; final changes
+are audit-only. Final audit checkpoint via gitlog-1; ordinary final audit
+push/live identity and clean/synced tree checked at completion. No upstream/
+main/forcepush/PR/release/external messages/subagents. Stop after B28; next
+B29HonestDiD requires context cleanup and a new user request.

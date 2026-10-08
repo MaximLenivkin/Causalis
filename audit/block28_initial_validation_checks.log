@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/verify_block28.py", line 141, in <module>
+    main()
+  File "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/verify_block28.py", line 102, in main
+    docs = read('block28_docs_result.json')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/verify_block28.py", line 24, in read
+    return json.loads((AUDIT/name).read_text())
+                      ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/m.lenivkin/Documents/tclaude_folder/.causalis-tools/python/cpython-3.12.14-macos-aarch64-none/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/m.lenivkin/Documents/tclaude_folder/.causalis-tools/python/cpython-3.12.14-macos-aarch64-none/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block28_docs_result.json'

@@ -1,0 +1,43 @@
+........................................................................ [ 18%]
+........................................................................ [ 37%]
+........................................................................ [ 56%]
+........................................................................ [ 75%]
+........................................................................ [ 94%]
+...................                                                      [100%]
+=============================== warnings summary ===============================
+tests/inference/test_extreme_score_arithmetic.py::test_public_estimate_rejects_overflow_from_finite_predictions[1e+155-True-binary-ATE]
+tests/inference/test_extreme_score_arithmetic.py::test_public_estimate_rejects_overflow_from_finite_predictions[-1e+155-True-binary-ATE]
+tests/inference/test_extreme_score_arithmetic.py::test_public_estimate_rejects_overflow_from_finite_predictions[1e+307-True-binary-ATE]
+tests/inference/test_extreme_score_arithmetic.py::test_public_estimate_rejects_overflow_from_finite_predictions[-1e+308-True-binary-ATE]
+tests/inference/test_extreme_score_arithmetic.py::test_binary_near_boundary_propensity_fails_explicitly[0.0-True]
+tests/inference/test_extreme_score_arithmetic.py::test_binary_near_boundary_propensity_fails_explicitly[1.0-True]
+tests/inference/test_extreme_score_arithmetic.py::test_ordinary_finite_inference_remains_available[True-binary]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1466: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+    warnings.warn(
+
+tests/inference/test_extreme_score_arithmetic.py::test_public_estimate_rejects_overflow_from_finite_predictions[1e+155-True-binary-ATTE]
+tests/inference/test_extreme_score_arithmetic.py::test_public_estimate_rejects_overflow_from_finite_predictions[-1e+155-True-binary-ATTE]
+tests/inference/test_extreme_score_arithmetic.py::test_public_estimate_rejects_overflow_from_finite_predictions[1e+307-True-binary-ATTE]
+tests/inference/test_extreme_score_arithmetic.py::test_public_estimate_rejects_overflow_from_finite_predictions[-1e+308-True-binary-ATTE]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+    warnings.warn(
+
+tests/inference/test_extreme_score_arithmetic.py::test_custom_weights_bar_division_overflow_is_rejected[1.01e-12]
+tests/inference/test_extreme_score_arithmetic.py::test_custom_weights_bar_division_overflow_is_rejected[1e-06]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1472: RuntimeWarning: ATE custom weights are normalized by sample mean; SE/IF treats this normalization as fixed (approximate).
+    warnings.warn(
+
+tests/test_no_tests_imports_in_causalis.py::test_causalis_has_no_imports_from_tests
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/iv/dgp.py:177: SyntaxWarning: invalid escape sequence '\e'
+    Z &= f_Z(X, \epsilon_Z) \\
+
+tests/test_no_tests_imports_in_causalis.py::test_causalis_has_no_imports_from_tests
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/iv/refutation/diagnostics.py:522: SyntaxWarning: invalid escape sequence '\m'
+    \theta = \frac{\mathbb{E}[Y|Z=1] - \mathbb{E}[Y|Z=0]}{\mathbb{E}[D|Z=1] - \mathbb{E}[D|Z=0]}
+
+tests/test_no_tests_imports_in_causalis.py::test_causalis_has_no_imports_from_tests
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/iv/refutation/diagnostics.py:566: SyntaxWarning: invalid escape sequence '\m'
+    Visualizes the overlap of :math:`\mathbb{P}(Z=1|X)` between the :math:`Z=0` and
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+379 passed, 16 warnings in 28.58s

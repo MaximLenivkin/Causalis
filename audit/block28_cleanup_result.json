@@ -1,0 +1,14 @@
+{
+  "source": "b9110f0d24d3cc8a107883720d2e475f4317f085",
+  "removed_paths": [
+    "audit/block28_integration_test_temp/pytest-temp"
+  ],
+  "basetemp_not_created": [
+    "audit/block28_focus_test_temp/pytest-temp"
+  ],
+  "focus_junit_sha256": "63045c587d6c2e326838cc11b1e8437788afa82cf0e0b42e5ffc9ce151786be8",
+  "integration_junit_sha256": "bebd50f29b769210e0fe68a2797bafb02cdd91d425bbc6def1788725957da567",
+  "earlier_cleanup_manifest": "audit/block28_pre_statistic_cleanup_result.json",
+  "client_records_downloaded": false,
+  "synthetic_fixtures_only": true
+}

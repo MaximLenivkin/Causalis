@@ -1,0 +1,20 @@
+{
+  "status": "returned",
+  "set_type": "singleton",
+  "intervals": [
+    [
+      -5e-201,
+      -5e-201
+    ]
+  ],
+  "source": "856b05ca78a7127bdd342eb79cd9fda961aa6873",
+  "coefficients": [
+    1.0,
+    1e-200,
+    0.0
+  ],
+  "exact_factored_roots": [
+    -1e-200,
+    0.0
+  ]
+}

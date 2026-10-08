@@ -425,3 +425,58 @@ final audit push/live local-remote identity and clean tree checked at completion
 release/notebooks/website/external messages. NextB28weak-IVLATE only after B27
 completion, context cleanup and a new request. Sensitivity/SC08LOO/selected-UATT/
 multi-IVrepetitions/grouping/few-multiwayclusters/NumPyRSTdebt remain separate.
+
+
+## B28 — завершён: weak-IV LATE (8 October 2026)
+
+Baseline `ab789bff3d03f6d2b20023c7d259adcdd8cc7019`;
+final source `b9110f0d24d3cc8a107883720d2e475f4317f085`.
+Commits856b05cimplementation,8aad3a0set-geometry underflow guard,
+b9110f0statistic underflow guard; all pushed to authorized personal branch.
+[Report](BLOCK28_WEAK_IV.md). Public `IIVM.estimate_weak_iv(alpha=.05,null=0.)`
+and owned `WeakIVInference.from_iivm` / generic two-signal input provide scalar
+orthogonal AR-style score tests and complete Fieller confidence sets. No
+first-stage division/pretest/grid/fit/predict/cache mutation/RNG. Closed tuple
+unions preserve bounded/two-ray/half-line/singleton/all-real/empty geometry;
+centering/ddof1 variance, strict statistic>cutoff rejection. Iid internalR1,
+current unnormalized truncate fits only; copied successful-fit arrays, not
+live data. Normalized/repeated contexts reject. Generic aligned signals do
+not bypass iid/valid-score assumptions. Zero requested-null variance rejects;
+singular covariance allowed, other degenerate candidates retain algebraic set
+without coverage claim. Explicit nonfinite/shape/complex/underflow failures.
+
+Causal LATE requires consistency, conditional IV exogeneity, exclusion,
+monotonicity, overlap and nonzero population complier share. At zero population
+first stage a unique LATE may not exist; moment testing remains meaningful.
+Asymptotic validity needs a null-score CLT, positive limiting variance, moments
+and negligible nuisance remainder, uniformly for uniform weak-IV claims.
+Arbitrary learners/cross-fitting do not certify these; clipping/invalidIV/
+misspecification/selection are not repaired. No finite-sample AR/F, CLR,
+cluster/weighted/repeated inference or identification diagnostic.
+
+111new cases; final380focuspassed/16warnings/27.76s; committed correctness
+4092passed/157warnings/135.30s,0failures/errors/skips. Seven sensitivity
+exclusions unchanged; all3981B27case IDs retained. StrictSphinx0/19.026s.
+155old library/scripts/workflow files and190test files unchanged; all30existing
+IIVMmethodASTs identical. 163immutable handoff links. Synthetic fixtures only;
+client records were not requested or downloaded. Exact owned initial/intermediate/
+final integration basetemps removed; focused basetemps never created. Raw
+JUnit/log/source/environment evidence retained. Historical102case development
+2failures, initial856b05c4089green gates, intermediate8aad3a04091green gates
+and all6CI37813839790 verified separately. Subsequent statistic guard justified
+new gates; [finalCI37815247713](https://github.com/MaximLenivkin/Causalis/actions/runs/37815247713)
+completed/success on exactb9110f0, all6artifacts4092passed and strictdocs0.
+Python3.10.22bothstacks,3.11.17,3.12.15,3.13.16,3.14.8;
+snapshotUTC2026-10-08T17:21:31.077414+00:00. [CI manifest](block28_ci_result.json)
+verifies full/focus case sets, source/normalizedargv/seven exclusions/environment
+and5hashes/job. [Root verification](block28_validation_result.json) --require-ci,
+exit0/issues[], verifies raw initial/intermediate/final evidence. Two CI runs,
+second justified by source/statistic guard change; neither run failed.
+
+User's persistent «Разрешаю пуш в нашу ветку» covers ordinary branch pushes;
+no automatic approval rejection. Source/tests frozen afterb9110f0; remaining
+changes audit-only. Final audit checkpoint via gitlog-1; ordinary final audit push/live local-remote identity and clean/synced tree checked at completion. Stop after completed
+B28 for context cleanup; next B29HonestDiD requires a new user request.
+Sensitivity/SC08LOO/selected-UATT/multi-IVrepetitions/grouping/few-multiwayclusters/
+NumPyRST debt remain separate. No subagents/login/setup/fork/upstream/main/
+forcepush/PR/release/notebooks/website/external messages.

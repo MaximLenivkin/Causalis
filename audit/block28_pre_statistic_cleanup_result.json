@@ -1,0 +1,18 @@
+{
+  "source": "8aad3a07b96d174151bd7ef39bcaba05f7d98bfe",
+  "removed_paths": [
+    "audit/block28_integration_test_temp/pytest-temp",
+    "audit/block28_initial_integration_test_temp/pytest-temp"
+  ],
+  "basetemp_not_created": [
+    "audit/block28_focus_test_temp/pytest-temp",
+    "audit/block28_initial_focus_test_temp/pytest-temp"
+  ],
+  "focus_junit_sha256": "7fafb5576c9de4b04c72e01cb497b2ce84ce8211e58b0cd32929412b3e006a5f",
+  "integration_junit_sha256": "c68ae861e39c17f65587e32d18ff04a10b93a3d6d6778a24d5174d3963e392af",
+  "initial_focus_junit_sha256": "2d3512e95f4349d8eb7c850100aa6892d4ca8784c764fa0d203beae82956500d",
+  "initial_integration_junit_sha256": "4fa3bcf01dcafa6058b793ee82678d7bda7f97ecd4146f301433e47a41f4a334",
+  "matplotlib_probe_temp_automatically_removed": true,
+  "client_records_downloaded": false,
+  "synthetic_fixtures_only": true
+}

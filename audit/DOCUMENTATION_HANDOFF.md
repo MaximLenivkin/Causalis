@@ -1156,3 +1156,53 @@ Immutable sources:
 - [Root lazy package export](https://github.com/MaximLenivkin/Causalis/blob/72f6918b1eb06b8bfd743397b2bf0bde6a8ef8a0/causalis/__init__.py)
 - [Independent numerical and contract tests](https://github.com/MaximLenivkin/Causalis/blob/72f6918b1eb06b8bfd743397b2bf0bde6a8ef8a0/tests/inference/test_inference_family.py)
 - [README usage and assumptions](https://github.com/MaximLenivkin/Causalis/blob/72f6918b1eb06b8bfd743397b2bf0bde6a8ef8a0/README.md)
+
+
+## B28 — weak-IV LATE (8 October 2026)
+
+Ready-to-use text:
+
+> `IIVM.estimate_weak_iv(alpha=.05, null=0.)` tests the orthogonal moment
+> without dividing by the estimated first stage and returns a complete Fieller
+> confidence set. `WeakIVInference.from_iivm(model)` owns a snapshot for later
+> candidates; generic input accepts aligned iid observation-scale phi_y/phi_d.
+> No fit/predict/estimate callbacks, RNG or source cache mutation occur.
+> The adapter uses successful-fit copied observations/nuisances, not live data.
+> Only single-partition, unnormalized truncate fits are supported. Existing
+> `estimate()` continues to produce its Wald result and diagnostics.
+>
+> Preserve the full tuple of closed intervals. It may be bounded, two rays,
+> one half-line, singleton, all-real or empty; infinite endpoints denote
+> unbounded components. A min/max envelope would erase an excluded gap.
+> Variance uses centered ddof1 covariance divided by n. Tests use chi-square(1)
+> asymptotics and strict statistic-above-cutoff rejection. Set boundaries are included.
+> No strength pretest, finite search grid, effect bounds or CLR is used.
+>
+> Causal LATE requires consistency, conditional IV exogeneity, exclusion,
+> monotonicity, overlap and a nonzero population complier share. At exactly zero
+> population first stage a unique LATE may not exist; the moment remains
+> testable. Validity requires a null-score CLT, positive limiting score variance,
+> adequate moments and negligible nuisance remainder, uniformly for uniform
+> weak-IV claims. Cross-fitting and arbitrary learners do not certify these.
+> Clipping/misspecification/invalid IV/selection bias remain possible. There is
+> no finite-sample AR/F or coverage guarantee, cluster/weighted/repeated inference
+> or identification diagnostic.
+>
+> Zero empirical score variance at the requested null rejects. Singular joint
+> covariance is permitted; other degenerate candidates retain the algebraic set
+> without a coverage claim. Float64 controls near-boundary geometry; coefficients
+> are never silently replaced by zero through a tolerance. Unrepresentable roots,
+> statistics and arithmetic loss that changes topology fail explicitly. Returned
+> results contain aggregate immutable scalar/tuple fields and a fresh summary.
+
+Acceptance: show the full confidence set and distinguish zero population
+identification from a numerically zero estimated first stage. Explain iid/score/
+nuisance assumptions before interpreting the result. No theorem for arbitrary
+learners or uniform regimes is certified by the software's successful execution.
+
+Immutable sources:
+- [Score inference and complete inversion](https://github.com/MaximLenivkin/Causalis/blob/b9110f0d24d3cc8a107883720d2e475f4317f085/causalis/scenarios/iv/weak.py)
+- [IIVM convenience method](https://github.com/MaximLenivkin/Causalis/blob/b9110f0d24d3cc8a107883720d2e475f4317f085/causalis/scenarios/iv/model.py)
+- [Public exports](https://github.com/MaximLenivkin/Causalis/blob/b9110f0d24d3cc8a107883720d2e475f4317f085/causalis/scenarios/iv/__init__.py)
+- [Independent oracles and regression checks](https://github.com/MaximLenivkin/Causalis/blob/b9110f0d24d3cc8a107883720d2e475f4317f085/tests/inference/test_iivm_weak.py)
+- [Usage and assumptions](https://github.com/MaximLenivkin/Causalis/blob/b9110f0d24d3cc8a107883720d2e475f4317f085/README.md)

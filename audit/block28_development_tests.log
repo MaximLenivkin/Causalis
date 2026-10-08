@@ -1,0 +1,60 @@
+.F...................................................................... [ 70%]
+..........F...................                                           [100%]
+=================================== FAILURES ===================================
+_______ test_all_quadratic_geometries[coefficients1-two-rays-intervals1] _______
+
+coefficients = (-1, 3, -2), kind = 'two-rays'
+intervals = ((-inf, 1.0), (2.0, inf))
+
+    @pytest.mark.parametrize('coefficients,kind,intervals', [
+        ((1, -3, 2), 'bounded', ((1., 2.),)),
+        ((-1, 3, -2), 'two-rays', ((-np.inf, 1.), (2., np.inf))),
+        ((1, -2, 1), 'singleton', ((1., 1.),)),
+        ((-1, 2, -1), 'all-real', ((-np.inf, np.inf),)),
+        ((1, 0, 1), 'empty', ()),
+        ((-1, 0, -1), 'all-real', ((-np.inf, np.inf),)),
+        ((0, 2, -4), 'half-line', ((-np.inf, 2.),)),
+        ((0, -2, 4), 'half-line', ((2., np.inf),)),
+        ((0, 0, 0), 'all-real', ((-np.inf, np.inf),)),
+        ((0, 0, -1), 'all-real', ((-np.inf, np.inf),)),
+        ((0, 0, 1), 'empty', ()),
+        ((1, 0, -4), 'bounded', ((-2., 2.),)),
+        ((-1, 0, 4), 'two-rays', ((-np.inf, -2.), (2., np.inf))),
+    ])
+    def test_all_quadratic_geometries(coefficients, kind, intervals):
+        actual_kind, actual = _quadratic_set(*coefficients)
+        assert actual_kind == kind
+        np.testing.assert_allclose(actual, intervals)
+        for theta in np.linspace(-5, 5, 101):
+            a, b, c = coefficients
+>           assert any(lo <= theta <= hi for lo, hi in actual) == (a*theta**2+b*theta+c <= 0)
+E           assert False == ((((-1 * (np.float64(1.0) ** 2)) + (3 * np.float64(1.0))) + -2) <= 0)
+E            +  where False = any(<generator object test_all_quadratic_geometries.<locals>.<genexpr> at 0x114d25540>)
+
+tests/inference/test_iivm_weak.py:44: AssertionError
+___________ test_wald_state_preserved_and_zero_first_stage_bypassed ____________
+
+fitted = IIVM(status='fitted', n_folds=2, random_state=11)
+
+    def test_wald_state_preserved_and_zero_first_stage_bypassed(fitted):
+        old = fitted.estimate()
+        state = fitted.__dict__.copy()
+        fitted.estimate_weak_iv()
+        assert all(fitted.__dict__[key] is value for key, value in state.items())
+        assert fitted.result_ is old
+        # Constant treatment signal with exactly zero mean, so Wald must refuse.
+        fitted.d_[:] = fitted.z_
+        fitted.r_hat0_[:] = .5
+        fitted.r_hat1_[:] = .5
+        fitted.m_hat_[:] = .5
+        fitted.z_[:] = 0
+        fitted.d_[:] = .5  # raw guard must catch nonbinary mutation first
+>       with pytest.raises(ValueError, match='binary'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/inference/test_iivm_weak.py:217: Failed
+=========================== short test summary info ============================
+FAILED tests/inference/test_iivm_weak.py::test_all_quadratic_geometries[coefficients1-two-rays-intervals1]
+FAILED tests/inference/test_iivm_weak.py::test_wald_state_preserved_and_zero_first_stage_bypassed
+2 failed, 100 passed in 23.06s

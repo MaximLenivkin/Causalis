@@ -1,0 +1,31 @@
+{
+  "source": "b9110f0d24d3cc8a107883720d2e475f4317f085",
+  "baseline": "ab789bff3d03f6d2b20023c7d259adcdd8cc7019",
+  "issues": [],
+  "changed_non_audit_paths": [
+    "README.md",
+    "causalis/scenarios/iv/__init__.py",
+    "causalis/scenarios/iv/model.py",
+    "causalis/scenarios/iv/weak.py",
+    "tests/inference/test_iivm_weak.py"
+  ],
+  "unchanged_existing_source_files": 155,
+  "unchanged_existing_test_files": 190,
+  "unchanged_iivm_methods": 30,
+  "source_sha256": {
+    "README.md": "cf1f922890f4adedf7a3cb4dec52328fe0d1c7d3bdca50ba3db7eee2f0483448",
+    "causalis/scenarios/iv/__init__.py": "749e62d12ec43f80aa69db2b4de7eceeeee04a572fe13cb292b98e3d37a0ad8f",
+    "causalis/scenarios/iv/model.py": "57675f8b57589abe803890c26205b9ab540398b6d564b0fd13cdc1ec6cfe9a6c",
+    "causalis/scenarios/iv/weak.py": "ab9420a7f07434fcd5cdbf53ed7dc5258edf59126a3777638aece7dbe1784291",
+    "tests/inference/test_iivm_weak.py": "543825de1c862e7b28166f7c2ed91a82d9bb46e88c4561df7e32215417a3a32d"
+  },
+  "focused_cases": 380,
+  "new_cases": 111,
+  "integration_cases": 4092,
+  "previous_cases_preserved": 3981,
+  "sensitivity_validated": false,
+  "standalone_sphinx_exit_code": 0,
+  "handoff_links_checked": 163,
+  "report_local_links_checked": 19,
+  "ci_required": false
+}
