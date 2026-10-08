@@ -1,0 +1,26 @@
+{
+  "baseline": "d88299887f96bd032fe3533349b2e2eb28ecf4ef",
+  "tested_source_checkpoint": "2c63f8d73c5d6f3ca15c4ca17ab0c1beb296f720",
+  "source_paths": [
+    "README.md",
+    "causalis/scenarios/did/__init__.py",
+    "causalis/scenarios/did/honest.py",
+    "tests/scenarios/did/test_honest_did.py"
+  ],
+  "existing_source_workflow_files_unchanged": 151,
+  "existing_test_files_unchanged": 186,
+  "all_4092_previous_cases_preserved": true,
+  "new_cases": 190,
+  "focused_cases": 420,
+  "integration_cases": 4282,
+  "strict_sphinx_exit_code": 0,
+  "handoff_links": 167,
+  "local_report_links": 25,
+  "cleanup_verified": true,
+  "requires_ci": true,
+  "issues": [],
+  "initial_six_portability_failures_preserved": true,
+  "library_unchanged_by_portability_fix": true,
+  "ci_run": 37845415092,
+  "all_six_matrix_artifacts_verified": true
+}

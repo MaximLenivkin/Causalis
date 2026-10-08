@@ -217,3 +217,19 @@ are audit-only. Final audit checkpoint via gitlog-1; ordinary final audit
 push/live identity and clean/synced tree checked at completion. No upstream/
 main/forcepush/PR/release/external messages/subagents. Stop after B28; next
 B29HonestDiD requires context cleanup and a new user request.
+
+## B29 — authorized branch checkpoint, 9 October 2026
+
+User's existing explicit «Разрешаю пуш в нашу ветку» remains authorization for
+ordinary pushes to MaximLenivkin/Causalis:codex/correctness-roadmap.
+Baseline d882998; source pushes d882998..d542692 andd542692..2c63f8d succeeded.
+InitialCI37844628093 failed allsix solely on one new bitwise covariance endpoint
+oracle; final2c63f8d fixes this test tolerance without library/old-test changes.
+FinalCI37845415092 allsix4282passed/strictdocs0 on exact2c63f8d, artifacts checked.
+Local4282correctness/420focus/190new; strictSphinx25.165s; root --require-ci;
+167handoff links; source/tests frozen. Final checkpoint through gitlog-1 is
+an audit-only commit and does not rerun the matrix. Its ordinary push and live
+remote/local equality/clean tree are checked at completion. No automatic
+approval rejection, new login, remote/fork setup, PR, upstream/main write,
+forcepush, release, dependency install, client query/export or external message.
+Stop at B29; B30 starts only after new user request.

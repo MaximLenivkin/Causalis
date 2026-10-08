@@ -1,0 +1,259 @@
+Failure excerpts; complete original logs and hashes are recorded in block29_initial_log_result.json.
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4124552Z =================================== FAILURES ===================================
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4125219Z _ test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model _
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4125731Z 
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4126089Z     def test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model():
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4127321Z         source = _result()
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4127752Z         cells = source.att_gt.sort_values("event_time")
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4128424Z         raw = source.diagnostics["influence_scores"].loc[:, cells.cell_id].to_numpy()
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4129088Z         centered = raw-raw.mean(axis=0)
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4129540Z         cov = centered.T @ centered/len(raw)**2
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4130121Z         generic = HonestDiD(cells.att.to_numpy(), cov, cells.event_time)
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4130722Z         rng_before = np.random.get_state()
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4131410Z         with patch.object(CallawaySantAnnaDID, "fit", side_effect=AssertionError("fit")), \
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4132388Z                 patch.object(CallawaySantAnnaDID, "estimate", side_effect=AssertionError("estimate")):
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4133105Z             snapshot = HonestDiD.from_did(source)
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4133407Z         after = np.random.get_state()
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4133735Z         np.testing.assert_array_equal(rng_before[1], after[1])
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4134245Z         assert rng_before[2:] == after[2:]
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4134775Z         for restriction in ["smoothness", "relative_magnitude"]:
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4135791Z >           assert snapshot.infer(restriction=restriction, bound=.2) == generic.infer(restriction=restriction, bound=.2)
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4136972Z E           AssertionError: assert HonestDiDResu...i-projection') == HonestDiDResu...i-projection')
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4137998Z E             
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4138372Z E             Omitting 7 identical items, use -vv to show
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4138856Z E             Differing attributes:
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4139253Z E             ['confidence_set']
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4139609Z E             
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4139996Z E             Drill down into differing attribute confidence_set:
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4140799Z E               confidence_set: ((1.4061413660196904, 2.3120474494654175),) != ((1.4061413660196904, 2.312047449465418),)
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4141440Z E               At index 0 diff: (1.4061413660196904, 2.3120474494654175) != (1.4061413660196904, 2.312047449465418)
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4141866Z E               
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4142079Z E               Full diff:
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4142301Z E                 (
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4142500Z E                     (
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4142726Z E                         1.4061413660196904,
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4143007Z E               -         2.312047449465418,
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4143284Z E               ?                         ^
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4143547Z E               +         2.3120474494654175,
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4143804Z E               ?                         ^^
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4144048Z E                     ),
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4144513Z E                 )
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4144638Z 
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.4144801Z tests/scenarios/did/test_honest_did.py:152: AssertionError
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.9528330Z FAILED tests/scenarios/did/test_honest_did.py::test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model - AssertionError: assert HonestDiDResu...i-projection') == HonestDiDResu...i-projection')
+Python 3.10 / legacy (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:04.9535751Z 1 failed, 4281 passed, 29899 warnings in 199.86s (0:03:19)
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4164275Z =================================== FAILURES ===================================
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4164933Z _ test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model _
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4165410Z 
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4165759Z     def test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model():
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4166868Z         source = _result()
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4167309Z         cells = source.att_gt.sort_values("event_time")
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4167955Z         raw = source.diagnostics["influence_scores"].loc[:, cells.cell_id].to_numpy()
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4168614Z         centered = raw-raw.mean(axis=0)
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4169060Z         cov = centered.T @ centered/len(raw)**2
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4169597Z         generic = HonestDiD(cells.att.to_numpy(), cov, cells.event_time)
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4170173Z         rng_before = np.random.get_state()
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4170821Z         with patch.object(CallawaySantAnnaDID, "fit", side_effect=AssertionError("fit")), \
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4171644Z                 patch.object(CallawaySantAnnaDID, "estimate", side_effect=AssertionError("estimate")):
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4172297Z             snapshot = HonestDiD.from_did(source)
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4172695Z         after = np.random.get_state()
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4173321Z         np.testing.assert_array_equal(rng_before[1], after[1])
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4173769Z         assert rng_before[2:] == after[2:]
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4174200Z         for restriction in ["smoothness", "relative_magnitude"]:
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4175025Z >           assert snapshot.infer(restriction=restriction, bound=.2) == generic.infer(restriction=restriction, bound=.2)
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4176141Z E           AssertionError: assert HonestDiDResu...i-projection') == HonestDiDResu...i-projection')
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4176839Z E             
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4177284Z E             Omitting 7 identical items, use -vv to show
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4177753Z E             Differing attributes:
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4178148Z E             ['confidence_set']
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4178492Z E             
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4178869Z E             Drill down into differing attribute confidence_set:
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4179406Z E               confidence_set: ((1.4061413660196904, 2.3120474494654175),) != ((1.4061413660196904, 2.312047449465418),)
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4180030Z E               At index 0 diff: (1.4061413660196904, 2.3120474494654175) != (1.4061413660196904, 2.312047449465418)
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4180446Z E               
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4180656Z E               Full diff:
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4180874Z E                 (
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4181072Z E                     (
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4181300Z E                         1.4061413660196904,
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4181574Z E               -         2.312047449465418,
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4181839Z E               ?                         ^
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4182100Z E               +         2.3120474494654175,
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4182352Z E               ?                         ^^
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4182597Z E                     ),
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4182812Z E                 )
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4182934Z 
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.4183088Z tests/scenarios/did/test_honest_did.py:152: AssertionError
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.7979886Z FAILED tests/scenarios/did/test_honest_did.py::test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model - AssertionError: assert HonestDiDResu...i-projection') == HonestDiDResu...i-projection')
+Python 3.11 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:37.7985866Z 1 failed, 4281 passed, 160 warnings in 179.25s (0:02:59)
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7869070Z =================================== FAILURES ===================================
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7869607Z _ test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model _
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7869954Z 
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7870535Z     def test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model():
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7871231Z         source = _result()
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7871563Z         cells = source.att_gt.sort_values("event_time")
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7872962Z         raw = source.diagnostics["influence_scores"].loc[:, cells.cell_id].to_numpy()
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7873471Z         centered = raw-raw.mean(axis=0)
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7873826Z         cov = centered.T @ centered/len(raw)**2
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7874273Z         generic = HonestDiD(cells.att.to_numpy(), cov, cells.event_time)
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7874672Z         rng_before = np.random.get_state()
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7875016Z         with patch.object(CallawaySantAnnaDID, "fit", side_effect=AssertionError("fit")), \
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7875482Z                 patch.object(CallawaySantAnnaDID, "estimate", side_effect=AssertionError("estimate")):
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7875865Z             snapshot = HonestDiD.from_did(source)
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7876118Z         after = np.random.get_state()
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7876378Z         np.testing.assert_array_equal(rng_before[1], after[1])
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7876642Z         assert rng_before[2:] == after[2:]
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7876907Z         for restriction in ["smoothness", "relative_magnitude"]:
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7877350Z >           assert snapshot.infer(restriction=restriction, bound=.2) == generic.infer(restriction=restriction, bound=.2)
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7877900Z E           AssertionError: assert HonestDiDResu...i-projection') == HonestDiDResu...i-projection')
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7878249Z E             
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7878452Z E             Omitting 7 identical items, use -vv to show
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7878699Z E             Differing attributes:
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7878907Z E             ['confidence_set']
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7879096Z E             
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7879295Z E             Drill down into differing attribute confidence_set:
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7879746Z E               confidence_set: ((1.4061413660196904, 2.3120474494654175),) != ((1.4061413660196904, 2.312047449465418),)
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7880232Z E               At index 0 diff: (1.4061413660196904, 2.3120474494654175) != (1.4061413660196904, 2.312047449465418)
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7880552Z E               
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7880719Z E               Full diff:
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7880892Z E                 (
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7881051Z E                     (
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7881229Z E                         1.4061413660196904,
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7881444Z E               -         2.312047449465418,
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7881653Z E               ?                         ^
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7882016Z E               +         2.3120474494654175,
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7882242Z E               ?                         ^^
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7882436Z E                     ),
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7882601Z E                 )
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7882698Z 
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:56.7882826Z tests/scenarios/did/test_honest_did.py:152: AssertionError
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.0852880Z FAILED tests/scenarios/did/test_honest_did.py::test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model - AssertionError: assert HonestDiDResu...i-projection') == HonestDiDResu...i-projection')
+Python 3.13 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.0857500Z 1 failed, 4281 passed, 160 warnings in 144.65s (0:02:24)
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5415548Z =================================== FAILURES ===================================
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5416470Z _ test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model _
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5417729Z 
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5418308Z     def test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model():
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5419571Z         source = _result()
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5421102Z         cells = source.att_gt.sort_values("event_time")
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5422109Z         raw = source.diagnostics["influence_scores"].loc[:, cells.cell_id].to_numpy()
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5423238Z         centered = raw-raw.mean(axis=0)
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5423785Z         cov = centered.T @ centered/len(raw)**2
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5424479Z         generic = HonestDiD(cells.att.to_numpy(), cov, cells.event_time)
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5425177Z         rng_before = np.random.get_state()
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5425993Z         with patch.object(CallawaySantAnnaDID, "fit", side_effect=AssertionError("fit")), \
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5427167Z                 patch.object(CallawaySantAnnaDID, "estimate", side_effect=AssertionError("estimate")):
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5428092Z             snapshot = HonestDiD.from_did(source)
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5428638Z         after = np.random.get_state()
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5429158Z         np.testing.assert_array_equal(rng_before[1], after[1])
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5429553Z         assert rng_before[2:] == after[2:]
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5430242Z         for restriction in ["smoothness", "relative_magnitude"]:
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5430945Z >           assert snapshot.infer(restriction=restriction, bound=.2) == generic.infer(restriction=restriction, bound=.2)
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5431835Z E           AssertionError: assert HonestDiDResu...i-projection') == HonestDiDResu...i-projection')
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5432397Z E             
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5432680Z E             Omitting 7 identical items, use -vv to show
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5433048Z E             Differing attributes:
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5433354Z E             ['confidence_set']
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5433625Z E             
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5433920Z E             Drill down into differing attribute confidence_set:
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5434487Z E               confidence_set: ((1.4061413660196904, 2.3120474494654175),) != ((1.4061413660196904, 2.312047449465418),)
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5435123Z E               At index 0 diff: (1.4061413660196904, 2.3120474494654175) != (1.4061413660196904, 2.312047449465418)
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5435558Z E               
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5435758Z E               Full diff:
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5435971Z E                 (
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5436166Z E                     (
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5436390Z E                         1.4061413660196904,
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5436660Z E               -         2.312047449465418,
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5436924Z E               ?                         ^
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5437177Z E               +         2.3120474494654175,
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5437426Z E               ?                         ^^
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5437679Z E                     ),
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5437887Z E                 )
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5438005Z 
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.5438168Z tests/scenarios/did/test_honest_did.py:152: AssertionError
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.8516853Z FAILED tests/scenarios/did/test_honest_did.py::test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model - AssertionError: assert HonestDiDResu...i-projection') == HonestDiDResu...i-projection')
+Python 3.10 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:13:14.8522799Z 1 failed, 4281 passed, 393 warnings in 212.49s (0:03:32)
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9585697Z =================================== FAILURES ===================================
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9586429Z _ test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model _
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9586950Z 
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9587322Z     def test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model():
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9588244Z         source = _result()
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9588738Z         cells = source.att_gt.sort_values("event_time")
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9589328Z         raw = source.diagnostics["influence_scores"].loc[:, cells.cell_id].to_numpy()
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9589944Z         centered = raw-raw.mean(axis=0)
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9590422Z         cov = centered.T @ centered/len(raw)**2
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9590911Z         generic = HonestDiD(cells.att.to_numpy(), cov, cells.event_time)
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9591444Z         rng_before = np.random.get_state()
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9592015Z         with patch.object(CallawaySantAnnaDID, "fit", side_effect=AssertionError("fit")), \
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9592808Z                 patch.object(CallawaySantAnnaDID, "estimate", side_effect=AssertionError("estimate")):
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9593439Z             snapshot = HonestDiD.from_did(source)
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9593850Z         after = np.random.get_state()
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9594536Z         np.testing.assert_array_equal(rng_before[1], after[1])
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9594996Z         assert rng_before[2:] == after[2:]
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9595505Z         for restriction in ["smoothness", "relative_magnitude"]:
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9596282Z >           assert snapshot.infer(restriction=restriction, bound=.2) == generic.infer(restriction=restriction, bound=.2)
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9597159Z E           AssertionError: assert HonestDiDResu...i-projection') == HonestDiDResu...i-projection')
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9597795Z E             
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9598188Z E             Omitting 7 identical items, use -vv to show
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9598785Z E             Differing attributes:
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9599457Z E             ['confidence_set']
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9599975Z E             
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9600547Z E             Drill down into differing attribute confidence_set:
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9601634Z E               confidence_set: ((1.4061413660196904, 2.3120474494654175),) != ((1.4061413660196904, 2.312047449465418),)
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9602969Z E               At index 0 diff: (1.4061413660196904, 2.3120474494654175) != (1.4061413660196904, 2.312047449465418)
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9604170Z E               
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9604664Z E               Full diff:
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9605162Z E                 (
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9605710Z E                     (
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9606186Z E                         1.4061413660196904,
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9606817Z E               -         2.312047449465418,
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9607406Z E               ?                         ^
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9607986Z E               +         2.3120474494654175,
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9608585Z E               ?                         ^^
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9609159Z E                     ),
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9609660Z E                 )
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9609947Z 
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:57.9610266Z tests/scenarios/did/test_honest_did.py:152: AssertionError
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:58.1327286Z FAILED tests/scenarios/did/test_honest_did.py::test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model - AssertionError: assert HonestDiDResu...i-projection') == HonestDiDResu...i-projection')
+Python 3.12 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:11:58.1338722Z 1 failed, 4281 passed, 160 warnings in 148.83s (0:02:28)
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2141841Z =================================== FAILURES ===================================
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2142435Z _ test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model _
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2142858Z 
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2143168Z     def test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model():
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2143988Z         source = _result()
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2144316Z         cells = source.att_gt.sort_values("event_time")
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2144835Z         raw = source.diagnostics["influence_scores"].loc[:, cells.cell_id].to_numpy()
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2145527Z         centered = raw-raw.mean(axis=0)
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2145894Z         cov = centered.T @ centered/len(raw)**2
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2146345Z         generic = HonestDiD(cells.att.to_numpy(), cov, cells.event_time)
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2146810Z         rng_before = np.random.get_state()
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2147248Z         with patch.object(CallawaySantAnnaDID, "fit", side_effect=AssertionError("fit")), \
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2147732Z                 patch.object(CallawaySantAnnaDID, "estimate", side_effect=AssertionError("estimate")):
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2148096Z             snapshot = HonestDiD.from_did(source)
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2148335Z         after = np.random.get_state()
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2148595Z         np.testing.assert_array_equal(rng_before[1], after[1])
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2148856Z         assert rng_before[2:] == after[2:]
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2149115Z         for restriction in ["smoothness", "relative_magnitude"]:
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2149562Z >           assert snapshot.infer(restriction=restriction, bound=.2) == generic.infer(restriction=restriction, bound=.2)
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2150135Z E           AssertionError: assert HonestDiDResu...i-projection') == HonestDiDResu...i-projection')
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2150499Z E             
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2150701Z E             Omitting 7 identical items, use -vv to show
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2150946Z E             Differing attributes:
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2151199Z E             ['confidence_set']
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2151384Z E             
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2151584Z E             Drill down into differing attribute confidence_set:
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2151987Z E               confidence_set: ((1.4061413660196904, 2.3120474494654175),) != ((1.4061413660196904, 2.312047449465418),)
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2152475Z E               At index 0 diff: (1.4061413660196904, 2.3120474494654175) != (1.4061413660196904, 2.312047449465418)
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2152803Z E               
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2152962Z E               Full diff:
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2153135Z E                 (
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2153291Z E                     (
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2153471Z E                         1.4061413660196904,
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2153686Z E               -         2.312047449465418,
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2153892Z E               ?                         ^
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2154094Z E               +         2.3120474494654175,
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2154293Z E               ?                         ^^
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2154488Z E                     ),
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2154659Z E                 )
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2154751Z 
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2154876Z tests/scenarios/did/test_honest_did.py:152: AssertionError
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2294493Z FAILED tests/scenarios/did/test_honest_did.py::test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model - AssertionError: assert HonestDiDResu...i-projection') == HonestDiDResu...i-projection')
+Python 3.14 / latest (sensitivity deferred)	UNKNOWN STEP	2026-10-08T21:12:20.2299249Z 1 failed, 4281 passed, 160 warnings in 151.41s (0:02:31)

@@ -1,0 +1,14 @@
+[
+  {
+    "excerpt": "audit/block29_initial_ci_failed_tests.log",
+    "original": "audit/block29_ci_test_temp/run-37844628093/block29_initial_ci_failed_tests.log",
+    "excerpt_sha256": "3d17dd67387febf000c27bd26369375aafbcf85d13d42de8012f8082e09a3f9b",
+    "original_sha256": "8cdd4ed0de2d055398250f0eed1f91bb177bbb83f015dbba2e0c51cd2748a326"
+  },
+  {
+    "excerpt": "audit/block29_initial_py312_ci_failed_tests.log",
+    "original": "audit/block29_ci_test_temp/run-37844628093/block29_initial_py312_ci_failed_tests.log",
+    "excerpt_sha256": "0ab79fd5548c2d3785d26105c6efd98c3ad379492026847e2f47a36e864dd744",
+    "original_sha256": "6c8ff5f982cca5b7f25e144115442ff42a2fa05abd9dd317399cc17f7dfb102f"
+  }
+]

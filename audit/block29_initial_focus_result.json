@@ -1,0 +1,31 @@
+{
+  "observed_head": "d54269201e8ab6c9fd44e01a506d868d1b61f472",
+  "source_state": "committed source; audit-only working tree",
+  "command": [
+    "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/bin/python",
+    "-m",
+    "pytest",
+    "tests/scenarios/did",
+    "tests/data/test_panel_data_did.py",
+    "tests/test_no_tests_imports_in_causalis.py",
+    "-q",
+    "--junitxml=/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block29_focus_test_temp/junit.xml",
+    "--basetemp=/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block29_focus_test_temp/pytest-temp"
+  ],
+  "source_sha256": {
+    "README.md": "9210d099d02a13abf722d9ce881e7c0a00d207bf06936dc6d7b009f99f64c4e3",
+    "causalis/scenarios/did/__init__.py": "c44fd266566e842af3fd09c0d633483da55e1ac124ca92207dcf21d5c7e11a80",
+    "causalis/scenarios/did/honest.py": "6dd31352a11d4b677cec68cd261b698893ca1c835aa7fb0813dde720715bcb48",
+    "tests/scenarios/did/test_honest_did.py": "3212903a6c10f046699cc39c9cb7fe87828b5434c4f90810dafb765c5df2b207"
+  },
+  "exit_code": 0,
+  "tests": 420,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "new_cases": 190,
+  "passed": 420,
+  "warnings": 3,
+  "pytest_elapsed_seconds": 31.71,
+  "junit_sha256": "ebf6a15dc372c9706a93862b52c03ea0304bf4fba32bde86a5c49391a9701d4f"
+}

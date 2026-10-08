@@ -10,7 +10,7 @@
 
 1. `AGENTS.md` — локальная `.venv` обязательна. На текущем Mac использовать **`.venv/bin/python`**, Python3.12.14, не старый backing path `/Users/ioann/...`. Окружение восстановлено из project extras dev/docs, dependencycheck и5setupsmoketests прошли. Local setup manifest `.venv/setup-environment.json`; B09 integration manifest записывает реальные проверенные версии.
 2. `audit/FIX_PLAN.md` — порядок блоков, scope gates и deferred findings.
-3. Этот файл и **`audit/BLOCK28_WEAK_IV.md`** — последнее состояние; B28 завершён, final source/local/docs/CI/root gates проверены; audit checkpoint через gitlog-1. B09–B18 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
+3. Этот файл и **`audit/BLOCK29_HONEST_DID.md`** — последнее состояние; B29 завершён, final source/local/docs/CI/root gates проверены; audit checkpoint через gitlog-1. B09–B18 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
 4. `audit/REPORT.md` — исторический аудит исходного SHA, не текущий residual bug count.
 
 ## Git
@@ -21,7 +21,60 @@ GitHub авторизация завершена пользователем и �
 
 ## Текущая работа
 
-## B28 — завершён: weak-IV LATE (8 October 2026)
+## B29 — завершён: HonestDiD-style trend projection (9 October 2026)
+
+Baseline `d88299887f96bd032fe3533349b2e2eb28ecf4ef`;
+implementation `d54269201e8ab6c9fd44e01a506d868d1b61f472`;
+final source `2c63f8d73c5d6f3ca15c4ca17ab0c1beb296f720`.
+[Report](BLOCK29_HONEST_DID.md). Public `HonestDiD` owns coefficient estimates,
+estimator covariance and consecutive event times omitting reference -1.
+`infer(restriction="smoothness"|"relative_magnitude",bound=...,post_weights=...,alpha=.05)`
+returns immutable aggregate `HonestDiDResult` with a closed interval tuple or an
+explicit empty set. Conservative Bonferroni rectangle projection includes
+pre-estimate uncertainty; it is not the original R conditional/hybrid/optimal
+FLCI implementation. Smoothness M=0 permits linear gap; RM Mbar=0 zero post
+violation. Prespecified population restriction/common population/no anticipation,
+normal limits and consistent variances required; no finite-sample/few-cluster,
+selection, invalid-design or nuisance/clipping repair guarantee.
+
+Pure `from_did(csa_result)` supports one cohort, never-treated, universal base,
+zero anticipation, iid inference, equally spaced periods and identical complete
+unit/treated/control memberships, diagnostic_data=True. Varying/staggered/
+clustered/changing-population inputs reject. Owned values/SEs, no refit/source
+mutation/RNG. Generic arrays cannot certify or bypass those assumptions.
+Smoothness uses two LPs, validates primal/dual conditions; empty means model
+incompatibility, not significance. RM uses exact rectangle support formulas.
+Numerical LP endpoints retain float64 tolerance; extreme dynamic ranges fail.
+
+Final local focus420passed/3warnings/36.66s,190new; committed correctness
+4282passed/157warnings/166.63s,0failures/errors/skips, all4092B28case IDs retained.
+Strict standalone Sphinx exit0/25.165s. Final CI37845415092 exact2c63f8d, all six
+Linux artifacts4282passed/strictdocs0, full/focus/source/args/hashes verified.
+Handoff167immutablelinks/issues[]. Root --require-ci verifies final gates,
+151existing source/workflow Python/YAML paths and186existing Python test paths
+unchanged, plus four-path full source diff. Exact current integration basetemp
+removed; focus basetemp was not created. Raw JUnits/docs/CI evidence retained
+under ignored runtime trees, synthetic fixtures only, no client downloads.
+
+Initial d542692 local4282green but CI37844628093 all six4281passed/1failed,
+same new adapter oracle asserting bitwise endpoint equality for equivalent
+covariance products. Difference one ULP~4.44e-16. Actual raw logs/artifacts and
+initial local results preserved separately. Fix2c63f8d touches only new test,
+uses rtol=atol=2e-12 and retains SE, geometry, ownership/callback/RNG checks.
+No library or old-test change. Two development fixture failures and one audit
+self-link ordering error are also transparently recorded; not feature failures.
+
+Persistent user «Разрешаю пуш в нашу ветку» covers ordinary personal-branch
+pushes, including final audit-only checkpoint through gitlog-1. No rejection,
+PR/upstream/main/forcepush/release/auth reset/dependency refresh/website or
+external message. Stop at B29, then context cleanup. Next B30 policy costs/
+capacity only after new user request: establish target/net policy value,
+cost/capacity assumptions and current policy API before implementation.
+Deferred DML sensitivity rewrite/seven exclusions, SC08LOO/selected-UATT,
+multi-IV repetition/grouping, few/multiway clusters, NumPy/RST debt remain
+separate. B29 does not resume the upstream DML sensitivity rewrite.
+
+## B28 — исторический завершённый блок: weak-IV LATE (8 October 2026)
 
 Baseline `ab789bff3d03f6d2b20023c7d259adcdd8cc7019`;
 final source `b9110f0d24d3cc8a107883720d2e475f4317f085`.

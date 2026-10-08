@@ -1,0 +1,20 @@
+........................................................................ [ 38%]
+........................................................................ [ 77%]
+.......................................F...                              [100%]
+=================================== FAILURES ===================================
+_ test_actual_missing_calendar_period_is_rejected_even_when_event_indices_are_consecutive _
+
+    def test_actual_missing_calendar_period_is_rejected_even_when_event_indices_are_consecutive():
+        panel = _panel()
+        frame = panel.df_analysis()
+        frame = frame.loc[frame.time != pd.Period("2020-02", freq="M")]
+>       data = PanelDataDID(df=frame, y="y", unit_col="unit", time_col="time", treated_time="d")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       pydantic_core._pydantic_core.ValidationError: 1 validation error for PanelDataDID
+E         Value error, Analysis time axis has gaps relative to inferred time_freq. Missing periods: [Period('2020-02', 'M')] [type=value_error, input_value={'df':      unit     time...e', 'treated_time': 'd'}, input_type=dict]
+E           For further information visit https://errors.pydantic.dev/2.13/v/value_error
+
+tests/scenarios/did/test_honest_did.py:321: ValidationError
+=========================== short test summary info ============================
+FAILED tests/scenarios/did/test_honest_did.py::test_actual_missing_calendar_period_is_rejected_even_when_event_indices_are_consecutive
+1 failed, 186 passed in 7.09s

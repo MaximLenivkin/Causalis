@@ -1206,3 +1206,48 @@ Immutable sources:
 - [Public exports](https://github.com/MaximLenivkin/Causalis/blob/b9110f0d24d3cc8a107883720d2e475f4317f085/causalis/scenarios/iv/__init__.py)
 - [Independent oracles and regression checks](https://github.com/MaximLenivkin/Causalis/blob/b9110f0d24d3cc8a107883720d2e475f4317f085/tests/inference/test_iivm_weak.py)
 - [Usage and assumptions](https://github.com/MaximLenivkin/Causalis/blob/b9110f0d24d3cc8a107883720d2e475f4317f085/README.md)
+
+## B29 — Conservative HonestDiD-style trend projection
+
+Ready-to-use English wording:
+
+Causalis provides `HonestDiD` with two population restrictions on event-study
+trend violations: absolute smoothness bounds on second differences and relative
+magnitude bounds on post first differences. Inputs are coefficient estimates,
+estimator covariance and ordered event times excluding the common reference -1.
+The method projects a joint Bonferroni Gaussian rectangle, including uncertainty
+in pre-trends. It is conservative and does not implement the original HonestDiD
+R package's conditional, hybrid or optimal fixed-length confidence sets.
+
+A zero smoothness bound permits a linear counterfactual gap. A zero relative
+magnitude bound imposes zero post violation while leaving pre violations free.
+The supplied post contrast can be signed and defaults to time 0. Bounds and
+contrasts must be prespecified. Validity requires no anticipation, common
+populations/reference/comparison, consistent variances, asymptotic normality
+and the imposed population restriction. No finite-sample or few-cluster coverage
+is certified, and invalid identification, clipping/nuisance bias and adaptive
+selection are not repaired. Off-diagonal covariance is validated but unused.
+
+`HonestDiD.from_did(result)` snapshots a narrow supported CSA result: one cohort,
+never-treated controls, universal base, no anticipation, equally spaced periods,
+iid inference, complete identical treated/control memberships in every cell,
+and diagnostic data enabled. It does not fit, estimate, consume random numbers
+or alter the source result. Staggered aggregation, varying pre bases, clustered
+results and changing populations are rejected. Prior manual result edits are
+not certified; later edits do not change the owned snapshot.
+
+`HonestDiDResult.confidence_set` contains one closed interval or is explicitly
+empty if the confidence rectangle cannot satisfy the restriction. Empty is
+model incompatibility, not treatment-effect significance. No p-value or ordinary
+interval fallback is manufactured. Smoothness uses two LPs with checked primal
+and dual residuals; endpoints retain float64 tolerance and unsupported extreme
+dynamic ranges fail explicitly. Relative magnitudes use a closed-form
+projection that accounts for uncertain pre slopes. Results contain aggregates
+only. Existing CSA estimation/aggregation and deferred DML sensitivity code are
+unchanged.
+
+Immutable sources:
+[implementation](https://github.com/MaximLenivkin/Causalis/blob/2c63f8d73c5d6f3ca15c4ca17ab0c1beb296f720/causalis/scenarios/did/honest.py),
+[exports](https://github.com/MaximLenivkin/Causalis/blob/2c63f8d73c5d6f3ca15c4ca17ab0c1beb296f720/causalis/scenarios/did/__init__.py),
+[analytic/vertex/CSA regression tests](https://github.com/MaximLenivkin/Causalis/blob/2c63f8d73c5d6f3ca15c4ca17ab0c1beb296f720/tests/scenarios/did/test_honest_did.py),
+[README examples and assumptions](https://github.com/MaximLenivkin/Causalis/blob/2c63f8d73c5d6f3ca15c4ca17ab0c1beb296f720/README.md).

@@ -673,3 +673,22 @@ B28 for context cleanup; next B29HonestDiD requires a new user request.
 Sensitivity/SC08LOO/selected-UATT/multi-IVrepetitions/grouping/few-multiwayclusters/
 NumPyRST debt remain separate. No subagents/login/setup/fork/upstream/main/
 forcepush/PR/release/notebooks/website/external messages.
+
+## B29 — completed: conservative HonestDiD-style projection, 9 October 2026
+
+Report [BLOCK29_HONEST_DID.md](BLOCK29_HONEST_DID.md). Baseline d882998,
+implementationd542692, finalsource2c63f8d. Two population trend restrictions
+(smoothness/relative magnitude), joint Bonferroni Gaussian rectangle projection
+with pre-trend uncertainty, signed fixed post contrasts, explicit empty sets,
+owned pure single-cohort iid CSA adapter. Existing CSA and deferred DML
+sensitivity algorithms untouched; original R optimized inference not claimed.
+Final190new/420focus/4282correctnesspassed; strictSphinx exit0/25.165s.
+CI37845415092 exact2c63f8d allsix4282passed/docs0 and artifacts verified;
+all4092oldcase IDs retained,167handoff immutable links/issues[]. InitialCI
+37844628093 allsix4281passed/1failed on one new bitwise floating endpoint
+comparison; one-ULP portability fix changes only that new test, with complete
+history preserved. Two actual source CI runs, no arbitrary rerun. Exact owned
+integration basetemps removed, synthetic-only. Three commits including final
+audit checkpoint via gitlog-1; authorized personal-branch pushes/clean state
+checked at completion. Stop B29; nextB30policy costs/capacity after user request.
+Seven deferred DML sensitivity exclusions remain outside a full release gate.

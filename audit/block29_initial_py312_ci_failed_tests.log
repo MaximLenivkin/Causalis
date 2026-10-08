@@ -1,0 +1,44 @@
+Failure excerpts; complete original logs and hashes are recorded in block29_initial_log_result.json.
+2026-10-08T21:11:57.9585697Z =================================== FAILURES ===================================
+2026-10-08T21:11:57.9586429Z _ test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model _
+2026-10-08T21:11:57.9586950Z 
+2026-10-08T21:11:57.9587322Z     def test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model():
+2026-10-08T21:11:57.9588244Z         source = _result()
+2026-10-08T21:11:57.9588738Z         cells = source.att_gt.sort_values("event_time")
+2026-10-08T21:11:57.9589328Z         raw = source.diagnostics["influence_scores"].loc[:, cells.cell_id].to_numpy()
+2026-10-08T21:11:57.9589944Z         centered = raw-raw.mean(axis=0)
+2026-10-08T21:11:57.9590422Z         cov = centered.T @ centered/len(raw)**2
+2026-10-08T21:11:57.9590911Z         generic = HonestDiD(cells.att.to_numpy(), cov, cells.event_time)
+2026-10-08T21:11:57.9591444Z         rng_before = np.random.get_state()
+2026-10-08T21:11:57.9592015Z         with patch.object(CallawaySantAnnaDID, "fit", side_effect=AssertionError("fit")), \
+2026-10-08T21:11:57.9592808Z                 patch.object(CallawaySantAnnaDID, "estimate", side_effect=AssertionError("estimate")):
+2026-10-08T21:11:57.9593439Z             snapshot = HonestDiD.from_did(source)
+2026-10-08T21:11:57.9593850Z         after = np.random.get_state()
+2026-10-08T21:11:57.9594536Z         np.testing.assert_array_equal(rng_before[1], after[1])
+2026-10-08T21:11:57.9594996Z         assert rng_before[2:] == after[2:]
+2026-10-08T21:11:57.9595505Z         for restriction in ["smoothness", "relative_magnitude"]:
+2026-10-08T21:11:57.9596282Z >           assert snapshot.infer(restriction=restriction, bound=.2) == generic.infer(restriction=restriction, bound=.2)
+2026-10-08T21:11:57.9597159Z E           AssertionError: assert HonestDiDResu...i-projection') == HonestDiDResu...i-projection')
+2026-10-08T21:11:57.9597795Z E             
+2026-10-08T21:11:57.9598188Z E             Omitting 7 identical items, use -vv to show
+2026-10-08T21:11:57.9598785Z E             Differing attributes:
+2026-10-08T21:11:57.9599457Z E             ['confidence_set']
+2026-10-08T21:11:57.9599975Z E             
+2026-10-08T21:11:57.9600547Z E             Drill down into differing attribute confidence_set:
+2026-10-08T21:11:57.9601634Z E               confidence_set: ((1.4061413660196904, 2.3120474494654175),) != ((1.4061413660196904, 2.312047449465418),)
+2026-10-08T21:11:57.9602969Z E               At index 0 diff: (1.4061413660196904, 2.3120474494654175) != (1.4061413660196904, 2.312047449465418)
+2026-10-08T21:11:57.9604170Z E               
+2026-10-08T21:11:57.9604664Z E               Full diff:
+2026-10-08T21:11:57.9605162Z E                 (
+2026-10-08T21:11:57.9605710Z E                     (
+2026-10-08T21:11:57.9606186Z E                         1.4061413660196904,
+2026-10-08T21:11:57.9606817Z E               -         2.312047449465418,
+2026-10-08T21:11:57.9607406Z E               ?                         ^
+2026-10-08T21:11:57.9607986Z E               +         2.3120474494654175,
+2026-10-08T21:11:57.9608585Z E               ?                         ^^
+2026-10-08T21:11:57.9609159Z E                     ),
+2026-10-08T21:11:57.9609660Z E                 )
+2026-10-08T21:11:57.9609947Z 
+2026-10-08T21:11:57.9610266Z tests/scenarios/did/test_honest_did.py:152: AssertionError
+2026-10-08T21:11:58.1327286Z FAILED tests/scenarios/did/test_honest_did.py::test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_model - AssertionError: assert HonestDiDResu...i-projection') == HonestDiDResu...i-projection')
+2026-10-08T21:11:58.1338722Z 1 failed, 4281 passed, 160 warnings in 148.83s (0:02:28)

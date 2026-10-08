@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/verify_block29.py", line 157, in <module>
+    main()
+  File "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/verify_block29.py", line 133, in main
+    assert all((ROOT/'audit'/p).exists() for p in local_links)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

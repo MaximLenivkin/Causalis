@@ -1,0 +1,15 @@
+{
+  "removed_owned_paths": [
+    "audit/block29_integration_test_temp/pytest-temp"
+  ],
+  "owned_paths_not_created": [
+    "audit/block29_focus_test_temp/pytest-temp"
+  ],
+  "junit_sha256": {
+    "focus": "7a35e2adb7f81cbafdf4e3626684df8cc1259ec292ade093f6b11a06cad51bea",
+    "integration": "b4c53ec4224e1be31c46750147b500f5c4f0f7732acda5778c4e484b41d9b700"
+  },
+  "client_records_downloaded": false,
+  "synthetic_fixtures_only": true,
+  "initial_cleanup_manifest": "audit/block29_initial_cleanup_result.json"
+}
