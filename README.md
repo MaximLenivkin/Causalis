@@ -27,6 +27,19 @@ Causalis focuses on:
 pip install causalis
 ```
 
+### Building the API reference
+
+Install the documentation extra with `.venv/bin/python -m pip install -e ".[docs]"`.
+Run `.venv/bin/python scripts/generate_api_reference.py --check` to build in a
+temporary directory without replacing the checked-in HTML. Sphinx warnings fail
+the build. CI records the standalone result through `scripts/run_docs_check.py`.
+
+To regenerate `notebooks/api/html`, run the generator without arguments. Use
+`--output-dir build/api-reference` for a separate local output; the generator
+replaces the entire destination directory after a successful build. Docstrings
+retain the existing MyST rendering. This build does not run notebook examples
+or validate statistical claims, sensitivity methods, or the documentation website.
+
 # Quickstart: Classic RCT (difference in means + inference)
 
 ```python

@@ -1,0 +1,210 @@
+Running Sphinx v9.1.0
+loading translations [en]... done
+myst v5.1.0: MdParserConfig(commonmark_only=False, gfm_only=False, enable_extensions=set(), disable_syntax=[], all_links_external=False, links_external_new_tab=False, url_schemes=('http', 'https', 'mailto', 'ftp'), ref_domains=None, fence_as_directive=set(), number_code_blocks=[], title_to_header=False, heading_anchors=0, heading_slug_func=None, html_meta={}, footnote_sort=True, footnote_transition=True, words_per_minute=200, substitutions={}, linkify_fuzzy_links=True, dmath_allow_labels=True, dmath_allow_space=True, dmath_allow_digits=True, dmath_double_inline=False, update_mathjax=True, mathjax_classes='tex2jax_process|mathjax_process|math|output_area', enable_checkboxes=False, strikethrough_single_tilde=False, colon_fence_exact_match=False, suppress_warnings=[], highlight_code_blocks=True)
+[Autodoc2] Analysing package...[  1%] causalis._version
+[Autodoc2] Analysing package...[  1%] causalis.__init__
+[Autodoc2] Analysing package...[  2%] causalis.dgp.rct_causal_data
+[Autodoc2] Analysing package...[  3%] causalis.dgp.__init__
+[Autodoc2] Analysing package...[  4%] causalis.dgp._gaussian_outcome
+[Autodoc2] Analysing package...[  4%] causalis.dgp.base
+[Autodoc2] Analysing package...[  5%] causalis.dgp._gaussian_joint
+[Autodoc2] Analysing package...[  6%] causalis.dgp.panel_data_scm.__init__
+[Autodoc2] Analysing package...[  6%] causalis.dgp.panel_data_scm.functional
+[Autodoc2] Analysing package...[  7%] causalis.dgp.panel_data_scm.base
+[Autodoc2] Analysing package...[  8%] causalis.dgp.causaldata.preperiod
+[Autodoc2] Analysing package...[  9%] causalis.dgp.causaldata.__init__
+[Autodoc2] Analysing package...[  9%] causalis.dgp.causaldata.functional
+[Autodoc2] Analysing package...[ 10%] causalis.dgp.causaldata.base
+[Autodoc2] Analysing package...[ 11%] causalis.dgp.multicausaldata.__init__
+[Autodoc2] Analysing package...[ 12%] causalis.dgp.multicausaldata.functional
+[Autodoc2] Analysing package...[ 12%] causalis.dgp.multicausaldata.base
+[Autodoc2] Analysing package...[ 13%] causalis.dgp.panel_data_did.__init__
+[Autodoc2] Analysing package...[ 14%] causalis.dgp.panel_data_did.functional
+[Autodoc2] Analysing package...[ 14%] causalis.dgp.panel_data_did.base
+[Autodoc2] Analysing package...[ 15%] causalis.dgp.causaldata_instrumental.__init__
+[Autodoc2] Analysing package...[ 16%] causalis.dgp.causaldata_instrumental.functional
+[Autodoc2] Analysing package...[ 17%] causalis.dgp.causaldata_instrumental.base
+[Autodoc2] Analysing package...[ 17%] causalis.shared.outcome_outliers
+[Autodoc2] Analysing package...[ 18%] causalis.shared.confounders_balance
+[Autodoc2] Analysing package...[ 19%] causalis.shared.outcome_plots
+[Autodoc2] Analysing package...[ 19%] causalis.shared.outcome_stats
+[Autodoc2] Analysing package...[ 20%] causalis.shared.__init__
+[Autodoc2] Analysing package...[ 21%] causalis.shared.confounder_clustering
+[Autodoc2] Analysing package...[ 22%] causalis.shared.sutva_validation
+[Autodoc2] Analysing package...[ 22%] causalis.shared.srm
+[Autodoc2] Analysing package...[ 23%] causalis.shared.rct_design.design
+[Autodoc2] Analysing package...[ 24%] causalis.shared.rct_design.__init__
+[Autodoc2] Analysing package...[ 24%] causalis.shared.rct_design.split
+[Autodoc2] Analysing package...[ 25%] causalis.scenarios.__init__
+[Autodoc2] Analysing package...[ 26%] causalis.scenarios._fit_state
+[Autodoc2] Analysing package...[ 27%] causalis.scenarios._orthogonal
+[Autodoc2] Analysing package...[ 27%] causalis.scenarios._numerics
+[Autodoc2] Analysing package...[ 28%] causalis.scenarios._prediction
+[Autodoc2] Analysing package...[ 29%] causalis.scenarios.did.dgp
+[Autodoc2] Analysing package...[ 29%] causalis.scenarios.did.__init__
+[Autodoc2] Analysing package...[ 30%] causalis.scenarios.did.model
+[Autodoc2] Analysing package...[ 31%] causalis.scenarios.did.refutation.post_inference_plots
+[Autodoc2] Analysing package...[ 32%] causalis.scenarios.did.refutation.diagnostics
+[Autodoc2] Analysing package...[ 32%] causalis.scenarios.did.refutation.__init__
+[Autodoc2] Analysing package...[ 33%] causalis.scenarios.did.refutation.diagnostic_plots
+[Autodoc2] Analysing package...[ 34%] causalis.scenarios.did.refutation.post_inference
+[Autodoc2] Analysing package...[ 35%] causalis.scenarios.cuped.dgp
+[Autodoc2] Analysing package...[ 35%] causalis.scenarios.cuped.__init__
+[Autodoc2] Analysing package...[ 36%] causalis.scenarios.cuped.model
+[Autodoc2] Analysing package...[ 37%] causalis.scenarios.cuped._ols
+[Autodoc2] Analysing package...[ 37%] causalis.scenarios.cuped.refutation.regression_checks
+[Autodoc2] Analysing package...[ 38%] causalis.scenarios.cuped.refutation.config
+[Autodoc2] Analysing package...[ 39%] causalis.scenarios.cuped.refutation.__init__
+[Autodoc2] Analysing package...[ 40%] causalis.scenarios.cuped.refutation.forest_plot
+[Autodoc2] Analysing package...[ 40%] causalis.scenarios.classic_rct.dgp
+[Autodoc2] Analysing package...[ 41%] causalis.scenarios.classic_rct.__init__
+[Autodoc2] Analysing package...[ 42%] causalis.scenarios.classic_rct.model
+[Autodoc2] Analysing package...[ 42%] causalis.scenarios.classic_rct.inference.ttest
+[Autodoc2] Analysing package...[ 43%] causalis.scenarios.classic_rct.inference.__init__
+[Autodoc2] Analysing package...[ 44%] causalis.scenarios.classic_rct.inference.welch_permutation_t_test
+[Autodoc2] Analysing package...[ 45%] causalis.scenarios.classic_rct.inference.conversion_ztest
+[Autodoc2] Analysing package...[ 45%] causalis.scenarios.synthetic_control.dgp
+[Autodoc2] Analysing package...[ 46%] causalis.scenarios.synthetic_control.__init__
+[Autodoc2] Analysing package...[ 47%] causalis.scenarios.synthetic_control.model
+[Autodoc2] Analysing package...[ 47%] causalis.scenarios.synthetic_control._utils
+[Autodoc2] Analysing package...[ 48%] causalis.scenarios.synthetic_control.refutation.__init__
+[Autodoc2] Analysing package...[ 49%] causalis.scenarios.synthetic_control.refutation.sensitivity
+[Autodoc2] Analysing package...[ 50%] causalis.scenarios.synthetic_control.refutation.donors_diagnostics
+[Autodoc2] Analysing package...[ 50%] causalis.scenarios.synthetic_control.refutation.scm_diagnostics
+[Autodoc2] Analysing package...[ 51%] causalis.scenarios.synthetic_control.refutation.placebo
+[Autodoc2] Analysing package...[ 52%] causalis.scenarios.synthetic_control.refutation.diagnostic_plots
+[Autodoc2] Analysing package...[ 53%] causalis.scenarios.synthetic_control.refutation.outcome_panel_plot
+[Autodoc2] Analysing package...[ 53%] causalis.scenarios.unconfoundedness.dgp
+[Autodoc2] Analysing package...[ 54%] causalis.scenarios.unconfoundedness.__init__
+[Autodoc2] Analysing package...[ 55%] causalis.scenarios.unconfoundedness.model
+[Autodoc2] Analysing package...[ 55%] causalis.scenarios.unconfoundedness._diagnostic_utils
+[Autodoc2] Analysing package...[ 56%] causalis.scenarios.unconfoundedness._score_utils
+[Autodoc2] Analysing package...[ 57%] causalis.scenarios.unconfoundedness._utils
+[Autodoc2] Analysing package...[ 58%] causalis.scenarios.unconfoundedness.refutation.__init__
+[Autodoc2] Analysing package...[ 58%] causalis.scenarios.unconfoundedness.refutation._shared
+[Autodoc2] Analysing package...[ 59%] causalis.scenarios.unconfoundedness.refutation.unconfoundedness.unconfoundedness_validation
+[Autodoc2] Analysing package...[ 60%] causalis.scenarios.unconfoundedness.refutation.unconfoundedness.__init__
+[Autodoc2] Analysing package...[ 60%] causalis.scenarios.unconfoundedness.refutation.unconfoundedness.sensitivity
+[Autodoc2] Analysing package...[ 61%] causalis.scenarios.unconfoundedness.refutation.unconfoundedness.love_plot
+[Autodoc2] Analysing package...[ 62%] causalis.scenarios.unconfoundedness.refutation.score.score_validation
+[Autodoc2] Analysing package...[ 63%] causalis.scenarios.unconfoundedness.refutation.score.influence_plot
+[Autodoc2] Analysing package...[ 63%] causalis.scenarios.unconfoundedness.refutation.score.__init__
+[Autodoc2] Analysing package...[ 64%] causalis.scenarios.unconfoundedness.refutation.score.residual_plots
+[Autodoc2] Analysing package...[ 65%] causalis.scenarios.unconfoundedness.refutation.overlap.overlap_validation
+[Autodoc2] Analysing package...[ 65%] causalis.scenarios.unconfoundedness.refutation.overlap.feature_importance_plot
+[Autodoc2] Analysing package...[ 66%] causalis.scenarios.unconfoundedness.refutation.overlap.overlap_plot
+[Autodoc2] Analysing package...[ 67%] causalis.scenarios.unconfoundedness.refutation.overlap.__init__
+[Autodoc2] Analysing package...[ 68%] causalis.scenarios.unconfoundedness.refutation.overlap.reliability_plot
+[Autodoc2] Analysing package...[ 68%] causalis.scenarios.uplift.policy
+[Autodoc2] Analysing package...[ 69%] causalis.scenarios.uplift.__init__
+[Autodoc2] Analysing package...[ 70%] causalis.scenarios.uplift.model
+[Autodoc2] Analysing package...[ 71%] causalis.scenarios.gate.gate_plot
+[Autodoc2] Analysing package...[ 71%] causalis.scenarios.gate.__init__
+[Autodoc2] Analysing package...[ 72%] causalis.scenarios.gate.model
+[Autodoc2] Analysing package...[ 73%] causalis.scenarios.iv.dgp
+[Autodoc2] Analysing package...[ 73%] causalis.scenarios.iv.__init__
+[Autodoc2] Analysing package...[ 74%] causalis.scenarios.iv.model
+[Autodoc2] Analysing package...[ 75%] causalis.scenarios.iv.refutation.diagnostics
+[Autodoc2] Analysing package...[ 76%] causalis.scenarios.iv.refutation.__init__
+[Autodoc2] Analysing package...[ 76%] causalis.scenarios.iv.refutation.iv_confounders_balance
+[Autodoc2] Analysing package...[ 77%] causalis.scenarios.multi_unconfoundedness.dgp
+[Autodoc2] Analysing package...[ 78%] causalis.scenarios.multi_unconfoundedness.__init__
+[Autodoc2] Analysing package...[ 78%] causalis.scenarios.multi_unconfoundedness.model
+[Autodoc2] Analysing package...[ 79%] causalis.scenarios.multi_unconfoundedness._utils
+[Autodoc2] Analysing package...[ 80%] causalis.scenarios.multi_unconfoundedness.refutation.__init__
+[Autodoc2] Analysing package...[ 81%] causalis.scenarios.multi_unconfoundedness.refutation.unconfoundedness.unconfoundedness_validation
+[Autodoc2] Analysing package...[ 81%] causalis.scenarios.multi_unconfoundedness.refutation.unconfoundedness.__init__
+[Autodoc2] Analysing package...[ 82%] causalis.scenarios.multi_unconfoundedness.refutation.unconfoundedness.sensitivity
+[Autodoc2] Analysing package...[ 83%] causalis.scenarios.multi_unconfoundedness.refutation.score.score_validation
+[Autodoc2] Analysing package...[ 83%] causalis.scenarios.multi_unconfoundedness.refutation.score.__init__
+[Autodoc2] Analysing package...[ 84%] causalis.scenarios.multi_unconfoundedness.refutation.score.residual_plots
+[Autodoc2] Analysing package...[ 85%] causalis.scenarios.multi_unconfoundedness.refutation.overlap.overlap_validation
+[Autodoc2] Analysing package...[ 86%] causalis.scenarios.multi_unconfoundedness.refutation.overlap.overlap_plot
+[Autodoc2] Analysing package...[ 86%] causalis.scenarios.multi_unconfoundedness.refutation.overlap.__init__
+[Autodoc2] Analysing package...[ 87%] causalis.data_contracts.panel_did_estimate
+[Autodoc2] Analysing package...[ 88%] causalis.data_contracts.gate_contrast_estimate
+[Autodoc2] Analysing package...[ 88%] causalis.data_contracts._duplicate_columns
+[Autodoc2] Analysing package...[ 89%] causalis.data_contracts.sensitivity_analysis_result
+[Autodoc2] Analysing package...[ 90%] causalis.data_contracts.causal_diagnostic_data
+[Autodoc2] Analysing package...[ 91%] causalis.data_contracts.rct_causal_data
+[Autodoc2] Analysing package...[ 91%] causalis.data_contracts.causal_estimate
+[Autodoc2] Analysing package...[ 92%] causalis.data_contracts.panel_data_scm
+[Autodoc2] Analysing package...[ 93%] causalis.data_contracts.__init__
+[Autodoc2] Analysing package...[ 94%] causalis.data_contracts.panel_estimate
+[Autodoc2] Analysing package...[ 94%] causalis.data_contracts.iv_causal_data
+[Autodoc2] Analysing package...[ 95%] causalis.data_contracts._did_comparison_units
+[Autodoc2] Analysing package...[ 96%] causalis.data_contracts.iv_causal_estimate
+[Autodoc2] Analysing package...[ 96%] causalis.data_contracts.multicausal_estimate
+[Autodoc2] Analysing package...[ 97%] causalis.data_contracts.rct_estimates
+[Autodoc2] Analysing package...[ 98%] causalis.data_contracts.panel_data_did
+[Autodoc2] Analysing package...[ 99%] causalis.data_contracts.causaldata
+[Autodoc2] Analysing package...[ 99%] causalis.data_contracts.gate_estimate
+[Autodoc2] Analysing package...[100%] causalis.data_contracts.multicausaldata
+
+[Autodoc2] Determining files to write ...
+[Autodoc2] Writing modules...[  1%] causalis
+[Autodoc2] Writing modules...[  1%] causalis.data_contracts
+[Autodoc2] Writing modules...[  2%] causalis.data_contracts.multicausaldata
+WARNING: causalis.data_contracts: causalis.data_contracts: 'generate_rct' is unknown [autodoc2.all_resolve] [autodoc2.all_resolve]
+WARNING: causalis.data_contracts: causalis.data_contracts: 'generate_classic_rct' is unknown [autodoc2.all_resolve] [autodoc2.all_resolve]
+WARNING: causalis.data_contracts: causalis.data_contracts: 'classic_rct_gamma' is unknown [autodoc2.all_resolve] [autodoc2.all_resolve]
+WARNING: causalis.data_contracts: causalis.data_contracts: 'obs_linear_effect' is unknown [autodoc2.all_resolve] [autodoc2.all_resolve]
+WARNING: causalis.data_contracts: causalis.data_contracts: 'make_gold_linear' is unknown [autodoc2.all_resolve] [autodoc2.all_resolve]
+WARNING: causalis.data_contracts: causalis.data_contracts: 'obs_linear_26_dataset' is unknown [autodoc2.all_resolve] [autodoc2.all_resolve]
+WARNING: causalis.data_contracts: causalis.data_contracts: 'generate_classic_rct_26' is unknown [autodoc2.all_resolve] [autodoc2.all_resolve]
+WARNING: causalis.data_contracts: causalis.data_contracts: 'classic_rct_gamma_26' is unknown [autodoc2.all_resolve] [autodoc2.all_resolve]
+WARNING: causalis.data_contracts: causalis.data_contracts: 'generate_cuped_binary' is unknown [autodoc2.all_resolve] [autodoc2.all_resolve]
+WARNING: causalis.data_contracts: causalis.data_contracts: 'make_cuped_binary_26' is unknown [autodoc2.all_resolve] [autodoc2.all_resolve]
+WARNING: causalis.data_contracts: causalis.data_contracts: 'CausalDatasetGenerator' is unknown [autodoc2.all_resolve] [autodoc2.all_resolve]
+WARNING: causalis.data_contracts: causalis.data_contracts: 'generate_iv_data' is unknown [autodoc2.all_resolve] [autodoc2.all_resolve]
+WARNING: causalis.data_contracts: causalis.data_contracts: 'InstrumentalGenerator' is unknown [autodoc2.all_resolve] [autodoc2.all_resolve]
+WARNING: causalis.data_contracts: causalis.data_contracts: 'IVCausalDatasetGenerator' is unknown [autodoc2.all_resolve] [autodoc2.all_resolve]
+
+Extension error (autodoc2.sphinx.extension)!
+
+Versions
+========
+
+* Platform:         darwin; (macOS-26.6.2-arm64-arm-64bit)
+* Python version:   3.12.14 (CPython)
+* Sphinx version:   9.1.0
+* Docutils version: 0.22.4
+* Jinja2 version:   3.1.6
+* Pygments version: 2.21.0
+
+Last Messages
+=============
+
+None.
+
+Loaded Extensions
+=================
+
+None.
+
+Traceback
+=========
+
+      File "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/lib/python3.12/site-packages/sphinx/events.py", line 452, in emit
+        raise ExtensionError(
+    sphinx.errors.ExtensionError: Handler <function run_autodoc at 0x10d05c360> for event 'builder-inited' threw an exception (exception: 'causalis.data_contracts.multicausaldata' does not have an __all__)
+
+
+The full traceback has been saved in:
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/sphinx-err-7h3t2146.log
+
+To report this error to the developers, please open an issue at <https://github.com/sphinx-doc/sphinx/issues/>. Thanks!
+Please also report this if it was a user error, so that a better error message can be provided next time.
+Traceback (most recent call last):
+  File "/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b21-parser-y90gwlgc/repo/scripts/generate_api_reference.py", line 173, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b21-parser-y90gwlgc/repo/scripts/generate_api_reference.py", line 167, in main
+    html_dir = generate_api_reference()
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b21-parser-y90gwlgc/repo/scripts/generate_api_reference.py", line 161, in generate_api_reference
+    staged_output = _build_staged_output()
+                    ^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b21-parser-y90gwlgc/repo/scripts/generate_api_reference.py", line 122, in _build_staged_output
+    raise RuntimeError(f"Sphinx build failed with exit code {result}.")
+RuntimeError: Sphinx build failed with exit code 2.

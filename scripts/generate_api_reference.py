@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import argparse
 import os
 import shutil
 import sys
@@ -40,7 +41,6 @@ def _write_conf_py(source_dir: Path) -> None:
         extensions = [
             "myst_parser",
             "autodoc2",
-            "sphinx.ext.napoleon",
         ]
 
         project = "Causalis API Reference"
@@ -59,12 +59,15 @@ def _write_conf_py(source_dir: Path) -> None:
         ]
         autodoc2_output_dir = "apidocs"
         autodoc2_render_plugin = "myst"
-        autodoc2_module_all_regexes = [r"causalis(\\\\..*)?"]
-        autodoc2_docstring_parser_regexes = [(r"causalis(\\\\..*)?", "rst")]
+        # Only the root package requires __all__. Many child modules have no
+        # __all__, and static analysis cannot resolve every lazy re-export.
+        autodoc2_module_all_regexes = [r"causalis"]
+        # Preserve the existing MyST docstring rendering. The former escaped
+        # regex never selected child docstrings for RST parsing. A migration
+        # to NumPy/RST needs a separate review of the mixed-format corpus.
+        autodoc2_docstring_parser_regexes = []
         autodoc2_hidden_objects = ["private", "inherited"]
 
-        napoleon_numpy_docstring = True
-        napoleon_google_docstring = False
         """
     ).strip()
     (source_dir / "conf.py").write_text(conf_text + "\n", encoding="utf-8")
@@ -104,7 +107,7 @@ def _write_reference_page(source_dir: Path) -> None:
     (apidocs_dir / "index.md").write_text(apidocs_index_text, encoding="utf-8")
 
 
-def _build_staged_output() -> Path:
+def _build_staged_output(output_dir: Path) -> Path:
     build_main = _require_docs_dependencies()
 
     with tempfile.TemporaryDirectory(prefix="generate_api_reference_") as tmp_dir:
@@ -117,7 +120,9 @@ def _build_staged_output() -> Path:
         _write_conf_py(source_dir)
         _write_reference_page(source_dir)
 
-        result = build_main(["-b", "html", str(source_dir), str(build_dir)])
+        result = build_main([
+            "-W", "--keep-going", "-b", "html", str(source_dir), str(build_dir)
+        ])
         if result != 0:
             raise RuntimeError(f"Sphinx build failed with exit code {result}.")
 
@@ -125,47 +130,70 @@ def _build_staged_output() -> Path:
         if not generated_apidocs.is_dir():
             raise FileNotFoundError(f"Expected generated docs at {generated_apidocs}.")
 
-        staged_output = OUTPUT_DIR.parent / f".{OUTPUT_DIR.name}.staged-{uuid4().hex}"
-        if staged_output.exists():
-            shutil.rmtree(staged_output)
+        staged_output = output_dir.parent / f".{output_dir.name}.staged-{uuid4().hex}"
         staged_output.mkdir(parents=True)
-
-        shutil.copytree(build_dir, staged_output / "html")
+        try:
+            shutil.copytree(build_dir, staged_output / "html")
+        except BaseException:
+            shutil.rmtree(staged_output)
+            raise
 
     return staged_output
 
 
-def _swap_output_dir(staged_output: Path) -> None:
-    backup_dir = OUTPUT_DIR.parent / f".{OUTPUT_DIR.name}.backup-{uuid4().hex}"
-    had_previous_output = OUTPUT_DIR.exists()
+def _swap_output_dir(staged_output: Path, output_dir: Path) -> None:
+    backup_dir = output_dir.parent / f".{output_dir.name}.backup-{uuid4().hex}"
+    had_previous_output = output_dir.exists()
 
     if had_previous_output:
-        os.replace(OUTPUT_DIR, backup_dir)
+        os.replace(output_dir, backup_dir)
 
     try:
-        os.replace(staged_output, OUTPUT_DIR)
+        os.replace(staged_output, output_dir)
     except Exception:
-        if had_previous_output and backup_dir.exists() and not OUTPUT_DIR.exists():
-            os.replace(backup_dir, OUTPUT_DIR)
+        if had_previous_output and backup_dir.exists() and not output_dir.exists():
+            os.replace(backup_dir, output_dir)
         raise
     else:
         if backup_dir.exists():
             shutil.rmtree(backup_dir)
 
 
-def generate_api_reference() -> Path:
+def generate_api_reference(output_dir: Path | None = None) -> Path:
     if not PACKAGE_DIR.is_dir():
         raise FileNotFoundError(f"Package directory not found: {PACKAGE_DIR}")
 
-    OUTPUT_DIR.parent.mkdir(parents=True, exist_ok=True)
-    staged_output = _build_staged_output()
-    _swap_output_dir(staged_output)
-    return HTML_OUTPUT_DIR
+    output_dir = OUTPUT_DIR if output_dir is None else Path(output_dir).resolve()
+    # Publishing replaces the entire destination tree. Never allow an ancestor
+    # of the checked-out package (including the repository itself) as output.
+    package_dir = PACKAGE_DIR.resolve()
+    destination = output_dir.resolve()
+    if (destination == package_dir or destination in package_dir.parents
+            or package_dir in destination.parents):
+        raise ValueError("Output directory must not contain the package source.")
+    output_dir.parent.mkdir(parents=True, exist_ok=True)
+    staged_output = _build_staged_output(output_dir)
+    try:
+        _swap_output_dir(staged_output, output_dir)
+    finally:
+        if staged_output.exists():
+            shutil.rmtree(staged_output)
+    return output_dir / "html"
 
 
-def main() -> int:
-    html_dir = generate_api_reference()
-    print(f"Generated HTML API reference in {html_dir}")
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description="Build the API reference; Sphinx warnings fail the build.")
+    mode = parser.add_mutually_exclusive_group()
+    mode.add_argument("--output-dir", type=Path, help="Replace this directory with the generated reference.")
+    mode.add_argument("--check", action="store_true", help="Build in a temporary directory without publishing HTML.")
+    options = parser.parse_args(argv)
+    if options.check:
+        with tempfile.TemporaryDirectory(prefix="check_api_reference_") as tmp_dir:
+            generate_api_reference(Path(tmp_dir) / "api")
+        print("API reference build check passed (warnings are errors).")
+    else:
+        html_dir = generate_api_reference(options.output_dir)
+        print(f"Generated HTML API reference in {html_dir}")
     return 0
 
 

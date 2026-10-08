@@ -101,6 +101,9 @@ jobs:
           MKL_NUM_THREADS: "1"
         run: .venv/bin/python scripts/run_tests.py --scope full
 
+      - name: Check standalone Sphinx build (warnings are errors)
+        run: .venv/bin/python scripts/run_docs_check.py
+
       - name: Save release pytest evidence
         if: always()
         uses: actions/upload-artifact@v7
@@ -110,6 +113,8 @@ jobs:
             build/ci-tests/selection.json
             build/ci-tests/result.json
             build/ci-tests/junit.xml
+            build/docs-check/result.json
+            build/docs-check/build.log
           if-no-files-found: warn
 
       - name: Build distributions

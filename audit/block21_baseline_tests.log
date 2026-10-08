@@ -1,0 +1,152 @@
+F.FFFFFF                                                                 [100%]
+=================================== FAILURES ===================================
+______________ test_check_builds_full_package_without_publishing _______________
+
+tmp_path = PosixPath('/private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/pytest-of-m.lenivkin/pytest-2/test_check_builds_full_package0')
+
+    def test_check_builds_full_package_without_publishing(tmp_path):
+        _require_docs_dependencies()
+        repo = _copy_repo(tmp_path, full=True)
+        before = _tree_hashes(repo)
+        run = _run(repo, '--check')
+        assert run.returncode == 0, run.stdout + run.stderr
+>       assert 'check passed' in run.stdout
+E       assert 'check passed' in 'Running Sphinx v9.1.0\nloading translations [en]... done\nmyst v5.1.0: MdParserConfig(commonmark_only=False, gfm_only...51bynd66n6g02p8rl5z0t00000gq/T/pytest-of-m.lenivkin/pytest-2/test_check_builds_full_package0/repo/notebooks/api/html\n'
+E        +  where 'Running Sphinx v9.1.0\nloading translations [en]... done\nmyst v5.1.0: MdParserConfig(commonmark_only=False, gfm_only...51bynd66n6g02p8rl5z0t00000gq/T/pytest-of-m.lenivkin/pytest-2/test_check_builds_full_package0/repo/notebooks/api/html\n' = CompletedProcess(args=['/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/bin/python', 'scrip...2p8rl5z0t00000gq/T/pytest-of-m.lenivkin/pytest-2/test_check_builds_full_package0/repo/notebooks/api/html\n", stderr='').stdout
+
+tests/docs/test_generate_api_reference.py:73: AssertionError
+________________ test_custom_output_preserves_default_reference ________________
+
+tmp_path = PosixPath('/private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/pytest-of-m.lenivkin/pytest-2/test_custom_output_preserves_d0')
+
+    def test_custom_output_preserves_default_reference(tmp_path):
+        _require_docs_dependencies()
+        repo = _copy_repo(tmp_path)
+        output = tmp_path / 'custom'
+        run = _run(repo, '--output-dir', str(output))
+        assert run.returncode == 0, run.stdout + run.stderr
+>       assert (output / 'html/reference.html').is_file()
+E       AssertionError: assert False
+E        +  where False = is_file()
+E        +    where is_file = (PosixPath('/private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/pytest-of-m.lenivkin/pytest-2/test_custom_output_preserves_d0/custom') / 'html/reference.html').is_file
+
+tests/docs/test_generate_api_reference.py:96: AssertionError
+___________ test_warning_fails_without_replacing_published_reference ___________
+
+tmp_path = PosixPath('/private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/pytest-of-m.lenivkin/pytest-2/test_warning_fails_without_rep0')
+
+    def test_warning_fails_without_replacing_published_reference(tmp_path):
+        _require_docs_dependencies()
+        repo = _copy_repo(tmp_path, broken=True)
+        before = _tree_hashes(repo)
+        run = _run(repo)
+>       assert run.returncode != 0
+E       assert 0 != 0
+E        +  where 0 = CompletedProcess(args=['/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/bin/python', 'scrip...2p8rl5z0t00000gq/T/pytest-of-m.lenivkin/pytest-2/test_warning_fails_without_rep0/repo/notebooks/api/html\n", stderr='').returncode
+
+tests/docs/test_generate_api_reference.py:105: AssertionError
+______________ test_publication_failure_restores_previous_output _______________
+
+tmp_path = PosixPath('/private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/pytest-of-m.lenivkin/pytest-2/test_publication_failure_resto0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x106b947a0>
+
+    def test_publication_failure_restores_previous_output(tmp_path, monkeypatch):
+        module = _generator()
+        package = tmp_path / 'causalis'
+        package.mkdir()
+        output = tmp_path / 'api'
+        output.mkdir()
+        (output / 'sentinel').write_text('previous')
+        staging = tmp_path / '.api.staged-owned'
+        staging.mkdir()
+        (staging / 'new').write_text('new')
+        monkeypatch.setattr(module, 'PACKAGE_DIR', package)
+        monkeypatch.setattr(module, 'OUTPUT_DIR', output)
+        monkeypatch.setattr(module, '_build_staged_output', lambda destination: staging)
+        replace = os.replace
+    
+        def failing_replace(source, destination):
+            if source == staging:
+                raise OSError('publication failed')
+            return replace(source, destination)
+    
+        monkeypatch.setattr(module.os, 'replace', failing_replace)
+        with pytest.raises(OSError, match='publication failed'):
+>           module.generate_api_reference()
+
+tests/docs/test_generate_api_reference.py:133: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def generate_api_reference() -> Path:
+        if not PACKAGE_DIR.is_dir():
+            raise FileNotFoundError(f"Package directory not found: {PACKAGE_DIR}")
+    
+        OUTPUT_DIR.parent.mkdir(parents=True, exist_ok=True)
+>       staged_output = _build_staged_output()
+                        ^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: test_publication_failure_restores_previous_output.<locals>.<lambda>() missing 1 required positional argument: 'destination'
+
+scripts/generate_api_reference.py:161: TypeError
+_________________ test_output_cannot_replace_package_source[.] _________________
+
+tmp_path = PosixPath('/private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/pytest-of-m.lenivkin/pytest-2/test_output_cannot_replace_pac0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x106b772c0>
+relative = '.'
+
+    @pytest.mark.parametrize('relative', ['.', 'causalis', 'causalis/subdir'])
+    def test_output_cannot_replace_package_source(tmp_path, monkeypatch, relative):
+        module = _generator()
+        package = tmp_path / 'causalis'
+        package.mkdir()
+        (package / '__init__.py').write_text('source')
+        monkeypatch.setattr(module, 'PACKAGE_DIR', package)
+        with pytest.raises(ValueError, match='package source'):
+>           module.generate_api_reference(tmp_path / relative)
+E           TypeError: generate_api_reference() takes 0 positional arguments but 1 was given
+
+tests/docs/test_generate_api_reference.py:147: TypeError
+_____________ test_output_cannot_replace_package_source[causalis] ______________
+
+tmp_path = PosixPath('/private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/pytest-of-m.lenivkin/pytest-2/test_output_cannot_replace_pac1')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x106b95d60>
+relative = 'causalis'
+
+    @pytest.mark.parametrize('relative', ['.', 'causalis', 'causalis/subdir'])
+    def test_output_cannot_replace_package_source(tmp_path, monkeypatch, relative):
+        module = _generator()
+        package = tmp_path / 'causalis'
+        package.mkdir()
+        (package / '__init__.py').write_text('source')
+        monkeypatch.setattr(module, 'PACKAGE_DIR', package)
+        with pytest.raises(ValueError, match='package source'):
+>           module.generate_api_reference(tmp_path / relative)
+E           TypeError: generate_api_reference() takes 0 positional arguments but 1 was given
+
+tests/docs/test_generate_api_reference.py:147: TypeError
+__________ test_output_cannot_replace_package_source[causalis/subdir] __________
+
+tmp_path = PosixPath('/private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/pytest-of-m.lenivkin/pytest-2/test_output_cannot_replace_pac2')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x106b97050>
+relative = 'causalis/subdir'
+
+    @pytest.mark.parametrize('relative', ['.', 'causalis', 'causalis/subdir'])
+    def test_output_cannot_replace_package_source(tmp_path, monkeypatch, relative):
+        module = _generator()
+        package = tmp_path / 'causalis'
+        package.mkdir()
+        (package / '__init__.py').write_text('source')
+        monkeypatch.setattr(module, 'PACKAGE_DIR', package)
+        with pytest.raises(ValueError, match='package source'):
+>           module.generate_api_reference(tmp_path / relative)
+E           TypeError: generate_api_reference() takes 0 positional arguments but 1 was given
+
+tests/docs/test_generate_api_reference.py:147: TypeError
+=========================== short test summary info ============================
+FAILED tests/docs/test_generate_api_reference.py::test_check_builds_full_package_without_publishing
+FAILED tests/docs/test_generate_api_reference.py::test_custom_output_preserves_default_reference
+FAILED tests/docs/test_generate_api_reference.py::test_warning_fails_without_replacing_published_reference
+FAILED tests/docs/test_generate_api_reference.py::test_publication_failure_restores_previous_output
+FAILED tests/docs/test_generate_api_reference.py::test_output_cannot_replace_package_source[.]
+FAILED tests/docs/test_generate_api_reference.py::test_output_cannot_replace_package_source[causalis]
+FAILED tests/docs/test_generate_api_reference.py::test_output_cannot_replace_package_source[causalis/subdir]
+7 failed, 1 passed in 20.83s
