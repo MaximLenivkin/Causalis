@@ -10,7 +10,7 @@
 
 1. `AGENTS.md` — локальная `.venv` обязательна. На текущем Mac использовать **`.venv/bin/python`**, Python3.12.14, не старый backing path `/Users/ioann/...`. Окружение восстановлено из project extras dev/docs, dependencycheck и5setupsmoketests прошли. Local setup manifest `.venv/setup-environment.json`; B09 integration manifest записывает реальные проверенные версии.
 2. `audit/FIX_PLAN.md` — порядок блоков, scope gates и deferred findings.
-3. Этот файл и **`audit/BLOCK24_EXTERNAL_OOF.md`** — последнее состояние; B24 завершён; final source/local/CI и root validation проверены, final audit pushed. B09–B18 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
+3. Этот файл и **`audit/BLOCK25_DR_R_CATE.md`** — последнее состояние; B25 завершён; source/local/CI и root validation проверены; final audit checkpoint через gitlog-1. B09–B18 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
 4. `audit/REPORT.md` — исторический аудит исходного SHA, не текущий residual bug count.
 
 ## Git
@@ -22,7 +22,57 @@ GitHub авторизация завершена пользователем и �
 ## Текущая работа
 
 
-## B24 — завершён: external OOF binary IRM (8 October 2026)
+## B25 — завершён: DR/R CATE (8 October 2026)
+
+Source `8604060282b803b73e00595b705867ddff351a32`, baselineebf940f.
+[Report](BLOCK25_DR_R_CATE.md). New DRLearner/RLearner consume already fitted
+internal, single-partition, iid, unweighted binary IRM with clipping; default
+final LinearRegression. Frozen scoring schema, owned model/arrays, failed-refit
+retention, raw-value reality guards and strictly interior fitted propensities.
+DR unnormalized AIPW targets; R residual loss with q=(1-e)*g0+e*g1 and mandatory
+sample_weight=(D-e)^2. Scalar score/normalization does not change CATE targets.
+Existing T-learner and all scalar/cluster/repeated/external/sensitivity algorithms
+are byte-identical; only existing uplift exports change. Four non-audit paths.
+Unsupported external/group/repeated/drop/custom-weight contexts reject.
+
+Each nuisance is OOF; final regression trains on all rows. Its training
+predictions are in-sample. Independent evaluation/nested full-pipeline outer
+refits required; ordinary CV of precomputed signals can leak. Restricted-class
+approximation/projection, R's population projection weights e*(1-e). Binary
+risk-difference scale, no forced bounds, automatic calibration, individual
+counterfactual or CATE CI/rate/coverage/superiority promise. No separate marginal
+outcome pilot; derived q inherits all three pilots' errors. Custom R regressors
+must honor weights and squared loss; estimator controls regularization.
+
+124 new cases,584focusedpassed/64warnings/30.47s. Independent DR conditional
+moments (including binary and robustness/negative control), direct residual-design
+R-loss oracle, constant projections, new-covariate noiseless recovery, fold spies,
+schema/lifecycle/numerical/context guards. Eight pre-correction complex regressions
+failed and now pass. Committed correctness3772passed/149warnings/143.57s, zero
+failures/errors/skips; seven sensitivity exclusions unchanged. Strict standalone
+Sphinxexit0/20.254s. Existing3648case set preserved;152pre-existing source/scripts/
+workflowfiles byte-identical. Handoff149immutablelinks checked,issues[]. Owned
+exact pytest-temp dirs removed; synthetic observations only, JUnits/logs/code/
+source/environment evidence retained. No client records downloaded or used.
+
+[CI37795625225](https://github.com/MaximLenivkin/Causalis/actions/runs/37795625225) completed/success on exact source: all6jobs3772passed each and strictdocs0.
+Full local/CI case sets/focus/source/normalizedargv/sevenexclusions/env and5hashes
+perjob verified; [CI manifest](block25_ci_result.json). ActualPython
+3.10.22bothstacks,3.11.17,3.12.15,3.13.16,3.14.8; snapshotUTC2026-10-08T14:55:07.367935+00:00.
+[Root validation](block25_validation_result.json),issues[]; --source 8604060282b803b73e00595b705867ddff351a32
+--require-ci checks rawlocal/CI evidence and source isolation. Ordinary source push succeeded
+using user's persistent «Разрешаю пуш в нашу ветку» authorization, with no
+approval rejection. No environment setup/install/login/fork/subagents/upstream/
+PR/release/notebooks/website/external messages. Final source/evidence gates complete; audit checkpoint via gitlog-1. Ordinary
+final audit push, live local/remote identity and clean tree checked at completion. Source/tests frozen after8604060;
+changes since then are audit-only, including verification script metadata repair.
+
+Next B26: held-out nuisance/CATE validation, starting with target, independent
+sample/nested-refit and leakage contracts; inference remains separate. Do not
+auto-start B26. Stop at B25 for context cleanup and a new user request.
+
+
+## Historical B24 checkpoint — завершён: external OOF binary IRM (8 October 2026)
 
 Final source `7e947f44e3d5a0ca9dbbe0b68bf7f070fc6150fd`, baseline3668eec; initialfeature2652d9f.
 [Report](BLOCK24_EXTERNAL_OOF.md). Public make_oof_manifest + fit with complete

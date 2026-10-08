@@ -1,0 +1,33 @@
+{
+  "snapshot_links_checked": 149,
+  "issues": []
+}
+{
+  "run_id": 37795625225,
+  "run_status": "completed",
+  "verified_successful_jobs": 6,
+  "matrix_verified": true,
+  "issues": []
+}
+{
+  "baseline": "ebf940f76ec81317a2a59ff6a52880473a23f581",
+  "implementation_checkpoint": "8604060282b803b73e00595b705867ddff351a32",
+  "source_sha256": {
+    "README.md": "27dc7881f7d8c091a14e4aa2368c14db51e78cf71ad7f4472683e716a7272da5",
+    "causalis/scenarios/uplift/__init__.py": "2a687bab5aa8af4d6cd0936469f1a948f39e5db8158bc78c047a928d81a15c02",
+    "causalis/scenarios/uplift/learners.py": "ca127cc1b842e2120d662f5735aabe04f927745999065c75b7856ab082806f68",
+    "tests/scenarios/uplift/test_dr_r_learners.py": "12e00cc53e7325ff721d21b83cb173e46fc0b94aa7d5fb3465646b0925292c7a"
+  },
+  "unchanged_existing_source_files": 152,
+  "focused_passed": 584,
+  "new_cases": 124,
+  "integration_passed": 3772,
+  "prior_case_set_preserved": true,
+  "sensitivity_validated": false,
+  "standalone_docs_exit": 0,
+  "handoff_links": 149,
+  "report_local_links": 19,
+  "ci_required": true,
+  "ci_matrix_verified": true,
+  "issues": []
+}

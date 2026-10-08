@@ -121,5 +121,60 @@ hashes and [log](block25_complex_baseline_tests.log); all eight now pass in the
 final focused run. Baseline here means this block's pre-correction working tree,
 not the B24 commit (which has no new learner API).
 
-Committed correctness, standalone docs, CI and final root verification pending.
+Implementation source **`8604060282b803b73e00595b705867ddff351a32`**, commit
+`feat(uplift): add DR and R conditional effect learners`.
+[Committed correctness](block25_integration_result.json): **3772 passed**,
+zero failures/errors/skips, **149 warnings**, **143.57 s** pytest /143.757 s runner.
+The seven prior sensitivity exclusions are unchanged; this is a scoped
+correctness gate, not full release/sensitivity validation.
+[Selection](block25_integration_selection.json), [log](block25_integration_tests.log),
+[runner](run_block25_integration.py).
+[Standalone strict Sphinx](block25_docs_result.json) on that exact source:
+**exit0**, **20.254 s**, warnings are errors, no HTML publication.
+[Docs log](block25_standalone_checks.log).
+[Cleanup](block25_cleanup_result.json): exact owned focus/integration pytest
+runtime directories deleted. Synthetic observations only; no customer data,
+prohibited exports or restored user-deleted data. Raw code/test JUnits/logs,
+source/environment metadata and strict docs output retained.
+No environment setup, dependency installs, login, upstream/main changes,
+subagents, PR/release, notebooks, website publishing or external messages.
 
+[CI37795625225](https://github.com/MaximLenivkin/Causalis/actions/runs/37795625225) **completed/success** on the exact source
+`8604060282b803b73e00595b705867ddff351a32`: all six jobs **3772 passed each**,
+zero failures/errors/skips, strict standalone Sphinx exit0 in all six.
+[CI manifest](block25_ci_result.json), [observer log](block25_ci_checks.log).
+Actual Python versions: 3.13.16 latest, 3.11.17 latest, 3.10.22 legacy, 3.12.15 latest, 3.10.22 latest, 3.14.8 latest.
+Final snapshot UTC **2026-10-08T14:55:07.367935+00:00**. Full case sets equal the
+local3772; focused584/new124 are included. Source HEAD, Python/dependencies,
+normalized arguments (only output paths differ), seven exclusions and all five
+artifact hashes per job (three pytest/two docs) verified. Raw ignored artifacts
+remain in `block25_ci_test_temp/run-37795625225`. Six representative Linux stacks
+are not all dependency/platform combinations. Sensitivity, general CATE coverage,
+notebooks, hosted website and release remain outside this gate.
+
+[Root verifier](verify_block25.py) with `--source 8604060282b803b73e00595b705867ddff351a32 --require-ci` checks the
+four changed non-audit paths and source hashes, **152 unchanged pre-existing
+library/scripts/workflow files**, focused/raw JUnit provenance, corrected complex
+regressions, all prior3648cases preserved, local3772/docs/cleanup and all six CI
+artifacts. [Validation result](block25_validation_result.json),
+[validation log](block25_validation_checks.log), issues[]. Source test evidence
+remains tied to8604060; audit-only updates afterwards need no CI rerun.
+The audit verifier initially looked for environment inside result.json; the
+existing runner records it in selection.json. Corrected the audit assertion
+without rewriting metadata or source/tests. All existing algorithms remain
+byte-identical; no baseline source archive/probe is necessary for unchanged code.
+[Handoff](DOCUMENTATION_HANDOFF.md) has149immutablelinks verified by the existing
+link checker; [handoff log](block25_handoff_checks.log).
+
+User authorization for ordinary push in the personal branch persists:
+«Разрешаю пуш в нашу ветку». Source push succeeded; no auto-review rejection.
+Final audit checkpoint via `git log -1`; ordinary final audit push and live
+local/remote identity plus clean status are checked at completion. No force-push,
+upstream/main, PR or release action. Source/tests frozen after8604060.
+
+Next **B26: held-out nuisance/CATE validation**, beginning with estimand,
+independent-sample/nested-refit and leakage contracts. CATE inferential families,
+external/repeated/cluster CATE, time-series and custom-weight targets need
+separate scope. Existing sensitivity/SC08LOO/selected-UATT/multi-IV and NumPyRST
+debt remain deferred. Stop here for context cleanup; do not start B26 until a
+new user request.

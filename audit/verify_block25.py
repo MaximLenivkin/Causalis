@@ -77,9 +77,10 @@ def main():
     previous = read('block24_integration_selection.json')
     assert selection['excluded_modules'] == previous['excluded_modules'] and len(selection['excluded_modules']) == 7
     for payload in (selection, result):
-        assert payload['tested_source_checkpoint'] == payload['environment']['commit'] == args.source
+        assert payload['tested_source_checkpoint'] == args.source
         assert payload['scope'] == 'correctness' and payload['selected_full_suite'] is False
         assert payload['collect_only'] is False and payload['sensitivity_validated'] is False
+    assert selection['environment']['commit'] == args.source
     assert result['exit_code'] == result['failures'] == result['errors'] == result['skipped'] == 0
     assert result['passed'] == result['tests'] == 3772
     full_cases, full_totals = junit(AUDIT/'block25_integration_test_temp/junit.xml')

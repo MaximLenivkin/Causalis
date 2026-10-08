@@ -74,7 +74,7 @@
 
 > `predict_cate` uses a T-learner: separate treatment-arm outcome models are fitted on the training data, and predictions are differenced as g1(X) − g0(X). This predictor is distinct from the orthogonal scalar ATE/ATT estimator. A CATE is a conditional average effect; the API does not establish an individual treatment effect or provide individual-effect confidence intervals. Validate generalization and calibration on independent data.
 
-Приёмка: убрать automatic «calibrated individual predictions»/DML CATE label; example «new observations» не брать из training frame для демонстрации validation. DR/R-learner — future feature, не существующее поведение. Источники: [DR learner](https://arxiv.org/abs/2004.14497), [R learner](https://arxiv.org/abs/1712.04912).
+Приёмка: убрать automatic «calibrated individual predictions»/DML CATE label; example «new observations» не брать из training frame для демонстрации validation. После B25 отдельные DRLearner/RLearner доступны через uplift; существующий predict_cate остаётся T-learner. Источники: [DR learner](https://arxiv.org/abs/2004.14497), [R learner](https://arxiv.org/abs/1712.04912).
 
 ### D05 / P2 — Newcombe hybrid formula
 
@@ -175,7 +175,7 @@ p_rank = (1 + count(R_placebo >= R_treated)) / (J + 1)
 4. Newcombe D05, IV resolver и другие поведенческие изменения публиковать с соответствующими code commits.
 5. Rebuild API от release SHA, site version marker, links/snippet checks; затем общая smoke проверка.
 
-Не добавлять обещания отсутствующих возможностей: GATE contrasts, held-out policy evaluation, DID simultaneous multiplier bands и SCM conformal уже есть; DR/R CATE, repeated/group CF и weak-IV robust sets — отдельные future features. Homepage «state-of-the-art/best-in-class/production-ready» подкреплять versioned benchmarks/assumption/support list.
+Не добавлять обещания отсутствующих возможностей: GATE contrasts, held-out policy evaluation, DID simultaneous multiplier bands и SCM conformal уже есть; B22–B25 добавили repeated/group CF, external OOF и отдельные DR/R CATE learners с ограничениями своих контрактов; weak-IV robust sets остаются отдельной future feature. Homepage «state-of-the-art/best-in-class/production-ready» подкреплять versioned benchmarks/assumption/support list.
 
 Прочитаны markdown всех40notebooks и ключевые статьи сайта; все40 notebooks не переисполнялись. Из27подозрительных import flags после runtime проверки actual export errors0. Ошибка web extractor отдельной страницы не классифицируется как broken URL. Эти границы не меняют подтверждённых текстовых несогласованностей выше.
 
@@ -998,3 +998,49 @@ Immutable implementation:
 External fit also normalizes overlap configuration changed via set_params,
 matching ordinary fitting. The manifest builder validates without rewriting
 caller configuration. Two iid/cluster regressions cover this final correction.
+
+
+## B25 — DR/R conditional effect prediction
+
+Sources at implementation `8604060282b803b73e00595b705867ddff351a32`:
+- [DRLearner/RLearner](https://github.com/MaximLenivkin/Causalis/blob/8604060282b803b73e00595b705867ddff351a32/causalis/scenarios/uplift/learners.py)
+- [Public uplift exports](https://github.com/MaximLenivkin/Causalis/blob/8604060282b803b73e00595b705867ddff351a32/causalis/scenarios/uplift/__init__.py)
+- [Conditional moment, residual-loss and lifecycle tests](https://github.com/MaximLenivkin/Causalis/blob/8604060282b803b73e00595b705867ddff351a32/tests/scenarios/uplift/test_dr_r_learners.py)
+
+Migration text:
+
+> `DRLearner(ml_tau=None).fit(irm).predict(X_new)` and the corresponding
+> `RLearner` API consume an already fitted internal, single-partition, iid,
+> unweighted binary IRM with clipping. The default final regressor is
+> LinearRegression. The target is E[Y(1)-Y(0)|X=x], identified under consistency,
+> unconfoundedness and overlap. The existing IRM.predict_cate stays a lazy
+> T-learner. External/group/repeated/drop/custom-weight fits are unsupported
+> by the new learners. Current source sample/index/roles must still match the
+> IRM snapshot; fitted predictors subsequently own their schema/model and
+> survive source mutations/refits. Failed final refits retain the previous fit.
+
+DR uses unnormalized OOF AIPW signals independent of scalar ATE/ATTE and
+normalize_ipw settings. R derives q=(1-e)*g0+e*g1, then fits the residual ratio
+with weights (D-e)^2. A custom R regressor must support and honor sample_weight
+and squared loss; the estimator controls regularization. Its restricted-class
+population projection weights X by e(X)*(1-e(X)). No independent E[Y|X] pilot
+is fitted. Require strict interior fitted propensities; numerical overflow or
+underflow rejects without dropping rows or fallback to an unweighted fit.
+Raw current-sample complex values reject before IRM's historical float reload.
+
+Each nuisance signal excludes the row's fold, while the final regression trains
+on all rows. Its training predictions are in-sample. Independent evaluation or
+nested outer refits of the entire nuisance/effect/preprocessing pipeline are
+required for tuning and validation. Ordinary CV of precomputed signals can leak.
+No claim of automatic calibration, individual treatment effects, general rate,
+CATE confidence intervals, superiority, or Kennedy independent-sample theorem
+certification. Binary outcomes use risk differences; predictions are not forcibly
+bounded. A restricted regression class approximates the conditional effect.
+
+Scoring follows the frozen fitted schema: unique DataFrame columns, all required
+features, reordered columns/extras accepted; ndarrays positional, 1D means one
+row, empty batches return empty. Features/outputs must be real and finite;
+one prediction per row, optional single output column. Public fitted objects
+remain mutable. `fit` expects an IRM rather than generic sklearn X/y; do not use
+cross_val_score as whole-pipeline causal validation. Held-out nuisance/CATE
+validation belongs to the next block; inference is separate.

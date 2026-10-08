@@ -151,3 +151,17 @@ exact7e947f4, all6x3648passed and strictdocs exit0; raw artifacts verified.
 Final audit-only checkpoint via gitlog-1; ordinary push/live local-remote
 identity/clean tree checked at completion. No forcepush/upstream/main/PR/release.
 No auto-review rejection or reauthorization was needed for B24.
+
+
+## B25 push — 8 October 2026
+
+User's explicit «Разрешаю пуш в нашу ветку» remains authorization for ordinary
+push to MaximLenivkin/Causalis:codex/correctness-roadmap. Source8604060 pushed
+successfully (`ebf940f..8604060`) without auto-review rejection. CI37795625225
+tracks exact source `8604060282b803b73e00595b705867ddff351a32`. No force/upstream/main/PR/release action or new
+login/fork/auth setup. CI37795625225 completed/success: all6jobs3772passed each plus strictdocs0 on
+exact8604060. Full cases/argv/selection/source/env and5artifacthashes/job checked;
+snapshotUTC2026-10-08T14:55:07.367935+00:00. Source/tests unchanged after8604060;
+final audit checkpoint via gitlog-1. Ordinary audit push and live clean/synced
+local-remote state checked at completion. Persistent authorization requires no
+new permission question.

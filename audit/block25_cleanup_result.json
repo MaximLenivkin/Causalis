@@ -1,0 +1,13 @@
+{
+  "source": "8604060282b803b73e00595b705867ddff351a32",
+  "removed_paths": [
+    "audit/block25_focus_test_temp/pytest-temp",
+    "audit/block25_focus_test_temp/first-pytest-temp",
+    "audit/block25_focus_test_temp/complex-pytest-temp",
+    "audit/block25_integration_test_temp/pytest-temp"
+  ],
+  "focus_junit_sha256": "4a47296d8038a6fbe921344323a9cb5466b312820dc018b8d6bde5a98074c2f0",
+  "integration_junit_sha256": "d7fc798f5480a10394b4259a96aaa0965ecfc61e30eeed74733af61361175493",
+  "temporary_observations": "synthetic tests only; no customer records used or downloaded",
+  "retained": "code/test logs, raw JUnits, docs output and environment/source metadata"
+}
