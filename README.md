@@ -799,6 +799,67 @@ arrays does not certify these assumptions. An empty projection expresses
 incompatibility between the confidence rectangle and the restriction, and is
 not evidence of a significant treatment effect. No scalar p-value is fabricated.
 
+## Policy costs and empirical capacity
+
+`UpliftPolicyTree` can learn rules on net benefit using a known nonnegative
+incremental treatment cost in outcome units. A scalar applies to everybody;
+a column name must be a fitted pre-treatment confounder (it need not appear in
+the policy rules). Monetary costs require a prespecified conversion if the
+outcome is measured in another unit. Costs already included in the outcome
+should not be subtracted again.
+
+```python
+from causalis.scenarios.uplift import UpliftPolicyTree
+
+policy = UpliftPolicyTree(
+    max_depth=2,
+    treatment_cost=0.5,  # alternatively, a known cost confounder column
+    max_treatment_fraction=0.25,
+).fit(train_irm, policy_features=["age", "score"])
+report = policy.evaluate(independent_eval_irm)
+report.summary()        # net value and paired net-signal standard errors
+report.rules_summary()  # pointwise net group benefit, not individual effects
+```
+
+The empirical objective is `mean(action * (DR_signal - cost))`. Greedy tree
+growth uses these net signals. After growth, exact binary knapsack selects
+whole leaves to maximize their total training net reward subject to at most
+`floor(n_train * max_treatment_fraction)` targeted training observations.
+It is optimal over this fixed partition, not over all constrained trees.
+Leaves are indivisible; capacity can remain unused. A constant positive root
+exceeding the cap treats nobody. Zero net reward recommends no treatment.
+Default zero cost and fraction one preserve the original interface and reports.
+
+**The cap applies to the training sample.** Frozen `assign` rules do not ration
+a new batch, and its treatment fraction may exceed the training limit.
+There is no population-feasibility, deployment-budget or optimal-regret guarantee.
+
+For nondefault cost/capacity settings, both IRMs must have internal,
+single-partition, iid, unweighted fits with clipping. IDs must be unique and
+training/evaluation IDs disjoint; schemas and fit snapshots must match.
+The cost definition is frozen at fit, and evaluation reads that same known
+scalar or column. It does not refit or change the policy. Cost uncertainty
+from estimating a cost model, realized post-treatment costs, repeated/cluster/
+external-OOF fits, resource budgets and fractional/randomized leaf actions are
+not supported.
+
+The net target is `E[pi(Z) * (Y(1) - cost(X)) + (1-pi(Z)) * Y(0)]`.
+Summary `value` is a difference in this target; `gross_value` and signed
+`incremental_cost` provide the decomposition. Standard errors use the paired
+net signal, including sampling variation and covariance of heterogeneous costs.
+Rule `value` and HC3 intervals describe mean net benefit even for action-zero
+leaves. `gross_value` and `mean_cost` give its decomposition. Training means
+are descriptive; rule intervals are pointwise and require arm support.
+
+Identification still requires consistency, unconfoundedness and overlap;
+asymptotic uncertainty requires valid nuisance estimation and iid score limits.
+Known costs do not repair confounding, clipping bias or selection. Selection on
+evaluation results requires a fresh test sample. This implementation uses the
+constrained policy-learning motivation of
+[Athey–Wager](https://arxiv.org/abs/1702.02896); its greedy partition plus
+knapsack does not implement their globally optimized policy class or inherit
+their regret theorem.
+
 ## Search terms / supported methods
 
 Causalis covers methods often searched as:

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from copy import deepcopy
 from dataclasses import dataclass
-from numbers import Integral
+from numbers import Integral, Real
 from typing import Any, Sequence
 
 import numpy as np
@@ -16,6 +16,8 @@ from sklearn.utils.validation import check_is_fitted
 from causalis.scenarios._orthogonal import _compute_dr_signal_from_irm
 from causalis.scenarios.gate.model import _estimate_gate_groupwise_inference
 from causalis.scenarios.unconfoundedness.model import IRM
+from causalis.scenarios._prediction import _real_array
+from causalis.scenarios._numerics import _checked_arithmetic, _require_finite
 
 
 @dataclass(frozen=True)
@@ -35,7 +37,9 @@ class UpliftPolicyEvaluation:
             \pi(Z)Y(1) + (1-\pi(Z))Y(0)\right].
 
     Reports contain differences in this value, not the absolute expected outcome.
-    Higher outcomes are better; no treatment cost is subtracted.
+    Higher outcomes are better. With a known incremental treatment cost C(X),
+    the value is E[pi(Z) * (Y(1) - C(X)) + (1 - pi(Z)) * Y(0)].
+    The formulas below use the net signal Gamma - C in cost-aware reports.
 
     Attributes
     ----------
@@ -154,7 +158,8 @@ class UpliftPolicyEvaluation:
               ``empty`` when :math:`n_\ell=0`, or
               ``insufficient_arm_support`` when one historical arm is absent.
               ``ok`` is a support check, not proof of reliable causal estimation.
-            * ``value``: :math:`\widehat\tau_\ell`, irrespective of the action.
+            * ``value``: group net benefit (uplift minus known cost),
+              irrespective of the action; zero-cost reports retain uplift.
             * ``std_error``: the HC3 standard error above.
             * ``ci_lower``, ``ci_upper``: endpoints of the pointwise interval.
 
@@ -191,7 +196,7 @@ def _ids(frame: pd.DataFrame, user_id: str) -> pd.Index:
     return values
 
 
-def _validated_irm(irm: IRM) -> tuple[pd.DataFrame, pd.Index, tuple, dict]:
+def _validated_irm(irm: IRM, *, strict: bool = False) -> tuple[pd.DataFrame, pd.Index, tuple, dict]:
     if not isinstance(irm, IRM):
         raise TypeError("UpliftPolicyTree requires a fitted binary-treatment IRM.")
     check_is_fitted(irm, ["g0_hat_", "g1_hat_", "m_hat_"])
@@ -214,6 +219,16 @@ def _validated_irm(irm: IRM) -> tuple[pd.DataFrame, pd.Index, tuple, dict]:
     )
     if roles != irm._fit_data_roles_:
         raise ValueError("Data role definitions changed after fit; refit IRM.")
+    if strict:
+        UpliftPolicyTree._supported_cost_context(irm)
+        for name, values in (("features", data.X.to_numpy()),
+                             ("outcomes", data.outcome.to_numpy()),
+                             ("treatments", data.treatment.to_numpy())):
+            _real_array(values, name="Policy " + name)
+        for name in ("g0_hat_", "g1_hat_", "m_hat_"):
+            values = _real_array(getattr(irm, name), name=name)
+            if values.shape != (len(data.df),):
+                raise ValueError("Policy nuisance arrays must have one value per client.")
     X, y, d, _ = irm._check_data()
     irm._validate_current_data_matches_fit(X=X, y=y, d=d)
     ids = _ids(data.df, data.user_id_name)
@@ -232,6 +247,63 @@ def _validated_irm(irm: IRM) -> tuple[pd.DataFrame, pd.Index, tuple, dict]:
         "n_obs": len(ids),
     }
     return data.df, ids, roles, diagnostics
+
+
+def _fraction(value) -> float:
+    if isinstance(value, (bool, np.bool_)) or not isinstance(value, Real):
+        raise ValueError("max_treatment_fraction must be a real number in [0, 1].")
+    try:
+        value = float(value)
+    except OverflowError as exc:
+        raise ValueError("max_treatment_fraction must be in [0, 1].") from exc
+    if not np.isfinite(value) or not 0 <= value <= 1:
+        raise ValueError("max_treatment_fraction must be in [0, 1].")
+    return value
+
+
+def _costs(frame, definition, confounders):
+    if isinstance(definition, str):
+        if definition not in confounders:
+            raise ValueError("treatment_cost column must be a fitted pre-treatment confounder.")
+        column = frame[definition]
+        if not pd.api.types.is_numeric_dtype(column) or pd.api.types.is_bool_dtype(column):
+            raise ValueError("treatment_cost column must contain real numeric costs.")
+        values = _real_array(column.to_numpy(), name="treatment_cost").copy()
+    else:
+        if isinstance(definition, (bool, np.bool_)) or not isinstance(definition, Real):
+            raise ValueError("treatment_cost must be a nonnegative scalar or a confounder name.")
+        try:
+            scalar = float(definition)
+        except OverflowError as exc:
+            raise ValueError("treatment_cost must be finite.") from exc
+        if not np.isfinite(scalar):
+            raise ValueError("treatment_cost must be finite.")
+        values = np.full(len(frame), scalar)
+        definition = scalar
+    if np.any(values < 0):
+        raise ValueError("treatment_cost must be nonnegative.")
+    return values, definition
+
+
+def _capacity_actions(counts, rewards, capacity):
+    """Exact 0/1 knapsack over fixed leaves; O(leaves * capacity) states.
+
+    Each state owns its selection bitset. Equal rewards retain the earlier
+    state; final ties prefer fewer recipients. Nonpositive leaves stay off.
+    """
+    states = {0: (0.0, 0)}
+    for i, (count, reward) in enumerate(zip(counts, rewards)):
+        if reward <= 0 or count > capacity:
+            continue
+        previous = list(states.items())
+        for used, (value, selected) in previous:
+            total = used + int(count)
+            candidate = value + float(reward)
+            if total <= capacity and (total not in states or candidate > states[total][0]):
+                states[total] = (candidate, selected | (1 << i))
+    used = max(states, key=lambda load: (states[load][0], -load))
+    selected = states[used][1]
+    return np.array([int(bool(selected & (1 << i))) for i in range(len(counts))])
 
 
 class UpliftPolicyTree(BaseEstimator):
@@ -284,6 +356,15 @@ class UpliftPolicyTree(BaseEstimator):
         Minimum observations in each child of an accepted split.
     min_samples_per_arm : int, default 5
         Minimum treated and control observations in each child.
+    treatment_cost : float or str, default 0.0
+        Known nonnegative incremental cost of treatment, in outcome units.
+        A scalar applies to everybody; a column name must be a fitted
+        pre-treatment confounder. Costs are not estimated from outcomes.
+    max_treatment_fraction : float, default 1.0
+        Upper bound on the training targeting share. After greedy growth on
+        net signals, exact 0/1 knapsack selects whole leaves within the count
+        cap. This is optimal over the learned leaves, not over all trees.
+        Unused capacity is allowed. It is not a population or deployment cap.
 
     Notes
     -----
@@ -294,8 +375,9 @@ class UpliftPolicyTree(BaseEstimator):
 
     All adjustment variables belong in IRM; ``policy_features`` only limits the
     rules. Features must be numeric, finite, and measured before intervention.
-    Higher outcomes are better; costs, capacity constraints, weighted samples,
-    and overlap-based sample dropping are not supported. Decisions estimate
+    Higher outcomes are better. Cost-aware objectives use Gamma minus the
+    known incremental cost. Weighted samples and overlap-based sample dropping
+    are not supported. Decisions estimate
     group benefit, not whether each individual will benefit.
 
     Split clients before fitting either IRM or tuning the policy. Evaluation
@@ -309,11 +391,16 @@ class UpliftPolicyTree(BaseEstimator):
         max_depth: int = 2,
         min_samples_leaf: int = 50,
         min_samples_per_arm: int = 5,
+        treatment_cost: float | str = 0.0,
+        max_treatment_fraction: float = 1.0,
     ):
         self.max_depth = max_depth
         self.min_samples_leaf = min_samples_leaf
         self.min_samples_per_arm = min_samples_per_arm
+        self.treatment_cost = treatment_cost
+        self.max_treatment_fraction = max_treatment_fraction
 
+    @_checked_arithmetic
     def fit(self, train_irm: IRM, *, policy_features: Sequence[str] | None = None):
         r"""Discover rules using only the training IRM's cross-fitted signals.
 
@@ -356,7 +443,12 @@ class UpliftPolicyTree(BaseEstimator):
 
         Notes
         -----
-        Signals are computed from fitted nuisances, independently of the last
+        With costs, every Gamma in the growth formulas is replaced by Gamma-C.
+        The partition is grown without the capacity constraint; whole-leaf
+        actions are selected afterwards. A positive constant root may exceed
+        the cap and consequently treat nobody. No split is forced to spend
+        capacity. Nondefault cost/capacity requires internal single-partition
+        iid IRM fits. Signals are computed from fitted nuisances, independently of the last
         requested IRM estimand (including ATTE) and any lazy CATE scoring models.
         """
         for name, minimum in (
@@ -371,7 +463,11 @@ class UpliftPolicyTree(BaseEstimator):
                 or value < minimum
             ):
                 raise ValueError(f"{name} must be an integer >= {minimum}.")
-        frame, ids, roles, diagnostics = _validated_irm(train_irm)
+        fraction = _fraction(self.max_treatment_fraction)
+        strict = (not isinstance(self.treatment_cost, Real)
+                  or isinstance(self.treatment_cost, (bool, np.bool_))
+                  or self.treatment_cost != 0 or fraction != 1)
+        frame, ids, roles, diagnostics = _validated_irm(train_irm, strict=strict)
         if isinstance(policy_features, str):
             raise ValueError("policy_features must be a sequence of feature names.")
         features = list(roles[2] if policy_features is None else policy_features)
@@ -385,8 +481,18 @@ class UpliftPolicyTree(BaseEstimator):
                 "policy_features must be a nonempty, unique subset of fitted confounders."
             )
         X = self._features(frame, features)
-        phi, d, _ = _compute_dr_signal_from_irm(train_irm)
+        costs, cost_definition = _costs(frame, self.treatment_cost, roles[2])
+        constrained = isinstance(cost_definition, str) or cost_definition != 0 or fraction != 1
+        gross_phi, d, _ = _compute_dr_signal_from_irm(train_irm)
+        net_phi = gross_phi - costs
+        _require_finite(net_phi)
+        # Scaling only the new objective keeps legacy zero-cost behavior.
+        scale = max(float(np.max(np.abs(net_phi))), 1e-300) if constrained else 1.0
+        phi = net_phi / scale
+        if np.any((net_phi != 0) & (phi == 0)):
+            raise RuntimeError("Net policy signal dynamic range is not representable.")
         rules: list[dict] = []
+        leaf_rewards: list[float] = []
 
         def grow(rows: np.ndarray, depth: int, path: tuple) -> _Node:
             total = float(np.sum(phi[rows]))
@@ -446,6 +552,7 @@ class UpliftPolicyTree(BaseEstimator):
                 )
             rule_id = f"rule_{len(rules) + 1}"
             action = int(total > 0.0)
+            leaf_rewards.append(total)
             rules.append(
                 {
                     "rule_id": rule_id,
@@ -456,12 +563,37 @@ class UpliftPolicyTree(BaseEstimator):
                     "n_train": len(rows),
                     "n_treated_train": int(np.sum(d[rows])),
                     "n_control_train": int(len(rows) - np.sum(d[rows])),
-                    "train_mean_uplift_descriptive": total / len(rows),
+                    "train_mean_uplift_descriptive": float(np.mean(gross_phi[rows])),
                 }
             )
+            if constrained:
+                rules[-1].update(
+                    train_mean_net_gain_descriptive=float(np.mean(net_phi[rows])),
+                    train_mean_cost_descriptive=float(np.mean(costs[rows])),
+                )
             return _Node(rule_id=rule_id, action=action)
 
         root = grow(np.arange(len(frame)), 0, ())
+        capacity = int(np.floor(len(frame) * fraction))
+        if fraction < 1:
+            actions = _capacity_actions([rule["n_train"] for rule in rules], leaf_rewards, capacity)
+            by_id = {rule["rule_id"]: int(action) for rule, action in zip(rules, actions)}
+
+            def replace_actions(node):
+                if node.rule_id is not None:
+                    return _Node(rule_id=node.rule_id, action=by_id[node.rule_id])
+                return _Node(feature=node.feature, threshold=node.threshold,
+                             left=replace_actions(node.left), right=replace_actions(node.right))
+
+            root = replace_actions(root)
+            for rule, action in zip(rules, actions):
+                rule["action"] = int(action)
+        if constrained:
+            diagnostics.update(treatment_cost=cost_definition,
+                               max_treatment_fraction=fraction,
+                               training_capacity=capacity,
+                               training_targeted=sum(r["n_train"] * r["action"] for r in rules),
+                               capacity_scope="training_sample_whole_leaves")
         # Commit fitted state only after successful construction.
         self.root_ = root
         self.policy_features_ = tuple(features)
@@ -469,7 +601,15 @@ class UpliftPolicyTree(BaseEstimator):
         self._training_ids_ = ids.copy()
         self._roles_ = roles
         self.training_diagnostics_ = diagnostics.copy()
+        self._cost_definition_ = cost_definition
+        self._cost_aware_ = constrained
         return self
+
+    @staticmethod
+    def _supported_cost_context(irm):
+        if (hasattr(irm, "_fit_repetitions_") or getattr(irm, "_fit_external_oof_", False)
+                or getattr(irm, "_fit_cluster_codes_", None) is not None):
+            raise NotImplementedError("Cost/capacity policy requires internal single-partition iid IRM fits.")
 
     @staticmethod
     def _features(frame: pd.DataFrame, features: Sequence[str]) -> np.ndarray:
@@ -517,6 +657,9 @@ class UpliftPolicyTree(BaseEstimator):
 
         Notes
         -----
+        With costs, positive net leaf benefit replaces positive uplift. With
+        capacity, some positive leaves remain off. Additional descriptive
+        training columns report mean net benefit and mean known cost.
         Training means are selected on the same data used to discover the rules
         and carry no independent confidence intervals. Use :meth:`evaluate`
         and :meth:`UpliftPolicyEvaluation.rules_summary` for held-out evidence.
@@ -539,6 +682,10 @@ class UpliftPolicyTree(BaseEstimator):
         :math:`z_j\le t` left and :math:`z_j>t` right, including equality on
         the left. Neither outcomes nor estimated individual effects enter this
         assignment step.
+
+        The capacity bound is enforced on training counts only. These frozen
+        rules may exceed that fraction in a new batch or population; assignment
+        does not ration, rank, or truncate clients within a leaf.
 
         Parameters
         ----------
@@ -581,6 +728,7 @@ class UpliftPolicyTree(BaseEstimator):
         result["action"] = actions
         return result
 
+    @_checked_arithmetic
     def evaluate(self, eval_irm: IRM, *, alpha: float = 0.05) -> UpliftPolicyEvaluation:
         r"""Evaluate frozen decisions on an IRM fitted on disjoint clients.
 
@@ -595,7 +743,13 @@ class UpliftPolicyTree(BaseEstimator):
                 =\mathbb{E}[(\widehat\pi(Z)-1)\tau(X)], \\
             \Delta_{1,0} &= V(1)-V(0)=\mathbb{E}[\tau(X)].
 
-        Estimate them with evaluation-only cross-fitted DR signals. See
+        With costs, replace tau by tau-C and Gamma by Gamma-C in all
+        comparisons. The fitted cost definition is frozen. A cost column must
+        contain known pre-treatment costs on evaluation clients; its sampling
+        variation enters the paired net-signal variance. Estimated costs would
+        require additional uncertainty analysis and are not supported.
+        Capacity does not truncate evaluation clients or change frozen actions.
+        Estimate comparisons with evaluation-only cross-fitted DR signals. See
         :meth:`UpliftPolicyEvaluation.summary` for paired-signal standard errors
         and :meth:`UpliftPolicyEvaluation.rules_summary` for leaf HC3 intervals.
 
@@ -629,7 +783,7 @@ class UpliftPolicyTree(BaseEstimator):
         check_is_fitted(self, ["root_"])
         if not np.isfinite(alpha) or not 0 < alpha < 1:
             raise ValueError("alpha must be in (0, 1).")
-        frame, ids, roles, diagnostics = _validated_irm(eval_irm)
+        frame, ids, roles, diagnostics = _validated_irm(eval_irm, strict=self._cost_aware_)
         if roles[:3] != self._roles_[:3]:
             raise ValueError(
                 "Evaluation outcome, treatment, and confounder definitions must match training."
@@ -638,14 +792,19 @@ class UpliftPolicyTree(BaseEstimator):
             raise ValueError("Training and evaluation client IDs must be disjoint.")
         assignments = self.assign(frame, user_id=roles[3])
         phi, d, _ = _compute_dr_signal_from_irm(eval_irm)
+        gross_phi = phi
+        costs, _ = _costs(frame, self._cost_definition_, roles[2])
+        phi = phi - costs
+        _require_finite(phi)
         actions = assignments["action"].to_numpy()
         z = float(norm.ppf(1 - alpha / 2))
         summary = []
-        for name, signal in (
-            ("policy_vs_none", actions * phi),
-            ("policy_vs_all", (actions - 1) * phi),
-            ("all_vs_none", phi),
+        for name, weight in (
+            ("policy_vs_none", actions),
+            ("policy_vs_all", actions - 1),
+            ("all_vs_none", np.ones(len(phi))),
         ):
+            signal = weight * phi
             value = float(np.mean(signal))
             se = float(np.std(signal, ddof=1) / np.sqrt(len(signal)))
             summary.append(
@@ -659,6 +818,9 @@ class UpliftPolicyTree(BaseEstimator):
                     "treatment_fraction": float(np.mean(actions)),
                 }
             )
+            if self._cost_aware_:
+                summary[-1].update(gross_value=float(np.mean(weight * gross_phi)),
+                                   incremental_cost=float(np.mean(weight * costs)))
 
         rule_report = (
             self.rules()
@@ -668,7 +830,9 @@ class UpliftPolicyTree(BaseEstimator):
                     "n_treated_train",
                     "n_control_train",
                     "train_mean_uplift_descriptive",
-                ]
+                    "train_mean_net_gain_descriptive",
+                    "train_mean_cost_descriptive",
+                ], errors="ignore"
             )
             .set_index("rule_id")
         )
@@ -689,6 +853,11 @@ class UpliftPolicyTree(BaseEstimator):
                 n - nt,
                 status,
             ]
+            if self._cost_aware_:
+                rule_report.loc[rule_id, ["gross_value", "mean_cost"]] = [
+                    float(np.mean(gross_phi[mask])) if status == "ok" else np.nan,
+                    float(np.mean(costs[mask])) if n else np.nan,
+                ]
             if status == "ok":
                 supported[rule_id] = mask
         inference_columns = ["value", "std_error", "ci_lower", "ci_upper"]
@@ -709,6 +878,7 @@ class UpliftPolicyTree(BaseEstimator):
             )
         for col in ("n_eval", "n_treated", "n_control"):
             rule_report[col] = rule_report[col].astype(int)
+        _require_finite(pd.DataFrame(summary).select_dtypes(include=np.number).to_numpy())
         return UpliftPolicyEvaluation(
             pd.DataFrame(summary),
             rule_report.reset_index(),
