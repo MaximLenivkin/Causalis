@@ -205,6 +205,8 @@ class WeakIVInference:
             raise ValueError("Requested null must have positive empirical score variance")
         t = float((self._means @ contrast) / sqrt(variance))
         statistic = t * t
+        if t != 0 and statistic == 0:
+            raise RuntimeError("Test statistic underflowed in float64")
         p_value = float(2 * norm.sf(abs(t)))
         y, d = self._means
         vyy, vyd, vdd = self._covariance[0, 0], self._covariance[0, 1], self._covariance[1, 1]

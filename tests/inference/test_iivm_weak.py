@@ -293,6 +293,13 @@ def test_constant_tiny_stage_cannot_silently_change_set_geometry():
         WeakIVInference([-1., 0., 1., 2.], np.full(4, 1e-200)).infer()
 
 
+def test_nonzero_test_statistic_cannot_silently_underflow_to_zero():
+    inference = WeakIVInference([-1., -1., 1., 1.], np.ones(4))
+    assert inference.infer(null=0.).statistic == 0
+    with pytest.raises(RuntimeError, match='statistic underflow'):
+        inference.infer(null=1e-200)
+
+
 @pytest.mark.parametrize('offset,scale', [(3., 2.), (-4., -.5), (0., -1.)])
 def test_effect_coordinate_transformation(offset, scale):
     y, d = signals()
