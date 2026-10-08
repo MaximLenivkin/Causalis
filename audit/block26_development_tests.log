@@ -1,0 +1,599 @@
+....FFFF................................................................ [ 80%]
+..............FF.                                                        [100%]
+=================================== FAILURES ===================================
+________ test_independent_support_oracle_metrics[True-False-DRLearner] _________
+
+learner = <class 'causalis.scenarios.uplift.learners.DRLearner'>
+diagnostics = False, noise = True
+
+    @pytest.mark.parametrize('learner', [DRLearner, RLearner])
+    @pytest.mark.parametrize('diagnostics', [False, True])
+    @pytest.mark.parametrize('noise', [False, True])
+    def test_independent_support_oracle_metrics(learner, diagnostics, noise):
+        val = HeldOutCATEValidation(learner()).fit(source(diagnostics))
+        result = val.evaluate(support(1000, noise))
+        assert isinstance(result, CATEValidationResult)
+        assert (result.n, result.n_control, result.n_treated) == (200, 120, 80)
+        assert result.mean_cate == pytest.approx(.4)
+        assert result.mean_dr_signal == pytest.approx(.4)
+        assert result.dr_gain_vs_zero == pytest.approx(.2)
+        assert result.dr_loss == pytest.approx((1/.16+1/.24)/2 if noise else 0, abs=1e-24 if not noise else 1e-12)
+>       assert result.r_loss == pytest.approx(float(noise), abs=1e-24)
+E       assert 0.9999999999999997 == 1.0 ± 1.0e-24
+E         
+E         comparison failed
+E         Obtained: 0.9999999999999997
+E         Expected: 1.0 ± 1.0e-24
+
+tests/scenarios/uplift/test_held_out_validation.py:58: AssertionError
+_________ test_independent_support_oracle_metrics[True-False-RLearner] _________
+
+learner = <class 'causalis.scenarios.uplift.learners.RLearner'>
+diagnostics = False, noise = True
+
+    @pytest.mark.parametrize('learner', [DRLearner, RLearner])
+    @pytest.mark.parametrize('diagnostics', [False, True])
+    @pytest.mark.parametrize('noise', [False, True])
+    def test_independent_support_oracle_metrics(learner, diagnostics, noise):
+        val = HeldOutCATEValidation(learner()).fit(source(diagnostics))
+        result = val.evaluate(support(1000, noise))
+        assert isinstance(result, CATEValidationResult)
+        assert (result.n, result.n_control, result.n_treated) == (200, 120, 80)
+        assert result.mean_cate == pytest.approx(.4)
+        assert result.mean_dr_signal == pytest.approx(.4)
+        assert result.dr_gain_vs_zero == pytest.approx(.2)
+        assert result.dr_loss == pytest.approx((1/.16+1/.24)/2 if noise else 0, abs=1e-24 if not noise else 1e-12)
+>       assert result.r_loss == pytest.approx(float(noise), abs=1e-24)
+E       assert 0.9999999999999997 == 1.0 ± 1.0e-24
+E         
+E         comparison failed
+E         Obtained: 0.9999999999999997
+E         Expected: 1.0 ± 1.0e-24
+
+tests/scenarios/uplift/test_held_out_validation.py:58: AssertionError
+_________ test_independent_support_oracle_metrics[True-True-DRLearner] _________
+
+learner = <class 'causalis.scenarios.uplift.learners.DRLearner'>
+diagnostics = True, noise = True
+
+    @pytest.mark.parametrize('learner', [DRLearner, RLearner])
+    @pytest.mark.parametrize('diagnostics', [False, True])
+    @pytest.mark.parametrize('noise', [False, True])
+    def test_independent_support_oracle_metrics(learner, diagnostics, noise):
+        val = HeldOutCATEValidation(learner()).fit(source(diagnostics))
+        result = val.evaluate(support(1000, noise))
+        assert isinstance(result, CATEValidationResult)
+        assert (result.n, result.n_control, result.n_treated) == (200, 120, 80)
+        assert result.mean_cate == pytest.approx(.4)
+        assert result.mean_dr_signal == pytest.approx(.4)
+        assert result.dr_gain_vs_zero == pytest.approx(.2)
+        assert result.dr_loss == pytest.approx((1/.16+1/.24)/2 if noise else 0, abs=1e-24 if not noise else 1e-12)
+>       assert result.r_loss == pytest.approx(float(noise), abs=1e-24)
+E       assert 0.9999999999999997 == 1.0 ± 1.0e-24
+E         
+E         comparison failed
+E         Obtained: 0.9999999999999997
+E         Expected: 1.0 ± 1.0e-24
+
+tests/scenarios/uplift/test_held_out_validation.py:58: AssertionError
+_________ test_independent_support_oracle_metrics[True-True-RLearner] __________
+
+learner = <class 'causalis.scenarios.uplift.learners.RLearner'>
+diagnostics = True, noise = True
+
+    @pytest.mark.parametrize('learner', [DRLearner, RLearner])
+    @pytest.mark.parametrize('diagnostics', [False, True])
+    @pytest.mark.parametrize('noise', [False, True])
+    def test_independent_support_oracle_metrics(learner, diagnostics, noise):
+        val = HeldOutCATEValidation(learner()).fit(source(diagnostics))
+        result = val.evaluate(support(1000, noise))
+        assert isinstance(result, CATEValidationResult)
+        assert (result.n, result.n_control, result.n_treated) == (200, 120, 80)
+        assert result.mean_cate == pytest.approx(.4)
+        assert result.mean_dr_signal == pytest.approx(.4)
+        assert result.dr_gain_vs_zero == pytest.approx(.2)
+        assert result.dr_loss == pytest.approx((1/.16+1/.24)/2 if noise else 0, abs=1e-24 if not noise else 1e-12)
+>       assert result.r_loss == pytest.approx(float(noise), abs=1e-24)
+E       assert 0.9999999999999997 == 1.0 ± 1.0e-24
+E         
+E         comparison failed
+E         Obtained: 0.9999999999999997
+E         Expected: 1.0 ± 1.0e-24
+
+tests/scenarios/uplift/test_held_out_validation.py:58: AssertionError
+_____ test_real_binary_classifier_pipeline_and_factual_metrics[DRLearner] ______
+
+self = NumpyBlock: 240 dtype: int64, indexer = (0,), value = 0.2
+
+    def setitem(self, indexer, value) -> Block:
+        """
+        Attempt self.values[indexer] = value, possibly creating a new array.
+    
+        Parameters
+        ----------
+        indexer : tuple, list-like, array-like, slice, int
+            The subset of self.values to set
+        value : object
+            The value being set
+    
+        Returns
+        -------
+        Block
+    
+        Notes
+        -----
+        `indexer` is a direct slice/positional indexer. `value` must
+        be a compatible shape.
+        """
+    
+        value = self._standardize_fill_value(value)
+    
+        values = cast(np.ndarray, self.values)
+        if self.ndim == 2:
+            values = values.T
+    
+        # length checking
+        check_setitem_lengths(indexer, value, values)
+    
+        if self.dtype != _dtype_obj:
+            # GH48933: extract_array would convert a pd.Series value to np.ndarray
+            value = extract_array(value, extract_numpy=True)
+        try:
+>           casted = np_can_hold_element(values.dtype, value)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv/lib/python3.12/site-packages/pandas/core/internals/blocks.py:1115: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+dtype = dtype('int64'), element = 0.2
+
+    def np_can_hold_element(dtype: np.dtype, element: Any) -> Any:
+        """
+        Raise if we cannot losslessly set this element into an ndarray with this dtype.
+    
+        Specifically about places where we disagree with numpy.  i.e. there are
+        cases where numpy will raise in doing the setitem that we do not check
+        for here, e.g. setting str "X" into a numeric ndarray.
+    
+        Returns
+        -------
+        Any
+            The element, potentially cast to the dtype.
+    
+        Raises
+        ------
+        ValueError : If we cannot losslessly store this element with this dtype.
+        """
+        if dtype == _dtype_obj:
+            return element
+    
+        tipo = _maybe_infer_dtype_type(element)
+    
+        if dtype.kind in "iu":
+            if isinstance(element, range):
+                if _dtype_can_hold_range(element, dtype):
+                    return element
+                raise LossySetitemError
+    
+            if is_integer(element) or (is_float(element) and element.is_integer()):
+                # e.g. test_setitem_series_int8 if we have a python int 1
+                #  tipo may be np.int32, despite the fact that it will fit
+                #  in smaller int dtypes.
+                info = np.iinfo(dtype)
+                if info.min <= element <= info.max:
+                    return dtype.type(element)
+                raise LossySetitemError
+    
+            if tipo is not None:
+                if tipo.kind not in "iu":
+                    if isinstance(element, np.ndarray) and element.dtype.kind == "f":
+                        # If all can be losslessly cast to integers, then we can hold them
+                        with np.errstate(invalid="ignore"):
+                            # We check afterwards if cast was losslessly, so no need to show
+                            # the warning
+                            casted = element.astype(dtype)
+                        comp = casted == element
+                        if comp.all():
+                            # Return the casted values bc they can be passed to
+                            #  np.putmask, whereas the raw values cannot.
+                            #  see TestSetitemFloatNDarrayIntoIntegerSeries
+                            return casted
+                        raise LossySetitemError
+    
+                    elif isinstance(element, ABCExtensionArray) and isinstance(
+                        element.dtype, CategoricalDtype
+                    ):
+                        # GH#52927 setting Categorical value into non-EA frame
+                        # TODO: general-case for EAs?
+                        try:
+                            casted = element.astype(dtype)
+                        except (ValueError, TypeError) as err:
+                            raise LossySetitemError from err
+                        # Check for cases of either
+                        #  a) lossy overflow/rounding or
+                        #  b) semantic changes like dt64->int64
+                        comp = casted == element
+                        if not comp.all():
+                            raise LossySetitemError
+                        return casted
+    
+                    # Anything other than integer we cannot hold
+                    raise LossySetitemError
+                if (
+                    dtype.kind == "u"
+                    and isinstance(element, np.ndarray)
+                    and element.dtype.kind == "i"
+                ):
+                    # see test_where_uint64
+                    casted = element.astype(dtype)
+                    if (casted == element).all():
+                        # TODO: faster to check (element >=0).all()?  potential
+                        #  itemsize issues there?
+                        return casted
+                    raise LossySetitemError
+                if dtype.itemsize < tipo.itemsize:
+                    raise LossySetitemError
+                if not isinstance(tipo, np.dtype):
+                    # i.e. nullable IntegerDtype; we can put this into an ndarray
+                    #  losslessly iff it has no NAs
+                    arr = element._values if isinstance(element, ABCSeries) else element
+                    if arr._hasna:
+                        raise LossySetitemError
+                    return element
+    
+                return element
+    
+>           raise LossySetitemError
+E           pandas.errors.LossySetitemError
+
+.venv/lib/python3.12/site-packages/pandas/core/dtypes/cast.py:1750: LossySetitemError
+
+During handling of the above exception, another exception occurred:
+
+learner = <class 'causalis.scenarios.uplift.learners.DRLearner'>
+
+    @pytest.mark.parametrize('learner', [DRLearner, RLearner])
+    def test_real_binary_classifier_pipeline_and_factual_metrics(learner):
+        irm = IRM(binary_sample(), ml_g=LogisticRegression(), ml_m=LogisticRegression(), n_folds=3, random_state=8).fit()
+        val = HeldOutCATEValidation(learner()).fit(irm)
+        held = binary_sample(1000)
+        result = val.evaluate(held)
+        X = held.X.to_numpy()
+        d = held.treatment.to_numpy()
+        y = held.outcome.to_numpy()
+        # Production classifier adapter agrees with independent sklearn scorers.
+        from sklearn.metrics import mean_squared_error, brier_score_loss, log_loss
+        for arm in (0, 1):
+            model = LogisticRegression().fit(irm.data.X.to_numpy()[irm._d == arm], irm._y[irm._d == arm])
+            predicted = model.predict_proba(X[d == arm])[:, 1]
+            actual = result.outcome_mse_control if arm == 0 else result.outcome_mse_treated
+            assert actual == pytest.approx(mean_squared_error(y[d == arm], predicted))
+        e = val.propensity_model_.predict_proba(X)[:, 1]
+        assert result.propensity_brier == pytest.approx(brier_score_loss(d, e))
+        assert result.propensity_log_loss == pytest.approx(log_loss(d, e))
+        held.df['y'] = 0
+        assert np.isfinite(val.evaluate(held).dr_loss)
+>       held.df.loc[0, 'y'] = .2
+        ^^^^^^^^^^^^^^^^^^^
+
+tests/scenarios/uplift/test_held_out_validation.py:350: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/pandas/core/indexing.py:938: in __setitem__
+    iloc._setitem_with_indexer(indexer, value, self.name)
+.venv/lib/python3.12/site-packages/pandas/core/indexing.py:1953: in _setitem_with_indexer
+    self._setitem_with_indexer_split_path(indexer, value, name)
+.venv/lib/python3.12/site-packages/pandas/core/indexing.py:2044: in _setitem_with_indexer_split_path
+    self._setitem_single_column(loc, value, pi)
+.venv/lib/python3.12/site-packages/pandas/core/indexing.py:2181: in _setitem_single_column
+    self.obj._mgr.column_setitem(loc, plane_indexer, value)
+.venv/lib/python3.12/site-packages/pandas/core/internals/managers.py:1541: in column_setitem
+    new_mgr = col_mgr.setitem((idx,), value)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/pandas/core/internals/managers.py:620: in setitem
+    return self.apply("setitem", indexer=indexer, value=value)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/pandas/core/internals/managers.py:445: in apply
+    applied = getattr(b, f)(**kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/pandas/core/internals/blocks.py:1118: in setitem
+    nb = self.coerce_to_target_dtype(value, raise_on_upcast=True)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = NumpyBlock: 240 dtype: int64, other = 0.2, raise_on_upcast = True
+
+    @final
+    def coerce_to_target_dtype(self, other, raise_on_upcast: bool) -> Block:
+        """
+        coerce the current block to a dtype compat for other
+        we will return a block, possibly object, and not raise
+    
+        we can also safely try to coerce to the same dtype
+        and will receive the same block
+        """
+        new_dtype = find_result_type(self.values.dtype, other)
+        if new_dtype == self.dtype:
+            # GH#52927 avoid RecursionError
+            raise AssertionError(
+                "Something has gone wrong, please report a bug at "
+                "https://github.com/pandas-dev/pandas/issues"
+            )
+    
+        # In a future version of pandas, the default will be that
+        # setting `nan` into an integer series won't raise.
+        if (
+            is_scalar(other)
+            and is_integer_dtype(self.values.dtype)
+            and isna(other)
+            and other is not NaT
+            and not (
+                isinstance(other, (np.datetime64, np.timedelta64)) and np.isnat(other)
+            )
+        ):
+            raise_on_upcast = False
+        elif (
+            isinstance(other, np.ndarray)
+            and other.ndim == 1
+            and is_integer_dtype(self.values.dtype)
+            and is_float_dtype(other.dtype)
+            and lib.has_only_ints_or_nan(other)
+        ):
+            raise_on_upcast = False
+    
+        if raise_on_upcast:
+>           raise TypeError(f"Invalid value '{other}' for dtype '{self.values.dtype}'")
+E           TypeError: Invalid value '0.2' for dtype 'int64'
+
+.venv/lib/python3.12/site-packages/pandas/core/internals/blocks.py:468: TypeError
+______ test_real_binary_classifier_pipeline_and_factual_metrics[RLearner] ______
+
+self = NumpyBlock: 240 dtype: int64, indexer = (0,), value = 0.2
+
+    def setitem(self, indexer, value) -> Block:
+        """
+        Attempt self.values[indexer] = value, possibly creating a new array.
+    
+        Parameters
+        ----------
+        indexer : tuple, list-like, array-like, slice, int
+            The subset of self.values to set
+        value : object
+            The value being set
+    
+        Returns
+        -------
+        Block
+    
+        Notes
+        -----
+        `indexer` is a direct slice/positional indexer. `value` must
+        be a compatible shape.
+        """
+    
+        value = self._standardize_fill_value(value)
+    
+        values = cast(np.ndarray, self.values)
+        if self.ndim == 2:
+            values = values.T
+    
+        # length checking
+        check_setitem_lengths(indexer, value, values)
+    
+        if self.dtype != _dtype_obj:
+            # GH48933: extract_array would convert a pd.Series value to np.ndarray
+            value = extract_array(value, extract_numpy=True)
+        try:
+>           casted = np_can_hold_element(values.dtype, value)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.venv/lib/python3.12/site-packages/pandas/core/internals/blocks.py:1115: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+dtype = dtype('int64'), element = 0.2
+
+    def np_can_hold_element(dtype: np.dtype, element: Any) -> Any:
+        """
+        Raise if we cannot losslessly set this element into an ndarray with this dtype.
+    
+        Specifically about places where we disagree with numpy.  i.e. there are
+        cases where numpy will raise in doing the setitem that we do not check
+        for here, e.g. setting str "X" into a numeric ndarray.
+    
+        Returns
+        -------
+        Any
+            The element, potentially cast to the dtype.
+    
+        Raises
+        ------
+        ValueError : If we cannot losslessly store this element with this dtype.
+        """
+        if dtype == _dtype_obj:
+            return element
+    
+        tipo = _maybe_infer_dtype_type(element)
+    
+        if dtype.kind in "iu":
+            if isinstance(element, range):
+                if _dtype_can_hold_range(element, dtype):
+                    return element
+                raise LossySetitemError
+    
+            if is_integer(element) or (is_float(element) and element.is_integer()):
+                # e.g. test_setitem_series_int8 if we have a python int 1
+                #  tipo may be np.int32, despite the fact that it will fit
+                #  in smaller int dtypes.
+                info = np.iinfo(dtype)
+                if info.min <= element <= info.max:
+                    return dtype.type(element)
+                raise LossySetitemError
+    
+            if tipo is not None:
+                if tipo.kind not in "iu":
+                    if isinstance(element, np.ndarray) and element.dtype.kind == "f":
+                        # If all can be losslessly cast to integers, then we can hold them
+                        with np.errstate(invalid="ignore"):
+                            # We check afterwards if cast was losslessly, so no need to show
+                            # the warning
+                            casted = element.astype(dtype)
+                        comp = casted == element
+                        if comp.all():
+                            # Return the casted values bc they can be passed to
+                            #  np.putmask, whereas the raw values cannot.
+                            #  see TestSetitemFloatNDarrayIntoIntegerSeries
+                            return casted
+                        raise LossySetitemError
+    
+                    elif isinstance(element, ABCExtensionArray) and isinstance(
+                        element.dtype, CategoricalDtype
+                    ):
+                        # GH#52927 setting Categorical value into non-EA frame
+                        # TODO: general-case for EAs?
+                        try:
+                            casted = element.astype(dtype)
+                        except (ValueError, TypeError) as err:
+                            raise LossySetitemError from err
+                        # Check for cases of either
+                        #  a) lossy overflow/rounding or
+                        #  b) semantic changes like dt64->int64
+                        comp = casted == element
+                        if not comp.all():
+                            raise LossySetitemError
+                        return casted
+    
+                    # Anything other than integer we cannot hold
+                    raise LossySetitemError
+                if (
+                    dtype.kind == "u"
+                    and isinstance(element, np.ndarray)
+                    and element.dtype.kind == "i"
+                ):
+                    # see test_where_uint64
+                    casted = element.astype(dtype)
+                    if (casted == element).all():
+                        # TODO: faster to check (element >=0).all()?  potential
+                        #  itemsize issues there?
+                        return casted
+                    raise LossySetitemError
+                if dtype.itemsize < tipo.itemsize:
+                    raise LossySetitemError
+                if not isinstance(tipo, np.dtype):
+                    # i.e. nullable IntegerDtype; we can put this into an ndarray
+                    #  losslessly iff it has no NAs
+                    arr = element._values if isinstance(element, ABCSeries) else element
+                    if arr._hasna:
+                        raise LossySetitemError
+                    return element
+    
+                return element
+    
+>           raise LossySetitemError
+E           pandas.errors.LossySetitemError
+
+.venv/lib/python3.12/site-packages/pandas/core/dtypes/cast.py:1750: LossySetitemError
+
+During handling of the above exception, another exception occurred:
+
+learner = <class 'causalis.scenarios.uplift.learners.RLearner'>
+
+    @pytest.mark.parametrize('learner', [DRLearner, RLearner])
+    def test_real_binary_classifier_pipeline_and_factual_metrics(learner):
+        irm = IRM(binary_sample(), ml_g=LogisticRegression(), ml_m=LogisticRegression(), n_folds=3, random_state=8).fit()
+        val = HeldOutCATEValidation(learner()).fit(irm)
+        held = binary_sample(1000)
+        result = val.evaluate(held)
+        X = held.X.to_numpy()
+        d = held.treatment.to_numpy()
+        y = held.outcome.to_numpy()
+        # Production classifier adapter agrees with independent sklearn scorers.
+        from sklearn.metrics import mean_squared_error, brier_score_loss, log_loss
+        for arm in (0, 1):
+            model = LogisticRegression().fit(irm.data.X.to_numpy()[irm._d == arm], irm._y[irm._d == arm])
+            predicted = model.predict_proba(X[d == arm])[:, 1]
+            actual = result.outcome_mse_control if arm == 0 else result.outcome_mse_treated
+            assert actual == pytest.approx(mean_squared_error(y[d == arm], predicted))
+        e = val.propensity_model_.predict_proba(X)[:, 1]
+        assert result.propensity_brier == pytest.approx(brier_score_loss(d, e))
+        assert result.propensity_log_loss == pytest.approx(log_loss(d, e))
+        held.df['y'] = 0
+        assert np.isfinite(val.evaluate(held).dr_loss)
+>       held.df.loc[0, 'y'] = .2
+        ^^^^^^^^^^^^^^^^^^^
+
+tests/scenarios/uplift/test_held_out_validation.py:350: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+.venv/lib/python3.12/site-packages/pandas/core/indexing.py:938: in __setitem__
+    iloc._setitem_with_indexer(indexer, value, self.name)
+.venv/lib/python3.12/site-packages/pandas/core/indexing.py:1953: in _setitem_with_indexer
+    self._setitem_with_indexer_split_path(indexer, value, name)
+.venv/lib/python3.12/site-packages/pandas/core/indexing.py:2044: in _setitem_with_indexer_split_path
+    self._setitem_single_column(loc, value, pi)
+.venv/lib/python3.12/site-packages/pandas/core/indexing.py:2181: in _setitem_single_column
+    self.obj._mgr.column_setitem(loc, plane_indexer, value)
+.venv/lib/python3.12/site-packages/pandas/core/internals/managers.py:1541: in column_setitem
+    new_mgr = col_mgr.setitem((idx,), value)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/pandas/core/internals/managers.py:620: in setitem
+    return self.apply("setitem", indexer=indexer, value=value)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/pandas/core/internals/managers.py:445: in apply
+    applied = getattr(b, f)(**kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/pandas/core/internals/blocks.py:1118: in setitem
+    nb = self.coerce_to_target_dtype(value, raise_on_upcast=True)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = NumpyBlock: 240 dtype: int64, other = 0.2, raise_on_upcast = True
+
+    @final
+    def coerce_to_target_dtype(self, other, raise_on_upcast: bool) -> Block:
+        """
+        coerce the current block to a dtype compat for other
+        we will return a block, possibly object, and not raise
+    
+        we can also safely try to coerce to the same dtype
+        and will receive the same block
+        """
+        new_dtype = find_result_type(self.values.dtype, other)
+        if new_dtype == self.dtype:
+            # GH#52927 avoid RecursionError
+            raise AssertionError(
+                "Something has gone wrong, please report a bug at "
+                "https://github.com/pandas-dev/pandas/issues"
+            )
+    
+        # In a future version of pandas, the default will be that
+        # setting `nan` into an integer series won't raise.
+        if (
+            is_scalar(other)
+            and is_integer_dtype(self.values.dtype)
+            and isna(other)
+            and other is not NaT
+            and not (
+                isinstance(other, (np.datetime64, np.timedelta64)) and np.isnat(other)
+            )
+        ):
+            raise_on_upcast = False
+        elif (
+            isinstance(other, np.ndarray)
+            and other.ndim == 1
+            and is_integer_dtype(self.values.dtype)
+            and is_float_dtype(other.dtype)
+            and lib.has_only_ints_or_nan(other)
+        ):
+            raise_on_upcast = False
+    
+        if raise_on_upcast:
+>           raise TypeError(f"Invalid value '{other}' for dtype '{self.values.dtype}'")
+E           TypeError: Invalid value '0.2' for dtype 'int64'
+
+.venv/lib/python3.12/site-packages/pandas/core/internals/blocks.py:468: TypeError
+=========================== short test summary info ============================
+FAILED tests/scenarios/uplift/test_held_out_validation.py::test_independent_support_oracle_metrics[True-False-DRLearner]
+FAILED tests/scenarios/uplift/test_held_out_validation.py::test_independent_support_oracle_metrics[True-False-RLearner]
+FAILED tests/scenarios/uplift/test_held_out_validation.py::test_independent_support_oracle_metrics[True-True-DRLearner]
+FAILED tests/scenarios/uplift/test_held_out_validation.py::test_independent_support_oracle_metrics[True-True-RLearner]
+FAILED tests/scenarios/uplift/test_held_out_validation.py::test_real_binary_classifier_pipeline_and_factual_metrics[DRLearner]
+FAILED tests/scenarios/uplift/test_held_out_validation.py::test_real_binary_classifier_pipeline_and_factual_metrics[RLearner]
+6 failed, 83 passed in 23.47s

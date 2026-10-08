@@ -1,0 +1,113 @@
+........................................................................ [ 10%]
+........................................................................ [ 21%]
+........................................................................ [ 31%]
+......F................................................................. [ 42%]
+........................................................................ [ 52%]
+........................................................................ [ 63%]
+........................................................................ [ 73%]
+........................................................................ [ 84%]
+........................................................................ [ 94%]
+.....................................                                    [100%]
+=================================== FAILURES ===================================
+___________ test_scalar_estimate_and_existing_t_cache_are_unchanged ____________
+
+    def test_scalar_estimate_and_existing_t_cache_are_unchanged():
+        irm = source()
+        before = irm.estimate()
+        t = irm.predict_cate(pd.DataFrame({'x': [-.5, .5]}))
+        cache = irm._uplift_g0_model_, irm._uplift_g1_model_
+        HeldOutCATEValidation().fit(irm).evaluate(support(1000))
+        after = irm.estimate()
+>       assert before.ate == after.ate
+               ^^^^^^^^^^
+
+tests/scenarios/uplift/test_held_out_validation.py:404: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = CausalEstimate(estimand='ATE', model='IRM', model_options={'n_folds': 3, 'n_rep': 1, 'normalize_ipw': False, 'overlap_...'std': array([0.]), 'n_folds': 3}, 'g1': {'available': True, 'mean': array([1.]), 'std': array([0.]), 'n_folds': 3}}}))
+item = 'ate'
+
+    def __getattr__(self, item: str) -> Any:
+        private_attributes = object.__getattribute__(self, '__private_attributes__')
+        if item in private_attributes:
+            attribute = private_attributes[item]
+            if hasattr(attribute, '__get__'):
+                return attribute.__get__(self, type(self))  # type: ignore
+    
+            try:
+                # Note: self.__pydantic_private__ cannot be None if self.__private_attributes__ has items
+                return self.__pydantic_private__[item]  # type: ignore
+            except KeyError as exc:
+                raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}') from exc
+        else:
+            # `__pydantic_extra__` can fail to be set if the model is not yet fully initialized.
+            # See `BaseModel.__repr_args__` for more details
+            try:
+                pydantic_extra = object.__getattribute__(self, '__pydantic_extra__')
+            except AttributeError:
+                pydantic_extra = None
+    
+            if pydantic_extra and item in pydantic_extra:
+                return pydantic_extra[item]
+            else:
+                if hasattr(self.__class__, item):
+                    return super().__getattribute__(item)  # Raises AttributeError if appropriate
+                else:
+                    # this is the current error
+>                   raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+E                   AttributeError: 'CausalEstimate' object has no attribute 'ate'
+
+.venv/lib/python3.12/site-packages/pydantic/main.py:1042: AttributeError
+=============================== warnings summary ===============================
+tests/scenarios/uplift/test_dr_r_learners.py: 2 warnings
+tests/inference/test_irm_external_oof.py: 8 warnings
+tests/inference/test_irm_cluster_crossfit.py: 4 warnings
+tests/inference/test_irm_repeated_crossfit.py: 12 warnings
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1466: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+    warnings.warn(
+
+tests/scenarios/uplift/test_dr_r_learners.py: 2 warnings
+tests/inference/test_irm_external_oof.py: 9 warnings
+tests/inference/test_irm_cluster_crossfit.py: 5 warnings
+tests/inference/test_irm_repeated_crossfit.py: 12 warnings
+tests/inference/test_irm_score_identities.py: 1 warning
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+    warnings.warn(
+
+tests/inference/test_irm_external_oof.py::test_relative_undefined_and_seed_metadata[1]
+tests/inference/test_irm_external_oof.py::test_relative_undefined_and_seed_metadata[3]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.002e+01 is below relative_baseline_min=1.000e+06. Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_irm_external_oof.py::test_relative_undefined_and_seed_metadata[3]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.003e+01 is below relative_baseline_min=1.000e+06. Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_irm_repeated_crossfit.py::test_binary_outcome_and_custom_weight_support[ATE]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1472: RuntimeWarning: ATE custom weights are normalized by sample mean; SE/IF treats this normalization as fixed (approximate).
+    warnings.warn(
+
+tests/inference/test_irm_estimator.py::test_irm_ate_runs_and_shapes
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=5.612e-02 is within 1.96 SE of 0 (SE=7.118e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_irm_estimator.py::test_irm_atte_runs
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.836e-01 is within 1.96 SE of 0 (SE=9.984e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/test_no_tests_imports_in_causalis.py::test_causalis_has_no_imports_from_tests
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/iv/dgp.py:177: SyntaxWarning: invalid escape sequence '\e'
+    Z &= f_Z(X, \epsilon_Z) \\
+
+tests/test_no_tests_imports_in_causalis.py::test_causalis_has_no_imports_from_tests
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/iv/refutation/diagnostics.py:522: SyntaxWarning: invalid escape sequence '\m'
+    \theta = \frac{\mathbb{E}[Y|Z=1] - \mathbb{E}[Y|Z=0]}{\mathbb{E}[D|Z=1] - \mathbb{E}[D|Z=0]}
+
+tests/test_no_tests_imports_in_causalis.py::test_causalis_has_no_imports_from_tests
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/iv/refutation/diagnostics.py:566: SyntaxWarning: invalid escape sequence '\m'
+    Visualizes the overlap of :math:`\mathbb{P}(Z=1|X)` between the :math:`Z=0` and
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/scenarios/uplift/test_held_out_validation.py::test_scalar_estimate_and_existing_t_cache_are_unchanged
+1 failed, 684 passed, 64 warnings in 31.43s

@@ -521,10 +521,65 @@ data or outer refits of the entire pipeline, including preprocessing and
 nuisances. Ordinary CV on already computed pseudo-outcomes can leak information.
 These predictors provide no automatic calibration, individual counterfactuals
 or CATE confidence intervals. Binary-outcome predictions use the risk-difference
-scale and are not forcibly bounded to `[-1, 1]`. Held-out validation is a separate
-API; no generic rate or coverage guarantee is claimed. Method references:
+scale and are not forcibly bounded to `[-1, 1]`. Use the held-out validator below;
+no generic rate or coverage guarantee is claimed. Method references:
 [Kennedy's DR learner](https://arxiv.org/abs/2004.14497) and
 [Nie–Wager's R learner](https://arxiv.org/abs/1712.04912).
+
+## Held-out nuisance and CATE validation
+
+Reserve an independent validation sample before training, preprocessing and
+hyperparameter selection. Both `CausalData` objects must declare the same stable,
+unique `user_id` role; DataFrame row indices are not identities. For an already
+fitted training IRM:
+
+```python
+from causalis.scenarios.uplift import HeldOutCATEValidation, RLearner
+
+validation = HeldOutCATEValidation(learner=RLearner()).fit(irm)
+metrics = validation.evaluate(validation_data)
+print(metrics.propensity_brier, metrics.r_loss, metrics.dr_gain_vs_zero)
+```
+
+The validator clones and fits its effect learner using the training IRM's OOF
+signals. It separately refits copies of the **current** `irm.ml_g`/`irm.ml_m`
+templates on the full training sample (outcome models by arm). These evaluation
+pilots are distinct from IRM's discarded fold models. Templates, source IRM and
+lazy T-learner cache are unchanged; failed refits preserve the last complete
+validator. Evaluation performs predictions and aggregate calculations only.
+Stable identities must be disjoint, features and outcome/treatment/identity
+roles must match, both binary treatment arms must appear, and observations and
+predictions must be real and finite. The source restrictions are the same as
+DR/R learners: internal, single-partition, iid, unweighted, clip overlap.
+
+`CATEValidationResult` is an immutable aggregate record. Outcome MSE by arm is
+factual predictive error, on each arm's observed covariate distribution. Brier
+and log loss assess raw propensity predictions; the result also records their
+range and how many were clipped at IRM's **fit-time** overlap threshold for the
+causal signals. Raw probabilities outside `[0, 1]` reject. Log loss separately
+bounds probabilities at machine epsilon; it does not use the overlap-clipped
+probabilities. DR loss is the mean squared error against held-out AIPW signals.
+It includes pseudo-outcome noise and is **not observed CATE MSE**.
+`dr_gain_vs_zero` is the zero-effect loss minus candidate loss, computed directly
+as `mean(2*signal*tau - tau**2)`; larger is better. R loss is
+`mean((Y-q-(D-e)*tau)**2)`, with derived `q=(1-e)*g0+e*g1`; smaller is better.
+Only compare candidates on the same sample with the same evaluation pilots.
+
+With oracle pilots, DR loss differences equal unweighted CATE risk differences,
+and R loss differences measure CATE risk weighted by `e(x)*(1-e(x))`.
+Estimated pilots, active propensity clipping and confounding can bias these
+criteria. Disjoint IDs do not prove independence or detect relabelled records
+or hidden preprocessing leakage. These diagnostics provide no test of
+unconfoundedness, calibration guarantee, causal intervals or model superiority
+claim. No individual outcomes, scores or residuals are returned.
+
+If validation metrics select or tune a model, use a new independent test for
+final assessment. For nested outer validation, start with each outer training
+sample: refit preprocessing and all nuisances there, construct a fresh IRM and
+validator, then evaluate the outer validation sample with training-fitted
+transformations. Do not slice or cross-validate pseudo-outcomes computed once
+on the complete sample. This API handles independent validation; it does not
+orchestrate nested splitting or preprocessing.
 
 # Pick your scenario
 
