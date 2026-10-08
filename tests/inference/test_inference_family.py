@@ -1,5 +1,7 @@
 """Independent covariance, Gaussian-draw oracles and supported IRM integration."""
 from dataclasses import FrozenInstanceError
+import subprocess
+import sys
 
 import numpy as np
 import pandas as pd
@@ -314,3 +316,15 @@ def test_orthogonal_influences_match_known_independent_gaussian_maximum_law():
     critical = norm.ppf((1+np.sqrt(.95))/2)
     assert result.critical_value == pytest.approx(critical, abs=.025)
     assert result.adjusted_p_values == (1., 1.)
+
+
+def test_public_root_export_is_lazy_and_resolves_the_family_api():
+    subprocess.run([sys.executable, '-c', '''
+import sys
+import causalis
+assert "inference" in causalis.__all__
+assert "causalis.inference" not in sys.modules
+from causalis import inference
+from causalis.inference import InferenceFamily
+assert inference.InferenceFamily is InferenceFamily
+'''], check=True)

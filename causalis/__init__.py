@@ -42,9 +42,9 @@ except Exception:
             except Exception:
                 __version__ = "0.0.0.dev0"
 
-__all__ = ["data_contracts", "dgp", "scenarios", "shared"]
+__all__ = ["data_contracts", "dgp", "scenarios", "shared", "inference"]
 
-_LAZY_SUBMODULES = {"data_contracts", "dgp", "scenarios", "shared"}
+_LAZY_SUBMODULES = {"data_contracts", "dgp", "scenarios", "shared", "inference"}
 
 
 def __getattr__(name):  # pragma: no cover - behavior tested via subprocess
@@ -78,3 +78,4 @@ if TYPE_CHECKING:  # Hint for static type checkers without importing at runtime
     from . import shared as shared  # noqa: F401
     from . import dgp as dgp  # noqa: F401
     from . import data_contracts as data_contracts  # noqa: F401
+    from . import inference as inference  # noqa: F401
