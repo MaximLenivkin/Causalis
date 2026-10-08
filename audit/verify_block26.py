@@ -89,8 +89,9 @@ def main():
     cleanup = read('block26_cleanup_result.json')
     assert cleanup['source'] == args.source
     expected_removed = {'audit/block26_focus_test_temp/pytest-temp',
-                        'audit/block26_focus_test_temp/development-pytest-temp',
                         'audit/block26_integration_test_temp/pytest-temp'}
+    assert cleanup['requested_but_not_created_paths'] == ['audit/block26_focus_test_temp/development-pytest-temp']
+    assert not (ROOT/cleanup['requested_but_not_created_paths'][0]).exists()
     assert set(cleanup['removed_paths']) == expected_removed
     assert all(not (ROOT/name).exists() for name in expected_removed)
     assert cleanup['focus_junit_sha256'] == digest(focus_path)

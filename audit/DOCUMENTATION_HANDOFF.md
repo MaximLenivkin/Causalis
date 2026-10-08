@@ -175,7 +175,7 @@ p_rank = (1 + count(R_placebo >= R_treated)) / (J + 1)
 4. Newcombe D05, IV resolver и другие поведенческие изменения публиковать с соответствующими code commits.
 5. Rebuild API от release SHA, site version marker, links/snippet checks; затем общая smoke проверка.
 
-Не добавлять обещания отсутствующих возможностей: GATE contrasts, held-out policy evaluation, DID simultaneous multiplier bands и SCM conformal уже есть; B22–B25 добавили repeated/group CF, external OOF и отдельные DR/R CATE learners с ограничениями своих контрактов; weak-IV robust sets остаются отдельной future feature. Homepage «state-of-the-art/best-in-class/production-ready» подкреплять versioned benchmarks/assumption/support list.
+Не добавлять обещания отсутствующих возможностей: GATE contrasts, held-out policy evaluation, DID simultaneous multiplier bands и SCM conformal уже есть; B22–B26 добавили repeated/group CF, external OOF, отдельные DR/R CATE learners и independent validation с ограничениями своих контрактов; weak-IV robust sets остаются отдельной future feature. Homepage «state-of-the-art/best-in-class/production-ready» подкреплять versioned benchmarks/assumption/support list.
 
 Прочитаны markdown всех40notebooks и ключевые статьи сайта; все40 notebooks не переисполнялись. Из27подозрительных import flags после runtime проверки actual export errors0. Ошибка web extractor отдельной страницы не классифицируется как broken URL. Эти границы не меняют подтверждённых текстовых несогласованностей выше.
 
@@ -1043,4 +1043,62 @@ row, empty batches return empty. Features/outputs must be real and finite;
 one prediction per row, optional single output column. Public fitted objects
 remain mutable. `fit` expects an IRM rather than generic sklearn X/y; do not use
 cross_val_score as whole-pipeline causal validation. Held-out nuisance/CATE
-validation belongs to the next block; inference is separate.
+validation is now provided by B26 below; inference is separate.
+
+
+## B26 — held-out nuisance and CATE validation
+
+Sources at implementation `38378424fbfc422236ed81ba8162222ea39e6849`:
+
+- [Validator and immutable aggregate result](https://github.com/MaximLenivkin/Causalis/blob/38378424fbfc422236ed81ba8162222ea39e6849/causalis/scenarios/uplift/validation.py)
+- [Public uplift exports](https://github.com/MaximLenivkin/Causalis/blob/38378424fbfc422236ed81ba8162222ea39e6849/causalis/scenarios/uplift/__init__.py)
+- [Oracle risks, held-out fit spies and lifecycle tests](https://github.com/MaximLenivkin/Causalis/blob/38378424fbfc422236ed81ba8162222ea39e6849/tests/scenarios/uplift/test_held_out_validation.py)
+- [Usage and validation protocol](https://github.com/MaximLenivkin/Causalis/blob/38378424fbfc422236ed81ba8162222ea39e6849/README.md)
+
+Migration text:
+
+> `HeldOutCATEValidation(learner=None).fit(irm).evaluate(validation_data)`
+> owns a DRLearner by default, or an explicit DRLearner/RLearner template, and
+> separate full-training evaluation nuisance models. Source restrictions match
+> B25: internal, single-partition, iid, unweighted binary IRM with clipping.
+> Both CausalData objects require the same stable, unique, nonmissing user_id
+> role and disjoint values. DataFrame indices do not establish identities.
+> Reserve validation before any training/preprocessing/tuning. Matching roles
+> and feature sets, both treatment arms, real finite observations and aligned
+> real finite predictions are required. Feature order is resolved by name.
+
+The effect learner is cloned and trained on source OOF signals. Separate clones
+of the **current** ml_g/ml_m templates refit on full training observations,
+outcome models by arm. These are distinct evaluation pilots because IRM's fold
+models are discarded. Source IRM, learner templates and lazy T cache are not
+changed. Failed refits retain the previous validator; evaluation calls no fit.
+Current caller template settings are explicit, not reconstructed historical
+fit settings. Overlap uses IRM's actual fit-time threshold. Binary constant
+outcome arms use a constant pilot; binary validation outcomes may be constant.
+
+The frozen `CATEValidationResult` returns aggregates only: sample/arm counts,
+arm-specific factual outcome MSE, raw propensity Brier/log loss/range, clipping
+count, mean CATE/DR signal, DR/R losses and DR gain versus a zero-effect model.
+Raw probabilities outside [0,1] reject. Brier/log loss precede overlap clipping;
+log arguments bound at machine epsilon. Causal signals use fit-threshold-clipped
+e, requiring strict interior values. Overflow rejects; no rows are dropped.
+
+DR pseudo-outcome loss includes noise and must not be labelled measured CATE
+MSE. Zero-effect gain computes mean(2*phi*tauhat-tauhat^2), larger is better.
+R loss is mean((Y-q-(D-e)*tauhat)^2), smaller is better, q=(1-e)*g0+e*g1.
+There is no independent marginal-outcome pilot. With oracle pilots, DR loss
+differences measure unweighted CATE risk differences; R excess risk weights
+errors by e(x)*(1-e(x)). Estimated pilots/active clipping/confounding can bias
+criteria. Compare the same sample with the same actual evaluation pilots;
+separate stochastic pilot refits do not automatically meet this condition.
+Factual arm MSE describes X|D=arm, not both counterfactual surfaces over all X.
+
+Disjoint caller IDs cannot certify statistical independence, relabelled records,
+or hidden preprocessing/tuning leakage. No unconfoundedness test, calibration
+or individual-effect guarantee, CATE intervals, generic rates or superiority
+claim. Model selection consumes validation; final assessment needs another
+independent test or nested outer whole-pipeline refits. The API does not
+orchestrate outer splitting or preprocessing. Document the manual recipe:
+for each outer train sample refit transformations/IRM/CATE, transform outer
+validation using training-fitted transformations and evaluate; never slice OOF
+signals computed once on all rows. Inference families remain separate B27.

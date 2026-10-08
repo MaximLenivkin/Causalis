@@ -1,0 +1,19 @@
+{
+  "source": "38378424fbfc422236ed81ba8162222ea39e6849",
+  "removed_paths": [
+    "audit/block26_focus_test_temp/pytest-temp",
+    "audit/block26_integration_test_temp/pytest-temp"
+  ],
+  "requested_but_not_created_paths": [
+    "audit/block26_focus_test_temp/development-pytest-temp"
+  ],
+  "removed_private_temporary_files": [
+    "/private/tmp/causalis-b26-development.log",
+    "/private/tmp/causalis-b26-edit.py",
+    "/private/tmp/causalis-b26-doc-edit.py"
+  ],
+  "focus_junit_sha256": "edb03892f9787a998354ab2d447519c4f0106bad329095243af1e182cce12c95",
+  "integration_junit_sha256": "7c05e1f66054cae0bc188ef1c5e9758dfe2a1c337ff258ccefa6fb7407d90273",
+  "data_scope": "Generated synthetic fixtures only; no client records downloaded.",
+  "retained_evidence": "Code, synthetic test failure logs, JUnits, source/environment metadata and aggregate counts."
+}

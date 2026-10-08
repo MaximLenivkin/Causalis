@@ -10,7 +10,7 @@
 
 1. `AGENTS.md` — локальная `.venv` обязательна. На текущем Mac использовать **`.venv/bin/python`**, Python3.12.14, не старый backing path `/Users/ioann/...`. Окружение восстановлено из project extras dev/docs, dependencycheck и5setupsmoketests прошли. Local setup manifest `.venv/setup-environment.json`; B09 integration manifest записывает реальные проверенные версии.
 2. `audit/FIX_PLAN.md` — порядок блоков, scope gates и deferred findings.
-3. Этот файл и **`audit/BLOCK25_DR_R_CATE.md`** — последнее состояние; B25 завершён; source/local/CI и root validation проверены; final audit checkpoint через gitlog-1. B09–B18 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
+3. Этот файл и **`audit/BLOCK26_HELD_OUT_VALIDATION.md`** — последнее состояние; B26 завершён; source/local/CI и root validation проверены; final audit checkpoint через gitlog-1. B09–B18 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
 4. `audit/REPORT.md` — исторический аудит исходного SHA, не текущий residual bug count.
 
 ## Git
@@ -21,8 +21,65 @@ GitHub авторизация завершена пользователем и �
 
 ## Текущая работа
 
+## B26 — завершён: held-out nuisance/CATE validation (8 October 2026)
 
-## B25 — завершён: DR/R CATE (8 October 2026)
+Source `38378424fbfc422236ed81ba8162222ea39e6849`, baseline `4876103`.
+[Отчёт](BLOCK26_HELD_OUT_VALIDATION.md). Новый
+`HeldOutCATEValidation(learner=None).fit(irm).evaluate(validation_data)` обучает
+собственные копии DR/R learner и отдельных full-training nuisance-моделей.
+Используются current ml_g/ml_m templates; evaluation pilots отличаются от
+удалённых fold models IRM. Контексты источника — как в B25: internal, R1, iid,
+unweighted, clip. Уникальные непустые stable user_id обязательны на обеих
+выборках; пересечение отклоняется. Совпадение ролей и признаков, оба treatment
+arms, real/finite observations и predictions проверяются до расчётов.
+`evaluate` вызывает только predict. Объекты и массивы принадлежат валидатору;
+неудачный refit сохраняет прежнюю модель. Старые IRM/DR/R/T/policy/sensitivity
+алгоритмы не менялись; 153 существующих library/scripts/workflow файла идентичны.
+
+Frozen aggregate result: factual outcome MSE по arm, raw propensity Brier/log
+loss/range/clipping count, mean CATE/DR signal, DR/R loss и DR gain vs zero.
+DR loss включает шум и не является наблюдаемой CATE MSE. R loss использует
+q=(1-e)*g0+e*g1; его oracle excess risk взвешен e*(1-e). Estimated pilots,
+active clipping и confounding могут смещать критерии. Для сравнения нужны та
+же validation-выборка и те же evaluation pilots. Stable IDs не доказывают
+независимость и не обнаруживают relabelling/hidden preprocessing leakage.
+После model selection нужен новый independent test или nested outer refits
+всего pipeline. Внешние разбиения и preprocessing API не оркестрирует.
+Нет CATE CI, calibration/identification test, individual effects или rate claim.
+
+102 новых cases; финальный focus 686 passed /64 warnings /32.48s. Проверены
+независимые finite-support risk identities, noise/negative control, factual
+sklearn scorers, ownership/lifecycle, raw/schema/context guards, scalar/T
+preservation; nested three-fold пример с training-only scaler и spies всех
+nuisance/effect fit calls. Development fixture failures отдельно описаны.
+Committed correctness 3874 passed /149 warnings /129.66s, zero failures/errors/
+skips; семь sensitivity exclusions неизменны, не full release gate. Strict
+standalone Sphinx exit0 /16.822s. Все прежние 3772 case IDs сохранены.
+Handoff:153 immutable links, issues[]. Exact owned pytest-temp/private files
+удалены, JUnits/logs/code/source/environment evidence сохранены. Synthetic
+fixtures only; клиентские записи не запрашивались и не скачивались.
+
+[CI37806099397](https://github.com/MaximLenivkin/Causalis/actions/runs/37806099397)
+completed/success на exact source: все6jobs по3874passed и strictdocs0.
+Raw artifacts/local case sets/focus/source/env/normalizedargv/7exclusions и
+5hashes/job проверены. Python3.10.22bothstacks,3.11.17,3.12.15,3.13.16,3.14.8;
+snapshotUTC2026-10-08T16:11:09.123760+00:00.
+[Root validation](block26_validation_result.json), --require-ci, exit0, issues[].
+Source/tests frozen; после3837842 только audit changes. Ordinary source и
+финальный audit push в personal branch выполнены по постоянному разрешению
+пользователя «Разрешаю пуш в нашу ветку»; повторная авторизация не нужна.
+Final audit checkpoint через git log -1, live local/remote identity и clean tree
+проверены при завершении. No subagents/login/setup/fork/upstream/main/forcepush/
+PR/release/notebooks/website/external messages.
+
+Next B27: inference families — сначала estimand, assumptions и supported fit/
+evaluation contexts. Sensitivity/SC08LOO/selected-UATT/multi-IV grouping and
+repetition/few-multiway clusters/NumPyRST debt остаются отдельными. Stop after
+B26 for context cleanup; не начинать B27 без нового запроса пользователя.
+
+
+
+## Historical B25 checkpoint — завершён: DR/R CATE (8 October 2026)
 
 Source `8604060282b803b73e00595b705867ddff351a32`, baselineebf940f.
 [Report](BLOCK25_DR_R_CATE.md). New DRLearner/RLearner consume already fitted

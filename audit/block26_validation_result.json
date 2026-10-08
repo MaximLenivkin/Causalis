@@ -1,0 +1,27 @@
+{
+  "source": "38378424fbfc422236ed81ba8162222ea39e6849",
+  "baseline": "48761037fcbceae8d3aaaf2cc5595d481e63eca6",
+  "issues": [],
+  "changed_non_audit_paths": [
+    "README.md",
+    "causalis/scenarios/uplift/__init__.py",
+    "causalis/scenarios/uplift/validation.py",
+    "tests/scenarios/uplift/test_held_out_validation.py"
+  ],
+  "unchanged_existing_source_files": 153,
+  "source_sha256": {
+    "README.md": "c8387fbbfde585f284714fec51b7045909507f6547a8ac60bbe97bab9f546969",
+    "causalis/scenarios/uplift/__init__.py": "f4fe683ae846a5a821324205685debd30ec7ff2e6c26602eb5103b1b0931d658",
+    "causalis/scenarios/uplift/validation.py": "4d94b15ad971a55e970e0698422e6710477f2cf83515cc360bd471816f28961d",
+    "tests/scenarios/uplift/test_held_out_validation.py": "7cd58cb430597c345a9bbbc2cdd76d76d98c0b27bd7e0bc04065baeb459b1700"
+  },
+  "focused_cases": 686,
+  "new_cases": 102,
+  "integration_cases": 3874,
+  "previous_cases_preserved": 3772,
+  "sensitivity_validated": false,
+  "standalone_sphinx_exit_code": 0,
+  "handoff_links_checked": 153,
+  "report_local_links_checked": 18,
+  "ci_required": true
+}

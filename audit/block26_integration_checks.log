@@ -1,0 +1,19 @@
+Testing committed source 38378424fbfc422236ed81ba8162222ea39e6849; log: /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block26_integration_tests.log
+{
+  "scope": "correctness",
+  "selected_full_suite": false,
+  "collect_only": false,
+  "exit_code": 0,
+  "elapsed_seconds": 130.03604304100736,
+  "tested_source_checkpoint": "38378424fbfc422236ed81ba8162222ea39e6849",
+  "sensitivity_validated": false,
+  "tests": 3874,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "passed": 3874,
+  "warnings": 149,
+  "pytest_elapsed_seconds": 129.66,
+  "scoped_suite_clean": true,
+  "full_suite_clean": false
+}

@@ -165,3 +165,19 @@ snapshotUTC2026-10-08T14:55:07.367935+00:00. Source/tests unchanged after8604060
 final audit checkpoint via gitlog-1. Ordinary audit push and live clean/synced
 local-remote state checked at completion. Persistent authorization requires no
 new permission question.
+
+
+## B26 checkpoint — 8 October 2026
+
+Source `38378424fbfc422236ed81ba8162222ea39e6849` ordinary-pushed to
+`MaximLenivkin/Causalis:codex/correctness-roadmap`, baseline4876103.
+Local correctness3874passed, strict Sphinx0; CI37806099397 completed/success on
+exact source, all6artifacts3874passed plus strictdocs0. Root --require-ci verifies
+raw artifact/source/case sets/scope/env/hashes and issues[]. Only audit changes
+after source. Final audit checkpoint via git log -1; ordinary final audit push,
+live local/remote identity and clean tree checked at completion.
+
+Persistent authorization is the user's explicit «Разрешаю пуш в нашу ветку».
+No automatic review rejection, new login/auth/fork setup or repeat permission
+question. No upstream/main/forcepush/PR/release or external messaging. Stop at
+B26 for context cleanup; next B27 requires a new user request.

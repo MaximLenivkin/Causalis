@@ -2,7 +2,7 @@
 
 8 October 2026, branch `codex/correctness-roadmap`.
 Baseline `48761037fcbceae8d3aaaf2cc5595d481e63eca6` (completed B25).
-Implementation and final gates: pending below while this block is in progress.
+Implementation `38378424fbfc422236ed81ba8162222ea39e6849`; final audit checkpoint via git log -1. Final source and gate evidence below.
 
 ## Target, design and interface
 
@@ -141,7 +141,57 @@ fit calls and4propensityfit calls per fold, none using held-out features. The
 outer StandardScaler fits only that outer training part. No Monte Carlo,
 performance or empirical inference claim.
 
-Final committed integration, docs, CI, root verification and owned cleanup: pending.
+Committed source `38378424fbfc422236ed81ba8162222ea39e6849` changes four
+non-audit paths: new validation module/test, public uplift exports and README.
+All pre-existing library/scripts/workflow algorithm bytes are unchanged apart
+from uplift exports, including IRM, DR/R learners, T, policy and sensitivity.
+Strict standalone Sphinx on the exact implementation: exit0,16.822s,
+warnings_are_errors=true, publishes_html=false. [Docs result](block26_docs_result.json),
+[standalone log](block26_standalone_checks.log). Handoff contains153immutable
+links, issues[]; [handoff check](block26_handoff_checks.log).
+
+Exact committed correctness integration: **3874 passed**,0failures/errors/skips,
+149warnings,129.66s pytest/130.036s runner. [Selection](block26_integration_selection.json),
+[result](block26_integration_result.json), [raw log](block26_integration_tests.log),
+[runner](run_block26_integration.py). Seven named sensitivity exclusions are
+unchanged; this is not the full release/sensitivity gate. Existing3772B25case
+IDs are preserved,102newcases added. No suite rerun without source changes.
+
+[Cleanup](block26_cleanup_result.json) records exact owned focus/integration
+pytest-temp removals and three exact private temporary files. The requested
+initial development basetemp was never materialized (no tmp_path tests).
+The first cleanup assertion assumed it existed and stopped after removing the
+focus directory, before manifest creation; the immediately started verifier
+therefore failed on a missing cleanup manifest. Completed exact remaining
+cleanup and corrected the audit assertion to distinguish requested paths from
+created paths. No runtime source or test changes. JUnits, raw text test/docs logs
+and code/source/environment evidence remain. No broad default-temp, prefix-wide
+or old-block cleanup.
+
+[Root verifier](verify_block26.py), [result](block26_validation_result.json),
+[log](block26_validation_checks.log): final --require-ci exit0, issues[]. It verifies exact four-path
+source scope/hashes,153byte-identical pre-existing library/scripts/workflowfiles,
+686focus/102new/3874integration rawJUnit, preservation of all3772previouscase IDs,
+unchanged7exclusions, exact docs/source hashes and cleanup,153handoff links and
+all report-local links. Final --require-ci adds deterministic re-summary of raw
+all-six job artifacts, matching local case sets/scope/source/environment and
+five artifact hashes per job. No old-algorithm archive probe is needed because
+all old algorithm bytes are identical.
+
+[CI37806099397](https://github.com/MaximLenivkin/Causalis/actions/runs/37806099397)
+completed/success on exact implementation3837842. All six raw artifacts have
+3874passed each,0failures/errors/skips, and strict standalone Sphinxexit0.
+Actual Python:3.10.22 both stacks,3.11.17,3.12.15,3.13.16,3.14.8.
+SnapshotUTC2026-10-08T16:11:09.123760+00:00. [CI manifest](block26_ci_result.json),
+[observer checks](block26_ci_checks.log), [artifact verifier](summarize_block26_ci.py).
+Full local/CI case sets,686focus/102new inclusion, source/Python/dependencies,
+normalized argv,7exclusions,docs hashes and all5hashes/job verified. Linux six
+representative stacks, not all dependency combinations; no gratuitous reruns.
+Ordinary source push succeeded using the user's persistent explicit permission
+«Разрешаю пуш в нашу ветку». No automatic approval rejection, new login or
+request for repeated authorization. Source/tests are frozen; further changes
+are audit-only. Final ordinary audit push, live remote identity and clean tree
+checked at completion; final checkpoint is the audit-only commit via git log -1.
 
 ## Boundary
 
