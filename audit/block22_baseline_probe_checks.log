@@ -1,0 +1,53 @@
+/Users/m.lenivkin/.matplotlib is not a writable directory
+Matplotlib created a temporary cache directory at /var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/matplotlib-5l439jn2 because there was an issue with the default path (/Users/m.lenivkin/.matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+Matplotlib is building the font cache; this may take a moment.
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/iv/dgp.py:177: SyntaxWarning: invalid escape sequence '\e'
+  Z &= f_Z(X, \epsilon_Z) \\
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/model.py:1291: RuntimeWarning: ATE custom weights are normalized by sample mean; SE/IF treats this normalization as fixed (approximate).
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/model.py:1291: RuntimeWarning: ATE custom weights are normalized by sample mean; SE/IF treats this normalization as fixed (approximate).
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/model.py:1285: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/model.py:1285: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/model.py:1291: RuntimeWarning: ATE custom weights are normalized by sample mean; SE/IF treats this normalization as fixed (approximate).
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/model.py:1285: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/model.py:1285: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/model.py:1291: RuntimeWarning: ATE custom weights are normalized by sample mean; SE/IF treats this normalization as fixed (approximate).
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/model.py:1291: RuntimeWarning: ATE custom weights are normalized by sample mean; SE/IF treats this normalization as fixed (approximate).
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/model.py:1291: RuntimeWarning: ATE custom weights are normalized by sample mean; SE/IF treats this normalization as fixed (approximate).
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/model.py:1285: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/model.py:1285: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/model.py:1291: RuntimeWarning: ATE custom weights are normalized by sample mean; SE/IF treats this normalization as fixed (approximate).
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/model.py:1285: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/model.py:1285: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/model.py:1291: RuntimeWarning: ATE custom weights are normalized by sample mean; SE/IF treats this normalization as fixed (approximate).
+  warnings.warn(
+/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/causalis-b22-probe-ja3n4vo7/baseline/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+  warnings.warn(

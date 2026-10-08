@@ -10,6 +10,7 @@ from .panel_data_scm import PanelDataSCM
 from .panel_did_estimate import CallawaySantAnnaDIDEstimate, PanelDIDDiagnosticData, PanelDIDEstimate
 from .panel_estimate import PanelEstimate
 from .causal_estimate import CausalEstimate
+from .repeated_causal_estimate import RepeatedCausalEstimate
 from .iv_causal_estimate import IVCausalEstimate
 from .gate_estimate import GateEstimate
 from .gate_contrast_estimate import GateContrastEstimate
@@ -51,6 +52,7 @@ __all__ = [
     "CallawaySantAnnaDIDEstimate",
     "PanelEstimate",
     "CausalEstimate",
+    "RepeatedCausalEstimate",
     "IVCausalEstimate",
     "GateEstimate",
     "GateContrastEstimate",

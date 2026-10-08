@@ -1,0 +1,34 @@
+{
+  "dgp": "iid normal X; logistic assignment; linear Y with constant effect and independent normal noise",
+  "seed": 92217,
+  "synthetic_samples": 200,
+  "rows_per_sample": 600,
+  "split_repetitions": 3,
+  "n_folds": 3,
+  "split_seed": 17,
+  "truth": 0.7,
+  "observed_head": "357e16e8d1faf37e221b92b7e1f83ee5fba3c2dc",
+  "elapsed_seconds": 6.867702709001605,
+  "scores": {
+    "ATE": {
+      "mean_estimate": 0.7012169350268942,
+      "empirical_sd": 0.0836878059351682,
+      "mean_se": 0.08419705292058693,
+      "mean_se_over_empirical_sd": 1.0060850798957885,
+      "covered": 193,
+      "coverage_95": 0.965
+    },
+    "ATTE": {
+      "mean_estimate": 0.7022017521286935,
+      "empirical_sd": 0.08399261224724427,
+      "mean_se": 0.086228376755654,
+      "mean_se_over_empirical_sd": 1.0266185852373353,
+      "covered": 193,
+      "coverage_95": 0.965
+    }
+  },
+  "limitations": [
+    "One favorable specified DGP and learner pair.",
+    "Coverage Monte Carlo SE about 0.015 at 95%; no universal coverage or stability guarantee."
+  ]
+}

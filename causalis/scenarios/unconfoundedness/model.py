@@ -50,6 +50,10 @@ from causalis.scenarios.unconfoundedness._score_utils import (
     _resolve_irm_weights,
     _use_normalized_ipw as _use_normalized_irm_ipw,
 )
+from causalis.scenarios.unconfoundedness._repeated import (
+    aggregate_estimates, repetition_seeds, validate_n_rep,
+)
+from causalis.data_contracts.repeated_causal_estimate import RepeatedCausalEstimate
 from causalis.scenarios.unconfoundedness._utils import (
     _apply_overlap_policy,
     _is_binary,
@@ -76,7 +80,10 @@ class IRM(BaseEstimator):
     n_folds : int, default 5
         Number of cross-fitting folds.
     n_rep : int, default 1
-        Number of repetitions of sample splitting. Currently only 1 is supported.
+        Number of sample-splitting repetitions. For values above 1, ATE/ATTE
+        use median effects and split-adjusted median-variance standard errors.
+        Requires overlap_policy='clip'; returns RepeatedCausalEstimate.
+        Repetitions run sequentially with existing fold-level n_jobs.
     normalize_ipw : bool, default False
         Whether to normalize IPW terms within the score. Applied to ATE only.
         For ATTE, normalization is ignored to preserve the canonical ATTE EIF.
@@ -288,7 +295,7 @@ class IRM(BaseEstimator):
         self._ml_g_is_default = False
         self._ml_m_is_default = False
         self.n_folds = int(n_folds)
-        self.n_rep = int(n_rep)
+        self.n_rep = validate_n_rep(n_rep)
         self.score = "ATE"
         self.normalize_ipw = bool(normalize_ipw)
         self.overlap_policy, self.overlap_threshold = _validate_overlap_config(
@@ -465,8 +472,9 @@ class IRM(BaseEstimator):
                 "Binary outcome: ml_g is a classifier but does not expose predict_proba(). Use a probabilistic classifier or calibrate it."
             )
 
-        if self.n_rep != 1:
-            raise NotImplementedError("IRM currently supports n_rep=1 only.")
+        validate_n_rep(self.n_rep)
+        if self.n_rep > 1 and self.overlap_policy != "clip":
+            raise ValueError("Repeated IRM requires overlap_policy='clip' for a common sample")
         if self.n_folds < 2:
             raise ValueError("n_folds must be at least 2")
         self.overlap_policy, self.overlap_threshold = _validate_overlap_config(
@@ -1233,6 +1241,33 @@ class IRM(BaseEstimator):
         self._validate_treatment_support(d)
         self._store_fit_sample(X=X, y=y, d=d)
 
+        self.__dict__.pop("_fit_repetitions_", None)
+        self.__dict__.pop("repetition_seeds_", None)
+        self.__dict__.pop("folds_repetitions_", None)
+        if self.n_rep > 1:
+            if self._fixed_fold_assignments_ is not None:
+                raise ValueError("Repeated IRM does not accept fixed single-partition folds")
+            seeds = repetition_seeds(self.random_state, self.n_rep)
+            params = self.get_params(deep=False)
+            params.update(n_rep=1)
+            repetitions = []
+            for seed in seeds:
+                child_params = dict(params, random_state=seed)
+                repetitions.append(IRM(**child_params).fit())
+            self._fit_repetitions_ = tuple(repetitions)
+            self.repetition_seeds_ = tuple(seeds)
+            self.folds_repetitions_ = (
+                np.column_stack([model.folds_ for model in repetitions])
+                if self.store_diagnostics else None
+            )
+            # A median aggregate has no single partition's fitted nuisance.
+            for name in ("g0_hat_", "g1_hat_", "m_hat_"):
+                self.__dict__.pop(name, None)
+            self.folds_ = self._full_sample_folds_ = self.m_hat_raw_ = None
+            self.overlap_mask_ = np.ones(len(y), dtype=bool)
+            self.overlap_n_dropped_ = 0
+            return self
+
         g0_hat, g1_hat, m_hat, folds, feature_importance = self._cross_fit_nuisances(
             X=X, y=y, d=d, y_is_binary=y_is_binary
         )
@@ -1253,6 +1288,26 @@ class IRM(BaseEstimator):
             self.__dict__.pop(name, None)
 
         return self
+
+    def _estimate_repetitions(self, score: str, alpha: float) -> RepeatedCausalEstimate:
+        """Evaluate each fitted partition, then publish scalar aggregate state."""
+        if score not in {"ATE", "ATTE"}:
+            raise NotImplementedError("Repeated IRM supports ATE/ATTE inference only")
+        estimates = [model.estimate(score=score, alpha=alpha)
+                     for model in self._fit_repetitions_]
+        errors_relative = [model.se_relative_[0] for model in self._fit_repetitions_]
+        result = aggregate_estimates(estimates, self.repetition_seeds_, errors_relative, alpha)
+        self._update_estimate_state(
+            theta_hat=result.value, se=result.model_options["std_error"],
+            t_stat=result.model_options["t_stat"], pval=result.p_value,
+            ci_low=result.ci_lower_absolute, ci_high=result.ci_upper_absolute,
+            results=result,
+        )
+        self.se_relative_ = np.array([result.model_options["std_error_relative"]])
+        self.confint_relative_ = np.array([[result.ci_lower_relative, result.ci_upper_relative]])
+        # Re-estimation creates fresh results; parent keeps aggregate scalars only.
+        self.score = score
+        return result
 
     def _validate_estimate_request(self, score: str, alpha: float) -> str:
         """Validate estimate() arguments and return normalized score."""
@@ -1539,7 +1594,7 @@ class IRM(BaseEstimator):
         groups: Optional[pd.DataFrame | pd.Series] = None,
         cov_type: str = "HC3",
         cov_kwds: Optional[Dict[str, Any]] = None,
-    ) -> CausalEstimate | GateEstimate:
+    ) -> CausalEstimate | GateEstimate | RepeatedCausalEstimate:
         """Compute treatment effects using stored nuisance predictions.
 
         Parameters
@@ -1565,13 +1620,20 @@ class IRM(BaseEstimator):
 
         Returns
         -------
-        CausalEstimate or GateEstimate
+        CausalEstimate, RepeatedCausalEstimate or GateEstimate
             Result container for the estimated effect. For subgroup scores,
             the returned ``GateEstimate`` supports ``summary()`` for
             subgroup-vs-zero inference, ``contrast(...)`` for formal
             group-vs-group tests, and ``pairwise_summary(...)`` for a
             broader comparison table.
+            With n_rep above 1, only ATE/ATTE are supported. The aggregate
+            carries repetition_estimates and repetition_seeds; diagnostics
+            belong to those individual estimates. Relative effects use a
+            separate median and become NaN if any repetition is undefined.
         """
+        if hasattr(self, "_fit_repetitions_"):
+            score = self._validate_estimate_request(score=score, alpha=alpha)
+            return self._estimate_repetitions(score, alpha)
         check_is_fitted(self, attributes=["g0_hat_", "g1_hat_", "m_hat_"])
         score = self._validate_estimate_request(score=score, alpha=alpha)
         self.score = score
@@ -1687,7 +1749,16 @@ class IRM(BaseEstimator):
         -------
         dict
             Dictionary containing 'm_hat', 'g0_hat', 'g1_hat', and 'folds'.
+            For repeated fits, returns realized repetition seeds and a copy
+            of folds_repetitions (n, n_rep), or None without diagnostics.
         """
+        if hasattr(self, "_fit_repetitions_"):
+            return {
+                "repetition_seeds": self.repetition_seeds_,
+                "folds_repetitions": (
+                    None if self.folds_repetitions_ is None else self.folds_repetitions_.copy()
+                ),
+            }
         check_is_fitted(self, attributes=["m_hat_", "g0_hat_", "g1_hat_"])
         return {
             "m_hat": self.m_hat_,
@@ -1759,6 +1830,8 @@ class IRM(BaseEstimator):
         np.ndarray
             The orthogonal signal.
         """
+        if hasattr(self, "_fit_repetitions_"):
+            raise NotImplementedError("Repeated IRM has no single orthogonal signal")
         check_is_fitted(self, attributes=["psi_b_"])
         return self.psi_b_
 
@@ -1818,6 +1891,8 @@ class IRM(BaseEstimator):
 
     def predict_cate(self, X: pd.DataFrame | np.ndarray) -> np.ndarray:
         """Predict CATE/uplift for new rows using lazy full-sample scoring models."""
+        if hasattr(self, "_fit_repetitions_"):
+            raise NotImplementedError("Repeated IRM CATE aggregation is unavailable")
         from causalis.scenarios.uplift.model import predict_cate
 
         return predict_cate(self, X)
@@ -1866,6 +1941,8 @@ class IRM(BaseEstimator):
             Sensitivity elements including 'sigma2', 'nu2', 'psi_sigma2', 'psi_nu2',
             'riesz_rep', 'm_alpha', and 'psi'.
         """
+        if hasattr(self, "_fit_repetitions_"):
+            raise NotImplementedError("Repeated IRM sensitivity aggregation is unavailable")
         if any(
             getattr(self, attr) is None for attr in ["g0_hat_", "g1_hat_", "m_hat_"]
         ):
@@ -1934,6 +2011,8 @@ class IRM(BaseEstimator):
         alpha : float, default 0.05
             Significance level for CI bounds.
         """
+        if hasattr(self, "_fit_repetitions_"):
+            raise NotImplementedError("Repeated IRM sensitivity aggregation is unavailable")
         from causalis.scenarios.unconfoundedness.refutation.unconfoundedness.sensitivity import (
             sensitivity_analysis as sa_fn,
             get_sensitivity_summary,
@@ -1978,7 +2057,7 @@ class IRM(BaseEstimator):
 
     def __repr__(self) -> str:
         """Concise representation of IRM to avoid verbose learner output."""
-        status = "fitted" if hasattr(self, "g0_hat_") else "unfitted"
+        status = "fitted" if hasattr(self, "g0_hat_") or hasattr(self, "_fit_repetitions_") else "unfitted"
         return f"IRM(status='{status}', n_folds={self.n_folds}, random_state={self.random_state})"
 
     _repr_html_ = None

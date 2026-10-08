@@ -1,0 +1,22 @@
+{
+  "baseline": "357e16e8d1faf37e221b92b7e1f83ee5fba3c2dc",
+  "observed_head": "357e16e8d1faf37e221b92b7e1f83ee5fba3c2dc",
+  "exact_single_partition_fit_pairs": 16,
+  "exact_single_partition_estimate_pairs": 24,
+  "exact_unsupported_weighted_atte_rejections": 8,
+  "baseline_feature": {
+    "error": "IRM currently supports n_rep=1 only.",
+    "status": "unsupported"
+  },
+  "current_feature": {
+    "status": "supported"
+  },
+  "compared_payload_sha256": "1fbb06655fd6cfaf7b6ce70a31b24262de7be3f5d40b8e661fe33c85bc3b0e59",
+  "source_sha256": {
+    "causalis/scenarios/unconfoundedness/model.py": "a0e0c2bb030cf223407245d902ccb19e4bb6512f3884407dcd8f0a7028b0f7db",
+    "causalis/scenarios/unconfoundedness/_repeated.py": "54bbbfb7da3376377e2ceca540d21193f3d49575367d5507103f59a73cf7d1d2",
+    "causalis/data_contracts/repeated_causal_estimate.py": "9b8674c30c67abfd68d40710032e5c1708390a7a6e67af7751cf72cd5a8fab30",
+    "causalis/data_contracts/__init__.py": "6b9d642286f7074c264328a2b66503d1669c51287490dabca0ae69de5738f4d4"
+  },
+  "temporary_copies_removed": true
+}

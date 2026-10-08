@@ -1,0 +1,8 @@
+{
+  "passed": 221,
+  "new_cases": 67,
+  "junit_sha256": "c58c22d1eb693678c8fa3fdd68753e3347983d2190f9970d927ffa0befbbf44c",
+  "test_sha256": "c3bc1177d1da4c5861a762cbfe67451d0eb16fc5d93554c0d935bd4fa281784e",
+  "warnings": 29,
+  "elapsed_seconds": 22.51
+}

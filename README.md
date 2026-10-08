@@ -72,6 +72,45 @@ result = model.estimate(score='ATTE')
 result.summary()
 ```
 
+### Repeated cross-fitting for binary IRM
+
+```python
+from sklearn.linear_model import LinearRegression, LogisticRegression
+
+model = IRM(causaldata, ml_g=LinearRegression(),
+            ml_m=LogisticRegression(max_iter=1000),
+            n_folds=4, n_rep=5, random_state=42).fit()
+result = model.estimate(score="ATTE")
+result.summary()
+result.repetition_seeds
+result.repetition_estimates[0].diagnostic_data
+```
+
+For `n_rep > 1`, binary ATE/ATTE use the median of single-partition effects and
+`sqrt(median(se_m**2 + (effect_m - median_effect)**2))`. The same observations
+are reused, so the standard error is not divided by the number of repetitions.
+This is the scalar median-variance rule; current Python DoubleML uses a
+different interval aggregation ([resampling documentation](https://docs.doubleml.org/stable/guide/resampling.html)).
+The iid, unconfoundedness, overlap and nuisance regularity assumptions remain.
+Normalized IPW/custom-weight approximation warnings remain as well.
+
+The returned `RepeatedCausalEstimate` contains each partition's estimate and
+diagnostics; its primary `diagnostic_data` is `None`. With diagnostics enabled,
+`model.folds_repetitions_` has shape `(n_observations, n_rep)`. With diagnostics
+disabled, that attribute is `None`; seeds and scalar per-repeat results remain.
+The first integer split seed matches `random_state`; later seeds are generated
+locally and recorded. Learner seed parameters are preserved, so deterministic
+or explicitly seeded learners are needed for reproducible predictions.
+Repetitions run sequentially; `n_jobs` controls fitting within each partition.
+Storage and fitting cost grow with the number of repetitions.
+
+Relative percentage effects are aggregated separately, and are undefined if
+any partition has undefined relative inference. Repeated fits require
+`overlap_policy="clip"` to keep a common sample. GATE/GATET, CATE prediction and
+sensitivity aggregation are unavailable for repeated fits. Multi-treatment and
+IV repetition are not implemented by this API. `n_rep=1` keeps the existing
+single-partition behavior; repetition counts must be positive integers.
+
 ## RCT data with multiple outcomes and treatment arms
 
 ```python
