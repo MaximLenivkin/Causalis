@@ -1,0 +1,22 @@
+{
+  "observed_head": "1409e95cf0cfb0cb1f9ab8541eefc25b3cbe1342",
+  "source_state": "working tree before source commit",
+  "tests": 364,
+  "passed": 364,
+  "new_cases": 87,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "warnings": 38,
+  "pytest_elapsed_seconds": 18.87,
+  "junit_sha256": "aa35d424832db70a99f676bd7937af9734f92edc9ac2d6887a0d2a651b107457",
+  "source_sha256": {
+    "README.md": "563039ba723810305e885ff977129c3ae1f135c56e1522ee005131f265b57b97",
+    "causalis/scenarios/unconfoundedness/model.py": "d97bda49b10b9a0fba9791fd4f918b7751f2eb47b2bb16e3678c1a4a668289b1",
+    "causalis/scenarios/unconfoundedness/_repeated.py": "578bc03710c770ef66b2e68e7fb00a17496891ecf57a28d4d34e24ce52e5995b",
+    "causalis/scenarios/unconfoundedness/_cluster.py": "f635b8289fd52b148d211c814b69e6c7a6b4c4c94c3d1c31e14bca89d494772f",
+    "causalis/scenarios/gate/model.py": "5103e6d8b7376b26f4505f555c117ed99240898d002e503807db2d51f232759b",
+    "causalis/scenarios/uplift/model.py": "ba86e36762f8ea17a6d3cf059e2928f82f7945db3a2f016c11a5af4b4f0d075d",
+    "tests/inference/test_irm_cluster_crossfit.py": "e57322506fbc1351419ed2238262835782b3a22dae81f1b87747472433b698b5"
+  }
+}

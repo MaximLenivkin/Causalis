@@ -41,6 +41,8 @@ class _ConstantOutcomeModel:
 
 def _validate_fitted_irm(irm_model: Any) -> None:
     """Validate that the object can provide lazy CATE predictions."""
+    if getattr(irm_model, "_fit_cluster_codes_", None) is not None:
+        raise NotImplementedError("Cluster IRM CATE scoring is unavailable")
     check_is_fitted(irm_model, attributes=["g0_hat_", "g1_hat_", "m_hat_"])
     if not hasattr(irm_model, "_check_data"):
         raise TypeError("predict_cate currently supports fitted IRM models only.")

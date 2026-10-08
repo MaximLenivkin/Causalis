@@ -1,0 +1,22 @@
+{
+  "baseline": "1409e95cf0cfb0cb1f9ab8541eefc25b3cbe1342",
+  "observed_head": "1409e95cf0cfb0cb1f9ab8541eefc25b3cbe1342",
+  "exact_iid_fit_configuration_pairs": 32,
+  "exact_iid_estimate_pairs": 48,
+  "exact_unsupported_weighted_atte_rejections": 16,
+  "baseline_feature": {
+    "error": "IRM.__init__() got an unexpected keyword argument 'cluster_groups'",
+    "status": "unsupported"
+  },
+  "current_feature": {
+    "status": "supported"
+  },
+  "compared_payload_sha256": "06db6ade7567658a70a028f64b81cdc3412754d69ddf37a98d38b7f06081bd7f",
+  "source_sha256": {
+    "causalis/scenarios/unconfoundedness/model.py": "d97bda49b10b9a0fba9791fd4f918b7751f2eb47b2bb16e3678c1a4a668289b1",
+    "causalis/scenarios/unconfoundedness/_repeated.py": "578bc03710c770ef66b2e68e7fb00a17496891ecf57a28d4d34e24ce52e5995b",
+    "causalis/scenarios/unconfoundedness/_cluster.py": "f635b8289fd52b148d211c814b69e6c7a6b4c4c94c3d1c31e14bca89d494772f",
+    "causalis/data_contracts/__init__.py": "6b9d642286f7074c264328a2b66503d1669c51287490dabca0ae69de5738f4d4"
+  },
+  "temporary_copies_removed": true
+}

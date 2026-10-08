@@ -387,6 +387,47 @@ clipping/fallback flags, long/short elements, and warnings for auditability.
 In particular, a negative `cf_d_raw` becomes a numerical `cf_d=0` boundary
 benchmark rather than a missing scenario.
 
+## One-way clustered binary IRM
+
+```python
+# Labels correspond to the same rows and order as data.df.
+model = IRM(data, ml_g=ml_g, ml_m=ml_m, cluster_groups=cluster_labels,
+            n_folds=4, n_rep=3, random_state=3141).fit()
+ate = model.estimate(score="ATE")
+atte = model.estimate(score="ATTE")
+```
+
+`cluster_groups` is a one-dimensional vector of nonmissing scalar labels. A
+pandas Series must have exactly the input DataFrame index in order. Fit snapshots
+integer membership; later label/configuration changes require refitting. Labels
+are not automatically added to confounders. This argument is separate from the
+subgroups passed to `estimate(groups=...)` for GATE.
+
+Whole clusters are held out together using shuffled KFold over first-occurrence
+cluster codes, balancing cluster counts. Row counts and treatment proportions
+may differ across folds. Each training complement must contain both arms; an
+unsupported split raises before that partition's learners fit. There is no
+row-level fallback or random retry. `cluster_split_seed_` records the realized
+seed for a single partition, including when `random_state=None`; repetitions
+use the recorded B22 repetition seeds. Learner RNG settings remain unchanged.
+
+ATE and ATTE keep the original observation-weighted targets. Absolute, baseline
+and relative delta-method SEs use one-way CR1: with n rows and G clusters,
+`SE² = G/(G−1) × sum_g[sum_{i in g}(IF_i − mean(IF))]²/n²`.
+All singleton clusters reduce to the iid ddof=1 variance. Normal Wald inference
+requires many independent clusters, no dominating cluster, suitable nuisance
+rates, unconfoundedness, overlap and no interference. The correction does not
+guarantee coverage with few clusters or fix identification. Custom-weight and
+normalized-IPW approximation flags still apply. Repeated partitions aggregate
+the cluster SEs by the same median-variance policy; they have no single IF.
+
+Cluster fitting requires clipping, at least `n_folds` clusters and at least two
+clusters. Results identify `inference="one_way_cluster_cr1"`, `n_clusters` and
+`cluster_target="row_weighted"`. Membership remains necessary in lightweight
+mode. Cluster GATE/GATET, CATE scoring and sensitivity reject explicitly;
+multiway clustering, cluster bootstrap, few-cluster inference and grouping for
+multi-treatment/IV models are separate follow-ups.
+
 # Pick your scenario
 
 | Scenario                                                                                   | Estimator                                                 | Assumptions                                                                                                                     |

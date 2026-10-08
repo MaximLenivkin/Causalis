@@ -61,6 +61,8 @@ def _validate_gate_inputs(
     estimand: str = "GATE",
 ) -> tuple[pd.DataFrame | pd.Series | np.ndarray, str]:
     """Validate a subgroup-estimation request and resolve fallback groups."""
+    if getattr(irm_model, "_fit_cluster_codes_", None) is not None:
+        raise NotImplementedError("Cluster IRM subgroup inference is unavailable")
     check_is_fitted(irm_model, attributes=["g0_hat_", "g1_hat_", "m_hat_"])
 
     if not hasattr(irm_model, "_y") or not hasattr(irm_model, "_d"):

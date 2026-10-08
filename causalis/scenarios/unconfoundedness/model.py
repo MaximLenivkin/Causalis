@@ -53,6 +53,9 @@ from causalis.scenarios.unconfoundedness._score_utils import (
 from causalis.scenarios.unconfoundedness._repeated import (
     aggregate_estimates, repetition_seeds, validate_n_rep,
 )
+from causalis.scenarios.unconfoundedness._cluster import (
+    cluster_codes, cluster_splits, cluster_standard_error,
+)
 from causalis.data_contracts.repeated_causal_estimate import RepeatedCausalEstimate
 from causalis.scenarios.unconfoundedness._utils import (
     _apply_overlap_policy,
@@ -84,6 +87,18 @@ class IRM(BaseEstimator):
         use median effects and split-adjusted median-variance standard errors.
         Requires overlap_policy='clip'; returns RepeatedCausalEstimate.
         Repetitions run sequentially with existing fold-level n_jobs.
+    cluster_groups : Optional[array-like or pandas.Series], default None
+        One-way independent cluster labels, aligned to input rows. A Series
+        must match the fitted DataFrame index exactly in order. Whole clusters
+        are held out with shuffled KFold over first-occurrence cluster codes;
+        folds balance cluster counts, not rows or treatment proportions.
+        Every training complement must contain both treatment arms.
+        ATE/ATTE and relative effects use row-weighted moments and one-way CR1
+        standard errors with normal Wald inference. Requires overlap_policy='clip'.
+        Repetitions aggregate cluster SEs using the same median-variance rule.
+        Cluster GATE/GATET, CATE scoring and sensitivity are unavailable.
+        Integer membership is retained even without diagnostics; labels are
+        snapshotted at fit time and are not added to nuisance features.
     normalize_ipw : bool, default False
         Whether to normalize IPW terms within the score. Applied to ATE only.
         For ATTE, normalization is ignored to preserve the canonical ATTE EIF.
@@ -177,6 +192,11 @@ class IRM(BaseEstimator):
     parts) are rejected before clipping or class selection.
 
     The IRM model targets binary-treatment causal effects under unconfoundedness.
+    Cluster inference additionally requires independent clusters, many clusters,
+    no dominating cluster and adequate nuisance rates at the cluster level.
+    Dependence within a cluster is allowed. The estimand weights observations,
+    not clusters equally. CR1 does not guarantee coverage with few clusters;
+    grouping does not establish no interference or causal identification.
     Let :math:`W = (Y, D, X)` with :math:`D \in \{0, 1\}` and define
 
     .. math::
@@ -279,6 +299,7 @@ class IRM(BaseEstimator):
         *,
         n_folds: int = 4,
         n_rep: int = 1,
+        cluster_groups: Any = None,
         normalize_ipw: bool = False,
         overlap_policy: str = "clip",
         overlap_threshold: float = 1e-2,
@@ -296,6 +317,8 @@ class IRM(BaseEstimator):
         self._ml_m_is_default = False
         self.n_folds = int(n_folds)
         self.n_rep = validate_n_rep(n_rep)
+        self.cluster_groups = cluster_groups
+        self._fit_cluster_codes_ = None
         self.score = "ATE"
         self.normalize_ipw = bool(normalize_ipw)
         self.overlap_policy, self.overlap_threshold = _validate_overlap_config(
@@ -820,7 +843,11 @@ class IRM(BaseEstimator):
         fold_importances: List[Optional[Dict[str, Optional[np.ndarray]]]] = []
 
         fixed_folds = getattr(self, "_fixed_fold_assignments_", None)
-        if fixed_folds is None:
+        if self._fit_cluster_codes_ is not None:
+            splits = cluster_splits(
+                self._fit_cluster_codes_, d, self.n_folds, self.cluster_split_seed_
+            )
+        elif fixed_folds is None:
             skf = StratifiedKFold(
                 n_splits=self.n_folds, shuffle=True, random_state=self.random_state
             )
@@ -1241,6 +1268,22 @@ class IRM(BaseEstimator):
         self._validate_treatment_support(d)
         self._store_fit_sample(X=X, y=y, d=d)
 
+        self._fit_cluster_codes_ = None
+        for name in ("n_clusters_", "cluster_split_seed_"):
+            self.__dict__.pop(name, None)
+        if self.cluster_groups is not None:
+            if self.overlap_policy != "clip":
+                raise ValueError("Cluster IRM requires overlap_policy='clip'")
+            if self._fixed_fold_assignments_ is not None:
+                raise ValueError("Cluster IRM does not accept fixed folds")
+            self._fit_cluster_codes_, self.n_clusters_ = cluster_codes(
+                self.cluster_groups, self.data.df.index
+            )
+            if self.n_clusters_ < self.n_folds:
+                raise ValueError("n_folds exceeds the number of distinct cluster_groups")
+            if self.n_rep == 1:
+                self.cluster_split_seed_ = repetition_seeds(self.random_state, 1)[0]
+
         self.__dict__.pop("_fit_repetitions_", None)
         self.__dict__.pop("repetition_seeds_", None)
         self.__dict__.pop("folds_repetitions_", None)
@@ -1250,6 +1293,8 @@ class IRM(BaseEstimator):
             seeds = repetition_seeds(self.random_state, self.n_rep)
             params = self.get_params(deep=False)
             params.update(n_rep=1)
+            if self._fit_cluster_codes_ is not None:
+                params.update(cluster_groups=self._fit_cluster_codes_)
             repetitions = []
             for seed in seeds:
                 child_params = dict(params, random_state=seed)
@@ -1350,6 +1395,14 @@ class IRM(BaseEstimator):
             )
 
     @_checked_arithmetic
+    def _influence_standard_error(self, influence: np.ndarray) -> float:
+        """Use fit-time cluster membership, preserving the original iid rule."""
+        if self._fit_cluster_codes_ is not None:
+            return cluster_standard_error(influence, self._fit_cluster_codes_)
+        var = float(np.var(influence, ddof=1)) / len(influence)
+        return float(np.sqrt(max(var, 0.0)))
+
+    @_checked_arithmetic
     def _solve_moment_equation(
         self,
         *,
@@ -1373,8 +1426,7 @@ class IRM(BaseEstimator):
             psi_res = psi_b + psi_a * theta_hat
             # Estimated influence function and its plug-in sandwich variance.
             IF = -psi_res / J
-            var = float(np.var(IF, ddof=1)) / n
-            se = float(np.sqrt(max(var, 0.0)))
+            se = self._influence_standard_error(IF)
 
         t_stat = theta_hat / se if se > 0 else np.nan
         pval = 2 * (1 - norm.cdf(abs(t_stat))) if np.isfinite(t_stat) else np.nan
@@ -1425,8 +1477,7 @@ class IRM(BaseEstimator):
         # ATT baseline is a ratio with the same empirical treated share as
         # the absolute ATT. Its IF subtracts w*mu_c, rather than mu_c alone.
         IF_mu = psi_mu_c - (w * mu_c if score == "ATTE" else mu_c)
-        mu_c_var = float(np.var(IF_mu, ddof=1)) / n if n > 1 else 0.0
-        mu_c_se = float(np.sqrt(max(mu_c_var, 0.0)))
+        mu_c_se = self._influence_standard_error(IF_mu) if n > 1 else 0.0
         tau_rel = np.nan
         ci_low_rel = np.nan
         ci_high_rel = np.nan
@@ -1442,8 +1493,7 @@ class IRM(BaseEstimator):
             with np.errstate(divide="ignore", invalid="ignore"):
                 # Delta-method IF for tau_rel = 100 * theta / mu_c.
                 IF_rel = 100.0 * (IF / mu_c - (theta_hat * IF_mu) / (mu_c**2))
-            var_rel = float(np.var(IF_rel, ddof=1)) / n
-            se_rel = float(np.sqrt(max(var_rel, 0.0)))
+            se_rel = self._influence_standard_error(IF_rel)
             ci_low_rel = tau_rel - z * se_rel
             ci_high_rel = tau_rel + z * se_rel
             _require_finite(IF_rel, tau_rel, se_rel, ci_low_rel, ci_high_rel)
@@ -1636,6 +1686,8 @@ class IRM(BaseEstimator):
             return self._estimate_repetitions(score, alpha)
         check_is_fitted(self, attributes=["g0_hat_", "g1_hat_", "m_hat_"])
         score = self._validate_estimate_request(score=score, alpha=alpha)
+        if self._fit_cluster_codes_ is not None and score in {"GATE", "GATET"}:
+            raise NotImplementedError("Cluster IRM supports ATE/ATTE inference only")
         self.score = score
 
         if score in {"GATE", "GATET"}:
@@ -1729,6 +1781,14 @@ class IRM(BaseEstimator):
             approx_flags=approx_flags,
             diag=diag,
         )
+        if self._fit_cluster_codes_ is not None:
+            results.model_options.update(
+                inference="one_way_cluster_cr1",
+                n_clusters=int(self._fit_cluster_codes_.max()) + 1,
+                cluster_split_seed=self.cluster_split_seed_,
+                cluster_target="row_weighted",
+                cluster_split="shuffled_group_kfold",
+            )
         self._update_estimate_state(
             theta_hat=theta_hat,
             se=se,
@@ -1891,6 +1951,8 @@ class IRM(BaseEstimator):
 
     def predict_cate(self, X: pd.DataFrame | np.ndarray) -> np.ndarray:
         """Predict CATE/uplift for new rows using lazy full-sample scoring models."""
+        if self._fit_cluster_codes_ is not None:
+            raise NotImplementedError("Cluster IRM CATE scoring is unavailable")
         if hasattr(self, "_fit_repetitions_"):
             raise NotImplementedError("Repeated IRM CATE aggregation is unavailable")
         from causalis.scenarios.uplift.model import predict_cate
@@ -1941,6 +2003,8 @@ class IRM(BaseEstimator):
             Sensitivity elements including 'sigma2', 'nu2', 'psi_sigma2', 'psi_nu2',
             'riesz_rep', 'm_alpha', and 'psi'.
         """
+        if self._fit_cluster_codes_ is not None:
+            raise NotImplementedError("Cluster IRM sensitivity inference is unavailable")
         if hasattr(self, "_fit_repetitions_"):
             raise NotImplementedError("Repeated IRM sensitivity aggregation is unavailable")
         if any(
@@ -2011,6 +2075,8 @@ class IRM(BaseEstimator):
         alpha : float, default 0.05
             Significance level for CI bounds.
         """
+        if self._fit_cluster_codes_ is not None:
+            raise NotImplementedError("Cluster IRM sensitivity inference is unavailable")
         if hasattr(self, "_fit_repetitions_"):
             raise NotImplementedError("Repeated IRM sensitivity aggregation is unavailable")
         from causalis.scenarios.unconfoundedness.refutation.unconfoundedness.sensitivity import (
