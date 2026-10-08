@@ -42,7 +42,10 @@ def _quadratic_set(a, b, c):
         root = float(-c / b)
         _require_finite(root)
         return "half-line", ((-np.inf, root),) if b > 0 else ((root, np.inf),)
-    discriminant = fsum([float(b * b), float(-4 * a * c)])
+    square, product = float(b * b), float(-4 * a * c)
+    discriminant = fsum([square, product])
+    if discriminant == 0 and ((b != 0 and square == 0) or (c != 0 and product == 0)):
+        raise RuntimeError("Quadratic discriminant underflowed; rescale the signals")
     if discriminant < 0:
         return ("all-real", ((-np.inf, np.inf),)) if a < 0 else ("empty", ())
     if discriminant == 0:
@@ -55,6 +58,8 @@ def _quadratic_set(a, b, c):
     q = -.5 * (b + copysign(sqrt(discriminant), b))
     roots = sorted((float(q / a), float(c / q)))
     _require_finite(roots)
+    if c != 0 and any(root == 0 for root in roots):
+        raise RuntimeError("Finite quadratic root underflowed; rescale the signals")
     lo, hi = roots
     if a > 0:
         return "bounded", ((lo, hi),)

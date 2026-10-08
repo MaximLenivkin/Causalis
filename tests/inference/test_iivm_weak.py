@@ -99,6 +99,14 @@ def test_stable_roots_and_no_linear_tolerance():
     assert _quadratic_set(-1e-100, -1, 1)[0] == 'two-rays'
 
 
+@pytest.mark.parametrize('b', [1e-200, -1e-200])
+def test_discriminant_underflow_cannot_turn_two_roots_into_a_singleton(b):
+    # t*(t+b) <= 0 has two representable roots, 0 and -b. Squaring b loses
+    # the discriminant in float64; an explicit failure must replace false sets.
+    with pytest.raises(RuntimeError, match='discriminant underflow'):
+        _quadratic_set(1., b, 0.)
+
+
 @pytest.mark.parametrize('values', [([], []), ([1], [2]), ([[1, 2]], [1, 2]),
                                     ([1, 2], [1, 2, 3]), ([1, 1], [2, 2]), ([0, 0], [0, 0])])
 def test_shape_and_degenerate_signals(values):
