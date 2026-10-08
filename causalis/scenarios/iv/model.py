@@ -736,6 +736,17 @@ class IIVM(BaseEstimator):
         return (phi_y, phi_d, numerator, denominator, theta_hat, psi_a, psi_b,
                 psi, se, t_stat, p_value, ci_low, ci_high)
 
+    def estimate_weak_iv(self, *, alpha: float = 0.05, null: float = 0.0):
+        """Return division-free iid score inference and a complete Fieller set.
+
+        Uses fitted arrays without changing Wald results or diagnostics. Only
+        single-partition, unnormalized truncate fits are supported. See
+        :class:`~causalis.scenarios.iv.WeakIVInference` for identification,
+        nuisance-rate, overlap and score-variance assumptions and limitations.
+        """
+        from .weak import WeakIVInference
+        return WeakIVInference.from_iivm(self).infer(alpha=alpha, null=null)
+
     def estimate(self, score: str = "LATE", alpha: float = 0.05) -> IVCausalEstimate:
         """Estimate LATE from cross-fitted IIVM nuisance predictions."""
         check_is_fitted(

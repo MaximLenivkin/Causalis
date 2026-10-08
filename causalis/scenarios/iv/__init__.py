@@ -20,5 +20,6 @@ Examples
 
 from .dgp import generate_offer_iv_26
 from .model import IIVM, IVCausalEstimate
+from .weak import WeakIVInference, WeakIVResult
 
-__all__ = ["IIVM", "IVCausalEstimate", "generate_offer_iv_26"]
+__all__ = ["IIVM", "IVCausalEstimate", "generate_offer_iv_26", "WeakIVInference", "WeakIVResult"]

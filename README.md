@@ -678,6 +678,65 @@ an independent sample. This API supplies no pointwise CATE intervals,
 finite-sample coverage certificate, arbitrary growing-family theorem,
 Romano-Wolf stepdown, weak-IV or cluster inference.
 
+## Weak-instrument inference for binary-IV LATE
+
+```python
+from causalis.scenarios.iv import IIVM, WeakIVInference
+
+iv = IIVM(normalize_ipw=False).fit(iv_data)
+robust = iv.estimate_weak_iv(alpha=0.05, null=0.0)
+print(robust.confidence_set)  # a tuple of closed interval components
+print(robust.set_type, robust.p_value)
+robust.contains(1.0)
+robust.summary()  # aggregate results only
+
+# Snapshot once to test additional candidates without touching the fitted model.
+snapshot = WeakIVInference.from_iivm(iv)
+snapshot.infer(null=2.0)
+```
+
+The method tests the orthogonal moment `mean(phi_y - theta*phi_d) = 0`
+without dividing by the estimated first stage. The squared studentized moment
+uses empirically centered covariance of the signal means, with `ddof=1`, and
+an asymptotic chi-square(1) cutoff. It inverts the complete quadratic inequality
+over the real line. A result can be a bounded interval, two rays, one half-line,
+a singleton, the entire real line, or empty. Infinite endpoints mean unbounded
+components. Keep the entire tuple: taking its minimum and maximum would fill
+an excluded gap. Boundaries are included; `is_significant` uses a strict
+statistic-above-cutoff comparison. No finite search grid or effect bounds are
+imposed, and no first-stage strength pretest selects the inference method.
+
+The original `estimate()` still returns the existing Wald estimate and
+interval; `estimate_weak_iv()` neither changes its caches/diagnostics nor
+requires it to succeed. Only single-partition, unnormalized `truncate` IIVM
+fits are supported. The adapter uses the successful fit's copied observations
+and nuisance arrays; later live-data edits do not change them. A snapshot owns
+its signals and survives later model edits. Public fitted-array mutation is
+not certified. Generic `WeakIVInference(phi_y, phi_d)` accepts aligned iid
+observation-scale signals of shape `(n,)`, with `n >= 2`; it does not establish
+their validity or provide a cluster/weighted/repeated-split workaround.
+
+Causal LATE needs consistency, conditional IV exogeneity, exclusion,
+monotonicity, overlap, and a nonzero population complier share. At exactly zero
+population first stage a unique complier LATE may not exist; the procedure
+still tests the moment. Its weak-IV robustness is asymptotic and conditional
+on a valid null-score CLT, positive limiting score variance, adequate moments,
+and negligible nuisance-estimation remainder. Uniform validity across weak-IV
+sequences requires these conditions uniformly. Arbitrary learners or ordinary
+cross-fitting do not certify them. Clipping, nuisance misspecification, invalid
+instruments or adaptive selection can invalidate inference. This is a scalar
+orthogonal AR-style test with Fieller inversion, not a finite-sample AR/F test,
+CLR procedure, sensitivity analysis or identification diagnostic.
+
+Singular joint signal covariance is allowed. A requested null with zero
+empirical score variance is rejected; other such candidates retain the
+algebraic inequality in the returned set without a coverage claim at degenerate
+points. Complex/nonfinite/misaligned inputs are rejected. Float64 determines
+near-boundary geometry; no tolerance silently removes a quadratic term.
+Unrepresentable finite roots, statistics or underflowed coefficients raise.
+Common rescaling of the signals can improve arithmetic but does not change
+statistical assumptions or cure an extreme difference between their scales.
+
 ## Search terms / supported methods
 
 Causalis covers methods often searched as:
