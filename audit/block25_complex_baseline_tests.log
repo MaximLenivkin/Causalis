@@ -1,0 +1,620 @@
+FFFFFFFF                                                                 [100%]
+=================================== FAILURES ===================================
+_ test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion[False-x-DRLearner] _
+
+learner = <class 'causalis.scenarios.uplift.learners.DRLearner'>, column = 'x'
+object_dtype = False
+
+    @pytest.mark.parametrize('learner', [DRLearner, RLearner])
+    @pytest.mark.parametrize('column', ['x', 'y'])
+    @pytest.mark.parametrize('object_dtype', [False, True])
+    def test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion(learner, column, object_dtype):
+        irm = support_irm()
+        values = irm.data.df[column].to_numpy().astype(complex)
+        irm.data.df[column] = values.astype(object) if object_dtype else values
+>       with pytest.raises(ValueError, match='real'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/scenarios/uplift/test_dr_r_learners.py:405: Failed
+_ test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion[False-x-RLearner] _
+
+learner = <class 'causalis.scenarios.uplift.learners.RLearner'>, column = 'x'
+object_dtype = False
+
+    @pytest.mark.parametrize('learner', [DRLearner, RLearner])
+    @pytest.mark.parametrize('column', ['x', 'y'])
+    @pytest.mark.parametrize('object_dtype', [False, True])
+    def test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion(learner, column, object_dtype):
+        irm = support_irm()
+        values = irm.data.df[column].to_numpy().astype(complex)
+        irm.data.df[column] = values.astype(object) if object_dtype else values
+>       with pytest.raises(ValueError, match='real'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/scenarios/uplift/test_dr_r_learners.py:405: Failed
+_ test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion[False-y-DRLearner] _
+
+learner = <class 'causalis.scenarios.uplift.learners.DRLearner'>, column = 'y'
+object_dtype = False
+
+    @pytest.mark.parametrize('learner', [DRLearner, RLearner])
+    @pytest.mark.parametrize('column', ['x', 'y'])
+    @pytest.mark.parametrize('object_dtype', [False, True])
+    def test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion(learner, column, object_dtype):
+        irm = support_irm()
+        values = irm.data.df[column].to_numpy().astype(complex)
+        irm.data.df[column] = values.astype(object) if object_dtype else values
+>       with pytest.raises(ValueError, match='real'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/scenarios/uplift/test_dr_r_learners.py:405: Failed
+_ test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion[False-y-RLearner] _
+
+learner = <class 'causalis.scenarios.uplift.learners.RLearner'>, column = 'y'
+object_dtype = False
+
+    @pytest.mark.parametrize('learner', [DRLearner, RLearner])
+    @pytest.mark.parametrize('column', ['x', 'y'])
+    @pytest.mark.parametrize('object_dtype', [False, True])
+    def test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion(learner, column, object_dtype):
+        irm = support_irm()
+        values = irm.data.df[column].to_numpy().astype(complex)
+        irm.data.df[column] = values.astype(object) if object_dtype else values
+>       with pytest.raises(ValueError, match='real'):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE ValueError
+
+tests/scenarios/uplift/test_dr_r_learners.py:405: Failed
+_ test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion[True-x-DRLearner] _
+
+learner = <class 'causalis.scenarios.uplift.learners.DRLearner'>, column = 'x'
+object_dtype = True
+
+    @pytest.mark.parametrize('learner', [DRLearner, RLearner])
+    @pytest.mark.parametrize('column', ['x', 'y'])
+    @pytest.mark.parametrize('object_dtype', [False, True])
+    def test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion(learner, column, object_dtype):
+        irm = support_irm()
+        values = irm.data.df[column].to_numpy().astype(complex)
+        irm.data.df[column] = values.astype(object) if object_dtype else values
+        with pytest.raises(ValueError, match='real'):
+>           learner().fit(irm)
+
+tests/scenarios/uplift/test_dr_r_learners.py:406: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+causalis/scenarios/uplift/learners.py:85: in fit
+    X, y, d, g0, g1, e, names, folds = _oof_training_sample(irm)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis/scenarios/uplift/learners.py:30: in _oof_training_sample
+    X, y, d, _ = irm._check_data()
+                 ^^^^^^^^^^^^^^^^^
+causalis/scenarios/unconfoundedness/model.py:425: in _check_data
+    X = df[x_cols].to_numpy(dtype=float, copy=False)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/pandas/core/frame.py:2081: in to_numpy
+    result = self._mgr.as_array(dtype=dtype, copy=copy, na_value=na_value)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = BlockManager
+Items: Index(['x'], dtype='str')
+Axis 1: RangeIndex(start=0, stop=200, step=1)
+NumpyBlock: slice(0, 1, 1), 1 x 200, dtype: object
+dtype = dtype('float64'), copy = False, na_value = <no_default>
+
+    def as_array(
+        self,
+        dtype: np.dtype | None = None,
+        copy: bool = False,
+        na_value: object = lib.no_default,
+    ) -> np.ndarray:
+        """
+        Convert the blockmanager data into a numpy array.
+    
+        Parameters
+        ----------
+        dtype : np.dtype or None, default None
+            Data type of the return array.
+        copy : bool, default False
+            If True then guarantee that a copy is returned. A value of
+            False does not guarantee that the underlying data is not
+            copied.
+        na_value : object, default lib.no_default
+            Value to be used as the missing value sentinel.
+    
+        Returns
+        -------
+        arr : ndarray
+        """
+        passed_nan = lib.is_float(na_value) and isna(na_value)
+    
+        if len(self.blocks) == 0:
+            arr = np.empty(self.shape, dtype=float)
+            return arr.transpose()
+    
+        if self.is_single_block:
+            blk = self.blocks[0]
+    
+            if na_value is not lib.no_default:
+                # We want to copy when na_value is provided to avoid
+                # mutating the original object
+                if lib.is_np_dtype(blk.dtype, "f") and passed_nan:
+                    # We are already numpy-float and na_value=np.nan
+                    pass
+                else:
+                    copy = True
+    
+            if blk.is_extension:
+                # Avoid implicit conversion of extension blocks to object
+    
+                # error: Item "ndarray" of "Union[ndarray, ExtensionArray]" has no
+                # attribute "to_numpy"
+                arr = blk.values.to_numpy(  # type: ignore[union-attr]
+                    dtype=dtype,
+                    na_value=na_value,
+                    copy=copy,
+                ).reshape(blk.shape)
+            elif not copy:
+>               arr = np.asarray(blk.values, dtype=dtype)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               TypeError: float() argument must be a string or a real number, not 'complex'
+
+.venv/lib/python3.12/site-packages/pandas/core/internals/managers.py:1875: TypeError
+_ test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion[True-x-RLearner] _
+
+learner = <class 'causalis.scenarios.uplift.learners.RLearner'>, column = 'x'
+object_dtype = True
+
+    @pytest.mark.parametrize('learner', [DRLearner, RLearner])
+    @pytest.mark.parametrize('column', ['x', 'y'])
+    @pytest.mark.parametrize('object_dtype', [False, True])
+    def test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion(learner, column, object_dtype):
+        irm = support_irm()
+        values = irm.data.df[column].to_numpy().astype(complex)
+        irm.data.df[column] = values.astype(object) if object_dtype else values
+        with pytest.raises(ValueError, match='real'):
+>           learner().fit(irm)
+
+tests/scenarios/uplift/test_dr_r_learners.py:406: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+causalis/scenarios/uplift/learners.py:85: in fit
+    X, y, d, g0, g1, e, names, folds = _oof_training_sample(irm)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis/scenarios/uplift/learners.py:30: in _oof_training_sample
+    X, y, d, _ = irm._check_data()
+                 ^^^^^^^^^^^^^^^^^
+causalis/scenarios/unconfoundedness/model.py:425: in _check_data
+    X = df[x_cols].to_numpy(dtype=float, copy=False)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.venv/lib/python3.12/site-packages/pandas/core/frame.py:2081: in to_numpy
+    result = self._mgr.as_array(dtype=dtype, copy=copy, na_value=na_value)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = BlockManager
+Items: Index(['x'], dtype='str')
+Axis 1: RangeIndex(start=0, stop=200, step=1)
+NumpyBlock: slice(0, 1, 1), 1 x 200, dtype: object
+dtype = dtype('float64'), copy = False, na_value = <no_default>
+
+    def as_array(
+        self,
+        dtype: np.dtype | None = None,
+        copy: bool = False,
+        na_value: object = lib.no_default,
+    ) -> np.ndarray:
+        """
+        Convert the blockmanager data into a numpy array.
+    
+        Parameters
+        ----------
+        dtype : np.dtype or None, default None
+            Data type of the return array.
+        copy : bool, default False
+            If True then guarantee that a copy is returned. A value of
+            False does not guarantee that the underlying data is not
+            copied.
+        na_value : object, default lib.no_default
+            Value to be used as the missing value sentinel.
+    
+        Returns
+        -------
+        arr : ndarray
+        """
+        passed_nan = lib.is_float(na_value) and isna(na_value)
+    
+        if len(self.blocks) == 0:
+            arr = np.empty(self.shape, dtype=float)
+            return arr.transpose()
+    
+        if self.is_single_block:
+            blk = self.blocks[0]
+    
+            if na_value is not lib.no_default:
+                # We want to copy when na_value is provided to avoid
+                # mutating the original object
+                if lib.is_np_dtype(blk.dtype, "f") and passed_nan:
+                    # We are already numpy-float and na_value=np.nan
+                    pass
+                else:
+                    copy = True
+    
+            if blk.is_extension:
+                # Avoid implicit conversion of extension blocks to object
+    
+                # error: Item "ndarray" of "Union[ndarray, ExtensionArray]" has no
+                # attribute "to_numpy"
+                arr = blk.values.to_numpy(  # type: ignore[union-attr]
+                    dtype=dtype,
+                    na_value=na_value,
+                    copy=copy,
+                ).reshape(blk.shape)
+            elif not copy:
+>               arr = np.asarray(blk.values, dtype=dtype)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E               TypeError: float() argument must be a string or a real number, not 'complex'
+
+.venv/lib/python3.12/site-packages/pandas/core/internals/managers.py:1875: TypeError
+_ test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion[True-y-DRLearner] _
+
+learner = <class 'causalis.scenarios.uplift.learners.DRLearner'>, column = 'y'
+object_dtype = True
+
+    @pytest.mark.parametrize('learner', [DRLearner, RLearner])
+    @pytest.mark.parametrize('column', ['x', 'y'])
+    @pytest.mark.parametrize('object_dtype', [False, True])
+    def test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion(learner, column, object_dtype):
+        irm = support_irm()
+        values = irm.data.df[column].to_numpy().astype(complex)
+        irm.data.df[column] = values.astype(object) if object_dtype else values
+        with pytest.raises(ValueError, match='real'):
+>           learner().fit(irm)
+
+tests/scenarios/uplift/test_dr_r_learners.py:406: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+causalis/scenarios/uplift/learners.py:85: in fit
+    X, y, d, g0, g1, e, names, folds = _oof_training_sample(irm)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis/scenarios/uplift/learners.py:30: in _oof_training_sample
+    X, y, d, _ = irm._check_data()
+                 ^^^^^^^^^^^^^^^^^
+causalis/scenarios/unconfoundedness/model.py:413: in _check_data
+    y = df[self.data.outcome.name].to_numpy(dtype=float, copy=False)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = 0      (7.2+0j)
+1      (7.2+0j)
+2      (7.2+0j)
+3      (7.2+0j)
+4      (7.2+0j)
+         ...   
+195     (13+0j)
+196     (13+0j)
+197     (13+0j)
+198     (13+0j)
+199     (13+0j)
+Name: y, Length: 200, dtype: object
+dtype = <class 'float'>, copy = False, na_value = <no_default>, kwargs = {}
+
+    def to_numpy(
+        self,
+        dtype: npt.DTypeLike | None = None,
+        copy: bool = False,
+        na_value: object = lib.no_default,
+        **kwargs,
+    ) -> np.ndarray:
+        """
+        A NumPy ndarray representing the values in this Series or Index.
+    
+        Parameters
+        ----------
+        dtype : str or numpy.dtype, optional
+            The dtype to pass to :meth:`numpy.asarray`.
+        copy : bool, default False
+            Whether to ensure that the returned value is not a view on
+            another array. Note that ``copy=False`` does not *ensure* that
+            ``to_numpy()`` is no-copy. Rather, ``copy=True`` ensure that
+            a copy is made, even if not strictly necessary.
+        na_value : Any, optional
+            The value to use for missing values. The default value depends
+            on `dtype` and the type of the array.
+        **kwargs
+            Additional keywords passed through to the ``to_numpy`` method
+            of the underlying array (for extension arrays).
+    
+        Returns
+        -------
+        numpy.ndarray
+            The NumPy ndarray holding the values from this Series or Index.
+            The dtype of the array may differ. See Notes.
+    
+        See Also
+        --------
+        Series.array : Get the actual data stored within.
+        Index.array : Get the actual data stored within.
+        DataFrame.to_numpy : Similar method for DataFrame.
+    
+        Notes
+        -----
+        The returned array will be the same up to equality (values equal
+        in `self` will be equal in the returned array; likewise for values
+        that are not equal). When `self` contains an ExtensionArray, the
+        dtype may be different. For example, for a category-dtype Series,
+        ``to_numpy()`` will return a NumPy array and the categorical dtype
+        will be lost.
+    
+        For NumPy dtypes, this will be a reference to the actual data stored
+        in this Series or Index (assuming ``copy=False``). Modifying the result
+        in place will modify the data stored in the Series or Index (not that
+        we recommend doing that).
+    
+        For extension types, ``to_numpy()`` *may* require copying data and
+        coercing the result to a NumPy type (possibly object), which may be
+        expensive. When you need a no-copy reference to the underlying data,
+        :attr:`Series.array` should be used instead.
+    
+        This table lays out the different dtypes and default return types of
+        ``to_numpy()`` for various dtypes within pandas.
+    
+        ================== ================================
+        dtype              array type
+        ================== ================================
+        category[T]        ndarray[T] (same dtype as input)
+        period             ndarray[object] (Periods)
+        interval           ndarray[object] (Intervals)
+        IntegerNA          ndarray[object]
+        datetime64[ns]     datetime64[ns]
+        datetime64[ns, tz] ndarray[object] (Timestamps)
+        ================== ================================
+    
+        Examples
+        --------
+        >>> ser = pd.Series(pd.Categorical(["a", "b", "a"]))
+        >>> ser.to_numpy()
+        array(['a', 'b', 'a'], dtype=object)
+    
+        Specify the `dtype` to control how datetime-aware data is represented.
+        Use ``dtype=object`` to return an ndarray of pandas :class:`Timestamp`
+        objects, each with the correct ``tz``.
+    
+        >>> ser = pd.Series(pd.date_range("2000", periods=2, tz="CET"))
+        >>> ser.to_numpy(dtype=object)
+        array([Timestamp('2000-01-01 00:00:00+0100', tz='CET'),
+               Timestamp('2000-01-02 00:00:00+0100', tz='CET')],
+              dtype=object)
+    
+        Or ``dtype='datetime64[ns]'`` to return an ndarray of native
+        datetime64 values. The values are converted to UTC and the timezone
+        info is dropped.
+    
+        >>> ser.to_numpy(dtype="datetime64[ns]")
+        ... # doctest: +ELLIPSIS
+        array(['1999-12-31T23:00:00.000000000', '2000-01-01T23:00:00...'],
+              dtype='datetime64[ns]')
+        """
+        if isinstance(self.dtype, ExtensionDtype):
+            return self.array.to_numpy(dtype, copy=copy, na_value=na_value, **kwargs)
+        elif kwargs:
+            bad_keys = next(iter(kwargs.keys()))
+            raise TypeError(
+                f"to_numpy() got an unexpected keyword argument '{bad_keys}'"
+            )
+    
+        fillna = (
+            na_value is not lib.no_default
+            # no need to fillna with np.nan if we already have a float dtype
+            and not (na_value is np.nan and np.issubdtype(self.dtype, np.floating))
+        )
+    
+        values = self._values
+        if fillna and self.hasnans:
+            if not can_hold_element(values, na_value):
+                # if we can't hold the na_value asarray either makes a copy or we
+                # error before modifying values. The asarray later on thus won't make
+                # another copy
+                values = np.asarray(values, dtype=dtype)
+            else:
+                values = values.copy()
+    
+            values[np.asanyarray(isna(self))] = na_value
+    
+>       result = np.asarray(values, dtype=dtype)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: float() argument must be a string or a real number, not 'complex'
+
+.venv/lib/python3.12/site-packages/pandas/core/base.py:689: TypeError
+_ test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion[True-y-RLearner] _
+
+learner = <class 'causalis.scenarios.uplift.learners.RLearner'>, column = 'y'
+object_dtype = True
+
+    @pytest.mark.parametrize('learner', [DRLearner, RLearner])
+    @pytest.mark.parametrize('column', ['x', 'y'])
+    @pytest.mark.parametrize('object_dtype', [False, True])
+    def test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion(learner, column, object_dtype):
+        irm = support_irm()
+        values = irm.data.df[column].to_numpy().astype(complex)
+        irm.data.df[column] = values.astype(object) if object_dtype else values
+        with pytest.raises(ValueError, match='real'):
+>           learner().fit(irm)
+
+tests/scenarios/uplift/test_dr_r_learners.py:406: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+causalis/scenarios/uplift/learners.py:85: in fit
+    X, y, d, g0, g1, e, names, folds = _oof_training_sample(irm)
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^
+causalis/scenarios/uplift/learners.py:30: in _oof_training_sample
+    X, y, d, _ = irm._check_data()
+                 ^^^^^^^^^^^^^^^^^
+causalis/scenarios/unconfoundedness/model.py:413: in _check_data
+    y = df[self.data.outcome.name].to_numpy(dtype=float, copy=False)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = 0      (7.2+0j)
+1      (7.2+0j)
+2      (7.2+0j)
+3      (7.2+0j)
+4      (7.2+0j)
+         ...   
+195     (13+0j)
+196     (13+0j)
+197     (13+0j)
+198     (13+0j)
+199     (13+0j)
+Name: y, Length: 200, dtype: object
+dtype = <class 'float'>, copy = False, na_value = <no_default>, kwargs = {}
+
+    def to_numpy(
+        self,
+        dtype: npt.DTypeLike | None = None,
+        copy: bool = False,
+        na_value: object = lib.no_default,
+        **kwargs,
+    ) -> np.ndarray:
+        """
+        A NumPy ndarray representing the values in this Series or Index.
+    
+        Parameters
+        ----------
+        dtype : str or numpy.dtype, optional
+            The dtype to pass to :meth:`numpy.asarray`.
+        copy : bool, default False
+            Whether to ensure that the returned value is not a view on
+            another array. Note that ``copy=False`` does not *ensure* that
+            ``to_numpy()`` is no-copy. Rather, ``copy=True`` ensure that
+            a copy is made, even if not strictly necessary.
+        na_value : Any, optional
+            The value to use for missing values. The default value depends
+            on `dtype` and the type of the array.
+        **kwargs
+            Additional keywords passed through to the ``to_numpy`` method
+            of the underlying array (for extension arrays).
+    
+        Returns
+        -------
+        numpy.ndarray
+            The NumPy ndarray holding the values from this Series or Index.
+            The dtype of the array may differ. See Notes.
+    
+        See Also
+        --------
+        Series.array : Get the actual data stored within.
+        Index.array : Get the actual data stored within.
+        DataFrame.to_numpy : Similar method for DataFrame.
+    
+        Notes
+        -----
+        The returned array will be the same up to equality (values equal
+        in `self` will be equal in the returned array; likewise for values
+        that are not equal). When `self` contains an ExtensionArray, the
+        dtype may be different. For example, for a category-dtype Series,
+        ``to_numpy()`` will return a NumPy array and the categorical dtype
+        will be lost.
+    
+        For NumPy dtypes, this will be a reference to the actual data stored
+        in this Series or Index (assuming ``copy=False``). Modifying the result
+        in place will modify the data stored in the Series or Index (not that
+        we recommend doing that).
+    
+        For extension types, ``to_numpy()`` *may* require copying data and
+        coercing the result to a NumPy type (possibly object), which may be
+        expensive. When you need a no-copy reference to the underlying data,
+        :attr:`Series.array` should be used instead.
+    
+        This table lays out the different dtypes and default return types of
+        ``to_numpy()`` for various dtypes within pandas.
+    
+        ================== ================================
+        dtype              array type
+        ================== ================================
+        category[T]        ndarray[T] (same dtype as input)
+        period             ndarray[object] (Periods)
+        interval           ndarray[object] (Intervals)
+        IntegerNA          ndarray[object]
+        datetime64[ns]     datetime64[ns]
+        datetime64[ns, tz] ndarray[object] (Timestamps)
+        ================== ================================
+    
+        Examples
+        --------
+        >>> ser = pd.Series(pd.Categorical(["a", "b", "a"]))
+        >>> ser.to_numpy()
+        array(['a', 'b', 'a'], dtype=object)
+    
+        Specify the `dtype` to control how datetime-aware data is represented.
+        Use ``dtype=object`` to return an ndarray of pandas :class:`Timestamp`
+        objects, each with the correct ``tz``.
+    
+        >>> ser = pd.Series(pd.date_range("2000", periods=2, tz="CET"))
+        >>> ser.to_numpy(dtype=object)
+        array([Timestamp('2000-01-01 00:00:00+0100', tz='CET'),
+               Timestamp('2000-01-02 00:00:00+0100', tz='CET')],
+              dtype=object)
+    
+        Or ``dtype='datetime64[ns]'`` to return an ndarray of native
+        datetime64 values. The values are converted to UTC and the timezone
+        info is dropped.
+    
+        >>> ser.to_numpy(dtype="datetime64[ns]")
+        ... # doctest: +ELLIPSIS
+        array(['1999-12-31T23:00:00.000000000', '2000-01-01T23:00:00...'],
+              dtype='datetime64[ns]')
+        """
+        if isinstance(self.dtype, ExtensionDtype):
+            return self.array.to_numpy(dtype, copy=copy, na_value=na_value, **kwargs)
+        elif kwargs:
+            bad_keys = next(iter(kwargs.keys()))
+            raise TypeError(
+                f"to_numpy() got an unexpected keyword argument '{bad_keys}'"
+            )
+    
+        fillna = (
+            na_value is not lib.no_default
+            # no need to fillna with np.nan if we already have a float dtype
+            and not (na_value is np.nan and np.issubdtype(self.dtype, np.floating))
+        )
+    
+        values = self._values
+        if fillna and self.hasnans:
+            if not can_hold_element(values, na_value):
+                # if we can't hold the na_value asarray either makes a copy or we
+                # error before modifying values. The asarray later on thus won't make
+                # another copy
+                values = np.asarray(values, dtype=dtype)
+            else:
+                values = values.copy()
+    
+            values[np.asanyarray(isna(self))] = na_value
+    
+>       result = np.asarray(values, dtype=dtype)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: float() argument must be a string or a real number, not 'complex'
+
+.venv/lib/python3.12/site-packages/pandas/core/base.py:689: TypeError
+=============================== warnings summary ===============================
+tests/scenarios/uplift/test_dr_r_learners.py::test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion[False-x-DRLearner]
+tests/scenarios/uplift/test_dr_r_learners.py::test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion[False-x-RLearner]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/lib/python3.12/site-packages/pandas/core/internals/managers.py:1875: ComplexWarning: Casting complex values to real discards the imaginary part
+    arr = np.asarray(blk.values, dtype=dtype)
+
+tests/scenarios/uplift/test_dr_r_learners.py::test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion[False-y-DRLearner]
+tests/scenarios/uplift/test_dr_r_learners.py::test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion[False-y-RLearner]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/lib/python3.12/site-packages/pandas/core/base.py:689: ComplexWarning: Casting complex values to real discards the imaginary part
+    result = np.asarray(values, dtype=dtype)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/scenarios/uplift/test_dr_r_learners.py::test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion[False-x-DRLearner]
+FAILED tests/scenarios/uplift/test_dr_r_learners.py::test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion[False-x-RLearner]
+FAILED tests/scenarios/uplift/test_dr_r_learners.py::test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion[False-y-DRLearner]
+FAILED tests/scenarios/uplift/test_dr_r_learners.py::test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion[False-y-RLearner]
+FAILED tests/scenarios/uplift/test_dr_r_learners.py::test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion[True-x-DRLearner]
+FAILED tests/scenarios/uplift/test_dr_r_learners.py::test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion[True-x-RLearner]
+FAILED tests/scenarios/uplift/test_dr_r_learners.py::test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion[True-y-DRLearner]
+FAILED tests/scenarios/uplift/test_dr_r_learners.py::test_complex_mutation_of_source_cannot_pass_via_lossy_irm_conversion[True-y-RLearner]
+8 failed, 116 deselected, 4 warnings in 21.67s

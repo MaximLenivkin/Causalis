@@ -1,0 +1,13 @@
+{
+  "observed_head": "ebf940f76ec81317a2a59ff6a52880473a23f581",
+  "source_state": "working tree before raw-value correction",
+  "source_sha256": {
+    "causalis/scenarios/uplift/learners.py": "9829133942a90644979d52f33e1fa32ba30e8e30142609884336d8215f0675e2",
+    "tests/scenarios/uplift/test_dr_r_learners.py": "12e00cc53e7325ff721d21b83cb173e46fc0b94aa7d5fb3465646b0925292c7a"
+  },
+  "failed": 8,
+  "deselected": 116,
+  "warnings": 4,
+  "pytest_elapsed_seconds": 21.67,
+  "log_sha256": "04e4245e43c560ebdbd59f229e4200593c9c667d1c20dc1730e555bc2a31bbc1"
+}

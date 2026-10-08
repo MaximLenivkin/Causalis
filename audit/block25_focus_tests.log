@@ -1,0 +1,60 @@
+........................................................................ [ 12%]
+........................................................................ [ 24%]
+........................................................................ [ 36%]
+........................................................................ [ 49%]
+........................................................................ [ 61%]
+........................................................................ [ 73%]
+........................................................................ [ 86%]
+........................................................................ [ 98%]
+........                                                                 [100%]
+=============================== warnings summary ===============================
+tests/scenarios/uplift/test_dr_r_learners.py: 2 warnings
+tests/inference/test_irm_external_oof.py: 8 warnings
+tests/inference/test_irm_cluster_crossfit.py: 4 warnings
+tests/inference/test_irm_repeated_crossfit.py: 12 warnings
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1466: RuntimeWarning: normalize_ipw=True (Hájek) uses approximate SE/IF; denominator variability is treated as fixed.
+    warnings.warn(
+
+tests/scenarios/uplift/test_dr_r_learners.py: 2 warnings
+tests/inference/test_irm_external_oof.py: 9 warnings
+tests/inference/test_irm_cluster_crossfit.py: 5 warnings
+tests/inference/test_irm_repeated_crossfit.py: 12 warnings
+tests/inference/test_irm_score_identities.py: 1 warning
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/_score_utils.py:33: RuntimeWarning: normalize_ipw=True is ignored for ATTE to preserve the canonical ATTE EIF.
+    warnings.warn(
+
+tests/inference/test_irm_external_oof.py::test_relative_undefined_and_seed_metadata[1]
+tests/inference/test_irm_external_oof.py::test_relative_undefined_and_seed_metadata[3]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.002e+01 is below relative_baseline_min=1.000e+06. Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_irm_external_oof.py::test_relative_undefined_and_seed_metadata[3]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.003e+01 is below relative_baseline_min=1.000e+06. Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_irm_repeated_crossfit.py::test_binary_outcome_and_custom_weight_support[ATE]
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1472: RuntimeWarning: ATE custom weights are normalized by sample mean; SE/IF treats this normalization as fixed (approximate).
+    warnings.warn(
+
+tests/inference/test_irm_estimator.py::test_irm_ate_runs_and_shapes
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=5.612e-02 is within 1.96 SE of 0 (SE=7.118e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/inference/test_irm_estimator.py::test_irm_atte_runs
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/unconfoundedness/model.py:1594: RuntimeWarning: Relative effect baseline |mu_c|=1.836e-01 is within 1.96 SE of 0 (SE=9.984e-02). Relative estimates are set to NaN.
+    warnings.warn(
+
+tests/test_no_tests_imports_in_causalis.py::test_causalis_has_no_imports_from_tests
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/iv/dgp.py:177: SyntaxWarning: invalid escape sequence '\e'
+    Z &= f_Z(X, \epsilon_Z) \\
+
+tests/test_no_tests_imports_in_causalis.py::test_causalis_has_no_imports_from_tests
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/iv/refutation/diagnostics.py:522: SyntaxWarning: invalid escape sequence '\m'
+    \theta = \frac{\mathbb{E}[Y|Z=1] - \mathbb{E}[Y|Z=0]}{\mathbb{E}[D|Z=1] - \mathbb{E}[D|Z=0]}
+
+tests/test_no_tests_imports_in_causalis.py::test_causalis_has_no_imports_from_tests
+  /Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/causalis/scenarios/iv/refutation/diagnostics.py:566: SyntaxWarning: invalid escape sequence '\m'
+    Visualizes the overlap of :math:`\mathbb{P}(Z=1|X)` between the :math:`Z=0` and
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+584 passed, 64 warnings in 30.47s

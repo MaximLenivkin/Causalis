@@ -480,6 +480,52 @@ still apply. Results record `nuisance_source="external_oof"` and manifest
 version; full training indices remain private. External GATE/GATET, CATE
 prediction and sensitivity inference reject, including direct adapters.
 
+## DR and R conditional-effect learners
+
+The existing `irm.predict_cate(X_new)` uses a lazy T-learner. Separate DR and R
+learners regress cross-fitted signals to predict the conditional average effect
+`E[Y(1) - Y(0) | X=x]`:
+
+```python
+from causalis.scenarios.uplift import DRLearner, RLearner
+
+# irm is already fitted. X_new contains independently collected covariates
+# in the same feature schema; do not reuse training rows for validation.
+dr = DRLearner().fit(irm)  # default final regressor: LinearRegression
+r = RLearner().fit(irm)
+dr_predictions = dr.predict(X_new)
+r_predictions = r.predict(X_new)
+```
+
+Both require an internal, single-partition, iid, unweighted binary IRM fit with
+`overlap_policy="clip"`, nonempty confounders and fitted propensities strictly
+inside `(0, 1)`. External OOF, cluster, repeated, drop and custom-weight fits
+reject. The source sample/index/roles must still match its fit snapshot, even
+without diagnostics. Final regressors are cloned and fitted separately; failed
+refits retain the previous predictor. Later source IRM changes do not affect a
+fitted predictor. DataFrames reorder required features and may include extras;
+duplicate columns, missing features, complex and non-finite values reject.
+
+DR uses unnormalized AIPW pseudo-outcomes; IRM's scalar ATE/ATTE choice and
+`normalize_ipw` do not change these targets. R fits the squared residual loss
+using `q=(1-e)*g0+e*g1` as its OOF marginal outcome pilot, transformed targets
+`(Y-q)/(D-e)` and weights `(D-e)^2`. An optional `ml_tau` must be a cloneable
+regressor; for R it must support and honor `sample_weight` with squared loss.
+Regularization follows that estimator. A restricted final model approximates
+CATE; the population R-loss projection weights covariates by `e(x)*(1-e(x))`.
+
+Identification requires consistency, unconfoundedness and overlap. OOF
+nuisances exclude each row's fold; the final effect model trains on all rows.
+Its training predictions are in-sample. Tuning and evaluation require independent
+data or outer refits of the entire pipeline, including preprocessing and
+nuisances. Ordinary CV on already computed pseudo-outcomes can leak information.
+These predictors provide no automatic calibration, individual counterfactuals
+or CATE confidence intervals. Binary-outcome predictions use the risk-difference
+scale and are not forcibly bounded to `[-1, 1]`. Held-out validation is a separate
+API; no generic rate or coverage guarantee is claimed. Method references:
+[Kennedy's DR learner](https://arxiv.org/abs/2004.14497) and
+[Nie–Wager's R learner](https://arxiv.org/abs/1712.04912).
+
 # Pick your scenario
 
 | Scenario                                                                                   | Estimator                                                 | Assumptions                                                                                                                     |
@@ -492,7 +538,7 @@ prediction and sensitivity inference reject, including direct adapters.
 | [Synthetic Control](https://causalis.causalcraft.com/articles/synthetic_control)           | ASCM                                                      | No interference / spillovers, No anticipation, The treated unit’s untreated outcome path is well approximated by the donor pool |
 | [Difference in Difference](https://causalis.causalcraft.com/articles/did)                  | CallawaySantAnnaDID                                       | Parallel trends, no anticipation, stable group composition, no spillovers between treated and control groups.                   |
 | [IV](https://causalis.causalcraft.com/articles/iv)                                         | DML IV                                                    | First-stage strength, Reduced form, Instrument balance by Z, Instrument propensity / predictability                             |
-| [Uplift / CATE scoring](https://causalis.causalcraft.com/articles/uplift)                  | DML IRM (CATE)                                            | Identified treatment effects from randomized or unconfounded data, overlap, calibrated individual-level predictions.            |
+| [Uplift / CATE scoring](https://causalis.causalcraft.com/articles/uplift)                  | T-learner, DRLearner, RLearner                              | Consistency, unconfoundedness, overlap; validate generalization on independent data.                                            |
 
 [Introduction to Causal Inference](https://causalis.causalcraft.com/articles/introduction-to-causal-inference): guide
 
