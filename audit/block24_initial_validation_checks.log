@@ -1,0 +1,32 @@
+{
+  "baseline": "3668eec10a5cc794dd16be26d8ade6c284277bf4",
+  "source": "2652d9faeb027da871cd2cc4d1cea5f518485fcd",
+  "source_sha256": {
+    "README.md": "2dc8af5caecb231fd8cc2f24b557ca675d8ce99acd1944b15b10aa39a7a5e348",
+    "causalis/scenarios/unconfoundedness/model.py": "1005024c48324cada0170afd2655f24a0d310eb9d61c9b66fec2079a8a81202d",
+    "causalis/scenarios/unconfoundedness/_external_oof.py": "c1f41e3ab71299ffd3bca068afc4d6b8460f8ce02e4b7411430888f65294f41c",
+    "causalis/scenarios/unconfoundedness/_repeated.py": "c71a9896bff805699a33a01389c5785cf8b3f4781819f885dc3cf4a0f393604f",
+    "causalis/scenarios/gate/model.py": "18fabb49b06fcc83cc6e7cc1eac99fb3e232d83693c65d93fc5863160b3d05e0",
+    "causalis/scenarios/uplift/model.py": "c6e64bd57fa5813df4cf379f506ef18507ebdb8f007191d9e0bdc246a8469155",
+    "tests/inference/test_irm_external_oof.py": "63f2cf2044e69bb2c6aa0df703ef33134ed7cf8293908d7b5c98b07b44063bbc"
+  },
+  "unchanged_irm_method_asts": 50,
+  "sensitivity_algorithms_unchanged_except_two_entry_guards": true,
+  "gate_uplift_algorithms_unchanged_except_entry_guards": true,
+  "internal_fit_pairs": 64,
+  "internal_estimate_pairs": 96,
+  "weighted_atte_rejections": 32,
+  "focused_cases": 489,
+  "new_cases": 125,
+  "local_correctness_passed": 3646,
+  "local_junit_sha256": "5a3bc8ece9e7db30fab26df9e99651567756a82f7cb3819377d2520123cb29db",
+  "verified_ci_jobs": 6,
+  "report_local_links_checked": 20,
+  "owned_pytest_temp_removed": true,
+  "handoff": {
+    "snapshot_links_checked": 146,
+    "issues": []
+  },
+  "sensitivity_validated": false,
+  "issues": []
+}

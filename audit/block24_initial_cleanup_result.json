@@ -1,0 +1,10 @@
+{
+  "tested_source_checkpoint": "2652d9faeb027da871cd2cc4d1cea5f518485fcd",
+  "owned_exact_pytest_temporary_directories_removed": [
+    "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block24_integration_test_temp/pytest-temp",
+    "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/audit/block24_focus_test_temp/pytest-temp"
+  ],
+  "integration_selection_sha256": "28a4808b0f9724847adf206769fcdebed266219d4a153994d3f3f746a95d9155",
+  "aggregate_junits_retained": true,
+  "source_probe_copies_removed": true
+}

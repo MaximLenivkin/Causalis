@@ -1,5 +1,5 @@
 {
-  "observed_head": "3668eec10a5cc794dd16be26d8ade6c284277bf4",
+  "observed_head": "2652d9faeb027da871cd2cc4d1cea5f518485fcd",
   "source_state": "working tree before source commit",
   "command": [
     "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/bin/python",
@@ -23,21 +23,21 @@
   ],
   "source_sha256": {
     "README.md": "2dc8af5caecb231fd8cc2f24b557ca675d8ce99acd1944b15b10aa39a7a5e348",
-    "causalis/scenarios/unconfoundedness/model.py": "1005024c48324cada0170afd2655f24a0d310eb9d61c9b66fec2079a8a81202d",
+    "causalis/scenarios/unconfoundedness/model.py": "453f634369bb5bee6308025463aa1822138b22f39f244beaa3cfcd5d97db6a1e",
     "causalis/scenarios/unconfoundedness/_external_oof.py": "c1f41e3ab71299ffd3bca068afc4d6b8460f8ce02e4b7411430888f65294f41c",
     "causalis/scenarios/unconfoundedness/_repeated.py": "c71a9896bff805699a33a01389c5785cf8b3f4781819f885dc3cf4a0f393604f",
     "causalis/scenarios/gate/model.py": "18fabb49b06fcc83cc6e7cc1eac99fb3e232d83693c65d93fc5863160b3d05e0",
     "causalis/scenarios/uplift/model.py": "c6e64bd57fa5813df4cf379f506ef18507ebdb8f007191d9e0bdc246a8469155",
-    "tests/inference/test_irm_external_oof.py": "63f2cf2044e69bb2c6aa0df703ef33134ed7cf8293908d7b5c98b07b44063bbc"
+    "tests/inference/test_irm_external_oof.py": "1726706d76a7b6a889610d93c2780b23fac8ad4b4e6adc4e1f2643588d15be6f"
   },
   "exit_code": 0,
-  "tests": 489,
+  "tests": 491,
   "failures": 0,
   "errors": 0,
   "skipped": 0,
-  "new_cases": 125,
-  "passed": 489,
+  "new_cases": 127,
+  "passed": 491,
   "warnings": 58,
-  "pytest_elapsed_seconds": 31.33,
-  "junit_sha256": "17ede9af3326147ac20c2873be9e528608815e7267fc8eb8cc8b8061a479ba0e"
+  "pytest_elapsed_seconds": 32.15,
+  "junit_sha256": "ff34470706ae4dd90f93e21f10aa39d989e7cd57a16b2d9662c40b6e51ebd7cc"
 }

@@ -140,3 +140,14 @@ exact b1adeb291870c965825c60712144d23ea4c31ce9: all six verified artifacts
 Final audit-only ordinary push/live equality and clean tree checked at completion;
 final checkpoint is gitlog-1. Personal branch authorization continues; upstream/
 main, force-push, PR, release and external messages are not authorized by it.
+
+## B24 — authorized ordinary personal-branch pushes (8 October 2026)
+
+Explicit «Разрешаю пуш в нашу ветку» persists for ordinary pushes to
+MaximLenivkin/Causalis:codex/correctness-roadmap; do not ask again.
+Source2652d9f pushed3668eec..2652d9f; final correction `7e947f44e3d5a0ca9dbbe0b68bf7f070fc6150fd` pushed2652d9f..7e947f4.
+InitialCI37771095421 all6x3646passed. FinalCI37772289364 completed/success on
+exact7e947f4, all6x3648passed and strictdocs exit0; raw artifacts verified.
+Final audit-only checkpoint via gitlog-1; ordinary push/live local-remote
+identity/clean tree checked at completion. No forcepush/upstream/main/PR/release.
+No auto-review rejection or reauthorization was needed for B24.

@@ -10,7 +10,7 @@
 
 1. `AGENTS.md` — локальная `.venv` обязательна. На текущем Mac использовать **`.venv/bin/python`**, Python3.12.14, не старый backing path `/Users/ioann/...`. Окружение восстановлено из project extras dev/docs, dependencycheck и5setupsmoketests прошли. Local setup manifest `.venv/setup-environment.json`; B09 integration manifest записывает реальные проверенные версии.
 2. `audit/FIX_PLAN.md` — порядок блоков, scope gates и deferred findings.
-3. Этот файл и **`audit/BLOCK23_GROUP_CROSSFIT.md`** — последнее состояние; B23 завершён; source/final evidence pushed, CI и root validation проверены. B09–B18 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
+3. Этот файл и **`audit/BLOCK24_EXTERNAL_OOF.md`** — последнее состояние; B24 завершён; final source/local/CI и root validation проверены, final audit pushed. B09–B18 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
 4. `audit/REPORT.md` — исторический аудит исходного SHA, не текущий residual bug count.
 
 ## Git
@@ -22,7 +22,52 @@ GitHub авторизация завершена пользователем и �
 ## Текущая работа
 
 
-## B23 — завершён: one-way cluster binary IRM (8 October 2026)
+## B24 — завершён: external OOF binary IRM (8 October 2026)
+
+Final source `7e947f44e3d5a0ca9dbbe0b68bf7f070fc6150fd`, baseline3668eec; initialfeature2652d9f.
+[Report](BLOCK24_EXTERNAL_OOF.md). Public make_oof_manifest + fit with complete
+external_predictions/oof_manifest supports ATE/ATTE, R1/repetitions, iid/one-way
+clusters. Version1 binds ordered numeric sample/index/roles, prediction/cluster
+hashes, whole folds, full train complements with both arms and supplied uint32
+seeds. Fit invokes no nuisance learner methods and draws no split RNG. Manifest
+checks caller declarations/alignment, not external training/preprocessing/tuning
+history or absence of leakage; hashes have no cross-version/platform stability
+promise. Clip only, minKrows-per-arm guard retained. Partial nuisances/arbitrary
+train subsets/independent external training samples/time-series need separate
+contracts. Existing row-weighted score/SE/relative/B22 aggregation unchanged;
+no M divisor. GATE/GATET/CATE/sensitivity and direct adapters reject.
+
+Final correction7e947f4 normalizes overlap changed through set_params in staged
+fit; factory validates without mutating configuration. Initial source2652d9f
+passed3646local/CI cases but this review correction required final gates;
+initial evidence and raw artifacts retained separately, not used as final gate.
+Final new127cases,491focuspassed/58warnings/32.15s;64exactinternalfitpairs,
+96estimates,32weightedATTErejections. 50existingIRMmethodASTs unchanged;
+sensitivity/GATE/uplift algorithms only gain entry guards. Final committed
+correctness3648passed/0failures/errors/skips/145warnings/132.65s, seven exclusions
+unchanged. StrictSphinxexit0/23.040s. [Local](block24_integration_result.json),
+[docs](block24_docs_result.json), [validation](block24_validation_result.json).
+
+[CI37772289364](https://github.com/MaximLenivkin/Causalis/actions/runs/37772289364)
+completed/success on exact7e947f4: all6artifacts3648passed each plus strictdocs0.
+Full local/CI cases/focus/source/normalizedargv/exclusions/env/5hashes perjob
+verified. ActualPython 3.10.22 latest, 3.10.21 legacy, 3.11.16 latest, 3.12.15 latest, 3.13.15 latest, 3.14.8 latest; snapshotUTC2026-10-08T11:51:49.085206+00:00.
+[CI manifest](block24_ci_result.json). Root verifier --source7e947f4 --require-ci
+checks source/AST/provenance/rawlocal+initial+finalCI/docs/cleanup/report/handoff,
+issues[]. Handoff146immutablelinks checked. Source/tests frozen after7e947f4;
+final changes audit-only, no CI rerun. Owned source copies and exact focus/
+integration pytest-temp removed; code-testJUnits/logs/metadata retained.
+Synthetic fixtures only. No subagents/login/setup/install/upstream/PR/release/
+messages/notebooks/website. Ordinary personal-branch push permission persists;
+do not ask again. Final commit via gitlog-1, final audit push/live local-remote
+identity and clean state checked at completion. Stop at B24 for context cleanup.
+
+Next B25: DR/R-CATE, honest learning/target/prediction contracts first; evaluation
+and inferential guarantees explicitly scoped. Sensitivity/SC08LOO/selected-UATT,
+multi-IV repetition/grouping, multiway/fewcluster and NumPyRST debt remain
+separate/deferred. Do not repeat login/fork/setup/old suites or auto-start B25.
+
+## Historical B23 checkpoint — one-way cluster binary IRM (8 October 2026)
 
 Source `b1adeb291870c965825c60712144d23ea4c31ce9`, baseline `1409e95`.
 IRM(..., cluster_groups=labels) snapshots positional membership (Series index

@@ -951,3 +951,50 @@ requires at least n_folds rows in each treatment arm, in addition to enough
 clusters and both arms in each training complement. A mathematically feasible
 group split can still fail this conservative gate. Document the current error;
 relaxing this legacy criterion for cluster partitions is a separate follow-up.
+
+
+## B24 migration — external OOF binary IRM
+
+`IRM.make_oof_manifest(predictions, folds=..., training_indices=...,
+split_seeds=...)` creates a detached portable schema-version1 mapping.
+`IRM.fit(external_predictions=predictions, oof_manifest=manifest)` consumes
+all g0/g1/m predictions without invoking supplied nuisance learners. Use
+vectors(n,) for one partition and matrices(n,n_rep) otherwise; pandas row
+indices must match exactly, including order and duplicates. Training indices
+are repetition -> fold -> positional rows, exactly each test fold's complement.
+All folds are present; training complements have both arms; clusters stay whole.
+Manifest binds ordered numeric sample/index, role names, cluster membership,
+prediction hashes, supplied folds and uint32 split seeds. External random_state
+never overrides these folds. The minimum n_folds rows-per-arm gate is retained. Hashes reuse the current
+implementation; no cross-version/platform fingerprint stability is promised.
+Finite data/predictions and probabilities in[0,1] before clipping are required.
+Only clip/common-sample full nuisance substitution is supported.
+
+The caller must restrict preprocessing, tuning and nuisance fitting to recorded
+outer training samples; g0/g1 fit the corresponding treatment subsets. Checks
+validate declarations and alignment, not actual training history. Never claim
+that manifest validation proves absence of leakage or establishes causal
+identification. Time-series folds, independent external training samples,
+partial predictions and arbitrary training subsets need separate contracts.
+
+ATE/ATTE scores, iid/one-way row-weightedCR1, relative guards and approximate
+custom-weight/Hajek inference are unchanged. Repetitions use B22 aggregation,
+with supplied seeds and separate partition results; no M/sqrtM divisor or
+aggregateIF. Result provenance is nuisance_source=external_oof and manifest
+version; single-partition oof_split_seed is omitted from aggregate metadata.
+The existing random_state configuration field in a single result is not its
+external split seed. DiagFalse still retains owned predictions/sample/manifest;
+feature importance is None. Failed refits preserve the last complete fit.
+External GATE/GATET/CATE/sensitivity reject, including direct adapters; unchanged
+sensitivity algorithms remain deferred. No multi/IV or new coverage claim.
+
+Immutable implementation:
+- [IRM API](https://github.com/MaximLenivkin/Causalis/blob/7e947f44e3d5a0ca9dbbe0b68bf7f070fc6150fd/causalis/scenarios/unconfoundedness/model.py)
+- [Manifest validator](https://github.com/MaximLenivkin/Causalis/blob/7e947f44e3d5a0ca9dbbe0b68bf7f070fc6150fd/causalis/scenarios/unconfoundedness/_external_oof.py)
+- [Public regressions](https://github.com/MaximLenivkin/Causalis/blob/7e947f44e3d5a0ca9dbbe0b68bf7f070fc6150fd/tests/inference/test_irm_external_oof.py)
+- [GATE guard](https://github.com/MaximLenivkin/Causalis/blob/7e947f44e3d5a0ca9dbbe0b68bf7f070fc6150fd/causalis/scenarios/gate/model.py)
+- [CATE guard](https://github.com/MaximLenivkin/Causalis/blob/7e947f44e3d5a0ca9dbbe0b68bf7f070fc6150fd/causalis/scenarios/uplift/model.py)
+
+External fit also normalizes overlap configuration changed via set_params,
+matching ordinary fitting. The manifest builder validates without rewriting
+caller configuration. Two iid/cluster regressions cover this final correction.
