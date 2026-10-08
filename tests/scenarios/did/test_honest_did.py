@@ -149,7 +149,13 @@ def test_actual_csa_adapter_owns_inputs_matches_iid_covariance_and_never_calls_m
     np.testing.assert_array_equal(rng_before[1], after[1])
     assert rng_before[2:] == after[2:]
     for restriction in ["smoothness", "relative_magnitude"]:
-        assert snapshot.infer(restriction=restriction, bound=.2) == generic.infer(restriction=restriction, bound=.2)
+        actual = snapshot.infer(restriction=restriction, bound=.2)
+        reference = generic.infer(restriction=restriction, bound=.2)
+        # Equivalent scaled/unscaled covariance products can differ by one ULP
+        # across BLAS implementations; the numerical endpoint is the contract.
+        np.testing.assert_allclose(actual.confidence_set, reference.confidence_set,
+                                   rtol=2e-12, atol=2e-12)
+        assert actual.set_type == reference.set_type
     np.testing.assert_allclose(np.sqrt(np.diag(cov)), cells.se)
     expected = snapshot.infer(restriction="relative_magnitude", bound=1.)
     source.att_gt.loc[:, "att"] = 999.
