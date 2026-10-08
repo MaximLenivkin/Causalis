@@ -226,3 +226,28 @@ execution/publishing, release, upstream merge or sub-agents.
 Next B22 repeated cross-fitting: explicit API/splits/RNG/aggregation/inference
 contract first. GroupCF, externalOOF, DR/R-CATE afterward. Sensitivity, SC08LOO,
 selected-U ATT deferred. Stop after B21 for user context cleanup/new request.
+
+
+## B22 — локальная реализация, push/CI ожидают разрешения (8 October2026)
+
+Source `ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0`, baseline357e16e.
+Binary IRM repeated ATE/ATTE through n_rep; median-variance SE, same sample,
+local recorded split seeds, separate relative aggregation and per-repeat
+results/diagnostics. n_rep=1 exactcompatibility16fits/24estimates/8rejections.
+Strict integer repetition counts; M>1 drop/GATE/GATET/CATE/sensitivity not
+supported; multi/IV repetition remains a separate follow-up. Existing
+sensitivity algorithms unchanged; two new repeated-fit entry guards only.
+67newcases; focused221passed; committed correctness3434passed/no failures,
+errors or skips,116warnings,115.66s; seven exclusions unchanged. Strict
+Sphinx exit0 on committed source. Favorable synthetic MC200x600,R3 coverage
+.965 bothscores, no general guarantee. Root source/AST/case/evidence validation
+issues[]. Handoff136immutable URLs verified locally; new URLs await push.
+
+Automatic approval review rejected personalbranchpush: no explicittrusted
+permission in available messages. All local work and commits completed; ask
+user to confirm push to MaximLenivkin/Causalis:codex/correctness-roadmap.
+Do not bypass rejection. Six-job CI remains unrun; B22 not fully closed.
+After approval run/verify exact-source CI, update audit-only evidence, commit,
+push and stop. [Report](BLOCK22_REPEATED_CROSSFIT.md).
+Next B23 only after B22 closes/newrequest: group-aware binaryIRM contracts.
+Sensitivity/SC08LOO/selected-UATT/NumPyRST debt deferred. No release/PR/upstream.

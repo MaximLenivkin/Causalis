@@ -10,7 +10,7 @@
 
 1. `AGENTS.md` — локальная `.venv` обязательна. На текущем Mac использовать **`.venv/bin/python`**, Python3.12.14, не старый backing path `/Users/ioann/...`. Окружение восстановлено из project extras dev/docs, dependencycheck и5setupsmoketests прошли. Local setup manifest `.venv/setup-environment.json`; B09 integration manifest записывает реальные проверенные версии.
 2. `audit/FIX_PLAN.md` — порядок блоков, scope gates и deferred findings.
-3. Этот файл и **`audit/BLOCK21_SPHINX_GATE.md`** — последнее состояние. B09–B18 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
+3. Этот файл и **`audit/BLOCK22_REPEATED_CROSSFIT.md`** — последнее состояние; B22 local checks complete, push/CI pending approval. B09–B18 — исторические checkpoints. B01–B08 reports сохраняют исторические checkpoints; local Mac DiD failure объяснён в `audit/B09_LOCAL_INTEGRATION_NOTE.md`.
 4. `audit/REPORT.md` — исторический аудит исходного SHA, не текущий residual bug count.
 
 ## Git
@@ -20,6 +20,56 @@ GitHub авторизация завершена пользователем и �
 Исторический Windows GitHubCLI2.102.0: `& 'C:\Program Files\GitHub CLI\gh.exe' ...` — использовать полный путь, если текущий Codex PATH ещё не обновлён. Авторизацию повторно запрашивать не требуется. Git mutations/network в ограниченной среде могут требовать разрешённого запуска; пользователь уже авторизовал commits/push в личную ветку. PR не создавался. Полная текущая информация — GIT_ACCESS.md.
 
 ## Текущая работа
+
+**B22 реализован и проверен локально; push/CI ожидают явного разрешения**, 8 October2026.
+Source `ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0`, baseline `357e16e`.
+[Report](BLOCK22_REPEATED_CROSSFIT.md). Binary IRM existing n_rep supports
+ATE/ATTE repetitions via single-partition children. Scalar median-variance SE
+(no M/sqrtM divisor), recorded prefix-stable local split seeds, original first
+integer seed, learner RNG settings preserved. Relative effects separately
+aggregate; any undefined repetition makes aggregate relative inference NaN.
+RepeatedCausalEstimate contains detached repetition results/seeds, primary
+diagnostic_data=None; no fabricated single nuisance or aggregate IF. Parent
+scalar inference accessors aggregate; folds_repetitions_ (n,M) only with
+diagnostics. Repetitions sequential; n_jobs is within-partition parallelism.
+M>1 drop/fixed single-partition folds/GATE/GATET/CATE/sensitivity aggregation
+reject. Multi-treatment/IV repetition remains a separate follow-up. Strict
+positive integer n_rep validation replaces lossy float/string/bool coercion.
+Single-partition numbers unchanged:16exactfits/24exactestimates/8same weighted
+ATTE rejections. New67cases; focused221passed/29warnings/22.51s. Committed
+correctness3434passed/zero failures/errors/skips/116warnings/115.66s, seven
+sensitivity exclusions unchanged. Strict standalone docs exit0/17.307s on
+ede6ded. Seeded synthetic MC200x600, R3: bothATE/ATTE coverage.965; meanSE/SD
+1.0061/1.0266, favorableDGP only, MCSEabout.015. No general coverage guarantee.
+Root verifier validates source/AST/provenance/cases/docs; issues[]. Source/tests
+frozen afterede6ded; only audit files change. Handoff136 URLs verified locally;
+fournewURLs may not resolve remotely untilpush. Owned probe copies/integration
+pytest-temp removed; JUnits and code/test metadata remain. No sub-agents.
+
+**Blocking permission:** automatic approval review rejected ordinary
+`git push origin codex/correctness-roadmap`: no explicit trusted permission
+found to send code to this repository/branch. Do not retry by workaround.
+Root completed all local work and must ask for explicit approval for push to
+`MaximLenivkin/Causalis`, personal branch `codex/correctness-roadmap`.
+Historical handoff authorization did not satisfy this review. No remote CI
+run exists for ede6ded yet. Keep B22 incomplete until approval/push/CI verified.
+If user approves: ordinary push (no upstream/main/force), find CI by exact
+ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0 using GH, observe/download with
+observe_block22_ci.py --run-id ID --source SHA --expected-tests3434 (argument
+must be `--expected-tests 3434`), summarize all6artifacts3434+strictdocs and
+complete cases vs local; root verify_block22.py --require-ci. Existing local
+checks should not rerun without source changes. Update current report,
+DOCUMENTATION_HANDOFF/PROGRESS/FIX_PLAN/README and this file; audit-onlycommit,
+ordinarypush and live local/remote equality/clean status. Stop for cleanup.
+GH `/Users/m.lenivkin/.local/bin/gh`, repo MaximLenivkin/Causalis. No newlogin,
+fork or environmentsetup. Full local SHA/status via git log/status.
+
+After B22 closes and new user request: B23 group-aware binary IRM cross-fitting,
+beginning with unit/group split and inference contracts. Repeated multi/IV,
+externalOOF andDR/R-CATE remain explicitly separate follow-ups. Sensitivity,
+SC08LOO,selected-UATT and NumPy/RST migration deferred. Do not start B23 now.
+
+## Historical B21 checkpoint
 
 **B21 завершён — standalone Sphinx gate**, 8 October 2026.
 Source `1780d8c715a15182137d51313e502280d6982dd9`, baseline `2db4802`.

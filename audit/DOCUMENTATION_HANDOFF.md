@@ -860,3 +860,40 @@ Immutable sources: [generator](https://github.com/MaximLenivkin/Causalis/blob/17
 [release gate](https://github.com/MaximLenivkin/Causalis/blob/1780d8c715a15182137d51313e502280d6982dd9/.github/workflows/release.yml).
 The current B21 report records final local and matrix evidence. No site, release
 or upstream publishing was performed.
+
+
+## B22: repeated binary IRM (local implementation)
+
+`IRM(n_rep=M)` now supports binary ATE/ATTE repeated cross-fitting.
+`n_rep=1` retains the single-partition numerical path; counts must now be
+positive integers (no float/string/bool coercion). Each partition runs a full
+single-fit IRM on the same ordered sample. M>1 requires overlap_policy="clip";
+split-dependent dropping is rejected. The first integer seed matches the
+single partition; later recorded seeds are prefix-stable local SeedSequence
+children. Learner RNG settings are preserved. Repetitions are sequential;
+n_jobs remains fold parallelism.
+
+The scalar rule is median(theta_m), with SE
+sqrt(median(se_m**2+(theta_m-median(theta_m))**2)). No repeat-count division.
+This policy does not claim parity with current Python DoubleML interval
+aggregation. Existing normalized/custom-weight approximation flags remain.
+Relative percentages use a separate median-variance rule and become NaN if any
+partition is undefined. RepeatedCausalEstimate carries per-partition results
+and seeds; its primary diagnostic_data is None. Per-partition diagnostics own
+their returned arrays. With diagnostics enabled, folds_repetitions_ is (n,M).
+No fabricated aggregate nuisance/IF or covariance is provided. Parent scalar
+accessors expose aggregate inference. Failed refits retain the previous fit.
+GATE/GATET, CATE and sensitivity aggregation reject repeated fits explicitly.
+Multi-treatment/IV repetition, grouped folds and external OOF remain deferred.
+These repetitions do not repair unconfoundedness, overlap, clustering or
+nuisance assumptions, and increase storage/fitting cost with M.
+
+Implementation is committed locally at ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0.
+Remote push was rejected by automatic approval review; the immutable URLs
+below are intended destinations and are not yet guaranteed accessible until
+that authorized push succeeds. Local git-show verification only:
+
+- [Binary IRM](https://github.com/MaximLenivkin/Causalis/blob/ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0/causalis/scenarios/unconfoundedness/model.py)
+- [Aggregation and partition seeds](https://github.com/MaximLenivkin/Causalis/blob/ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0/causalis/scenarios/unconfoundedness/_repeated.py)
+- [Repeated result contract](https://github.com/MaximLenivkin/Causalis/blob/ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0/causalis/data_contracts/repeated_causal_estimate.py)
+- [Synthetic regressions](https://github.com/MaximLenivkin/Causalis/blob/ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0/tests/inference/test_irm_repeated_crossfit.py)

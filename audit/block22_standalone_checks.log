@@ -440,10 +440,10 @@ checking consistency... done
 preparing documents... done
 copying assets... 
 copying static files... 
-Writing evaluated template result to /private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/generate_api_reference_vipxbir6/build/_static/basic.css
-Writing evaluated template result to /private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/generate_api_reference_vipxbir6/build/_static/language_data.js
-Writing evaluated template result to /private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/generate_api_reference_vipxbir6/build/_static/documentation_options.js
-Writing evaluated template result to /private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/generate_api_reference_vipxbir6/build/_static/alabaster.css
+Writing evaluated template result to /private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/generate_api_reference_zk_kpma9/build/_static/basic.css
+Writing evaluated template result to /private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/generate_api_reference_zk_kpma9/build/_static/language_data.js
+Writing evaluated template result to /private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/generate_api_reference_zk_kpma9/build/_static/documentation_options.js
+Writing evaluated template result to /private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/generate_api_reference_zk_kpma9/build/_static/alabaster.css
 copying static files: done
 copying extra files... 
 copying extra files: done
@@ -598,7 +598,7 @@ dumping search index in English (code: en)... done
 dumping object inventory... done
 build succeeded.
 
-The HTML pages are in ../../../../../../private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/generate_api_reference_vipxbir6/build.
+The HTML pages are in ../../../../../../private/var/folders/09/b051bynd66n6g02p8rl5z0t00000gq/T/generate_api_reference_zk_kpma9/build.
 API reference build check passed (warnings are errors).
 {
   "command": [
@@ -611,7 +611,7 @@ API reference build check passed (warnings are errors).
     "implementation": "CPython",
     "platform": "macOS-26.6.2-arm64-arm-64bit",
     "executable": "/Users/m.lenivkin/Documents/tclaude_folder/git-lab-projects/Causalis/.venv/bin/python",
-    "commit": "357e16e8d1faf37e221b92b7e1f83ee5fba3c2dc",
+    "commit": "ede6deda2eb82c518ed3d7f5b48780d39cdfe5f0",
     "packages": {
       "causalis": "1.0.8.dev37",
       "numpy": "2.5.3",
@@ -632,7 +632,7 @@ API reference build check passed (warnings are errors).
   "warnings_are_errors": true,
   "publishes_html": false,
   "exit_code": 0,
-  "elapsed_seconds": 14.674405582998588,
-  "log_sha256": "7a4dd7120dd4cb9d2cf361673463d7d048d68ee21b15536ef3a14d913eac6622",
+  "elapsed_seconds": 17.306526416999986,
+  "log_sha256": "4d5010def6843af4ec3761d26db84b83e663963212b98e90556c9d457ca54b5c",
   "generator_sha256": "fff79a2147fae775c132f196f02da326324c63f4555eec4081c8a04edabc6dc7"
 }
